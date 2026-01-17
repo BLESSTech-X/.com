@@ -4,6 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <title>BLESSTech-X | Digital Business Solutions Zambia</title>
+  
+  <!-- Microsoft Clarity Analytics -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "kozo4yzuvn");
+  </script>
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Professional digital solutions for zambian businesses. Website creation, branding, graphic design, and business setup in Lusaka.">
   <meta name="keywords" content="Zambia digital services, Lusaka web design, business branding Zambia, graphic design Lusaka">
@@ -1772,6 +1782,67 @@
       // For now, just open the image in a new tab
       window.open(imageUrl, '_blank');
     }
+  </script>
+
+  <!-- Feedback Button -->
+  <button id="feedbackBtn" style="position:fixed;bottom:20px;left:20px;background:#0ea5e9;color:white;width:50px;height:50px;border-radius:50%;border:none;font-size:1.5rem;cursor:pointer;box-shadow:0 4px 12px rgba(14,165,233,0.3);z-index:9999;display:flex;align-items:center;justify-content:center;">
+    <i class="fas fa-comment"></i>
+  </button>
+
+  <!-- Performance Monitor Script -->
+  <script>
+    // Performance tracking
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        const timing = performance.timing;
+        const loadTime = timing.loadEventEnd - timing.navigationStart;
+        
+        // Log slow loads
+        if(loadTime > 3000) {
+          console.warn('🚨 Slow page load:', loadTime + 'ms');
+        }
+        
+        // Device detection
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        console.log('📱 Device:', isMobile ? 'Mobile' : 'Desktop');
+        console.log('⚡ Load time:', loadTime + 'ms');
+      }, 0);
+    });
+
+    // Feedback button
+    document.getElementById('feedbackBtn').addEventListener('click', function() {
+      window.open('https://github.com/BLESSTech-X/BLESSTech-X.github.io/issues/new?template=feedback.md&title=Website+Feedback', '_blank');
+    });
+
+    // Error tracking
+    window.onerror = function(msg, url, lineNo, columnNo, error) {
+      console.error('❌ Error:', msg, 'at', url + ':' + lineNo);
+      return false;
+    };
+
+    // Track outbound links
+    document.addEventListener('click', function(e) {
+      const link = e.target.closest('a');
+      if(link && link.href && !link.href.includes(window.location.hostname)) {
+        console.log('🔗 Outbound click:', link.href);
+      }
+    });
+
+    // Track form submissions
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+      form.addEventListener('submit', function() {
+        console.log('📝 Form submitted:', form.id || 'unnamed-form');
+      });
+    });
+
+    // Track service clicks
+    document.addEventListener('click', function(e) {
+      if(e.target.closest('.service-card') || e.target.closest('.card-btn')) {
+        const service = e.target.closest('.service-card')?.querySelector('h3')?.textContent || 'Unknown service';
+        console.log('🎯 Service clicked:', service);
+      }
+    });
   </script>
 </body>
 </html>
