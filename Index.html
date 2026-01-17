@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>BLESSTech-X | Digital Business Solutions Zambia</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Professional digital solutions for zambian businesses. Website creation, branding, graphic design, and business setup in Lusaka.">
+  <meta name="keywords" content="Zambia digital services, Lusaka web design, business branding Zambia, graphic design Lusaka">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg">
+  
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      color: #0f172a;
+      background: #ffffff;
+      line-height: 1.6;
+    }
+    
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s ease;
+    }
+    
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+      font-size: 2.5rem;
+      color: #1e293b;
+      position: relative;
+    }
+    
+    .section-title:after {
+      content: '';
+      position: absolute;
+      width: 80px;
+      height: 4px;
+      background: #0ea5e9;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+    
+    /* HEADER & NAVIGATION */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #ffffff;
+      z-index: 1000;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+    }
+    
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 0;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: bold;
+    }
+    
+    .logo img {
+      height: 45px;
+      width: auto;
+    }
+    
+    .brand-name {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #1e293b;
+      letter-spacing: 0.5px;
+    }
+    
+    .brand-name span {
+      color: #0ea5e9;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+    
+    .nav-links a {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #475569;
+      padding: 8px 0;
+      position: relative;
+    }
+    
+    .nav-links a:hover {
+      color: #0ea5e9;
+    }
+    
+    .nav-links a:after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: #0ea5e9;
+      bottom: 0;
+      left: 0;
+      transition: width 0.3s ease;
+    }
+    
+    .nav-links a:hover:after {
+      width: 100%;
+    }
+    
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: #1e293b;
+      cursor: pointer;
+    }
+    
+    /* HERO SECTION */
+    .hero {
+      margin-top: 90px;
+      min-height: 90vh;
+      background-image: linear-gradient(rgba(2, 6, 23, 0.85), rgba(2, 6, 23, 0.85)), url("https://i.ibb.co/Q36vzP9z/Screenshot-20251229-131706.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center center;
+      background-attachment: fixed;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: white;
+    }
+    
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 150px;
+      line-height: 1.5;
+      font-weight: 9000;
+    }
+    
+    .hero-subtitle {
+      font-size: 1.4rem;
+      margin-bottom: 25px;
+      color: #e2e8f0;
+      min-height: 60px;
+    }
+    
+    .hero .moving-text {
+      font-size: 3rem;
+      color: #0ea5e9;
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: inline-block;
+    }
+    
+    .hero-description {
+      font-size: 1.1rem;
+      margin-bottom: 40px;
+      color: #cbd5e1;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      padding: 16px 32px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .btn-primary {
+      background: #0ea5e9;
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: #0284c7;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(14, 165, 233, 0.2);
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-3px);
+    }
+    
+    .whatsapp-btn {
+      background: #25D366;
+      color: white;
+    }
+    
+    .whatsapp-btn:hover {
+      background: #128C7E;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
+    }
+    
+    /* SERVICES SECTION */
+    .services-section {
+      padding: 100px 0;
+      background: #f8fafc;
+    }
+    
+    .service-controls {
+      margin-bottom: 50px;
+    }
+    
+    .search-container {
+      max-width: 600px;
+      margin: 0 auto 30px;
+      position: relative;
+    }
+    
+    #serviceSearch {
+      width: 100%;
+      padding: 16px 50px 16px 20px;
+      font-size: 1rem;
+      border-radius: 50px;
+      border: 2px solid #e2e8f0;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+    
+    #serviceSearch:focus {
+      border-color: #0ea5e9;
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+    }
+    
+    .search-icon {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 1.2rem;
+    }
+    
+    .service-filters {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    
+    .filter-btn {
+      padding: 10px 24px;
+      border-radius: 50px;
+      border: 2px solid #cbd5e1;
+      background: white;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .filter-btn.active {
+      background: #0ea5e9;
+      color: white;
+      border-color: #0ea5e9;
+    }
+    
+    .filter-btn:hover:not(.active) {
+      border-color: #0ea5e9;
+      color: #0ea5e9;
+    }
+    
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    
+    .service-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .service-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      
+    }
+
+    
+    .card-content {
+      padding: 25px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .card-content h3 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+      color: #1e293b;
+    }
+    
+    .card-content p {
+      font-size: 0.95rem;
+      color: #64748b;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+    
+    .card-price {
+      font-weight: 700;
+      color: #0ea5e9;
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+    }
+    
+    .card-btn {
+      background: #f1f5f9;
+      color: #1e293b;
+      padding: 12px 20px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+    
+    .card-btn:hover {
+      background: #0ea5e9;
+      color: white;
+    }
+    
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 20px;
+      color: #64748b;
+      font-size: 1.2rem;
+    }
+    
+    /* SERVICE ROOMS */
+    .service-room {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 2000;
+      overflow-y: auto;
+      padding: 20px;
+    }
+    
+    .room-content {
+      background: white;
+      max-width: 1000px;
+      margin: 50px auto;
+      border-radius: 20px;
+      overflow: hidden;
+      animation: slideUp 0.5s ease;
+    }
+    
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .room-header {
+      padding: 30px;
+      background: #1e293b;
+      color: white;
+      position: relative;
+    }
+    
+    .room-header h2 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+    
+    .room-header p {
+      font-size: 1.1rem;
+      color: #cbd5e1;
+      margin-bottom: 25px;
+    }
+    
+    .close-room {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    
+    .close-room:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .room-body {
+      padding: 40px;
+    }
+    
+    .room-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+    }
+    
+    .feature-icon {
+      background: #f0f9ff;
+      color: #0ea5e9;
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    
+    .room-images {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 30px;
+    }
+    
+    .room-img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    
+    .room-img:hover {
+      transform: scale(1.03);
+    }
+    
+    /* TESTIMONIALS SECTION */
+    .testimonials-section {
+      padding: 100px 0;
+      background: #ffffff;
+    }
+    
+    .testimonials-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .testimonials-slider {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+    }
+    
+    .testimonial-card {
+      background: #f8fafc;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease;
+    }
+    
+    .testimonial-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .testimonial-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .testimonial-img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 20px;
+      border: 3px solid #0ea5e9;
+    }
+    
+    .testimonial-info h4 {
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+      color: #1e293b;
+    }
+    
+    .testimonial-info p {
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+    
+    .testimonial-rating {
+      color: #f59e0b;
+      margin-bottom: 15px;
+    }
+    
+    .testimonial-text {
+      font-style: italic;
+      color: #475569;
+      line-height: 1.6;
+    }
+    
+    /* ABOUT SECTION */
+    .about-section {
+      padding: 100px 0;
+      background: #f8fafc;
+    }
+    
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+    
+    .about-text h3 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #1e293b;
+    }
+    
+    .about-text p {
+      margin-bottom: 20px;
+      color: #475569;
+    }
+    
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 30px;
+    }
+    
+    .stat-item {
+      text-align: center;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #0ea5e9;
+      margin-bottom: 5px;
+    }
+    
+    .stat-label {
+      font-size: 0.9rem;
+      color: #64748b;
+      font-weight: 600;
+    }
+    
+    .about-image img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* CONTACT SECTION */
+    .contact-section {
+      padding: 100px 0;
+      background: #1e293b;
+      color: white;
+    }
+    
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+    }
+    
+    .contact-info h3 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: white;
+    }
+    
+    .contact-info p {
+      margin-bottom: 30px;
+      color: #cbd5e1;
+    }
+    
+    .contact-details {
+      margin-top: 30px;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .contact-icon {
+      background: rgba(255, 255, 255, 0.1);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: #0ea5e9;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+    }
+    
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+    
+    .social-link:hover {
+      background: #0ea5e9;
+      transform: translateY(-3px);
+    }
+    
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: none;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 1rem;
+    }
+    
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder {
+      color: #94a3b8;
+    }
+    
+    .contact-form textarea {
+      height: 150px;
+      resize: vertical;
+    }
+    
+    /* FOOTER */
+    footer {
+      background: #0f172a;
+      color: #cbd5e1;
+      padding: 60px 0 20px;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    
+    .footer-logo img {
+      height: 40px;
+    }
+    
+    .footer-logo span {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: white;
+    }
+    
+    .footer-links h4 {
+      color: white;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+    
+    .footer-links ul {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+    
+    .footer-links a:hover {
+      color: #0ea5e9;
+    }
+    
+    .copyright {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.9rem;
+      color: #94a3b8;
+    }
+    
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 992px) {
+      .about-content,
+      .contact-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.5rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: white;
+        flex-direction: column;
+        padding: 20px;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      }
+      
+      .nav-links.active {
+        display: flex;
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.2rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .testimonials-slider {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+      }
+      
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+      
+      .about-stats {
+        grid-template-columns: 1fr;
+      }
+    }
+    /* Add to your CSS file */
+.service-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-content p {
+  flex-grow: 1;
+}
+
+.card-btn {
+  margin-top: auto;
+}
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X Logo">
+        <div class="brand-name">BLESS<span>Tech-X</span></div>
+      </a>
+      
+      <nav class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      
+      <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="home">
+    <div class="container hero-content">
+      <h1>We build simple digital systems that make your business grow</h1>
+      
+      <div class="hero-subtitle">
+        <span class="moving-text" id="movingText">Professional Websites</span>
+      </div>
+      
+      <p class="hero-description">
+        From websites and branding to complete digital business setup, we help businesses look professional, trusted, and profitable online. Based in Lusaka, serving entrepreneurs across Zambia and the Globe.
+      </p>
+      
+      <div class="hero-buttons">
+        <button class="btn btn-primary" onclick="scrollToSection('services')">
+          <i class="fas fa-rocket"></i> Explore Services
+        </button>
+        <button class="btn whatsapp-btn" onclick="openWhatsApp()">
+          <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+        </button>
+        <button class="btn btn-secondary" onclick="scrollToSection('contact')">
+          <i class="fas fa-phone"></i> Contact Us
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES SECTION -->
+  <section class="services-section" id="services">
+    <div class="container">
+      <h2 class="section-title">Our Digital Services</h2>
+      <p class="section-subtitle" style="text-align: center; color: #64748b; margin-bottom: 50px; max-width: 700px; margin-left: auto; margin-right: auto;">
+        Tailored digital solutions for businesses. Find exactly what you need with our smart search and filters.
+      </p>
+      
+      <div class="service-controls">
+        <div class="search-container">
+          <input type="text" id="serviceSearch" placeholder="Search services (e.g., website, logo, branding, business setup)">
+          <div class="search-icon">
+            <i class="fas fa-search"></i>
+          </div>
+        </div>
+        
+        <div class="service-filters">
+          <button class="filter-btn active" data-filter="all">All Services</button>
+          <button class="filter-btn" data-filter="websites">Websites</button>
+          <button class="filter-btn" data-filter="branding">Branding</button>
+          <button class="filter-btn" data-filter="graphics">Graphics</button>
+          <button class="filter-btn" data-filter="business">Business Setup</button>
+          <button class="filter-btn" data-filter="marketing">Marketing</button>
+        </div>
+      </div>
+      
+      <div class="services-grid" id="servicesGrid">
+        <!-- Service cards will be generated by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE ROOMS (Hidden by default) -->
+  <div id="serviceRoomsContainer">
+    <!-- Service rooms will be generated by JavaScript -->
+  </div>
+
+  <!-- TESTIMONIALS SECTION -->
+  <section class="testimonials-section" id="testimonials">
+    <div class="container">
+      <h2 class="section-title">What Our Clients Say</h2>
+      <p class="section-subtitle" style="text-align: center; color: #64748b; margin-bottom: 50px; max-width: 700px; margin-left: auto; margin-right: auto;">
+        Real stories from  entrepreneurs who transformed their businesses with our digital solutions.
+      </p>
+      
+      <div class="testimonials-slider">
+        <!-- Testimonial 1 -->
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <img src="https://i.ibb.co/fVvR1mS9/Screenshot-20260117-172036.jpg?width=400&height=250&fit=crop" 
+     alt="Veronica B Mapalo." 
+     class="testimonial-img">
+            <div class="testimonial-info">
+              <h4>Veronica B Mapalo.</h4>
+              <p> joshronica's Clothing Store Owner, Lusaka</p>
+            </div>
+          </div>
+          <div class="testimonial-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">
+            "BLESSTech-X transformed my small clothing shop into an online store that now serves customers across Zambia! Their website and social media setup increased my sales by 300% in just 2 months."
+          </p>
+        </div>
+        
+        <!-- Testimonial 2 -->
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <img src="https://i.ibb.co/kg8LRzhT/Screenshot-20260117-173738.jpg" 
+     alt="David M." 
+     class="testimonial-img">
+            <div class="testimonial-info">
+              <h4>David M.</h4>
+              <p>Restaurant Owner, Kitwe</p>
+            </div>
+          </div>
+          <div class="testimonial-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+          <p class="testimonial-text">
+            "The website and online ordering system they built for my restaurant has tripled our bookings. Now we take orders online 24/7, and the branding made us stand out in a competitive market."
+          </p>
+        </div>
+        
+        <!-- Testimonial 3 -->
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <img src="https://i.ibb.co/ccPwcZjw/Screenshot-20260117-174515.jpg" 
+     alt="Amina J." 
+     class="testimonial-img">
+            <div class="testimonial-info">
+              <h4>Amina J.</h4>
+              <p>Beauty Salon, Livingstone</p>
+            </div>
+          </div>
+          <div class="testimonial-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">
+            "Professional branding that made my salon the talk of the town! The logo, social media designs, and booking website have brought in so many new clients. Highly recommend BLESSTech-X!"
+          </p>
+        </div>
+        
+        <!-- Testimonial 4 -->
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <img src="https://i.ibb.co/JR2ZzMgZ/Screenshot-20260117-174739.jpg" 
+     alt="Peter B." 
+     class="testimonial-img">
+<div class="testimonial-info">
+              <h4>Peter B.</h4>
+              <p>Agricultural Supplier, Ndola</p>
+            </div>
+          </div>
+          <div class="testimonial-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">
+            "As a farmer, I never thought I needed a website. BLESSTech-X showed me how digital presence can expand my market. Now I supply to hotels and supermarkets I never could reach before."
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section class="about-section" id="about">
+    <div class="container">
+      <h2 class="section-title">About BLESSTech-X</h2>
+      
+      <div class="about-content">
+        <div class="about-text">
+          <h3>Empowering Zambian Businesses with Digital Solutions</h3>
+          <p>
+            Founded by Barack Blessings in Lusaka, BLESSTech-X is dedicated to helping small and medium-sized Zambian businesses thrive in the digital age. We understand the unique challenges and opportunities in the Zambian market.
+          </p>
+          <p>
+            Our mission is simple: to make professional digital services accessible and affordable for every entrepreneur. We believe that every business, no matter how small, deserves a strong online presence.
+          </p>
+          <p>
+            With years of experience serving clients across Zambia, we've developed solutions that work specifically for our market. From Lusaka to Livingstone, Kitwe to Ndola, we're helping businesses grow.
+          </p>
+          
+          <div class="about-stats">
+            <div class="stat-item">
+              <div class="stat-number">150+</div>
+              <div class="stat-label">Happy Clients</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">98%</div>
+              <div class="stat-label">Satisfaction Rate</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">24/7</div>
+              <div class="stat-label">Support</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="about-image">
+          <img src="https://i.ibb.co/KxrFYT39/In-Shot-20251212-234409306.jpg" alt="BLESSTech-X Team">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <h2 class="section-title" style="color: white;">Get In Touch</h2>
+      
+      <div class="contact-container">
+        <div class="contact-info">
+          <h3>Let's Build Your Digital Presence</h3>
+          <p>
+            Ready to take your business to the next level? Contact us today for a free consultation. We'll discuss your needs and create a customized solution that fits your budget and goals.
+          </p>
+          
+          <div class="contact-details">
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-phone"></i>
+              </div>
+              <div>
+                <h4>Phone & WhatsApp</h4>
+                <p>+260 979 603 741</p>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div>
+                <h4>Email</h4>
+                <p>singbless89@gmail.com</p>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div>
+                <h4>Location</h4>
+                <p>Lusaka, Zambia</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="social-links">
+            <a href="https://www.facebook.com/profile.php?id=61581220933146" class="social-link" target="_blank">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://www.instagram.com/blesstech2.0" class="social-link" target="_blank">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.tiktok.com/@blesstechx" class="social-link" target="_blank">
+              <i class="fab fa-tiktok"></i>
+            </a>
+            <a href="https://x.com/Barack3lessing" class="social-link" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://youtube.com/@blesstech-ot7jm" class="social-link" target="_blank">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="contact-form">
+          <form id="contactForm">
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <input type="text" placeholder="Your Business" required>
+            <select style="width: 100%; padding: 15px; margin-bottom: 20px; border-radius: 8px; border: none; background: rgba(255, 255, 255, 0.1); color: white; font-size: 1rem;">
+              <option value="" disabled selected>Select Service Interested In</option>
+              <option value="website">Website Creation</option>
+              <option value="branding">Logo & Branding</option>
+              <option value="graphics">Graphic Design</option>
+              <option value="business">Business Setup</option>
+              <option value="consultation">Free Consultation</option>
+            </select>
+            <textarea placeholder="Tell us about your project or business needs..." required></textarea>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+              <i class="fas fa-paper-plane"></i> Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-col">
+          <div class="footer-logo">
+            <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X Logo">
+            <span>BLESSTech-X</span>
+          </div>
+          <p>Professional digital solutions for businesses. Helping entrepreneurs thrive in the digital age.</p>
+        </div>
+        
+        <div class="footer-col">
+          <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="#home">Home</a></li>
+              <li><a href="#services">Services</a></li>
+              <li><a href="#testimonials">Testimonials</a></li>
+              <li><a href="#about">About Us</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="footer-col">
+          <div class="footer-links">
+            <h4>Our Services</h4>
+            <ul>
+              <li><a href="#services" onclick="filterServicesByCategory('websites')">Website Creation</a></li>
+              <li><a href="#services" onclick="filterServicesByCategory('branding')">Logo & Branding</a></li>
+              <li><a href="#services" onclick="filterServicesByCategory('graphics')">Graphic Design</a></li>
+              <li><a href="#services" onclick="filterServicesByCategory('business')">Business Setup</a></li>
+              <li><a href="#services" onclick="filterServicesByCategory('marketing')">Digital Marketing</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="footer-col">
+          <div class="footer-links">
+            <h4>Contact Info</h4>
+            <ul>
+              <li><i class="fas fa-phone"></i> +260 979 603 741</li>
+              <li><i class="fas fa-envelope"></i> singbless89@gmail.com</li>
+              <li><i class="fas fa-map-marker-alt"></i> Lusaka, Zambia</li>
+              <li><i class="fab fa-whatsapp"></i> WhatsApp Available</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2026 BLESSTech-X. All rights reserved. | Designed for Zambian Businesses and the Globe🌍</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Service Data
+    const services = [
+      {
+        id: 'website-creation',
+        title: 'Professional Website Creation',
+        category: 'websites',
+        description: 'Fast, mobile-friendly websites designed to convert visitors into paying clients. Perfect for Zambian businesses.',
+        price: 'From ZMW 980-600',
+        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop',
+        features: [
+          'Responsive Design (Mobile & Desktop)',
+          'Fast Loading Speed',
+          'Contact Forms & Booking Systems',
+          'SEO Optimization',
+          'Domain & Hosting Setup',
+          '1 Year Free Maintenance'
+        ],
+        images: [
+          'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop',
+          'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=400&h=250&fit=crop',
+          'https://images.unsplash.com/photo-1545235617-9465d2a55698?w=400&h=250&fit=crop'
+        ]
+      },
+      {
+        id: 'logo-branding',
+        title: 'Logo & Brand Identity',
+        category: 'branding',
+        description: 'Memorable branding that builds trust and credibility for your business in the Zambian market.',
+        price: 'From ZMW 350',
+        image: 'https://i.ibb.co/fG4t9WMM/Copilot-20251230-144351.jpg?width=400&height=250&fit=crop',
+        features: [
+          'Professional Logo Design',
+          'Brand Color Palette',
+          'Typography Selection',
+          'Brand Guidelines',
+          'Business Card Design',
+          'Social Media Profile Setup'
+        ],
+        images: [
+          'https://i.ibb.co/ycjtDNrv/Screenshot-20260117-120824.jpg?width=470&height=300&fit=crop',
+          'https://i.ibb.co/rKTJMX8n/boliviainteligente-vn-Ri-RPQT2-PY-unsplash.jpg',
+          'https://i.ibb.co/8LGJJCBQ/Screenshot-20260117-120600.jpg"'
+        ]
+      },
+      {
+        id: 'graphic-design',
+        title: 'Graphic Design Services',
+        category: 'graphics',
+        description: 'Posters, flyers, social media designs that attract attention and sell in the Zambian market.',
+        price: 'From ZMW 500',
+        image: 'https://i.ibb.co/nq6yNG2N/Screenshot-20260117-142046.jpg',
+        features: [
+          'Social Media Graphics',
+          'Marketing Flyers & Posters',
+          'Product Packaging Design',
+          'Banner & Signage Design',
+          'Email Newsletter Templates',
+          'Digital Ad Creatives'
+        ],
+        images: [
+          'https://i.ibb.co/39R0yFM6/Screenshot-20260117-144350.jpg?width=400&height=250&fit=crop',
+          'https://i.ibb.co/whcncJtb/Screenshot-20260117-144025.jpg?width=400&height=250&fit=crop',
+          'https://i.ibb.co/kscSXCXF/Screenshot-20260117-144107.jpg?width=400&height=250&fit=crop'
+]
+      },
+      {
+        id: 'business-setup',
+        title: 'Digital Business Setup',
+        category: 'business',
+        description: 'Complete online presence setup with branding, pages, and automation for Zambian entrepreneurs.',
+        price: 'From ZMW 2,500',
+        image: 'https://i.ibb.co/ycWDHmtK/Screenshot-20260117-162440.jpg?width=400&height=250&fit=crop',
+        features: [
+          'Complete Website Setup',
+          'Professional Branding Package',
+          'Social Media Profiles',
+          'Google Business Listing',
+          'Email Setup',
+          'Basic SEO Implementation'
+        ],
+        images: [
+          'https://i.ibb.co/8DbNp9zr/Screenshot-20260117-155058.jpg?width=400&height=250&fit=crop',
+          'https://i.ibb.co/8DZkT4mr/Screenshot-20260117-162508.jpg?width=400&height=250&fit=crop', 'https://i.ibb.co/gZ51SXv7/Screenshot-20260117-162202.jpg?width=400&height=250&fit=crop',
+          'https://i.ibb.co/ycWDHmtK/Screenshot-20260117-162440.jpg?width=400&height=250&fit=crop',
+        ]
+      },
+      {
+        id: 'ecommerce',
+        title: 'E-commerce Website',
+        category: 'websites',
+        description: 'Complete online store setup for selling products and services across Zambia.',
+        price: 'From ZMW 1,500',
+        image: 'https://i.ibb.co/bjFfhDQW/Screenshot-20260117-164954.jpg?width=400&height=250&fit=crop',
+        features: [
+          'Online Product Catalog',
+          'Secure Payment Gateway',
+          'Order Management System',
+          'Inventory Tracking',
+          'Customer Accounts',
+          'Delivery Integration'
+        ],
+        images: [
+          'https://i.ibb.co/rfLD2Y0H/Screenshot-20260117-165322.jpg?width=400&height=250&fit=crop', 'https://i.ibb.co/bjFfhDQW/Screenshot-20260117-164954.jpg?width=400&height=250&fit=crop', 'https://i.ibb.co/20j2b2nm/Screenshot-20260117-165135.jpg?width=400&height=250&fit=crop', 'https://i.ibb.co/KpWvCZ0C/Screenshot-20260117-165211.jpg?width=400&height=250&fit=crop',
+        ]
+      },
+      {
+        id: 'social-media',
+        title: 'Social Media Management',
+        category: 'marketing',
+        description: 'Complete social media strategy, content creation, and management for Zambian businesses.',
+        price: 'From ZMW 1,200-500/month',
+        image: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&h=400&fit=crop',
+        features: [
+          'Content Strategy & Planning',
+          'Daily Post Creation',
+          'Community Management',
+          'Performance Analytics',
+          'Advertising Campaigns',
+          'Monthly Reports'
+        ],
+        images: [
+          'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=400&h=250&fit=crop',
+          'https://images.unsplash.com/photo-1611262588024-d12430b98920?w=400&h=250&fit=crop',
+          'https://images.unsplash.com/photo-1611605698335-8b1569810432?w=400&h=250&fit=crop'
+        ]
+      },
+      {
+        id: 'seo',
+        title: 'SEO Optimization',
+        category: 'marketing',
+        description: 'Improve your website visibility on Google and attract more customers in Zambia.',
+        price: 'From ZMW 200/month',
+        image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop',
+        features: [
+          'Keyword Research',
+          'On-Page Optimization',
+          'Content Strategy',
+          'Local SEO',
+          'Performance Tracking',
+          'Monthly Reporting'
+        ],
+        images: [
+          'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=250&fit=crop',
+          'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=250&fit=crop',
+          'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=250&fit=crop'
+        ]
+      },
+      {
+        id: 'consulting',
+        title: 'Business Consulting',
+        category: 'business',
+        description: 'Digital strategy consulting to help Zambian businesses grow online.',
+        price: 'From ZMW 50/session',
+        image: 'https://i.ibb.co/DHkv5wvH/Screenshot-20260117-170451.jpg?width=400&height=250&fit=crop',
+        features: [
+          'Digital Strategy Development',
+          'Market Analysis',
+          'Competitor Research',
+          'Growth Planning',
+          'Implementation Roadmap',
+          'Performance Metrics'
+        ],
+        images: [
+          'https://i.ibb.co/XrBMdBQZ/Screenshot-20260117-170858.jpg?width=400&height=250&fit=crop', 'https://i.ibb.co/8DW8Dkpy/Screenshot-20260117-170732.jpg?width=400&height=250&fit=crop', 'https://i.ibb.co/LXCyLzGN/Screenshot-20260117-170557.jpg?width=400&height=250&fit=crop', 'https://i.ibb.co/DHkv5wvH/Screenshot-20260117-170451.jpg?width=400&height=250&fit=crop',
+        ]
+      }
+    ];
+
+    // Initialize when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize services grid
+      renderServicesGrid();
+      
+      // Initialize service rooms
+      renderServiceRooms();
+      
+      // Initialize moving text
+      initMovingText();
+      
+      // Initialize mobile menu
+      initMobileMenu();
+      
+      // Initialize form submission
+      initContactForm();
+      
+      // Initialize filter buttons
+      initFilterButtons();
+      
+      // Initialize search
+      initSearch();
+    });
+
+    // Render services grid
+    function renderServicesGrid() {
+      const grid = document.getElementById('servicesGrid');
+      grid.innerHTML = '';
+      
+      services.forEach(service => {
+        const card = document.createElement('div');
+        card.className = 'service-card';
+        card.setAttribute('data-category', service.category);
+        card.setAttribute('data-search', `${service.title.toLowerCase()} ${service.description.toLowerCase()}`);
+        
+        card.innerHTML = `
+          <img src="${service.image}" alt="${service.title}" class="service-img">
+          <div class="card-content">
+            <h3>${service.title}</h3>
+            <p>${service.description}</p>
+            <div class="card-price">${service.price}</div>
+            <button class="card-btn" onclick="openServiceRoom('${service.id}')">
+              <i class="fas fa-eye"></i> View Details
+            </button>
+          </div>
+        `;
+        
+        grid.appendChild(card);
+      });
+    }
+
+    // Render service rooms
+    function renderServiceRooms() {
+      const container = document.getElementById('serviceRoomsContainer');
+      container.innerHTML = '';
+      
+      services.forEach(service => {
+        const room = document.createElement('div');
+        room.className = 'service-room';
+        room.id = `room-${service.id}`;
+        
+        const featuresHTML = service.features.map(feature => `
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-check"></i>
+            </div>
+            <div>
+              <h4>${feature}</h4>
+            </div>
+          </div>
+        `).join('');
+        
+        const imagesHTML = service.images.map(img => `
+          <img src="${img}" alt="${service.title}" class="room-img" onclick="openImageModal('${img}')">
+        `).join('');
+        
+        room.innerHTML = `
+          <div class="room-content">
+            <div class="room-header">
+              <button class="close-room" onclick="closeServiceRoom()">
+                <i class="fas fa-times"></i>
+              </button>
+              <h2>${service.title}</h2>
+              <p>${service.description}</p>
+              <div>
+                <button class="btn btn-primary" onclick="orderService('${service.title}')">
+                  <i class="fab fa-whatsapp"></i> Order via WhatsApp
+                </button>
+                <button class="btn btn-secondary" onclick="closeServiceRoom()">
+                  <i class="fas fa-arrow-left"></i> Back to Services
+                </button>
+              </div>
+            </div>
+            <div class="room-body">
+              <div class="room-features">
+                ${featuresHTML}
+              </div>
+              <h3 style="margin-bottom: 20px;">Project Examples</h3>
+              <div class="room-images">
+                ${imagesHTML}
+              </div>
+            </div>
+          </div>
+        `;
+        
+        container.appendChild(room);
+      });
+    }
+
+    // Filter services
+    function filterServicesByCategory(category) {
+      // Update active filter button
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('data-filter') === category) {
+          btn.classList.add('active');
+        }
+      });
+      
+      // Filter services
+      const cards = document.querySelectorAll('.service-card');
+      const searchTerm = document.getElementById('serviceSearch').value.toLowerCase();
+      
+      cards.forEach(card => {
+        const cardCategory = card.getAttribute('data-category');
+        const cardSearch = card.getAttribute('data-search');
+        
+        const matchesCategory = category === 'all' || cardCategory === category;
+        const matchesSearch = searchTerm === '' || cardSearch.includes(searchTerm);
+        
+        card.style.display = matchesCategory && matchesSearch ? 'block' : 'none';
+      });
+      
+      // Show no results message if needed
+      showNoResultsMessage();
+    }
+
+    // Search functionality
+    function initSearch() {
+      const searchInput = document.getElementById('serviceSearch');
+      searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        const activeCategory = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+        
+        const cards = document.querySelectorAll('.service-card');
+        
+        cards.forEach(card => {
+          const cardCategory = card.getAttribute('data-category');
+          const cardSearch = card.getAttribute('data-search');
+          
+          const matchesCategory = activeCategory === 'all' || cardCategory === activeCategory;
+          const matchesSearch = searchTerm === '' || cardSearch.includes(searchTerm);
+          
+          card.style.display = matchesCategory && matchesSearch ? 'block' : 'none';
+        });
+        
+        showNoResultsMessage();
+      });
+    }
+
+    // Show no results message
+    function showNoResultsMessage() {
+      const cards = document.querySelectorAll('.service-card');
+      const visibleCards = Array.from(cards).filter(card => card.style.display !== 'none');
+      const grid = document.getElementById('servicesGrid');
+      
+      let noResultsMsg = document.querySelector('.no-results-message');
+      
+      if (visibleCards.length === 0) {
+        if (!noResultsMsg) {
+          noResultsMsg = document.createElement('div');
+          noResultsMsg.className = 'no-results';
+          noResultsMsg.innerHTML = `
+            <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 20px; color: #94a3b8;"></i>
+            <h3 style="margin-bottom: 10px; color: #475569;">No services found</h3>
+            <p style="color: #64748b;">Try adjusting your search or filter to find what you're looking for.</p>
+          `;
+          grid.appendChild(noResultsMsg);
+        }
+      } else if (noResultsMsg) {
+        noResultsMsg.remove();
+      }
+    }
+
+    // Initialize filter buttons
+    function initFilterButtons() {
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const filter = this.getAttribute('data-filter');
+          filterServicesByCategory(filter);
+        });
+      });
+    }
+
+    // Open service room
+    function openServiceRoom(serviceId) {
+      document.querySelectorAll('.service-room').forEach(room => {
+        room.style.display = 'none';
+      });
+      
+      const room = document.getElementById(`room-${serviceId}`);
+      if (room) {
+        room.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        room.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // Close service room
+    function closeServiceRoom() {
+      document.querySelectorAll('.service-room').forEach(room => {
+        room.style.display = 'none';
+      });
+      document.body.style.overflow = 'auto';
+    }
+
+    // WhatsApp order function
+    function orderService(serviceName) {
+      const message = `Hello BLESSTech-X,%0A%0AI am interested in: *${serviceName}*%0A%0ABusiness Name:%0AMy Name:%0APhone Number:%0ABrief Description of what I need:`;
+      window.open(`https://wa.me/260979603741?text=${message}`, '_blank');
+    }
+
+    // Open WhatsApp directly
+    function openWhatsApp() {
+      const message = `Hello BLESSTech-X,%0A%0AI would like to inquire about your services.%0A%0ABusiness Name:%0AMy Name:%0APhone Number:%0ABrief Description of what I need:`;
+      window.open(`https://wa.me/260979603741?text=${message}`, '_blank');
+    }
+
+    // Initialize moving text
+    function initMovingText() {
+      const textElements = [
+        'Professional Websites',
+        'Logo & Branding',
+        'Graphic Design',
+        'Business Setup',
+        'Social Media Management',
+        'E-commerce Solutions'
+      ];
+      
+      let currentIndex = 0;
+      const movingText = document.getElementById('movingText');
+      
+      function updateText() {
+        movingText.style.opacity = '0';
+        setTimeout(() => {
+          movingText.textContent = textElements[currentIndex];
+          movingText.style.opacity = '1';
+          currentIndex = (currentIndex + 1) % textElements.length;
+        }, 500);
+      }
+      
+      // Initial update
+      updateText();
+      
+      // Update every 3 seconds
+      setInterval(updateText, 3000);
+    }
+
+    // Initialize mobile menu
+    function initMobileMenu() {
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const navLinks = document.querySelector('.nav-links');
+      
+      mobileMenuBtn.addEventListener('click', function() {
+        navLinks.classList.toggle('active');
+        mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+          '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+      });
+      
+      // Close menu when clicking a link
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', function() {
+          navLinks.classList.remove('active');
+          mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        });
+      });
+    }
+
+    // Initialize contact form
+    function initContactForm() {
+      const contactForm = document.getElementById('contactForm');
+      if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          // Get form data
+          const formData = new FormData(this);
+          const name = this.querySelector('input[type="text"]').value;
+          const service = this.querySelector('select').value;
+          
+          // Create WhatsApp message
+          const whatsappMessage = `Hello BLESSTech-X,%0A%0ANew contact form submission:%0A%0AName: ${name}%0AService Interested: ${service}%0A%0AI would like to discuss my project. Please contact me.`;
+          
+          // Open WhatsApp
+          window.open(`https://wa.me/260979603741?text=${whatsappMessage}`, '_blank');
+          
+          // Reset form
+          this.reset();
+          
+          // Show success message
+          alert('Thank you! We will contact you shortly via WhatsApp.');
+        });
+      }
+    }
+
+    // Scroll to section
+    function scrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+        
+        // Close mobile menu if open
+        const navLinks = document.querySelector('.nav-links');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        if (navLinks.classList.contains('active')) {
+          navLinks.classList.remove('active');
+          mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+      }
+    }
+
+    // Open image modal (placeholder - can be enhanced)
+    function openImageModal(imageUrl) {
+      // For now, just open the image in a new tab
+      window.open(imageUrl, '_blank');
+    }
+  </script>
+</body>
+</html>
