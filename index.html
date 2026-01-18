@@ -1809,10 +1809,11 @@
       }, 0);
     });
 
+  
     // Feedback button
-    document.getElementById('feedbackBtn').addEventListener('click', function() {
-      window.open('https://github.com/BLESSTech-X/BLESSTech-X.github.io/issues/new?template=feedback.md&title=Website+Feedback', '_blank');
-    });
+document.getElementById('feedbackBtn').addEventListener('click', function() {
+  window.open('https://github.com/BLESSTech-X/.com/issues/new?title=[FEEDBACK]%20Website%20Feedback&body=##%20Type%20of%20Feedback%0A-%20%5B%20%5D%20Bug%20Report%0A-%20%5B%20%5D%20Feature%20Request%20%20%0A-%20%5B%20%5D%20Design%20Improvement%0A-%20%5B%20%5D%20Content%20Suggestion%0A-%20%5B%20%5D%20Other%0A%0A##%20Description%0AWhat%20would%20you%20like%20to%20report%20or%20suggest%3F%0A%0A##%20Page%20URL%0AWhich%20page%20did%20you%20find%20this%20on%3F%0A%0A##%20Device/Browser%0A-%20Device%3A%20%5Be.g.%2C%20iPhone%2012%2C%20Windows%20PC%5D%0A-%20Browser%3A%20%5Be.g.%2C%20Chrome%2C%20Safari%5D%0A-%20Screen%20Size%3A%20%5Be.g.%2C%20Mobile%2C%20Tablet%2C%20Desktop%5D%0A%0A##%20Steps%20to%20Reproduce%20(for%20bugs)%0A1.%20%0A2.%20%0A3.%20%0A%0A##%20Expected%20Behavior%0AWhat%20should%20happen%3F%0A%0A##%20Actual%20Behavior%0AWhat%20actually%20happened%3F%0A%0A##%20Screenshot%20(if%20possible)%0A%3C%21--%20Drag%20and%20drop%20image%20here%20--%3E%0A%0A##%20Additional%20Context%0AAny%20other%20information%3F', '_blank');
+});
 
     // Error tracking
     window.onerror = function(msg, url, lineNo, columnNo, error) {
