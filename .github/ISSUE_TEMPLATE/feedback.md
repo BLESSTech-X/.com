@@ -1,43 +1,31 @@
 ---
 name: Website Feedback
-about: Report issues or suggest improvements
-title: "[FEEDBACK] "
+about: Help us serve you better!
+title: "Website Feedback from [Your Name/Business]"
 labels: feedback
 assignees: ''
 
 ---
 
-## Type of Feedback
-- [ ] Bug Report
-- [ ] Feature Request  
-- [ ] Design Improvement
-- [ ] Content Suggestion
-- [ ] Other
+## 🌟 **Hey there! Thanks for helping us improve!**
 
-## Description
-What would you like to report or suggest?
+### **Quick question:**
+- [ ] **Found a bug** - Something's not working right
+- [ ] **Have an idea** - I know how to make this better!
+- [ ] **Just sharing love** - Really liked something specific
+- [ ] **Need help** - Can't find what I'm looking for
 
-## Page URL
-Which page did you find this on?
+### **📝 Your message (in your own words):**
 
-## Device/Browser
-- Device: [e.g., iPhone 12, Windows PC]
-- Browser: [e.g., Chrome, Safari]
-- Screen Size: [e.g., Mobile, Tablet, Desktop]
+### **📱 About your visit:**
+**Device:** Phone / Tablet / Computer  
+**Browser:** Chrome / Safari / Firefox / Other  
+**Page you were on:** Services / Home / Portfolio / Contact
 
-## Steps to Reproduce (for bugs)
-1. 
-2. 
-3. 
+### **💡 Optional but SUPER helpful:**
+**What were you trying to do?** (e.g., "I wanted to see logo examples before ordering")
 
-## Expected Behavior
-What should happen?
+---
 
-## Actual Behavior
-What actually happened?
-
-## Screenshot (if possible)
-<!-- Drag and drop image here -->
-
-## Additional Context
-Any other information?
+**✨ Your feedback helps us serve 150+  businesses better every day!**
+*We personally read every message and respond within 24 hours.*
