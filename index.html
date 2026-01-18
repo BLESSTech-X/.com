@@ -1846,5 +1846,28 @@ document.getElementById('feedbackBtn').addEventListener('click', function() {
       }
     });
   </script>
+  <!-- Tidio Chat Widget -->
+<script src="//code.tidio.co/2elht6bt2xxp5xpwcp9b2ejerxoubuo7.js" async></script>
+<!-- Button Positioning CSS -->
+<style>
+  /* Clean spacing between buttons */
+  #feedbackBtn {
+    left: 20px;
+    bottom: 20px;
+    right: auto !important;
+  }
+  
+  #tidio-chat iframe {
+    right: 20px !important;
+    bottom: 20px !important;
+    left: auto !important;
+  }
+  
+  /* Hide any text on Tidio button */
+  .tidio-chat-button::before,
+  .tidio-chat-button::after {
+    display: none !important;
+  }
+</style>
 </body>
 </html>
