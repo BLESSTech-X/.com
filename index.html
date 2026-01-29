@@ -354,6 +354,268 @@
       color: #25D366;
     }
     
+    /* ============================================ */
+    /* RED COUNTDOWN & ANNOUNCEMENT BANNER */
+    /* ============================================ */
+
+    .countdown-banner {
+      position: fixed;
+      top: 130px; /* Below social media bar */
+      left: 0;
+      right: 0;
+      background: linear-gradient(90deg, #dc2626, #ef4444, #dc2626);
+      color: white;
+      z-index: 998;
+      height: 40px; /* Compact height */
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(220, 38, 38, 0.3);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* For when founding banner is active */
+    body.has-banner .countdown-banner {
+      top: 170px; /* Adjust if founding banner is visible */
+    }
+
+    .countdown-content {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      padding: 0 15px;
+    }
+
+    .countdown-section {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-right: 20px;
+      border-right: 1px solid rgba(255, 255, 255, 0.3);
+      min-width: 180px;
+      flex-shrink: 0;
+    }
+
+    .flash-icon {
+      animation: flash 1.5s infinite;
+      font-size: 1.1rem;
+    }
+
+    @keyframes flash {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .countdown-title {
+      font-weight: 700;
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+
+    .countdown-timer {
+      display: flex;
+      gap: 5px;
+      font-weight: 800;
+      font-size: 1rem;
+    }
+
+    .countdown-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 30px;
+    }
+
+    .countdown-number {
+      background: rgba(0, 0, 0, 0.2);
+      padding: 2px 5px;
+      border-radius: 3px;
+      font-size: 0.9rem;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    .countdown-label {
+      font-size: 0.6rem;
+      opacity: 0.8;
+      margin-top: 1px;
+    }
+
+    /* BROADCASTING ANNOUNCEMENTS */
+    .broadcast-section {
+      flex: 1;
+      overflow: hidden;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .broadcast-label {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+
+    .broadcast-text-container {
+      overflow: hidden;
+      flex: 1;
+    }
+
+    .broadcast-text {
+      display: inline-block;
+      white-space: nowrap;
+      animation: broadcastScroll 30s linear infinite;
+      font-size: 0.85rem;
+      padding-left: 100%; /* Start off-screen */
+    }
+
+    @keyframes broadcastScroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    .broadcast-text span {
+      margin: 0 25px;
+      color: #ffd700; /* Gold color for emphasis */
+      font-weight: 700;
+    }
+
+    /* CLAIM BUTTON */
+    .claim-section {
+      flex-shrink: 0;
+      margin-left: auto;
+    }
+
+    .claim-btn {
+      background: white;
+      color: #dc2626;
+      border: none;
+      padding: 6px 15px;
+      border-radius: 20px;
+      font-weight: 800;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .claim-btn:hover {
+      background: #ffd700;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    /* MOBILE RESPONSIVE */
+    @media (max-width: 992px) {
+      .countdown-banner {
+        top: 125px;
+        height: 50px;
+      }
+      
+      body.has-banner .countdown-banner {
+        top: 165px;
+      }
+      
+      .countdown-content {
+        flex-wrap: wrap;
+        padding: 5px 10px;
+      }
+      
+      .countdown-section {
+        min-width: 150px;
+        padding-right: 15px;
+        border-right: none;
+      }
+      
+      .broadcast-section {
+        order: 3;
+        width: 100%;
+        padding-left: 0;
+        margin-top: 5px;
+        padding-top: 5px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      
+      .claim-section {
+        order: 2;
+        margin-left: auto;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .countdown-banner {
+        height: 45px;
+      }
+      
+      .countdown-section {
+        min-width: auto;
+      }
+      
+      .countdown-timer {
+        font-size: 0.9rem;
+      }
+      
+      .countdown-title {
+        font-size: 0.8rem;
+      }
+      
+      .broadcast-text {
+        font-size: 0.75rem;
+      }
+      
+      .claim-btn {
+        padding: 5px 12px;
+        font-size: 0.75rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .countdown-banner {
+        top: 120px;
+        height: 55px;
+      }
+      
+      .countdown-content {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 3px 10px;
+      }
+      
+      .countdown-section {
+        justify-content: center;
+        padding-right: 0;
+        margin-bottom: 3px;
+      }
+      
+      .broadcast-section {
+        order: 2;
+        margin-top: 3px;
+      }
+      
+      .claim-section {
+        order: 3;
+        margin: 3px auto 0;
+        width: 100%;
+        text-align: center;
+      }
+      
+      .claim-btn {
+        width: 100%;
+        max-width: 200px;
+      }
+    }
+    
     /* HERO SECTION */
     .hero {
       margin-top: 70px;
@@ -2173,31 +2435,7 @@
       outline: 2px solid #0ea5e9;
     }
     
-    /* FEEDBACK BUTTON */
-    #feedbackBtn {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      background: #0ea5e9;
-      color: white;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
-      z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    #feedbackBtn:hover, #feedbackBtn:focus {
-      background: #0284c7;
-      transform: scale(1.1);
-      outline: 2px solid white;
-    }
+    /* FEEDBACK BUTTON - REMOVED (now part of help toggle) */
     
     /* ACCESSIBILITY: SKIP TO MAIN CONTENT */
     .skip-to-content {
@@ -2236,6 +2474,853 @@
       margin: 25px 0;
       border-left: 4px solid #8B5CF6;
     }
+
+    /* ============================================ */
+    /* FIXED INTERACTIVE ELEMENTS STYLES */
+    /* ============================================ */
+    
+    /* Tour highlight animation - IMPROVED */
+    .tour-highlight {
+      animation: gentlePulse 2s infinite !important;
+      position: relative;
+      z-index: 9999;
+      border: 2px solid #0ea5e9 !important;
+      box-shadow: 0 0 20px rgba(14, 165, 233, 0.4) !important;
+      border-radius: 12px !important;
+      transition: all 0.3s ease;
+    }
+    
+    @keyframes gentlePulse {
+      0% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.4); }
+      70% { box-shadow: 0 0 0 15px rgba(14, 165, 233, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0); }
+    }
+    
+    @keyframes popIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+    
+    /* CTA Pulse Animation */
+    @keyframes pulseCTA {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.3);
+      }
+      70% {
+        transform: scale(1.02);
+        box-shadow: 0 0 0 8px rgba(14, 165, 233, 0);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(14, 165, 233, 0);
+      }
+    }
+    
+    /* Ripple effect */
+    @keyframes ripple {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+    
+    /* Scroll animations */
+    .service-card, .portfolio-item, .testimonial-card {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.6s ease;
+    }
+    
+    /* Hint animations */
+    @keyframes slideInRight {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    
+    @keyframes slideOutRight {
+      from {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+    }
+    
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+    }
+    
+    /* Interactive cursor */
+    .clickable {
+      cursor: pointer;
+      position: relative;
+    }
+    
+    /* Service card hover enhancements */
+    .service-card:hover .purchase-now-btn {
+      animation: bounce 0.5s ease;
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 60%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-5px);
+      }
+      80% {
+        transform: translateY(-3px);
+      }
+    }
+
+    /* Welcome message animation */
+    @keyframes slideInFromRight {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    /* FIXED: HELP TOGGLE MENU - SINGLE BUTTON */
+    #helpToggle {
+      position: fixed;
+      bottom: 490px;
+      right: 10px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+
+    .help-main-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #0ea5e9;
+      color: white;
+      border: none;
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      z-index: 10001;
+    }
+
+    .help-main-btn:hover, .help-main-btn.active {
+      background: #0284c7;
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(14, 165, 233, 0.6);
+    }
+
+    .help-menu {
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      background: white;
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      min-width: 180px;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      border: 2px solid #0ea5e9;
+    }
+
+    #helpToggle.active .help-menu {
+      display: flex;
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .help-menu button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #f8fafc;
+      color: #1e293b;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+    }
+
+    .help-menu button:hover {
+      background: #0ea5e9;
+      color: white;
+      transform: translateX(-5px);
+    }
+
+    .help-menu button i {
+      width: 20px;
+      text-align: center;
+    }
+
+    /* FIXED: TOUR PROGRESS INDICATOR */
+    .tour-progress {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      background: white;
+      border-radius: 15px;
+      padding: 15px 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      z-index: 10000;
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      min-width: 250px;
+      border: 2px solid #0ea5e9;
+    }
+
+    .tour-progress.active {
+      display: flex;
+      animation: popIn 0.3s ease;
+    }
+
+    .tour-progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .tour-progress-header h4 {
+      color: #1e293b;
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    .close-tour {
+      background: none;
+      border: none;
+      color: #64748b;
+      cursor: pointer;
+      font-size: 1.2rem;
+      padding: 5px;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .close-tour:hover {
+      background: #f1f5f9;
+      color: #1e293b;
+    }
+
+    .tour-progress-bar {
+      height: 6px;
+      background: #e2e8f0;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .tour-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #0ea5e9, #3b82f6);
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }
+
+    .tour-step-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 5px;
+    }
+
+    .tour-step-info span {
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+
+    .tour-navigation {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .tour-navigation button {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tour-prev-btn {
+      background: #f1f5f9;
+      color: #475569;
+    }
+
+    .tour-prev-btn:hover:not(:disabled) {
+      background: #e2e8f0;
+    }
+
+    .tour-prev-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .tour-next-btn {
+      background: #0ea5e9;
+      color: white;
+    }
+
+    .tour-next-btn:hover {
+      background: #0284c7;
+    }
+
+    .tour-skip-btn {
+      background: transparent;
+      color: #64748b;
+      font-size: 0.85rem;
+      padding: 5px 0;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+      width: 100%;
+    }
+
+    .tour-skip-btn:hover {
+      color: #1e293b;
+      text-decoration: underline;
+    }
+
+    /* FIXED: WELCOME BANNER */
+    .welcome-banner {
+      position: fixed;
+      top: 100px;
+      right: 30px;
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      z-index: 9997;
+      max-width: 350px;
+      border-left: 5px solid #0ea5e9;
+      animation: popIn 0.5s ease;
+      display: none;
+    }
+
+    .welcome-banner.active {
+      display: block;
+    }
+
+    .welcome-banner-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 15px;
+    }
+
+    .welcome-banner-header h4 {
+      color: #1e293b;
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    .close-welcome {
+      background: none;
+      border: none;
+      color: #64748b;
+      cursor: pointer;
+      font-size: 1.2rem;
+      padding: 5px;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .close-welcome:hover {
+      background: #f1f5f9;
+      color: #1e293b;
+    }
+
+    .welcome-banner p {
+      color: #64748b;
+      margin-bottom: 20px;
+      line-height: 1.5;
+      font-size: 0.95rem;
+    }
+
+    .welcome-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .welcome-actions button {
+      flex: 1;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .start-tour-btn {
+      background: #0ea5e9;
+      color: white;
+    }
+
+    .start-tour-btn:hover {
+      background: #0284c7;
+    }
+
+    .dismiss-welcome-btn {
+      background: #f1f5f9;
+      color: #475569;
+    }
+
+    .dismiss-welcome-btn:hover {
+      background: #e2e8f0;
+    }
+
+    /* SCROLL HINT */
+    .scroll-hint {
+      position: fixed;
+      bottom: 100px;
+      right: 30px;
+      background: #0ea5e9;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 50px;
+      font-weight: 600;
+      z-index: 9996;
+      box-shadow: 0 5px 20px rgba(14, 165, 233, 0.3);
+      display: flex;
+      align-items: center;
+      animation: slideInRight 0.5s ease;
+      cursor: pointer;
+      gap: 10px;
+      font-size: 0.9rem;
+    }
+
+    /* Popular service badge */
+    .popular-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #ef4444;
+      color: white;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      z-index: 1;
+    }
+
+    /* Best value badge */
+    .best-value-badge {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      z-index: 2;
+      box-shadow: 0 4px 10px rgba(139, 92, 246, 0.3);
+    }
+
+    /* Form focus styles */
+    .form-group:focus-within {
+      border-left: 3px solid #0ea5e9;
+      padding-left: 12px;
+      transition: all 0.3s ease;
+    }
+
+    /* Required field hint */
+    .required-hint {
+      color: #64748b;
+      font-size: 0.8rem;
+      display: block;
+      margin-top: 5px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .form-group:focus-within .required-hint {
+      opacity: 1;
+    }
+    /* ============================================ */
+/* RED COUNTDOWN & ANNOUNCEMENT BANNER */
+/* ============================================ */
+
+.countdown-banner {
+  position: fixed;
+  top: 130px; /* Below social media bar */
+  left: 0;
+  right: 0;
+  background: linear-gradient(90deg, #dc2626, #ef4444, #dc2626);
+  color: white;
+  z-index: 998;
+  height: 40px; /* Compact height */
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(220, 38, 38, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* For when founding banner is active */
+body.has-banner .countdown-banner {
+  top: 170px; /* Adjust if founding banner is visible */
+}
+
+.countdown-content {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 0 15px;
+}
+
+.countdown-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-right: 20px;
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  min-width: 180px;
+  flex-shrink: 0;
+}
+
+.flash-icon {
+  animation: flash 1.5s infinite;
+  font-size: 1.1rem;
+}
+
+@keyframes flash {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.countdown-title {
+  font-weight: 700;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.countdown-timer {
+  display: flex;
+  gap: 5px;
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 30px;
+}
+
+.countdown-number {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-size: 0.9rem;
+  min-width: 20px;
+  text-align: center;
+}
+
+.countdown-label {
+  font-size: 0.6rem;
+  opacity: 0.8;
+  margin-top: 1px;
+}
+
+/* BROADCASTING ANNOUNCEMENTS */
+.broadcast-section {
+  flex: 1;
+  overflow: hidden;
+  padding-left: 20px;
+  position: relative;
+}
+
+.broadcast-label {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+
+.broadcast-text-container {
+  overflow: hidden;
+  flex: 1;
+}
+
+.broadcast-text {
+  display: inline-block;
+  white-space: nowrap;
+  animation: broadcastScroll 30s linear infinite;
+  font-size: 0.85rem;
+  padding-left: 100%; /* Start off-screen */
+}
+
+@keyframes broadcastScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.broadcast-text span {
+  margin: 0 25px;
+  color: #ffd700; /* Gold color for emphasis */
+  font-weight: 700;
+}
+
+/* CLAIM BUTTON */
+.claim-section {
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.claim-btn {
+  background: white;
+  color: #dc2626;
+  border: none;
+  padding: 6px 15px;
+  border-radius: 20px;
+  font-weight: 800;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.claim-btn:hover {
+  background: #ffd700;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================ */
+/* MOBILE OPTIMIZATION - COMPACT */
+/* ============================================ */
+
+@media (max-width: 768px) {
+  .countdown-banner {
+    top: 105px; /* Moved up for mobile */
+    height: 36px; /* More compact */
+    padding: 0;
+  }
+  
+  body.has-banner .countdown-banner {
+    top: 145px; /* Adjusted for banner */
+  }
+  
+  .countdown-content {
+    padding: 0 8px;
+    height: 100%;
+    align-items: center;
+  }
+  
+  .countdown-section {
+    width: auto;
+    min-width: auto;
+    padding-right: 10px;
+    margin: 0;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .flash-icon {
+    font-size: 0.9rem;
+  }
+  
+  .countdown-title {
+    font-size: 0.7rem;
+  }
+  
+  .countdown-timer {
+    font-size: 0.85rem;
+  }
+  
+  .countdown-number {
+    padding: 1px 3px;
+    font-size: 0.8rem;
+    min-width: 18px;
+  }
+  
+  .countdown-label {
+    font-size: 0.5rem;
+  }
+  
+  .broadcast-section {
+    flex: 1;
+    padding-left: 10px;
+    margin: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  .broadcast-label {
+    display: none; /* Hidden on mobile */
+  }
+  
+  .broadcast-text-container {
+    width: 100%;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+  
+  .broadcast-text {
+    font-size: 0.7rem !important;
+    animation: broadcastScrollMobile 15s linear infinite !important;
+    padding-left: 100%;
+    line-height: 1.2;
+  }
+  
+  @keyframes broadcastScrollMobile {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
+  .broadcast-text span {
+    margin: 0 10px; /* Reduced spacing */
+    font-weight: 600;
+  }
+  
+  /* Button - always visible on mobile */
+  .claim-section {
+    margin-left: auto;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    flex-shrink: 0;
+  }
+  
+  .claim-btn {
+    padding: 4px 10px !important;
+    font-size: 0.7rem !important;
+    white-space: nowrap;
+    min-width: 70px;
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .countdown-banner {
+    height: 34px;
+    top: 100px; /* Even higher on small phones */
+  }
+  
+  body.has-banner .countdown-banner {
+    top: 140px;
+  }
+  
+  .countdown-content {
+    padding: 0 5px;
+  }
+  
+  .countdown-section {
+    padding-right: 8px;
+  }
+  
+  .countdown-title {
+    font-size: 0.65rem;
+  }
+  
+  .broadcast-text {
+    font-size: 0.65rem !important;
+  }
+  
+  .claim-btn {
+    padding: 3px 8px !important;
+    font-size: 0.65rem !important;
+    min-width: 65px;
+  }
+  
+  /* Hide "DISCOUNT" text on very small screens */
+  .claim-btn .claim-text {
+    display: none;
+  }
+  
+  .claim-btn::after {
+    content: "NOW";
+  }
+}
+
+/* For very small screens - hide countdown title */
+@media (max-width: 360px) {
+  .countdown-title {
+    display: none;
+  }
+  
+  .broadcast-text {
+    font-size: 0.6rem !important;
+  }
+  
+  .claim-btn {
+    padding: 2px 6px !important;
+    font-size: 0.6rem !important;
+    min-width: 60px;
+  }
+}
   </style>
 </head>
 
@@ -2302,6 +3387,52 @@
     </div>
   </div>
 
+  <!-- RED COUNTDOWN DISCOUNT BANNER - RESPONSIVE -->
+<div class="countdown-banner" id="countdownBanner">
+  <div class="countdown-content">
+    <!-- COUNTDOWN SECTION -->
+    <div class="countdown-section">
+      <div class="flash-icon">⚡</div>
+      <div class="countdown-title">OFFER ENDS IN:</div>
+      <div class="countdown-timer">
+        <div class="countdown-unit">
+          <div class="countdown-number" id="countdownHours">00</div>
+          <div class="countdown-label">HRS</div>
+        </div>
+        <div style="margin: 0 2px;">:</div>
+        <div class="countdown-unit">
+          <div class="countdown-number" id="countdownMinutes">00</div>
+          <div class="countdown-label">MIN</div>
+        </div>
+        <div style="margin: 0 2px;">:</div>
+        <div class="countdown-unit">
+          <div class="countdown-number" id="countdownSeconds">00</div>
+          <div class="countdown-label">SEC</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- BROADCASTING ANNOUNCEMENTS -->
+    <div class="broadcast-section">
+      <span class="broadcast-label">
+        <i class="fas fa-bullhorn"></i> ANNOUNCEMENTS
+      </span>
+      <div class="broadcast-text-container">
+        <div class="broadcast-text" id="broadcastText">
+          🎯 <span>FIRST 5 WEBSITES: 30% OFF</span> • 📱 <span>FREE MOBILE MONEY INTEGRATION</span> • 🚀 <span>E-COMMERCE SETUP IN 7 DAYS</span> • 💰 <span>GET 3 MONTHS FREE HOSTING</span> • ⭐ <span>150+ ZAMBIAN BUSINESSES TRUST US</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- CLAIM BUTTON -->
+    <div class="claim-section">
+      <button class="claim-btn" onclick="claimDiscount()">
+        <i class="fas fa-gift"></i> CLAIM DISCOUNT NOW
+      </button>
+    </div>
+  </div>
+</div>
+
   <!-- SSL BADGE -->
   <div class="ssl-badge" role="status" aria-label="Secure SSL connection">
     <div class="ssl-icon">
@@ -2310,6 +3441,69 @@
     <div>
       <div style="font-weight: 700; font-size: 0.9rem; color: #1e293b;">Secure Connection</div>
       <div style="font-size: 0.8rem; color: #64748b;">Your data is protected</div>
+    </div>
+  </div>
+
+  <!-- WELCOME BANNER -->
+  <div class="welcome-banner" id="welcomeBanner">
+    <div class="welcome-banner-header">
+      <h4>👋 Welcome to BLESSTech-X!</h4>
+      <button class="close-welcome" onclick="closeWelcomeBanner()" aria-label="Close welcome banner">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <p>Ready to grow your business online? Take a quick 2-minute tour to see how we can help you succeed.</p>
+    <div class="welcome-actions">
+      <button class="start-tour-btn" onclick="startOnboardingTour()">
+        <i class="fas fa-play-circle"></i> Start Tour
+      </button>
+      <button class="dismiss-welcome-btn" onclick="closeWelcomeBanner()">
+        Maybe Later
+      </button>
+    </div>
+  </div>
+
+  <!-- TOUR PROGRESS INDICATOR -->
+  <div class="tour-progress" id="tourProgress">
+    <div class="tour-progress-header">
+      <h4>Guided Tour</h4>
+      <button class="close-tour" onclick="endTour()" aria-label="Close tour">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="tour-progress-bar">
+      <div class="tour-progress-fill" id="tourProgressFill" style="width: 0%"></div>
+    </div>
+    <div class="tour-step-info">
+      <span id="tourStepText">Step 1 of 6</span>
+      <span id="tourStepTitle">Welcome</span>
+    </div>
+    <div class="tour-navigation">
+      <button class="tour-prev-btn" onclick="prevTourStep()" id="tourPrevBtn" disabled>
+        <i class="fas fa-chevron-left"></i> Back
+      </button>
+      <button class="tour-next-btn" onclick="nextTourStep()" id="tourNextBtn">
+        Next <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+    <button class="tour-skip-btn" onclick="endTour()">Skip Tour</button>
+  </div>
+
+  <!-- HELP TOGGLE MENU -->
+  <div id="helpToggle">
+    <button class="help-main-btn" onclick="toggleHelpMenu()" aria-label="Help menu">
+      <i class="fas fa-question"></i>
+    </button>
+    <div class="help-menu">
+      <button onclick="openWhatsApp()">
+        <i class="fab fa-whatsapp" style="color: #25D366;"></i> Chat on WhatsApp
+      </button>
+      <button onclick="startOnboardingTour()">
+        <i class="fas fa-play-circle" style="color: #0ea5e9;"></i> Guided Tour
+      </button>
+      <button onclick="scrollToTop()">
+        <i class="fas fa-arrow-up" style="color: #1e293b;"></i> Back to Top
+      </button>
     </div>
   </div>
 
@@ -2364,6 +3558,9 @@
       </div>
     </div>
   </section>
+
+  <!-- REST OF YOUR HTML REMAINS THE SAME -->
+  <!-- ... (All the existing HTML sections remain unchanged) ... -->
 
   <main id="main-content">
     <!-- TRUST NUMBERS SECTION -->
@@ -3352,13 +4549,444 @@
     </div>
   </footer>
 
-  <!-- FEEDBACK BUTTON -->
-  <button id="feedbackBtn" aria-label="Provide feedback">
-    <i class="fas fa-comment"></i>
-  </button>
-
-  <!-- JavaScript - FIXED MOBILE MENU -->
+  <!-- JavaScript - FIXED INTERACTIVE FEATURES -->
   <script>
+    // ============================================
+    // ENHANCED INTERACTIVE USER GUIDANCE SYSTEM
+    // ============================================
+
+    // 1. FIXED ONBOARDING TOUR (No Dark Overlay)
+    let currentTourStep = 0;
+    let isTourActive = false;
+    const tourSteps = [
+        {
+            target: '.hero-content',
+            title: 'Welcome to BLESSTech-X! 👋',
+            content: 'We help Zambian businesses sell online with websites and e-commerce stores.',
+            position: 'bottom'
+        },
+        {
+            target: '.hero-buttons',
+            title: 'Start Here',
+            content: 'Click any button to begin your digital journey. Get a free consultation or start selling online today!',
+            position: 'top'
+        },
+        {
+            target: '#servicesGrid',
+            title: 'Our Services',
+            content: 'Browse our digital services. Each card has details and pricing. Click "Purchase Now" to buy instantly via WhatsApp.',
+            position: 'top'
+        },
+        {
+            target: '#serviceSearch',
+            title: 'Search Services',
+            content: 'Looking for something specific? Search by keyword like "e-commerce" or "website".',
+            position: 'bottom'
+        },
+        {
+            target: '#portfolioGrid',
+            title: 'See Our Work',
+            content: 'Check real examples of businesses we\'ve helped in Zambia. Each project has a case study.',
+            position: 'top'
+        },
+        {
+            target: '#helpToggle',
+            title: 'Need Help?',
+            content: 'Click the help button anytime for quick assistance!',
+            position: 'left'
+        }
+    ];
+
+    // 2. HELP TOGGLE MENU
+    function toggleHelpMenu() {
+        const helpToggle = document.getElementById('helpToggle');
+        const helpMainBtn = helpToggle.querySelector('.help-main-btn');
+        
+        helpToggle.classList.toggle('active');
+        helpMainBtn.classList.toggle('active');
+        
+        // Close tour if open
+        if (isTourActive) {
+            endTour();
+        }
+    }
+
+    // Close help menu when clicking outside
+    document.addEventListener('click', function(event) {
+        const helpToggle = document.getElementById('helpToggle');
+        if (!helpToggle.contains(event.target)) {
+            helpToggle.classList.remove('active');
+            helpToggle.querySelector('.help-main-btn').classList.remove('active');
+        }
+    });
+
+    // 3. FIXED TOUR FUNCTIONS (No Dark Overlay)
+    function startOnboardingTour() {
+        // Close welcome banner
+        closeWelcomeBanner();
+        
+        // Close help menu
+        document.getElementById('helpToggle').classList.remove('active');
+        document.querySelector('.help-main-btn').classList.remove('active');
+        
+        currentTourStep = 0;
+        isTourActive = true;
+        
+        // Show tour progress indicator
+        document.getElementById('tourProgress').classList.add('active');
+        
+        // Update tour progress
+        updateTourProgress();
+        
+        // Show first step
+        showTourStep(currentTourStep);
+    }
+
+    function showTourStep(step) {
+        if (!isTourActive) return;
+        
+        const tourStep = tourSteps[step];
+        if (!tourStep) {
+            endTour();
+            return;
+        }
+        
+        // Remove previous highlights
+        document.querySelectorAll('.tour-highlight').forEach(el => el.classList.remove('tour-highlight'));
+        
+        const target = document.querySelector(tourStep.target);
+        if (target) {
+            // Highlight element with gentle glow (NO DARK OVERLAY)
+            target.classList.add('tour-highlight');
+            
+            // Scroll to element
+            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Update tour progress
+            updateTourProgress();
+        }
+    }
+
+    function nextTourStep() {
+        if (!isTourActive) return;
+        
+        currentTourStep++;
+        if (currentTourStep >= tourSteps.length) {
+            endTour();
+            return;
+        }
+        
+        showTourStep(currentTourStep);
+        updateTourProgress();
+    }
+
+    function prevTourStep() {
+        if (!isTourActive) return;
+        
+        if (currentTourStep > 0) {
+            currentTourStep--;
+            showTourStep(currentTourStep);
+            updateTourProgress();
+        }
+    }
+
+    function updateTourProgress() {
+        if (!isTourActive) return;
+        
+        const progress = ((currentTourStep + 1) / tourSteps.length) * 100;
+        document.getElementById('tourProgressFill').style.width = `${progress}%`;
+        document.getElementById('tourStepText').textContent = `Step ${currentTourStep + 1} of ${tourSteps.length}`;
+        document.getElementById('tourStepTitle').textContent = tourSteps[currentTourStep].title;
+        
+        // Update button states
+        document.getElementById('tourPrevBtn').disabled = currentTourStep === 0;
+        document.getElementById('tourNextBtn').textContent = currentTourStep === tourSteps.length - 1 ? 'Finish' : 'Next';
+    }
+
+    function endTour() {
+        isTourActive = false;
+        
+        // Remove highlights
+        document.querySelectorAll('.tour-highlight').forEach(el => el.classList.remove('tour-highlight'));
+        
+        // Hide tour progress
+        document.getElementById('tourProgress').classList.remove('active');
+        
+        // Mark tour as completed
+        localStorage.setItem('blesstech_tour_completed', 'true');
+    }
+
+    // 4. WELCOME BANNER MANAGEMENT
+    function showWelcomeBanner() {
+        // Check if user is new (no localStorage entry)
+        const isNewUser = !localStorage.getItem('blesstech_visited');
+        const tourCompleted = localStorage.getItem('blesstech_tour_completed') === 'true';
+        
+        if (isNewUser && !tourCompleted) {
+            // Show welcome banner after 2 seconds
+            setTimeout(() => {
+                document.getElementById('welcomeBanner').classList.add('active');
+            }, 2000);
+            
+            localStorage.setItem('blesstech_visited', 'true');
+        }
+    }
+
+    function closeWelcomeBanner() {
+        document.getElementById('welcomeBanner').classList.remove('active');
+    }
+
+    // 5. SCROLL TO TOP FUNCTION
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        // Close help menu
+        document.getElementById('helpToggle').classList.remove('active');
+        document.querySelector('.help-main-btn').classList.remove('active');
+    }
+
+    // 6. INITIALIZE ALL INTERACTIVE FEATURES
+    function initInteractiveFeatures() {
+        // Show welcome banner for new users
+        showWelcomeBanner();
+        
+        // Add CTA animations
+        setTimeout(animateCTAs, 500);
+        
+        // Add click feedback
+        addClickFeedback();
+        
+        // Initialize best value highlight
+        setTimeout(highlightBestValue, 1000);
+        
+        // Add scroll animations
+        window.addEventListener('scroll', revealOnScroll);
+        setTimeout(revealOnScroll, 500);
+        
+        // Add scroll hints
+        window.addEventListener('scroll', showScrollHints);
+        
+        // Close help menu with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.getElementById('helpToggle').classList.remove('active');
+                document.querySelector('.help-main-btn').classList.remove('active');
+                if (isTourActive) endTour();
+            }
+        });
+    }
+
+    // 7. ANIMATE CTAs
+    function animateCTAs() {
+        const ctas = document.querySelectorAll('.hero-buttons .btn');
+        ctas.forEach((btn, index) => {
+            setTimeout(() => {
+                btn.style.animation = 'pulseCTA 2s infinite';
+            }, index * 500);
+        });
+    }
+
+    // 8. CLICK FEEDBACK
+    function addClickFeedback() {
+        document.addEventListener('click', (e) => {
+            // Create ripple effect for buttons
+            if (e.target.closest('.btn') || e.target.closest('.card-btn') || e.target.closest('.purchase-now-btn')) {
+                const btn = e.target.closest('.btn, .card-btn, .purchase-now-btn');
+                const ripple = document.createElement('span');
+                const rect = btn.getBoundingClientRect();
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.7);
+                    transform: scale(0);
+                    animation: ripple 0.6s linear;
+                    pointer-events: none;
+                `;
+                
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                
+                btn.style.position = 'relative';
+                btn.style.overflow = 'hidden';
+                btn.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 600);
+            }
+        });
+    }
+
+    // 9. SCROLL HINTS
+    let scrollHintsShown = [];
+    function showScrollHints() {
+        const sections = [
+            { id: '#services', text: 'Explore our services ↓', icon: '🔽' },
+            { id: '#portfolio', text: 'See our work ↓', icon: '📊' },
+            { id: '#testimonials', text: 'Hear from clients ↓', icon: '💬' },
+            { id: '#contact', text: 'Get in touch ↓', icon: '📞' }
+        ];
+        
+        sections.forEach(section => {
+            const element = document.querySelector(section.id);
+            if (element && !scrollHintsShown.includes(section.id)) {
+                const rect = element.getBoundingClientRect();
+                if (rect.top < window.innerHeight * 0.8 && rect.top > 0) {
+                    showHint(section);
+                    scrollHintsShown.push(section.id);
+                }
+            }
+        });
+    }
+
+    function showHint(section) {
+        const hint = document.createElement('div');
+        hint.className = 'scroll-hint';
+        hint.innerHTML = `
+            <span style="margin-right: 8px;">${section.icon}</span>
+            ${section.text}
+        `;
+        
+        document.body.appendChild(hint);
+        
+        setTimeout(() => {
+            if (hint.parentNode) {
+                hint.style.animation = 'slideOutRight 0.5s ease forwards';
+                setTimeout(() => hint.remove(), 500);
+            }
+        }, 3500);
+        
+        hint.addEventListener('click', () => {
+            document.querySelector(section.id).scrollIntoView({ behavior: 'smooth' });
+            hint.remove();
+        });
+    }
+
+    // 10. REVEAL ON SCROLL
+    function revealOnScroll() {
+        const elements = document.querySelectorAll('.service-card, .portfolio-item, .testimonial-card');
+        
+        elements.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight * 0.8) {
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            }
+        });
+    }
+
+    // 11. HIGHLIGHT BEST VALUE SERVICE
+    function highlightBestValue() {
+        const ecommerceService = document.querySelector('[data-category="ecommerce"]');
+        if (ecommerceService) {
+            const badge = document.createElement('div');
+            badge.className = 'best-value-badge';
+            badge.innerHTML = '💎 Best Value';
+            ecommerceService.style.position = 'relative';
+            ecommerceService.appendChild(badge);
+        }
+    }
+
+    // 12. HIGHLIGHT POPULAR SERVICES
+    function highlightPopularServices() {
+        const services = document.querySelectorAll('.service-card');
+        const popularServices = ['ecommerce-store', 'website-creation', 'logo-branding'];
+        
+        services.forEach(card => {
+            if (popularServices.some(id => card.querySelector(`[onclick*="${id}"]`))) {
+                card.style.border = '2px solid #0ea5e9';
+                card.style.boxShadow = '0 5px 25px rgba(14, 165, 233, 0.2)';
+                
+                // Add "Popular" badge
+                const badge = document.createElement('div');
+                badge.innerHTML = '🔥 Popular';
+                badge.style.cssText = `
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    background: #ef4444;
+                    color: white;
+                    padding: 4px 10px;
+                    border-radius: 20px;
+                    font-size: 0.7rem;
+                    font-weight: 700;
+                    z-index: 1;
+                `;
+                card.style.position = 'relative';
+                card.appendChild(badge);
+            }
+        });
+    }
+
+    // ============================================
+    // RED COUNTDOWN DISCOUNT BANNER FUNCTIONALITY
+    // ============================================
+
+    // Set countdown end time (24 hours from now)
+    let countdownEndTime = new Date();
+    countdownEndTime.setHours(countdownEndTime.getHours() + 24);
+    
+    function updateCountdown() {
+      const now = new Date();
+      const timeLeft = countdownEndTime - now;
+      
+      if (timeLeft <= 0) {
+        // Reset countdown for another 24 hours
+        countdownEndTime = new Date();
+        countdownEndTime.setHours(countdownEndTime.getHours() + 24);
+        return;
+      }
+      
+      const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+      
+      document.getElementById('countdownHours').textContent = hours.toString().padStart(2, '0');
+      document.getElementById('countdownMinutes').textContent = minutes.toString().padStart(2, '0');
+      document.getElementById('countdownSeconds').textContent = seconds.toString().padStart(2, '0');
+    }
+    
+    // Initialize countdown
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+    
+    // Claim discount function
+    function claimDiscount() {
+      const message = `Hello BLESSTech-X!%0A%0A🚨 I want to CLAIM the COUNTDOWN DISCOUNT before it expires!%0A%0ABusiness Name:%0AMy Name:%0APhone Number:%0AService I need:%0A%0APlease contact me ASAP to secure my discount!`;
+      window.open(`https://wa.me/260979603741?text=${message}`, '_blank');
+    }
+    
+    // Duplicate broadcast text for seamless scrolling - RESPONSIVE
+function setupBroadcastText() {
+  const broadcastText = document.getElementById('broadcastText');
+  const isMobile = window.innerWidth <= 768;
+  
+  // Use shorter text for mobile, longer for desktop
+  if (isMobile) {
+    // Mobile-optimized shorter text
+    const mobileText = `🎯 <span>30% OFF FIRST 5 Clients</span> • 📱 <span>WEBSITE</span> • 🚀 <span>LOGO DESIGN</span>`;
+    broadcastText.innerHTML = mobileText + ' • ' + mobileText;
+  } else {
+    // Desktop full text
+    const desktopText = `🎯 <span>FIRST 5 WEBSITES: 30% OFF</span> • 📱 <span>LOGO DESIGN</span> • 🚀 <span>E-COMMERCE SETUP IN 7 DAYS</span> • 💰 <span>FREE HOSTING</span> • ⭐ <span>150+ ZAMBIAN BUSINESSES TRUST US</span>`;
+    broadcastText.innerHTML = desktopText + ' • ' + desktopText;
+  }
+}
+
+// Update on window resize
+window.addEventListener('resize', setupBroadcastText);
+    
+    // Initialize broadcast
+    setupBroadcastText();
+
+    // ============================================
+    // ORIGINAL WEBSITE FUNCTIONALITY (Remains the same)
+    // ============================================
+
     // Service Data with E-commerce Integration
     const services = [
       {
@@ -3712,10 +5340,6 @@
 
     // Initialize when page loads
     document.addEventListener('DOMContentLoaded', function() {
-      // Debug: Check if elements exist
-      console.log('Menu button exists:', !!document.getElementById('mobileMenuBtn'));
-      console.log('Nav links exists:', !!document.querySelector('.nav-links'));
-      
       // Initialize services grid
       renderServicesGrid();
       
@@ -3728,7 +5352,7 @@
       // Initialize moving text
       initMovingText();
       
-      // Initialize mobile menu - FIXED
+      // Initialize mobile menu
       initMobileMenu();
       
       // Initialize form submission
@@ -3755,19 +5379,24 @@
       // Initialize tool form
       initToolForm();
       
-      // Initialize feedback button
-      initFeedbackButton();
-      
       // Initialize ROI calculator reset
       initROIReset();
       
       // Initialize E-commerce calculator reset
       initEcommerceReset();
       
-      // Force show mobile menu button on mobile
-      if (window.innerWidth <= 768) {
-        document.getElementById('mobileMenuBtn').style.display = 'block';
-      }
+      // Initialize interactive features
+      initInteractiveFeatures();
+      
+      // Initialize best value highlight
+      highlightBestValue();
+      
+      // Initialize popular services highlight
+      highlightPopularServices();
+      
+      // Initialize countdown banner
+      updateCountdown();
+      setupBroadcastText();
     });
 
     // Cleanup function
@@ -4535,16 +6164,22 @@
       });
     }
     
-    // Initialize banners - SIMPLIFIED (only founding banner)
-    function initBanners() {
-      const foundingBanner = document.getElementById('foundingBanner');
-      
-      // Show founding banner after 1 second
-      setTimeout(() => {
-        foundingBanner.style.display = 'flex';
-        document.body.classList.add('has-banner');
-      }, 1000);
-    }
+    // Initialize banners with 7-second auto-close
+function initBanners() {
+  const foundingBanner = document.getElementById('foundingBanner');
+  
+  // Show founding banner after 1 second
+  setTimeout(() => {
+    foundingBanner.style.display = 'flex';
+    document.body.classList.add('has-banner');
+    
+    // AUTO-CLOSE after 7 seconds (7000ms)
+    setTimeout(() => {
+      closeFoundingBanner();
+    }, 7000); // 7 seconds = 7000 milliseconds
+    
+  }, 1000);
+}
     
     // Close founding banner
     function closeFoundingBanner() {
@@ -4667,13 +6302,6 @@
         if (e.key === 'Escape' && document.getElementById('toolFormOverlay').style.display === 'block') {
           closeToolForm();
         }
-      });
-    }
-    
-    // Initialize feedback button
-    function initFeedbackButton() {
-      document.getElementById('feedbackBtn').addEventListener('click', function() {
-        window.open('https://github.com/BLESSTech-X/.com/issues/new?template=feedback.md&title=Website+Feedback', '_self');
       });
     }
   </script>
