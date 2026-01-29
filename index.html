@@ -290,48 +290,6 @@
     .has-banner header {
       top: 40px;
     }
-
-    /* URGENCY BANNER - IMPROVED CYCLING */
-    .urgency-banner {
-      background: linear-gradient(90deg, #ef4444, #f97316);
-      color: white;
-      padding: 12px 15px;
-      text-align: center;
-      position: relative;
-      font-size: 0.95rem;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      animation: fadeIn 3s ease-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .urgency-banner a {
-      color: white;
-      text-decoration: underline;
-      font-weight: 600;
-      margin-left: 10px;
-    }
-
-    .urgency-banner button {
-      background: rgba(255, 255, 255, 0.2);
-      border: none;
-      color: white;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 0.8rem;
-      position: absolute;
-      right: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-    }
     
     /* COMPACT SOCIAL MEDIA BAR */
     .social-media-bar {
@@ -1360,7 +1318,7 @@
       loading: lazy;
     }
     
-    /* CONTACT SECTION - CLICKABLE LINTS FIXED */
+    /* CONTACT SECTION - CLICKABLE LINKS FIXED */
     .contact-section {
       padding: 100px 0;
       background: #1e293b;
@@ -2290,13 +2248,6 @@
     <strong>🎯 Founding Client Offer:</strong> First 5 websites 30% OFF + free Cons!
     <a href="#contact" onclick="openWhatsAppWithOffer('Founding Client Offer - 30% OFF')">Claim Your Spot →</a>
     <button onclick="closeFoundingBanner()" aria-label="Close banner">✕</button>
-  </div>
-
-  <!-- URGENCY BANNER - CYCLING -->
-  <div class="urgency-banner" id="urgencyBanner">
-    <strong>⏰ Limited Time:</strong> E-commerce Special - 40% off online store packages!
-    <a href="#contact" onclick="openWhatsAppWithOffer('E-commerce Special - 40% OFF')">Get Deal →</a>
-    <button onclick="closeUrgencyBanner()" aria-label="Close banner">✕</button>
   </div>
 
   <!-- HEADER - FIXED -->
@@ -3724,7 +3675,6 @@
     ];
 
     // Global variables
-    let bannerInterval = null;
     let currentToolName = '';
     let currentToolMessage = '';
     let sslBadgeListeners = { mouseenter: null, mouseleave: null };
@@ -3814,9 +3764,6 @@
       // Initialize E-commerce calculator reset
       initEcommerceReset();
       
-      // Clean up on page unload
-      window.addEventListener('beforeunload', cleanup);
-      
       // Force show mobile menu button on mobile
       if (window.innerWidth <= 768) {
         document.getElementById('mobileMenuBtn').style.display = 'block';
@@ -3825,11 +3772,6 @@
 
     // Cleanup function
     function cleanup() {
-      if (bannerInterval) {
-        clearInterval(bannerInterval);
-        bannerInterval = null;
-      }
-      
       // Remove SSL badge event listeners
       const sslBadge = document.querySelector('.ssl-badge');
       if (sslBadge && sslBadgeListeners.mouseenter) {
@@ -4593,54 +4535,22 @@
       });
     }
     
-    // Initialize banners
+    // Initialize banners - SIMPLIFIED (only founding banner)
     function initBanners() {
       const foundingBanner = document.getElementById('foundingBanner');
-      const urgencyBanner = document.getElementById('urgencyBanner');
       
-      // Show founding banner immediately
+      // Show founding banner after 1 second
       setTimeout(() => {
         foundingBanner.style.display = 'flex';
         document.body.classList.add('has-banner');
       }, 1000);
-      
-      // Cycle urgency banners every 2 minutes
-      function cycleBanners() {
-        // Hide founding banner if showing
-        if (foundingBanner.style.display === 'flex') {
-          foundingBanner.style.display = 'none';
-          urgencyBanner.style.display = 'flex';
-        } else {
-          foundingBanner.style.display = 'flex';
-          urgencyBanner.style.display = 'none';
-        }
-      }
-      
-      // Start cycling after 30 seconds, then every 2 minutes
-      setTimeout(() => {
-        cycleBanners();
-        bannerInterval = setInterval(cycleBanners, 120000); // 2 minutes
-      }, 30000); // 30 seconds
     }
     
     // Close founding banner
     function closeFoundingBanner() {
       const banner = document.getElementById('foundingBanner');
       banner.style.display = 'none';
-      const urgencyBanner = document.getElementById('urgencyBanner');
-      if (urgencyBanner.style.display !== 'flex') {
-        document.body.classList.remove('has-banner');
-      }
-    }
-    
-    // Close urgency banner
-    function closeUrgencyBanner() {
-      const banner = document.getElementById('urgencyBanner');
-      banner.style.display = 'none';
-      const foundingBanner = document.getElementById('foundingBanner');
-      if (foundingBanner.style.display !== 'flex') {
-        document.body.classList.remove('has-banner');
-      }
+      document.body.classList.remove('has-banner');
     }
     
     // Initialize SSL badge
