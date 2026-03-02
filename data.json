@@ -1,0 +1,266 @@
+{
+  "site": {
+    "name": "BLESSTech-X",
+    "tagline": "We build digital systems that make your business grow",
+    "description": "Professional digital and e-commerce solutions for Zambian businesses — websites, online stores, branding, and business setup in Lusaka.",
+    "phone": "+260979603741",
+    "email": "singbless89@gmail.com",
+    "whatsapp": "260979603741",
+    "location": "Lusaka, Zambia",
+    "formspree_id": "YOUR_FORMSPREE_ID",
+    "logo": "https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg",
+    "og_image": "https://i.ibb.co/Q36vzP9z/Screenshot-20251229-131706.jpg",
+    "socials": {
+      "facebook": "https://www.facebook.com/profile.php?id=61581220933146",
+      "instagram": "https://www.instagram.com/blesstech2.0",
+      "tiktok": "https://www.tiktok.com/@blesstechx",
+      "twitter": "https://x.com/Barack3lessing",
+      "youtube": "https://youtube.com/@blesstech-ot7jm"
+    }
+  },
+  "announcement": {
+    "active": true,
+    "message": "🎯 Founding Client Offer — First 5 Websites: <strong>30% OFF</strong> + 3 Months Free Hosting",
+    "cta_text": "Claim Now →",
+    "cta_link": "#contact"
+  },
+  "stats": [
+    { "value": "150+", "label": "Businesses Transformed" },
+    { "value": "98%",  "label": "Client Satisfaction" },
+    { "value": "50+",  "label": "Online Stores Built" },
+    { "value": "24/7", "label": "Support Available" }
+  ],
+  "services": [
+    {
+      "id": "ecommerce-store",
+      "title": "Complete E-commerce Store",
+      "category": "ecommerce",
+      "badge": "🛒 E-commerce",
+      "description": "Full online store with Zambian payment gateways, inventory management, and delivery tracking — ready in 7–14 days.",
+      "price": "From ZMW 980",
+      "image": "https://i.ibb.co/bjFfhDQW/Screenshot-20260117-164954.jpg",
+      "features": ["Online Product Catalog","Airtel & MTN Money Integration","Order Management System","Inventory Tracking Dashboard","Customer Account Profiles","Delivery Integration","Sales Analytics"],
+      "gallery": ["https://i.ibb.co/rfLD2Y0H/Screenshot-20260117-165322.jpg","https://i.ibb.co/bjFfhDQW/Screenshot-20260117-164954.jpg","https://i.ibb.co/20j2b2nm/Screenshot-20260117-165135.jpg"]
+    },
+    {
+      "id": "website-creation",
+      "title": "Professional Website",
+      "category": "websites",
+      "badge": null,
+      "description": "Fast, mobile-friendly websites that convert visitors into paying clients. Includes hosting, domain setup, and 1 year free maintenance.",
+      "price": "From ZMW 650",
+      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
+      "features": ["Responsive Mobile & Desktop Design","Fast Loading Speed","Contact Forms & Booking","SEO Optimisation","Domain & Hosting Setup","1 Year Free Maintenance","E-commerce Ready Architecture"],
+      "gallery": ["https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop","https://images.unsplash.com/photo-1551650975-87deedd944c3?w=400&h=250&fit=crop"]
+    },
+    {
+      "id": "ecommerce-add",
+      "title": "Add E-commerce to Existing Site",
+      "category": "ecommerce",
+      "badge": "🛒 E-commerce",
+      "description": "Already have a website? We add shopping cart, mobile money payments, and inventory management without rebuilding from scratch.",
+      "price": "From ZMW 500",
+      "image": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
+      "features": ["Shopping Cart Integration","Airtel / MTN Money Payments","Product Management System","Order Tracking Dashboard","Customer Accounts","Inventory Management"],
+      "gallery": ["https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=250&fit=crop"]
+    },
+    {
+      "id": "logo-branding",
+      "title": "Logo & Brand Identity",
+      "category": "branding",
+      "badge": null,
+      "description": "Memorable branding that builds trust and sets you apart in the Zambian market.",
+      "price": "From ZMW 250",
+      "image": "https://i.ibb.co/fG4t9WMM/Copilot-20251230-144351.jpg",
+      "features": ["Professional Logo Design","Brand Colour Palette","Typography Selection","Brand Style Guide","Business Card Design","Social Media Profile Assets"],
+      "gallery": ["https://i.ibb.co/ycjtDNrv/Screenshot-20260117-120824.jpg","https://i.ibb.co/8LGJJCBQ/Screenshot-20260117-120600.jpg"]
+    },
+    {
+      "id": "graphic-design",
+      "title": "Graphic Design",
+      "category": "graphics",
+      "badge": null,
+      "description": "Posters, flyers, social media visuals, and packaging designed to attract attention and drive sales.",
+      "price": "From ZMW 150",
+      "image": "https://i.ibb.co/nq6yNG2N/Screenshot-20260117-142046.jpg",
+      "features": ["Social Media Graphics","Marketing Flyers & Posters","Product Packaging Design","Banner & Signage Design","Email Newsletter Templates","Digital Ad Creatives"],
+      "gallery": ["https://i.ibb.co/39R0yFM6/Screenshot-20260117-144350.jpg","https://i.ibb.co/whcncJtb/Screenshot-20260117-144025.jpg"]
+    },
+    {
+      "id": "business-setup",
+      "title": "Digital Business Setup",
+      "category": "business",
+      "badge": null,
+      "description": "Complete online presence from scratch — branding, website, Google listing, email, and social media profiles in one package.",
+      "price": "From ZMW 350",
+      "image": "https://i.ibb.co/ycWDHmtK/Screenshot-20260117-162440.jpg",
+      "features": ["Full Website Setup","Professional Branding Package","Social Media Profiles","Google Business Listing","Professional Email Setup","Basic SEO Implementation"],
+      "gallery": ["https://i.ibb.co/8DbNp9zr/Screenshot-20260117-155058.jpg","https://i.ibb.co/8DZkT4mr/Screenshot-20260117-162508.jpg"]
+    },
+    {
+      "id": "social-media",
+      "title": "Social Media Management",
+      "category": "marketing",
+      "badge": null,
+      "description": "Full strategy, content creation, and daily management across Facebook, Instagram, and TikTok for Zambian businesses.",
+      "price": "From ZMW 200/month",
+      "image": "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&h=400&fit=crop",
+      "features": ["Content Strategy & Planning","Daily Post Creation","Community Management","Performance Analytics","Advertising Campaign Setup","Monthly Report"],
+      "gallery": ["https://images.unsplash.com/photo-1611262588024-d12430b98920?w=400&h=250&fit=crop"]
+    },
+    {
+      "id": "seo",
+      "title": "SEO & Google Visibility",
+      "category": "marketing",
+      "badge": null,
+      "description": "Get found on Google when Zambian customers search for your services. Local and national SEO strategies included.",
+      "price": "From ZMW 150/month",
+      "image": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop",
+      "features": ["Keyword Research","On-Page Optimisation","Google Business Profile","Local SEO Strategy","Performance Tracking","Monthly Ranking Report"],
+      "gallery": ["https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=250&fit=crop"]
+    }
+  ],
+  "portfolio": [
+    {
+      "id": "p1",
+      "title": "joshronica Clothing — E-commerce",
+      "category": "ecommerce",
+      "description": "Transformed a Lusaka clothing shop into a nationwide online store. Sales up 300% in 2 months.",
+      "image": "https://i.ibb.co/Wp2p8D9T/Copilot-20260120-120222.png",
+      "before": "https://i.ibb.co/SDj3ny9n/Copilot-20260120-102517.png",
+      "after": "https://i.ibb.co/kVG11QLC/Copilot-20260120-102727.png",
+      "tags": ["E-commerce","Branding","Payments"],
+      "stats": { "growth": "300%", "time": "2 months", "reach": "Nationwide" },
+      "detail": "Integrated Airtel Money, full inventory management, and a branded storefront that now serves customers across all provinces.",
+      "live_url": "#"
+    },
+    {
+      "id": "p2",
+      "title": "Kitwe Restaurant — Website & Ordering",
+      "category": "websites",
+      "description": "Online ordering system that tripled bookings and enabled 24/7 order taking via MTN Money.",
+      "image": "https://i.ibb.co/cS5YggBV/Copilot-20260120-104626.png",
+      "before": "https://i.ibb.co/mVD9QwTh/Copilot-20260120-104138.png",
+      "after": "https://i.ibb.co/VcLVbvch/Copilot-20260120-104405.png",
+      "tags": ["Website","Booking","Payments"],
+      "stats": { "growth": "200%", "time": "3 months", "reach": "Kitwe Area" },
+      "detail": "Built a complete ordering platform including menu management, delivery zone mapping, and MTN Money integration.",
+      "live_url": "#"
+    },
+    {
+      "id": "p3",
+      "title": "Livingstone Beauty — Online Store",
+      "category": "ecommerce",
+      "description": "E-commerce store for beauty products with inventory management and delivery tracking.",
+      "image": "https://i.ibb.co/DfyMy8YQ/Copilot-20260120-110701.png",
+      "before": "https://i.ibb.co/SbPG37M/Copilot-20260120-110227.png",
+      "after": "https://i.ibb.co/99frsQ81/Copilot-20260120-110506.png",
+      "tags": ["E-commerce","Inventory","Branding"],
+      "stats": { "growth": "150%", "time": "1 month", "reach": "Livingstone" },
+      "detail": "Created a branded e-commerce platform including product photography guidance, mobile payments, and customer accounts.",
+      "live_url": "#"
+    },
+    {
+      "id": "p4",
+      "title": "Ndola Agricultural Supplier",
+      "category": "ecommerce",
+      "description": "Helped a farmer expand from local sales to supplying hotels and supermarkets nationwide.",
+      "image": "https://i.ibb.co/cXtk36T5/Copilot-20260120-121808.png",
+      "before": "https://i.ibb.co/XZmKhJkP/Copilot-20260120-111526.png",
+      "after": "https://i.ibb.co/Fk4nBj5N/Copilot-20260120-111749.png",
+      "tags": ["E-commerce","B2B","SEO"],
+      "stats": { "growth": "400%", "time": "4 months", "reach": "National" },
+      "detail": "Built a B2B wholesale portal with bulk order capabilities, Google Business optimisation, and supplier network integration.",
+      "live_url": "#"
+    },
+    {
+      "id": "p5",
+      "title": "Zambian Craft Store — International",
+      "category": "ecommerce",
+      "description": "Online store for traditional crafts with international payment gateway and worldwide shipping.",
+      "image": "https://i.ibb.co/5WZTpgKB/Copilot-20260120-122023.png",
+      "before": "https://i.ibb.co/Y7PqP4gg/Copilot-20260120-112636.png",
+      "after": "https://i.ibb.co/nsF4VB5P/Copilot-20260120-112841.png",
+      "tags": ["E-commerce","International","Visa/Mastercard"],
+      "stats": { "growth": "250%", "time": "3 months", "reach": "International" },
+      "detail": "Multi-currency store accepting Zambian mobile money and international cards, with shipping rate calculator and order tracking.",
+      "live_url": "#"
+    },
+    {
+      "id": "p6",
+      "title": "Brand Identity — Multiple Clients",
+      "category": "branding",
+      "description": "Logo and brand identity packages for Lusaka-based SMEs across retail, food, and services.",
+      "image": "https://i.ibb.co/8LGJJCBQ/Screenshot-20260117-120600.jpg",
+      "before": null,
+      "after": null,
+      "tags": ["Branding","Logo","Identity"],
+      "stats": { "growth": "New Brand", "time": "5 days", "reach": "Lusaka" },
+      "detail": "Delivered complete brand identity kits including logos, colour palettes, typography guides, and social media profile assets.",
+      "live_url": "#"
+    }
+  ],
+  "testimonials": [
+    {
+      "name": "Veronica B Mapalo",
+      "role": "joshronica's Clothing, Lusaka",
+      "avatar": "https://i.ibb.co/fVvR1mS9/Screenshot-20260117-172036.jpg",
+      "rating": 5,
+      "text": "BLESSTech-X turned my small clothing shop into an online store that serves customers across Zambia. Airtel Money integration boosted my sales by 300% in just 2 months."
+    },
+    {
+      "name": "David M.",
+      "role": "Restaurant Owner, Kitwe",
+      "avatar": "https://i.ibb.co/kg8LRzhT/Screenshot-20260117-173738.jpg",
+      "rating": 5,
+      "text": "The website and online ordering system tripled our bookings. We now take orders 24/7 with MTN Money payments. Our branding made us stand out in a competitive market."
+    },
+    {
+      "name": "Amina J.",
+      "role": "Beauty Products Store, Livingstone",
+      "avatar": "https://i.ibb.co/ccPwcZjw/Screenshot-20260117-174515.jpg",
+      "rating": 5,
+      "text": "My beauty products are now available nationwide! The inventory management and mobile payment setup brought in so many new clients. Highly recommend BLESSTech-X."
+    },
+    {
+      "name": "Peter B.",
+      "role": "Agricultural Supplier, Ndola",
+      "avatar": "https://i.ibb.co/JR2ZzMgZ/Screenshot-20260117-174739.jpg",
+      "rating": 5,
+      "text": "I never thought I needed an online store. BLESSTech-X showed me how digital presence expands your market. Now I supply hotels and supermarkets I could never reach before."
+    }
+  ],
+  "faqs": [
+    { "q": "How long does an e-commerce website take?", "a": "Typically 10–14 days for a complete online store — product catalog, payment gateway (Airtel/MTN Money), and inventory system included." },
+    { "q": "Can I add e-commerce to my existing website?", "a": "Yes. We integrate a shopping cart, mobile money payments, and order management into your current site without rebuilding it from scratch." },
+    { "q": "Which payment methods do you support for online stores?", "a": "Airtel Money, MTN Money, ZANACO, Stanbic, and international Visa/Mastercard. We help you choose the right combination for your customers." },
+    { "q": "Do I need technical knowledge to manage my site?", "a": "No. We provide full training and a simple dashboard. Most clients manage their own products and orders within 30 minutes of training." },
+    { "q": "What if I need changes after launch?", "a": "30 days of free revisions after launch. After that, affordable monthly maintenance plans or pay-per-change options are available." },
+    { "q": "What payment methods do you accept for your services?", "a": "Bank transfer (ZANACO, Stanbic), Airtel Money, MTN Money, Visa/Mastercard, and cash in Lusaka." }
+  ],
+  "process_steps": [
+    { "number": "01", "title": "Free Consultation", "desc": "30-min call to understand your goals, products, and budget." },
+    { "number": "02", "title": "Proposal & Planning", "desc": "You receive a clear roadmap with features, timeline, and fixed pricing." },
+    { "number": "03", "title": "Design Approval", "desc": "We create mockups and get your sign-off before building begins." },
+    { "number": "04", "title": "Build & Test", "desc": "Your solution is built, tested on mobile and desktop, and payments verified." },
+    { "number": "05", "title": "Launch & Train", "desc": "We go live, train you on your dashboard, and provide 30 days of free support." }
+  ],
+  "team": [
+    {
+      "name": "Barack Blessings",
+      "role": "Founder & Lead Digital Strategist",
+      "avatar": "https://i.ibb.co/zTjTVNWn/In-Shot-20260120-131125845.jpg",
+      "skills": ["E-commerce","Full-Stack Dev","Payment Gateways","SEO","Graphic Design"],
+      "bio": "5+ years transforming Zambian businesses digitally. Specialises in e-commerce, mobile payment integration, and results-driven online stores.",
+      "quote": "I bridge the gap between technology and Zambian business realities."
+    },
+    {
+      "name": "Sylvester Mwila",
+      "role": "Financial Manager & Business Analyst",
+      "avatar": "https://i.ibb.co/FkwSrb16/IMG-20260120-WA0008-2.jpg",
+      "skills": ["ZICA Certified","Financial Planning","Tax Compliance","ROI Analysis","Business Growth"],
+      "bio": "ZICA-certified accountant with expertise in financial planning, tax compliance, and sustainable growth strategies for Zambian SMEs.",
+      "quote": "I ensure your e-commerce investment translates to real financial growth."
+    }
+  ]
+}
