@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Meeting Agenda Builder | BLESSTech-X Free Tools</title>
+  <meta name="description" content="Build professional meeting agendas with time allocations. Free agenda builder with PDF download for Zambian organisations and businesses."/>
+  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../style.css"/>
+  <style>
+    .agenda-item-row{display:grid;grid-template-columns:40px 1fr 120px 80px 36px;gap:8px;margin-bottom:8px;align-items:center}
+    .agenda-item-row.hdr{font-size:.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+    .mini{padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.88rem;outline:none;transition:var(--transition);width:100%}
+    .mini:focus{border-color:var(--sky)}
+    .num-badge{width:36px;height:36px;border-radius:50%;background:var(--sky);color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;flex-shrink:0}
+    .del-btn{width:36px;height:36px;border-radius:var(--radius);background:#fee2e2;border:none;color:var(--red);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .del-btn:hover{background:#dc2626;color:white}
+    .add-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--sky-light);border:1.5px solid rgba(14,165,233,.3);border-radius:var(--radius);color:var(--sky-dark);font-size:.83rem;font-weight:700;cursor:pointer;transition:var(--transition);margin-top:4px}
+    .add-btn:hover{background:var(--sky);color:white}
+    /* AGENDA PREVIEW */
+    .ag-preview{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:40px;font-family:'Segoe UI',sans-serif;color:#1e293b}
+    .ag-header{text-align:center;margin-bottom:28px;padding-bottom:20px;border-bottom:3px solid #0ea5e9}
+    .ag-org{font-size:.85rem;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+    .ag-title{font-size:1.4rem;font-weight:800;color:#0f172a;margin-bottom:8px}
+    .ag-meta{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;font-size:.85rem;color:#64748b;margin-top:10px}
+    .ag-meta span{display:flex;align-items:center;gap:5px}
+    .ag-items{margin:24px 0}
+    .ag-item{display:grid;grid-template-columns:40px 1fr 100px 70px;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid #e2e8f0}
+    .ag-item:last-child{border-bottom:none}
+    .ag-item-num{width:32px;height:32px;border-radius:50%;background:#e0f2fe;color:#0284c7;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;flex-shrink:0}
+    .ag-item-desc{font-weight:600;font-size:.93rem;color:#1e293b}
+    .ag-item-presenter{font-size:.82rem;color:#64748b}
+    .ag-item-time{text-align:right;font-weight:700;font-size:.88rem;color:#0284c7}
+    .ag-footer{margin-top:28px;padding-top:16px;border-top:1px solid #e2e8f0;font-size:.8rem;color:#94a3b8;text-align:center}
+    .ag-total-time{background:#e0f2fe;border-radius:var(--radius);padding:12px 20px;display:flex;justify-content:space-between;align-items:center;margin-top:20px}
+    .copy-toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:var(--slate);color:white;padding:10px 24px;border-radius:50px;font-size:.88rem;font-weight:600;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none}
+    .copy-toast.show{opacity:1}
+  </style>
+</head>
+<body class="tool-page">
+  <header class="tools-header">
+    <div class="th-inner">
+      <a href="../../index.html" class="tools-logo">
+        <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/>
+        <span>BLESS<em>Tech-X</em></span>
+      </a>
+      <nav class="th-nav" id="thNav">
+        <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="../index.html"><i class="fas fa-tools"></i> All Tools</a>
+        <a href="../../index.html#services">Services</a>
+        <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      </nav>
+      <button class="th-mobile-toggle" id="thToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main class="tool-page-main">
+    <div class="th-container">
+      <div class="tool-breadcrumb">
+        <a href="../../index.html">Home</a><i class="fas fa-chevron-right"></i>
+        <a href="../index.html">Free Tools</a><i class="fas fa-chevron-right"></i>
+        <span>Meeting Agenda Builder</span>
+      </div>
+      <div class="tool-header">
+        <div class="tool-header-inner">
+          <div class="tool-header-icon" style="background:#ede9fe;color:#7c3aed">📋</div>
+          <div>
+            <h1>Meeting Agenda Builder</h1>
+            <p>Build a professional meeting agenda with time allocations per item. Download as PDF to distribute to attendees before the meeting.</p>
+            <div class="tool-header-meta">
+              <span class="tool-meta-badge"><i class="fas fa-check-circle"></i> Free</span>
+              <span class="tool-meta-badge"><i class="fas fa-file-pdf"></i> PDF Download</span>
+              <span class="tool-meta-badge"><i class="fas fa-clock"></i> Time Tracking</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:400px 1fr;gap:28px;align-items:start">
+        <!-- FORM -->
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <div class="tool-box">
+            <div class="tool-box-header"><h2><i class="fas fa-info-circle" style="color:var(--sky)"></i> Meeting Details</h2></div>
+            <div class="tool-box-body">
+              <div class="field"><label>Meeting Title</label><input type="text" id="agTitle" placeholder="Board Meeting / Project Kickoff"/></div>
+              <div class="field"><label>Organisation / Company</label><input type="text" id="agOrg" placeholder="BLESSTech-X Limited"/></div>
+              <div class="field-row">
+                <div class="field"><label>Date</label><input type="date" id="agDate"/></div>
+                <div class="field"><label>Start Time</label><input type="time" id="agTime" value="09:00"/></div>
+              </div>
+              <div class="field"><label>Venue</label><input type="text" id="agVenue" placeholder="Board Room, Lusaka"/></div>
+              <div class="field"><label>Chairperson</label><input type="text" id="agChair" placeholder="Barack Blessings"/></div>
+              <div class="field"><label>Apologies / Regrets (optional)</label><input type="text" id="agApologies" placeholder="Names of those unable to attend"/></div>
+            </div>
+          </div>
+
+          <div class="tool-box">
+            <div class="tool-box-header"><h2><i class="fas fa-list-ol" style="color:var(--sky)"></i> Agenda Items</h2></div>
+            <div class="tool-box-body">
+              <div class="agenda-item-row hdr">
+                <span>#</span><span>Item / Topic</span><span>Presenter</span><span>Minutes</span><span></span>
+              </div>
+              <div id="agendaItems">
+                <div class="agenda-item-row">
+                  <div class="num-badge">1</div>
+                  <input class="mini ag-item-inp" type="text" placeholder="Opening / Welcome"/>
+                  <input class="mini ag-presenter" type="text" placeholder="Chairperson"/>
+                  <input class="mini ag-mins" type="number" value="5" min="1" oninput="updateTotalTime()"/>
+                  <button class="del-btn" onclick="delAgItem(this)">×</button>
+                </div>
+                <div class="agenda-item-row">
+                  <div class="num-badge">2</div>
+                  <input class="mini ag-item-inp" type="text" placeholder="Review of Previous Minutes"/>
+                  <input class="mini ag-presenter" type="text" placeholder="Secretary"/>
+                  <input class="mini ag-mins" type="number" value="10" min="1" oninput="updateTotalTime()"/>
+                  <button class="del-btn" onclick="delAgItem(this)">×</button>
+                </div>
+              </div>
+              <button class="add-btn" onclick="addAgItem()"><i class="fas fa-plus"></i> Add Item</button>
+              <div style="background:var(--sky-light);border-radius:var(--radius);padding:12px 16px;margin-top:16px;display:flex;justify-content:space-between;align-items:center">
+                <span style="font-size:.88rem;font-weight:700;color:var(--sky-dark)">Total Meeting Time</span>
+                <span id="totalTimeDisplay" style="font-size:1.1rem;font-weight:800;color:var(--sky-dark)">15 mins</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="tool-box">
+            <div class="tool-box-header"><h2><i class="fas fa-sticky-note" style="color:var(--sky)"></i> Additional Notes</h2></div>
+            <div class="tool-box-body">
+              <div class="field"><label>Pre-reading / Preparation Required</label><textarea id="agPrep" placeholder="e.g. Please review the Q3 financial report before attending." style="min-height:60px"></textarea></div>
+              <div class="field"><label>Contact for RSVP</label><input type="text" id="agRsvp" placeholder="Email or phone for confirmations"/></div>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-full" style="padding:16px" onclick="generateAgenda()">
+            <i class="fas fa-magic"></i> Generate Agenda
+          </button>
+        </div>
+
+        <!-- PREVIEW -->
+        <div>
+          <div class="tool-box">
+            <div class="tool-box-header">
+              <h2><i class="fas fa-file-alt" style="color:var(--sky)"></i> Agenda Preview</h2>
+              <div style="display:flex;gap:8px">
+                <button class="btn btn-sm btn-secondary" id="copyAgBtn" onclick="copyAgenda()" style="display:none"><i class="fas fa-copy"></i> Copy</button>
+                <button class="btn btn-sm btn-primary" id="pdfAgBtn" onclick="printAgenda()" style="display:none"><i class="fas fa-file-pdf"></i> PDF</button>
+              </div>
+            </div>
+            <div class="tool-box-body" style="padding:0">
+              <div id="agendaPreview" class="ag-preview">
+                <div style="text-align:center;color:var(--muted);font-style:italic;padding:80px 20px">📋 Your agenda will appear here.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-service-cta" style="margin-top:36px">
+        <div><h4>Need a digital system for your organisation?</h4><p>BLESSTech-X builds school and business management systems with meeting management features.</p></div>
+        <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I need a management system." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Discuss Your System</a>
+      </div>
+      <div class="related-tools" style="margin-top:32px;background:var(--bg-alt);border-radius:var(--radius-lg);padding:28px">
+        <h3>You Might Also Need</h3>
+        <div class="related-grid">
+          <a href="../meeting-minutes/index.html" class="related-card"><span>🗒️</span> Meeting Minutes</a>
+          <a href="../email-writer/index.html" class="related-card"><span>📧</span> Email Writer</a>
+          <a href="../invoice/index.html" class="related-card"><span>🧾</span> Invoice Generator</a>
+          <a href="../contract-generator/index.html" class="related-card"><span>🤝</span> Contract Generator</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="copy-toast" id="copyToast">✅ Copied!</div>
+
+  <footer class="tools-footer">
+    <div class="th-container">
+      <div class="tf-inner">
+        <div class="tf-brand"><a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a><p>Free tools for every Zambian.</p></div>
+        <div class="tf-links"><h4>Free Tools</h4><a href="../index.html">All Tools</a><a href="../meeting-minutes/index.html">Meeting Minutes</a><a href="../invoice/index.html">Invoice Generator</a></div>
+        <div class="tf-links"><h4>BLESSTech-X</h4><a href="../../index.html">Main Website</a><a href="../../index.html#services">Services</a><a href="../../index.html#contact">Contact</a></div>
+        <div class="tf-contact"><h4>Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
+      </div>
+      <div class="tf-bottom"><p>&copy; 2026 BLESSTech-X · Free Agenda Builder · Built for Zambia 🇿🇲</p></div>
+    </div>
+  </footer>
+  <a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+document.getElementById('agDate').valueAsDate = new Date();
+
+function addAgItem(){
+  const list = document.getElementById('agendaItems');
+  const num = list.children.length+1;
+  const row = document.createElement('div');
+  row.className='agenda-item-row';
+  row.innerHTML=`<div class="num-badge">${num}</div><input class="mini ag-item-inp" type="text" placeholder="Agenda item"/><input class="mini ag-presenter" type="text" placeholder="Presenter"/><input class="mini ag-mins" type="number" value="10" min="1" oninput="updateTotalTime()"/><button class="del-btn" onclick="delAgItem(this)">×</button>`;
+  list.appendChild(row); updateTotalTime();
+}
+function delAgItem(btn){ btn.closest('.agenda-item-row').remove(); renumberAg(); updateTotalTime(); }
+function renumberAg(){
+  document.querySelectorAll('#agendaItems .agenda-item-row').forEach((r,i)=>{
+    const nb=r.querySelector('.num-badge'); if(nb) nb.textContent=i+1;
+  });
+}
+function updateTotalTime(){
+  const mins = Array.from(document.querySelectorAll('.ag-mins')).reduce((s,i)=>s+(parseInt(i.value)||0),0);
+  const h=Math.floor(mins/60), m=mins%60;
+  document.getElementById('totalTimeDisplay').textContent = h>0?`${h}h ${m}m`:`${m} mins`;
+}
+
+function fmtDate(v){ if(!v)return '—'; return new Date(v).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}); }
+function fmtTime(v){ if(!v)return ''; const[h,m]=v.split(':'); const H=parseInt(h); return `${H>12?H-12:H||12}:${m} ${H>=12?'PM':'AM'}`; }
+
+function calcEndTime(startTime, totalMins){
+  if(!startTime) return '';
+  const[h,m]=startTime.split(':');
+  const totalMin = parseInt(h)*60+parseInt(m)+totalMins;
+  const eh=Math.floor(totalMin/60)%24, em=totalMin%60;
+  const H=eh>12?eh-12:eh||12;
+  return `${H}:${em.toString().padStart(2,'0')} ${eh>=12?'PM':'AM'}`;
+}
+
+function generateAgenda(){
+  const title=document.getElementById('agTitle').value||'Meeting';
+  const org=document.getElementById('agOrg').value||'';
+  const date=fmtDate(document.getElementById('agDate').value);
+  const time=fmtTime(document.getElementById('agTime').value);
+  const venue=document.getElementById('agVenue').value||'—';
+  const chair=document.getElementById('agChair').value||'—';
+  const apologies=document.getElementById('agApologies').value||'';
+  const prep=document.getElementById('agPrep').value||'';
+  const rsvp=document.getElementById('agRsvp').value||'';
+  const rows=document.querySelectorAll('#agendaItems .agenda-item-row');
+  const items=Array.from(rows).map(r=>({
+    item:r.querySelector('.ag-item-inp')?.value||'',
+    presenter:r.querySelector('.ag-presenter')?.value||'',
+    mins:parseInt(r.querySelector('.ag-mins')?.value)||0
+  }));
+  const totalMins=items.reduce((s,i)=>s+i.mins,0);
+  const h=Math.floor(totalMins/60),m=totalMins%60;
+  const totalStr=h>0?`${h}h ${m}m`:`${m} mins`;
+  const endTime=calcEndTime(document.getElementById('agTime').value,totalMins);
+  let currentMin=0;
+  const startH=parseInt((document.getElementById('agTime').value||'09:00').split(':')[0]);
+  const startM=parseInt((document.getElementById('agTime').value||'09:00').split(':')[1]);
+
+  function timeFor(offset){
+    const total=startH*60+startM+offset;
+    const eh=Math.floor(total/60)%24,em=total%60;
+    const H=eh>12?eh-12:eh||12;
+    return `${H}:${em.toString().padStart(2,'0')} ${eh>=12?'PM':'AM'}`;
+  }
+
+  document.getElementById('agendaPreview').innerHTML=`
+    <div class="ag-header">
+      ${org?`<div class="ag-org">${org}</div>`:''}
+      <div class="ag-title">${title}</div>
+      <div style="font-weight:700;font-size:.9rem;color:#64748b">MEETING AGENDA</div>
+      <div class="ag-meta">
+        <span><i class="fas fa-calendar"></i> ${date}</span>
+        <span><i class="fas fa-clock"></i> ${time}${endTime?' – '+endTime:''}</span>
+        <span><i class="fas fa-map-marker-alt"></i> ${venue}</span>
+        ${chair!=='—'?`<span><i class="fas fa-user-tie"></i> Chair: ${chair}</span>`:''}
+      </div>
+    </div>
+    <div class="ag-items">
+      <div style="display:grid;grid-template-columns:40px 1fr 100px 70px;gap:12px;padding:8px 0;border-bottom:2px solid var(--sky);margin-bottom:8px">
+        <span style="font-size:.7rem;font-weight:700;color:var(--muted);text-transform:uppercase">#</span>
+        <span style="font-size:.7rem;font-weight:700;color:var(--muted);text-transform:uppercase">Item</span>
+        <span style="font-size:.7rem;font-weight:700;color:var(--muted);text-transform:uppercase">Presenter</span>
+        <span style="font-size:.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;text-align:right">Time</span>
+      </div>
+      ${items.map((item,i)=>{
+        const t=timeFor(currentMin); currentMin+=item.mins;
+        return `<div class="ag-item">
+          <div class="ag-item-num">${i+1}</div>
+          <div><div class="ag-item-desc">${item.item||'—'}</div><div style="font-size:.78rem;color:#94a3b8;margin-top:2px">${t}</div></div>
+          <div class="ag-item-presenter">${item.presenter||'—'}</div>
+          <div class="ag-item-time">${item.mins} min</div>
+        </div>`;
+      }).join('')}
+    </div>
+    <div class="ag-total-time">
+      <span style="font-size:.88rem;font-weight:700;color:var(--sky-dark)"><i class="fas fa-clock"></i> Total Meeting Duration</span>
+      <span style="font-size:1rem;font-weight:800;color:var(--sky-dark)">${totalStr}</span>
+    </div>
+    ${apologies?`<div style="margin-top:16px;font-size:.85rem;color:#64748b"><strong>Apologies:</strong> ${apologies}</div>`:''}
+    ${prep?`<div style="margin-top:12px;background:#fef3c7;border-left:4px solid #f59e0b;padding:10px 14px;border-radius:0 8px 8px 0;font-size:.85rem"><strong>Pre-reading required:</strong> ${prep}</div>`:''}
+    ${rsvp?`<div style="margin-top:12px;font-size:.83rem;color:#64748b"><i class="fas fa-reply"></i> <strong>RSVP:</strong> ${rsvp}</div>`:''}
+    <div class="ag-footer">Generated by BLESSTech-X Free Tools · blesstechx.com · +260 979 603 741</div>
+  `;
+  document.getElementById('copyAgBtn').style.display='flex';
+  document.getElementById('pdfAgBtn').style.display='flex';
+}
+
+function copyAgenda(){
+  navigator.clipboard.writeText(document.getElementById('agendaPreview').innerText).then(()=>{
+    const t=document.getElementById('copyToast'); t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500);
+  });
+}
+function printAgenda(){
+  const content=document.getElementById('agendaPreview').innerHTML;
+  const w=window.open('','_blank');
+  w.document.write(`<html><head><title>Meeting Agenda — BLESSTech-X</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Segoe UI',Arial,sans-serif;padding:48px;max-width:760px;margin:0 auto;color:#1e293b}
+    .ag-header{text-align:center;margin-bottom:24px;padding-bottom:16px;border-bottom:3px solid #0ea5e9}
+    .ag-org{font-size:.78rem;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+    .ag-title{font-size:1.3rem;font-weight:800;color:#0f172a;margin-bottom:6px}
+    .ag-meta{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;font-size:.82rem;color:#64748b;margin-top:8px}
+    .ag-items{margin:20px 0}
+    .ag-item{display:grid;grid-template-columns:36px 1fr 90px 60px;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #e2e8f0}
+    .ag-item-num{width:28px;height:28px;border-radius:50%;background:#e0f2fe;color:#0284c7;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.78rem}
+    .ag-item-desc{font-weight:600;font-size:.88rem}
+    .ag-item-presenter{font-size:.78rem;color:#64748b}
+    .ag-item-time{text-align:right;font-weight:700;font-size:.82rem;color:#0284c7}
+    .ag-total-time{background:#e0f2fe;border-radius:8px;padding:10px 16px;display:flex;justify-content:space-between;margin-top:16px;font-size:.88rem;font-weight:700;color:#0284c7}
+    .ag-footer{margin-top:24px;padding-top:12px;border-top:1px solid #e2e8f0;font-size:.72rem;color:#94a3b8;text-align:center}
+    @media print{body{padding:24px}}
+  </style></head><body>${content}</body></html>`);
+  w.document.close(); setTimeout(()=>w.print(),400);
+}
+document.getElementById('thToggle').addEventListener('click',()=>{
+  document.getElementById('thNav').classList.toggle('th-nav-open');
+  document.getElementById('thToggle').classList.toggle('th-toggle-open');
+});
+</script>
+</body>
+</html>
