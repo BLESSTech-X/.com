@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Letter Generator | BLESSTech-X Free Tools</title>
+  <meta name="description" content="Generate formal Zambian letters — resignation, reference, demand, tenancy, permission and more. Free letter generator with PDF download."/>
+  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../style.css"/>
+  <style>
+    .letter-type-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:24px}
+    .lt-btn{padding:14px;border:1.5px solid var(--border);border-radius:var(--radius);background:white;cursor:pointer;font-size:.88rem;font-weight:600;color:var(--slate-l);transition:var(--transition);text-align:left;display:flex;align-items:center;gap:10px}
+    .lt-btn:hover{border-color:var(--sky);color:var(--sky);background:var(--sky-light)}
+    .lt-btn.active{border-color:var(--sky);background:var(--sky);color:white}
+    .lt-icon{font-size:1.2rem;flex-shrink:0}
+    .letter-preview{background:white;border:1.5px solid var(--border);border-radius:var(--radius);padding:36px;min-height:420px;font-family:'Times New Roman',serif;font-size:.95rem;line-height:1.9;color:#1a1a1a;white-space:pre-wrap;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+    .letter-preview .lp-empty{font-family:var(--font);font-style:italic;color:var(--muted);text-align:center;padding-top:80px;font-size:.93rem}
+    .copy-toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:var(--slate);color:white;padding:10px 24px;border-radius:50px;font-size:.88rem;font-weight:600;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none}
+    .copy-toast.show{opacity:1}
+    .dynamic-fields{display:flex;flex-direction:column;gap:0;transition:all .3s}
+  </style>
+</head>
+<body class="tool-page">
+
+  <header class="tools-header">
+    <div class="th-inner">
+      <a href="../../index.html" class="tools-logo">
+        <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/>
+        <span>BLESS<em>Tech-X</em></span>
+      </a>
+      <nav class="th-nav" id="thNav">
+        <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="../index.html"><i class="fas fa-tools"></i> All Tools</a>
+        <a href="../../index.html#services">Services</a>
+        <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      </nav>
+      <button class="th-mobile-toggle" id="thToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main class="tool-page-main">
+    <div class="th-container">
+
+      <div class="tool-breadcrumb">
+        <a href="../../index.html">Home</a>
+        <i class="fas fa-chevron-right"></i>
+        <a href="../index.html">Free Tools</a>
+        <i class="fas fa-chevron-right"></i>
+        <span>Letter Generator</span>
+      </div>
+
+      <div class="tool-header">
+        <div class="tool-header-inner">
+          <div class="tool-header-icon" style="background:#e0f2fe;color:#0284c7">📜</div>
+          <div>
+            <h1>Letter Generator</h1>
+            <p>Generate formal, professional letters for any Zambian context. Select the letter type, fill in your details, download as PDF.</p>
+            <div class="tool-header-meta">
+              <span class="tool-meta-badge"><i class="fas fa-check-circle"></i> Free</span>
+              <span class="tool-meta-badge"><i class="fas fa-file-pdf"></i> PDF Download</span>
+              <span class="tool-meta-badge"><i class="fas fa-users"></i> Workers · Students · Organisations</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:400px 1fr;gap:28px;align-items:start">
+
+        <!-- LEFT: CONTROLS -->
+        <div>
+          <div class="tool-box">
+            <div class="tool-box-header"><h2><i class="fas fa-file-alt" style="color:var(--sky)"></i> Letter Settings</h2></div>
+            <div class="tool-box-body">
+
+              <p style="font-size:.82rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">Select Letter Type</p>
+              <div class="letter-type-grid">
+                <button class="lt-btn active" data-lt="resignation" onclick="setLT(this)"><span class="lt-icon">🚪</span> Resignation</button>
+                <button class="lt-btn" data-lt="reference" onclick="setLT(this)"><span class="lt-icon">⭐</span> Reference</button>
+                <button class="lt-btn" data-lt="recommendation" onclick="setLT(this)"><span class="lt-icon">👍</span> Recommendation</button>
+                <button class="lt-btn" data-lt="demand" onclick="setLT(this)"><span class="lt-icon">⚖️</span> Demand</button>
+                <button class="lt-btn" data-lt="tenancy" onclick="setLT(this)"><span class="lt-icon">🏠</span> Tenancy</button>
+                <button class="lt-btn" data-lt="permission" onclick="setLT(this)"><span class="lt-icon">✅</span> Permission</button>
+                <button class="lt-btn" data-lt="introduction" onclick="setLT(this)"><span class="lt-icon">👋</span> Introduction</button>
+                <button class="lt-btn" data-lt="complaint" onclick="setLT(this)"><span class="lt-icon">⚠️</span> Complaint</button>
+                <button class="lt-btn" data-lt="sickleave" onclick="setLT(this)"><span class="lt-icon">🏥</span> Sick Leave</button>
+                <button class="lt-btn" data-lt="employment" onclick="setLT(this)"><span class="lt-icon">💼</span> Employment</button>
+              </div>
+
+              <hr class="tool-divider"/>
+
+              <div class="dynamic-fields" id="dynamicFields">
+                <div class="field"><label>Your Full Name</label><input type="text" id="f_yourName" placeholder="Barack Blessings"/></div>
+                <div class="field"><label>Your Address</label><input type="text" id="f_yourAddress" placeholder="Plot 123, Lusaka"/></div>
+                <div class="field"><label>Date</label><input type="date" id="f_date"/></div>
+                <div class="field"><label>Recipient Name / Title</label><input type="text" id="f_recipientName" placeholder="The Manager / Mr. Phiri"/></div>
+                <div class="field"><label>Recipient Organisation</label><input type="text" id="f_recipientOrg" placeholder="Zambia National Bank"/></div>
+                <div class="field"><label>Your Position / Role</label><input type="text" id="f_position" placeholder="Software Developer"/></div>
+                <div class="field"><label>Key Details (dates, amounts, specifics)</label><textarea id="f_details" placeholder="Add any specific details relevant to this letter…" style="min-height:70px"></textarea></div>
+              </div>
+
+              <button class="btn btn-primary btn-full" style="margin-top:8px" onclick="generateLetter()">
+                <i class="fas fa-magic"></i> Generate Letter
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: PREVIEW -->
+        <div>
+          <div class="tool-box">
+            <div class="tool-box-header">
+              <h2><i class="fas fa-file-alt" style="color:var(--sky)"></i> Letter Preview</h2>
+              <div style="display:flex;gap:8px">
+                <button class="btn btn-sm btn-secondary" id="copyLetterBtn" onclick="copyLetter()" style="display:none"><i class="fas fa-copy"></i> Copy</button>
+                <button class="btn btn-sm btn-primary" id="pdfLetterBtn" onclick="printLetter()" style="display:none"><i class="fas fa-file-pdf"></i> Download PDF</button>
+              </div>
+            </div>
+            <div class="tool-box-body" style="padding:0">
+              <div id="letterPreview" class="letter-preview">
+                <div class="lp-empty">📜 Your letter will appear here.<br/>Select a type and fill in your details.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-service-cta" style="margin-top:36px">
+        <div>
+          <h4>Need a professional website for your business?</h4>
+          <p>BLESSTech-X builds complete digital solutions for Zambian businesses from ZMW 650.</p>
+        </div>
+        <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I want to discuss a website." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Get a Quote</a>
+      </div>
+
+      <div class="related-tools" style="margin-top:32px;background:var(--bg-alt);border-radius:var(--radius-lg);padding:28px">
+        <h3>You Might Also Need</h3>
+        <div class="related-grid">
+          <a href="../email-writer/index.html" class="related-card"><span>📧</span> Email Writer</a>
+          <a href="../cv-builder/index.html" class="related-card"><span>📑</span> CV Builder</a>
+          <a href="../contract-generator/index.html" class="related-card"><span>🤝</span> Contract Generator</a>
+          <a href="../meeting-minutes/index.html" class="related-card"><span>🗒️</span> Meeting Minutes</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="copy-toast" id="copyToast">✅ Copied to clipboard!</div>
+
+  <footer class="tools-footer">
+    <div class="th-container">
+      <div class="tf-inner">
+        <div class="tf-brand">
+          <a href="../../index.html" class="tools-logo">
+            <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/>
+            <span>BLESS<em>Tech-X</em></span>
+          </a>
+          <p>Free tools for every Zambian. Built in Lusaka.</p>
+        </div>
+        <div class="tf-links">
+          <h4>Free Tools</h4>
+          <a href="../index.html">All Tools</a>
+          <a href="../email-writer/index.html">Email Writer</a>
+          <a href="../cv-builder/index.html">CV Builder</a>
+          <a href="../invoice/index.html">Invoice Generator</a>
+        </div>
+        <div class="tf-links">
+          <h4>BLESSTech-X</h4>
+          <a href="../../index.html">Main Website</a>
+          <a href="../../index.html#services">Services</a>
+          <a href="../../index.html#contact">Contact</a>
+        </div>
+        <div class="tf-contact">
+          <h4>Contact</h4>
+          <a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a>
+          <a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        </div>
+      </div>
+      <div class="tf-bottom"><p>&copy; 2026 BLESSTech-X · Free Letter Generator · Built for Zambia 🇿🇲</p></div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+let currentLT = 'resignation';
+function setLT(btn){
+  document.querySelectorAll('.lt-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  currentLT = btn.dataset.lt;
+}
+
+// Set today's date
+document.getElementById('f_date').valueAsDate = new Date();
+
+const LETTERS = {
+  resignation:(d)=>`${d.yourAddress}\n${d.date}\n\n${d.recipientName}\n${d.recipientOrg}\n\nDear ${d.recipientName},\n\nRE: LETTER OF RESIGNATION\n\nI am writing to formally notify you of my resignation from the position of ${d.position||'[Position]'}, effective one calendar month from the date of this letter.\n\n${d.details||'This has been a difficult decision and I am grateful for the opportunities and experience gained during my employment with your organisation.'}\n\nI am committed to ensuring a smooth transition and will do everything in my power to complete outstanding work and assist in the handover process during my notice period.\n\nThank you for the support and guidance provided throughout my tenure. I wish the organisation continued success.\n\nYours sincerely,\n\n\n_____________________\n${d.yourName}\n${d.position||'[Position]'}`,
+
+  reference:(d)=>`${d.yourAddress}\n${d.date}\n\nTO WHOM IT MAY CONCERN\n\nRE: REFERENCE LETTER FOR ${(d.details||'[Employee Name]').toUpperCase()}\n\nI am writing this reference letter in support of ${d.details||'[Employee Name]'}, who was employed at ${d.recipientOrg||'[Organisation]'} in the capacity of ${d.position||'[Position]'}.\n\nDuring their tenure, they demonstrated exceptional professionalism, dedication, and competence. They consistently met and exceeded expectations and was regarded as a valuable member of the team.\n\nI have no hesitation in recommending them for any position that requires skill, integrity, and commitment. They would be an asset to any organisation.\n\nFor any further enquiries, please do not hesitate to contact me.\n\nYours faithfully,\n\n\n_____________________\n${d.yourName}\n${d.position||'[Title]'}`,
+
+  recommendation:(d)=>`${d.yourAddress}\n${d.date}\n\n${d.recipientName}\n${d.recipientOrg}\n\nDear ${d.recipientName},\n\nRE: LETTER OF RECOMMENDATION — ${(d.details||'[Name]').toUpperCase()}\n\nIt is my pleasure to recommend ${d.details||'[Name]'} for ${d.position||'the position/programme'}.\n\nI have known ${d.details||'them'} in a professional capacity and can attest to their exceptional abilities, work ethic, and character. They possess the skills, maturity, and dedication required to excel in this opportunity.\n\nI am confident that they will make a significant positive contribution. I endorse their application without reservation.\n\nPlease feel free to contact me should you require any further information.\n\nYours sincerely,\n\n\n_____________________\n${d.yourName}`,
+
+  demand:(d)=>`${d.yourAddress}\n${d.date}\n\n${d.recipientName}\n${d.recipientOrg}\n\nDear ${d.recipientName},\n\nRE: FORMAL DEMAND — ${d.details||'[SUBJECT OF DEMAND]'}\n\nI write to formally demand that you take immediate action regarding the above matter.\n\n${d.details||'Despite previous attempts to resolve this matter amicably, you have failed to respond or take appropriate action. This letter serves as formal notice.'}\n\nYou are hereby required to comply with this demand within fourteen (14) days of receipt of this letter. Failure to do so will leave me with no option but to pursue all available legal remedies without further notice to you.\n\nI trust this matter will be treated with the urgency it deserves.\n\nYours faithfully,\n\n\n_____________________\n${d.yourName}`,
+
+  tenancy:(d)=>`${d.yourAddress}\n${d.date}\n\n${d.recipientName}\n${d.recipientOrg||'[Property Address]'}\n\nDear ${d.recipientName},\n\nRE: TENANCY AGREEMENT LETTER — ${d.position||'[Property Address]'}\n\nThis letter confirms the tenancy agreement between ${d.yourName} (Tenant) and ${d.recipientName} (Landlord) for the property located at ${d.position||'[Property Address]'}.\n\n${d.details||'The tenancy commences on [start date] at a monthly rental of ZMW [amount], payable on the [date] of each month. A security deposit of ZMW [amount] has been paid and is refundable subject to the property being returned in satisfactory condition.'}\n\nBoth parties agree to uphold their respective responsibilities as outlined in this agreement and in accordance with the Zambian Lands and Deeds Registry Act.\n\nYours sincerely,\n\n\n_____________________\n${d.yourName}\n(Tenant)`,
+
+  permission:(d)=>`${d.yourAddress}\n${d.date}\n\n${d.recipientName}\n${d.recipientOrg}\n\nDear ${d.recipientName},\n\nRE: REQUEST FOR PERMISSION — ${d.details||'[PURPOSE]'}\n\nI am writing to respectfully request permission for ${d.details||'[specific purpose/activity]'}.\n\nThis request is made in good faith and I assure you that all necessary precautions and responsibilities will be observed. ${d.position?'Details: '+d.position:''}\n\nI kindly request your approval at your earliest convenience. Should you require any further information or clarification, please do not hesitate to contact me.\n\nYours sincerely,\n\n\n_____________________\n${d.yourName}`,
+
+  introduction:(d)=>`${d.yourAddress}\n${d.date}\n\n${d.recipientName}\n${d.recipientOrg}\n\nDear ${d.recipientName},\n\nRE: INTRODUCTION — ${d.yourName||'[NAME/BUSINESS]'}\n\nI write to formally introduce myself and my organisation to you.\n\nMy name is ${d.yourName} and I represent ${d.position||'[Organisation/Business]'}. We specialise in ${d.details||'[products/services]'} and are committed to delivering excellence to our clients.\n\nWe believe there is a valuable opportunity to work together and would welcome the chance to present our services at your earliest convenience. I am confident that a mutually beneficial partnership can be established.\n\nI look forward to your positive response.\n\nYours sincerely,\n\n\n_____________________\n${d.yourName}\n${d.position||''}`,
+
+  complaint:(d)=>`${d.yourAddress}\n${d.date}\n\n${d.recipientName}\n${d.recipientOrg}\n\nDear ${d.recipientName},\n\nRE: FORMAL LETTER OF COMPLAINT\n\nI am writing to formally register my dissatisfaction regarding ${d.details||'[describe the issue clearly]'}.\n\nDespite my reasonable expectations, the matter has not been handled to an acceptable standard. The situation has caused significant inconvenience and cannot be allowed to continue unaddressed.\n\nI hereby request that you investigate this matter urgently and provide a written response within ten (10) business days, outlining the corrective action that will be taken.\n\nIf this matter is not resolved satisfactorily, I reserve the right to escalate my complaint to the relevant regulatory authority.\n\nYours faithfully,\n\n\n_____________________\n${d.yourName}`,
+
+  sickleave:(d)=>`${d.yourAddress}\n${d.date}\n\n${d.recipientName}\n${d.recipientOrg}\n\nDear ${d.recipientName},\n\nRE: APPLICATION FOR SICK LEAVE — ${d.yourName}\n\nI am writing to formally notify you of my inability to report to work due to ill health${d.details?'. '+d.details:''}.\n\nI have consulted a medical professional and have been advised to rest for ${d.position||'[number of days]'}. I attach a medical certificate in support of this application.\n\nI will ensure that any urgent matters are communicated to a colleague during my absence and I will resume duties as soon as I am certified fit to do so.\n\nI trust you will give this matter your favourable consideration.\n\nYours sincerely,\n\n\n_____________________\n${d.yourName}`,
+
+  employment:(d)=>`${d.yourAddress||'[Company Address]'}\n${d.date}\n\n${d.recipientName}\n${d.recipientOrg||'[Employee Address]'}\n\nDear ${d.recipientName},\n\nRE: LETTER OF EMPLOYMENT\n\nOn behalf of ${d.yourName||'[Company Name]'}, I am pleased to confirm that you have been appointed to the position of ${d.position||'[Position Title]'} with effect from ${d.details||'[start date]'}.\n\nYour terms and conditions of employment, including remuneration, working hours, and leave entitlement, are as detailed in the contract of employment enclosed with this letter.\n\nWe welcome you to the team and look forward to a productive and rewarding working relationship.\n\nYours sincerely,\n\n\n_____________________\n${d.yourName}\n[Title] — Human Resources`
+};
+
+function generateLetter(){
+  const d = {
+    yourName: document.getElementById('f_yourName').value || '[Your Name]',
+    yourAddress: document.getElementById('f_yourAddress').value || '[Your Address], Zambia',
+    date: formatDate(document.getElementById('f_date').value),
+    recipientName: document.getElementById('f_recipientName').value || '[Recipient]',
+    recipientOrg: document.getElementById('f_recipientOrg').value || '[Organisation]',
+    position: document.getElementById('f_position').value || '',
+    details: document.getElementById('f_details').value || ''
+  };
+  const fn = LETTERS[currentLT];
+  if(!fn) return;
+  const text = fn(d);
+  const preview = document.getElementById('letterPreview');
+  preview.style.fontFamily = "'Times New Roman', serif";
+  preview.textContent = text;
+  document.getElementById('copyLetterBtn').style.display = 'flex';
+  document.getElementById('pdfLetterBtn').style.display = 'flex';
+}
+
+function formatDate(v){
+  if(!v) return new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+  const d = new Date(v);
+  return d.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+}
+
+function copyLetter(){
+  const text = document.getElementById('letterPreview').textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    const t = document.getElementById('copyToast');
+    t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),2500);
+  });
+}
+
+function printLetter(){
+  const text = document.getElementById('letterPreview').textContent;
+  const w = window.open('','_blank');
+  w.document.write(`<html><head><title>Letter — BLESSTech-X</title>
+  <style>
+    body{font-family:'Times New Roman',serif;padding:72px;max-width:760px;margin:0 auto;color:#1a1a1a;font-size:14pt;line-height:2}
+    .footer{margin-top:60px;padding-top:16px;border-top:1px solid #ccc;font-size:9pt;color:#999;font-family:Arial,sans-serif}
+  </style></head><body>
+  <pre style="white-space:pre-wrap;font-family:'Times New Roman',serif;font-size:13pt;line-height:2">${text.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</pre>
+  <div class="footer">Generated by BLESSTech-X Free Letter Generator · blesstechx.com · +260 979 603 741</div>
+  </body></html>`);
+  w.document.close();
+  setTimeout(()=>w.print(),400);
+}
+
+document.getElementById('thToggle').addEventListener('click',()=>{
+  document.getElementById('thNav').classList.toggle('th-nav-open');
+  document.getElementById('thToggle').classList.toggle('th-toggle-open');
+});
+</script>
+</body>
+</html>
