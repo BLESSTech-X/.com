@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tip & Bill Splitter | BLESSTech-X Free Tools</title>
+  <meta name="description" content="Split any bill fairly between any number of people. Add a tip and see exactly what each person owes. Free bill splitter for Zambia."/>
+  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../style.css"/>
+  <style>
+    .big-result{background:linear-gradient(135deg,var(--sky),var(--sky-dark));border-radius:var(--radius-lg);padding:32px;text-align:center;color:white;margin-bottom:24px}
+    .big-result .br-label{font-size:.88rem;font-weight:700;opacity:.8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+    .big-result .br-amount{font-size:3.5rem;font-weight:900;line-height:1;margin-bottom:4px}
+    .big-result .br-sub{font-size:.9rem;opacity:.75}
+    .person-list{display:flex;flex-direction:column;gap:8px}
+    .person-row{display:grid;grid-template-columns:1fr auto auto 36px;gap:10px;align-items:center}
+    .person-row.hdr{font-size:.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;padding:0 4px}
+    .mini{padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.9rem;outline:none;transition:var(--transition);width:100%}
+    .mini:focus{border-color:var(--sky)}
+    .del-btn{width:36px;height:36px;border-radius:var(--radius);background:#fee2e2;border:none;color:var(--red);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--transition)}
+    .del-btn:hover{background:#dc2626;color:white}
+    .add-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--sky-light);border:1.5px solid rgba(14,165,233,.3);border-radius:var(--radius);color:var(--sky-dark);font-size:.83rem;font-weight:700;cursor:pointer;transition:var(--transition);margin-top:4px}
+    .add-btn:hover{background:var(--sky);color:white}
+    .tip-btns{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+    .tip-btn{padding:8px 16px;border:1.5px solid var(--border);border-radius:50px;background:white;font-size:.85rem;font-weight:700;color:var(--muted);cursor:pointer;transition:var(--transition)}
+    .tip-btn:hover{border-color:var(--sky);color:var(--sky)}
+    .tip-btn.active{border-color:var(--sky);background:var(--sky);color:white}
+    .summary-table{width:100%;border-collapse:collapse}
+    .summary-table th{background:var(--bg-alt);padding:10px 14px;text-align:left;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);border-bottom:2px solid var(--border)}
+    .summary-table td{padding:10px 14px;border-bottom:1px solid var(--border);font-size:.9rem}
+    .summary-table tr:last-child td{border-bottom:none}
+    .summary-table .amount-col{font-weight:800;color:var(--sky);text-align:right}
+    .item-row{display:grid;grid-template-columns:1fr 120px 36px;gap:8px;margin-bottom:8px;align-items:center}
+    .copy-toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:var(--slate);color:white;padding:10px 24px;border-radius:50px;font-size:.88rem;font-weight:600;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none}
+    .copy-toast.show{opacity:1}
+  </style>
+</head>
+<body class="tool-page">
+  <header class="tools-header">
+    <div class="th-inner">
+      <a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a>
+      <nav class="th-nav" id="thNav">
+        <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="../index.html"><i class="fas fa-tools"></i> All Tools</a>
+        <a href="../../index.html#services">Services</a>
+        <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      </nav>
+      <button class="th-mobile-toggle" id="thToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main class="tool-page-main">
+    <div class="th-container">
+      <div class="tool-breadcrumb">
+        <a href="../../index.html">Home</a><i class="fas fa-chevron-right"></i>
+        <a href="../index.html">Free Tools</a><i class="fas fa-chevron-right"></i>
+        <span>Tip &amp; Bill Splitter</span>
+      </div>
+      <div class="tool-header">
+        <div class="tool-header-inner">
+          <div class="tool-header-icon" style="background:#fce7f3;color:#db2777">🍽️</div>
+          <div>
+            <h1>Tip &amp; Bill Splitter</h1>
+            <p>Split any bill fairly between any number of people. Add a tip percentage and see exactly what each person owes in Zambian Kwacha.</p>
+            <div class="tool-header-meta">
+              <span class="tool-meta-badge"><i class="fas fa-check-circle"></i> Free</span>
+              <span class="tool-meta-badge"><i class="fas fa-bolt"></i> Real-time</span>
+              <span class="tool-meta-badge"><i class="fas fa-users"></i> Everyone · Groups</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start">
+        <!-- LEFT: INPUT -->
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <!-- Bill Details -->
+          <div class="tool-box">
+            <div class="tool-box-header"><h2><i class="fas fa-receipt" style="color:var(--sky)"></i> Bill Details</h2></div>
+            <div class="tool-box-body">
+              <div class="field">
+                <label>Total Bill Amount (ZMW)</label>
+                <input type="number" id="billAmount" placeholder="0.00" min="0" step="0.01" oninput="calculate()"/>
+              </div>
+              <div class="field">
+                <label>Currency</label>
+                <select id="billCurrency" onchange="calculate()" style="padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.9rem;outline:none;width:100%">
+                  <option value="ZMW">ZMW — Zambian Kwacha</option>
+                  <option value="USD">USD — US Dollar</option>
+                  <option value="ZAR">ZAR — South African Rand</option>
+                  <option value="GBP">GBP — British Pound</option>
+                </select>
+              </div>
+
+              <p style="font-size:.82rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Tip Percentage</p>
+              <div class="tip-btns">
+                <button class="tip-btn active" data-tip="0" onclick="setTip(this)">No Tip</button>
+                <button class="tip-btn" data-tip="5" onclick="setTip(this)">5%</button>
+                <button class="tip-btn" data-tip="10" onclick="setTip(this)">10%</button>
+                <button class="tip-btn" data-tip="15" onclick="setTip(this)">15%</button>
+                <button class="tip-btn" data-tip="20" onclick="setTip(this)">20%</button>
+                <button class="tip-btn" data-tip="custom" onclick="setTip(this)">Custom</button>
+              </div>
+              <div class="field" id="customTipField" style="display:none">
+                <label>Custom Tip %</label>
+                <input type="number" id="customTipVal" placeholder="12" min="0" max="100" oninput="calculate()"/>
+              </div>
+            </div>
+          </div>
+
+          <!-- People -->
+          <div class="tool-box">
+            <div class="tool-box-header"><h2><i class="fas fa-users" style="color:var(--sky)"></i> People</h2></div>
+            <div class="tool-box-body">
+              <div class="person-row hdr"><span>Name</span><span style="text-align:center">Items (ZMW)</span><span style="text-align:right">Owes</span><span></span></div>
+              <div id="peopleList">
+                <div class="person-row">
+                  <input class="mini p-name" type="text" placeholder="Person 1" oninput="calculate()"/>
+                  <input class="mini p-items" type="number" placeholder="0.00" min="0" step="0.01" oninput="calculate()" title="Custom amount this person owes (leave blank for equal split)"/>
+                  <span class="p-owes" style="font-weight:800;color:var(--sky);text-align:right;font-size:.93rem;white-space:nowrap">—</span>
+                  <button class="del-btn" onclick="delPerson(this)">×</button>
+                </div>
+                <div class="person-row">
+                  <input class="mini p-name" type="text" placeholder="Person 2" oninput="calculate()"/>
+                  <input class="mini p-items" type="number" placeholder="0.00" min="0" step="0.01" oninput="calculate()" title="Leave blank for equal split"/>
+                  <span class="p-owes" style="font-weight:800;color:var(--sky);text-align:right;font-size:.93rem;white-space:nowrap">—</span>
+                  <button class="del-btn" onclick="delPerson(this)">×</button>
+                </div>
+              </div>
+              <button class="add-btn" onclick="addPerson()"><i class="fas fa-plus"></i> Add Person</button>
+              <p style="font-size:.78rem;color:var(--muted);margin-top:10px"><i class="fas fa-info-circle"></i> Leave "Items" blank for equal split. Enter an amount to assign specific costs to a person.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: RESULT -->
+        <div style="position:sticky;top:88px">
+          <div id="bigResult" class="big-result" style="display:none">
+            <div class="br-label">Each person pays</div>
+            <div class="br-amount" id="brAmount">ZMW 0.00</div>
+            <div class="br-sub" id="brSub">Equal split · No tip</div>
+          </div>
+
+          <div class="tool-box">
+            <div class="tool-box-header">
+              <h2><i class="fas fa-table" style="color:var(--sky)"></i> Full Breakdown</h2>
+              <button class="btn btn-sm btn-secondary" id="copyBreakdownBtn" onclick="copyBreakdown()" style="display:none"><i class="fas fa-copy"></i> Copy</button>
+            </div>
+            <div class="tool-box-body" style="padding:0;overflow:hidden">
+              <div id="breakdownContent" style="padding:20px;color:var(--muted);font-style:italic;font-size:.88rem;text-align:center">Enter a bill amount to see the breakdown</div>
+            </div>
+          </div>
+
+          <!-- WhatsApp share -->
+          <div id="waShareBox" style="display:none;margin-top:16px">
+            <button class="btn btn-full" style="background:#25D366;color:white;padding:14px" onclick="shareWhatsApp()"><i class="fab fa-whatsapp"></i> Share Split via WhatsApp</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-service-cta" style="margin-top:36px">
+        <div><h4>Running a restaurant or food business?</h4><p>BLESSTech-X builds restaurant websites with online menus, ordering, and mobile money payments.</p></div>
+        <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I want a restaurant website." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Get Restaurant Website</a>
+      </div>
+      <div class="related-tools" style="margin-top:32px;background:var(--bg-alt);border-radius:var(--radius-lg);padding:28px">
+        <h3>You Might Also Need</h3>
+        <div class="related-grid">
+          <a href="../budget-planner/index.html" class="related-card"><span>💰</span> Budget Planner</a>
+          <a href="../invoice/index.html" class="related-card"><span>🧾</span> Invoice Generator</a>
+          <a href="../currency-converter/index.html" class="related-card"><span>💱</span> Currency Converter</a>
+          <a href="../qr-generator/index.html" class="related-card"><span>◼️</span> QR Generator</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="copy-toast" id="copyToast">✅ Copied!</div>
+
+  <footer class="tools-footer">
+    <div class="th-container">
+      <div class="tf-inner">
+        <div class="tf-brand"><a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a><p>Free tools for every Zambian.</p></div>
+        <div class="tf-links"><h4>Free Tools</h4><a href="../index.html">All Tools</a><a href="../budget-planner/index.html">Budget Planner</a><a href="../invoice/index.html">Invoice Generator</a></div>
+        <div class="tf-links"><h4>BLESSTech-X</h4><a href="../../index.html">Main Website</a><a href="../../index.html#services">Services</a><a href="../../index.html#contact">Contact</a></div>
+        <div class="tf-contact"><h4>Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
+      </div>
+      <div class="tf-bottom"><p>&copy; 2026 BLESSTech-X · Free Bill Splitter · Built for Zambia 🇿🇲</p></div>
+    </div>
+  </footer>
+  <a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+let tipPct=0;
+function fmt(n,cur){ const c=cur||document.getElementById('billCurrency')?.value||'ZMW'; return `${c} ${Number(n).toLocaleString('en-ZM',{minimumFractionDigits:2,maximumFractionDigits:2})}`; }
+function setTip(btn){ document.querySelectorAll('.tip-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); const v=btn.dataset.tip; document.getElementById('customTipField').style.display=v==='custom'?'block':'none'; tipPct=v==='custom'?0:parseInt(v); calculate(); }
+function addPerson(){ const list=document.getElementById('peopleList'); const count=list.children.length+1; const row=document.createElement('div'); row.className='person-row'; row.innerHTML=`<input class="mini p-name" type="text" placeholder="Person ${count}" oninput="calculate()"/><input class="mini p-items" type="number" placeholder="0.00" min="0" step="0.01" oninput="calculate()"/><span class="p-owes" style="font-weight:800;color:var(--sky);text-align:right;font-size:.93rem;white-space:nowrap">—</span><button class="del-btn" onclick="delPerson(this)">×</button>`; list.appendChild(row); calculate(); }
+function delPerson(btn){ btn.closest('.person-row').remove(); calculate(); }
+
+function calculate(){
+  const bill=parseFloat(document.getElementById('billAmount').value)||0;
+  const cur=document.getElementById('billCurrency').value;
+  const customTip=parseInt(document.getElementById('customTipVal')?.value)||0;
+  const tip=document.querySelector('[data-tip="custom"].active')?customTip:tipPct;
+  const tipAmt=bill*(tip/100);
+  const total=bill+tipAmt;
+  const rows=document.querySelectorAll('#peopleList .person-row');
+  const people=Array.from(rows).map(r=>({ name:r.querySelector('.p-name')?.value||'Person', items:parseFloat(r.querySelector('.p-items')?.value)||0, owesEl:r.querySelector('.p-owes') }));
+  const n=people.length;
+  if(n===0||bill===0){ document.getElementById('bigResult').style.display='none'; document.getElementById('breakdownContent').innerHTML='<div style="padding:20px;color:var(--muted);font-style:italic;font-size:.88rem;text-align:center">Enter a bill amount to see the breakdown</div>'; document.getElementById('copyBreakdownBtn').style.display='none'; document.getElementById('waShareBox').style.display='none'; return; }
+
+  const customTotal=people.reduce((s,p)=>s+p.items,0);
+  const perPersonShare=[];
+  if(customTotal>0&&customTotal<=bill){
+    const remainder=bill-customTotal;
+    const uncustomised=people.filter(p=>p.items===0).length;
+    people.forEach(p=>{ const base=p.items>0?p.items:uncustomised>0?remainder/uncustomised:bill/n; const withTip=base+(base/bill)*tipAmt; perPersonShare.push({name:p.name,base,withTip,owesEl:p.owesEl}); });
+  } else {
+    const perPerson=total/n;
+    people.forEach(p=>perPersonShare.push({name:p.name,base:bill/n,withTip:perPerson,owesEl:p.owesEl}));
+  }
+
+  perPersonShare.forEach(p=>{ if(p.owesEl) p.owesEl.textContent=fmt(p.withTip,cur); });
+
+  const perPersonAvg=total/n;
+  document.getElementById('bigResult').style.display='block';
+  document.getElementById('brAmount').textContent=fmt(perPersonAvg,cur);
+  document.getElementById('brSub').textContent=`${n} ${n===1?'person':'people'} · ${tip>0?tip+'% tip':'No tip'} · Total: ${fmt(total,cur)}`;
+
+  // Breakdown table
+  const rows2=perPersonShare.map((p,i)=>`<tr><td>${p.name||`Person ${i+1}`}</td><td>${fmt(p.base,cur)}</td><td>${tip>0?fmt((p.base/bill)*tipAmt,cur):'—'}</td><td class="amount-col">${fmt(p.withTip,cur)}</td></tr>`).join('');
+  document.getElementById('breakdownContent').innerHTML=`<table class="summary-table">
+    <tr><th>Person</th><th>Share</th><th>Tip</th><th style="text-align:right">Owes</th></tr>
+    ${rows2}
+    <tr style="background:var(--sky-light)"><td colspan="2" style="font-weight:700">Bill: ${fmt(bill,cur)}</td><td style="font-weight:700">Tip: ${fmt(tipAmt,cur)}</td><td class="amount-col" style="font-size:1rem">Total: ${fmt(total,cur)}</td></tr>
+  </table>`;
+  document.getElementById('copyBreakdownBtn').style.display='flex';
+  document.getElementById('waShareBox').style.display='block';
+}
+
+function copyBreakdown(){
+  const people=Array.from(document.querySelectorAll('#peopleList .person-row'));
+  const bill=parseFloat(document.getElementById('billAmount').value)||0;
+  const cur=document.getElementById('billCurrency').value;
+  const tip=document.querySelector('.tip-btn.active')?.dataset.tip||'0';
+  const tipAmt=bill*(parseInt(tip)/100);
+  const total=bill+tipAmt;
+  const n=people.length;
+  const perPerson=total/n;
+  let text=`💳 BILL SPLIT — ${new Date().toLocaleDateString()}\n\n`;
+  text+=`Total Bill: ${fmt(bill,cur)}\nTip (${tip}%): ${fmt(tipAmt,cur)}\nTotal: ${fmt(total,cur)}\n\nEach person pays: ${fmt(perPerson,cur)}\n\n`;
+  people.forEach((r,i)=>{ const name=r.querySelector('.p-name')?.value||`Person ${i+1}`; text+=`• ${name}: ${fmt(perPerson,cur)}\n`; });
+  text+=`\nGenerated by BLESSTech-X · blesstechx.com`;
+  navigator.clipboard.writeText(text).then(()=>{ const t=document.getElementById('copyToast'); t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500); });
+}
+
+function shareWhatsApp(){
+  const bill=parseFloat(document.getElementById('billAmount').value)||0;
+  const cur=document.getElementById('billCurrency').value;
+  const tip=document.querySelector('.tip-btn.active')?.dataset.tip||'0';
+  const tipAmt=bill*(parseInt(tip)/100);
+  const total=bill+tipAmt;
+  const people=document.querySelectorAll('#peopleList .person-row');
+  const n=people.length;
+  const perPerson=total/n;
+  let msg=`💳 *Bill Split*%0A%0ABill: *${fmt(bill,cur)}*%0ATip (${tip}%25): *${fmt(tipAmt,cur)}*%0ATotal: *${fmt(total,cur)}*%0A%0A*Each person pays: ${fmt(perPerson,cur)}*%0A%0A`;
+  Array.from(people).forEach((r,i)=>{ const name=r.querySelector('.p-name')?.value||`Person ${i+1}`; msg+=`• ${name}: ${fmt(perPerson,cur)}%0A`; });
+  msg+=`%0ASplit using BLESSTech-X Free Tools · blesstechx.com`;
+  window.open(`https://wa.me/?text=${msg}`,'_blank');
+}
+
+document.getElementById('thToggle').addEventListener('click',()=>{ document.getElementById('thNav').classList.toggle('th-nav-open'); document.getElementById('thToggle').classList.toggle('th-toggle-open'); });
+</script>
+</body>
+</html>
