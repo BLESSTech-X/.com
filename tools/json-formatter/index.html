@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JSON Formatter & Validator | BLESSTech-X Free Tools</title>
+  <meta name="description" content="Paste messy JSON and get clean, indented, syntax-highlighted output with validation errors highlighted. Free JSON formatter for Zambian developers."/>
+  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../style.css"/>
+  <style>
+    .json-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .code-area{font-family:'Courier New',Courier,monospace;font-size:.88rem;line-height:1.6;padding:16px;border:1.5px solid var(--border);border-radius:var(--radius);width:100%;min-height:420px;resize:vertical;outline:none;transition:border-color .2s;background:#1e293b;color:#e2e8f0;tab-size:2}
+    .code-area:focus{border-color:var(--sky)}
+    .code-area.valid{border-color:var(--green)}
+    .code-area.invalid{border-color:var(--red)}
+    .code-out{font-family:'Courier New',Courier,monospace;font-size:.88rem;line-height:1.6;padding:16px;border:1.5px solid var(--border);border-radius:var(--radius);background:#0f172a;color:#e2e8f0;min-height:420px;overflow:auto;white-space:pre;tab-size:2}
+    .json-key{color:#93c5fd}
+    .json-str{color:#86efac}
+    .json-num{color:#fbbf24}
+    .json-bool{color:#f472b6}
+    .json-null{color:#94a3b8}
+    .json-punct{color:#94a3b8}
+    .status-bar{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--radius);font-size:.85rem;font-weight:600;margin-bottom:12px}
+    .status-bar.valid{background:#d1fae5;color:#065f46;border:1px solid #86efac}
+    .status-bar.invalid{background:#fee2e2;color:#991b1b;border:1px solid #fca5a5}
+    .status-bar.empty{background:var(--bg-alt);color:var(--muted);border:1px solid var(--border)}
+    .indent-sel{display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+    .ind-btn{padding:6px 14px;border:1.5px solid var(--border);border-radius:50px;background:white;font-size:.82rem;font-weight:600;color:var(--muted);cursor:pointer;transition:var(--transition)}
+    .ind-btn:hover{border-color:var(--sky);color:var(--sky)}
+    .ind-btn.active{border-color:var(--sky);background:var(--sky);color:white}
+    .json-stats{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px}
+    .jstat{font-size:.8rem;color:var(--muted)}
+    .jstat strong{color:var(--slate)}
+    .copy-toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:var(--slate);color:white;padding:10px 24px;border-radius:50px;font-size:.88rem;font-weight:600;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none}
+    .copy-toast.show{opacity:1}
+  </style>
+</head>
+<body class="tool-page">
+  <header class="tools-header">
+    <div class="th-inner">
+      <a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a>
+      <nav class="th-nav" id="thNav">
+        <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="../index.html"><i class="fas fa-tools"></i> All Tools</a>
+        <a href="../../index.html#services">Services</a>
+        <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      </nav>
+      <button class="th-mobile-toggle" id="thToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main class="tool-page-main">
+    <div class="th-container">
+      <div class="tool-breadcrumb">
+        <a href="../../index.html">Home</a><i class="fas fa-chevron-right"></i>
+        <a href="../index.html">Free Tools</a><i class="fas fa-chevron-right"></i>
+        <span>JSON Formatter &amp; Validator</span>
+      </div>
+      <div class="tool-header">
+        <div class="tool-header-inner">
+          <div class="tool-header-icon" style="background:#fee2e2;color:#dc2626">🧩</div>
+          <div>
+            <h1>JSON Formatter &amp; Validator</h1>
+            <p>Paste messy or minified JSON and instantly get clean, indented, syntax-highlighted output. Validates your JSON and shows errors with line numbers.</p>
+            <div class="tool-header-meta">
+              <span class="tool-meta-badge"><i class="fas fa-check-circle"></i> Free</span>
+              <span class="tool-meta-badge"><i class="fas fa-bolt"></i> Real-time</span>
+              <span class="tool-meta-badge"><i class="fas fa-code"></i> Syntax Highlighting</span>
+              <span class="tool-meta-badge"><i class="fas fa-users"></i> Developers</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATUS BAR -->
+      <div id="statusBar" class="status-bar empty"><i class="fas fa-info-circle"></i> Paste JSON on the left to validate and format it.</div>
+
+      <!-- TOOLBAR -->
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:16px">
+        <div class="indent-sel">
+          <span style="font-size:.82rem;font-weight:700;color:var(--muted)">Indent:</span>
+          <button class="ind-btn" data-ind="2" onclick="setIndent(this)">2 spaces</button>
+          <button class="ind-btn active" data-ind="4" onclick="setIndent(this)">4 spaces</button>
+          <button class="ind-btn" data-ind="tab" onclick="setIndent(this)">Tab</button>
+          <button class="ind-btn" data-ind="0" onclick="setIndent(this)">Minify</button>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-secondary btn-sm" onclick="loadSample()"><i class="fas fa-flask"></i> Load Sample</button>
+          <button class="btn btn-secondary btn-sm" onclick="clearAll()"><i class="fas fa-trash"></i> Clear</button>
+          <button class="btn btn-secondary btn-sm" id="copyJsonBtn" onclick="copyFormatted()" style="display:none"><i class="fas fa-copy"></i> Copy Output</button>
+          <button class="btn btn-secondary btn-sm" id="downloadJsonBtn" onclick="downloadJSON()" style="display:none"><i class="fas fa-download"></i> Download</button>
+        </div>
+      </div>
+
+      <div class="json-grid">
+        <!-- INPUT -->
+        <div>
+          <div style="font-size:.82rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Input JSON</div>
+          <textarea id="jsonInput" class="code-area" placeholder='Paste your JSON here...&#10;&#10;Example:&#10;{"name":"Blessings","city":"Lusaka","skills":["HTML","CSS","JavaScript"]}' oninput="formatJSON()"></textarea>
+          <div class="json-stats" id="inputStats"></div>
+        </div>
+        <!-- OUTPUT -->
+        <div>
+          <div style="font-size:.82rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Formatted Output</div>
+          <div id="jsonOutput" class="code-out"><span style="color:#475569;font-style:italic">// Formatted JSON will appear here</span></div>
+          <div class="json-stats" id="outputStats"></div>
+        </div>
+      </div>
+
+      <!-- JSON PATH EXPLORER -->
+      <div class="tool-box" style="margin-top:24px">
+        <div class="tool-box-header"><h2><i class="fas fa-search" style="color:var(--sky)"></i> JSON Path Explorer</h2></div>
+        <div class="tool-box-body">
+          <div style="display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center">
+            <input type="text" id="jsonPath" placeholder="Enter path e.g. user.name or data[0].id" style="padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.9rem;outline:none;font-family:'Courier New',monospace"/>
+            <button class="btn btn-primary btn-sm" onclick="explorePath()"><i class="fas fa-search"></i> Get Value</button>
+            <button class="btn btn-secondary btn-sm" onclick="clearPath()"><i class="fas fa-times"></i></button>
+          </div>
+          <div id="pathResult" style="margin-top:12px;display:none;background:#0f172a;color:#86efac;padding:12px 16px;border-radius:var(--radius);font-family:'Courier New',monospace;font-size:.88rem;word-break:break-all"></div>
+        </div>
+      </div>
+
+      <div class="tool-service-cta" style="margin-top:36px">
+        <div><h4>Need a web app or API built for your business?</h4><p>BLESSTech-X builds custom web applications with REST APIs for Zambian businesses and developers.</p></div>
+        <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I need a web application built." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Discuss Your App</a>
+      </div>
+      <div class="related-tools" style="margin-top:32px;background:var(--bg-alt);border-radius:var(--radius-lg);padding:28px">
+        <h3>You Might Also Need</h3>
+        <div class="related-grid">
+          <a href="../html-encoder/index.html" class="related-card"><span>🏷️</span> HTML Entity Encoder</a>
+          <a href="../word-counter/index.html" class="related-card"><span>🔤</span> Word Counter</a>
+          <a href="../text-summarizer/index.html" class="related-card"><span>📰</span> Text Summarizer</a>
+          <a href="../qr-generator/index.html" class="related-card"><span>◼️</span> QR Generator</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="copy-toast" id="copyToast">✅ JSON copied!</div>
+
+  <footer class="tools-footer">
+    <div class="th-container">
+      <div class="tf-inner">
+        <div class="tf-brand"><a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a><p>Free tools for every Zambian.</p></div>
+        <div class="tf-links"><h4>Free Tools</h4><a href="../index.html">All Tools</a><a href="../html-encoder/index.html">HTML Encoder</a><a href="../word-counter/index.html">Word Counter</a></div>
+        <div class="tf-links"><h4>BLESSTech-X</h4><a href="../../index.html">Main Website</a><a href="../../index.html#services">Services</a><a href="../../index.html#contact">Contact</a></div>
+        <div class="tf-contact"><h4>Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
+      </div>
+      <div class="tf-bottom"><p>&copy; 2026 BLESSTech-X · Free JSON Formatter · Built for Zambia 🇿🇲</p></div>
+    </div>
+  </footer>
+  <a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+let currentIndent=4;
+let parsedData=null;
+
+function setIndent(btn){
+  document.querySelectorAll('.ind-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const v=btn.dataset.ind;
+  currentIndent=v==='tab'?'\t':v==='0'?0:parseInt(v);
+  formatJSON();
+}
+
+function syntaxHighlight(str){
+  return str
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,(match)=>{
+      let cls='json-num';
+      if(/^"/.test(match)){
+        if(/:$/.test(match)) cls='json-key';
+        else cls='json-str';
+      } else if(/true|false/.test(match)) cls='json-bool';
+      else if(/null/.test(match)) cls='json-null';
+      return `<span class="${cls}">${match}</span>`;
+    });
+}
+
+function countNodes(obj,depth=0){
+  if(typeof obj!=='object'||obj===null) return {keys:0,depth};
+  const keys=Object.keys(obj).length;
+  let maxDepth=depth;
+  let total=keys;
+  Object.values(obj).forEach(v=>{
+    if(typeof v==='object'&&v!==null){
+      const r=countNodes(v,depth+1);
+      total+=r.keys;
+      maxDepth=Math.max(maxDepth,r.depth);
+    }
+  });
+  return {keys:total,depth:maxDepth};
+}
+
+function formatJSON(){
+  const input=document.getElementById('jsonInput').value.trim();
+  const statusBar=document.getElementById('statusBar');
+  const outputEl=document.getElementById('jsonOutput');
+  const inputEl=document.getElementById('jsonInput');
+
+  if(!input){
+    statusBar.className='status-bar empty';
+    statusBar.innerHTML='<i class="fas fa-info-circle"></i> Paste JSON on the left to validate and format it.';
+    outputEl.innerHTML='<span style="color:#475569;font-style:italic">// Formatted JSON will appear here</span>';
+    inputEl.className='code-area';
+    parsedData=null;
+    document.getElementById('copyJsonBtn').style.display='none';
+    document.getElementById('downloadJsonBtn').style.display='none';
+    document.getElementById('inputStats').innerHTML='';
+    document.getElementById('outputStats').innerHTML='';
+    return;
+  }
+
+  try {
+    parsedData=JSON.parse(input);
+    const formatted=JSON.stringify(parsedData,null,currentIndent===0?undefined:currentIndent);
+    outputEl.innerHTML=syntaxHighlight(formatted);
+    statusBar.className='status-bar valid';
+    const type=Array.isArray(parsedData)?`Array with ${parsedData.length} items`:`Object with ${Object.keys(parsedData).length} keys`;
+    const {keys,depth}=countNodes(parsedData);
+    statusBar.innerHTML=`<i class="fas fa-check-circle"></i> Valid JSON · ${type} · ${keys} total nodes · ${depth} levels deep`;
+    inputEl.className='code-area valid';
+    document.getElementById('copyJsonBtn').style.display='flex';
+    document.getElementById('downloadJsonBtn').style.display='flex';
+    const inputSize=(new Blob([input]).size/1024).toFixed(1);
+    const outputSize=(new Blob([formatted]).size/1024).toFixed(1);
+    document.getElementById('inputStats').innerHTML=`<span class="jstat">Input: <strong>${inputSize} KB</strong></span><span class="jstat">Lines: <strong>${input.split('\n').length}</strong></span>`;
+    document.getElementById('outputStats').innerHTML=`<span class="jstat">Output: <strong>${outputSize} KB</strong></span><span class="jstat">Lines: <strong>${formatted.split('\n').length}</strong></span>`;
+  } catch(e){
+    parsedData=null;
+    statusBar.className='status-bar invalid';
+    statusBar.innerHTML=`<i class="fas fa-times-circle"></i> Invalid JSON — ${e.message}`;
+    outputEl.innerHTML=`<span style="color:#f87171">// JSON Error: ${e.message.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</span>`;
+    inputEl.className='code-area invalid';
+    document.getElementById('copyJsonBtn').style.display='none';
+    document.getElementById('downloadJsonBtn').style.display='none';
+  }
+}
+
+function copyFormatted(){
+  if(!parsedData) return;
+  const formatted=JSON.stringify(parsedData,null,currentIndent===0?undefined:currentIndent);
+  navigator.clipboard.writeText(formatted).then(()=>{ const t=document.getElementById('copyToast'); t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500); });
+}
+
+function downloadJSON(){
+  if(!parsedData) return;
+  const formatted=JSON.stringify(parsedData,null,currentIndent===0?undefined:currentIndent);
+  const blob=new Blob([formatted],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='formatted.json';
+  a.click();
+}
+
+function clearAll(){
+  document.getElementById('jsonInput').value='';
+  formatJSON();
+  document.getElementById('pathResult').style.display='none';
+}
+
+function loadSample(){
+  document.getElementById('jsonInput').value=`{"organisation":"BLESSTech-X","location":"Lusaka, Zambia","founded":2024,"services":["Web Design","E-Commerce","Digital Marketing","School Systems"],"team":[{"name":"Barack Blessings","role":"Founder & Lead Developer","skills":["JavaScript","PHP","React"]},{"name":"Sylvester Mwila","role":"Designer","skills":["Figma","CSS","Branding"]}],"contact":{"phone":"+260979603741","email":"singbless89@gmail.com","whatsapp":true},"active":true,"clients":47}`;
+  formatJSON();
+}
+
+function explorePath(){
+  const path=document.getElementById('jsonPath').value.trim();
+  const resultEl=document.getElementById('pathResult');
+  if(!parsedData||!path){ resultEl.style.display='none'; return; }
+  try {
+    const keys=path.replace(/\[(\d+)\]/g,'.$1').split('.').filter(Boolean);
+    let val=parsedData;
+    for(const k of keys){ if(val===null||val===undefined) break; val=val[k]; }
+    resultEl.style.display='block';
+    if(val===undefined) resultEl.innerHTML=`<span style="color:#f87171">Path not found: ${path}</span>`;
+    else resultEl.innerHTML=`<span style="color:#94a3b8">${path}</span> = <span style="color:#86efac">${JSON.stringify(val,null,2)}</span>`;
+  } catch(e){ resultEl.style.display='block'; resultEl.innerHTML=`<span style="color:#f87171">Error: ${e.message}</span>`; }
+}
+
+function clearPath(){ document.getElementById('jsonPath').value=''; document.getElementById('pathResult').style.display='none'; }
+document.getElementById('jsonPath').addEventListener('keydown',e=>{ if(e.key==='Enter') explorePath(); });
+document.getElementById('thToggle').addEventListener('click',()=>{ document.getElementById('thNav').classList.toggle('th-nav-open'); document.getElementById('thToggle').classList.toggle('th-toggle-open'); });
+</script>
+</body>
+</html>
