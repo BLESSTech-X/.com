@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pomodoro Focus Timer | BLESSTech-X Free Tools</title>
+  <meta name="description" content="Free Pomodoro focus timer for students, developers and workers. 25-minute work sessions with break reminders. Beat procrastination."/>
+  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../style.css"/>
+  <style>
+    body{background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);min-height:100vh}
+    .pomo-wrap{display:flex;flex-direction:column;align-items:center;padding:48px 20px}
+    .pomo-mode-tabs{display:flex;gap:0;background:rgba(255,255,255,.08);border-radius:50px;padding:4px;margin-bottom:40px}
+    .pomo-tab{padding:10px 24px;border:none;background:none;color:rgba(255,255,255,.6);font-size:.88rem;font-weight:700;border-radius:50px;cursor:pointer;transition:var(--transition)}
+    .pomo-tab.active{background:var(--sky);color:white}
+    .pomo-tab:hover:not(.active){color:white}
+    .pomo-circle{position:relative;width:280px;height:280px;margin:0 auto 36px}
+    .pomo-svg{width:100%;height:100%;transform:rotate(-90deg)}
+    .pomo-track{fill:none;stroke:rgba(255,255,255,.1);stroke-width:12}
+    .pomo-progress{fill:none;stroke:var(--sky);stroke-width:12;stroke-linecap:round;transition:stroke-dashoffset .5s ease;stroke-dasharray:754;stroke-dashoffset:0}
+    .pomo-progress.break{stroke:#10b981}
+    .pomo-progress.long{stroke:#8b5cf6}
+    .pomo-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .pomo-time{font-size:4rem;font-weight:900;color:white;letter-spacing:2px;line-height:1}
+    .pomo-label{font-size:.88rem;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:2px;margin-top:8px}
+    .pomo-controls{display:flex;gap:16px;align-items:center;margin-bottom:32px}
+    .pomo-btn{width:64px;height:64px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.4rem;transition:var(--transition)}
+    .pomo-btn.primary{background:var(--sky);color:white;box-shadow:0 8px 24px rgba(14,165,233,.4)}
+    .pomo-btn.primary:hover{background:var(--sky-dark);transform:scale(1.05)}
+    .pomo-btn.secondary{background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)}
+    .pomo-btn.secondary:hover{background:rgba(255,255,255,.2);color:white}
+    .pomo-btn.large{width:80px;height:80px;font-size:1.8rem}
+    .pomo-session-info{display:flex;gap:24px;margin-bottom:32px}
+    .session-stat{text-align:center}
+    .session-stat .sv{font-size:1.6rem;font-weight:800;color:var(--sky)}
+    .session-stat .sl{font-size:.75rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px}
+    .task-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius-lg);padding:20px 24px;width:100%;max-width:400px;margin-bottom:24px}
+    .task-box input{background:none;border:none;color:white;font-size:1rem;width:100%;outline:none;font-family:var(--font)}
+    .task-box input::placeholder{color:rgba(255,255,255,.3)}
+    .history-list{width:100%;max-width:400px}
+    .hist-item{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:rgba(255,255,255,.05);border-radius:var(--radius);margin-bottom:6px}
+    .hist-item .hi-task{font-size:.88rem;color:rgba(255,255,255,.8)}
+    .hist-item .hi-time{font-size:.78rem;color:rgba(255,255,255,.4)}
+    .pomo-settings{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;width:100%;max-width:400px;margin-bottom:28px}
+    .pomo-setting{background:rgba(255,255,255,.07);border-radius:var(--radius);padding:12px;text-align:center}
+    .pomo-setting label{display:block;font-size:.72rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+    .pomo-setting input{background:none;border:none;color:white;font-size:1.1rem;font-weight:800;width:60px;text-align:center;outline:none;font-family:var(--font)}
+  </style>
+</head>
+<body class="tool-page">
+  <header class="tools-header" style="background:rgba(15,23,42,.97)">
+    <div class="th-inner">
+      <a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span style="color:white">BLESS<em>Tech-X</em></span></a>
+      <nav class="th-nav" id="thNav">
+        <a href="../../index.html" style="color:rgba(255,255,255,.7)"><i class="fas fa-home"></i> Home</a>
+        <a href="../index.html" style="color:rgba(255,255,255,.7)"><i class="fas fa-tools"></i> All Tools</a>
+        <a href="../../index.html#services" style="color:rgba(255,255,255,.7)">Services</a>
+        <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      </nav>
+      <button class="th-mobile-toggle" id="thToggle" style="background:none"><span style="background:white"></span><span style="background:white"></span><span style="background:white"></span></button>
+    </div>
+  </header>
+
+  <main style="padding-bottom:60px">
+    <div class="th-container">
+      <div class="tool-breadcrumb" style="color:rgba(255,255,255,.5);padding-top:32px">
+        <a href="../../index.html" style="color:var(--sky)">Home</a>
+        <i class="fas fa-chevron-right" style="font-size:.7rem"></i>
+        <a href="../index.html" style="color:var(--sky)">Free Tools</a>
+        <i class="fas fa-chevron-right" style="font-size:.7rem"></i>
+        <span>Pomodoro Focus Timer</span>
+      </div>
+
+      <div class="pomo-wrap">
+        <h1 style="color:white;font-size:clamp(1.4rem,3vw,2rem);margin-bottom:8px;text-align:center">🍅 Pomodoro Focus Timer</h1>
+        <p style="color:rgba(255,255,255,.5);margin-bottom:28px;text-align:center;max-width:460px">Work in focused 25-minute sessions. Take short breaks. Stay productive all day. Used by students, developers and workers worldwide.</p>
+
+        <!-- MODE TABS -->
+        <div class="pomo-mode-tabs">
+          <button class="pomo-tab active" data-mode="focus" onclick="setMode('focus',this)">🍅 Focus</button>
+          <button class="pomo-tab" data-mode="short" onclick="setMode('short',this)">☕ Short Break</button>
+          <button class="pomo-tab" data-mode="long" onclick="setMode('long',this)">🛋️ Long Break</button>
+        </div>
+
+        <!-- TASK INPUT -->
+        <div class="task-box">
+          <div style="font-size:.72rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px"><i class="fas fa-tasks"></i> Current Task</div>
+          <input type="text" id="taskInput" placeholder="What are you working on? e.g. Read Chapter 4…"/>
+        </div>
+
+        <!-- TIMER CIRCLE -->
+        <div class="pomo-circle">
+          <svg class="pomo-svg" viewBox="0 0 260 260">
+            <circle class="pomo-track" cx="130" cy="130" r="120"/>
+            <circle class="pomo-progress" id="progressCircle" cx="130" cy="130" r="120"/>
+          </svg>
+          <div class="pomo-inner">
+            <div class="pomo-time" id="timerDisplay">25:00</div>
+            <div class="pomo-label" id="timerLabel">FOCUS TIME</div>
+          </div>
+        </div>
+
+        <!-- CONTROLS -->
+        <div class="pomo-controls">
+          <button class="pomo-btn secondary" onclick="skipSession()" title="Skip"><i class="fas fa-forward"></i></button>
+          <button class="pomo-btn primary large" id="mainBtn" onclick="toggleTimer()"><i class="fas fa-play" id="mainBtnIcon"></i></button>
+          <button class="pomo-btn secondary" onclick="resetTimer()" title="Reset"><i class="fas fa-redo"></i></button>
+        </div>
+
+        <!-- SESSION STATS -->
+        <div class="pomo-session-info">
+          <div class="session-stat"><div class="sv" id="sessCompleted">0</div><div class="sl">Sessions</div></div>
+          <div class="session-stat"><div class="sv" id="sessMinutes">0</div><div class="sl">Minutes focused</div></div>
+          <div class="session-stat"><div class="sv" id="sessStreak">0</div><div class="sl">Best streak</div></div>
+        </div>
+
+        <!-- SETTINGS -->
+        <div style="font-size:.78rem;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;text-align:center">Timer Settings (minutes)</div>
+        <div class="pomo-settings">
+          <div class="pomo-setting"><label>Focus</label><input type="number" id="setFocus" value="25" min="1" max="60" onchange="applySettings()"/></div>
+          <div class="pomo-setting"><label>Short Break</label><input type="number" id="setShort" value="5" min="1" max="30" onchange="applySettings()"/></div>
+          <div class="pomo-setting"><label>Long Break</label><input type="number" id="setLong" value="15" min="1" max="60" onchange="applySettings()"/></div>
+        </div>
+
+        <!-- SESSION HISTORY -->
+        <div style="width:100%;max-width:400px;margin-top:8px">
+          <div style="font-size:.78rem;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Session History</div>
+          <div class="history-list" id="historyList">
+            <div style="font-size:.85rem;color:rgba(255,255,255,.3);font-style:italic;text-align:center;padding:16px">Your completed sessions will appear here</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SERVICE CTA -->
+      <div class="tool-service-cta">
+        <div><h4>Build something during your focus sessions?</h4><p>BLESSTech-X turns your ideas into professional websites and apps. Let's build your next project.</p></div>
+        <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I want to build a project." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Start Your Project</a>
+      </div>
+      <div class="related-tools" style="margin-top:32px;background:rgba(255,255,255,.05);border-radius:var(--radius-lg);padding:28px">
+        <h3 style="color:white">You Might Also Need</h3>
+        <div class="related-grid">
+          <a href="../countdown/index.html" class="related-card" style="background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.8)"><span>⏳</span> Countdown Timer</a>
+          <a href="../word-counter/index.html" class="related-card" style="background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.8)"><span>🔤</span> Word Counter</a>
+          <a href="../decision-maker/index.html" class="related-card" style="background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.8)"><span>🎯</span> Decision Maker</a>
+          <a href="../text-summarizer/index.html" class="related-card" style="background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.8)"><span>📰</span> Text Summarizer</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="tools-footer">
+    <div class="th-container">
+      <div class="tf-inner">
+        <div class="tf-brand"><a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a><p>Free tools for every Zambian.</p></div>
+        <div class="tf-links"><h4>Free Tools</h4><a href="../index.html">All Tools</a><a href="../countdown/index.html">Countdown Timer</a><a href="../word-counter/index.html">Word Counter</a></div>
+        <div class="tf-links"><h4>BLESSTech-X</h4><a href="../../index.html">Main Website</a><a href="../../index.html#services">Services</a><a href="../../index.html#contact">Contact</a></div>
+        <div class="tf-contact"><h4>Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
+      </div>
+      <div class="tf-bottom"><p>&copy; 2026 BLESSTech-X · Free Pomodoro Timer · Built for Zambia 🇿🇲</p></div>
+    </div>
+  </footer>
+  <a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+const MODES={focus:{label:'FOCUS TIME',color:'var(--sky)',breakClass:''},short:{label:'SHORT BREAK',color:'#10b981',breakClass:'break'},long:{label:'LONG BREAK',color:'#8b5cf6',breakClass:'long'}};
+let currentMode='focus';
+let timerInterval=null;
+let isRunning=false;
+let totalSeconds=25*60;
+let remainingSeconds=totalSeconds;
+let sessCompleted=0;
+let totalMinutes=0;
+let streak=0;
+let bestStreak=0;
+let history=[];
+
+function getMins(mode){ return mode==='focus'?parseInt(document.getElementById('setFocus').value||25):mode==='short'?parseInt(document.getElementById('setShort').value||5):parseInt(document.getElementById('setLong').value||15); }
+
+function setMode(mode,btn){
+  if(isRunning) return;
+  currentMode=mode;
+  document.querySelectorAll('.pomo-tab').forEach(t=>t.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  totalSeconds=getMins(mode)*60;
+  remainingSeconds=totalSeconds;
+  updateDisplay();
+  const prog=document.getElementById('progressCircle');
+  prog.className='pomo-progress'+(MODES[mode].breakClass?' '+MODES[mode].breakClass:'');
+  prog.style.stroke=MODES[mode].color;
+  document.getElementById('timerLabel').textContent=MODES[mode].label;
+}
+
+function applySettings(){
+  if(!isRunning){ totalSeconds=getMins(currentMode)*60; remainingSeconds=totalSeconds; updateDisplay(); }
+}
+
+function updateDisplay(){
+  const m=Math.floor(remainingSeconds/60).toString().padStart(2,'0');
+  const s=(remainingSeconds%60).toString().padStart(2,'0');
+  document.getElementById('timerDisplay').textContent=`${m}:${s}`;
+  document.title=`${m}:${s} — Pomodoro · BLESSTech-X`;
+  const circ=2*Math.PI*120;
+  const offset=circ-(circ*(remainingSeconds/totalSeconds));
+  document.getElementById('progressCircle').style.strokeDashoffset=offset;
+}
+
+function toggleTimer(){
+  if(isRunning){ clearInterval(timerInterval); isRunning=false; document.getElementById('mainBtnIcon').className='fas fa-play'; }
+  else { isRunning=true; document.getElementById('mainBtnIcon').className='fas fa-pause'; timerInterval=setInterval(tick,1000); }
+}
+
+function tick(){
+  if(remainingSeconds<=0){ clearInterval(timerInterval); isRunning=false; document.getElementById('mainBtnIcon').className='fas fa-play'; onSessionComplete(); return; }
+  remainingSeconds--;
+  updateDisplay();
+}
+
+function onSessionComplete(){
+  if(currentMode==='focus'){
+    sessCompleted++;
+    totalMinutes+=getMins('focus');
+    streak++;
+    bestStreak=Math.max(bestStreak,streak);
+    document.getElementById('sessCompleted').textContent=sessCompleted;
+    document.getElementById('sessMinutes').textContent=totalMinutes;
+    document.getElementById('sessStreak').textContent=bestStreak;
+    const task=document.getElementById('taskInput').value||'Focus session';
+    addHistory(`🍅 ${task}`,`${getMins('focus')} min`,'var(--sky)');
+    playBeep();
+    showNotif('Focus session complete!','Time for a break. Great work! 🎉');
+    sessCompleted%4===0?switchMode('long'):switchMode('short');
+  } else {
+    streak=0;
+    playBeep();
+    showNotif('Break over!','Time to focus again! 💪');
+    switchMode('focus');
+  }
+}
+
+function switchMode(mode){
+  currentMode=mode;
+  const tab=document.querySelector(`[data-mode="${mode}"]`);
+  document.querySelectorAll('.pomo-tab').forEach(t=>t.classList.remove('active'));
+  if(tab) tab.classList.add('active');
+  totalSeconds=getMins(mode)*60;
+  remainingSeconds=totalSeconds;
+  const prog=document.getElementById('progressCircle');
+  prog.className='pomo-progress'+(MODES[mode].breakClass?' '+MODES[mode].breakClass:'');
+  prog.style.stroke=MODES[mode].color;
+  document.getElementById('timerLabel').textContent=MODES[mode].label;
+  updateDisplay();
+  toggleTimer();
+}
+
+function resetTimer(){ clearInterval(timerInterval); isRunning=false; document.getElementById('mainBtnIcon').className='fas fa-play'; totalSeconds=getMins(currentMode)*60; remainingSeconds=totalSeconds; updateDisplay(); }
+function skipSession(){ clearInterval(timerInterval); isRunning=false; document.getElementById('mainBtnIcon').className='fas fa-play'; onSessionComplete(); }
+
+function addHistory(task,time,color){
+  const list=document.getElementById('historyList');
+  if(history.length===0) list.innerHTML='';
+  history.unshift({task,time});
+  if(history.length>8) history.pop();
+  list.innerHTML=history.map(h=>`<div class="hist-item"><span class="hi-task">${h.task}</span><span class="hi-time">${h.time} · ${new Date().toLocaleTimeString('en-ZM',{hour:'2-digit',minute:'2-digit'})}</span></div>`).join('');
+}
+
+function playBeep(){
+  try{
+    const ctx=new (window.AudioContext||window.webkitAudioContext)();
+    [0,200,400].forEach(delay=>{
+      const osc=ctx.createOscillator(); const gain=ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.frequency.value=880; gain.gain.value=0.3;
+      osc.start(ctx.currentTime+delay/1000);
+      osc.stop(ctx.currentTime+delay/1000+0.15);
+    });
+  }catch(e){}
+}
+
+function showNotif(title,body){
+  if('Notification' in window&&Notification.permission==='granted'){ new Notification(title,{body,icon:'https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg'}); }
+  else if('Notification' in window&&Notification.permission!=='denied'){ Notification.requestPermission(); }
+}
+
+// Request notification permission on load
+if('Notification' in window&&Notification.permission==='default') Notification.requestPermission();
+updateDisplay();
+document.getElementById('thToggle').addEventListener('click',()=>{ document.getElementById('thNav').classList.toggle('th-nav-open'); document.getElementById('thToggle').classList.toggle('th-toggle-open'); });
+</script>
+</body>
+</html>
