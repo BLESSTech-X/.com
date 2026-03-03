@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Invoice Generator | BLESSTech-X Free Tools</title>
+  <meta name="description" content="Create professional invoices with VAT calculation and PDF download. Free invoice generator for Zambian businesses and freelancers."/>
+  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../style.css"/>
+  <style>
+    .inv-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+    .line-row{display:grid;grid-template-columns:1fr 70px 100px 100px 36px;gap:8px;margin-bottom:8px;align-items:center}
+    .line-row.header-row{font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+    .mini{padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.9rem;outline:none;transition:var(--transition);width:100%}
+    .mini:focus{border-color:var(--sky)}
+    .del-btn{width:36px;height:36px;border-radius:var(--radius);background:#fee2e2;border:none;color:var(--red);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .del-btn:hover{background:#dc2626;color:white}
+    .add-line-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--sky-light);border:1.5px solid rgba(14,165,233,.3);border-radius:var(--radius);color:var(--sky-dark);font-size:.83rem;font-weight:700;cursor:pointer;transition:var(--transition);margin-top:4px}
+    .add-line-btn:hover{background:var(--sky);color:white}
+    .totals-box{background:var(--bg-alt);border-radius:var(--radius);padding:18px 20px;text-align:right;margin-top:12px}
+    .total-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;font-size:.93rem;color:var(--slate-l)}
+    .total-row.grand{font-size:1.2rem;font-weight:800;color:var(--sky);border-top:2px solid var(--border);padding-top:10px;margin-top:6px}
+    /* INVOICE PREVIEW */
+    .inv-preview{background:white;padding:48px;font-family:'Segoe UI',sans-serif;color:#1e293b;min-height:600px;border:1px solid var(--border);border-radius:var(--radius)}
+    .inv-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:36px}
+    .inv-brand{font-size:1.6rem;font-weight:900;color:#0ea5e9}
+    .inv-meta{text-align:right}
+    .inv-meta .inv-num{font-size:1.3rem;font-weight:800;color:#0ea5e9}
+    .inv-parties{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:32px;padding:20px;background:#f8fafc;border-radius:10px}
+    .inv-party h4{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#64748b;margin-bottom:8px}
+    .inv-party p{font-size:.9rem;color:#1e293b;line-height:1.6}
+    .inv-table{width:100%;border-collapse:collapse;margin-bottom:24px}
+    .inv-table th{background:#0ea5e9;color:white;padding:10px 14px;text-align:left;font-size:.82rem;font-weight:700}
+    .inv-table td{padding:10px 14px;border-bottom:1px solid #e2e8f0;font-size:.9rem}
+    .inv-table tr:last-child td{border-bottom:none}
+    .inv-table tr:nth-child(even){background:#f8fafc}
+    .inv-totals{display:flex;flex-direction:column;align-items:flex-end;gap:6px;margin-bottom:24px}
+    .inv-total-row{display:flex;gap:60px;font-size:.9rem;color:#475569}
+    .inv-total-row.grand-total{font-size:1.2rem;font-weight:800;color:#0ea5e9;border-top:2px solid #e2e8f0;padding-top:10px;margin-top:4px}
+    .inv-notes{background:#f0f9ff;border-left:4px solid #0ea5e9;padding:14px 18px;border-radius:0 10px 10px 0;font-size:.88rem;color:#475569;margin-bottom:24px}
+    .inv-footer{text-align:center;font-size:.8rem;color:#94a3b8;border-top:1px solid #e2e8f0;padding-top:16px}
+    .inv-status{display:inline-block;padding:4px 12px;border-radius:20px;font-size:.78rem;font-weight:700;margin-top:4px}
+    .inv-status.unpaid{background:#fee2e2;color:#dc2626}
+    .inv-status.paid{background:#d1fae5;color:#059669}
+    .stamp{display:inline-block;border:3px solid #059669;color:#059669;padding:6px 16px;border-radius:8px;font-size:.85rem;font-weight:800;transform:rotate(-8deg);margin-top:8px;letter-spacing:2px}
+  </style>
+</head>
+<body class="tool-page">
+
+  <header class="tools-header">
+    <div class="th-inner">
+      <a href="../../index.html" class="tools-logo">
+        <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/>
+        <span>BLESS<em>Tech-X</em></span>
+      </a>
+      <nav class="th-nav" id="thNav">
+        <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="../index.html"><i class="fas fa-tools"></i> All Tools</a>
+        <a href="../../index.html#services">Services</a>
+        <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      </nav>
+      <button class="th-mobile-toggle" id="thToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main class="tool-page-main">
+    <div class="th-container">
+
+      <div class="tool-breadcrumb">
+        <a href="../../index.html">Home</a>
+        <i class="fas fa-chevron-right"></i>
+        <a href="../index.html">Free Tools</a>
+        <i class="fas fa-chevron-right"></i>
+        <span>Invoice Generator</span>
+      </div>
+
+      <div class="tool-header">
+        <div class="tool-header-inner">
+          <div class="tool-header-icon" style="background:#ede9fe;color:#7c3aed">🧾</div>
+          <div>
+            <h1>Invoice Generator</h1>
+            <p>Create professional invoices with automatic VAT calculation. Add your business details, line items, and download a polished PDF to send to clients.</p>
+            <div class="tool-header-meta">
+              <span class="tool-meta-badge"><i class="fas fa-check-circle"></i> Free</span>
+              <span class="tool-meta-badge"><i class="fas fa-file-pdf"></i> PDF Download</span>
+              <span class="tool-meta-badge"><i class="fas fa-calculator"></i> Auto VAT (16%)</span>
+              <span class="tool-meta-badge"><i class="fas fa-users"></i> Freelancers · Business</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 1 & 2: FORM -->
+      <div id="formView">
+        <div class="inv-grid">
+          <!-- LEFT -->
+          <div style="display:flex;flex-direction:column;gap:20px">
+            <div class="tool-box">
+              <div class="tool-box-header"><h2><i class="fas fa-building" style="color:var(--sky)"></i> Your Business</h2></div>
+              <div class="tool-box-body">
+                <div class="field"><label>Business Name</label><input type="text" id="bizName" placeholder="BLESSTech-X"/></div>
+                <div class="field"><label>Address</label><input type="text" id="bizAddr" placeholder="Lusaka, Zambia"/></div>
+                <div class="field-row">
+                  <div class="field"><label>Phone</label><input type="text" id="bizPhone" placeholder="+260 979 603 741"/></div>
+                  <div class="field"><label>Email</label><input type="email" id="bizEmail" placeholder="hello@blesstechx.com"/></div>
+                </div>
+                <div class="field"><label>TPIN (optional)</label><input type="text" id="bizTpin" placeholder="1234567890"/></div>
+              </div>
+            </div>
+            <div class="tool-box">
+              <div class="tool-box-header"><h2><i class="fas fa-user" style="color:var(--sky)"></i> Bill To (Client)</h2></div>
+              <div class="tool-box-body">
+                <div class="field"><label>Client Name / Company</label><input type="text" id="clientName" placeholder="Client Name"/></div>
+                <div class="field"><label>Client Address</label><input type="text" id="clientAddr" placeholder="Kitwe, Zambia"/></div>
+                <div class="field"><label>Client Phone</label><input type="text" id="clientPhone" placeholder="+260 9XX XXX XXX"/></div>
+                <div class="field"><label>Client Email</label><input type="email" id="clientEmail" placeholder="client@email.com"/></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT -->
+          <div style="display:flex;flex-direction:column;gap:20px">
+            <div class="tool-box">
+              <div class="tool-box-header"><h2><i class="fas fa-hashtag" style="color:var(--sky)"></i> Invoice Details</h2></div>
+              <div class="tool-box-body">
+                <div class="field-row">
+                  <div class="field"><label>Invoice #</label><input type="text" id="invNum" value="INV-001"/></div>
+                  <div class="field"><label>Status</label>
+                    <select id="invStatus">
+                      <option value="unpaid">Unpaid</option>
+                      <option value="paid">Paid</option>
+                      <option value="draft">Draft</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="field-row">
+                  <div class="field"><label>Invoice Date</label><input type="date" id="invDate"/></div>
+                  <div class="field"><label>Due Date</label><input type="date" id="invDue"/></div>
+                </div>
+                <div class="field">
+                  <label>VAT</label>
+                  <select id="vatRate">
+                    <option value="0.16">16% VAT (Standard)</option>
+                    <option value="0">No VAT</option>
+                    <option value="0.08">8% VAT (Reduced)</option>
+                  </select>
+                </div>
+                <div class="field"><label>Currency</label>
+                  <select id="invCurrency">
+                    <option value="ZMW">ZMW — Zambian Kwacha</option>
+                    <option value="USD">USD — US Dollar</option>
+                    <option value="ZAR">ZAR — South African Rand</option>
+                    <option value="GBP">GBP — British Pound</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="tool-box">
+              <div class="tool-box-header"><h2><i class="fas fa-list" style="color:var(--sky)"></i> Line Items</h2></div>
+              <div class="tool-box-body">
+                <div class="line-row header-row">
+                  <span>Description</span><span>Qty</span><span>Unit Price</span><span>Amount</span><span></span>
+                </div>
+                <div id="lineItems">
+                  <div class="line-row">
+                    <input class="mini li-desc" type="text" placeholder="Service / Product"/>
+                    <input class="mini li-qty" type="number" value="1" min="0" oninput="updateTotals()"/>
+                    <input class="mini li-price" type="number" placeholder="0.00" min="0" oninput="updateTotals()"/>
+                    <input class="mini li-amount" type="text" readonly style="background:var(--bg-alt);font-weight:700;color:var(--sky)"/>
+                    <button class="del-btn" onclick="delLine(this)">×</button>
+                  </div>
+                </div>
+                <button class="add-line-btn" onclick="addLine()"><i class="fas fa-plus"></i> Add Line</button>
+                <div class="totals-box" id="totalsBox">
+                  <div class="total-row"><span>Subtotal</span><span id="tSub">ZMW 0.00</span></div>
+                  <div class="total-row"><span id="tVatLabel">VAT (16%)</span><span id="tVat">ZMW 0.00</span></div>
+                  <div class="total-row grand"><span>TOTAL</span><span id="tTotal">ZMW 0.00</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tool-box">
+              <div class="tool-box-header"><h2><i class="fas fa-sticky-note" style="color:var(--sky)"></i> Notes &amp; Payment</h2></div>
+              <div class="tool-box-body">
+                <div class="field"><label>Payment Instructions</label><input type="text" id="invPayment" placeholder="Airtel Money: 0979603741 / Bank: Zanaco Acc 1234567"/></div>
+                <div class="field"><label>Notes (optional)</label><textarea id="invNotes" placeholder="Thank you for your business. Payment due within 14 days." style="min-height:60px"></textarea></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align:center;margin:32px 0">
+          <button class="btn btn-primary btn-lg" onclick="generateInvoice()">
+            <i class="fas fa-eye"></i> Preview Invoice
+          </button>
+        </div>
+      </div>
+
+      <!-- PREVIEW -->
+      <div id="previewView" style="display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+          <button class="btn btn-secondary" onclick="backToEdit()"><i class="fas fa-arrow-left"></i> Edit Invoice</button>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn btn-secondary" onclick="copyInvoiceText()"><i class="fas fa-copy"></i> Copy Text</button>
+            <button class="btn btn-primary" onclick="printInvoice()"><i class="fas fa-file-pdf"></i> Download PDF</button>
+          </div>
+        </div>
+        <div id="invoicePreview" class="inv-preview"></div>
+        <div style="display:flex;justify-content:center;gap:12px;margin-top:24px;flex-wrap:wrap">
+          <button class="btn btn-secondary" onclick="backToEdit()"><i class="fas fa-edit"></i> Edit</button>
+          <button class="btn btn-primary btn-lg" onclick="printInvoice()"><i class="fas fa-file-pdf"></i> Download PDF</button>
+          <button class="btn btn-success" onclick="shareWhatsApp()"><i class="fab fa-whatsapp"></i> Share via WhatsApp</button>
+        </div>
+      </div>
+
+      <div class="tool-service-cta" style="margin-top:36px">
+        <div>
+          <h4>Want clients to pay you online automatically?</h4>
+          <p>BLESSTech-X builds e-commerce stores with Airtel Money &amp; MTN Money integration from ZMW 980.</p>
+        </div>
+        <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I want an online store with mobile money payments." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Get Online Store</a>
+      </div>
+
+      <div class="related-tools" style="margin-top:32px;background:var(--bg-alt);border-radius:var(--radius-lg);padding:28px">
+        <h3>You Might Also Need</h3>
+        <div class="related-grid">
+          <a href="../contract-generator/index.html" class="related-card"><span>🤝</span> Contract Generator</a>
+          <a href="../budget-planner/index.html" class="related-card"><span>💰</span> Budget Planner</a>
+          <a href="../email-writer/index.html" class="related-card"><span>📧</span> Email Writer</a>
+          <a href="../qr-generator/index.html" class="related-card"><span>◼️</span> QR Code Generator</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="tools-footer">
+    <div class="th-container">
+      <div class="tf-inner">
+        <div class="tf-brand">
+          <a href="../../index.html" class="tools-logo">
+            <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/>
+            <span>BLESS<em>Tech-X</em></span>
+          </a>
+          <p>Free tools for every Zambian. Built in Lusaka.</p>
+        </div>
+        <div class="tf-links">
+          <h4>Free Tools</h4>
+          <a href="../index.html">All Tools</a>
+          <a href="../cv-builder/index.html">CV Builder</a>
+          <a href="../contract-generator/index.html">Contract Generator</a>
+          <a href="../budget-planner/index.html">Budget Planner</a>
+        </div>
+        <div class="tf-links">
+          <h4>BLESSTech-X</h4>
+          <a href="../../index.html">Main Website</a>
+          <a href="../../index.html#services">Services</a>
+          <a href="../../index.html#contact">Contact</a>
+        </div>
+        <div class="tf-contact">
+          <h4>Contact</h4>
+          <a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a>
+          <a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        </div>
+      </div>
+      <div class="tf-bottom"><p>&copy; 2026 BLESSTech-X · Free Invoice Generator · Built for Zambia 🇿🇲</p></div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+// Init dates
+const today = new Date();
+document.getElementById('invDate').valueAsDate = today;
+const due = new Date(); due.setDate(due.getDate()+14);
+document.getElementById('invDue').valueAsDate = due;
+
+function fmt(n,cur){
+  const sym = cur||document.getElementById('invCurrency')?.value||'ZMW';
+  return `${sym} ${Number(n).toLocaleString('en-ZM',{minimumFractionDigits:2,maximumFractionDigits:2})}`;
+}
+
+function addLine(){
+  const list = document.getElementById('lineItems');
+  const row = document.createElement('div');
+  row.className = 'line-row';
+  row.innerHTML = `<input class="mini li-desc" type="text" placeholder="Service / Product"/><input class="mini li-qty" type="number" value="1" min="0" oninput="updateTotals()"/><input class="mini li-price" type="number" placeholder="0.00" min="0" oninput="updateTotals()"/><input class="mini li-amount" type="text" readonly style="background:var(--bg-alt);font-weight:700;color:var(--sky)"/><button class="del-btn" onclick="delLine(this)">×</button>`;
+  list.appendChild(row);
+}
+
+function delLine(btn){ btn.closest('.line-row').remove(); updateTotals(); }
+
+function updateTotals(){
+  const rows = document.querySelectorAll('#lineItems .line-row');
+  const cur = document.getElementById('invCurrency')?.value||'ZMW';
+  const vatRate = parseFloat(document.getElementById('vatRate')?.value||0.16);
+  let sub = 0;
+  rows.forEach(r=>{
+    const qty = parseFloat(r.querySelector('.li-qty')?.value)||0;
+    const price = parseFloat(r.querySelector('.li-price')?.value)||0;
+    const amt = qty*price;
+    sub += amt;
+    const amtEl = r.querySelector('.li-amount');
+    if(amtEl) amtEl.value = fmt(amt,cur);
+  });
+  const vat = sub*vatRate;
+  const total = sub+vat;
+  document.getElementById('tSub').textContent = fmt(sub,cur);
+  document.getElementById('tVat').textContent = fmt(vat,cur);
+  document.getElementById('tTotal').textContent = fmt(total,cur);
+  document.getElementById('tVatLabel').textContent = `VAT (${Math.round(vatRate*100)}%)`;
+}
+
+document.getElementById('vatRate').addEventListener('change',updateTotals);
+document.getElementById('invCurrency').addEventListener('change',updateTotals);
+
+function fmtDate(v){
+  if(!v) return '—';
+  return new Date(v).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+}
+
+function generateInvoice(){
+  const cur = document.getElementById('invCurrency').value;
+  const vatRate = parseFloat(document.getElementById('vatRate').value);
+  const rows = document.querySelectorAll('#lineItems .line-row');
+  let sub=0, lines=[];
+  rows.forEach(r=>{
+    const desc = r.querySelector('.li-desc')?.value||'';
+    const qty = parseFloat(r.querySelector('.li-qty')?.value)||0;
+    const price = parseFloat(r.querySelector('.li-price')?.value)||0;
+    const amt = qty*price;
+    sub+=amt;
+    if(desc||qty||price) lines.push({desc,qty,price,amt});
+  });
+  const vat=sub*vatRate, total=sub+vat;
+  const status = document.getElementById('invStatus').value;
+  const bizName = document.getElementById('bizName').value||'Your Business';
+  const bizAddr = document.getElementById('bizAddr').value||'';
+  const bizPhone = document.getElementById('bizPhone').value||'';
+  const bizEmail = document.getElementById('bizEmail').value||'';
+  const bizTpin = document.getElementById('bizTpin').value||'';
+  const clientName = document.getElementById('clientName').value||'Client';
+  const clientAddr = document.getElementById('clientAddr').value||'';
+  const clientPhone = document.getElementById('clientPhone').value||'';
+  const clientEmail = document.getElementById('clientEmail').value||'';
+  const invNum = document.getElementById('invNum').value||'INV-001';
+  const invDate = fmtDate(document.getElementById('invDate').value);
+  const invDue = fmtDate(document.getElementById('invDue').value);
+  const payment = document.getElementById('invPayment').value||'';
+  const notes = document.getElementById('invNotes').value||'';
+  const statusBadge = status==='paid'?`<span class="stamp">PAID</span>`:status==='draft'?`<span class="inv-status unpaid">DRAFT</span>`:`<span class="inv-status unpaid">UNPAID</span>`;
+
+  document.getElementById('invoicePreview').innerHTML = `
+    <div class="inv-top">
+      <div>
+        <div class="inv-brand">${bizName}</div>
+        <div style="font-size:.85rem;color:#64748b;margin-top:4px;line-height:1.6">${bizAddr}<br/>${bizPhone}${bizPhone&&bizEmail?' · ':''} ${bizEmail}${bizTpin?'<br/>TPIN: '+bizTpin:''}</div>
+      </div>
+      <div class="inv-meta">
+        <div style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#64748b;margin-bottom:4px">Invoice</div>
+        <div class="inv-num">${invNum}</div>
+        <div style="font-size:.83rem;color:#64748b;margin-top:4px">Date: ${invDate}</div>
+        <div style="font-size:.83rem;color:#64748b">Due: ${invDue}</div>
+        <div style="margin-top:8px">${statusBadge}</div>
+      </div>
+    </div>
+    <div class="inv-parties">
+      <div class="inv-party"><h4>From</h4><p><strong>${bizName}</strong><br/>${bizAddr}<br/>${bizPhone}<br/>${bizEmail}</p></div>
+      <div class="inv-party"><h4>Bill To</h4><p><strong>${clientName}</strong><br/>${clientAddr}<br/>${clientPhone}<br/>${clientEmail}</p></div>
+    </div>
+    <table class="inv-table">
+      <tr><th>Description</th><th>Qty</th><th>Unit Price</th><th>Amount</th></tr>
+      ${lines.map(l=>`<tr><td>${l.desc||'—'}</td><td>${l.qty}</td><td>${fmt(l.price,cur)}</td><td style="font-weight:700">${fmt(l.amt,cur)}</td></tr>`).join('')}
+    </table>
+    <div class="inv-totals">
+      <div class="inv-total-row"><span>Subtotal</span><span>${fmt(sub,cur)}</span></div>
+      <div class="inv-total-row"><span>VAT (${Math.round(vatRate*100)}%)</span><span>${fmt(vat,cur)}</span></div>
+      <div class="inv-total-row grand-total"><span>TOTAL</span><span>${fmt(total,cur)}</span></div>
+    </div>
+    ${payment?`<div class="inv-notes"><strong><i class="fas fa-university"></i> Payment Instructions:</strong><br/>${payment}</div>`:''}
+    ${notes?`<div class="inv-notes"><strong><i class="fas fa-sticky-note"></i> Notes:</strong><br/>${notes}</div>`:''}
+    <div class="inv-footer">Thank you for your business · ${bizName} · Generated by BLESSTech-X Free Tools · blesstechx.com</div>
+  `;
+  document.getElementById('formView').style.display='none';
+  document.getElementById('previewView').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function backToEdit(){
+  document.getElementById('formView').style.display='block';
+  document.getElementById('previewView').style.display='none';
+}
+
+function printInvoice(){
+  const content = document.getElementById('invoicePreview').innerHTML;
+  const w=window.open('','_blank');
+  w.document.write(`<html><head><title>Invoice — BLESSTech-X</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Segoe UI',Arial,sans-serif;padding:40px;color:#1e293b;max-width:800px;margin:0 auto}
+    .inv-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px}
+    .inv-brand{font-size:1.5rem;font-weight:900;color:#0ea5e9}
+    .inv-num{font-size:1.2rem;font-weight:800;color:#0ea5e9}
+    .inv-parties{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:28px;padding:16px;background:#f8fafc;border-radius:8px}
+    .inv-party h4{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#64748b;margin-bottom:6px}
+    .inv-party p{font-size:.85rem;line-height:1.6}
+    .inv-table{width:100%;border-collapse:collapse;margin-bottom:20px}
+    .inv-table th{background:#0ea5e9;color:white;padding:8px 12px;text-align:left;font-size:.8rem;font-weight:700}
+    .inv-table td{padding:8px 12px;border-bottom:1px solid #e2e8f0;font-size:.85rem}
+    .inv-table tr:nth-child(even){background:#f8fafc}
+    .inv-totals{display:flex;flex-direction:column;align-items:flex-end;gap:4px;margin-bottom:20px}
+    .inv-total-row{display:flex;gap:48px;font-size:.85rem;color:#475569}
+    .inv-total-row.grand-total{font-size:1.1rem;font-weight:800;color:#0ea5e9;border-top:2px solid #e2e8f0;padding-top:8px;margin-top:4px}
+    .inv-notes{background:#f0f9ff;border-left:4px solid #0ea5e9;padding:10px 14px;border-radius:0 8px 8px 0;font-size:.83rem;color:#475569;margin-bottom:16px}
+    .inv-footer{text-align:center;font-size:.75rem;color:#94a3b8;border-top:1px solid #e2e8f0;padding-top:12px}
+    .inv-status{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.72rem;font-weight:700}
+    .unpaid{background:#fee2e2;color:#dc2626}
+    .stamp{display:inline-block;border:3px solid #059669;color:#059669;padding:4px 12px;border-radius:6px;font-size:.78rem;font-weight:800;transform:rotate(-8deg);letter-spacing:2px}
+    @media print{body{padding:20px}}
+  </style></head><body>${content}</body></html>`);
+  w.document.close();
+  setTimeout(()=>w.print(),400);
+}
+
+function copyInvoiceText(){
+  const text = document.getElementById('invoicePreview').innerText;
+  navigator.clipboard.writeText(text).then(()=>alert('Invoice text copied!'));
+}
+
+function shareWhatsApp(){
+  const invNum = document.getElementById('invNum').value||'INV-001';
+  const total = document.getElementById('tTotal').textContent;
+  const client = document.getElementById('clientName').value||'Client';
+  const phone = document.getElementById('clientPhone').value?.replace(/\D/g,'')||'';
+  const msg = `Hello ${client},%0A%0APlease find attached your invoice *${invNum}*%0ATotal Amount: *${total}*%0A%0APlease arrange payment at your earliest convenience.%0A%0AThank you!`;
+  const url = phone ? `https://wa.me/${phone}?text=${msg}` : `https://wa.me/?text=${msg}`;
+  window.open(url,'_blank');
+}
+
+document.getElementById('thToggle').addEventListener('click',()=>{
+  document.getElementById('thNav').classList.toggle('th-nav-open');
+  document.getElementById('thToggle').classList.toggle('th-toggle-open');
+});
+</script>
+</body>
+</html>
