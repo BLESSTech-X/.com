@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QR Code Generator | BLESSTech-X Free Tools</title>
+  <meta name="description" content="Generate downloadable QR codes for any URL, WhatsApp number, phone, email or text. Free QR code generator for Zambian businesses and events."/>
+  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../style.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    .qr-type-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-bottom:20px}
+    .qr-type-btn{padding:12px 8px;border:1.5px solid var(--border);border-radius:var(--radius);background:white;cursor:pointer;font-size:.82rem;font-weight:600;color:var(--slate-l);transition:var(--transition);text-align:center;display:flex;flex-direction:column;align-items:center;gap:5px}
+    .qr-type-btn:hover{border-color:var(--sky);color:var(--sky);background:var(--sky-light)}
+    .qr-type-btn.active{border-color:var(--sky);background:var(--sky);color:white}
+    .qr-type-btn .qt-icon{font-size:1.3rem}
+    .qr-preview-box{background:white;border:2px solid var(--border);border-radius:var(--radius-lg);padding:32px;text-align:center;min-height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .qr-preview-box.has-qr{border-color:var(--sky)}
+    #qrCanvas{border-radius:var(--radius)}
+    .color-swatch{width:40px;height:40px;border-radius:var(--radius);border:2px solid var(--border);cursor:pointer;overflow:hidden;position:relative}
+    .color-swatch input[type=color]{position:absolute;inset:-4px;width:calc(100%+8px);height:calc(100%+8px);cursor:pointer;border:none;padding:0;opacity:0}
+    .color-preview{position:absolute;inset:0;border-radius:4px;pointer-events:none}
+    .size-slider{width:100%;accent-color:var(--sky)}
+  </style>
+</head>
+<body class="tool-page">
+  <header class="tools-header">
+    <div class="th-inner">
+      <a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a>
+      <nav class="th-nav" id="thNav">
+        <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="../index.html"><i class="fas fa-tools"></i> All Tools</a>
+        <a href="../../index.html#services">Services</a>
+        <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      </nav>
+      <button class="th-mobile-toggle" id="thToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main class="tool-page-main">
+    <div class="th-container">
+      <div class="tool-breadcrumb">
+        <a href="../../index.html">Home</a><i class="fas fa-chevron-right"></i>
+        <a href="../index.html">Free Tools</a><i class="fas fa-chevron-right"></i>
+        <span>QR Code Generator</span>
+      </div>
+      <div class="tool-header">
+        <div class="tool-header-inner">
+          <div class="tool-header-icon" style="background:#fce7f3;color:#db2777">◼️</div>
+          <div>
+            <h1>QR Code Generator</h1>
+            <p>Generate downloadable QR codes for any URL, WhatsApp number, phone, email, or text. Use on flyers, business cards, menus, banners, and social media.</p>
+            <div class="tool-header-meta">
+              <span class="tool-meta-badge"><i class="fas fa-check-circle"></i> Free</span>
+              <span class="tool-meta-badge"><i class="fas fa-download"></i> PNG Download</span>
+              <span class="tool-meta-badge"><i class="fas fa-paint-brush"></i> Custom Colors</span>
+              <span class="tool-meta-badge"><i class="fas fa-users"></i> Business · Events</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:start">
+        <!-- FORM -->
+        <div>
+          <div class="tool-box">
+            <div class="tool-box-header"><h2><i class="fas fa-qrcode" style="color:var(--sky)"></i> QR Code Settings</h2></div>
+            <div class="tool-box-body">
+              <p style="font-size:.82rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">Type</p>
+              <div class="qr-type-grid">
+                <button class="qr-type-btn active" data-type="url" onclick="setQRType(this)"><span class="qt-icon">🌐</span>Website URL</button>
+                <button class="qr-type-btn" data-type="whatsapp" onclick="setQRType(this)"><span class="qt-icon">💬</span>WhatsApp</button>
+                <button class="qr-type-btn" data-type="phone" onclick="setQRType(this)"><span class="qt-icon">📞</span>Phone Call</button>
+                <button class="qr-type-btn" data-type="email" onclick="setQRType(this)"><span class="qt-icon">📧</span>Email</button>
+                <button class="qr-type-btn" data-type="sms" onclick="setQRType(this)"><span class="qt-icon">💬</span>SMS</button>
+                <button class="qr-type-btn" data-type="text" onclick="setQRType(this)"><span class="qt-icon">📝</span>Plain Text</button>
+                <button class="qr-type-btn" data-type="wifi" onclick="setQRType(this)"><span class="qt-icon">📶</span>WiFi</button>
+                <button class="qr-type-btn" data-type="location" onclick="setQRType(this)"><span class="qt-icon">📍</span>Location</button>
+              </div>
+
+              <!-- DYNAMIC FIELDS -->
+              <div id="qrFields">
+                <div class="field"><label id="mainFieldLabel">Website URL</label><input type="url" id="mainField" placeholder="https://blesstechx.com" oninput="debounceGenerate()"/></div>
+              </div>
+
+              <hr class="tool-divider"/>
+
+              <!-- CUSTOMISE -->
+              <p style="font-size:.82rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px">Customise</p>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+                <div class="field" style="margin:0">
+                  <label>Foreground Color</label>
+                  <div style="display:flex;align-items:center;gap:10px;margin-top:6px">
+                    <div class="color-swatch"><input type="color" id="fgColor" value="#000000" oninput="updateColorPreview('fg');debounceGenerate()"/><div class="color-preview" id="fgPreview" style="background:#000000"></div></div>
+                    <input type="text" id="fgHex" value="#000000" maxlength="7" style="padding:8px 10px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.85rem;font-family:'Courier New',monospace;width:100px;outline:none" oninput="syncColorFromHex('fg')"/>
+                  </div>
+                </div>
+                <div class="field" style="margin:0">
+                  <label>Background Color</label>
+                  <div style="display:flex;align-items:center;gap:10px;margin-top:6px">
+                    <div class="color-swatch"><input type="color" id="bgColor" value="#ffffff" oninput="updateColorPreview('bg');debounceGenerate()"/><div class="color-preview" id="bgPreview" style="background:#ffffff"></div></div>
+                    <input type="text" id="bgHex" value="#ffffff" maxlength="7" style="padding:8px 10px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.85rem;font-family:'Courier New',monospace;width:100px;outline:none" oninput="syncColorFromHex('bg')"/>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label>Size: <span id="sizeLabel">256</span>px</label>
+                <input type="range" class="size-slider" id="qrSize" min="128" max="512" value="256" step="32" oninput="document.getElementById('sizeLabel').textContent=this.value;debounceGenerate()"/>
+              </div>
+              <div class="field" style="margin-bottom:0">
+                <label>Label / Caption (optional)</label>
+                <input type="text" id="qrLabel" placeholder="e.g. Scan to visit our website · Scan to call us" oninput="debounceGenerate()"/>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PREVIEW & DOWNLOAD -->
+        <div style="position:sticky;top:88px">
+          <div class="tool-box">
+            <div class="tool-box-header"><h2><i class="fas fa-eye" style="color:var(--sky)"></i> Preview</h2></div>
+            <div class="tool-box-body">
+              <div class="qr-preview-box" id="qrPreviewBox">
+                <div id="qrCanvas" style="display:flex;align-items:center;justify-content:center;min-height:200px"></div>
+                <div id="qrLabelDisplay" style="margin-top:12px;font-size:.88rem;font-weight:700;color:var(--slate);display:none"></div>
+                <div id="qrPlaceholder" style="color:var(--muted);font-style:italic;font-size:.9rem">Your QR code will appear here</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:10px;margin-top:16px">
+                <button class="btn btn-primary btn-full" id="downloadPNG" onclick="downloadQR('png')" style="display:none"><i class="fas fa-download"></i> Download PNG</button>
+                <button class="btn btn-secondary btn-full" id="copyQRBtn" onclick="copyQR()" style="display:none"><i class="fas fa-copy"></i> Copy to Clipboard</button>
+              </div>
+              <div id="qrInfo" style="margin-top:14px;font-size:.78rem;color:var(--muted);display:none"></div>
+            </div>
+          </div>
+
+          <!-- QUICK PRESETS -->
+          <div class="tool-box" style="margin-top:16px">
+            <div class="tool-box-header"><h2><i class="fas fa-bolt" style="color:var(--amber)"></i> Quick Presets</h2></div>
+            <div class="tool-box-body" style="display:flex;flex-direction:column;gap:8px">
+              <button class="btn btn-secondary" onclick="applyPreset('blesstechx')" style="justify-content:flex-start"><i class="fas fa-globe" style="color:var(--sky)"></i> BLESSTech-X Website</button>
+              <button class="btn btn-secondary" onclick="applyPreset('whatsapp')" style="justify-content:flex-start"><i class="fab fa-whatsapp" style="color:#25D366"></i> BLESSTech-X WhatsApp</button>
+              <button class="btn btn-secondary" onclick="applyPreset('dark')" style="justify-content:flex-start"><i class="fas fa-moon" style="color:#8b5cf6"></i> Dark Theme QR</button>
+              <button class="btn btn-secondary" onclick="applyPreset('blue')" style="justify-content:flex-start"><i class="fas fa-tint" style="color:var(--sky)"></i> Blue Brand QR</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-service-cta" style="margin-top:36px">
+        <div><h4>Put your QR code on a professional website?</h4><p>BLESSTech-X builds complete business websites where your QR code links to a polished online presence.</p></div>
+        <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I want a professional website for my QR code." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Get Your Website</a>
+      </div>
+      <div class="related-tools" style="margin-top:32px;background:var(--bg-alt);border-radius:var(--radius-lg);padding:28px">
+        <h3>You Might Also Need</h3>
+        <div class="related-grid">
+          <a href="../invoice/index.html" class="related-card"><span>🧾</span> Invoice Generator</a>
+          <a href="../email-writer/index.html" class="related-card"><span>📧</span> Email Writer</a>
+          <a href="../countdown/index.html" class="related-card"><span>⏳</span> Countdown Timer</a>
+          <a href="../budget-planner/index.html" class="related-card"><span>💰</span> Budget Planner</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="tools-footer">
+    <div class="th-container">
+      <div class="tf-inner">
+        <div class="tf-brand"><a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a><p>Free tools for every Zambian.</p></div>
+        <div class="tf-links"><h4>Free Tools</h4><a href="../index.html">All Tools</a><a href="../invoice/index.html">Invoice Generator</a><a href="../countdown/index.html">Countdown Timer</a></div>
+        <div class="tf-links"><h4>BLESSTech-X</h4><a href="../../index.html">Main Website</a><a href="../../index.html#services">Services</a><a href="../../index.html#contact">Contact</a></div>
+        <div class="tf-contact"><h4>Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
+      </div>
+      <div class="tf-bottom"><p>&copy; 2026 BLESSTech-X · Free QR Code Generator · Built for Zambia 🇿🇲</p></div>
+    </div>
+  </footer>
+  <a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+let currentType='url';
+let qrInstance=null;
+let debTimer=null;
+
+const TYPE_CONFIGS={
+  url:{label:'Website URL',placeholder:'https://blesstechx.com',type:'url',build:v=>v},
+  whatsapp:{label:'WhatsApp Number',placeholder:'+260979603741 (with country code)',type:'tel',build:v=>`https://wa.me/${v.replace(/\D/g,'')}`},
+  phone:{label:'Phone Number',placeholder:'+260979603741',type:'tel',build:v=>`tel:${v}`},
+  email:{label:'Email Address',placeholder:'hello@blesstechx.com',type:'email',build:v=>`mailto:${v}`},
+  sms:{label:'Phone Number for SMS',placeholder:'+260979603741',type:'tel',build:v=>`sms:${v}`},
+  text:{label:'Plain Text',placeholder:'Any text to encode in QR…',type:'text',build:v=>v},
+  wifi:{label:'',placeholder:'',type:'text',build:()=>buildWifi(),special:'wifi'},
+  location:{label:'',placeholder:'',type:'text',build:()=>buildLocation(),special:'location'}
+};
+
+function setQRType(btn){
+  document.querySelectorAll('.qr-type-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  currentType=btn.dataset.type;
+  const cfg=TYPE_CONFIGS[currentType];
+  const fieldsEl=document.getElementById('qrFields');
+  if(cfg.special==='wifi'){
+    fieldsEl.innerHTML=`<div class="field"><label>WiFi Network Name (SSID)</label><input type="text" id="wifiSSID" placeholder="MyHomeWifi" oninput="debounceGenerate()"/></div><div class="field"><label>Password</label><input type="text" id="wifiPass" placeholder="mypassword123" oninput="debounceGenerate()"/></div><div class="field"><label>Security Type</label><select id="wifiSec" onchange="debounceGenerate()" style="padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.9rem;outline:none;width:100%"><option value="WPA">WPA/WPA2</option><option value="WEP">WEP</option><option value="nopass">None</option></select></div>`;
+  } else if(cfg.special==='location'){
+    fieldsEl.innerHTML=`<div class="field-row"><div class="field"><label>Latitude</label><input type="text" id="lat" placeholder="-15.4167" oninput="debounceGenerate()"/></div><div class="field"><label>Longitude</label><input type="text" id="lng" placeholder="28.2833" oninput="debounceGenerate()"/></div></div><div class="field"><label>Label (optional)</label><input type="text" id="locLabel" placeholder="BLESSTech-X Office, Lusaka" oninput="debounceGenerate()"/></div>`;
+  } else {
+    fieldsEl.innerHTML=`<div class="field"><label id="mainFieldLabel">${cfg.label}</label><input type="${cfg.type}" id="mainField" placeholder="${cfg.placeholder}" oninput="debounceGenerate()"/></div>`;
+  }
+  debounceGenerate();
+}
+
+function buildWifi(){
+  const ssid=document.getElementById('wifiSSID')?.value||'';
+  const pass=document.getElementById('wifiPass')?.value||'';
+  const sec=document.getElementById('wifiSec')?.value||'WPA';
+  return `WIFI:T:${sec};S:${ssid};P:${pass};;`;
+}
+function buildLocation(){
+  const lat=document.getElementById('lat')?.value||'';
+  const lng=document.getElementById('lng')?.value||'';
+  const label=document.getElementById('locLabel')?.value||'';
+  return `geo:${lat},${lng}${label?'?q='+encodeURIComponent(label):''}`;
+}
+
+function getQRData(){
+  const cfg=TYPE_CONFIGS[currentType];
+  if(cfg.special) return cfg.build();
+  const val=document.getElementById('mainField')?.value||'';
+  return cfg.build(val);
+}
+
+function debounceGenerate(){ clearTimeout(debTimer); debTimer=setTimeout(generateQR,400); }
+
+function generateQR(){
+  const data=getQRData();
+  const container=document.getElementById('qrCanvas');
+  const placeholder=document.getElementById('qrPlaceholder');
+  const previewBox=document.getElementById('qrPreviewBox');
+  const label=document.getElementById('qrLabel')?.value||'';
+  const labelEl=document.getElementById('qrLabelDisplay');
+  const size=parseInt(document.getElementById('qrSize').value)||256;
+  const fg=document.getElementById('fgColor').value;
+  const bg=document.getElementById('bgColor').value;
+
+  if(!data||data.length<2){
+    placeholder.style.display='block';
+    container.innerHTML='';
+    previewBox.className='qr-preview-box';
+    document.getElementById('downloadPNG').style.display='none';
+    document.getElementById('copyQRBtn').style.display='none';
+    document.getElementById('qrInfo').style.display='none';
+    labelEl.style.display='none';
+    return;
+  }
+
+  placeholder.style.display='none';
+  previewBox.className='qr-preview-box has-qr';
+  container.innerHTML='';
+
+  try {
+    qrInstance=new QRCode(container,{
+      text:data, width:size, height:size,
+      colorDark:fg, colorLight:bg,
+      correctLevel:QRCode.CorrectLevel.H
+    });
+    if(label){ labelEl.textContent=label; labelEl.style.display='block'; }
+    else { labelEl.style.display='none'; }
+    document.getElementById('downloadPNG').style.display='flex';
+    document.getElementById('copyQRBtn').style.display='flex';
+    const info=document.getElementById('qrInfo');
+    info.style.display='block';
+    info.textContent=`Data: ${data.length} characters · Size: ${size}×${size}px`;
+  } catch(e){
+    container.innerHTML=`<span style="color:var(--red);font-size:.85rem">Error: ${e.message}</span>`;
+  }
+}
+
+function downloadQR(){
+  const img=document.querySelector('#qrCanvas img')||document.querySelector('#qrCanvas canvas');
+  if(!img) return;
+  const a=document.createElement('a');
+  if(img.tagName==='CANVAS') a.href=img.toDataURL('image/png');
+  else { const canvas=document.createElement('canvas'); canvas.width=img.width||256; canvas.height=img.height||256; canvas.getContext('2d').drawImage(img,0,0); a.href=canvas.toDataURL('image/png'); }
+  a.download='qr-code-blesstechx.png';
+  a.click();
+}
+
+function copyQR(){
+  const canvas=document.querySelector('#qrCanvas canvas');
+  if(!canvas){ alert('QR code not ready yet.'); return; }
+  canvas.toBlob(blob=>{ navigator.clipboard.write([new ClipboardItem({'image/png':blob})]).then(()=>alert('QR code copied to clipboard!')).catch(()=>alert('Copy failed. Use Download instead.')); });
+}
+
+function updateColorPreview(type){
+  const val=document.getElementById(`${type}Color`).value;
+  document.getElementById(`${type}Preview`).style.background=val;
+  document.getElementById(`${type}Hex`).value=val;
+}
+function syncColorFromHex(type){
+  const hex=document.getElementById(`${type}Hex`).value;
+  if(/^#[0-9a-fA-F]{6}$/.test(hex)){ document.getElementById(`${type}Color`).value=hex; document.getElementById(`${type}Preview`).style.background=hex; debounceGenerate(); }
+}
+
+function applyPreset(preset){
+  const presets={
+    blesstechx:()=>{ setQRType(document.querySelector('[data-type="url"]')); setTimeout(()=>{ document.getElementById('mainField').value='https://blesstechx.com'; debounceGenerate(); },100); },
+    whatsapp:()=>{ setQRType(document.querySelector('[data-type="whatsapp"]')); setTimeout(()=>{ document.getElementById('mainField').value='+260979603741'; debounceGenerate(); },100); },
+    dark:()=>{ document.getElementById('fgColor').value='#ffffff'; document.getElementById('bgColor').value='#0f172a'; document.getElementById('fgHex').value='#ffffff'; document.getElementById('bgHex').value='#0f172a'; document.getElementById('fgPreview').style.background='#ffffff'; document.getElementById('bgPreview').style.background='#0f172a'; debounceGenerate(); },
+    blue:()=>{ document.getElementById('fgColor').value='#0284c7'; document.getElementById('bgColor').value='#e0f2fe'; document.getElementById('fgHex').value='#0284c7'; document.getElementById('bgHex').value='#e0f2fe'; document.getElementById('fgPreview').style.background='#0284c7'; document.getElementById('bgPreview').style.background='#e0f2fe'; debounceGenerate(); }
+  };
+  if(presets[preset]) presets[preset]();
+}
+
+document.getElementById('thToggle').addEventListener('click',()=>{ document.getElementById('thNav').classList.toggle('th-nav-open'); document.getElementById('thToggle').classList.toggle('th-toggle-open'); });
+</script>
+</body>
+</html>
