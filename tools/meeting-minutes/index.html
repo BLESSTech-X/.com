@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Meeting Minutes Generator | BLESSTech-X Free Tools</title>
+  <meta name="description" content="Generate professional meeting minutes instantly. Add attendees, agenda items and decisions — download as PDF. Free tool for Zambian organisations and businesses."/>
+  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../style.css"/>
+  <style>
+    .attendee-row,.agenda-row,.action-row{display:grid;gap:8px;margin-bottom:8px;align-items:center}
+    .attendee-row{grid-template-columns:1fr 1fr 36px}
+    .agenda-row{grid-template-columns:40px 1fr 36px}
+    .action-row{grid-template-columns:1fr 1fr 120px 36px}
+    .mini-input{padding:9px 12px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.88rem;outline:none;transition:var(--transition);width:100%}
+    .mini-input:focus{border-color:var(--sky)}
+    .del-btn{width:36px;height:36px;border-radius:var(--radius);background:#fee2e2;border:none;color:var(--red);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:var(--transition);flex-shrink:0}
+    .del-btn:hover{background:#dc2626;color:white}
+    .add-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:var(--sky-light);border:1.5px solid rgba(14,165,233,.3);border-radius:var(--radius);color:var(--sky-dark);font-size:.83rem;font-weight:700;cursor:pointer;transition:var(--transition)}
+    .add-btn:hover{background:var(--sky);color:white}
+    .num-badge{width:36px;height:36px;border-radius:50%;background:var(--sky);color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;flex-shrink:0}
+    .minutes-preview{background:white;border:1.5px solid var(--border);border-radius:var(--radius);padding:36px 40px;font-family:'Times New Roman',serif;font-size:.93rem;line-height:1.8;color:#1a1a1a;min-height:500px}
+    .mp-header{text-align:center;border-bottom:2px solid #1a1a1a;padding-bottom:16px;margin-bottom:24px}
+    .mp-header h2{font-size:1.2rem;font-weight:bold;text-transform:uppercase;letter-spacing:1px}
+    .mp-header p{font-size:.88rem;color:#555;margin-top:4px}
+    .mp-section{margin-bottom:20px}
+    .mp-section h3{font-size:.95rem;font-weight:bold;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #ccc;padding-bottom:4px;margin-bottom:10px}
+    .mp-table{width:100%;border-collapse:collapse;font-size:.88rem;margin-bottom:12px}
+    .mp-table th{background:#f1f5f9;padding:8px 12px;text-align:left;font-weight:bold;border:1px solid #ddd}
+    .mp-table td{padding:8px 12px;border:1px solid #ddd;vertical-align:top}
+    .mp-agenda-item{margin-bottom:12px;padding-left:16px}
+    .mp-agenda-num{font-weight:bold;color:#0284c7}
+    .mp-sig{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:40px}
+    .mp-sig-box{border-top:1px solid #1a1a1a;padding-top:8px;font-size:.85rem}
+    .copy-toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:var(--slate);color:white;padding:10px 24px;border-radius:50px;font-size:.88rem;font-weight:600;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none}
+    .copy-toast.show{opacity:1}
+    .section-label{font-size:.82rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;margin-top:4px}
+  </style>
+</head>
+<body class="tool-page">
+
+  <header class="tools-header">
+    <div class="th-inner">
+      <a href="../../index.html" class="tools-logo">
+        <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/>
+        <span>BLESS<em>Tech-X</em></span>
+      </a>
+      <nav class="th-nav" id="thNav">
+        <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="../index.html"><i class="fas fa-tools"></i> All Tools</a>
+        <a href="../../index.html#services">Services</a>
+        <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      </nav>
+      <button class="th-mobile-toggle" id="thToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main class="tool-page-main">
+    <div class="th-container">
+
+      <div class="tool-breadcrumb">
+        <a href="../../index.html">Home</a>
+        <i class="fas fa-chevron-right"></i>
+        <a href="../index.html">Free Tools</a>
+        <i class="fas fa-chevron-right"></i>
+        <span>Meeting Minutes Generator</span>
+      </div>
+
+      <div class="tool-header">
+        <div class="tool-header-inner">
+          <div class="tool-header-icon" style="background:#e0f2fe;color:#0284c7">🗒️</div>
+          <div>
+            <h1>Meeting Minutes Generator</h1>
+            <p>Create professional meeting minutes for any organisation. Add attendees, agenda items, decisions and action points — download as PDF to distribute.</p>
+            <div class="tool-header-meta">
+              <span class="tool-meta-badge"><i class="fas fa-check-circle"></i> Free</span>
+              <span class="tool-meta-badge"><i class="fas fa-file-pdf"></i> PDF Download</span>
+              <span class="tool-meta-badge"><i class="fas fa-users"></i> Organisations · Business · Firms</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:420px 1fr;gap:28px;align-items:start">
+
+        <!-- LEFT: FORM -->
+        <div style="display:flex;flex-direction:column;gap:20px">
+
+          <!-- Meeting Info -->
+          <div class="tool-box">
+            <div class="tool-box-header"><h2><i class="fas fa-info-circle" style="color:var(--sky)"></i> Meeting Information</h2></div>
+            <div class="tool-box-body">
+              <div class="field"><label>Meeting Title / Purpose</label><input type="text" id="mtTitle" placeholder="Board Meeting / Project Review / AGM"/></div>
+              <div class="field-row">
+                <div class="field"><label>Date</label><input type="date" id="mtDate"/></div>
+                <div class="field"><label>Time</label><input type="time" id="mtTime"/></div>
+              </div>
+              <div class="field"><label>Venue / Location</label><input type="text" id="mtVenue" placeholder="Board Room, Head Office, Lusaka"/></div>
+              <div class="field"><label>Organisation / Company</label><input type="text" id="mtOrg" placeholder="BLESSTech-X Limited"/></div>
+              <div class="field"><label>Chairperson</label><input type="text" id="mtChair" placeholder="Barack Blessings"/></div>
+              <div class="field"><label>Minutes Recorder</label><input type="text" id="mtRecorder" placeholder="Sylvester Mwila"/></div>
+            </div>
+          </div>
+
+          <!-- Attendees -->
+          <div class="tool-box">
+            <div class="tool-box-header"><h2><i class="fas fa-users" style="color:var(--sky)"></i> Attendees</h2></div>
+            <div class="tool-box-body">
+              <div class="section-label" style="margin-bottom:8px">Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Role / Title</div>
+              <div id="attendeesList">
+                <div class="attendee-row">
+                  <input class="mini-input att-name" type="text" placeholder="Full Name"/>
+                  <input class="mini-input att-role" type="text" placeholder="Role / Title"/>
+                  <button class="del-btn" onclick="delRow(this)">×</button>
+                </div>
+              </div>
+              <button class="add-btn" onclick="addAttendee()"><i class="fas fa-plus"></i> Add Attendee</button>
+            </div>
+          </div>
+
+          <!-- Agenda -->
+          <div class="tool-box">
+            <div class="tool-box-header"><h2><i class="fas fa-list-ol" style="color:var(--sky)"></i> Agenda Items</h2></div>
+            <div class="tool-box-body">
+              <div id="agendaList">
+                <div class="agenda-row">
+                  <div class="num-badge">1</div>
+                  <input class="mini-input" type="text" placeholder="Agenda item description / discussion point"/>
+                  <button class="del-btn" onclick="delRow(this)">×</button>
+                </div>
+              </div>
+              <button class="add-btn" onclick="addAgenda()"><i class="fas fa-plus"></i> Add Item</button>
+            </div>
+          </div>
+
+          <!-- Decisions & Actions -->
+          <div class="tool-box">
+            <div class="tool-box-header"><h2><i class="fas fa-tasks" style="color:var(--sky)"></i> Decisions &amp; Action Points</h2></div>
+            <div class="tool-box-body">
+              <div class="field"><label>Key Decisions Made</label><textarea id="mtDecisions" placeholder="List the key decisions agreed upon in this meeting…" style="min-height:80px"></textarea></div>
+              <div class="section-label" style="margin-top:4px">Action &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Responsible &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Deadline</div>
+              <div id="actionsList">
+                <div class="action-row">
+                  <input class="mini-input" type="text" placeholder="Action item"/>
+                  <input class="mini-input" type="text" placeholder="Responsible"/>
+                  <input class="mini-input" type="date"/>
+                  <button class="del-btn" onclick="delRow(this)">×</button>
+                </div>
+              </div>
+              <button class="add-btn" onclick="addAction()"><i class="fas fa-plus"></i> Add Action</button>
+              <div class="field" style="margin-top:16px"><label>Next Meeting Date &amp; Venue (optional)</label><input type="text" id="mtNextMeeting" placeholder="e.g. 15 August 2026 at Board Room"/></div>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-full" style="padding:16px" onclick="generateMinutes()">
+            <i class="fas fa-magic"></i> Generate Meeting Minutes
+          </button>
+        </div>
+
+        <!-- RIGHT: PREVIEW -->
+        <div>
+          <div class="tool-box">
+            <div class="tool-box-header">
+              <h2><i class="fas fa-file-alt" style="color:var(--sky)"></i> Minutes Preview</h2>
+              <div style="display:flex;gap:8px">
+                <button class="btn btn-sm btn-secondary" id="copyMinBtn" onclick="copyMinutes()" style="display:none"><i class="fas fa-copy"></i> Copy</button>
+                <button class="btn btn-sm btn-primary" id="pdfMinBtn" onclick="printMinutes()" style="display:none"><i class="fas fa-file-pdf"></i> Download PDF</button>
+              </div>
+            </div>
+            <div class="tool-box-body" style="padding:0">
+              <div id="minutesPreview" class="minutes-preview">
+                <div style="text-align:center;color:var(--muted);font-family:var(--font);font-style:italic;padding-top:100px">
+                  🗒️ Your meeting minutes will appear here.<br/>Fill in the form and click Generate.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-service-cta" style="margin-top:36px">
+        <div>
+          <h4>Need a digital management system for your organisation?</h4>
+          <p>BLESSTech-X builds school and business management systems with staff portals and document management.</p>
+        </div>
+        <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I need a management system for my organisation." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Discuss Your System</a>
+      </div>
+
+      <div class="related-tools" style="margin-top:32px;background:var(--bg-alt);border-radius:var(--radius-lg);padding:28px">
+        <h3>You Might Also Need</h3>
+        <div class="related-grid">
+          <a href="../agenda-builder/index.html" class="related-card"><span>📋</span> Agenda Builder</a>
+          <a href="../email-writer/index.html" class="related-card"><span>📧</span> Email Writer</a>
+          <a href="../letter-generator/index.html" class="related-card"><span>📜</span> Letter Generator</a>
+          <a href="../contract-generator/index.html" class="related-card"><span>🤝</span> Contract Generator</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="copy-toast" id="copyToast">✅ Copied to clipboard!</div>
+
+  <footer class="tools-footer">
+    <div class="th-container">
+      <div class="tf-inner">
+        <div class="tf-brand">
+          <a href="../../index.html" class="tools-logo">
+            <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/>
+            <span>BLESS<em>Tech-X</em></span>
+          </a>
+          <p>Free tools for every Zambian. Built in Lusaka.</p>
+        </div>
+        <div class="tf-links">
+          <h4>Free Tools</h4>
+          <a href="../index.html">All Tools</a>
+          <a href="../agenda-builder/index.html">Agenda Builder</a>
+          <a href="../email-writer/index.html">Email Writer</a>
+          <a href="../invoice/index.html">Invoice Generator</a>
+        </div>
+        <div class="tf-links">
+          <h4>BLESSTech-X</h4>
+          <a href="../../index.html">Main Website</a>
+          <a href="../../index.html#services">Services</a>
+          <a href="../../index.html#contact">Contact</a>
+        </div>
+        <div class="tf-contact">
+          <h4>Contact</h4>
+          <a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a>
+          <a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        </div>
+      </div>
+      <div class="tf-bottom"><p>&copy; 2026 BLESSTech-X · Free Meeting Minutes Generator · Built for Zambia 🇿🇲</p></div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+// Set defaults
+document.getElementById('mtDate').valueAsDate = new Date();
+document.getElementById('mtTime').value = '09:00';
+
+function addAttendee(){
+  const list = document.getElementById('attendeesList');
+  const row = document.createElement('div');
+  row.className = 'attendee-row';
+  row.innerHTML = `<input class="mini-input att-name" type="text" placeholder="Full Name"/><input class="mini-input att-role" type="text" placeholder="Role / Title"/><button class="del-btn" onclick="delRow(this)">×</button>`;
+  list.appendChild(row);
+}
+
+function addAgenda(){
+  const list = document.getElementById('agendaList');
+  const num = list.children.length + 1;
+  const row = document.createElement('div');
+  row.className = 'agenda-row';
+  row.innerHTML = `<div class="num-badge">${num}</div><input class="mini-input" type="text" placeholder="Agenda item"/><button class="del-btn" onclick="delRow(this)">×</button>`;
+  list.appendChild(row);
+}
+
+function addAction(){
+  const list = document.getElementById('actionsList');
+  const row = document.createElement('div');
+  row.className = 'action-row';
+  row.innerHTML = `<input class="mini-input" type="text" placeholder="Action item"/><input class="mini-input" type="text" placeholder="Responsible"/><input class="mini-input" type="date"/><button class="del-btn" onclick="delRow(this)">×</button>`;
+  list.appendChild(row);
+}
+
+function delRow(btn){ btn.closest('[class$="-row"]').remove(); }
+
+function fmtDate(v){
+  if(!v) return '—';
+  return new Date(v).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+}
+function fmtTime(v){ if(!v) return ''; const [h,m]=v.split(':'); const H=parseInt(h); return `${H>12?H-12:H||12}:${m} ${H>=12?'PM':'AM'}`; }
+
+function generateMinutes(){
+  const title = document.getElementById('mtTitle').value || 'Meeting';
+  const date = fmtDate(document.getElementById('mtDate').value);
+  const time = fmtTime(document.getElementById('mtTime').value);
+  const venue = document.getElementById('mtVenue').value || '—';
+  const org = document.getElementById('mtOrg').value || '';
+  const chair = document.getElementById('mtChair').value || '—';
+  const recorder = document.getElementById('mtRecorder').value || '—';
+  const decisions = document.getElementById('mtDecisions').value || '';
+  const nextMeeting = document.getElementById('mtNextMeeting').value || '';
+
+  // Attendees
+  const attRows = document.querySelectorAll('#attendeesList .attendee-row');
+  const attendees = Array.from(attRows).map(r=>({name:r.querySelector('.att-name').value,role:r.querySelector('.att-role').value})).filter(a=>a.name);
+
+  // Agenda
+  const agRows = document.querySelectorAll('#agendaList .agenda-row input[type=text]');
+  const agenda = Array.from(agRows).map(i=>i.value).filter(Boolean);
+
+  // Actions
+  const actRows = document.querySelectorAll('#actionsList .action-row');
+  const actions = Array.from(actRows).map(r=>{
+    const inputs = r.querySelectorAll('input');
+    return {action:inputs[0].value, responsible:inputs[1].value, deadline:fmtDate(inputs[2].value)};
+  }).filter(a=>a.action);
+
+  const preview = document.getElementById('minutesPreview');
+  preview.innerHTML = `
+    <div class="mp-header">
+      ${org?`<p style="font-size:.85rem;color:#666;margin-bottom:4px">${org}</p>`:''}
+      <h2>Minutes of Meeting</h2>
+      <p>${title}</p>
+      <p style="margin-top:6px;font-size:.85rem"><strong>Date:</strong> ${date} &nbsp;|&nbsp; <strong>Time:</strong> ${time} &nbsp;|&nbsp; <strong>Venue:</strong> ${venue}</p>
+    </div>
+
+    <div class="mp-section">
+      <h3>1. Meeting Details</h3>
+      <table class="mp-table">
+        <tr><th>Item</th><th>Details</th></tr>
+        <tr><td>Chairperson</td><td>${chair}</td></tr>
+        <tr><td>Minutes Recorder</td><td>${recorder}</td></tr>
+        <tr><td>Date &amp; Time</td><td>${date} at ${time}</td></tr>
+        <tr><td>Venue</td><td>${venue}</td></tr>
+      </table>
+    </div>
+
+    ${attendees.length?`
+    <div class="mp-section">
+      <h3>2. Attendees</h3>
+      <table class="mp-table">
+        <tr><th>#</th><th>Name</th><th>Role / Title</th></tr>
+        ${attendees.map((a,i)=>`<tr><td>${i+1}</td><td>${a.name}</td><td>${a.role||'—'}</td></tr>`).join('')}
+      </table>
+    </div>`:''}
+
+    ${agenda.length?`
+    <div class="mp-section">
+      <h3>3. Agenda &amp; Discussion</h3>
+      ${agenda.map((item,i)=>`<div class="mp-agenda-item"><span class="mp-agenda-num">${i+1}.</span> ${item}<br/><span style="color:#888;font-size:.85rem">Discussion: _______________________________________________</span></div>`).join('')}
+    </div>`:''}
+
+    ${decisions?`
+    <div class="mp-section">
+      <h3>4. Decisions Made</h3>
+      <p style="white-space:pre-wrap;font-size:.9rem">${decisions}</p>
+    </div>`:''}
+
+    ${actions.length?`
+    <div class="mp-section">
+      <h3>5. Action Points</h3>
+      <table class="mp-table">
+        <tr><th>#</th><th>Action</th><th>Responsible</th><th>Deadline</th></tr>
+        ${actions.map((a,i)=>`<tr><td>${i+1}</td><td>${a.action}</td><td>${a.responsible||'—'}</td><td>${a.deadline}</td></tr>`).join('')}
+      </table>
+    </div>`:''}
+
+    ${nextMeeting?`
+    <div class="mp-section">
+      <h3>6. Next Meeting</h3>
+      <p>${nextMeeting}</p>
+    </div>`:''}
+
+    <div class="mp-section" style="margin-top:40px">
+      <h3>Approved &amp; Signed</h3>
+      <div class="mp-sig">
+        <div class="mp-sig-box"><p><strong>Chairperson</strong></p><p style="margin-top:32px">${chair}</p></div>
+        <div class="mp-sig-box"><p><strong>Minutes Recorder</strong></p><p style="margin-top:32px">${recorder}</p></div>
+      </div>
+    </div>
+    <p style="font-size:.75rem;color:#aaa;margin-top:32px;text-align:center;font-family:Arial,sans-serif">Generated by BLESSTech-X Free Tools · blesstechx.com</p>
+  `;
+
+  document.getElementById('copyMinBtn').style.display = 'flex';
+  document.getElementById('pdfMinBtn').style.display = 'flex';
+}
+
+function copyMinutes(){
+  const text = document.getElementById('minutesPreview').innerText;
+  navigator.clipboard.writeText(text).then(()=>{
+    const t = document.getElementById('copyToast');
+    t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500);
+  });
+}
+
+function printMinutes(){
+  const content = document.getElementById('minutesPreview').innerHTML;
+  const w = window.open('','_blank');
+  w.document.write(`<html><head><title>Meeting Minutes — BLESSTech-X</title>
+  <style>
+    body{font-family:'Times New Roman',serif;padding:56px;max-width:800px;margin:0 auto;color:#1a1a1a;font-size:12pt}
+    .mp-header{text-align:center;border-bottom:2px solid #1a1a1a;padding-bottom:16px;margin-bottom:24px}
+    .mp-header h2{font-size:1.1rem;font-weight:bold;text-transform:uppercase;letter-spacing:1px}
+    .mp-section{margin-bottom:20px}
+    .mp-section h3{font-size:.9rem;font-weight:bold;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #ccc;padding-bottom:4px;margin-bottom:10px}
+    .mp-table{width:100%;border-collapse:collapse;font-size:.85rem;margin-bottom:12px}
+    .mp-table th{background:#f1f5f9;padding:7px 10px;text-align:left;font-weight:bold;border:1px solid #ddd}
+    .mp-table td{padding:7px 10px;border:1px solid #ddd;vertical-align:top}
+    .mp-agenda-item{margin-bottom:10px;padding-left:16px}
+    .mp-agenda-num{font-weight:bold;color:#0284c7}
+    .mp-sig{display:flex;gap:80px;margin-top:40px}
+    .mp-sig-box{flex:1;border-top:1px solid #1a1a1a;padding-top:8px;font-size:.85rem}
+    @media print{body{padding:30px}}
+  </style></head><body>${content}</body></html>`);
+  w.document.close();
+  setTimeout(()=>w.print(),400);
+}
+
+document.getElementById('thToggle').addEventListener('click',()=>{
+  document.getElementById('thNav').classList.toggle('th-nav-open');
+  document.getElementById('thToggle').classList.toggle('th-toggle-open');
+});
+</script>
+</body>
+</html>
