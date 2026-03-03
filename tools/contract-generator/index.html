@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contract Generator | BLESSTech-X Free Tools</title>
+  <meta name="description" content="Generate simple service contracts, freelance agreements and rental agreements as PDF. Free contract generator for Zambian businesses and freelancers."/>
+  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../style.css"/>
+  <style>
+    .ct-type-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:24px}
+    .ct-btn{padding:14px 12px;border:1.5px solid var(--border);border-radius:var(--radius);background:white;cursor:pointer;font-size:.85rem;font-weight:600;color:var(--slate-l);transition:var(--transition);text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}
+    .ct-btn:hover{border-color:var(--sky);color:var(--sky);background:var(--sky-light)}
+    .ct-btn.active{border-color:var(--sky);background:var(--sky);color:white}
+    .ct-btn .ct-icon{font-size:1.4rem}
+    .contract-preview{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:40px;font-family:'Times New Roman',serif;font-size:.93rem;line-height:1.9;color:#1a1a1a;min-height:500px;white-space:pre-wrap}
+    .contract-preview .cp-empty{font-family:var(--font);font-style:italic;color:var(--muted);text-align:center;padding-top:80px;font-size:.93rem}
+    .disclaimer{background:#fef3c7;border:1px solid #f59e0b;border-radius:var(--radius);padding:14px 16px;font-size:.83rem;color:#92400e;display:flex;gap:10px;align-items:flex-start;margin-bottom:20px}
+    .disclaimer i{flex-shrink:0;margin-top:2px;color:#f59e0b}
+  </style>
+</head>
+<body class="tool-page">
+  <header class="tools-header">
+    <div class="th-inner">
+      <a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a>
+      <nav class="th-nav" id="thNav">
+        <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="../index.html"><i class="fas fa-tools"></i> All Tools</a>
+        <a href="../../index.html#services">Services</a>
+        <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      </nav>
+      <button class="th-mobile-toggle" id="thToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main class="tool-page-main">
+    <div class="th-container">
+      <div class="tool-breadcrumb">
+        <a href="../../index.html">Home</a><i class="fas fa-chevron-right"></i>
+        <a href="../index.html">Free Tools</a><i class="fas fa-chevron-right"></i>
+        <span>Contract Generator</span>
+      </div>
+      <div class="tool-header">
+        <div class="tool-header-inner">
+          <div class="tool-header-icon" style="background:#ede9fe;color:#7c3aed">🤝</div>
+          <div>
+            <h1>Simple Contract Generator</h1>
+            <p>Generate basic service contracts, freelance agreements, and rental agreements. Download as PDF. For complex legal matters, consult a qualified lawyer.</p>
+            <div class="tool-header-meta">
+              <span class="tool-meta-badge"><i class="fas fa-check-circle"></i> Free</span>
+              <span class="tool-meta-badge"><i class="fas fa-file-pdf"></i> PDF Download</span>
+              <span class="tool-meta-badge"><i class="fas fa-users"></i> Freelancers · Business · Landlords</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="disclaimer">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span><strong>Important:</strong> This tool generates basic contract templates for simple everyday agreements. For complex business deals, employment contracts, or legal disputes, always consult a qualified Zambian lawyer. These templates are starting points, not legal advice.</span>
+      </div>
+
+      <div style="display:grid;grid-template-columns:380px 1fr;gap:28px;align-items:start">
+        <!-- FORM -->
+        <div>
+          <div class="tool-box">
+            <div class="tool-box-header"><h2><i class="fas fa-file-contract" style="color:var(--sky)"></i> Contract Settings</h2></div>
+            <div class="tool-box-body">
+              <p style="font-size:.82rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">Contract Type</p>
+              <div class="ct-type-grid">
+                <button class="ct-btn active" data-ct="service" onclick="setCT(this)"><span class="ct-icon">🛠️</span>Service</button>
+                <button class="ct-btn" data-ct="freelance" onclick="setCT(this)"><span class="ct-icon">💻</span>Freelance</button>
+                <button class="ct-btn" data-ct="rental" onclick="setCT(this)"><span class="ct-icon">🏠</span>Rental</button>
+                <button class="ct-btn" data-ct="supply" onclick="setCT(this)"><span class="ct-icon">📦</span>Supply</button>
+                <button class="ct-btn" data-ct="nda" onclick="setCT(this)"><span class="ct-icon">🔒</span>NDA</button>
+                <button class="ct-btn" data-ct="employment" onclick="setCT(this)"><span class="ct-icon">💼</span>Employment</button>
+              </div>
+              <hr class="tool-divider"/>
+              <div class="field"><label>Party 1 (Provider / Landlord / Employer)</label><input type="text" id="ct_p1" placeholder="Barack Blessings / BLESSTech-X"/></div>
+              <div class="field"><label>Party 1 Address</label><input type="text" id="ct_p1addr" placeholder="Lusaka, Zambia"/></div>
+              <div class="field"><label>Party 2 (Client / Tenant / Employee)</label><input type="text" id="ct_p2" placeholder="Client Name / Company"/></div>
+              <div class="field"><label>Party 2 Address</label><input type="text" id="ct_p2addr" placeholder="Kitwe, Zambia"/></div>
+              <div class="field"><label>Contract Date</label><input type="date" id="ct_date"/></div>
+              <div class="field"><label>Service / Property Description</label><textarea id="ct_scope" placeholder="Describe the service, property, or work scope…" style="min-height:70px"></textarea></div>
+              <div class="field-row">
+                <div class="field"><label>Amount / Rent (ZMW)</label><input type="text" id="ct_amount" placeholder="e.g. 2,500"/></div>
+                <div class="field"><label>Duration / Term</label><input type="text" id="ct_duration" placeholder="e.g. 3 months"/></div>
+              </div>
+              <div class="field"><label>Payment Terms</label><input type="text" id="ct_payment" placeholder="e.g. 50% upfront, 50% on completion"/></div>
+              <div class="field"><label>Special Conditions (optional)</label><textarea id="ct_conditions" placeholder="Any special terms, penalties, warranties…" style="min-height:60px"></textarea></div>
+              <button class="btn btn-primary btn-full" style="margin-top:8px" onclick="generateContract()">
+                <i class="fas fa-magic"></i> Generate Contract
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- PREVIEW -->
+        <div>
+          <div class="tool-box">
+            <div class="tool-box-header">
+              <h2><i class="fas fa-file-alt" style="color:var(--sky)"></i> Contract Preview</h2>
+              <div style="display:flex;gap:8px">
+                <button class="btn btn-sm btn-secondary" id="copyCtBtn" onclick="copyContract()" style="display:none"><i class="fas fa-copy"></i> Copy</button>
+                <button class="btn btn-sm btn-primary" id="pdfCtBtn" onclick="printContract()" style="display:none"><i class="fas fa-file-pdf"></i> PDF</button>
+              </div>
+            </div>
+            <div class="tool-box-body" style="padding:0">
+              <div id="contractPreview" class="contract-preview"><div class="cp-empty">🤝 Your contract will appear here.<br/>Fill in the details and click Generate.</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-service-cta" style="margin-top:36px">
+        <div><h4>Need a professional website or online store?</h4><p>BLESSTech-X builds complete digital solutions for Zambian businesses from ZMW 650.</p></div>
+        <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I want to discuss a project." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Get a Quote</a>
+      </div>
+      <div class="related-tools" style="margin-top:32px;background:var(--bg-alt);border-radius:var(--radius-lg);padding:28px">
+        <h3>You Might Also Need</h3>
+        <div class="related-grid">
+          <a href="../invoice/index.html" class="related-card"><span>🧾</span> Invoice Generator</a>
+          <a href="../letter-generator/index.html" class="related-card"><span>📜</span> Letter Generator</a>
+          <a href="../email-writer/index.html" class="related-card"><span>📧</span> Email Writer</a>
+          <a href="../cv-builder/index.html" class="related-card"><span>📑</span> CV Builder</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="tools-footer">
+    <div class="th-container">
+      <div class="tf-inner">
+        <div class="tf-brand"><a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a><p>Free tools for every Zambian.</p></div>
+        <div class="tf-links"><h4>Free Tools</h4><a href="../index.html">All Tools</a><a href="../invoice/index.html">Invoice Generator</a><a href="../cv-builder/index.html">CV Builder</a></div>
+        <div class="tf-links"><h4>BLESSTech-X</h4><a href="../../index.html">Main Website</a><a href="../../index.html#services">Services</a><a href="../../index.html#contact">Contact</a></div>
+        <div class="tf-contact"><h4>Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
+      </div>
+      <div class="tf-bottom"><p>&copy; 2026 BLESSTech-X · Free Contract Generator · Built for Zambia 🇿🇲</p></div>
+    </div>
+  </footer>
+  <a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+let currentCT='service';
+document.getElementById('ct_date').valueAsDate=new Date();
+function setCT(btn){ document.querySelectorAll('.ct-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); currentCT=btn.dataset.ct; }
+
+function fmtDate(v){ if(!v)return new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}); return new Date(v).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}); }
+
+const CONTRACTS={
+  service:(d)=>`SERVICE AGREEMENT
+
+This Service Agreement ("Agreement") is entered into on ${d.date} between:
+
+PROVIDER: ${d.p1}, of ${d.p1addr} ("the Provider")
+CLIENT: ${d.p2}, of ${d.p2addr} ("the Client")
+
+1. SCOPE OF SERVICES
+The Provider agrees to provide the following services to the Client:
+${d.scope||'[Describe services]'}
+
+2. PAYMENT
+The total fee for the services is ZMW ${d.amount||'[Amount]'}, payable as follows:
+${d.payment||'As agreed between the parties.'}
+
+3. DURATION
+This Agreement commences on ${d.date} and shall be completed within ${d.duration||'[timeframe]'} unless otherwise agreed in writing.
+
+4. OBLIGATIONS OF THE PROVIDER
+4.1 The Provider shall perform the services with reasonable skill and care.
+4.2 The Provider shall complete the work within the agreed timeframe.
+4.3 The Provider shall communicate promptly regarding any delays or issues.
+
+5. OBLIGATIONS OF THE CLIENT
+5.1 The Client shall provide timely payment as per the agreed terms.
+5.2 The Client shall provide necessary information and materials required for the service.
+5.3 The Client shall review and approve deliverables within 5 working days of receipt.
+
+6. INTELLECTUAL PROPERTY
+Upon full payment, all deliverables created under this Agreement become the property of the Client.
+
+7. CONFIDENTIALITY
+Both parties agree to keep confidential any sensitive information shared during this engagement.
+
+${d.conditions?`8. SPECIAL CONDITIONS\n${d.conditions}\n\n`:''}
+${d.conditions?'9':'8'}. DISPUTE RESOLUTION
+Any disputes arising from this Agreement shall be resolved amicably between the parties. If resolution cannot be reached, Zambian law shall govern.
+
+${d.conditions?'10':'9'}. SIGNATURES
+
+IN WITNESS WHEREOF, the parties have signed this Agreement on the date stated above.
+
+PROVIDER: ________________________________    Date: _______________
+${d.p1}
+
+CLIENT: ________________________________    Date: _______________
+${d.p2}
+
+Witness: ________________________________    Date: _______________`,
+
+  freelance:(d)=>`FREELANCE SERVICES AGREEMENT
+
+This Freelance Agreement is entered into on ${d.date} between:
+
+FREELANCER: ${d.p1}, of ${d.p1addr}
+CLIENT: ${d.p2}, of ${d.p2addr}
+
+1. PROJECT SCOPE
+The Freelancer agrees to complete the following project:
+${d.scope||'[Describe the project]'}
+
+2. COMPENSATION
+Project fee: ZMW ${d.amount||'[Amount]'}
+Payment terms: ${d.payment||'As agreed.'}
+
+3. TIMELINE
+Project to be completed within: ${d.duration||'[Duration]'} from the signing of this agreement.
+
+4. REVISIONS
+The Client is entitled to two (2) rounds of revisions included in the project fee. Additional revisions will be charged at an agreed rate.
+
+5. INTELLECTUAL PROPERTY
+All work produced shall remain the property of the Freelancer until full payment is received, after which ownership transfers to the Client.
+
+6. INDEPENDENT CONTRACTOR
+The Freelancer is an independent contractor and not an employee of the Client. The Freelancer is responsible for their own tax obligations.
+
+7. TERMINATION
+Either party may terminate this agreement with 7 days written notice. Any work completed up to the termination date must be compensated.
+
+${d.conditions?`8. SPECIAL CONDITIONS\n${d.conditions}\n\n`:''}
+SIGNATURES
+
+FREELANCER: ________________________________    Date: _______________
+${d.p1}
+
+CLIENT: ________________________________    Date: _______________
+${d.p2}`,
+
+  rental:(d)=>`RESIDENTIAL / COMMERCIAL RENTAL AGREEMENT
+
+This Rental Agreement is entered into on ${d.date} between:
+
+LANDLORD: ${d.p1}, of ${d.p1addr} ("the Landlord")
+TENANT: ${d.p2}, of ${d.p2addr} ("the Tenant")
+
+1. PROPERTY
+The Landlord agrees to rent to the Tenant the property located at:
+${d.scope||'[Full property address]'}
+
+2. RENTAL PERIOD
+Commencement Date: ${d.date}
+Duration: ${d.duration||'12 months'}
+This tenancy shall continue on a month-to-month basis thereafter unless terminated by either party with one month's written notice.
+
+3. RENTAL AMOUNT
+Monthly Rent: ZMW ${d.amount||'[Amount]'}
+Payment Terms: ${d.payment||'Payable on the 1st of each month.'}
+
+4. SECURITY DEPOSIT
+A security deposit equivalent to one month's rent is payable upon signing. This is refundable at the end of the tenancy subject to the property being returned in satisfactory condition.
+
+5. TENANT OBLIGATIONS
+5.1 Keep the property clean and in good condition.
+5.2 Not sublet the property without written consent.
+5.3 Report any damage or repairs needed promptly.
+5.4 Not carry out alterations without written consent.
+
+6. LANDLORD OBLIGATIONS
+6.1 Ensure the property is habitable and safe.
+6.2 Attend to essential repairs within a reasonable time.
+6.3 Respect the Tenant's right to quiet enjoyment.
+
+7. UTILITIES
+Unless otherwise stated, the Tenant is responsible for all utility bills including water, electricity (ZESCO), and refuse collection.
+
+${d.conditions?`8. SPECIAL CONDITIONS\n${d.conditions}\n\n`:''}
+SIGNATURES
+
+LANDLORD: ________________________________    Date: _______________
+${d.p1}
+
+TENANT: ________________________________    Date: _______________
+${d.p2}
+
+Witness: ________________________________    Date: _______________`,
+
+  supply:(d)=>`SUPPLY AGREEMENT
+
+This Supply Agreement is entered into on ${d.date} between:
+
+SUPPLIER: ${d.p1}, of ${d.p1addr}
+BUYER: ${d.p2}, of ${d.p2addr}
+
+1. GOODS / SERVICES TO BE SUPPLIED
+${d.scope||'[Describe goods or services to be supplied]'}
+
+2. PRICE AND PAYMENT
+Total Value: ZMW ${d.amount||'[Amount]'}
+Payment Terms: ${d.payment||'As agreed between parties.'}
+
+3. DELIVERY
+Delivery Period: ${d.duration||'[Timeframe]'}
+Delivery Location: ${d.p2addr||'[Buyer address]'}
+
+4. QUALITY
+The Supplier warrants that all goods supplied shall be of merchantable quality and fit for purpose.
+
+5. RISK AND OWNERSHIP
+Risk of loss passes to the Buyer upon delivery. Ownership passes upon full payment.
+
+6. DEFAULT
+In the event of non-payment, the Supplier reserves the right to recover goods supplied.
+
+${d.conditions?`7. SPECIAL CONDITIONS\n${d.conditions}\n\n`:''}
+SIGNATURES
+
+SUPPLIER: ________________________________    Date: _______________
+${d.p1}
+
+BUYER: ________________________________    Date: _______________
+${d.p2}`,
+
+  nda:(d)=>`NON-DISCLOSURE AGREEMENT (NDA)
+
+This Non-Disclosure Agreement is entered into on ${d.date} between:
+
+DISCLOSING PARTY: ${d.p1}, of ${d.p1addr}
+RECEIVING PARTY: ${d.p2}, of ${d.p2addr}
+
+1. PURPOSE
+The parties wish to explore a potential business relationship regarding:
+${d.scope||'[Describe the business context]'}
+
+2. CONFIDENTIAL INFORMATION
+"Confidential Information" means any non-public information disclosed by the Disclosing Party including but not limited to business plans, financial data, technical information, customer lists, and trade secrets.
+
+3. OBLIGATIONS
+The Receiving Party agrees to:
+3.1 Keep all Confidential Information strictly confidential.
+3.2 Not disclose Confidential Information to any third party without written consent.
+3.3 Use Confidential Information only for the stated purpose.
+3.4 Protect Confidential Information with the same degree of care used for its own confidential information.
+
+4. EXCLUSIONS
+These obligations do not apply to information that is publicly available, independently developed, or required to be disclosed by law.
+
+5. DURATION
+This Agreement shall remain in effect for ${d.duration||'2 years'} from the date of signing.
+
+${d.conditions?`6. SPECIAL CONDITIONS\n${d.conditions}\n\n`:''}
+SIGNATURES
+
+DISCLOSING PARTY: ________________________________    Date: _______________
+${d.p1}
+
+RECEIVING PARTY: ________________________________    Date: _______________
+${d.p2}`,
+
+  employment:(d)=>`CONTRACT OF EMPLOYMENT
+
+This Employment Contract is entered into on ${d.date} between:
+
+EMPLOYER: ${d.p1}, of ${d.p1addr} ("the Employer")
+EMPLOYEE: ${d.p2}, of ${d.p2addr} ("the Employee")
+
+1. POSITION AND DUTIES
+The Employee is appointed to the position of: ${d.scope||'[Job Title]'}
+The Employee shall perform duties as reasonably required by the Employer.
+
+2. COMMENCEMENT AND DURATION
+Start Date: ${d.date}
+Contract Type: ${d.duration||'Permanent / Fixed Term [specify]'}
+
+3. REMUNERATION
+Gross Monthly Salary: ZMW ${d.amount||'[Amount]'}
+Payment: ${d.payment||'Paid monthly on the last working day of each month.'}
+
+4. WORKING HOURS
+Standard working hours are 8:00 AM to 5:00 PM, Monday to Friday, unless otherwise agreed.
+
+5. LEAVE ENTITLEMENT
+The Employee is entitled to annual leave in accordance with the Zambia Employment Code Act No. 3 of 2019.
+
+6. PROBATION
+The Employee shall serve a probationary period of three (3) months during which either party may terminate with two weeks' notice.
+
+7. TERMINATION
+After probation, either party may terminate with one month's written notice. Gross misconduct may result in summary dismissal.
+
+8. CONFIDENTIALITY
+The Employee agrees to keep all business information confidential during and after employment.
+
+${d.conditions?`9. SPECIAL CONDITIONS\n${d.conditions}\n\n`:''}
+SIGNATURES
+
+EMPLOYER: ________________________________    Date: _______________
+${d.p1}
+
+EMPLOYEE: ________________________________    Date: _______________
+${d.p2}
+
+Witness: ________________________________    Date: _______________`
+};
+
+function generateContract(){
+  const d={
+    p1:document.getElementById('ct_p1').value||'[Party 1]',
+    p1addr:document.getElementById('ct_p1addr').value||'Zambia',
+    p2:document.getElementById('ct_p2').value||'[Party 2]',
+    p2addr:document.getElementById('ct_p2addr').value||'Zambia',
+    date:fmtDate(document.getElementById('ct_date').value),
+    scope:document.getElementById('ct_scope').value,
+    amount:document.getElementById('ct_amount').value,
+    duration:document.getElementById('ct_duration').value,
+    payment:document.getElementById('ct_payment').value,
+    conditions:document.getElementById('ct_conditions').value
+  };
+  const fn=CONTRACTS[currentCT]; if(!fn)return;
+  const preview=document.getElementById('contractPreview');
+  preview.style.fontFamily="'Times New Roman',serif";
+  preview.textContent=fn(d);
+  document.getElementById('copyCtBtn').style.display='flex';
+  document.getElementById('pdfCtBtn').style.display='flex';
+}
+function copyContract(){
+  navigator.clipboard.writeText(document.getElementById('contractPreview').textContent).then(()=>alert('Contract copied!'));
+}
+function printContract(){
+  const text=document.getElementById('contractPreview').textContent;
+  const w=window.open('','_blank');
+  w.document.write(`<html><head><title>Contract — BLESSTech-X</title>
+  <style>body{font-family:'Times New Roman',serif;padding:72px;max-width:760px;margin:0 auto;color:#1a1a1a;font-size:12pt;line-height:1.9}
+  pre{white-space:pre-wrap;font-family:'Times New Roman',serif;font-size:12pt;line-height:1.9}
+  .footer{margin-top:48px;padding-top:16px;border-top:1px solid #ccc;font-size:9pt;color:#999;font-family:Arial,sans-serif;text-align:center}
+  @media print{body{padding:32px}}</style></head><body>
+  <pre>${text.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</pre>
+  <div class="footer">Generated by BLESSTech-X Free Contract Generator · blesstechx.com · Not legal advice. Consult a lawyer for complex matters.</div>
+  </body></html>`);
+  w.document.close(); setTimeout(()=>w.print(),400);
+}
+document.getElementById('thToggle').addEventListener('click',()=>{
+  document.getElementById('thNav').classList.toggle('th-nav-open');
+  document.getElementById('thToggle').classList.toggle('th-toggle-open');
+});
+</script>
+</body>
+</html>
