@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HTML Entity Encoder | BLESSTech-X Free Tools</title>
+  <meta name="description" content="Encode and decode HTML special characters and entities instantly. Free HTML entity encoder for Zambian web developers."/>
+  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../style.css"/>
+  <style>
+    .code-area{font-family:'Courier New',Courier,monospace;font-size:.9rem;line-height:1.6;padding:16px;border:1.5px solid var(--border);border-radius:var(--radius);width:100%;min-height:240px;resize:vertical;outline:none;transition:border-color .2s}
+    .code-area:focus{border-color:var(--sky)}
+    .mode-toggle{display:flex;border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;width:fit-content;margin-bottom:20px}
+    .mode-btn{padding:10px 28px;background:white;border:none;font-size:.9rem;font-weight:700;color:var(--muted);cursor:pointer;transition:var(--transition)}
+    .mode-btn.active{background:var(--sky);color:white}
+    .mode-btn:hover:not(.active){background:var(--sky-light);color:var(--sky)}
+    .entity-table{width:100%;border-collapse:collapse}
+    .entity-table th{background:var(--bg-alt);padding:10px 14px;text-align:left;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);border-bottom:2px solid var(--border)}
+    .entity-table td{padding:10px 14px;border-bottom:1px solid var(--border);font-size:.88rem;font-family:'Courier New',monospace}
+    .entity-table tr:last-child td{border-bottom:none}
+    .entity-table tr:hover td{background:var(--bg-alt)}
+    .entity-table .char-col{font-size:1.2rem;text-align:center;width:60px}
+    .entity-table .entity-col{color:#0284c7}
+    .entity-table .num-col{color:#7c3aed}
+    .copy-cell{cursor:pointer;color:var(--sky);font-size:.78rem;font-weight:600}
+    .copy-cell:hover{text-decoration:underline}
+    .diff-highlight{background:#fef3c7;border-radius:2px}
+    .copy-toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:var(--slate);color:white;padding:10px 24px;border-radius:50px;font-size:.88rem;font-weight:600;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none}
+    .copy-toast.show{opacity:1}
+  </style>
+</head>
+<body class="tool-page">
+  <header class="tools-header">
+    <div class="th-inner">
+      <a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a>
+      <nav class="th-nav" id="thNav">
+        <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="../index.html"><i class="fas fa-tools"></i> All Tools</a>
+        <a href="../../index.html#services">Services</a>
+        <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      </nav>
+      <button class="th-mobile-toggle" id="thToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main class="tool-page-main">
+    <div class="th-container">
+      <div class="tool-breadcrumb">
+        <a href="../../index.html">Home</a><i class="fas fa-chevron-right"></i>
+        <a href="../index.html">Free Tools</a><i class="fas fa-chevron-right"></i>
+        <span>HTML Entity Encoder</span>
+      </div>
+      <div class="tool-header">
+        <div class="tool-header-inner">
+          <div class="tool-header-icon" style="background:#fee2e2;color:#dc2626">🏷️</div>
+          <div>
+            <h1>HTML Entity Encoder / Decoder</h1>
+            <p>Encode special characters into HTML entities, or decode HTML entities back to readable text. Essential for web developers working with user-generated content.</p>
+            <div class="tool-header-meta">
+              <span class="tool-meta-badge"><i class="fas fa-check-circle"></i> Free</span>
+              <span class="tool-meta-badge"><i class="fas fa-bolt"></i> Real-time</span>
+              <span class="tool-meta-badge"><i class="fas fa-users"></i> Web Developers · Frontend</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODE TOGGLE -->
+      <div class="mode-toggle">
+        <button class="mode-btn active" id="encBtn" onclick="setMode('encode')"><i class="fas fa-lock"></i> Encode</button>
+        <button class="mode-btn" id="decBtn" onclick="setMode('decode')"><i class="fas fa-lock-open"></i> Decode</button>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px">
+        <!-- INPUT -->
+        <div>
+          <div class="tool-box">
+            <div class="tool-box-header">
+              <h2 id="inputLabel"><i class="fas fa-keyboard" style="color:var(--sky)"></i> Plain Text Input</h2>
+              <button class="btn btn-sm btn-secondary" onclick="clearAll()"><i class="fas fa-trash"></i> Clear</button>
+            </div>
+            <div class="tool-box-body">
+              <textarea id="inputText" class="code-area" placeholder='Type or paste text with special characters...&#10;&#10;Example:&#10;&lt;div class="hello"&gt;Café &amp; Résumé&lt;/div&gt;' oninput="processText()"></textarea>
+              <div style="font-size:.78rem;color:var(--muted);margin-top:6px" id="inputInfo">0 characters</div>
+            </div>
+          </div>
+        </div>
+        <!-- OUTPUT -->
+        <div>
+          <div class="tool-box">
+            <div class="tool-box-header">
+              <h2 id="outputLabel"><i class="fas fa-code" style="color:var(--sky)"></i> Encoded Output</h2>
+              <button class="btn btn-sm btn-primary" id="copyBtn" onclick="copyOutput()" style="display:none"><i class="fas fa-copy"></i> Copy</button>
+            </div>
+            <div class="tool-box-body">
+              <textarea id="outputText" class="code-area" readonly placeholder="Encoded result appears here…" style="background:#f8fafc;cursor:default"></textarea>
+              <div style="font-size:.78rem;color:var(--muted);margin-top:6px" id="outputInfo">0 characters</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DIFF VIEW -->
+      <div class="tool-box" style="margin-bottom:28px" id="diffBox" style="display:none">
+        <div class="tool-box-header"><h2><i class="fas fa-exchange-alt" style="color:var(--sky)"></i> Changes Made</h2></div>
+        <div class="tool-box-body">
+          <div id="diffView" style="font-family:'Courier New',monospace;font-size:.88rem;line-height:1.8;color:var(--slate)"></div>
+          <div id="noChanges" style="color:var(--muted);font-style:italic;font-size:.88rem;display:none">No encoding/decoding changes were needed for this text.</div>
+        </div>
+      </div>
+
+      <!-- REFERENCE TABLE -->
+      <div class="tool-box">
+        <div class="tool-box-header"><h2><i class="fas fa-table" style="color:var(--sky)"></i> Common HTML Entities Reference</h2></div>
+        <div class="tool-box-body" style="padding:0;overflow:hidden">
+          <div style="overflow-x:auto">
+            <table class="entity-table">
+              <tr><th>Character</th><th>Description</th><th>Entity Name</th><th>Numeric</th><th></th></tr>
+              <tr><td class="char-col">&amp;</td><td>Ampersand</td><td class="entity-col">&amp;amp;</td><td class="num-col">&amp;#38;</td><td class="copy-cell" onclick="copyEntity('&amp;amp;')">Copy</td></tr>
+              <tr><td class="char-col">&lt;</td><td>Less than</td><td class="entity-col">&amp;lt;</td><td class="num-col">&amp;#60;</td><td class="copy-cell" onclick="copyEntity('&amp;lt;')">Copy</td></tr>
+              <tr><td class="char-col">&gt;</td><td>Greater than</td><td class="entity-col">&amp;gt;</td><td class="num-col">&amp;#62;</td><td class="copy-cell" onclick="copyEntity('&amp;gt;')">Copy</td></tr>
+              <tr><td class="char-col">"</td><td>Double quote</td><td class="entity-col">&amp;quot;</td><td class="num-col">&amp;#34;</td><td class="copy-cell" onclick="copyEntity('&amp;quot;')">Copy</td></tr>
+              <tr><td class="char-col">'</td><td>Single quote</td><td class="entity-col">&amp;apos;</td><td class="num-col">&amp;#39;</td><td class="copy-cell" onclick="copyEntity('&amp;apos;')">Copy</td></tr>
+              <tr><td class="char-col"> </td><td>Non-breaking space</td><td class="entity-col">&amp;nbsp;</td><td class="num-col">&amp;#160;</td><td class="copy-cell" onclick="copyEntity('&amp;nbsp;')">Copy</td></tr>
+              <tr><td class="char-col">©</td><td>Copyright</td><td class="entity-col">&amp;copy;</td><td class="num-col">&amp;#169;</td><td class="copy-cell" onclick="copyEntity('&amp;copy;')">Copy</td></tr>
+              <tr><td class="char-col">®</td><td>Registered trademark</td><td class="entity-col">&amp;reg;</td><td class="num-col">&amp;#174;</td><td class="copy-cell" onclick="copyEntity('&amp;reg;')">Copy</td></tr>
+              <tr><td class="char-col">™</td><td>Trademark</td><td class="entity-col">&amp;trade;</td><td class="num-col">&amp;#8482;</td><td class="copy-cell" onclick="copyEntity('&amp;trade;')">Copy</td></tr>
+              <tr><td class="char-col">€</td><td>Euro sign</td><td class="entity-col">&amp;euro;</td><td class="num-col">&amp;#8364;</td><td class="copy-cell" onclick="copyEntity('&amp;euro;')">Copy</td></tr>
+              <tr><td class="char-col">£</td><td>Pound sign</td><td class="entity-col">&amp;pound;</td><td class="num-col">&amp;#163;</td><td class="copy-cell" onclick="copyEntity('&amp;pound;')">Copy</td></tr>
+              <tr><td class="char-col">÷</td><td>Division sign</td><td class="entity-col">&amp;divide;</td><td class="num-col">&amp;#247;</td><td class="copy-cell" onclick="copyEntity('&amp;divide;')">Copy</td></tr>
+              <tr><td class="char-col">×</td><td>Multiplication sign</td><td class="entity-col">&amp;times;</td><td class="num-col">&amp;#215;</td><td class="copy-cell" onclick="copyEntity('&amp;times;')">Copy</td></tr>
+              <tr><td class="char-col">→</td><td>Right arrow</td><td class="entity-col">&amp;rarr;</td><td class="num-col">&amp;#8594;</td><td class="copy-cell" onclick="copyEntity('&amp;rarr;')">Copy</td></tr>
+              <tr><td class="char-col">←</td><td>Left arrow</td><td class="entity-col">&amp;larr;</td><td class="num-col">&amp;#8592;</td><td class="copy-cell" onclick="copyEntity('&amp;larr;')">Copy</td></tr>
+              <tr><td class="char-col">✓</td><td>Check mark</td><td class="entity-col">&amp;#10003;</td><td class="num-col">&amp;#10003;</td><td class="copy-cell" onclick="copyEntity('&amp;#10003;')">Copy</td></tr>
+              <tr><td class="char-col">✗</td><td>Ballot X</td><td class="entity-col">&amp;#10007;</td><td class="num-col">&amp;#10007;</td><td class="copy-cell" onclick="copyEntity('&amp;#10007;')">Copy</td></tr>
+              <tr><td class="char-col">…</td><td>Ellipsis</td><td class="entity-col">&amp;hellip;</td><td class="num-col">&amp;#8230;</td><td class="copy-cell" onclick="copyEntity('&amp;hellip;')">Copy</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-service-cta" style="margin-top:36px">
+        <div><h4>Need a web application built?</h4><p>BLESSTech-X builds custom web apps, websites and e-commerce stores for Zambian businesses.</p></div>
+        <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I need a web application." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Discuss Your Project</a>
+      </div>
+      <div class="related-tools" style="margin-top:32px;background:var(--bg-alt);border-radius:var(--radius-lg);padding:28px">
+        <h3>You Might Also Need</h3>
+        <div class="related-grid">
+          <a href="../json-formatter/index.html" class="related-card"><span>🧩</span> JSON Formatter</a>
+          <a href="../word-counter/index.html" class="related-card"><span>🔤</span> Word Counter</a>
+          <a href="../qr-generator/index.html" class="related-card"><span>◼️</span> QR Generator</a>
+          <a href="../text-summarizer/index.html" class="related-card"><span>📰</span> Text Summarizer</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="copy-toast" id="copyToast">✅ Copied!</div>
+
+  <footer class="tools-footer">
+    <div class="th-container">
+      <div class="tf-inner">
+        <div class="tf-brand"><a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a><p>Free tools for every Zambian.</p></div>
+        <div class="tf-links"><h4>Free Tools</h4><a href="../index.html">All Tools</a><a href="../json-formatter/index.html">JSON Formatter</a><a href="../word-counter/index.html">Word Counter</a></div>
+        <div class="tf-links"><h4>BLESSTech-X</h4><a href="../../index.html">Main Website</a><a href="../../index.html#services">Services</a><a href="../../index.html#contact">Contact</a></div>
+        <div class="tf-contact"><h4>Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
+      </div>
+      <div class="tf-bottom"><p>&copy; 2026 BLESSTech-X · HTML Entity Encoder · Built for Zambia 🇿🇲</p></div>
+    </div>
+  </footer>
+  <a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+let currentMode='encode';
+
+function setMode(mode){
+  currentMode=mode;
+  document.getElementById('encBtn').className='mode-btn'+(mode==='encode'?' active':'');
+  document.getElementById('decBtn').className='mode-btn'+(mode==='decode'?' active':'');
+  document.getElementById('inputLabel').innerHTML=mode==='encode'?'<i class="fas fa-keyboard" style="color:var(--sky)"></i> Plain Text Input':'<i class="fas fa-code" style="color:var(--sky)"></i> HTML Entities Input';
+  document.getElementById('outputLabel').innerHTML=mode==='encode'?'<i class="fas fa-code" style="color:var(--sky)"></i> Encoded Output':'<i class="fas fa-keyboard" style="color:var(--sky)"></i> Decoded Output';
+  document.getElementById('inputText').placeholder=mode==='encode'?'Type or paste plain text with special characters…\n\nExample:\n<h1 class="title">Café & Résumé</h1>':'Paste HTML with entities to decode…\n\nExample:\n&lt;h1 class=&quot;title&quot;&gt;Caf&eacute; &amp; R&eacute;sum&eacute;&lt;/h1&gt;';
+  processText();
+}
+
+function encodeHTML(str){
+  return str
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#39;')
+    .replace(/©/g,'&copy;')
+    .replace(/®/g,'&reg;')
+    .replace(/™/g,'&trade;')
+    .replace(/€/g,'&euro;')
+    .replace(/£/g,'&pound;')
+    .replace(/¢/g,'&cent;')
+    .replace(/¥/g,'&yen;')
+    .replace(/÷/g,'&divide;')
+    .replace(/×/g,'&times;')
+    .replace(/±/g,'&plusmn;')
+    .replace(/°/g,'&deg;')
+    .replace(/→/g,'&rarr;')
+    .replace(/←/g,'&larr;')
+    .replace(/↑/g,'&uarr;')
+    .replace(/↓/g,'&darr;')
+    .replace(/…/g,'&hellip;')
+    .replace(/—/g,'&mdash;')
+    .replace(/–/g,'&ndash;')
+    .replace(/«/g,'&laquo;')
+    .replace(/»/g,'&raquo;')
+    .replace(/\u00A0/g,'&nbsp;');
+}
+
+function decodeHTML(str){
+  const el=document.createElement('div');
+  el.innerHTML=str;
+  return el.textContent||el.innerText||'';
+}
+
+function processText(){
+  const input=document.getElementById('inputText').value;
+  const outputEl=document.getElementById('outputText');
+  const inputInfo=document.getElementById('inputInfo');
+  const outputInfo=document.getElementById('outputInfo');
+  inputInfo.textContent=`${input.length} characters`;
+
+  if(!input){ outputEl.value=''; outputInfo.textContent='0 characters'; document.getElementById('copyBtn').style.display='none'; showDiff('',''); return; }
+
+  let result='';
+  if(currentMode==='encode') result=encodeHTML(input);
+  else result=decodeHTML(input);
+
+  outputEl.value=result;
+  outputInfo.textContent=`${result.length} characters${result.length!==input.length?' ('+((result.length>input.length?'+':'')+(result.length-input.length)+')'):''}`;
+  document.getElementById('copyBtn').style.display='flex';
+  showDiff(input,result);
+}
+
+function showDiff(input,output){
+  const diffBox=document.getElementById('diffBox');
+  const diffView=document.getElementById('diffView');
+  const noChanges=document.getElementById('noChanges');
+  if(!input){ diffBox.style.display='none'; return; }
+  diffBox.style.display='block';
+  if(input===output){ diffView.innerHTML=''; noChanges.style.display='block'; return; }
+  noChanges.style.display='none';
+  // Simple side by side
+  const inLines=input.split('\n');
+  const outLines=output.split('\n');
+  const maxLines=Math.max(inLines.length,outLines.length);
+  let html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">';
+  html+=`<div><div style="font-size:.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Input</div>`;
+  inLines.forEach(l=>{ html+=`<div style="color:#475569;padding:2px 0;word-break:break-all">${l.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')||'&nbsp;'}</div>`; });
+  html+=`</div><div><div style="font-size:.72rem;font-weight:700;color:var(--sky);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Output</div>`;
+  outLines.forEach(l=>{ html+=`<div style="color:#0284c7;padding:2px 0;word-break:break-all">${l.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')||'&nbsp;'}</div>`; });
+  html+='</div></div>';
+  diffView.innerHTML=html;
+}
+
+function copyOutput(){
+  const text=document.getElementById('outputText').value;
+  navigator.clipboard.writeText(text).then(()=>{ const t=document.getElementById('copyToast'); t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500); });
+}
+
+function copyEntity(entity){
+  const decoded=document.createElement('div'); decoded.innerHTML=entity; const raw=decoded.textContent;
+  navigator.clipboard.writeText(entity).then(()=>{ const t=document.getElementById('copyToast'); t.innerHTML=`✅ Copied: ${entity}`; t.classList.add('show'); setTimeout(()=>{ t.classList.remove('show'); t.innerHTML='✅ Copied!'; },2000); });
+}
+
+function clearAll(){ document.getElementById('inputText').value=''; processText(); }
+document.getElementById('thToggle').addEventListener('click',()=>{ document.getElementById('thNav').classList.toggle('th-nav-open'); document.getElementById('thToggle').classList.toggle('th-toggle-open'); });
+</script>
+</body>
+</html>
