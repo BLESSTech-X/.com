@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Tools for Zambia | BLESSTech-X</title>
+  <meta name="description" content="20+ free tools for Zambian business owners, students, developers, workers and researchers. Invoice generator, CV builder, email writer, QR codes and more. No signup required." />
+  <meta name="keywords" content="free tools Zambia, invoice generator Zambia, CV builder Zambia, email writer, QR code generator, unit converter ZMW, BLESSTech-X tools" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Free Tools for Zambia | BLESSTech-X" />
+  <meta property="og:description" content="20+ free tools — invoice generator, CV builder, email writer, QR codes, currency converter and more. Built for Zambia." />
+  <meta property="og:image" content="https://i.ibb.co/Q36vzP9z/Screenshot-20251229-131706.jpg" />
+  <meta property="og:url" content="https://blesstech-x.github.io/tools/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="tools-header">
+    <div class="th-inner">
+      <a href="../index.html" class="tools-logo">
+        <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X" />
+        <span>BLESS<em>Tech-X</em></span>
+      </a>
+      <nav class="th-nav">
+        <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="../index.html#services">Services</a>
+        <a href="../index.html#contact">Get a Quote</a>
+        <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      </nav>
+      <button class="th-mobile-toggle" id="thToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="tools-hero">
+    <div class="th-container">
+      <div class="tools-hero-badge"><i class="fas fa-tools"></i> 100% Free · No Signup · No Login</div>
+      <h1>Free Tools for<br/><span>Every Zambian</span></h1>
+      <p>20+ tools built for business owners, students, developers, workers, researchers, and individuals. Use them on any phone or computer.</p>
+      <div class="tools-search-wrap">
+        <i class="fas fa-search"></i>
+        <input type="text" id="toolsSearch" placeholder="Search tools… e.g. invoice, CV, QR code, email" aria-label="Search tools" />
+        <button class="ts-clear" id="tsClear" style="display:none" onclick="clearSearch()" aria-label="Clear search">×</button>
+      </div>
+      <div class="tools-hero-stats">
+        <div class="ths-item"><strong>20+</strong><span>Free Tools</span></div>
+        <div class="ths-sep"></div>
+        <div class="ths-item"><strong>7</strong><span>Categories</span></div>
+        <div class="ths-sep"></div>
+        <div class="ths-item"><strong>0</strong><span>Signups Needed</span></div>
+        <div class="ths-sep"></div>
+        <div class="ths-item"><strong>Works</strong><span>On Any Phone</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEARCH RESULTS (shown only during search) -->
+  <section class="th-container search-results-section" id="searchResultsSection" style="display:none">
+    <div class="sr-header">
+      <h2 id="srTitle">Search Results</h2>
+      <button class="btn-clear-search" onclick="clearSearch()"><i class="fas fa-times"></i> Clear Search</button>
+    </div>
+    <div class="tools-grid" id="searchResultsGrid"></div>
+  </section>
+
+  <!-- ALL CATEGORIES -->
+  <main class="th-container tools-main" id="toolsMain">
+
+    <!-- CATEGORY: WRITE BETTER -->
+    <section class="tool-category" id="write">
+      <div class="cat-header">
+        <div class="cat-icon" style="background:linear-gradient(135deg,#0ea5e9,#0284c7)">✍️</div>
+        <div>
+          <h2 class="cat-title">Write Better</h2>
+          <p class="cat-desc">Professional emails, letters, meeting minutes — write like a pro every time.</p>
+        </div>
+        <span class="cat-count">3 tools</span>
+      </div>
+      <div class="tools-grid">
+        <a href="email-writer/index.html" class="tool-card">
+          <div class="tool-card-icon" style="background:#e0f2fe;color:#0284c7">📧</div>
+          <div class="tool-card-body">
+            <h3>Professional Email Writer</h3>
+            <p>Write polished emails for any situation — chasing payment, job applications, complaints, proposals — in seconds.</p>
+            <div class="tool-tags">
+              <span class="ttag">Workers</span><span class="ttag">Students</span><span class="ttag">Business</span>
+            </div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+        <a href="letter-generator/index.html" class="tool-card">
+          <div class="tool-card-icon" style="background:#e0f2fe;color:#0284c7">📜</div>
+          <div class="tool-card-body">
+            <h3>Letter Generator</h3>
+            <p>Generate formal Zambian letters — resignation, reference, recommendation, demand, tenancy, permission, introduction.</p>
+            <div class="tool-tags">
+              <span class="ttag">Workers</span><span class="ttag">Students</span><span class="ttag">Organisations</span>
+            </div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+        <a href="meeting-minutes/index.html" class="tool-card">
+          <div class="tool-card-icon" style="background:#e0f2fe;color:#0284c7">🗒️</div>
+          <div class="tool-card-body">
+            <h3>Meeting Minutes Generator</h3>
+            <p>Professional meeting minutes ready to distribute. Input attendees, agenda and decisions — download as PDF.</p>
+            <div class="tool-tags">
+              <span class="ttag">Organisations</span><span class="ttag">Business</span><span class="ttag">Firms</span>
+            </div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+      </div>
+    </section>
+
+    <!-- CATEGORY: CALCULATE -->
+    <section class="tool-category" id="calculate">
+      <div class="cat-header">
+        <div class="cat-icon" style="background:linear-gradient(135deg,#10b981,#059669)">🔢</div>
+        <div>
+          <h2 class="cat-title">Calculate Anything</h2>
+          <p class="cat-desc">Unit conversions, currency, and calculations for everyday Zambian life.</p>
+        </div>
+        <span class="cat-count">2 tools</span>
+      </div>
+      <div class="tools-grid">
+        <a href="unit-converter/index.html" class="tool-card">
+          <div class="tool-card-icon" style="background:#d1fae5;color:#059669">📏</div>
+          <div class="tool-card-body">
+            <h3>Unit Converter</h3>
+            <p>Length, weight, temperature, area, volume, data size — all in one place. Includes acres to hectares, bags to kg.</p>
+            <div class="tool-tags">
+              <span class="ttag">Everyone</span><span class="ttag">Farmers</span><span class="ttag">Students</span>
+            </div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+        <a href="currency-converter/index.html" class="tool-card">
+          <div class="tool-card-icon" style="background:#d1fae5;color:#059669">💱</div>
+          <div class="tool-card-body">
+            <h3>Currency Converter</h3>
+            <p>ZMW to USD, GBP, ZAR, EUR, CNY and back. See what international prices really cost in Zambian Kwacha.</p>
+            <div class="tool-tags">
+              <span class="ttag">Business</span><span class="ttag">Students</span><span class="ttag">Travellers</span>
+            </div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+      </div>
+    </section>
+
+    <!-- CATEGORY: DOCUMENTS -->
+    <section class="tool-category" id="documents">
+      <div class="cat-header">
+        <div class="cat-icon" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)">📄</div>
+        <div>
+          <h2 class="cat-title">Documents</h2>
+          <p class="cat-desc">Create, download and share professional documents — invoices, CVs, contracts, agendas, budgets.</p>
+        </div>
+        <span class="cat-count">5 tools</span>
+      </div>
+      <div class="tools-grid">
+        <a href="invoice/index.html" class="tool-card tool-card-featured">
+          <div class="tool-card-featured-badge">Most Used</div>
+          <div class="tool-card-icon" style="background:#ede9fe;color:#7c3aed">🧾</div>
+          <div class="tool-card-body">
+            <h3>Invoice Generator</h3>
+            <p>Create professional invoices with VAT calculation, line items, and your business branding. Download as PDF instantly.</p>
+            <div class="tool-tags">
+              <span class="ttag">Freelancers</span><span class="ttag">Business</span><span class="ttag">PDF</span>
+            </div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+        <a href="agenda-builder/index.html" class="tool-card">
+          <div class="tool-card-icon" style="background:#ede9fe;color:#7c3aed">📋</div>
+          <div class="tool-card-body">
+            <h3>Meeting Agenda Builder</h3>
+            <p>Build professional meeting agendas with time allocations per item. Share or print before the meeting.</p>
+            <div class="tool-tags">
+              <span class="ttag">Organisations</span><span class="ttag">Business</span><span class="ttag">PDF</span>
+            </div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+        <a href="contract-generator/index.html" class="tool-card">
+          <div class="tool-card-icon" style="background:#ede9fe;color:#7c3aed">🤝</div>
+          <div class="tool-card-body">
+            <h3>Simple Contract Generator</h3>
+            <p>Basic service contracts, freelance agreements, and rental agreements as a downloadable PDF.</p>
+            <div class="tool-tags">
+              <span class="ttag">Freelancers</span><span class="ttag">Landlords</span><span class="ttag">PDF</span>
+            </div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+        <a href="cv-builder/index.html" class="tool-card tool-card-featured">
+          <div class="tool-card-featured-badge">Popular</div>
+          <div class="tool-card-icon" style="background:#ede9fe;color:#7c3aed">📑</div>
+          <div class="tool-card-body">
+            <h3>CV &amp; Resume Builder</h3>
+            <p>Zambia-appropriate CV templates. Fill in your details, pick a style, download a professional PDF ready to send.</p>
+            <div class="tool-tags">
+              <span class="ttag">Students</span><span class="ttag">Job Seekers</span><span class="ttag">PDF</span>
+            </div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+        <a href="budget-planner/index.html" class="tool-card">
+          <div class="tool-card-icon" style="background:#ede9fe;color:#7c3aed">💰</div>
+          <div class="tool-card-body">
+            <h3>Budget Planner</h3>
+            <p>Personal and household budget with visual breakdown. Enter income and expenses, see exactly where your money goes.</p>
+            <div class="tool-tags">
+              <span class="ttag">Everyone</span><span class="ttag">Families</span><span class="ttag">PDF</span>
+            </div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+      </div>
+    </section>
+
+    <!-- CATEGORY: RESEARCH & TEXT -->
+    <section class="tool-category" id="research">
+      <div class="cat-header">
+        <div class="cat-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706)">🔍</div>
+        <div>
+          <h2 class="cat-title">Research &amp; Text</h2>
+          <p class="cat-desc">Analyse, count, and summarize text for assignments, reports, and research.</p>
+        </div>
+        <span class="cat-count">2 tools</span>
+      </div>
+      <div class="tools-grid">
+        <a href="word-counter/index.html" class="tool-card">
+          <div class="tool-card-icon" style="background:#fef3c7;color:#d97706">🔤</div>
+          <div class="tool-card-body">
+            <h3>Word Counter &amp; Text Analyser</h3>
+            <p>Words, characters, sentences, paragraphs, reading time, and readability score. Paste any text and know everything.</p>
+            <div class="tool-tags">
+              <span class="ttag">Students</span><span class="ttag">Writers</span><span class="ttag">Researchers</span>
+            </div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+        <a href="text-summarizer/index.html" class="tool-card">
+          <div class="tool-card-icon" style="background:#fef3c7;color:#d97706">📰</div>
+          <div class="tool-card-body">
+            <h3>Text Summarizer</h3>
+            <p>Paste any long document — article, research paper, report. Get a clean, structured summary of the key points.</p>
+            <div class="tool-tags">
+              <span class="ttag">Students</span><span class="ttag">Researchers</span><span class="ttag">Workers</span>
+            </div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+      </div>
+    </section>
+
+    <!-- CATEGORY: DEVELOPER TOOLS -->
+    <section class="tool-category" id="developer">
+      <div class="cat-header">
+        <div class="cat-icon" style="background:linear-gradient(135deg,#ef4444,#dc2626)">💻</div>
+        <div>
+          <h2 class="cat-title">Developer Tools</h2>
+          <p class="cat-desc">Quick utilities for developers — format, encode, validate without leaving the browser.</p>
+        </div>
+        <span class="cat-count">2 tools</span>
+      </div>
+      <div class="tools-grid">
+        <a href="json-formatter/index.html" class="tool-card">
+          <div class="tool-card-icon" style="background:#fee2e2;color:#dc2626">🧩</div>
+          <div class="tool-card-body">
+            <h3>JSON Formatter &amp; Validator</h3>
+            <p>Paste messy JSON and get clean, indented, syntax-highlighted output with validation errors highlighted.</p>
+            <div class="tool-tags">
+              <span class="ttag">Developers</span><span class="ttag">API Work</span>
+            </div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+        <a href="html-encoder/index.html" class="tool-card">
+          <div class="tool-card-icon" style="background:#fee2e2;color:#dc2626">🏷️</div>
+          <div class="tool-card-body">
+            <h3>HTML Entity Encoder</h3>
+            <p>Encode and decode HTML special characters instantly. Essential for web developers working with user-generated content.</p>
+            <div class="tool-tags">
+              <span class="ttag">Developers</span><span class="ttag">Frontend</span>
+            </div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+      </div>
+    </section>
+
+    <!-- CATEGORY: PRODUCTIVITY -->
+    <section class="tool-category" id="productivity">
+      <div class="cat-header">
+        <div class="cat-icon" style="background:linear-gradient(135deg,#ec4899,#db2777)">⚡</div>
+        <div>
+          <h2 class="cat-title">Productivity</h2>
+          <p class="cat-desc">Timers, QR codes, countdowns, decision makers — tools that make daily life easier.</p>
+        </div>
+        <span class="cat-count">5 tools</span>
+      </div>
+      <div class="tools-grid">
+        <a href="pomodoro/index.html" class="tool-card">
+          <div class="tool-card-icon" style="background:#fce7f3;color:#db2777">🍅</div>
+          <div class="tool-card-body">
+            <h3>Pomodoro Focus Timer</h3>
+            <p>25-minute focus sessions with 5-minute breaks. Beat procrastination and get deep work done.</p>
+            <div class="tool-tags">
+              <span class="ttag">Students</span><span class="ttag">Developers</span><span class="ttag">Workers</span>
+            </div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+        <a href="decision-maker/index.html" class="tool-card">
+          <div class="tool-card-icon" style="background:#fce7f3;color:#db2777">🎯</div>
+          <div class="tool-card-body">
+            <h3>Random Decision Maker</h3>
+            <p>Can't decide? Enter your options, spin the wheel, and let fate decide. Works for teams, groups, and individuals.</p>
+            <div class="tool-tags">
+              <span class="ttag">Everyone</span><span class="ttag">Teams</span>
+            </div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+        <a href="qr-generator/index.html" class="tool-card tool-card-featured">
+          <div class="tool-card-featured-badge">Popular</div>
+          <div class="tool-card-icon" style="background:#fce7f3;color:#db2777">◼️</div>
+          <div class="tool-card-body">
+            <h3>QR Code Generator</h3>
+            <p>Generate downloadable QR codes for any URL, phone number, WhatsApp link, or text. Use on flyers, cards, menus.</p>
+            <div class="tool-tags">
+              <span class="ttag">Business</span><span class="ttag">Events</span><span class="ttag">Marketing</span>
+            </div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+        <a href="countdown/index.html" class="tool-card">
+          <div class="tool-card-icon" style="background:#fce7f3;color:#db2777">⏳</div>
+          <div class="tool-card-body">
+            <h3>Countdown Timer</h3>
+            <p>Count down to any date — exam day, event launch, project deadline, end of year. See days, hours, minutes, seconds.</p>
+            <div class="tool-tags">
+              <span class="ttag">Students</span><span class="ttag">Events</span><span class="ttag">Business</span>
+            </div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+        <a href="tip-splitter/index.html" class="tool-card">
+          <div class="tool-card-icon" style="background:#fce7f3;color:#db2777">🍽️</div>
+          <div class="tool-card-body">
+            <h3>Tip &amp; Bill Splitter</h3>
+            <p>Split any bill fairly between any number of people. Add a tip percentage and see exactly what each person owes.</p>
+            <div class="tool-tags">
+              <span class="ttag">Everyone</span><span class="ttag">Groups</span>
+            </div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+      </div>
+    </section>
+
+    <!-- CATEGORY: ZAMBIA SPECIFIC -->
+    <section class="tool-category" id="zambia">
+      <div class="cat-header">
+        <div class="cat-icon" style="background:linear-gradient(135deg,#d97706,#b45309)">🇿🇲</div>
+        <div>
+          <h2 class="cat-title">Zambia Specific</h2>
+          <p class="cat-desc">Tools built specifically for the Zambian context — things no other site offers.</p>
+        </div>
+        <span class="cat-count">1 tool</span>
+      </div>
+      <div class="tools-grid">
+        <a href="holidays/index.html" class="tool-card">
+          <div class="tool-card-icon" style="background:#fef3c7;color:#b45309">🇿🇲</div>
+          <div class="tool-card-body">
+            <h3>Zambia Public Holiday Calculator</h3>
+            <p>All Zambian public holidays for any year. Calculate working days between two dates excluding weekends and holidays.</p>
+            <div class="tool-tags">
+              <span class="ttag">HR</span><span class="ttag">Business</span><span class="ttag">Workers</span>
+            </div>
+          </div>
+          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- CTA STRIP -->
+  <section class="tools-cta-strip">
+    <div class="th-container">
+      <div class="cta-strip-inner">
+        <div>
+          <h3>Need a professional website or online store?</h3>
+          <p>BLESSTech-X builds complete digital solutions for Zambian businesses — from ZMW 650.</p>
+        </div>
+        <div class="cta-strip-btns">
+          <a href="../index.html#services" class="btn-strip-primary"><i class="fas fa-rocket"></i> Explore Services</a>
+          <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I want to discuss a project." target="_blank" class="btn-strip-wa"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="tools-footer">
+    <div class="th-container">
+      <div class="tf-inner">
+        <div class="tf-brand">
+          <a href="../index.html" class="tools-logo">
+            <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X" />
+            <span>BLESS<em>Tech-X</em></span>
+          </a>
+          <p>Free tools for every Zambian. Built in Lusaka.</p>
+        </div>
+        <div class="tf-links">
+          <h4>Quick Links</h4>
+          <a href="../index.html">Main Website</a>
+          <a href="../index.html#services">Services</a>
+          <a href="../index.html#portfolio">Portfolio</a>
+          <a href="../index.html#contact">Contact</a>
+        </div>
+        <div class="tf-links">
+          <h4>Popular Tools</h4>
+          <a href="invoice/index.html">Invoice Generator</a>
+          <a href="cv-builder/index.html">CV Builder</a>
+          <a href="email-writer/index.html">Email Writer</a>
+          <a href="qr-generator/index.html">QR Code Generator</a>
+          <a href="currency-converter/index.html">Currency Converter</a>
+        </div>
+        <div class="tf-contact">
+          <h4>Contact Us</h4>
+          <a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a>
+          <a href="mailto:singbless89@gmail.com"><i class="fas fa-envelope"></i> singbless89@gmail.com</a>
+          <a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        </div>
+      </div>
+      <div class="tf-bottom">
+        <p>&copy; 2026 BLESSTech-X. All tools are free. Built for Zambia 🇿🇲</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FAB -->
+  <a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <script>
+  // ── SEARCH ──────────────────────────────────────────────
+  const allTools = [
+    { title:'Professional Email Writer',    desc:'Write polished emails for any situation in seconds.',                    icon:'📧', tags:['Workers','Students','Business'],          url:'email-writer/index.html',      cat:'Write Better' },
+    { title:'Letter Generator',             desc:'Formal Zambian letters — resignation, reference, demand.',              icon:'📜', tags:['Workers','Students','Organisations'],     url:'letter-generator/index.html',  cat:'Write Better' },
+    { title:'Meeting Minutes Generator',    desc:'Professional meeting minutes ready to distribute.',                      icon:'🗒️', tags:['Organisations','Business','Firms'],        url:'meeting-minutes/index.html',   cat:'Write Better' },
+    { title:'Unit Converter',               desc:'Length, weight, temperature, area, volume, data — all in one.',         icon:'📏', tags:['Everyone','Farmers','Students'],           url:'unit-converter/index.html',    cat:'Calculate' },
+    { title:'Currency Converter',           desc:'ZMW to USD, GBP, ZAR, EUR and back.',                                  icon:'💱', tags:['Business','Students','Travellers'],        url:'currency-converter/index.html',cat:'Calculate' },
+    { title:'Invoice Generator',            desc:'Create and download professional invoices as PDF.',                      icon:'🧾', tags:['Freelancers','Business','PDF'],             url:'invoice/index.html',           cat:'Documents' },
+    { title:'Meeting Agenda Builder',       desc:'Build and share professional meeting agendas.',                          icon:'📋', tags:['Organisations','Business','PDF'],           url:'agenda-builder/index.html',    cat:'Documents' },
+    { title:'Simple Contract Generator',    desc:'Basic service contracts and agreements as PDF.',                         icon:'🤝', tags:['Freelancers','Landlords','PDF'],            url:'contract-generator/index.html',cat:'Documents' },
+    { title:'CV & Resume Builder',          desc:'Zambia-appropriate CV templates with PDF download.',                    icon:'📑', tags:['Students','Job Seekers','PDF'],             url:'cv-builder/index.html',        cat:'Documents' },
+    { title:'Budget Planner',               desc:'Personal and household budget with visual breakdown.',                   icon:'💰', tags:['Everyone','Families','PDF'],               url:'budget-planner/index.html',    cat:'Documents' },
+    { title:'Word Counter & Text Analyser', desc:'Words, characters, sentences, reading time, readability.',              icon:'🔤', tags:['Students','Writers','Researchers'],        url:'word-counter/index.html',      cat:'Research' },
+    { title:'Text Summarizer',              desc:'Paste any long text and get a clean summary instantly.',                 icon:'📰', tags:['Students','Researchers','Workers'],        url:'text-summarizer/index.html',   cat:'Research' },
+    { title:'JSON Formatter & Validator',   desc:'Paste messy JSON and get clean, validated, formatted output.',          icon:'🧩', tags:['Developers','API Work'],                   url:'json-formatter/index.html',    cat:'Developer' },
+    { title:'HTML Entity Encoder',          desc:'Encode and decode HTML special characters instantly.',                   icon:'🏷️', tags:['Developers','Frontend'],                   url:'html-encoder/index.html',      cat:'Developer' },
+    { title:'Pomodoro Focus Timer',         desc:'25-minute focus sessions with break reminders.',                        icon:'🍅', tags:['Students','Developers','Workers'],         url:'pomodoro/index.html',          cat:'Productivity' },
+    { title:'Random Decision Maker',        desc:'Enter options, spin the wheel, get a decision.',                        icon:'🎯', tags:['Everyone','Teams'],                        url:'decision-maker/index.html',    cat:'Productivity' },
+    { title:'QR Code Generator',            desc:'Generate downloadable QR codes for any URL or text.',                   icon:'◼️', tags:['Business','Events','Marketing'],           url:'qr-generator/index.html',      cat:'Productivity' },
+    { title:'Countdown Timer',              desc:'Count down to any date — exams, events, deadlines.',                    icon:'⏳', tags:['Students','Events','Business'],            url:'countdown/index.html',         cat:'Productivity' },
+    { title:'Tip & Bill Splitter',          desc:'Split any bill fairly between any number of people.',                   icon:'🍽️', tags:['Everyone','Groups'],                       url:'tip-splitter/index.html',      cat:'Productivity' },
+    { title:'Zambia Public Holiday Calc',   desc:'All Zambian public holidays with working day calculator.',              icon:'🇿🇲', tags:['HR','Business','Workers'],                 url:'holidays/index.html',          cat:'Zambia' },
+  ];
+
+  const searchInput = document.getElementById('toolsSearch');
+  const clearBtn = document.getElementById('tsClear');
+  const resultsSection = document.getElementById('searchResultsSection');
+  const resultsGrid = document.getElementById('searchResultsGrid');
+  const srTitle = document.getElementById('srTitle');
+  const mainSection = document.getElementById('toolsMain');
+
+  searchInput.addEventListener('input', () => {
+    const q = searchInput.value.trim().toLowerCase();
+    clearBtn.style.display = q ? 'block' : 'none';
+    if (!q) { clearSearch(); return; }
+    const matches = allTools.filter(t =>
+      t.title.toLowerCase().includes(q) ||
+      t.desc.toLowerCase().includes(q) ||
+      t.cat.toLowerCase().includes(q) ||
+      t.tags.some(tag => tag.toLowerCase().includes(q))
+    );
+    srTitle.textContent = matches.length ? `${matches.length} tool${matches.length>1?'s':''} found for "${searchInput.value}"` : `No tools found for "${searchInput.value}"`;
+    resultsGrid.innerHTML = matches.length
+      ? matches.map(t => toolCardHTML(t)).join('')
+      : `<div class="no-results"><div class="nr-icon">🔍</div><h3>No tools found</h3><p>Try searching for "invoice", "email", "CV", "QR", or "convert"</p></div>`;
+    resultsSection.style.display = 'block';
+    mainSection.style.display = 'none';
+  });
+
+  function clearSearch() {
+    searchInput.value = '';
+    clearBtn.style.display = 'none';
+    resultsSection.style.display = 'none';
+    mainSection.style.display = 'block';
+  }
+
+  function toolCardHTML(t) {
+    return `<a href="${t.url}" class="tool-card">
+      <div class="tool-card-icon" style="background:#f1f5f9;color:#0284c7;font-size:1.6rem">${t.icon}</div>
+      <div class="tool-card-body">
+        <div class="tool-card-cat">${t.cat}</div>
+        <h3>${t.title}</h3>
+        <p>${t.desc}</p>
+        <div class="tool-tags">${t.tags.map(tag=>`<span class="ttag">${tag}</span>`).join('')}</div>
+      </div>
+      <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
+    </a>`;
+  }
+
+  // ── MOBILE MENU ──────────────────────────────────────────
+  const thToggle = document.getElementById('thToggle');
+  const thNav = document.querySelector('.th-nav');
+  thToggle.addEventListener('click', () => {
+    thNav.classList.toggle('th-nav-open');
+    thToggle.classList.toggle('th-toggle-open');
+  });
+
+  // ── HASH SCROLL ──────────────────────────────────────────
+  if (window.location.hash) {
+    setTimeout(() => {
+      const el = document.querySelector(window.location.hash);
+      if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+    }, 300);
+  }
+  </script>
+</body>
+</html>
