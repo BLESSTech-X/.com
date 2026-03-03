@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Text Summarizer | BLESSTech-X Free Tools</title>
+  <meta name="description" content="Paste any long article, research paper or report and get a clean, structured summary. Free AI-powered text summarizer for Zambian students and researchers."/>
+  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../style.css"/>
+  <style>
+    .summary-length-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+    .slen-btn{padding:9px 18px;border:1.5px solid var(--border);border-radius:50px;background:white;font-size:.85rem;font-weight:600;color:var(--muted);cursor:pointer;transition:var(--transition)}
+    .slen-btn:hover{border-color:var(--sky);color:var(--sky)}
+    .slen-btn.active{border-color:var(--sky);background:var(--sky);color:white}
+    .summary-out{background:var(--bg-alt);border:1.5px solid var(--border);border-radius:var(--radius);padding:24px;min-height:200px;font-size:.95rem;line-height:1.8;color:var(--slate)}
+    .summary-out.loading{display:flex;align-items:center;justify-content:center;color:var(--muted);font-style:italic}
+    .key-points{list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:12px}
+    .key-points li{display:flex;gap:10px;align-items:flex-start;font-size:.92rem;line-height:1.6;color:var(--slate)}
+    .kp-bullet{width:22px;height:22px;border-radius:50%;background:var(--sky);color:white;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;flex-shrink:0;margin-top:2px}
+    .dot-pulse{display:flex;gap:5px;justify-content:center}
+    .dot-pulse span{width:8px;height:8px;border-radius:50%;background:var(--sky);animation:dp .9s infinite alternate}
+    .dot-pulse span:nth-child(2){animation-delay:.2s}
+    .dot-pulse span:nth-child(3){animation-delay:.4s}
+    @keyframes dp{from{opacity:.3;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+    .format-tabs{display:flex;gap:0;margin-bottom:16px;border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;width:fit-content}
+    .ftab{padding:9px 20px;background:white;border:none;font-size:.85rem;font-weight:600;color:var(--muted);cursor:pointer;transition:var(--transition)}
+    .ftab:hover{background:var(--sky-light);color:var(--sky)}
+    .ftab.active{background:var(--sky);color:white}
+    .copy-toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:var(--slate);color:white;padding:10px 24px;border-radius:50px;font-size:.88rem;font-weight:600;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none}
+    .copy-toast.show{opacity:1}
+  </style>
+</head>
+<body class="tool-page">
+  <header class="tools-header">
+    <div class="th-inner">
+      <a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a>
+      <nav class="th-nav" id="thNav">
+        <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="../index.html"><i class="fas fa-tools"></i> All Tools</a>
+        <a href="../../index.html#services">Services</a>
+        <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      </nav>
+      <button class="th-mobile-toggle" id="thToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main class="tool-page-main">
+    <div class="th-container">
+      <div class="tool-breadcrumb">
+        <a href="../../index.html">Home</a><i class="fas fa-chevron-right"></i>
+        <a href="../index.html">Free Tools</a><i class="fas fa-chevron-right"></i>
+        <span>Text Summarizer</span>
+      </div>
+      <div class="tool-header">
+        <div class="tool-header-inner">
+          <div class="tool-header-icon" style="background:#fef3c7;color:#d97706">📰</div>
+          <div>
+            <h1>Text Summarizer</h1>
+            <p>Paste any long document — article, research paper, report, lecture notes — and get a clean, structured summary. Powered by AI.</p>
+            <div class="tool-header-meta">
+              <span class="tool-meta-badge"><i class="fas fa-check-circle"></i> Free</span>
+              <span class="tool-meta-badge"><i class="fas fa-robot"></i> AI Powered</span>
+              <span class="tool-meta-badge"><i class="fas fa-users"></i> Students · Researchers · Workers</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start">
+        <!-- INPUT -->
+        <div>
+          <div class="tool-box">
+            <div class="tool-box-header"><h2><i class="fas fa-paste" style="color:var(--sky)"></i> Your Text</h2></div>
+            <div class="tool-box-body">
+              <p style="font-size:.82rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Summary Length</p>
+              <div class="summary-length-row">
+                <button class="slen-btn" data-len="brief" onclick="setLen(this)">Brief (3 points)</button>
+                <button class="slen-btn active" data-len="standard" onclick="setLen(this)">Standard (5 points)</button>
+                <button class="slen-btn" data-len="detailed" onclick="setLen(this)">Detailed (8 points)</button>
+              </div>
+              <p style="font-size:.82rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Output Format</p>
+              <div class="format-tabs" style="margin-bottom:16px">
+                <button class="ftab active" data-fmt="bullets" onclick="setFmt(this)">Key Points</button>
+                <button class="ftab" data-fmt="paragraph" onclick="setFmt(this)">Paragraph</button>
+                <button class="ftab" data-fmt="both" onclick="setFmt(this)">Both</button>
+              </div>
+              <textarea id="inputText" placeholder="Paste your article, research paper, report, or any long text here (minimum 100 words for best results)…" style="width:100%;min-height:360px;padding:16px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.93rem;line-height:1.7;resize:vertical;outline:none;font-family:var(--font)"></textarea>
+              <div style="display:flex;justify-content:space-between;margin-top:6px;margin-bottom:16px;font-size:.8rem;color:var(--muted)">
+                <span id="inputWordCount">0 words</span>
+                <button style="background:none;border:none;color:var(--sky);font-size:.8rem;cursor:pointer;font-weight:600" onclick="clearInput()">Clear</button>
+              </div>
+              <button class="btn btn-primary btn-full" style="padding:15px" onclick="summarise()" id="sumBtn">
+                <i class="fas fa-magic"></i> Summarise Text
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- OUTPUT -->
+        <div style="position:sticky;top:88px">
+          <div class="tool-box">
+            <div class="tool-box-header">
+              <h2><i class="fas fa-file-alt" style="color:var(--sky)"></i> Summary</h2>
+              <div style="display:flex;gap:8px">
+                <button class="btn btn-sm btn-secondary" id="copySum" onclick="copySummary()" style="display:none"><i class="fas fa-copy"></i> Copy</button>
+                <button class="btn btn-sm btn-secondary" id="printSum" onclick="printSummary()" style="display:none"><i class="fas fa-print"></i> PDF</button>
+              </div>
+            </div>
+            <div class="tool-box-body">
+              <div id="summaryOutput" class="summary-out" style="min-height:420px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-style:italic">
+                📰 Your summary will appear here.<br/>Paste text and click Summarise.
+              </div>
+              <div id="sumStats" style="display:none;margin-top:12px;display:none">
+                <div style="display:flex;gap:16px;font-size:.82rem;color:var(--muted)">
+                  <span>Original: <strong id="origWords">—</strong> words</span>
+                  <span>Summary: <strong id="sumWords">—</strong> words</span>
+                  <span>Reduced: <strong id="reduction">—</strong></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-service-cta" style="margin-top:36px">
+        <div><h4>Need research or content for your website?</h4><p>BLESSTech-X creates professional content strategies and writes copy for Zambian businesses.</p></div>
+        <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I need content for my website." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Discuss Content</a>
+      </div>
+      <div class="related-tools" style="margin-top:32px;background:var(--bg-alt);border-radius:var(--radius-lg);padding:28px">
+        <h3>You Might Also Need</h3>
+        <div class="related-grid">
+          <a href="../word-counter/index.html" class="related-card"><span>🔤</span> Word Counter</a>
+          <a href="../email-writer/index.html" class="related-card"><span>📧</span> Email Writer</a>
+          <a href="../letter-generator/index.html" class="related-card"><span>📜</span> Letter Generator</a>
+          <a href="../cv-builder/index.html" class="related-card"><span>📑</span> CV Builder</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="copy-toast" id="copyToast">✅ Summary copied!</div>
+
+  <footer class="tools-footer">
+    <div class="th-container">
+      <div class="tf-inner">
+        <div class="tf-brand"><a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a><p>Free tools for every Zambian.</p></div>
+        <div class="tf-links"><h4>Free Tools</h4><a href="../index.html">All Tools</a><a href="../word-counter/index.html">Word Counter</a><a href="../email-writer/index.html">Email Writer</a></div>
+        <div class="tf-links"><h4>BLESSTech-X</h4><a href="../../index.html">Main Website</a><a href="../../index.html#services">Services</a><a href="../../index.html#contact">Contact</a></div>
+        <div class="tf-contact"><h4>Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
+      </div>
+      <div class="tf-bottom"><p>&copy; 2026 BLESSTech-X · Free Text Summarizer · Built for Zambia 🇿🇲</p></div>
+    </div>
+  </footer>
+  <a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+let currentLen='standard';
+let currentFmt='bullets';
+
+function setLen(btn){ document.querySelectorAll('.slen-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); currentLen=btn.dataset.len; }
+function setFmt(btn){ document.querySelectorAll('.ftab').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); currentFmt=btn.dataset.fmt; }
+function clearInput(){ document.getElementById('inputText').value=''; document.getElementById('inputWordCount').textContent='0 words'; }
+
+document.getElementById('inputText').addEventListener('input',function(){
+  const wc=this.value.trim()===''?0:this.value.trim().split(/\s+/).filter(w=>w.length>0).length;
+  document.getElementById('inputWordCount').textContent=`${wc.toLocaleString()} words`;
+});
+
+async function summarise(){
+  const text=document.getElementById('inputText').value.trim();
+  if(!text||text.split(/\s+/).length<30){ alert('Please paste at least 30 words of text to summarise.'); return; }
+  const btn=document.getElementById('sumBtn');
+  const origWords=text.split(/\s+/).filter(Boolean).length;
+  const out=document.getElementById('summaryOutput');
+  btn.innerHTML='<span class="dot-pulse"><span></span><span></span><span></span></span> Summarising…';
+  btn.disabled=true;
+  out.innerHTML='<div style="text-align:center;padding:40px"><div class="dot-pulse"><span></span><span></span><span></span></div><p style="margin-top:16px;color:var(--muted)">Analysing your text…</p></div>';
+  out.style.display='flex'; out.style.alignItems='center'; out.style.justifyContent='center';
+  document.getElementById('copySum').style.display='none';
+  document.getElementById('printSum').style.display='none';
+
+  const pointCount=currentLen==='brief'?3:currentLen==='detailed'?8:5;
+
+  const promptMap={
+    bullets:`Summarise the following text into exactly ${pointCount} clear, concise key points. Format as a numbered list. Each point should be a complete sentence. Start directly with "1." — no introduction or preamble.\n\nText:\n${text.substring(0,4000)}`,
+    paragraph:`Summarise the following text in a clear ${currentLen==='brief'?'2-3':currentLen==='detailed'?'5-6':'3-4'} sentence paragraph. Be concise and capture the main ideas. Start directly with the summary — no introduction.\n\nText:\n${text.substring(0,4000)}`,
+    both:`Summarise the following text. First provide a brief overview paragraph (2-3 sentences). Then list ${pointCount} key points as a numbered list. Start directly — no introduction.\n\nText:\n${text.substring(0,4000)}`
+  };
+
+  try {
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        messages:[{role:'user',content:promptMap[currentFmt]}]
+      })
+    });
+    const data=await res.json();
+    const summary=data.content?.map(c=>c.text||'').join('')||'Unable to generate summary. Please try again.';
+    renderSummary(summary,origWords);
+  } catch(e) {
+    // Fallback: extractive summary
+    const fallback=extractiveSummary(text,pointCount);
+    renderSummary(fallback,origWords);
+  } finally {
+    btn.innerHTML='<i class="fas fa-magic"></i> Summarise Text';
+    btn.disabled=false;
+  }
+}
+
+function renderSummary(text,origWords){
+  const out=document.getElementById('summaryOutput');
+  out.style.display='block'; out.style.alignItems=''; out.style.justifyContent='';
+
+  // Parse numbered list if present
+  const lines=text.split('\n').filter(l=>l.trim());
+  const numbered=lines.filter(l=>/^\d+[\.\)]\s/.test(l.trim()));
+
+  if(numbered.length>0&&currentFmt!=='paragraph'){
+    let html='';
+    // Check for intro paragraph before list
+    const introLines=lines.filter(l=>!/^\d+[\.\)]\s/.test(l.trim())&&l.trim().length>20);
+    if(introLines.length>0&&currentFmt==='both'){
+      html+=`<p style="margin-bottom:16px;line-height:1.8;color:var(--slate)">${introLines[0]}</p>`;
+    }
+    html+='<ul class="key-points">';
+    numbered.forEach((line,i)=>{
+      const clean=line.replace(/^\d+[\.\)]\s*/,'');
+      html+=`<li><div class="kp-bullet">${i+1}</div><span>${clean}</span></li>`;
+    });
+    html+='</ul>';
+    out.innerHTML=html;
+  } else {
+    out.innerHTML=`<p style="line-height:1.8;white-space:pre-wrap;color:var(--slate)">${text}</p>`;
+  }
+
+  const sumWords=text.split(/\s+/).filter(Boolean).length;
+  const reduction=origWords>0?Math.round((1-sumWords/origWords)*100)+'%':'—';
+  const statsEl=document.getElementById('sumStats');
+  statsEl.style.display='flex';
+  document.getElementById('origWords').textContent=origWords.toLocaleString();
+  document.getElementById('sumWords').textContent=sumWords.toLocaleString();
+  document.getElementById('reduction').textContent=reduction+' shorter';
+  document.getElementById('copySum').style.display='flex';
+  document.getElementById('printSum').style.display='flex';
+}
+
+// Fallback extractive summary
+function extractiveSummary(text,n){
+  const sentences=text.match(/[^.!?]+[.!?]+/g)||[];
+  if(sentences.length<=n) return sentences.join(' ');
+  // Score by position and length
+  const scored=sentences.map((s,i)=>({s,score:(i<3?2:i===sentences.length-1?1.5:1)*Math.min(s.trim().split(/\s+/).length/20,1)}));
+  const top=scored.sort((a,b)=>b.score-a.score).slice(0,n).map((x,i)=>`${i+1}. ${x.s.trim()}`);
+  return top.join('\n');
+}
+
+function copySummary(){
+  const text=document.getElementById('summaryOutput').innerText;
+  navigator.clipboard.writeText(text).then(()=>{ const t=document.getElementById('copyToast'); t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500); });
+}
+function printSummary(){
+  const content=document.getElementById('summaryOutput').innerHTML;
+  const orig=document.getElementById('origWords').textContent;
+  const w=window.open('','_blank');
+  w.document.write(`<html><head><title>Summary — BLESSTech-X</title>
+  <style>body{font-family:'Segoe UI',Arial,sans-serif;padding:48px;max-width:760px;margin:0 auto;color:#1e293b}
+  h1{color:#0ea5e9;font-size:1.3rem;margin-bottom:8px}
+  ul{list-style:none;padding:0}
+  li{display:flex;gap:10px;margin-bottom:12px;line-height:1.7;font-size:13pt}
+  .kp-bullet{width:22px;height:22px;border-radius:50%;background:#0ea5e9;color:white;display:flex;align-items:center;justify-content:center;font-size:10pt;font-weight:800;flex-shrink:0;margin-top:2px}
+  .key-points li .kp-bullet{min-width:22px}
+  p{line-height:1.8}
+  .footer{margin-top:40px;padding-top:14px;border-top:1px solid #e2e8f0;font-size:10pt;color:#94a3b8;text-align:center}
+  @media print{body{padding:24px}}</style></head><body>
+  <h1>📰 Text Summary</h1>
+  <p style="color:#64748b;font-size:12pt;margin-bottom:24px">Original: ${orig} words · Generated by BLESSTech-X · blesstechx.com</p>
+  ${content}
+  <div class="footer">BLESSTech-X · blesstechx.com · +260 979 603 741 · Free Tools for Zambia</div>
+  </body></html>`);
+  w.document.close(); setTimeout(()=>w.print(),400);
+}
+
+document.getElementById('thToggle').addEventListener('click',()=>{ document.getElementById('thNav').classList.toggle('th-nav-open'); document.getElementById('thToggle').classList.toggle('th-toggle-open'); });
+</script>
+</body>
+</html>
