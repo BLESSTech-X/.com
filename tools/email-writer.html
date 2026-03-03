@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Professional Email Writer | BLESSTech-X Free Tools</title>
+  <meta name="description" content="Write professional emails for any situation in seconds. Free email writer tool for Zambian workers, students and business owners."/>
+  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../style.css"/>
+  <style>
+    .situation-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:24px}
+    .sit-btn{padding:12px 14px;border:1.5px solid var(--border);border-radius:var(--radius);background:white;cursor:pointer;font-size:.85rem;font-weight:600;color:var(--slate-l);transition:var(--transition);text-align:left;display:flex;align-items:center;gap:8px}
+    .sit-btn:hover{border-color:var(--sky);color:var(--sky);background:var(--sky-light)}
+    .sit-btn.active{border-color:var(--sky);background:var(--sky);color:white}
+    .sit-btn .sit-icon{font-size:1.1rem;flex-shrink:0}
+    .tone-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+    .tone-btn{padding:8px 16px;border:1.5px solid var(--border);border-radius:50px;background:white;cursor:pointer;font-size:.83rem;font-weight:600;color:var(--muted);transition:var(--transition)}
+    .tone-btn:hover{border-color:var(--sky);color:var(--sky)}
+    .tone-btn.active{border-color:var(--sky);background:var(--sky);color:white}
+    .email-output{background:#fafafa;border:1.5px solid var(--border);border-radius:var(--radius);padding:24px;margin-top:4px;min-height:320px;white-space:pre-wrap;font-size:.93rem;line-height:1.75;color:var(--slate);font-family:var(--font)}
+    .output-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+    .char-count{font-size:.78rem;color:var(--muted);text-align:right;margin-top:4px}
+    .generating{display:flex;align-items:center;gap:10px;color:var(--muted);font-style:italic;padding:40px;justify-content:center}
+    .dot-pulse{display:flex;gap:5px}
+    .dot-pulse span{width:8px;height:8px;border-radius:50%;background:var(--sky);animation:dp .9s infinite alternate}
+    .dot-pulse span:nth-child(2){animation-delay:.2s}
+    .dot-pulse span:nth-child(3){animation-delay:.4s}
+    @keyframes dp{from{opacity:.3;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+    .subject-line{background:var(--sky-light);border-left:4px solid var(--sky);padding:12px 16px;border-radius:0 var(--radius) var(--radius) 0;margin-bottom:16px;font-weight:700;font-size:.9rem;color:var(--sky-dark)}
+    .copy-toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:var(--slate);color:white;padding:10px 24px;border-radius:50px;font-size:.88rem;font-weight:600;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none}
+    .copy-toast.show{opacity:1}
+  </style>
+</head>
+<body class="tool-page">
+
+  <!-- HEADER -->
+  <header class="tools-header">
+    <div class="th-inner">
+      <a href="../../index.html" class="tools-logo">
+        <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/>
+        <span>BLESS<em>Tech-X</em></span>
+      </a>
+      <nav class="th-nav" id="thNav">
+        <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="../index.html"><i class="fas fa-tools"></i> All Tools</a>
+        <a href="../../index.html#services">Services</a>
+        <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      </nav>
+      <button class="th-mobile-toggle" id="thToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main class="tool-page-main">
+    <div class="th-container">
+
+      <!-- BREADCRUMB -->
+      <div class="tool-breadcrumb">
+        <a href="../../index.html">Home</a>
+        <i class="fas fa-chevron-right"></i>
+        <a href="../index.html">Free Tools</a>
+        <i class="fas fa-chevron-right"></i>
+        <span>Professional Email Writer</span>
+      </div>
+
+      <!-- TOOL HEADER -->
+      <div class="tool-header">
+        <div class="tool-header-inner">
+          <div class="tool-header-icon" style="background:#e0f2fe;color:#0284c7">📧</div>
+          <div>
+            <h1>Professional Email Writer</h1>
+            <p>Write polished, professional emails for any situation in seconds. Select your scenario, add context, choose your tone — get a ready-to-send email.</p>
+            <div class="tool-header-meta">
+              <span class="tool-meta-badge"><i class="fas fa-check-circle"></i> Free</span>
+              <span class="tool-meta-badge"><i class="fas fa-copy"></i> Copy to Clipboard</span>
+              <span class="tool-meta-badge"><i class="fas fa-print"></i> Print / Save PDF</span>
+              <span class="tool-meta-badge"><i class="fas fa-users"></i> Workers · Students · Business</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start">
+
+        <!-- LEFT: INPUTS -->
+        <div>
+          <div class="tool-box">
+            <div class="tool-box-header">
+              <h2><i class="fas fa-sliders-h" style="color:var(--sky)"></i> Email Settings</h2>
+            </div>
+            <div class="tool-box-body">
+
+              <p style="font-size:.88rem;font-weight:700;color:var(--slate-l);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px">1. Choose Your Situation</p>
+              <div class="situation-grid">
+                <button class="sit-btn active" data-sit="chasing-payment" onclick="setSit(this)"><span class="sit-icon">💰</span> Chasing Payment</button>
+                <button class="sit-btn" data-sit="job-application" onclick="setSit(this)"><span class="sit-icon">💼</span> Job Application</button>
+                <button class="sit-btn" data-sit="follow-up" onclick="setSit(this)"><span class="sit-icon">🔄</span> Follow Up</button>
+                <button class="sit-btn" data-sit="complaint" onclick="setSit(this)"><span class="sit-icon">⚠️</span> Complaint</button>
+                <button class="sit-btn" data-sit="meeting-request" onclick="setSit(this)"><span class="sit-icon">📅</span> Request Meeting</button>
+                <button class="sit-btn" data-sit="resignation" onclick="setSit(this)"><span class="sit-icon">🚪</span> Resignation</button>
+                <button class="sit-btn" data-sit="salary-increase" onclick="setSit(this)"><span class="sit-icon">📈</span> Salary Increase</button>
+                <button class="sit-btn" data-sit="introduction" onclick="setSit(this)"><span class="sit-icon">👋</span> Introduction</button>
+                <button class="sit-btn" data-sit="apology" onclick="setSit(this)"><span class="sit-icon">🙏</span> Apology</button>
+                <button class="sit-btn" data-sit="thank-you" onclick="setSit(this)"><span class="sit-icon">🎉</span> Thank You</button>
+                <button class="sit-btn" data-sit="proposal" onclick="setSit(this)"><span class="sit-icon">📋</span> Business Proposal</button>
+                <button class="sit-btn" data-sit="leave-request" onclick="setSit(this)"><span class="sit-icon">🏖️</span> Leave Request</button>
+              </div>
+
+              <p style="font-size:.88rem;font-weight:700;color:var(--slate-l);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px">2. Choose Tone</p>
+              <div class="tone-row">
+                <button class="tone-btn active" data-tone="formal" onclick="setTone(this)">Formal</button>
+                <button class="tone-btn" data-tone="friendly" onclick="setTone(this)">Friendly</button>
+                <button class="tone-btn" data-tone="firm" onclick="setTone(this)">Firm</button>
+                <button class="tone-btn" data-tone="urgent" onclick="setTone(this)">Urgent</button>
+              </div>
+
+              <div class="field">
+                <label>3. Your Name</label>
+                <input type="text" id="senderName" placeholder="e.g. Barack Blessings"/>
+              </div>
+              <div class="field">
+                <label>4. Recipient Name / Company</label>
+                <input type="text" id="recipientName" placeholder="e.g. Mr. Phiri / Zanaco Bank"/>
+              </div>
+              <div class="field">
+                <label>5. Key Details (optional but recommended)</label>
+                <textarea id="extraDetails" placeholder="Add any specific details — invoice number, amount owed, job title applied for, meeting topic, dates, etc." style="min-height:80px"></textarea>
+              </div>
+
+              <button class="btn btn-primary btn-full" onclick="generateEmail()">
+                <i class="fas fa-magic"></i> Generate Email
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: OUTPUT -->
+        <div>
+          <div class="tool-box">
+            <div class="tool-box-header">
+              <h2><i class="fas fa-envelope-open-text" style="color:var(--sky)"></i> Your Email</h2>
+              <div style="display:flex;gap:8px">
+                <button class="btn btn-sm btn-secondary" onclick="copyEmail()" id="copyBtn" style="display:none"><i class="fas fa-copy"></i> Copy</button>
+                <button class="btn btn-sm btn-secondary" onclick="printEmail()" id="printBtn" style="display:none"><i class="fas fa-print"></i> PDF</button>
+              </div>
+            </div>
+            <div class="tool-box-body">
+              <div id="subjectLine" class="subject-line" style="display:none"></div>
+              <div id="emailOutput" class="email-output" style="min-height:380px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-style:italic">
+                Your generated email will appear here. Fill in the settings on the left and click Generate.
+              </div>
+              <div class="char-count" id="charCount" style="display:none"></div>
+              <div class="output-actions" id="outputActions" style="display:none">
+                <button class="btn btn-primary" onclick="copyEmail()"><i class="fas fa-copy"></i> Copy Email</button>
+                <button class="btn btn-secondary" onclick="printEmail()"><i class="fas fa-print"></i> Save as PDF</button>
+                <button class="btn btn-secondary" onclick="generateEmail()"><i class="fas fa-redo"></i> Regenerate</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- TIPS -->
+          <div class="tool-box" style="margin-top:20px">
+            <div class="tool-box-header"><h2><i class="fas fa-lightbulb" style="color:var(--amber)"></i> Quick Tips</h2></div>
+            <div class="tool-box-body" style="padding:20px 24px">
+              <ul style="display:flex;flex-direction:column;gap:10px">
+                <li style="display:flex;gap:10px;font-size:.88rem;color:var(--slate-l)"><i class="fas fa-check-circle" style="color:var(--green);margin-top:2px;flex-shrink:0"></i> Always personalise — add the recipient's actual name and specific details for best results.</li>
+                <li style="display:flex;gap:10px;font-size:.88rem;color:var(--slate-l)"><i class="fas fa-check-circle" style="color:var(--green);margin-top:2px;flex-shrink:0"></i> Read the email before sending — adjust any details that don't fit your exact situation.</li>
+                <li style="display:flex;gap:10px;font-size:.88rem;color:var(--slate-l)"><i class="fas fa-check-circle" style="color:var(--green);margin-top:2px;flex-shrink:0"></i> For job applications, attach your CV from our free <a href="../cv-builder/index.html" style="color:var(--sky)">CV Builder</a>.</li>
+                <li style="display:flex;gap:10px;font-size:.88rem;color:var(--slate-l)"><i class="fas fa-check-circle" style="color:var(--green);margin-top:2px;flex-shrink:0"></i> Use Formal tone for government, banks, and corporate emails. Friendly for SMEs and startups.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SERVICE CTA -->
+      <div class="tool-service-cta">
+        <div>
+          <h4>Need a professional business email address?</h4>
+          <p>Stop using Gmail for business. Get hello@yourbusiness.com with BLESSTech-X from ZMW 350.</p>
+        </div>
+        <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I want a professional business email address." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Get Business Email</a>
+      </div>
+
+      <!-- RELATED TOOLS -->
+      <div class="related-tools" style="margin-top:40px;background:var(--bg-alt);border-radius:var(--radius-lg);padding:28px">
+        <h3>You Might Also Need</h3>
+        <div class="related-grid">
+          <a href="../letter-generator/index.html" class="related-card"><span>📜</span> Letter Generator</a>
+          <a href="../meeting-minutes/index.html" class="related-card"><span>🗒️</span> Meeting Minutes</a>
+          <a href="../cv-builder/index.html" class="related-card"><span>📑</span> CV Builder</a>
+          <a href="../invoice/index.html" class="related-card"><span>🧾</span> Invoice Generator</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- PRINT AREA -->
+  <div id="printArea" style="display:none"></div>
+  <div class="copy-toast" id="copyToast">✅ Copied to clipboard!</div>
+
+  <!-- FOOTER -->
+  <footer class="tools-footer">
+    <div class="th-container">
+      <div class="tf-inner">
+        <div class="tf-brand">
+          <a href="../../index.html" class="tools-logo">
+            <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/>
+            <span>BLESS<em>Tech-X</em></span>
+          </a>
+          <p>Free tools for every Zambian. Built in Lusaka.</p>
+        </div>
+        <div class="tf-links">
+          <h4>Free Tools</h4>
+          <a href="../index.html">All Tools</a>
+          <a href="../letter-generator/index.html">Letter Generator</a>
+          <a href="../cv-builder/index.html">CV Builder</a>
+          <a href="../invoice/index.html">Invoice Generator</a>
+        </div>
+        <div class="tf-links">
+          <h4>BLESSTech-X</h4>
+          <a href="../../index.html">Main Website</a>
+          <a href="../../index.html#services">Services</a>
+          <a href="../../index.html#contact">Contact</a>
+        </div>
+        <div class="tf-contact">
+          <h4>Contact</h4>
+          <a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a>
+          <a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        </div>
+      </div>
+      <div class="tf-bottom"><p>&copy; 2026 BLESSTech-X · Free Email Writer · Built for Zambia 🇿🇲</p></div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+let currentSit = 'chasing-payment';
+let currentTone = 'formal';
+
+function setSit(btn){
+  document.querySelectorAll('.sit-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  currentSit = btn.dataset.sit;
+}
+function setTone(btn){
+  document.querySelectorAll('.tone-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  currentTone = btn.dataset.tone;
+}
+
+const TEMPLATES = {
+  'chasing-payment':{
+    subject:'Following Up on Outstanding Payment',
+    formal:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nI hope this email finds you well.\n\nI am writing to follow up on an outstanding payment${d?' regarding '+d:''}. As per our agreement, the payment was due and I have not yet received confirmation of settlement.\n\nI kindly request that you arrange payment at your earliest convenience. If there are any issues or queries regarding the invoice, please do not hesitate to reach out so we can resolve this promptly.\n\nI look forward to your response.\n\nYours sincerely,\n${s||'[Your Name]'}`,
+    friendly:(s,r,d)=>`Hi ${r||'there'},\n\nHope you're doing well!\n\nJust a quick follow-up on the payment${d?' for '+d:''} — I wanted to check in and see if everything is on track from your end.\n\nPlease let me know if you need anything from me to process it. Happy to resend the invoice if needed.\n\nThanks so much!\n\nBest,\n${s||'[Your Name]'}`,
+    firm:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nI am writing to formally request immediate settlement of the outstanding payment${d?' of '+d:''}.\n\nDespite previous communication, this payment remains unresolved. I require this matter to be addressed within 5 business days of this email.\n\nFailure to respond may necessitate further action. Please treat this matter with the urgency it requires.\n\nYours faithfully,\n${s||'[Your Name]'}`,
+    urgent:(s,r,d)=>`URGENT: Dear ${r||'Sir/Madam'},\n\nThis is an urgent follow-up regarding an overdue payment${d?' of '+d:''}.\n\nThis matter requires your immediate attention. The payment is now significantly overdue and I need confirmation of settlement or a clear payment date by end of business today.\n\nPlease respond to this email urgently.\n\nRegards,\n${s||'[Your Name]'}`
+  },
+  'job-application':{
+    subject:'Application for [Position] — [Your Name]',
+    formal:(s,r,d)=>`Dear ${r||'Hiring Manager'},\n\nI am writing to express my strong interest in the${d?' '+d:' position'} advertised by your organisation.\n\nWith my skills and experience, I am confident I would be a valuable addition to your team. I am a motivated, detail-oriented professional who takes pride in delivering results.\n\nPlease find my CV attached for your review. I would welcome the opportunity to discuss how my background aligns with your requirements at your convenience.\n\nThank you for considering my application.\n\nYours sincerely,\n${s||'[Your Name]'}`,
+    friendly:(s,r,d)=>`Hi ${r||'there'},\n\nI came across the${d?' '+d:' opening'} and I'm really excited about the opportunity!\n\nI believe my skills are a great match for what you're looking for. I'm passionate, hardworking, and always eager to learn and grow.\n\nI've attached my CV — I'd love to chat if you think I could be a good fit!\n\nLooking forward to hearing from you.\n\nBest regards,\n${s||'[Your Name]'}`,
+    firm:(s,r,d)=>`Dear ${r||'Hiring Manager'},\n\nI am applying for the${d?' '+d:' advertised position'}.\n\nI meet the requirements outlined and I am prepared to contribute immediately. My background demonstrates consistent achievement and a strong work ethic.\n\nI am available for an interview at short notice. Please find my CV attached.\n\nYours sincerely,\n${s||'[Your Name]'}`,
+    urgent:(s,r,d)=>`Dear ${r||'Hiring Manager'},\n\nI am writing urgently to apply for the${d?' '+d:' position'} before the closing date.\n\nI am highly qualified and very keen on this opportunity. I am available immediately for an interview and can start with minimal notice.\n\nPlease find my CV attached. I look forward to your response.\n\nRegards,\n${s||'[Your Name]'}`
+  },
+  'follow-up':{
+    subject:'Following Up — [Previous Conversation/Meeting]',
+    formal:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nI hope you are well. I am writing to follow up on our previous communication${d?' regarding '+d:''}.\n\nI wanted to check if you had an opportunity to review the matter and whether there are any updates or decisions I should be aware of.\n\nPlease let me know if you require any additional information from my end. I look forward to your response.\n\nYours sincerely,\n${s||'[Your Name]'}`,
+    friendly:(s,r,d)=>`Hi ${r||'there'},\n\nHope you're having a great week!\n\nJust following up on${d?' '+d:' our last conversation'} — wanted to see if there are any updates or if there's anything I can help with to move things forward.\n\nNo rush, just checking in!\n\nBest,\n${s||'[Your Name]'}`,
+    firm:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nI am following up on${d?' '+d:' our previous discussion'} and note that I have not yet received a response.\n\nI would appreciate an update at your earliest convenience. Please advise on the current status and expected timeline.\n\nRegards,\n${s||'[Your Name]'}`,
+    urgent:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nI am urgently following up on${d?' '+d:' our previous communication'} as this matter requires prompt attention.\n\nA decision or update is needed by [date] to avoid delays. Please respond at your earliest opportunity.\n\nRegards,\n${s||'[Your Name]'}`
+  },
+  'complaint':{
+    subject:'Formal Complaint — [Issue]',
+    formal:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nI am writing to formally register my complaint regarding${d?' '+d:' the service/product received'}.\n\nThe matter does not meet the standard expected and has caused significant inconvenience. I request that this issue be investigated and resolved promptly.\n\nI expect a written response within 5 business days outlining the steps being taken to address this matter.\n\nYours faithfully,\n${s||'[Your Name]'}`,
+    friendly:(s,r,d)=>`Hi ${r||'there'},\n\nI wanted to flag an issue I've experienced${d?' with '+d:''}. I'm sure it's not the standard you aim for and I wanted to bring it to your attention so it can be sorted.\n\nHappy to discuss further — just let me know the best way to resolve this.\n\nThanks,\n${s||'[Your Name]'}`,
+    firm:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nI am writing to formally complain about${d?' '+d:' the situation described below'}.\n\nThis is unacceptable and I require immediate action. If this is not resolved within 48 hours, I will escalate this matter to the relevant authority.\n\nYours faithfully,\n${s||'[Your Name]'}`,
+    urgent:(s,r,d)=>`URGENT COMPLAINT: Dear ${r||'Sir/Madam'},\n\nI require your immediate attention regarding a serious complaint about${d?' '+d:''}.\n\nThis situation is unacceptable and demands urgent resolution. I expect contact from a senior representative today.\n\nYours faithfully,\n${s||'[Your Name]'}`
+  },
+  'meeting-request':{
+    subject:'Request for Meeting — [Topic]',
+    formal:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nI hope this message finds you well. I am writing to request a meeting to discuss${d?' '+d:' an important matter'}.\n\nI believe a brief meeting would allow us to address this effectively and align on next steps. I am available at your convenience and happy to accommodate your schedule.\n\nPlease let me know your preferred date, time, and location.\n\nYours sincerely,\n${s||'[Your Name]'}`,
+    friendly:(s,r,d)=>`Hi ${r||'there'},\n\nI'd love to schedule some time to chat about${d?' '+d:' something I think you'd find valuable'}.\n\nWould you be free for a 30-minute call or meeting sometime this week or next? I'm flexible on timing!\n\nLooking forward to connecting.\n\nBest,\n${s||'[Your Name]'}`,
+    firm:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nI am requesting a meeting to discuss${d?' '+d:' an important matter requiring your attention'}.\n\nThis is time-sensitive. Please confirm your availability for a meeting within the next 3 business days.\n\nRegards,\n${s||'[Your Name]'}`,
+    urgent:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nI urgently request a meeting to address${d?' '+d:' a critical matter'}.\n\nThis requires immediate discussion. Please confirm your earliest available time today or tomorrow.\n\nRegards,\n${s||'[Your Name]'}`
+  },
+  'resignation':{
+    subject:'Letter of Resignation — [Your Name]',
+    formal:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nI am writing to formally notify you of my resignation from my position${d?' as '+d:''}, effective [date — typically one month from today].\n\nThis has not been an easy decision. I am grateful for the opportunities provided and the experience gained during my time with the organisation.\n\nI am committed to ensuring a smooth handover and will do everything possible to assist with the transition during my notice period.\n\nThank you for your support and guidance.\n\nYours sincerely,\n${s||'[Your Name]'}`,
+    friendly:(s,r,d)=>`Dear ${r||'[Manager\'s name]'},\n\nI wanted to let you know that I've made the difficult decision to resign from my role${d?' as '+d:''}. My last day will be [date].\n\nI've genuinely enjoyed working here and I'm grateful for everything I've learned. I'll make sure everything is handed over properly before I leave.\n\nThank you for everything.\n\nWarm regards,\n${s||'[Your Name]'}`,
+    firm:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nI hereby give formal notice of my resignation from the position of${d?' '+d:' [role]'}, effective [date].\n\nI will fulfil my notice period obligations as required by my contract. Please let me know the handover requirements.\n\nYours faithfully,\n${s||'[Your Name]'}`,
+    urgent:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nI am writing to tender my immediate resignation from${d?' '+d:' my position'} effective today.\n\nDue to [circumstances], I am unable to serve a notice period. I apologise for any inconvenience caused and am willing to assist remotely with handover where possible.\n\nYours faithfully,\n${s||'[Your Name]'}`
+  },
+  'salary-increase':{
+    subject:'Request for Salary Review — [Your Name]',
+    formal:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nI am writing to respectfully request a review of my current salary${d?', in light of '+d:''}.\n\nSince joining the organisation, I have consistently delivered results and taken on increased responsibilities. I believe my contribution warrants a review of my compensation to reflect the current market rate and my performance.\n\nI would welcome the opportunity to discuss this at your convenience.\n\nYours sincerely,\n${s||'[Your Name]'}`,
+    friendly:(s,r,d)=>`Hi ${r||'there'},\n\nI'd love to find some time to discuss my salary${d?'. '+d:''}.\n\nI feel I've been contributing a lot and I'd like to explore whether there's room for a review. I'm happy to walk through my achievements if that would help.\n\nLooking forward to the conversation!\n\nBest,\n${s||'[Your Name]'}`,
+    firm:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nI am formally requesting a salary increase${d?'. '+d:''}.\n\nMy current compensation does not reflect my level of contribution, experience, or market rates. I am requesting a review and expect a response within 10 business days.\n\nI am happy to provide supporting documentation.\n\nYours sincerely,\n${s||'[Your Name]'}`,
+    urgent:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nI am requesting an urgent salary review${d?'. '+d:''}.\n\nThis matter has been pending and requires resolution. I am requesting a meeting this week to discuss and finalise this.\n\nYours sincerely,\n${s||'[Your Name]'}`
+  },
+  'introduction':{
+    subject:'Introduction — [Your Name / Business Name]',
+    formal:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nI hope this email finds you well. Allow me to introduce myself — my name is ${s||'[Your Name]'}${d?', '+d:''}.\n\nI am reaching out to introduce my services and explore whether there may be an opportunity to work together. I believe we could add significant value to your organisation.\n\nI would welcome the opportunity to discuss this further at your convenience.\n\nYours sincerely,\n${s||'[Your Name]'}`,
+    friendly:(s,r,d)=>`Hi ${r||'there'},\n\nMy name is ${s||'[Your Name]'}${d?' and '+d:''} — great to connect!\n\nI wanted to reach out and introduce myself. I think there could be some great opportunities for us to work together or collaborate.\n\nWould love to have a quick chat — let me know if you're open to it!\n\nBest,\n${s||'[Your Name]'}`,
+    firm:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nMy name is ${s||'[Your Name]'}${d?'. '+d:''}.\n\nI am contacting you directly to introduce my services and capabilities. I work with organisations like yours to deliver tangible results.\n\nI am available this week for a brief call. Please respond to arrange a suitable time.\n\nRegards,\n${s||'[Your Name]'}`,
+    urgent:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nI am reaching out urgently to introduce${d?' '+d:' my services'} before [deadline/event].\n\nI believe we can add immediate value to your organisation. I am available for a call today.\n\nPlease respond at your earliest convenience.\n\nRegards,\n${s||'[Your Name]'}`
+  },
+  'apology':{
+    subject:'Sincere Apology — [Your Name]',
+    formal:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nI am writing to sincerely apologise for${d?' '+d:' the recent matter that caused inconvenience'}.\n\nI take full responsibility and understand the impact this has had. This falls short of the standard I hold myself to, and I assure you that steps have been taken to prevent recurrence.\n\nI value our relationship and hope to restore your confidence going forward.\n\nYours sincerely,\n${s||'[Your Name]'}`,
+    friendly:(s,r,d)=>`Hi ${r||'there'},\n\nI just wanted to reach out and sincerely apologise for${d?' '+d:' what happened'}.\n\nI know it caused problems and I'm genuinely sorry. I've already taken steps to make sure it doesn't happen again. I really value our relationship and I want to make this right.\n\nPlease let me know how I can help.\n\nWarm regards,\n${s||'[Your Name]'}`,
+    firm:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nI acknowledge the error${d?' regarding '+d:''} and formally apologise.\n\nI have taken corrective action and this will not be repeated. I am prepared to discuss remediation if required.\n\nYours faithfully,\n${s||'[Your Name]'}`,
+    urgent:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nI am urgently writing to apologise for${d?' '+d:' the recent situation'}.\n\nThis requires immediate attention. I am taking steps to resolve this now and will provide an update within 24 hours.\n\nYours sincerely,\n${s||'[Your Name]'}`
+  },
+  'thank-you':{
+    subject:'Thank You — [Reason]',
+    formal:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nI am writing to express my sincere gratitude${d?' for '+d:''}.\n\nYour support, guidance, and assistance have been invaluable. I am truly appreciative of the time and effort you have invested.\n\nI look forward to continuing our positive working relationship.\n\nYours sincerely,\n${s||'[Your Name]'}`,
+    friendly:(s,r,d)=>`Hi ${r||'there'},\n\nJust wanted to say a huge thank you${d?' for '+d:''}!\n\nIt really means a lot and I genuinely appreciate everything. You've been amazing.\n\nHope to work together again soon!\n\nWarm regards,\n${s||'[Your Name]'}`,
+    firm:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nThank you for${d?' '+d:' your assistance with this matter'}.\n\nI acknowledge your efforts and confirm the matter has been resolved to my satisfaction.\n\nRegards,\n${s||'[Your Name]'}`,
+    urgent:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nThank you for your swift response and action${d?' regarding '+d:''}.\n\nYour prompt attention made a significant difference and is greatly appreciated.\n\nRegards,\n${s||'[Your Name]'}`
+  },
+  'proposal':{
+    subject:'Business Proposal — [Your Business Name]',
+    formal:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nI hope this email finds you well. I am writing to present a business proposal${d?' regarding '+d:''}.\n\nHaving researched your organisation, I believe there is a strong opportunity for us to work together to achieve mutual benefit. I have prepared a detailed proposal outlining the scope, timeline, and investment required.\n\nI would welcome the opportunity to present this in person at your convenience.\n\nYours sincerely,\n${s||'[Your Name]'}`,
+    friendly:(s,r,d)=>`Hi ${r||'there'},\n\nExciting to reach out! I've put together a proposal${d?' for '+d:''} that I think you're going to love.\n\nI've done my research and I genuinely believe this could be a great partnership. I'd love to walk you through the details on a quick call.\n\nLooking forward to hearing your thoughts!\n\nBest,\n${s||'[Your Name]'}`,
+    firm:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nI am presenting a business proposal${d?' for '+d:''}.\n\nThe proposal is attached. I am confident it represents strong value. I require a response within 7 business days to proceed.\n\nRegards,\n${s||'[Your Name]'}`,
+    urgent:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nI am urgently submitting a proposal${d?' for '+d:''} ahead of the deadline.\n\nThis is time-sensitive. Please review the attached proposal and confirm your interest by [date].\n\nRegards,\n${s||'[Your Name]'}`
+  },
+  'leave-request':{
+    subject:'Annual Leave Request — [Your Name]',
+    formal:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nI am writing to formally request annual leave${d?' from '+d:''}.\n\nI have ensured that my responsibilities are managed and will arrange for adequate cover during my absence. All pending tasks will be completed or handed over before my leave commences.\n\nI kindly request your approval at your earliest convenience.\n\nYours sincerely,\n${s||'[Your Name]'}`,
+    friendly:(s,r,d)=>`Hi ${r||'there'},\n\nHope you're well! I'd like to request some time off${d?' — '+d:''}.\n\nI'll make sure everything is covered and handed over before I leave so there's no disruption to the team.\n\nPlease let me know if the dates work!\n\nThanks,\n${s||'[Your Name]'}`,
+    firm:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nI am formally requesting annual leave${d?' for '+d:''}.\n\nI have [X] days of leave entitlement remaining. Cover arrangements will be in place. Please confirm approval.\n\nYours sincerely,\n${s||'[Your Name]'}`,
+    urgent:(s,r,d)=>`Dear ${r||'Sir/Madam'},\n\nI urgently request emergency leave${d?' due to '+d:''}.\n\nDue to unforeseen circumstances, I require immediate time away from work. I will ensure any critical tasks are managed remotely where possible.\n\nI appreciate your understanding.\n\nYours sincerely,\n${s||'[Your Name]'}`
+  }
+};
+
+function generateEmail(){
+  const sender = document.getElementById('senderName').value.trim() || '[Your Name]';
+  const recipient = document.getElementById('recipientName').value.trim() || '[Recipient]';
+  const details = document.getElementById('extraDetails').value.trim();
+  const tmpl = TEMPLATES[currentSit];
+  if(!tmpl) return;
+  const body = tmpl[currentTone](sender, recipient, details);
+  const subject = tmpl.subject;
+
+  // Show subject
+  const subEl = document.getElementById('subjectLine');
+  subEl.style.display = 'block';
+  subEl.innerHTML = `<i class="fas fa-tag" style="margin-right:6px"></i><strong>Subject:</strong> ${subject}`;
+
+  // Show body
+  const out = document.getElementById('emailOutput');
+  out.style.display = 'block';
+  out.style.fontStyle = 'normal';
+  out.style.color = 'var(--slate)';
+  out.style.alignItems = 'flex-start';
+  out.style.justifyContent = 'flex-start';
+  out.textContent = body;
+
+  // Char count
+  const cc = document.getElementById('charCount');
+  const words = body.split(/\s+/).filter(Boolean).length;
+  cc.textContent = `${words} words · ${body.length} characters`;
+  cc.style.display = 'block';
+
+  // Show buttons
+  document.getElementById('outputActions').style.display = 'flex';
+  document.getElementById('copyBtn').style.display = 'flex';
+  document.getElementById('printBtn').style.display = 'flex';
+}
+
+function copyEmail(){
+  const out = document.getElementById('emailOutput');
+  const subject = document.getElementById('subjectLine').textContent.replace('Subject: ','').trim();
+  const full = `Subject: ${subject}\n\n${out.textContent}`;
+  navigator.clipboard.writeText(full).then(()=>{
+    const t = document.getElementById('copyToast');
+    t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),2500);
+  });
+}
+
+function printEmail(){
+  const subject = document.getElementById('subjectLine').textContent;
+  const body = document.getElementById('emailOutput').textContent;
+  const sender = document.getElementById('senderName').value || 'BLESSTech-X User';
+  const w = window.open('','_blank');
+  w.document.write(`<html><head><title>Email — BLESSTech-X</title>
+  <style>body{font-family:'Segoe UI',sans-serif;padding:48px;max-width:800px;margin:0 auto;color:#1e293b}
+  h1{color:#0ea5e9;font-size:20px;margin-bottom:4px}
+  .sub{background:#e0f2fe;padding:12px 16px;border-radius:8px;font-weight:700;color:#0284c7;margin-bottom:24px}
+  .body{white-space:pre-wrap;line-height:1.8;font-size:14px}
+  .footer{margin-top:48px;padding-top:16px;border-top:1px solid #e2e8f0;font-size:11px;color:#94a3b8}
+  </style></head><body>
+  <h1>📧 Professional Email</h1>
+  <p style="color:#64748b;font-size:13px;margin-bottom:20px">Generated by BLESSTech-X Free Email Writer · blesstechx.com</p>
+  <div class="sub">${subject}</div>
+  <div class="body">${body.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+  <div class="footer">Generated by BLESSTech-X · blesstechx.com · +260 979 603 741 · Free Tools for Zambia</div>
+  </body></html>`);
+  w.document.close();
+  setTimeout(()=>w.print(),400);
+}
+
+// Mobile menu
+document.getElementById('thToggle').addEventListener('click',()=>{
+  document.getElementById('thNav').classList.toggle('th-nav-open');
+  document.getElementById('thToggle').classList.toggle('th-toggle-open');
+});
+</script>
+</body>
+</html>
