@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Random Decision Maker | BLESSTech-X Free Tools</title>
+  <meta name="description" content="Can't decide? Enter your options, spin the wheel and let fate decide. Free decision maker for individuals, teams and groups."/>
+  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../style.css"/>
+  <style>
+    .wheel-wrap{position:relative;width:340px;height:340px;margin:0 auto 32px}
+    #wheelCanvas{border-radius:50%;box-shadow:0 16px 48px rgba(0,0,0,.2)}
+    .wheel-pointer{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:2rem;filter:drop-shadow(0 2px 4px rgba(0,0,0,.3));z-index:10}
+    .spin-btn{display:block;margin:0 auto 28px;padding:16px 48px;background:var(--sky);color:white;border:none;border-radius:50px;font-size:1.1rem;font-weight:800;cursor:pointer;box-shadow:0 8px 24px rgba(14,165,233,.35);transition:var(--transition)}
+    .spin-btn:hover{background:var(--sky-dark);transform:translateY(-3px)}
+    .spin-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+    .result-banner{text-align:center;padding:20px 32px;border-radius:var(--radius-lg);margin-bottom:24px;display:none}
+    .result-banner.show{display:block;animation:pop .4s ease}
+    @keyframes pop{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+    .result-banner .winner{font-size:2rem;font-weight:900;color:var(--sky);margin-bottom:4px}
+    .option-row{display:grid;grid-template-columns:1fr auto;gap:8px;margin-bottom:8px;align-items:center}
+    .option-input{padding:11px 14px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.9rem;outline:none;transition:var(--transition);width:100%}
+    .option-input:focus{border-color:var(--sky)}
+    .del-btn{width:36px;height:36px;border-radius:var(--radius);background:#fee2e2;border:none;color:var(--red);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--transition)}
+    .del-btn:hover{background:#dc2626;color:white}
+    .add-opt-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--sky-light);border:1.5px solid rgba(14,165,233,.3);border-radius:var(--radius);color:var(--sky-dark);font-size:.85rem;font-weight:700;cursor:pointer;transition:var(--transition);margin-top:4px}
+    .add-opt-btn:hover{background:var(--sky);color:white}
+    .history-chip{display:inline-flex;align-items:center;gap:6px;background:var(--sky-light);border:1px solid rgba(14,165,233,.2);color:var(--sky-dark);padding:5px 12px;border-radius:20px;font-size:.82rem;font-weight:600;margin:3px}
+    .history-chip .num{background:var(--sky);color:white;border-radius:50%;width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:800}
+  </style>
+</head>
+<body class="tool-page">
+  <header class="tools-header">
+    <div class="th-inner">
+      <a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a>
+      <nav class="th-nav" id="thNav">
+        <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="../index.html"><i class="fas fa-tools"></i> All Tools</a>
+        <a href="../../index.html#services">Services</a>
+        <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      </nav>
+      <button class="th-mobile-toggle" id="thToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main class="tool-page-main">
+    <div class="th-container">
+      <div class="tool-breadcrumb">
+        <a href="../../index.html">Home</a><i class="fas fa-chevron-right"></i>
+        <a href="../index.html">Free Tools</a><i class="fas fa-chevron-right"></i>
+        <span>Random Decision Maker</span>
+      </div>
+      <div class="tool-header">
+        <div class="tool-header-inner">
+          <div class="tool-header-icon" style="background:#fce7f3;color:#db2777">🎯</div>
+          <div>
+            <h1>Random Decision Maker</h1>
+            <p>Can't decide? Enter your options, spin the wheel and let fate choose for you. Works for lunch choices, team decisions, game night picks, and more.</p>
+            <div class="tool-header-meta">
+              <span class="tool-meta-badge"><i class="fas fa-check-circle"></i> Free</span>
+              <span class="tool-meta-badge"><i class="fas fa-sync"></i> Animated Spin</span>
+              <span class="tool-meta-badge"><i class="fas fa-users"></i> Everyone · Teams</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 380px;gap:36px;align-items:start">
+        <!-- WHEEL -->
+        <div>
+          <div id="resultBanner" class="result-banner" style="background:linear-gradient(135deg,var(--sky-light),rgba(14,165,233,.08));border:2px solid rgba(14,165,233,.3)">
+            <div style="font-size:.88rem;font-weight:700;color:var(--muted);margin-bottom:4px">🎉 The decision is…</div>
+            <div class="winner" id="winnerText">—</div>
+            <div style="font-size:.83rem;color:var(--muted);margin-top:4px" id="winnerSub"></div>
+          </div>
+
+          <div class="wheel-wrap">
+            <div class="wheel-pointer">▼</div>
+            <canvas id="wheelCanvas" width="340" height="340"></canvas>
+          </div>
+
+          <button class="spin-btn" id="spinBtn" onclick="spinWheel()">
+            <i class="fas fa-sync-alt"></i> SPIN THE WHEEL
+          </button>
+
+          <!-- History -->
+          <div class="tool-box" style="margin-top:8px">
+            <div class="tool-box-header"><h2><i class="fas fa-history" style="color:var(--sky)"></i> Recent Decisions</h2><button class="btn btn-sm btn-secondary" onclick="clearHistory()">Clear</button></div>
+            <div class="tool-box-body">
+              <div id="histDiv" style="min-height:40px"><span style="color:var(--muted);font-size:.85rem;font-style:italic">Spin results will appear here</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- OPTIONS -->
+        <div>
+          <div class="tool-box">
+            <div class="tool-box-header"><h2><i class="fas fa-list" style="color:var(--sky)"></i> Your Options</h2><button class="btn btn-sm btn-secondary" onclick="clearOptions()">Clear all</button></div>
+            <div class="tool-box-body">
+              <div id="optionsList">
+                <div class="option-row"><input class="option-input" type="text" placeholder="Option 1" value="Option A"/><button class="del-btn" onclick="delOpt(this)">×</button></div>
+                <div class="option-row"><input class="option-input" type="text" placeholder="Option 2" value="Option B"/><button class="del-btn" onclick="delOpt(this)">×</button></div>
+                <div class="option-row"><input class="option-input" type="text" placeholder="Option 3" value="Option C"/><button class="del-btn" onclick="delOpt(this)">×</button></div>
+              </div>
+              <button class="add-opt-btn" onclick="addOpt()"><i class="fas fa-plus"></i> Add Option</button>
+              <hr class="tool-divider"/>
+              <p style="font-size:.8rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Quick Sets</p>
+              <div style="display:flex;flex-wrap:wrap;gap:8px">
+                <button class="btn btn-secondary btn-sm" onclick="loadSet(['Yes','No'])">Yes / No</button>
+                <button class="btn btn-secondary btn-sm" onclick="loadSet(['Nshima','Rice','Bread','Pizza','Chips'])">Lunch Ideas</button>
+                <button class="btn btn-secondary btn-sm" onclick="loadSet(['Option A','Option B','Option C','Option D'])">A B C D</button>
+                <button class="btn btn-secondary btn-sm" onclick="loadSet(['Monday','Tuesday','Wednesday','Thursday','Friday'])">Weekdays</button>
+                <button class="btn btn-secondary btn-sm" onclick="loadSet(['Team 1','Team 2','Team 3'])">3 Teams</button>
+              </div>
+              <hr class="tool-divider"/>
+              <div style="font-size:.82rem;color:var(--muted);margin-bottom:8px;font-weight:600">Options count: <span id="optCount" style="color:var(--sky);font-weight:800">3</span></div>
+              <div style="font-size:.82rem;color:var(--muted)">Each option has an equal <span id="optChance" style="color:var(--sky);font-weight:700">33.3%</span> chance of being selected.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-service-cta" style="margin-top:36px">
+        <div><h4>Need help deciding on your digital strategy?</h4><p>BLESSTech-X offers free digital consultations for Zambian businesses. Let's plan your online presence.</p></div>
+        <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I want a free digital consultation." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Free Consultation</a>
+      </div>
+      <div class="related-tools" style="margin-top:32px;background:var(--bg-alt);border-radius:var(--radius-lg);padding:28px">
+        <h3>You Might Also Need</h3>
+        <div class="related-grid">
+          <a href="../pomodoro/index.html" class="related-card"><span>🍅</span> Pomodoro Timer</a>
+          <a href="../countdown/index.html" class="related-card"><span>⏳</span> Countdown Timer</a>
+          <a href="../tip-splitter/index.html" class="related-card"><span>🍽️</span> Bill Splitter</a>
+          <a href="../qr-generator/index.html" class="related-card"><span>◼️</span> QR Generator</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="tools-footer">
+    <div class="th-container">
+      <div class="tf-inner">
+        <div class="tf-brand"><a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a><p>Free tools for every Zambian.</p></div>
+        <div class="tf-links"><h4>Free Tools</h4><a href="../index.html">All Tools</a><a href="../pomodoro/index.html">Pomodoro Timer</a><a href="../tip-splitter/index.html">Bill Splitter</a></div>
+        <div class="tf-links"><h4>BLESSTech-X</h4><a href="../../index.html">Main Website</a><a href="../../index.html#services">Services</a><a href="../../index.html#contact">Contact</a></div>
+        <div class="tf-contact"><h4>Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
+      </div>
+      <div class="tf-bottom"><p>&copy; 2026 BLESSTech-X · Free Decision Maker · Built for Zambia 🇿🇲</p></div>
+    </div>
+  </footer>
+  <a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+const COLORS=['#0ea5e9','#8b5cf6','#10b981','#f59e0b','#ef4444','#ec4899','#06b6d4','#d97706','#6366f1','#14b8a6','#f97316','#84cc16'];
+let spinning=false;
+let decisionHistory=[];
+let currentAngle=0;
+
+function getOptions(){ return Array.from(document.querySelectorAll('.option-input')).map(i=>i.value.trim()).filter(Boolean); }
+
+function drawWheel(angle=0){
+  const canvas=document.getElementById('wheelCanvas');
+  const ctx=canvas.getContext('2d');
+  const opts=getOptions();
+  const cx=170,cy=170,r=160;
+  ctx.clearRect(0,0,340,340);
+  if(opts.length===0){ ctx.fillStyle='#e2e8f0'; ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fill(); return; }
+  const slice=(Math.PI*2)/opts.length;
+  opts.forEach((opt,i)=>{
+    const start=angle+i*slice;
+    const end=start+slice;
+    ctx.beginPath(); ctx.moveTo(cx,cy);
+    ctx.arc(cx,cy,r,start,end); ctx.closePath();
+    ctx.fillStyle=COLORS[i%COLORS.length]; ctx.fill();
+    ctx.strokeStyle='white'; ctx.lineWidth=3; ctx.stroke();
+    ctx.save(); ctx.translate(cx,cy); ctx.rotate(start+slice/2);
+    ctx.textAlign='right'; ctx.fillStyle='white'; ctx.font=`bold ${Math.min(16,Math.max(10,200/opts.length))}px Segoe UI,sans-serif`;
+    ctx.shadowColor='rgba(0,0,0,.3)'; ctx.shadowBlur=3;
+    const maxLen=Math.min(opt.length,18);
+    ctx.fillText(opt.substring(0,maxLen),r-10,5);
+    ctx.restore();
+  });
+  // Center circle
+  ctx.beginPath(); ctx.arc(cx,cy,24,0,Math.PI*2);
+  ctx.fillStyle='white'; ctx.fill();
+  ctx.fillStyle='#0ea5e9'; ctx.font='bold 14px Segoe UI'; ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillText('GO',cx,cy);
+}
+
+function spinWheel(){
+  const opts=getOptions();
+  if(opts.length<2){ alert('Add at least 2 options to spin!'); return; }
+  if(spinning) return;
+  spinning=true;
+  document.getElementById('spinBtn').disabled=true;
+  document.getElementById('resultBanner').classList.remove('show');
+  const totalSpins=5+Math.random()*5;
+  const targetAngle=currentAngle+totalSpins*Math.PI*2+Math.random()*Math.PI*2;
+  const duration=3000+Math.random()*1000;
+  const start=performance.now();
+  const startAngle=currentAngle;
+
+  function animate(now){
+    const elapsed=now-start;
+    const progress=Math.min(elapsed/duration,1);
+    const ease=1-Math.pow(1-progress,4);
+    currentAngle=startAngle+(targetAngle-startAngle)*ease;
+    drawWheel(currentAngle);
+    if(progress<1){ requestAnimationFrame(animate); }
+    else {
+      spinning=false;
+      document.getElementById('spinBtn').disabled=false;
+      const slice=(Math.PI*2)/opts.length;
+      const normalised=((currentAngle%(Math.PI*2))+Math.PI*2)%(Math.PI*2);
+      const pointerAngle=(Math.PI*3.5-normalised)%(Math.PI*2);
+      const idx=Math.floor(pointerAngle/slice)%opts.length;
+      showResult(opts[idx]);
+    }
+  }
+  requestAnimationFrame(animate);
+}
+
+function showResult(winner){
+  const banner=document.getElementById('resultBanner');
+  document.getElementById('winnerText').textContent=winner;
+  const opts=getOptions();
+  document.getElementById('winnerSub').textContent=`Selected from ${opts.length} options`;
+  banner.classList.add('show');
+  decisionHistory.unshift(winner);
+  if(decisionHistory.length>10) decisionHistory.pop();
+  const freq={};
+  decisionHistory.forEach(d=>freq[d]=(freq[d]||0)+1);
+  document.getElementById('histDiv').innerHTML=Object.entries(freq).map(([opt,count])=>`<span class="history-chip"><span>${opt}</span><span class="num">${count}</span></span>`).join('');
+}
+
+function addOpt(){
+  const row=document.createElement('div'); row.className='option-row';
+  const count=document.querySelectorAll('.option-input').length+1;
+  row.innerHTML=`<input class="option-input" type="text" placeholder="Option ${count}"/><button class="del-btn" onclick="delOpt(this)">×</button>`;
+  document.getElementById('optionsList').appendChild(row);
+  updateStats(); drawWheel(currentAngle);
+}
+function delOpt(btn){ btn.closest('.option-row').remove(); updateStats(); drawWheel(currentAngle); }
+function clearOptions(){ document.getElementById('optionsList').innerHTML=''; addOpt(); addOpt(); updateStats(); drawWheel(currentAngle); }
+function clearHistory(){ decisionHistory=[]; document.getElementById('histDiv').innerHTML='<span style="color:var(--muted);font-size:.85rem;font-style:italic">Spin results will appear here</span>'; }
+function loadSet(opts){
+  document.getElementById('optionsList').innerHTML='';
+  opts.forEach(o=>{ const row=document.createElement('div'); row.className='option-row'; row.innerHTML=`<input class="option-input" type="text" value="${o}"/><button class="del-btn" onclick="delOpt(this)">×</button>`; document.getElementById('optionsList').appendChild(row); });
+  updateStats(); drawWheel(currentAngle);
+}
+function updateStats(){
+  const count=document.querySelectorAll('.option-input').length;
+  document.getElementById('optCount').textContent=count;
+  document.getElementById('optChance').textContent=count>0?(100/count).toFixed(1)+'%':'—';
+}
+
+document.getElementById('optionsList').addEventListener('input',()=>{ drawWheel(currentAngle); updateStats(); });
+drawWheel(currentAngle); updateStats();
+document.getElementById('thToggle').addEventListener('click',()=>{ document.getElementById('thNav').classList.toggle('th-nav-open'); document.getElementById('thToggle').classList.toggle('th-toggle-open'); });
+</script>
+</body>
+</html>
