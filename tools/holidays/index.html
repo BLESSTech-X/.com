@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Zambia Public Holidays 2026 | BLESSTech-X Free Tools</title>
+  <meta name="description" content="Complete list of Zambia public holidays for 2026 and beyond. Calculate working days between two dates excluding weekends and public holidays. Free tool."/>
+  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../style.css"/>
+  <style>
+    .year-tabs{display:flex;gap:0;border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;width:fit-content;margin-bottom:24px}
+    .ytab{padding:10px 24px;background:white;border:none;font-size:.9rem;font-weight:700;color:var(--muted);cursor:pointer;transition:var(--transition);border-right:1px solid var(--border)}
+    .ytab:last-child{border-right:none}
+    .ytab:hover{background:var(--sky-light);color:var(--sky)}
+    .ytab.active{background:var(--sky);color:white}
+    .holiday-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-bottom:32px}
+    .holiday-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius);padding:16px 20px;display:flex;align-items:center;gap:14px;transition:var(--transition)}
+    .holiday-card:hover{border-color:var(--sky);transform:translateY(-2px);box-shadow:var(--shadow)}
+    .holiday-card.passed{opacity:.55}
+    .holiday-card.today{border-color:#10b981;background:#f0fdf4}
+    .holiday-card.upcoming{border-color:var(--sky);background:#f0f9ff}
+    .hc-date-box{width:52px;height:52px;border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;background:var(--sky-light)}
+    .hc-date-box.passed{background:#f1f5f9}
+    .hc-date-box.today{background:#d1fae5}
+    .hc-date-box .hc-day{font-size:1.4rem;font-weight:900;color:var(--sky);line-height:1}
+    .hc-date-box.passed .hc-day{color:var(--muted)}
+    .hc-date-box.today .hc-day{color:#059669}
+    .hc-date-box .hc-month{font-size:.65rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+    .hc-info{}
+    .hc-name{font-weight:700;font-size:.95rem;color:var(--slate);margin-bottom:3px}
+    .hc-dow{font-size:.78rem;color:var(--muted)}
+    .hc-badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:.68rem;font-weight:700;margin-left:4px}
+    .hc-badge.upcoming{background:#e0f2fe;color:#0284c7}
+    .hc-badge.today{background:#d1fae5;color:#059669}
+    .hc-badge.passed{background:#f1f5f9;color:#94a3b8}
+    .wd-result{background:linear-gradient(135deg,var(--sky),var(--sky-dark));border-radius:var(--radius-lg);padding:28px;text-align:center;color:white;margin-top:20px;display:none}
+    .wd-result.show{display:block;animation:fadeIn .4s ease}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    .wd-num{font-size:3rem;font-weight:900;line-height:1;margin-bottom:6px}
+    .calendar-mini{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-top:16px}
+    .cal-header{font-size:.68rem;font-weight:700;color:var(--muted);text-align:center;padding:4px 0}
+    .cal-day{font-size:.78rem;text-align:center;padding:5px 2px;border-radius:4px;cursor:default}
+    .cal-day.holiday{background:#fee2e2;color:#dc2626;font-weight:700}
+    .cal-day.weekend{background:#f1f5f9;color:#94a3b8}
+    .cal-day.today{background:var(--sky);color:white;font-weight:800;border-radius:50%}
+    .cal-day.other-month{opacity:.3}
+    .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+    .stat-mini{background:white;border:1.5px solid var(--border);border-radius:var(--radius);padding:14px;text-align:center}
+    .stat-mini .sv{font-size:1.6rem;font-weight:800;color:var(--sky);line-height:1;margin-bottom:4px}
+    .stat-mini .sl{font-size:.72rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+  </style>
+</head>
+<body class="tool-page">
+  <header class="tools-header">
+    <div class="th-inner">
+      <a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a>
+      <nav class="th-nav" id="thNav">
+        <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="../index.html"><i class="fas fa-tools"></i> All Tools</a>
+        <a href="../../index.html#services">Services</a>
+        <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      </nav>
+      <button class="th-mobile-toggle" id="thToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main class="tool-page-main">
+    <div class="th-container">
+      <div class="tool-breadcrumb">
+        <a href="../../index.html">Home</a><i class="fas fa-chevron-right"></i>
+        <a href="../index.html">Free Tools</a><i class="fas fa-chevron-right"></i>
+        <span>Zambia Public Holidays</span>
+      </div>
+      <div class="tool-header">
+        <div class="tool-header-inner">
+          <div class="tool-header-icon" style="background:#fef3c7;color:#b45309">🇿🇲</div>
+          <div>
+            <h1>Zambia Public Holiday Calculator</h1>
+            <p>All Zambian public holidays for 2025–2027. Calculate working days between any two dates, excluding weekends and public holidays. Essential for HR, payroll, and project planning.</p>
+            <div class="tool-header-meta">
+              <span class="tool-meta-badge"><i class="fas fa-check-circle"></i> Free</span>
+              <span class="tool-meta-badge"><i class="fas fa-calendar"></i> 2025–2027</span>
+              <span class="tool-meta-badge"><i class="fas fa-calculator"></i> Working Day Calc</span>
+              <span class="tool-meta-badge"><i class="fas fa-users"></i> HR · Business · Workers</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- YEAR TABS -->
+      <div class="year-tabs">
+        <button class="ytab" data-year="2025" onclick="setYear(this)">2025</button>
+        <button class="ytab active" data-year="2026" onclick="setYear(this)">2026</button>
+        <button class="ytab" data-year="2027" onclick="setYear(this)">2027</button>
+      </div>
+
+      <!-- STATS -->
+      <div class="stats-row" id="statsRow"></div>
+
+      <!-- HOLIDAY GRID -->
+      <div class="holiday-grid" id="holidayGrid"></div>
+
+      <!-- WORKING DAY CALCULATOR -->
+      <div class="tool-box">
+        <div class="tool-box-header"><h2><i class="fas fa-calculator" style="color:var(--sky)"></i> Working Day Calculator</h2></div>
+        <div class="tool-box-body">
+          <p style="font-size:.88rem;color:var(--muted);margin-bottom:16px">Calculate the number of working days between two dates, automatically excluding weekends and Zambian public holidays.</p>
+          <div class="field-row">
+            <div class="field"><label>Start Date</label><input type="date" id="wdStart"/></div>
+            <div class="field"><label>End Date</label><input type="date" id="wdEnd"/></div>
+          </div>
+          <div class="field">
+            <label>
+              <input type="checkbox" id="includeStart" checked style="margin-right:6px"/>
+              Include start date
+            </label>
+          </div>
+          <button class="btn btn-primary" onclick="calcWorkingDays()"><i class="fas fa-calculator"></i> Calculate Working Days</button>
+          <div class="wd-result" id="wdResult">
+            <div class="wd-num" id="wdNum">—</div>
+            <div style="font-size:1rem;font-weight:700;margin-bottom:16px">working days</div>
+            <div id="wdDetails" style="font-size:.88rem;opacity:.85;line-height:1.8"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-service-cta" style="margin-top:36px">
+        <div><h4>Need an HR or payroll system for your business?</h4><p>BLESSTech-X builds HR management systems with leave tracking, payroll, and attendance for Zambian businesses.</p></div>
+        <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I need an HR management system." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Discuss HR System</a>
+      </div>
+      <div class="related-tools" style="margin-top:32px;background:var(--bg-alt);border-radius:var(--radius-lg);padding:28px">
+        <h3>You Might Also Need</h3>
+        <div class="related-grid">
+          <a href="../countdown/index.html" class="related-card"><span>⏳</span> Countdown Timer</a>
+          <a href="../letter-generator/index.html" class="related-card"><span>📜</span> Letter Generator</a>
+          <a href="../invoice/index.html" class="related-card"><span>🧾</span> Invoice Generator</a>
+          <a href="../budget-planner/index.html" class="related-card"><span>💰</span> Budget Planner</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="tools-footer">
+    <div class="th-container">
+      <div class="tf-inner">
+        <div class="tf-brand"><a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a><p>Free tools for every Zambian.</p></div>
+        <div class="tf-links"><h4>Free Tools</h4><a href="../index.html">All Tools</a><a href="../countdown/index.html">Countdown Timer</a><a href="../letter-generator/index.html">Letter Generator</a></div>
+        <div class="tf-links"><h4>BLESSTech-X</h4><a href="../../index.html">Main Website</a><a href="../../index.html#services">Services</a><a href="../../index.html#contact">Contact</a></div>
+        <div class="tf-contact"><h4>Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
+      </div>
+      <div class="tf-bottom"><p>&copy; 2026 BLESSTech-X · Zambia Public Holidays · Built for Zambia 🇿🇲</p></div>
+    </div>
+  </footer>
+  <a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+const ZAMBIA_HOLIDAYS={
+  2025:[
+    {date:'2025-01-01',name:"New Year's Day",icon:'🎆'},
+    {date:'2025-03-08',name:'International Women\'s Day',icon:'👩'},
+    {date:'2025-03-12',name:'Youth Day',icon:'🧒'},
+    {date:'2025-04-18',name:'Good Friday',icon:'✝️'},
+    {date:'2025-04-19',name:'Holy Saturday',icon:'✝️'},
+    {date:'2025-04-21',name:'Easter Monday',icon:'🐣'},
+    {date:'2025-05-01',name:"Workers' Day / Labour Day",icon:'👷'},
+    {date:'2025-05-25',name:'Africa Freedom Day',icon:'🌍'},
+    {date:'2025-07-07',name:"President's Day",icon:'🏛️'},
+    {date:'2025-10-24',name:'Independence Day',icon:'🇿🇲'},
+    {date:'2025-12-25',name:'Christmas Day',icon:'🎄'},
+    {date:'2025-12-26',name:'Boxing Day',icon:'🎁'},
+  ],
+  2026:[
+    {date:'2026-01-01',name:"New Year's Day",icon:'🎆'},
+    {date:'2026-03-08',name:'International Women\'s Day',icon:'👩'},
+    {date:'2026-03-12',name:'Youth Day',icon:'🧒'},
+    {date:'2026-04-03',name:'Good Friday',icon:'✝️'},
+    {date:'2026-04-04',name:'Holy Saturday',icon:'✝️'},
+    {date:'2026-04-06',name:'Easter Monday',icon:'🐣'},
+    {date:'2026-05-01',name:"Workers' Day / Labour Day",icon:'👷'},
+    {date:'2026-05-25',name:'Africa Freedom Day',icon:'🌍'},
+    {date:'2026-07-06',name:"President's Day",icon:'🏛️'},
+    {date:'2026-10-24',name:'Independence Day',icon:'🇿🇲'},
+    {date:'2026-12-25',name:'Christmas Day',icon:'🎄'},
+    {date:'2026-12-26',name:'Boxing Day',icon:'🎁'},
+  ],
+  2027:[
+    {date:'2027-01-01',name:"New Year's Day",icon:'🎆'},
+    {date:'2027-03-08',name:'International Women\'s Day',icon:'👩'},
+    {date:'2027-03-12',name:'Youth Day',icon:'🧒'},
+    {date:'2027-03-26',name:'Good Friday',icon:'✝️'},
+    {date:'2027-03-27',name:'Holy Saturday',icon:'✝️'},
+    {date:'2027-03-29',name:'Easter Monday',icon:'🐣'},
+    {date:'2027-05-01',name:"Workers' Day / Labour Day",icon:'👷'},
+    {date:'2027-05-25',name:'Africa Freedom Day',icon:'🌍'},
+    {date:'2027-07-05',name:"President's Day",icon:'🏛️'},
+    {date:'2027-10-24',name:'Independence Day',icon:'🇿🇲'},
+    {date:'2027-12-25',name:'Christmas Day',icon:'🎄'},
+    {date:'2027-12-26',name:'Boxing Day',icon:'🎁'},
+  ]
+};
+
+const DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const today=new Date(); today.setHours(0,0,0,0);
+let activeYear=2026;
+
+function setYear(btn){ document.querySelectorAll('.ytab').forEach(t=>t.classList.remove('active')); btn.classList.add('active'); activeYear=parseInt(btn.dataset.year); renderHolidays(); }
+
+function renderHolidays(){
+  const holidays=ZAMBIA_HOLIDAYS[activeYear]||[];
+  const todayStr=today.toISOString().split('T')[0];
+  let upcomingCount=0, passedCount=0, nextHoliday=null;
+
+  const grid=document.getElementById('holidayGrid');
+  grid.innerHTML=holidays.map(h=>{
+    const d=new Date(h.date);
+    const dow=DAYS[d.getDay()];
+    const isToday=h.date===todayStr;
+    const isPassed=d<today&&!isToday;
+    const isUpcoming=d>today;
+    if(isUpcoming){ upcomingCount++; if(!nextHoliday) nextHoliday=h; }
+    if(isPassed) passedCount++;
+    const statusClass=isToday?'today':isPassed?'passed':isUpcoming?'upcoming':'';
+    const badge=isToday?'<span class="hc-badge today">TODAY</span>':isPassed?'<span class="hc-badge passed">Passed</span>':'<span class="hc-badge upcoming">Upcoming</span>';
+    return `<div class="holiday-card ${statusClass}">
+      <div class="hc-date-box ${statusClass}">
+        <div class="hc-day">${d.getDate()}</div>
+        <div class="hc-month">${MONTHS[d.getMonth()].substring(0,3)}</div>
+      </div>
+      <div class="hc-info">
+        <div class="hc-name">${h.icon} ${h.name}${badge}</div>
+        <div class="hc-dow">${dow}, ${MONTHS[d.getMonth()]} ${d.getDate()}, ${activeYear}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  const daysInYear=activeYear%4===0?366:365;
+  const workingDays=daysInYear-holidays.length-Math.floor(daysInYear*2/7);
+  document.getElementById('statsRow').innerHTML=`
+    <div class="stat-mini"><div class="sv">${holidays.length}</div><div class="sl">Public Holidays</div></div>
+    <div class="stat-mini"><div class="sv">${upcomingCount}</div><div class="sl">Remaining ${activeYear}</div></div>
+    <div class="stat-mini"><div class="sv">${passedCount}</div><div class="sl">Passed</div></div>
+    <div class="stat-mini"><div class="sv">~${workingDays}</div><div class="sl">Working Days</div></div>
+  `;
+}
+
+function isHoliday(date){
+  const str=date.toISOString().split('T')[0];
+  return Object.values(ZAMBIA_HOLIDAYS).flat().some(h=>h.date===str);
+}
+
+function isWeekend(date){ const d=date.getDay(); return d===0||d===6; }
+
+function calcWorkingDays(){
+  const start=new Date(document.getElementById('wdStart').value);
+  const end=new Date(document.getElementById('wdEnd').value);
+  const includeStart=document.getElementById('includeStart').checked;
+  if(isNaN(start)||isNaN(end)){ alert('Please select both dates.'); return; }
+  if(start>end){ alert('Start date must be before end date.'); return; }
+
+  let count=0;
+  let holidaysInRange=[];
+  let weekendDays=0;
+  const cur=new Date(start);
+  if(!includeStart) cur.setDate(cur.getDate()+1);
+
+  while(cur<=end){
+    if(isWeekend(cur)) weekendDays++;
+    else if(isHoliday(cur)){
+      const str=cur.toISOString().split('T')[0];
+      const h=Object.values(ZAMBIA_HOLIDAYS).flat().find(h=>h.date===str);
+      holidaysInRange.push(h?.name||'Public Holiday');
+    } else count++;
+    cur.setDate(cur.getDate()+1);
+  }
+
+  const totalDays=Math.round((end-start)/86400000)+(includeStart?1:0);
+  const result=document.getElementById('wdResult');
+  result.className='wd-result show';
+  document.getElementById('wdNum').textContent=count;
+  document.getElementById('wdDetails').innerHTML=`
+    <strong>Total calendar days:</strong> ${totalDays}<br/>
+    <strong>Weekend days excluded:</strong> ${weekendDays}<br/>
+    <strong>Public holidays excluded:</strong> ${holidaysInRange.length}${holidaysInRange.length>0?'<br/><span style="opacity:.75;font-size:.82rem">'+holidaysInRange.join(', ')+'</span>':''}<br/>
+    <strong>Working days:</strong> ${count}
+  `;
+}
+
+// Set default dates
+document.getElementById('wdStart').valueAsDate=new Date();
+const end=new Date(); end.setDate(end.getDate()+30);
+document.getElementById('wdEnd').valueAsDate=end;
+
+renderHolidays();
+document.getElementById('thToggle').addEventListener('click',()=>{ document.getElementById('thNav').classList.toggle('th-nav-open'); document.getElementById('thToggle').classList.toggle('th-toggle-open'); });
+</script>
+</body>
+</html>
