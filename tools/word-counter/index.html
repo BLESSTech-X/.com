@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Word Counter & Text Analyser | BLESSTech-X Free Tools</title>
+  <meta name="description" content="Count words, characters, sentences and paragraphs. Get reading time and readability score. Free text analyser for Zambian students, writers and researchers."/>
+  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../style.css"/>
+  <style>
+    .stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px;margin-bottom:24px}
+    .stat-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center;transition:var(--transition)}
+    .stat-card:hover{border-color:var(--sky);transform:translateY(-2px)}
+    .stat-val{font-size:2rem;font-weight:800;color:var(--sky);line-height:1;margin-bottom:6px}
+    .stat-lbl{font-size:.78rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+    .stat-card.highlight .stat-val{color:var(--purple)}
+    .stat-card.green .stat-val{color:var(--green)}
+    .stat-card.amber .stat-val{color:var(--amber)}
+    .readability-bar{height:12px;border-radius:6px;background:var(--border);overflow:hidden;margin:8px 0}
+    .readability-fill{height:100%;border-radius:6px;transition:width .6s ease}
+    .keyword-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .keyword-tag{padding:4px 12px;border-radius:20px;font-size:.82rem;font-weight:600;background:var(--sky-light);color:var(--sky-dark);border:1px solid rgba(14,165,233,.2)}
+    .keyword-tag.top{background:var(--sky);color:white}
+    .find-row{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:center;margin-bottom:12px}
+    .highlight-text{background:#fef3c7}
+    .text-tools-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+    .tbar-btn{padding:7px 14px;border:1.5px solid var(--border);border-radius:var(--radius);background:white;font-size:.82rem;font-weight:600;color:var(--slate-l);cursor:pointer;transition:var(--transition);display:flex;align-items:center;gap:5px}
+    .tbar-btn:hover{border-color:var(--sky);color:var(--sky);background:var(--sky-light)}
+    .goal-row{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+    .goal-progress{flex:1;min-width:200px}
+    .goal-bar{height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin-top:4px}
+    .goal-fill{height:100%;background:var(--sky);border-radius:4px;transition:width .4s ease}
+    .goal-fill.done{background:var(--green)}
+  </style>
+</head>
+<body class="tool-page">
+  <header class="tools-header">
+    <div class="th-inner">
+      <a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a>
+      <nav class="th-nav" id="thNav">
+        <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="../index.html"><i class="fas fa-tools"></i> All Tools</a>
+        <a href="../../index.html#services">Services</a>
+        <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      </nav>
+      <button class="th-mobile-toggle" id="thToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main class="tool-page-main">
+    <div class="th-container">
+      <div class="tool-breadcrumb">
+        <a href="../../index.html">Home</a><i class="fas fa-chevron-right"></i>
+        <a href="../index.html">Free Tools</a><i class="fas fa-chevron-right"></i>
+        <span>Word Counter &amp; Text Analyser</span>
+      </div>
+      <div class="tool-header">
+        <div class="tool-header-inner">
+          <div class="tool-header-icon" style="background:#fef3c7;color:#d97706">🔤</div>
+          <div>
+            <h1>Word Counter &amp; Text Analyser</h1>
+            <p>Paste or type any text to instantly count words, characters, sentences, and paragraphs. Get reading time, readability score, keyword frequency, and more.</p>
+            <div class="tool-header-meta">
+              <span class="tool-meta-badge"><i class="fas fa-check-circle"></i> Free</span>
+              <span class="tool-meta-badge"><i class="fas fa-bolt"></i> Real-time</span>
+              <span class="tool-meta-badge"><i class="fas fa-users"></i> Students · Writers · Researchers</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WORD GOAL -->
+      <div class="tool-box" style="margin-bottom:20px">
+        <div class="tool-box-header"><h2><i class="fas fa-bullseye" style="color:var(--amber)"></i> Word Goal (optional)</h2></div>
+        <div class="tool-box-body">
+          <div class="goal-row">
+            <div class="field" style="margin:0;flex-shrink:0">
+              <select id="goalPreset" onchange="setGoalPreset()" style="padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.9rem;outline:none">
+                <option value="">No goal</option>
+                <option value="250">Short essay (250 words)</option>
+                <option value="500">Medium essay (500 words)</option>
+                <option value="1000">Long essay (1,000 words)</option>
+                <option value="1500">Assignment (1,500 words)</option>
+                <option value="3000">Report (3,000 words)</option>
+                <option value="custom">Custom…</option>
+              </select>
+            </div>
+            <input type="number" id="goalCustom" placeholder="Custom word goal" min="1" style="display:none;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.9rem;outline:none;width:180px"/>
+            <div class="goal-progress" id="goalProgress" style="display:none">
+              <div style="display:flex;justify-content:space-between;font-size:.83rem">
+                <span id="goalLabel" style="font-weight:600;color:var(--slate-l)">0 / 500 words</span>
+                <span id="goalPct" style="font-weight:700;color:var(--sky)">0%</span>
+              </div>
+              <div class="goal-bar"><div class="goal-fill" id="goalFill" style="width:0%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:start">
+        <!-- TEXT INPUT -->
+        <div>
+          <div class="tool-box">
+            <div class="tool-box-header">
+              <h2><i class="fas fa-keyboard" style="color:var(--sky)"></i> Your Text</h2>
+              <div style="display:flex;gap:8px">
+                <button class="tbar-btn" onclick="clearText()"><i class="fas fa-trash"></i> Clear</button>
+                <button class="tbar-btn" onclick="copyText()"><i class="fas fa-copy"></i> Copy</button>
+              </div>
+            </div>
+            <div class="tool-box-body">
+              <div class="text-tools-bar">
+                <button class="tbar-btn" onclick="transformText('upper')"><i class="fas fa-font"></i> UPPERCASE</button>
+                <button class="tbar-btn" onclick="transformText('lower')"><i class="fas fa-font"></i> lowercase</button>
+                <button class="tbar-btn" onclick="transformText('title')"><i class="fas fa-font"></i> Title Case</button>
+                <button class="tbar-btn" onclick="transformText('sentence')"><i class="fas fa-font"></i> Sentence case</button>
+                <button class="tbar-btn" onclick="removeExtraSpaces()"><i class="fas fa-compress-arrows-alt"></i> Clean spaces</button>
+              </div>
+              <textarea id="mainText" placeholder="Paste or type your text here… Analysis updates in real time as you type." style="width:100%;min-height:340px;padding:16px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.95rem;line-height:1.75;resize:vertical;outline:none;font-family:var(--font);transition:border-color .2s" oninput="analyseText()"></textarea>
+              <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:.8rem;color:var(--muted)">
+                <span id="liveCount">0 words · 0 characters</span>
+                <span id="readingTime">~0 min read</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- FIND & REPLACE -->
+          <div class="tool-box" style="margin-top:20px">
+            <div class="tool-box-header"><h2><i class="fas fa-search" style="color:var(--sky)"></i> Find &amp; Count</h2></div>
+            <div class="tool-box-body">
+              <div class="find-row">
+                <div class="field" style="margin:0"><input type="text" id="findWord" placeholder="Word or phrase to find…" style="padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.9rem;outline:none;width:100%"/></div>
+                <div id="findResult" style="font-size:.9rem;font-weight:700;color:var(--sky);min-width:80px;text-align:center">—</div>
+                <button class="btn btn-primary btn-sm" onclick="findWord()"><i class="fas fa-search"></i> Find</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: STATS -->
+        <div style="position:sticky;top:88px;display:flex;flex-direction:column;gap:16px">
+          <!-- Core stats -->
+          <div class="tool-box">
+            <div class="tool-box-header"><h2><i class="fas fa-chart-bar" style="color:var(--sky)"></i> Analysis</h2></div>
+            <div class="tool-box-body">
+              <div class="stats-grid" id="statsGrid">
+                <div class="stat-card"><div class="stat-val" id="statWords">0</div><div class="stat-lbl">Words</div></div>
+                <div class="stat-card"><div class="stat-val" id="statChars">0</div><div class="stat-lbl">Characters</div></div>
+                <div class="stat-card"><div class="stat-val" id="statCharsNoSpace">0</div><div class="stat-lbl">Chars (no space)</div></div>
+                <div class="stat-card highlight"><div class="stat-val" id="statSentences">0</div><div class="stat-lbl">Sentences</div></div>
+                <div class="stat-card highlight"><div class="stat-val" id="statParagraphs">0</div><div class="stat-lbl">Paragraphs</div></div>
+                <div class="stat-card green"><div class="stat-val" id="statReadTime">0m</div><div class="stat-lbl">Read Time</div></div>
+                <div class="stat-card green"><div class="stat-val" id="statSpeakTime">0m</div><div class="stat-lbl">Speak Time</div></div>
+                <div class="stat-card amber"><div class="stat-val" id="statAvgWord">0</div><div class="stat-lbl">Avg word len</div></div>
+              </div>
+
+              <div style="margin-bottom:16px">
+                <div style="display:flex;justify-content:space-between;font-size:.85rem;margin-bottom:4px">
+                  <span style="font-weight:700;color:var(--slate-l)">Readability</span>
+                  <span id="readabilityLabel" style="font-weight:700;color:var(--green)">—</span>
+                </div>
+                <div class="readability-bar"><div class="readability-fill" id="readabilityFill" style="width:0%;background:var(--green)"></div></div>
+                <div id="readabilityDesc" style="font-size:.78rem;color:var(--muted)">Paste text to get readability score</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Top keywords -->
+          <div class="tool-box">
+            <div class="tool-box-header"><h2><i class="fas fa-tags" style="color:var(--amber)"></i> Top Keywords</h2></div>
+            <div class="tool-box-body">
+              <div id="keywordCloud" class="keyword-cloud" style="min-height:48px">
+                <span style="color:var(--muted);font-size:.85rem;font-style:italic">Keywords appear here after you type…</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-service-cta" style="margin-top:36px">
+        <div><h4>Need content written for your business?</h4><p>BLESSTech-X creates professional website copy, social media content, and SEO articles for Zambian businesses.</p></div>
+        <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I need content writing for my business." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Get Content Written</a>
+      </div>
+      <div class="related-tools" style="margin-top:32px;background:var(--bg-alt);border-radius:var(--radius-lg);padding:28px">
+        <h3>You Might Also Need</h3>
+        <div class="related-grid">
+          <a href="../text-summarizer/index.html" class="related-card"><span>📰</span> Text Summarizer</a>
+          <a href="../email-writer/index.html" class="related-card"><span>📧</span> Email Writer</a>
+          <a href="../letter-generator/index.html" class="related-card"><span>📜</span> Letter Generator</a>
+          <a href="../cv-builder/index.html" class="related-card"><span>📑</span> CV Builder</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="tools-footer">
+    <div class="th-container">
+      <div class="tf-inner">
+        <div class="tf-brand"><a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a><p>Free tools for every Zambian.</p></div>
+        <div class="tf-links"><h4>Free Tools</h4><a href="../index.html">All Tools</a><a href="../text-summarizer/index.html">Text Summarizer</a><a href="../email-writer/index.html">Email Writer</a></div>
+        <div class="tf-links"><h4>BLESSTech-X</h4><a href="../../index.html">Main Website</a><a href="../../index.html#services">Services</a><a href="../../index.html#contact">Contact</a></div>
+        <div class="tf-contact"><h4>Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
+      </div>
+      <div class="tf-bottom"><p>&copy; 2026 BLESSTech-X · Free Word Counter · Built for Zambia 🇿🇲</p></div>
+    </div>
+  </footer>
+  <a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+const STOP_WORDS=new Set(['the','a','an','and','or','but','in','on','at','to','for','of','with','by','from','is','are','was','were','be','been','being','have','has','had','do','does','did','will','would','could','should','may','might','shall','can','this','that','these','those','i','you','he','she','it','we','they','my','your','his','her','its','our','their','me','him','us','them','who','which','what','when','where','why','how','if','as','so','than','then','not','no','nor','yet','both','either','neither','each','any','all','some','such','more','most','other','into','about','up','out','also','just','only','even','back','still','through','before','after','because','while','although']);
+
+function analyseText(){
+  const text=document.getElementById('mainText').value;
+  const words=text.trim()===''?[]:text.trim().split(/\s+/).filter(w=>w.length>0);
+  const wordCount=words.length;
+  const chars=text.length;
+  const charsNoSpace=text.replace(/\s/g,'').length;
+  const sentences=text.trim()===''?0:(text.match(/[^.!?]*[.!?]+/g)||[]).length||( text.trim()!==''?1:0 );
+  const paragraphs=text.trim()===''?0:text.split(/\n\s*\n/).filter(p=>p.trim().length>0).length||( text.trim()!==''?1:0 );
+  const readMins=Math.ceil(wordCount/200);
+  const speakMins=Math.ceil(wordCount/130);
+  const avgWordLen=wordCount>0?(words.reduce((s,w)=>s+w.replace(/[^a-zA-Z]/g,'').length,0)/wordCount).toFixed(1):0;
+
+  document.getElementById('statWords').textContent=wordCount.toLocaleString();
+  document.getElementById('statChars').textContent=chars.toLocaleString();
+  document.getElementById('statCharsNoSpace').textContent=charsNoSpace.toLocaleString();
+  document.getElementById('statSentences').textContent=sentences.toLocaleString();
+  document.getElementById('statParagraphs').textContent=paragraphs.toLocaleString();
+  document.getElementById('statReadTime').textContent=readMins+'m';
+  document.getElementById('statSpeakTime').textContent=speakMins+'m';
+  document.getElementById('statAvgWord').textContent=avgWordLen;
+  document.getElementById('liveCount').textContent=`${wordCount.toLocaleString()} words · ${chars.toLocaleString()} characters`;
+  document.getElementById('readingTime').textContent=`~${readMins} min read`;
+
+  // Readability (simplified Flesch-Kincaid style)
+  if(wordCount>10&&sentences>0){
+    const avgSentLen=wordCount/sentences;
+    let score=206.835-(1.015*avgSentLen)-(84.6*(charsNoSpace/Math.max(wordCount,1)/4.5));
+    score=Math.max(0,Math.min(100,score));
+    const fill=document.getElementById('readabilityFill');
+    const label=document.getElementById('readabilityLabel');
+    const desc=document.getElementById('readabilityDesc');
+    fill.style.width=score+'%';
+    if(score>=70){fill.style.background='var(--green)';label.textContent='Easy';label.style.color='var(--green)';desc.textContent='Easy to read. Most people can understand this.';}
+    else if(score>=50){fill.style.background='var(--amber)';label.textContent='Moderate';label.style.color='var(--amber)';desc.textContent='Fairly readable. Suitable for general audiences.';}
+    else{fill.style.background='var(--red)';label.textContent='Complex';label.style.color='var(--red)';desc.textContent='Complex text. Consider simplifying for broader audiences.';}
+  } else {
+    document.getElementById('readabilityFill').style.width='0%';
+    document.getElementById('readabilityLabel').textContent='—';
+    document.getElementById('readabilityDesc').textContent='Needs more text for readability analysis.';
+  }
+
+  // Keywords
+  const freq={};
+  words.forEach(w=>{ const clean=w.toLowerCase().replace(/[^a-z]/g,''); if(clean.length>2&&!STOP_WORDS.has(clean)) freq[clean]=(freq[clean]||0)+1; });
+  const top=Object.entries(freq).sort((a,b)=>b[1]-a[1]).slice(0,12);
+  const cloud=document.getElementById('keywordCloud');
+  if(top.length>0){
+    cloud.innerHTML=top.map(([w,c],i)=>`<span class="keyword-tag${i<3?' top':''}" title="${c} occurrences">${w} <span style="opacity:.7">${c}</span></span>`).join('');
+  } else {
+    cloud.innerHTML='<span style="color:var(--muted);font-size:.85rem;font-style:italic">Keywords appear here after you type…</span>';
+  }
+
+  // Goal
+  updateGoal(wordCount);
+}
+
+function updateGoal(wordCount){
+  const preset=document.getElementById('goalPreset').value;
+  const customEl=document.getElementById('goalCustom');
+  let goal=0;
+  if(preset&&preset!=='custom') goal=parseInt(preset);
+  else if(preset==='custom') goal=parseInt(customEl.value)||0;
+  const progEl=document.getElementById('goalProgress');
+  if(goal>0){
+    progEl.style.display='block';
+    const pct=Math.min((wordCount/goal)*100,100).toFixed(0);
+    const fill=document.getElementById('goalFill');
+    fill.style.width=pct+'%';
+    fill.className='goal-fill'+(wordCount>=goal?' done':'');
+    document.getElementById('goalLabel').textContent=`${wordCount.toLocaleString()} / ${goal.toLocaleString()} words`;
+    document.getElementById('goalPct').textContent=pct+'%';
+    document.getElementById('goalPct').style.color=wordCount>=goal?'var(--green)':'var(--sky)';
+  } else {
+    progEl.style.display='none';
+  }
+}
+
+function setGoalPreset(){
+  const val=document.getElementById('goalPreset').value;
+  const customEl=document.getElementById('goalCustom');
+  customEl.style.display=val==='custom'?'block':'none';
+  const text=document.getElementById('mainText').value;
+  const wc=text.trim()===''?0:text.trim().split(/\s+/).filter(w=>w.length>0).length;
+  updateGoal(wc);
+}
+
+function clearText(){ document.getElementById('mainText').value=''; analyseText(); }
+function copyText(){ navigator.clipboard.writeText(document.getElementById('mainText').value).then(()=>alert('Text copied!')); }
+
+function transformText(type){
+  const el=document.getElementById('mainText');
+  const t=el.value;
+  if(type==='upper') el.value=t.toUpperCase();
+  else if(type==='lower') el.value=t.toLowerCase();
+  else if(type==='title') el.value=t.replace(/\w\S*/g,w=>w.charAt(0).toUpperCase()+w.slice(1).toLowerCase());
+  else if(type==='sentence') el.value=t.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g,c=>c.toUpperCase());
+  analyseText();
+}
+function removeExtraSpaces(){ const el=document.getElementById('mainText'); el.value=el.value.replace(/[ \t]+/g,' ').replace(/\n{3,}/g,'\n\n').trim(); analyseText(); }
+
+function findWord(){
+  const q=document.getElementById('findWord').value.trim();
+  if(!q){document.getElementById('findResult').textContent='—';return;}
+  const text=document.getElementById('mainText').value;
+  const regex=new RegExp('\\b'+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b','gi');
+  const matches=text.match(regex);
+  const count=matches?matches.length:0;
+  document.getElementById('findResult').textContent=count>0?`${count} found`:'Not found';
+  document.getElementById('findResult').style.color=count>0?'var(--green)':'var(--red)';
+}
+
+document.getElementById('findWord').addEventListener('keydown',e=>{ if(e.key==='Enter') findWord(); });
+document.getElementById('goalCustom').addEventListener('input',()=>{ const text=document.getElementById('mainText').value; const wc=text.trim()===''?0:text.trim().split(/\s+/).filter(w=>w.length>0).length; updateGoal(wc); });
+document.getElementById('mainText').addEventListener('focus',e=>e.target.style.borderColor='var(--sky)');
+document.getElementById('mainText').addEventListener('blur',e=>e.target.style.borderColor='var(--border)');
+document.getElementById('thToggle').addEventListener('click',()=>{ document.getElementById('thNav').classList.toggle('th-nav-open'); document.getElementById('thToggle').classList.toggle('th-toggle-open'); });
+</script>
+</body>
+</html>
