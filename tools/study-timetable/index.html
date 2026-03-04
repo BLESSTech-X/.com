@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Study Timetable Generator | BLESSTech-X Free Tools</title>
+  <meta name="description" content="Build a personalised study timetable for UNZA, CBU, Grade 12 or any exams. Free study planner with PDF download for Zambian students."/>
+  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../style.css"/>
+  <style>
+    .tt-hero{background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 60%,#312e81 100%);border-radius:20px;padding:36px;margin-bottom:28px;position:relative;overflow:hidden}
+    .tt-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:250px;height:250px;background:radial-gradient(circle,rgba(99,102,241,.25),transparent 70%);pointer-events:none}
+    .tt-hero::after{content:'📚';position:absolute;bottom:-10px;right:30px;font-size:5rem;opacity:.12}
+    .tt-hero h1{color:white;font-size:1.8rem;font-weight:900;margin-bottom:6px}
+    .tt-hero p{color:#a5b4fc;font-size:.95rem}
+
+    .subject-row{display:grid;grid-template-columns:1fr 100px 80px 36px;gap:8px;margin-bottom:8px;align-items:center}
+    .subject-row.hdr{font-size:.71rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+    .mini{padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.88rem;outline:none;transition:var(--transition);width:100%;background:white}
+    .mini:focus{border-color:#6366f1;box-shadow:0 0 0 3px rgba(99,102,241,.1)}
+    .del-btn{width:36px;height:36px;border-radius:var(--radius);background:#fee2e2;border:none;color:#ef4444;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--transition);font-size:1rem}
+    .del-btn:hover{background:#ef4444;color:white}
+    .add-sub-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;background:#eef2ff;border:1.5px solid rgba(99,102,241,.3);border-radius:var(--radius);color:#4f46e5;font-size:.83rem;font-weight:700;cursor:pointer;transition:var(--transition);margin-top:6px}
+    .add-sub-btn:hover{background:#6366f1;color:white}
+
+    .day-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:16px}
+    .day-cb{display:flex;flex-direction:column;align-items:center;gap:5px}
+    .day-cb input{width:20px;height:20px;accent-color:#6366f1;cursor:pointer}
+    .day-cb label{font-size:.72rem;font-weight:700;color:var(--slate-l);cursor:pointer}
+
+    /* TIMETABLE */
+    .tt-wrap{overflow-x:auto;border-radius:var(--radius-lg);border:1.5px solid var(--border)}
+    table.tt{width:100%;border-collapse:collapse;min-width:580px;font-size:.82rem}
+    table.tt th{padding:10px 8px;font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;text-align:center;border:1px solid #e2e8f0}
+    table.tt th.day-head{background:#0f172a;color:white;min-width:90px}
+    table.tt th.time-head{background:#f1f5f9;color:#64748b;min-width:80px}
+    table.tt td{padding:0;border:1px solid #e2e8f0;vertical-align:top;height:70px}
+    .tt-cell{height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:6px;text-align:center;font-size:.78rem;font-weight:600;border-radius:2px;min-height:70px;cursor:default}
+    .tt-cell.empty{background:#fafafa;color:#cbd5e1}
+    .tt-cell.break{background:#fef3c7;color:#92400e}
+    .tt-cell.subj{color:white;font-weight:700}
+    .tt-cell .hrs{font-size:.65rem;font-weight:600;opacity:.85;margin-top:2px}
+    .tt-legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .tt-legend-item{display:flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;color:var(--slate-l)}
+    .tt-legend-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+    .stats-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+    .stat-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 16px;text-align:center}
+    .stat-card .sv{font-size:1.5rem;font-weight:900;color:#6366f1}
+    .stat-card .sl{font-size:.75rem;color:var(--muted);font-weight:600}
+    .motivational{background:linear-gradient(135deg,#6366f1,#8b5cf6);border-radius:var(--radius);padding:14px 18px;color:white;font-size:.88rem;font-weight:600;text-align:center;margin-bottom:20px}
+  </style>
+</head>
+<body class="tool-page">
+
+<header class="tools-header">
+  <div class="th-inner">
+    <a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a>
+    <nav class="th-nav" id="thNav">
+      <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
+      <a href="../index.html"><i class="fas fa-tools"></i> All Tools</a>
+      <a href="../../index.html#services">Services</a>
+      <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    </nav>
+    <button class="th-mobile-toggle" id="thToggle"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main class="tool-page-main">
+  <div class="th-container">
+
+    <div class="tool-breadcrumb">
+      <a href="../../index.html">Home</a><i class="fas fa-chevron-right"></i>
+      <a href="../index.html">Free Tools</a><i class="fas fa-chevron-right"></i>
+      <span>Study Timetable Generator</span>
+    </div>
+
+    <div class="tt-hero">
+      <h1>📚 Study Timetable Generator</h1>
+      <p>Build a smart, colour-coded study schedule for Grade 12, UNZA, CBU or any exams. Download as PDF and stick it on your wall.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:420px 1fr;gap:28px;align-items:start" id="mainGrid">
+
+      <!-- LEFT: SETTINGS -->
+      <div style="display:flex;flex-direction:column;gap:20px">
+
+        <div class="tool-box">
+          <div class="tool-box-header"><h2><i class="fas fa-user-graduate" style="color:#6366f1"></i> Your Details</h2></div>
+          <div class="tool-box-body">
+            <div class="field"><label>Your Name</label><input type="text" id="stdName" placeholder="e.g. Chanda Mwale" oninput="buildTT()"/></div>
+            <div class="field-row">
+              <div class="field"><label>Level / Class</label>
+                <select id="stdLevel" onchange="buildTT()">
+                  <option>Grade 12</option>
+                  <option>Grade 11</option>
+                  <option>Grade 10</option>
+                  <option>UNZA Year 1</option>
+                  <option>UNZA Year 2</option>
+                  <option>UNZA Year 3</option>
+                  <option>UNZA Year 4</option>
+                  <option>CBU Year 1</option>
+                  <option>CBU Year 2</option>
+                  <option>CBU Year 3</option>
+                  <option>CBU Year 4</option>
+                  <option>ZCAS</option>
+                  <option>Professional Exams</option>
+                  <option>Self Study</option>
+                </select>
+              </div>
+              <div class="field"><label>Goal</label>
+                <select id="stdGoal" onchange="buildTT()">
+                  <option value="exam">Exam Preparation</option>
+                  <option value="revision">Weekly Revision</option>
+                  <option value="assignment">Assignment Focus</option>
+                  <option value="general">General Learning</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tool-box">
+          <div class="tool-box-header"><h2><i class="fas fa-clock" style="color:#6366f1"></i> Study Schedule</h2></div>
+          <div class="tool-box-body">
+            <div class="field-row">
+              <div class="field"><label>Study Start</label><input type="time" id="startTime" value="06:00" onchange="buildTT()"/></div>
+              <div class="field"><label>Study End</label><input type="time" id="endTime" value="22:00" onchange="buildTT()"/></div>
+            </div>
+            <div class="field-row">
+              <div class="field"><label>Session Length (min)</label>
+                <select id="sessionLen" onchange="buildTT()">
+                  <option value="45">45 minutes</option>
+                  <option value="60" selected>1 hour</option>
+                  <option value="90">1.5 hours</option>
+                  <option value="120">2 hours</option>
+                </select>
+              </div>
+              <div class="field"><label>Break Length (min)</label>
+                <select id="breakLen" onchange="buildTT()">
+                  <option value="10">10 minutes</option>
+                  <option value="15" selected>15 minutes</option>
+                  <option value="20">20 minutes</option>
+                  <option value="30">30 minutes</option>
+                </select>
+              </div>
+            </div>
+            <div class="field"><label>Study Days</label></div>
+            <div class="day-grid">
+              <div class="day-cb"><input type="checkbox" id="dMon" checked onchange="buildTT()"/><label for="dMon">Mon</label></div>
+              <div class="day-cb"><input type="checkbox" id="dTue" checked onchange="buildTT()"/><label for="dTue">Tue</label></div>
+              <div class="day-cb"><input type="checkbox" id="dWed" checked onchange="buildTT()"/><label for="dWed">Wed</label></div>
+              <div class="day-cb"><input type="checkbox" id="dThu" checked onchange="buildTT()"/><label for="dThu">Thu</label></div>
+              <div class="day-cb"><input type="checkbox" id="dFri" checked onchange="buildTT()"/><label for="dFri">Fri</label></div>
+              <div class="day-cb"><input type="checkbox" id="dSat" onchange="buildTT()"/><label for="dSat">Sat</label></div>
+              <div class="day-cb"><input type="checkbox" id="dSun" onchange="buildTT()"/><label for="dSun">Sun</label></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tool-box">
+          <div class="tool-box-header"><h2><i class="fas fa-book-open" style="color:#6366f1"></i> Subjects</h2></div>
+          <div class="tool-box-body">
+            <p style="font-size:.82rem;color:var(--muted);margin-bottom:12px">Add your subjects, set priority (High = more sessions) and hours per week.</p>
+            <div class="subject-row hdr"><span>Subject</span><span>Priority</span><span>Hrs/wk</span><span></span></div>
+            <div id="subjectList">
+              <div class="subject-row">
+                <input class="mini sub-name" type="text" placeholder="Mathematics" oninput="buildTT()"/>
+                <select class="mini sub-pri" onchange="buildTT()"><option value="3">High</option><option value="2" selected>Med</option><option value="1">Low</option></select>
+                <input class="mini sub-hrs" type="number" value="6" min="1" max="30" oninput="buildTT()"/>
+                <button class="del-btn" onclick="delSubject(this)">×</button>
+              </div>
+              <div class="subject-row">
+                <input class="mini sub-name" type="text" placeholder="English" oninput="buildTT()"/>
+                <select class="mini sub-pri" onchange="buildTT()"><option value="3">High</option><option value="2" selected>Med</option><option value="1">Low</option></select>
+                <input class="mini sub-hrs" type="number" value="4" min="1" max="30" oninput="buildTT()"/>
+                <button class="del-btn" onclick="delSubject(this)">×</button>
+              </div>
+              <div class="subject-row">
+                <input class="mini sub-name" type="text" placeholder="Science" oninput="buildTT()"/>
+                <select class="mini sub-pri" onchange="buildTT()"><option value="3">High</option><option value="2" selected>Med</option><option value="1">Low</option></select>
+                <input class="mini sub-hrs" type="number" value="5" min="1" max="30" oninput="buildTT()"/>
+                <button class="del-btn" onclick="delSubject(this)">×</button>
+              </div>
+            </div>
+            <button class="add-sub-btn" onclick="addSubject()"><i class="fas fa-plus"></i> Add Subject</button>
+          </div>
+        </div>
+
+        <div class="tool-box">
+          <div class="tool-box-header"><h2><i class="fas fa-palette" style="color:#6366f1"></i> Style</h2></div>
+          <div class="tool-box-body">
+            <div class="field-row">
+              <div class="field"><label>Colour Theme</label>
+                <select id="colorTheme" onchange="buildTT()">
+                  <option value="indigo">Indigo (Default)</option>
+                  <option value="ocean">Ocean Blue</option>
+                  <option value="forest">Forest Green</option>
+                  <option value="sunset">Sunset</option>
+                  <option value="candy">Candy</option>
+                </select>
+              </div>
+              <div class="field"><label>Motivational Quote</label>
+                <select id="quoteStyle" onchange="buildTT()">
+                  <option value="1">Show Quote</option>
+                  <option value="0">Hide Quote</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-full" onclick="printTT()"><i class="fas fa-file-pdf"></i> Download as PDF</button>
+
+      </div>
+
+      <!-- RIGHT: TIMETABLE PREVIEW -->
+      <div>
+        <div id="statsBar" class="stats-bar" style="display:none">
+          <div class="stat-card"><div class="sv" id="statHrs">0</div><div class="sl">Study Hours/Week</div></div>
+          <div class="stat-card"><div class="sv" id="statSessions">0</div><div class="sl">Sessions/Week</div></div>
+          <div class="stat-card"><div class="sv" id="statSubjects">0</div><div class="sl">Subjects</div></div>
+        </div>
+        <div id="motivBox" style="display:none" class="motivational"></div>
+        <div class="tool-box">
+          <div class="tool-box-header">
+            <h2><i class="fas fa-calendar-alt" style="color:#6366f1"></i> Your Timetable</h2>
+            <button class="btn btn-sm btn-secondary" onclick="printTT()"><i class="fas fa-print"></i> Print / PDF</button>
+          </div>
+          <div class="tool-box-body" style="padding:16px">
+            <div id="ttOutput" style="color:var(--muted);text-align:center;padding:40px;font-style:italic">Add your subjects and configure your schedule on the left to generate your timetable.</div>
+            <div class="tt-legend" id="ttLegend"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="tool-service-cta" style="margin-top:36px">
+      <div><h4>Struggling with grades? Need tutoring or study materials?</h4><p>BLESSTech-X connects Zambian students with affordable tutors and study resources online.</p></div>
+      <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I need study help." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Get Study Help</a>
+    </div>
+
+    <div class="related-tools" style="margin-top:32px;background:var(--bg-alt);border-radius:var(--radius-lg);padding:28px">
+      <h3>You Might Also Need</h3>
+      <div class="related-grid">
+        <a href="../word-counter/index.html"     class="related-card"><span>🔤</span> Word Counter</a>
+        <a href="../pomodoro/index.html"          class="related-card"><span>⏱️</span> Pomodoro Timer</a>
+        <a href="../cv-builder/index.html"        class="related-card"><span>📑</span> CV Builder</a>
+        <a href="../countdown/index.html"         class="related-card"><span>⏳</span> Countdown Timer</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="tools-footer">
+  <div class="th-container">
+    <div class="tf-inner">
+      <div class="tf-brand"><a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a><p>Free tools for every Zambian student.</p></div>
+      <div class="tf-links"><h4>Free Tools</h4><a href="../index.html">All Tools</a><a href="../word-counter/index.html">Word Counter</a><a href="../pomodoro/index.html">Pomodoro Timer</a></div>
+      <div class="tf-links"><h4>BLESSTech-X</h4><a href="../../index.html">Main Website</a><a href="../../index.html#services">Services</a></div>
+      <div class="tf-contact"><h4>Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
+    </div>
+    <div class="tf-bottom"><p>&copy; 2026 BLESSTech-X · Free Study Timetable Generator · Built for Zambia 🇿🇲</p></div>
+  </div>
+</footer>
+<a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+var THEMES = {
+  indigo:['#6366f1','#8b5cf6','#a78bfa','#c4b5fd','#e0e7ff','#4f46e5','#7c3aed','#ddd6fe','#ede9fe','#f5f3ff'],
+  ocean: ['#0ea5e9','#06b6d4','#38bdf8','#7dd3fc','#e0f2fe','#0284c7','#0891b2','#bae6fd','#cffafe','#f0f9ff'],
+  forest:['#10b981','#059669','#34d399','#6ee7b7','#d1fae5','#047857','#065f46','#a7f3d0','#bbf7d0','#ecfdf5'],
+  sunset:['#f59e0b','#ef4444','#fbbf24','#fca5a5','#fef3c7','#d97706','#dc2626','#fde68a','#fee2e2','#fffbeb'],
+  candy: ['#ec4899','#8b5cf6','#f43f5e','#a78bfa','#fce7f3','#db2777','#7c3aed','#fbcfe8','#ede9fe','#fff1f2'],
+};
+
+var QUOTES = [
+  '"Success is the sum of small efforts, repeated day in and day out." — Robert Collier',
+  '"The secret of getting ahead is getting started." — Mark Twain',
+  '"An investment in knowledge pays the best interest." — Benjamin Franklin',
+  '"Education is the most powerful weapon to change the world." — Nelson Mandela',
+  '"The more that you read, the more things you will know." — Dr. Seuss',
+  '"Dream big. Study hard. Think for yourself." — Unknown',
+  '"Your future is created by what you do today, not tomorrow." — Robert Kiyosaki',
+];
+
+function getSubjects() {
+  var rows = document.querySelectorAll('#subjectList .subject-row');
+  var subs = [];
+  rows.forEach(function(r) {
+    var name = r.querySelector('.sub-name').value.trim();
+    var pri  = parseInt(r.querySelector('.sub-pri').value);
+    var hrs  = parseFloat(r.querySelector('.sub-hrs').value) || 1;
+    if (name) subs.push({ name: name, pri: pri, hrs: hrs });
+  });
+  return subs;
+}
+
+function getActiveDays() {
+  var days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  var ids  = ['dMon','dTue','dWed','dThu','dFri','dSat','dSun'];
+  return days.filter(function(_, i){ return document.getElementById(ids[i]).checked; });
+}
+
+function timeToMins(t) { var p = t.split(':'); return parseInt(p[0])*60 + parseInt(p[1]); }
+function minsToTime(m) { var h = Math.floor(m/60); var mm = m%60; return (h<10?'0':'')+h+':'+(mm<10?'0':'')+mm; }
+
+function buildTT() {
+  var subs      = getSubjects();
+  var days      = getActiveDays();
+  var startM    = timeToMins(document.getElementById('startTime').value || '06:00');
+  var endM      = timeToMins(document.getElementById('endTime').value   || '22:00');
+  var sessLen   = parseInt(document.getElementById('sessionLen').value);
+  var breakLen  = parseInt(document.getElementById('breakLen').value);
+  var theme     = document.getElementById('colorTheme').value;
+  var showQuote = document.getElementById('quoteStyle').value === '1';
+  var name      = document.getElementById('stdName').value;
+  var level     = document.getElementById('stdLevel').value;
+  var colors    = THEMES[theme] || THEMES.indigo;
+
+  if (!subs.length || !days.length) {
+    document.getElementById('ttOutput').innerHTML = '<div style="color:var(--muted);text-align:center;padding:40px;font-style:italic">Add subjects and select at least one study day.</div>';
+    document.getElementById('ttLegend').innerHTML = '';
+    document.getElementById('statsBar').style.display = 'none';
+    document.getElementById('motivBox').style.display = 'none';
+    return;
+  }
+
+  // Build time slots
+  var slots = [];
+  var cur   = startM;
+  var slotIdx = 0;
+  while (cur + sessLen <= endM) {
+    slots.push({ start: cur, end: cur + sessLen, type: 'study', idx: slotIdx });
+    cur += sessLen;
+    slotIdx++;
+    if (cur + breakLen <= endM && cur + sessLen <= endM) {
+      slots.push({ start: cur, end: cur + breakLen, type: 'break' });
+      cur += breakLen;
+    }
+  }
+
+  // Distribute subjects across slots × days
+  // Build a weighted pool
+  var pool = [];
+  subs.forEach(function(s) { for (var i = 0; i < s.pri; i++) pool.push(s.name); });
+
+  var studySlots = slots.filter(function(s){ return s.type === 'study'; });
+  var totalSessions = studySlots.length * days.length;
+
+  // Assign subjects proportionally by hours
+  var totalHrs = subs.reduce(function(a,b){ return a + b.hrs * b.pri; }, 0);
+  var assign = {}; // day -> slotIdx -> subjectName
+  var subjectCounters = {};
+  subs.forEach(function(s){ subjectCounters[s.name] = 0; });
+
+  // Create a repeated ordered list based on priority + hrs
+  var orderedPool = [];
+  subs.forEach(function(s){
+    var count = Math.max(1, Math.round((s.hrs * s.pri / totalHrs) * totalSessions));
+    for (var i = 0; i < count; i++) orderedPool.push(s.name);
+  });
+  // Shuffle for variety
+  for (var i = orderedPool.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = orderedPool[i]; orderedPool[i] = orderedPool[j]; orderedPool[j] = tmp;
+  }
+
+  var poolIdx = 0;
+  days.forEach(function(day) {
+    assign[day] = {};
+    studySlots.forEach(function(slot) {
+      assign[day][slot.idx] = orderedPool[poolIdx % orderedPool.length];
+      poolIdx++;
+    });
+  });
+
+  // Stats
+  var totalStudyHrs = (studySlots.length * days.length * sessLen / 60).toFixed(1);
+  document.getElementById('statHrs').textContent = totalStudyHrs;
+  document.getElementById('statSessions').textContent = studySlots.length * days.length;
+  document.getElementById('statSubjects').textContent = subs.length;
+  document.getElementById('statsBar').style.display = 'grid';
+
+  // Quote
+  if (showQuote) {
+    var q = QUOTES[Math.floor(Math.random() * QUOTES.length)];
+    document.getElementById('motivBox').innerHTML = '💡 ' + q;
+    document.getElementById('motivBox').style.display = 'block';
+  } else {
+    document.getElementById('motivBox').style.display = 'none';
+  }
+
+  // Build HTML table
+  var html = '<div class="tt-wrap"><table class="tt">';
+  html += '<tr><th class="time-head">Time</th>';
+  days.forEach(function(d){ html += '<th class="day-head">' + d + '</th>'; });
+  html += '</tr>';
+
+  slots.forEach(function(slot) {
+    var label = minsToTime(slot.start) + '<br/>' + minsToTime(slot.end);
+    html += '<tr><th class="time-head" style="font-size:.7rem">' + label + '</th>';
+    if (slot.type === 'break') {
+      days.forEach(function(){
+        html += '<td><div class="tt-cell break">☕ Break<div class="hrs">' + breakLen + 'min</div></div></td>';
+      });
+    } else {
+      days.forEach(function(day) {
+        var subName = assign[day][slot.idx];
+        var subIdx  = subs.findIndex(function(s){ return s.name === subName; });
+        var color   = colors[subIdx % colors.length] || '#6366f1';
+        html += '<td><div class="tt-cell subj" style="background:' + color + '">'
+          + esc(subName) + '<div class="hrs">' + sessLen + 'min</div></div></td>';
+      });
+    }
+    html += '</tr>';
+  });
+
+  html += '</table></div>';
+
+  // Header
+  var header = '';
+  if (name || level) {
+    header = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px">'
+      + '<div><div style="font-size:1rem;font-weight:800;color:var(--slate)">' + esc(name || 'Student') + '</div>'
+      + '<div style="font-size:.78rem;color:var(--muted)">' + esc(level) + ' · Study Timetable</div></div>'
+      + '<div style="font-size:.75rem;color:var(--muted)">Generated by BLESSTech-X</div></div>';
+  }
+
+  document.getElementById('ttOutput').innerHTML = header + html;
+
+  // Legend
+  var legend = '';
+  subs.forEach(function(s, i) {
+    var color = colors[i % colors.length];
+    legend += '<div class="tt-legend-item"><div class="tt-legend-dot" style="background:' + color + '"></div>' + esc(s.name) + '</div>';
+  });
+  legend += '<div class="tt-legend-item"><div class="tt-legend-dot" style="background:#fef3c7;border:1px solid #f59e0b"></div>Break</div>';
+  document.getElementById('ttLegend').innerHTML = legend;
+}
+
+function addSubject() {
+  var list = document.getElementById('subjectList');
+  var row  = document.createElement('div');
+  row.className = 'subject-row';
+  row.innerHTML = '<input class="mini sub-name" type="text" placeholder="Subject name" oninput="buildTT()"/>'
+    + '<select class="mini sub-pri" onchange="buildTT()"><option value="3">High</option><option value="2" selected>Med</option><option value="1">Low</option></select>'
+    + '<input class="mini sub-hrs" type="number" value="3" min="1" max="30" oninput="buildTT()"/>'
+    + '<button class="del-btn" onclick="delSubject(this)">×</button>';
+  list.appendChild(row);
+}
+
+function delSubject(btn) { btn.closest('.subject-row').remove(); buildTT(); }
+
+function printTT() {
+  var ttContent  = document.getElementById('ttOutput').innerHTML;
+  var legendContent = document.getElementById('ttLegend').innerHTML;
+  var statsHTML  = document.getElementById('statsBar').innerHTML;
+  var name       = document.getElementById('stdName').value || 'Student';
+  var level      = document.getElementById('stdLevel').value;
+  var theme      = document.getElementById('colorTheme').value;
+  var colors     = THEMES[theme] || THEMES.indigo;
+  var w = window.open('', '_blank');
+  w.document.write('<!DOCTYPE html><html><head><title>Study Timetable — ' + name + '</title>'
+    + '<style>*{box-sizing:border-box}@page{size:A4 landscape;margin:12mm}'
+    + 'body{font-family:"Segoe UI",Arial,sans-serif;color:#1e293b;background:white;padding:0}'
+    + '.print-header{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;background:#0f172a;color:white;border-radius:8px;margin-bottom:16px}'
+    + '.print-header h1{font-size:1.2rem;font-weight:800;margin:0}'
+    + '.print-header p{font-size:.78rem;opacity:.7;margin:4px 0 0}'
+    + '.stats-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}'
+    + '.stat-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px;text-align:center}'
+    + '.stat-card .sv{font-size:1.3rem;font-weight:900;color:#6366f1}'
+    + '.stat-card .sl{font-size:.68rem;color:#94a3b8;font-weight:600}'
+    + '.tt-wrap{overflow:hidden}'
+    + 'table.tt{width:100%;border-collapse:collapse;font-size:.72rem}'
+    + 'table.tt th{padding:8px 6px;font-weight:700;font-size:.65rem;text-transform:uppercase;letter-spacing:.5px;text-align:center;border:1px solid #e2e8f0}'
+    + 'table.tt th.day-head{background:#0f172a;color:white}'
+    + 'table.tt th.time-head{background:#f1f5f9;color:#64748b}'
+    + 'table.tt td{border:1px solid #e2e8f0;vertical-align:top;height:56px;padding:0}'
+    + '.tt-cell{height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:4px;text-align:center;font-size:.68rem;font-weight:700;min-height:56px}'
+    + '.tt-cell.break{background:#fef3c7;color:#92400e}'
+    + '.tt-cell.subj{color:white}'
+    + '.tt-cell .hrs{font-size:.58rem;opacity:.85;margin-top:1px}'
+    + '.tt-legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}'
+    + '.tt-legend-item{display:flex;align-items:center;gap:5px;font-size:.72rem;font-weight:600;color:#475569}'
+    + '.tt-legend-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}'
+    + '.footer{text-align:center;font-size:.65rem;color:#94a3b8;margin-top:12px}'
+    + '</style></head><body>'
+    + '<div class="print-header"><div><h1>📚 Study Timetable</h1><p>' + esc(name) + ' · ' + esc(level) + '</p></div><div style="font-size:.75rem;opacity:.7">BLESSTech-X · blesstechx.com</div></div>'
+    + '<div class="stats-bar">' + statsHTML + '</div>'
+    + ttContent
+    + '<div class="tt-legend">' + legendContent + '</div>'
+    + '<div class="footer">Generated by BLESSTech-X Free Tools · blesstechx.com · +260 979 603 741 · Keep studying, keep growing! 🇿🇲</div>'
+    + '</body></html>');
+  w.document.close();
+  setTimeout(function(){ w.print(); }, 500);
+}
+
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+document.getElementById('thToggle').addEventListener('click', function(){
+  document.getElementById('thNav').classList.toggle('th-nav-open');
+  document.getElementById('thToggle').classList.toggle('th-toggle-open');
+});
+
+// Init
+buildTT();
+</script>
+</body>
+</html>
