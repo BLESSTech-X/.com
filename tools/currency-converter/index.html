@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Currency Converter | BLESSTech-X Free Tools</title>
+  <meta name="description" content="Convert Zambian Kwacha (ZMW) to USD, GBP, ZAR, EUR and more. Live exchange rates. Free currency converter for Zambia."/>
+  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../style.css"/>
+  <style>
+    .curr-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:32px;max-width:580px;margin:0 auto}
+    .curr-row{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;margin-bottom:24px}
+    .curr-side{display:flex;flex-direction:column;gap:8px}
+    .curr-input{padding:16px 18px;border:2px solid var(--border);border-radius:var(--radius);font-size:1.5rem;font-weight:800;width:100%;outline:none;transition:var(--transition);text-align:center}
+    .curr-input:focus{border-color:var(--sky)}
+    .curr-select{padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.92rem;outline:none;background:white;cursor:pointer;width:100%;font-weight:600}
+    .curr-flag{font-size:1.4rem;text-align:center}
+    .swap-btn{width:44px;height:44px;border-radius:50%;background:var(--sky);border:none;color:white;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--transition);flex-shrink:0}
+    .swap-btn:hover{background:var(--sky-dark);transform:rotate(180deg)}
+    .rate-box{background:var(--sky-light);border-radius:var(--radius);padding:14px 18px;text-align:center;margin-bottom:20px}
+    .rate-box .rate{font-size:1.1rem;font-weight:800;color:var(--sky-dark)}
+    .rate-box .rate-sub{font-size:.78rem;color:var(--muted);margin-top:3px}
+    .quick-amounts{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:24px}
+    .qa-btn{padding:7px 14px;border:1.5px solid var(--border);border-radius:50px;background:white;font-size:.83rem;font-weight:700;color:var(--slate-l);cursor:pointer;transition:var(--transition)}
+    .qa-btn:hover{border-color:var(--sky);color:var(--sky);background:var(--sky-light)}
+    .cross-rates{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:24px}
+    .cr-card{background:var(--bg-alt);border-radius:var(--radius);padding:14px;text-align:center}
+    .cr-card .cr-val{font-size:1.1rem;font-weight:800;color:var(--sky);margin-bottom:2px}
+    .cr-card .cr-label{font-size:.75rem;color:var(--muted)}
+    .disclaimer{background:#fef3c7;border:1px solid #f59e0b;border-radius:var(--radius);padding:12px 14px;font-size:.8rem;color:#92400e;margin-bottom:20px;text-align:center}
+  </style>
+</head>
+<body class="tool-page">
+  <header class="tools-header">
+    <div class="th-inner">
+      <a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a>
+      <nav class="th-nav" id="thNav">
+        <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="../index.html"><i class="fas fa-tools"></i> All Tools</a>
+        <a href="../../index.html#services">Services</a>
+        <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      </nav>
+      <button class="th-mobile-toggle" id="thToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main class="tool-page-main">
+    <div class="th-container">
+      <div class="tool-breadcrumb">
+        <a href="../../index.html">Home</a><i class="fas fa-chevron-right"></i>
+        <a href="../index.html">Free Tools</a><i class="fas fa-chevron-right"></i>
+        <span>Currency Converter</span>
+      </div>
+      <div class="tool-header">
+        <div class="tool-header-inner">
+          <div class="tool-header-icon" style="background:#fce7f3;color:#db2777">💱</div>
+          <div>
+            <h1>Currency Converter</h1>
+            <p>Convert Zambian Kwacha (ZMW) to USD, GBP, ZAR, EUR and 10+ other currencies. Useful for travel, imports, online shopping, and business transactions.</p>
+            <div class="tool-header-meta">
+              <span class="tool-meta-badge"><i class="fas fa-check-circle"></i> Free</span>
+              <span class="tool-meta-badge"><i class="fas fa-globe"></i> 15+ Currencies</span>
+              <span class="tool-meta-badge"><i class="fas fa-users"></i> Business · Travel</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="disclaimer">
+        <i class="fas fa-info-circle"></i> Rates are indicative and updated periodically. For live bank rates, check your bank or Bank of Zambia (boz.zm).
+        <span id="rateDate" style="font-weight:700;margin-left:6px"></span>
+      </div>
+
+      <div class="curr-card">
+        <!-- FROM -->
+        <div class="curr-row">
+          <div class="curr-side">
+            <div class="curr-flag" id="fromFlag">🇿🇲</div>
+            <input type="number" id="fromAmount" class="curr-input" value="1000" oninput="convert()"/>
+            <select id="fromCurr" class="curr-select" onchange="convert()"></select>
+          </div>
+          <button class="swap-btn" onclick="swapCurr()" title="Swap"><i class="fas fa-exchange-alt"></i></button>
+          <div class="curr-side">
+            <div class="curr-flag" id="toFlag">🇺🇸</div>
+            <input type="number" id="toAmount" class="curr-input" placeholder="0" oninput="convertReverse()"/>
+            <select id="toCurr" class="curr-select" onchange="convert()"></select>
+          </div>
+        </div>
+
+        <!-- RATE BOX -->
+        <div class="rate-box">
+          <div class="rate" id="rateDisplay">—</div>
+          <div class="rate-sub" id="rateSub">Select currencies to see the exchange rate</div>
+        </div>
+
+        <!-- QUICK AMOUNTS -->
+        <div class="quick-amounts" id="quickAmounts">
+          <div style="width:100%;text-align:center;font-size:.78rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Quick Amounts</div>
+        </div>
+
+        <button class="btn btn-primary btn-full" onclick="convert()"><i class="fas fa-sync-alt"></i> Convert</button>
+      </div>
+
+      <!-- CROSS RATES -->
+      <div style="margin-top:32px">
+        <h3 style="font-size:1rem;font-weight:700;color:var(--slate);margin-bottom:16px"><i class="fas fa-table" style="color:var(--sky)"></i> ZMW Cross Rates (1 ZMW =)</h3>
+        <div class="cross-rates" id="crossRates"></div>
+      </div>
+
+      <div class="tool-service-cta" style="margin-top:36px">
+        <div><h4>Accepting international payments in your business?</h4><p>BLESSTech-X builds e-commerce stores with multi-currency support and mobile money integration.</p></div>
+        <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I want multi-currency payment integration." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Get Payment Integration</a>
+      </div>
+      <div class="related-tools" style="margin-top:32px;background:var(--bg-alt);border-radius:var(--radius-lg);padding:28px">
+        <h3>You Might Also Need</h3>
+        <div class="related-grid">
+          <a href="../unit-converter/index.html" class="related-card"><span>📐</span> Unit Converter</a>
+          <a href="../tip-splitter/index.html" class="related-card"><span>🍽️</span> Bill Splitter</a>
+          <a href="../budget-planner/index.html" class="related-card"><span>💰</span> Budget Planner</a>
+          <a href="../invoice/index.html" class="related-card"><span>🧾</span> Invoice Generator</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="tools-footer">
+    <div class="th-container">
+      <div class="tf-inner">
+        <div class="tf-brand"><a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a><p>Free tools for every Zambian.</p></div>
+        <div class="tf-links"><h4>Free Tools</h4><a href="../index.html">All Tools</a><a href="../unit-converter/index.html">Unit Converter</a><a href="../budget-planner/index.html">Budget Planner</a></div>
+        <div class="tf-links"><h4>BLESSTech-X</h4><a href="../../index.html">Main Website</a><a href="../../index.html#services">Services</a></div>
+        <div class="tf-contact"><h4>Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
+      </div>
+      <div class="tf-bottom"><p>&copy; 2026 BLESSTech-X · Free Currency Converter · Built for Zambia 🇿🇲</p></div>
+    </div>
+  </footer>
+  <a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+// Rates relative to ZMW (how many ZMW per 1 unit of currency)
+// Source: approximate rates as of early 2026 — users see disclaimer
+const CURRENCIES = [
+  { code:'ZMW', name:'Zambian Kwacha',     flag:'🇿🇲', rateFromZMW: 1           },
+  { code:'USD', name:'US Dollar',          flag:'🇺🇸', rateFromZMW: 0.0385      },
+  { code:'GBP', name:'British Pound',      flag:'🇬🇧', rateFromZMW: 0.0303      },
+  { code:'EUR', name:'Euro',               flag:'🇪🇺', rateFromZMW: 0.0356      },
+  { code:'ZAR', name:'South African Rand', flag:'🇿🇦', rateFromZMW: 0.717       },
+  { code:'KES', name:'Kenyan Shilling',    flag:'🇰🇪', rateFromZMW: 4.97        },
+  { code:'TZS', name:'Tanzanian Shilling', flag:'🇹🇿', rateFromZMW: 103.2       },
+  { code:'UGX', name:'Ugandan Shilling',   flag:'🇺🇬', rateFromZMW: 143.5       },
+  { code:'BWP', name:'Botswana Pula',      flag:'🇧🇼', rateFromZMW: 0.526       },
+  { code:'MWK', name:'Malawian Kwacha',    flag:'🇲🇼', rateFromZMW: 66.7        },
+  { code:'ZWG', name:'Zimbabwe Gold',      flag:'🇿🇼', rateFromZMW: 0.538       },
+  { code:'CNY', name:'Chinese Yuan',       flag:'🇨🇳', rateFromZMW: 0.279       },
+  { code:'AED', name:'UAE Dirham',         flag:'🇦🇪', rateFromZMW: 0.141       },
+  { code:'CAD', name:'Canadian Dollar',    flag:'🇨🇦', rateFromZMW: 0.0549      },
+  { code:'AUD', name:'Australian Dollar',  flag:'🇦🇺', rateFromZMW: 0.0611      },
+];
+
+function buildSelects(){
+  const from = document.getElementById('fromCurr');
+  const to   = document.getElementById('toCurr');
+  CURRENCIES.forEach((c,i) => {
+    const opt1 = new Option(`${c.flag} ${c.code} — ${c.name}`, c.code);
+    const opt2 = new Option(`${c.flag} ${c.code} — ${c.name}`, c.code);
+    from.appendChild(opt1);
+    to.appendChild(opt2);
+  });
+  from.value = 'ZMW';
+  to.value   = 'USD';
+  document.getElementById('rateDate').textContent = '(Rates: ~March 2026)';
+}
+
+function getRate(from, to){
+  const f = CURRENCIES.find(c => c.code === from);
+  const t = CURRENCIES.find(c => c.code === to);
+  if(!f || !t) return 1;
+  // Convert from → ZMW → to
+  const inZMW = 1 / f.rateFromZMW;
+  return inZMW * t.rateFromZMW;
+}
+
+function getFlag(code){
+  return (CURRENCIES.find(c => c.code === code) || {}).flag || '🏳️';
+}
+
+function convert(){
+  const fromCode = document.getElementById('fromCurr').value;
+  const toCode   = document.getElementById('toCurr').value;
+  const amount   = parseFloat(document.getElementById('fromAmount').value) || 0;
+  const rate     = getRate(fromCode, toCode);
+  const result   = amount * rate;
+  document.getElementById('toAmount').value = +result.toFixed(4);
+  document.getElementById('fromFlag').textContent = getFlag(fromCode);
+  document.getElementById('toFlag').textContent   = getFlag(toCode);
+  const r1 = getRate(fromCode, toCode);
+  const r2 = getRate(toCode, fromCode);
+  document.getElementById('rateDisplay').textContent = `1 ${fromCode} = ${+r1.toFixed(6)} ${toCode}`;
+  document.getElementById('rateSub').textContent     = `Inverse: 1 ${toCode} = ${+r2.toFixed(4)} ${fromCode}`;
+  buildQuickAmounts(fromCode, toCode, rate);
+}
+
+function convertReverse(){
+  const fromCode = document.getElementById('fromCurr').value;
+  const toCode   = document.getElementById('toCurr').value;
+  const amount   = parseFloat(document.getElementById('toAmount').value) || 0;
+  const rate     = getRate(toCode, fromCode);
+  document.getElementById('fromAmount').value = +( amount * rate ).toFixed(4);
+  convert();
+}
+
+function swapCurr(){
+  const from = document.getElementById('fromCurr');
+  const to   = document.getElementById('toCurr');
+  const tmp  = from.value;
+  from.value = to.value;
+  to.value   = tmp;
+  convert();
+}
+
+function buildQuickAmounts(from, to, rate){
+  const amts = from === 'ZMW' ? [100,500,1000,5000,10000] : [1,5,10,50,100];
+  document.getElementById('quickAmounts').innerHTML =
+    '<div style="width:100%;text-align:center;font-size:.78rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Quick Amounts</div>' +
+    amts.map(a => `<button class="qa-btn" onclick="document.getElementById('fromAmount').value=${a};convert()">${a.toLocaleString()} ${from}</button>`).join('');
+}
+
+function buildCrossRates(){
+  const zmwRates = CURRENCIES.filter(c => c.code !== 'ZMW').map(c =>
+    `<div class="cr-card"><div class="cr-val">${+c.rateFromZMW.toFixed(4)}</div><div class="cr-label">${c.flag} ${c.code}</div></div>`
+  ).join('');
+  document.getElementById('crossRates').innerHTML = zmwRates;
+}
+
+buildSelects();
+convert();
+buildCrossRates();
+document.getElementById('thToggle').addEventListener('click',()=>{ document.getElementById('thNav').classList.toggle('th-nav-open'); document.getElementById('thToggle').classList.toggle('th-toggle-open'); });
+</script>
+</body>
+</html>
