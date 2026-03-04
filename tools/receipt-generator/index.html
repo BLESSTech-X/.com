@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Receipt Generator | BLESSTech-X Free Tools</title>
+  <meta name="description" content="Generate professional receipts for your Zambian business. POS and A4 formats, VAT, WhatsApp share. Free receipt generator."/>
+  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../style.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    .rg-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+    @media(max-width:900px){.rg-grid{grid-template-columns:1fr}}
+    .item-row{display:grid;grid-template-columns:1fr 60px 100px 90px 36px;gap:8px;margin-bottom:8px;align-items:center}
+    .item-row.hdr{font-size:.71rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+    .mini{padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.88rem;outline:none;transition:var(--transition);width:100%}
+    .mini:focus{border-color:var(--sky)}
+    .del-btn{width:36px;height:36px;border-radius:var(--radius);background:#fee2e2;border:none;color:#ef4444;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--transition)}
+    .del-btn:hover{background:#ef4444;color:white}
+    .add-line-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--sky-light);border:1.5px solid rgba(14,165,233,.3);border-radius:var(--radius);color:var(--sky-dark);font-size:.83rem;font-weight:700;cursor:pointer;transition:var(--transition);margin-top:4px}
+    .add-line-btn:hover{background:var(--sky);color:white}
+    .totals-box{background:var(--bg-alt);border-radius:var(--radius);padding:16px 18px;margin-top:12px}
+    .total-row{display:flex;justify-content:space-between;padding:4px 0;font-size:.9rem;color:var(--slate-l)}
+    .total-row.grand{font-size:1.15rem;font-weight:800;color:var(--sky);border-top:2px solid var(--border);padding-top:10px;margin-top:6px}
+    .format-tabs{display:flex;gap:0;border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:20px}
+    .fmt-btn{flex:1;padding:10px;background:white;border:none;font-size:.85rem;font-weight:700;color:var(--muted);cursor:pointer;transition:var(--transition);border-right:1px solid var(--border)}
+    .fmt-btn:last-child{border-right:none}
+    .fmt-btn.active{background:var(--sky);color:white}
+    .saved-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;background:#d1fae5;border-radius:50px;font-size:.75rem;font-weight:700;color:#059669;margin-left:10px;opacity:0;transition:opacity .4s}
+    .saved-badge.show{opacity:1}
+
+    /* ── POS RECEIPT ── */
+    .pos-receipt{background:white;font-family:'Courier New',Courier,monospace;font-size:13px;color:#111;padding:24px 20px;max-width:320px;margin:0 auto;border:1px dashed #ccc;border-radius:4px;line-height:1.7;box-shadow:0 4px 20px rgba(0,0,0,.08)}
+    .pos-receipt .biz-name{font-size:16px;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:2px;margin-bottom:2px}
+    .pos-receipt .biz-sub{text-align:center;font-size:11px;color:#555;margin-bottom:2px}
+    .pos-receipt .divider{border:none;border-top:1px dashed #aaa;margin:10px 0}
+    .pos-receipt .divider-solid{border:none;border-top:2px solid #111;margin:10px 0}
+    .pos-receipt .row{display:flex;justify-content:space-between}
+    .pos-receipt .item-line{display:flex;justify-content:space-between;margin-bottom:3px}
+    .pos-receipt .item-desc{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:180px}
+    .pos-receipt .paid-stamp{text-align:center;font-size:22px;font-weight:900;letter-spacing:6px;border:3px solid #059669;color:#059669;padding:6px 12px;display:inline-block;transform:rotate(-4deg);margin:10px auto;border-radius:4px}
+    .pos-receipt .qr-wrap{display:flex;justify-content:center;margin:12px 0}
+    .pos-receipt .sig-line{border-top:1px solid #aaa;margin-top:20px;padding-top:6px;font-size:11px;color:#777;text-align:center}
+
+    /* ── A4 RECEIPT ── */
+    .a4-receipt{background:white;font-family:'Segoe UI',Arial,sans-serif;color:#1e293b;padding:48px;max-width:760px;margin:0 auto;border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 4px 20px rgba(0,0,0,.06)}
+    .a4-receipt .a4-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;padding-bottom:24px;border-bottom:3px solid #0ea5e9}
+    .a4-receipt .a4-biz-name{font-size:1.8rem;font-weight:900;color:#0ea5e9;letter-spacing:-1px}
+    .a4-receipt .a4-biz-sub{font-size:.85rem;color:#64748b;margin-top:4px;line-height:1.6}
+    .a4-receipt .a4-meta{text-align:right}
+    .a4-receipt .a4-receipt-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#64748b}
+    .a4-receipt .a4-receipt-num{font-size:1.4rem;font-weight:800;color:#0ea5e9}
+    .a4-receipt table{width:100%;border-collapse:collapse;margin:24px 0}
+    .a4-receipt table th{background:#0ea5e9;color:white;padding:10px 14px;font-size:.8rem;font-weight:700;text-align:left}
+    .a4-receipt table td{padding:10px 14px;border-bottom:1px solid #e2e8f0;font-size:.88rem}
+    .a4-receipt table tr:nth-child(even) td{background:#f8fafc}
+    .a4-receipt .a4-totals{display:flex;flex-direction:column;align-items:flex-end;gap:6px;margin-bottom:24px}
+    .a4-receipt .a4-total-row{display:flex;gap:60px;font-size:.9rem;color:#475569}
+    .a4-receipt .a4-grand{font-size:1.2rem;font-weight:800;color:#0ea5e9;border-top:2px solid #e2e8f0;padding-top:10px;margin-top:4px}
+    .a4-receipt .a4-paid-stamp{display:inline-block;border:3px solid #059669;color:#059669;padding:6px 20px;border-radius:6px;font-size:1rem;font-weight:900;transform:rotate(-5deg);letter-spacing:3px}
+    .a4-receipt .a4-footer{border-top:1px solid #e2e8f0;padding-top:16px;display:flex;justify-content:space-between;align-items:flex-end;margin-top:24px}
+    .a4-receipt .a4-sig{text-align:center}
+    .a4-receipt .a4-sig-line{border-top:1px solid #94a3b8;padding-top:6px;font-size:.75rem;color:#94a3b8;width:180px;margin:0 auto}
+    .a4-receipt .a4-qr{display:flex;flex-direction:column;align-items:center;gap:6px}
+    .a4-receipt .a4-qr-label{font-size:.7rem;color:#94a3b8}
+    .copy-toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:var(--slate);color:white;padding:10px 24px;border-radius:50px;font-size:.88rem;font-weight:600;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none}
+    .copy-toast.show{opacity:1}
+    @media(max-width:600px){.item-row{grid-template-columns:1fr 50px 80px 70px 36px}}
+  </style>
+</head>
+<body class="tool-page">
+
+<header class="tools-header">
+  <div class="th-inner">
+    <a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a>
+    <nav class="th-nav" id="thNav">
+      <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
+      <a href="../index.html"><i class="fas fa-tools"></i> All Tools</a>
+      <a href="../../index.html#services">Services</a>
+      <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    </nav>
+    <button class="th-mobile-toggle" id="thToggle"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main class="tool-page-main">
+  <div class="th-container">
+
+    <div class="tool-breadcrumb">
+      <a href="../../index.html">Home</a><i class="fas fa-chevron-right"></i>
+      <a href="../index.html">Free Tools</a><i class="fas fa-chevron-right"></i>
+      <span>Receipt Generator</span>
+    </div>
+
+    <div class="tool-header">
+      <div class="tool-header-inner">
+        <div class="tool-header-icon" style="background:#fce7f3;color:#db2777">🧾</div>
+        <div>
+          <h1>Receipt Generator</h1>
+          <p>Create professional receipts for any Zambian business — tuck shops, salons, freelancers, delivery, markets. POS-style and A4 formats with QR code, VAT and WhatsApp share.</p>
+          <div class="tool-header-meta">
+            <span class="tool-meta-badge"><i class="fas fa-check-circle"></i> Free</span>
+            <span class="tool-meta-badge"><i class="fas fa-file-pdf"></i> PDF Download</span>
+            <span class="tool-meta-badge"><i class="fab fa-whatsapp"></i> WhatsApp Share</span>
+            <span class="tool-meta-badge"><i class="fas fa-qrcode"></i> QR Code</span>
+            <span class="tool-meta-badge"><i class="fas fa-save"></i> Saves Business Info</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rg-grid">
+
+      <!-- ── LEFT: FORM ── -->
+      <div style="display:flex;flex-direction:column;gap:20px">
+
+        <!-- Business Info -->
+        <div class="tool-box">
+          <div class="tool-box-header">
+            <h2><i class="fas fa-store" style="color:var(--sky)"></i> Your Business</h2>
+            <div style="display:flex;align-items:center;gap:8px">
+              <span class="saved-badge" id="savedBadge"><i class="fas fa-check"></i> Saved</span>
+              <button class="btn btn-sm btn-secondary" onclick="saveBusinessInfo()"><i class="fas fa-save"></i> Save Info</button>
+              <button class="btn btn-sm btn-secondary" onclick="clearBusinessInfo()"><i class="fas fa-trash"></i></button>
+            </div>
+          </div>
+          <div class="tool-box-body">
+            <div class="field"><label>Business Name</label><input type="text" id="bizName" placeholder="Blessings General Store" oninput="liveUpdate()"/></div>
+            <div class="field-row">
+              <div class="field"><label>Tagline / Type</label><input type="text" id="bizTagline" placeholder="General Goods &amp; Supplies" oninput="liveUpdate()"/></div>
+              <div class="field"><label>TPIN (optional)</label><input type="text" id="bizTpin" placeholder="1234567890" oninput="liveUpdate()"/></div>
+            </div>
+            <div class="field"><label>Address</label><input type="text" id="bizAddr" placeholder="Shop 4, Cairo Road, Lusaka" oninput="liveUpdate()"/></div>
+            <div class="field-row">
+              <div class="field"><label>Phone</label><input type="text" id="bizPhone" placeholder="+260 979 603 741" oninput="liveUpdate()"/></div>
+              <div class="field"><label>Email (optional)</label><input type="text" id="bizEmail" placeholder="shop@email.com" oninput="liveUpdate()"/></div>
+            </div>
+            <div class="field"><label>Business Stamp / Motto (optional)</label><input type="text" id="bizMotto" placeholder="Quality you can trust · Est. 2020" oninput="liveUpdate()"/></div>
+          </div>
+        </div>
+
+        <!-- Receipt Details -->
+        <div class="tool-box">
+          <div class="tool-box-header"><h2><i class="fas fa-hashtag" style="color:var(--sky)"></i> Receipt Details</h2></div>
+          <div class="tool-box-body">
+            <div class="field-row">
+              <div class="field"><label>Receipt #</label><input type="text" id="rcpNum" value="RCP-001" oninput="liveUpdate()"/></div>
+              <div class="field"><label>Date &amp; Time</label><input type="datetime-local" id="rcpDate" oninput="liveUpdate()"/></div>
+            </div>
+            <div class="field-row">
+              <div class="field"><label>Cashier / Served By</label><input type="text" id="rcpCashier" placeholder="Mwila" oninput="liveUpdate()"/></div>
+              <div class="field"><label>Customer Name (optional)</label><input type="text" id="rcpCustomer" placeholder="Walk-in Customer" oninput="liveUpdate()"/></div>
+            </div>
+            <div class="field-row">
+              <div class="field"><label>Currency</label>
+                <select id="rcpCurrency" onchange="liveUpdate()">
+                  <option value="ZMW">ZMW — Kwacha</option>
+                  <option value="USD">USD — Dollar</option>
+                  <option value="ZAR">ZAR — Rand</option>
+                  <option value="GBP">GBP — Pound</option>
+                </select>
+              </div>
+              <div class="field"><label>Payment Method</label>
+                <select id="rcpPayment" onchange="liveUpdate()">
+                  <option value="Airtel Money">Airtel Money</option>
+                  <option value="MTN Money">MTN Money</option>
+                  <option value="Zamtel Kwacha">Zamtel Kwacha</option>
+                  <option value="Cash">Cash</option>
+                  <option value="Bank Transfer">Bank Transfer</option>
+                  <option value="Visa/MasterCard">Visa/MasterCard</option>
+                  <option value="Cheque">Cheque</option>
+                </select>
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field"><label>VAT</label>
+                <select id="rcpVat" onchange="liveUpdate()">
+                  <option value="0">No VAT</option>
+                  <option value="0.16">16% VAT (Standard)</option>
+                  <option value="0.08">8% VAT (Reduced)</option>
+                </select>
+              </div>
+              <div class="field"><label>Discount (ZMW)</label>
+                <input type="number" id="rcpDiscount" placeholder="0.00" min="0" oninput="liveUpdate()"/>
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field" style="display:flex;align-items:center;gap:10px;padding-top:20px">
+                <input type="checkbox" id="rcpPaid" checked onchange="liveUpdate()" style="width:18px;height:18px;accent-color:var(--green);cursor:pointer"/>
+                <label for="rcpPaid" style="font-weight:700;color:var(--slate-l);cursor:pointer">Show PAID stamp</label>
+              </div>
+              <div class="field" style="display:flex;align-items:center;gap:10px;padding-top:20px">
+                <input type="checkbox" id="rcpQr" checked onchange="liveUpdate()" style="width:18px;height:18px;accent-color:var(--sky);cursor:pointer"/>
+                <label for="rcpQr" style="font-weight:700;color:var(--slate-l);cursor:pointer">Include QR code</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Line Items -->
+        <div class="tool-box">
+          <div class="tool-box-header"><h2><i class="fas fa-list" style="color:var(--sky)"></i> Items / Services</h2></div>
+          <div class="tool-box-body">
+            <div class="item-row hdr">
+              <span>Description</span><span>Qty</span><span>Unit Price</span><span>Amount</span><span></span>
+            </div>
+            <div id="itemsList">
+              <div class="item-row">
+                <input class="mini it-desc" type="text" placeholder="Item / Service" oninput="liveUpdate()"/>
+                <input class="mini it-qty"  type="number" value="1" min="0" oninput="liveUpdate()"/>
+                <input class="mini it-price" type="number" placeholder="0.00" min="0" oninput="liveUpdate()"/>
+                <input class="mini it-amt"  type="text" readonly style="background:var(--bg-alt);font-weight:700;color:var(--sky)"/>
+                <button class="del-btn" onclick="delItem(this)">×</button>
+              </div>
+            </div>
+            <button class="add-line-btn" onclick="addItem()"><i class="fas fa-plus"></i> Add Item</button>
+            <div class="totals-box" id="totalsBox">
+              <div class="total-row"><span>Subtotal</span><span id="tSub">ZMW 0.00</span></div>
+              <div class="total-row" id="discRow" style="display:none"><span>Discount</span><span id="tDisc" style="color:#ef4444">-ZMW 0.00</span></div>
+              <div class="total-row" id="vatRow" style="display:none"><span id="vatLabel">VAT (16%)</span><span id="tVat">ZMW 0.00</span></div>
+              <div class="total-row grand"><span>TOTAL</span><span id="tTotal">ZMW 0.00</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notes -->
+        <div class="tool-box">
+          <div class="tool-box-header"><h2><i class="fas fa-sticky-note" style="color:var(--sky)"></i> Footer Note</h2></div>
+          <div class="tool-box-body">
+            <div class="field"><label>Thank You Message / Note</label>
+              <input type="text" id="rcpNote" value="Thank you for your business! Come again." oninput="liveUpdate()"/>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── RIGHT: PREVIEW ── -->
+      <div style="position:sticky;top:88px">
+        <div class="tool-box">
+          <div class="tool-box-header">
+            <h2><i class="fas fa-receipt" style="color:var(--sky)"></i> Receipt Preview</h2>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button class="btn btn-sm btn-secondary" onclick="copyReceiptText()"><i class="fas fa-copy"></i> Copy</button>
+              <button class="btn btn-sm btn-primary" onclick="printReceipt()"><i class="fas fa-file-pdf"></i> PDF</button>
+              <button class="btn btn-sm btn-success" onclick="shareWhatsApp()"><i class="fab fa-whatsapp"></i></button>
+            </div>
+          </div>
+          <div class="tool-box-body" style="padding:0">
+            <!-- FORMAT TABS -->
+            <div style="padding:16px 20px 0">
+              <div class="format-tabs">
+                <button class="fmt-btn active" id="fmtPOS" onclick="setFormat('pos')">🖨️ POS Receipt</button>
+                <button class="fmt-btn" id="fmtA4" onclick="setFormat('a4')">📄 A4 Format</button>
+              </div>
+            </div>
+            <div id="receiptPreview" style="padding:20px 16px;min-height:400px"></div>
+            <!-- Hidden QR target -->
+            <div id="qrTarget" style="display:none"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CTA -->
+    <div class="tool-service-cta" style="margin-top:36px">
+      <div><h4>Want customers to pay you online automatically?</h4><p>BLESSTech-X builds e-commerce stores with Airtel Money &amp; MTN Money integration from ZMW 980.</p></div>
+      <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I want online payments for my business." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Get Online Payments</a>
+    </div>
+
+    <div class="related-tools" style="margin-top:32px;background:var(--bg-alt);border-radius:var(--radius-lg);padding:28px">
+      <h3>You Might Also Need</h3>
+      <div class="related-grid">
+        <a href="../invoice/index.html"           class="related-card"><span>🧾</span> Invoice Generator</a>
+        <a href="../budget-planner/index.html"    class="related-card"><span>💰</span> Budget Planner</a>
+        <a href="../tip-splitter/index.html"      class="related-card"><span>🍽️</span> Bill Splitter</a>
+        <a href="../qr-generator/index.html"      class="related-card"><span>◼️</span> QR Code Generator</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<div class="copy-toast" id="copyToast">✅ Copied!</div>
+
+<footer class="tools-footer">
+  <div class="th-container">
+    <div class="tf-inner">
+      <div class="tf-brand"><a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a><p>Free tools for every Zambian. Built in Lusaka.</p></div>
+      <div class="tf-links"><h4>Free Tools</h4><a href="../index.html">All Tools</a><a href="../invoice/index.html">Invoice Generator</a><a href="../budget-planner/index.html">Budget Planner</a></div>
+      <div class="tf-links"><h4>BLESSTech-X</h4><a href="../../index.html">Main Website</a><a href="../../index.html#services">Services</a></div>
+      <div class="tf-contact"><h4>Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
+    </div>
+    <div class="tf-bottom"><p>&copy; 2026 BLESSTech-X · Free Receipt Generator · Built for Zambia 🇿🇲</p></div>
+  </div>
+</footer>
+<a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+var currentFormat = 'pos';
+var qrGenerated   = false;
+
+// ── INIT ──────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', function() {
+  var now = new Date();
+  now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+  document.getElementById('rcpDate').value = now.toISOString().slice(0,16);
+  loadBusinessInfo();
+  liveUpdate();
+});
+
+// ── BUSINESS INFO SAVE / LOAD ─────────────────────────────────
+function saveBusinessInfo() {
+  var info = {
+    bizName:   document.getElementById('bizName').value,
+    bizTagline:document.getElementById('bizTagline').value,
+    bizTpin:   document.getElementById('bizTpin').value,
+    bizAddr:   document.getElementById('bizAddr').value,
+    bizPhone:  document.getElementById('bizPhone').value,
+    bizEmail:  document.getElementById('bizEmail').value,
+    bizMotto:  document.getElementById('bizMotto').value
+  };
+  localStorage.setItem('blesstechx_receipt_biz', JSON.stringify(info));
+  var badge = document.getElementById('savedBadge');
+  badge.classList.add('show');
+  setTimeout(function(){ badge.classList.remove('show'); }, 2000);
+}
+function loadBusinessInfo() {
+  var raw = localStorage.getItem('blesstechx_receipt_biz');
+  if (!raw) return;
+  var info = JSON.parse(raw);
+  Object.keys(info).forEach(function(k){
+    var el = document.getElementById(k);
+    if (el) el.value = info[k];
+  });
+}
+function clearBusinessInfo() {
+  localStorage.removeItem('blesstechx_receipt_biz');
+  ['bizName','bizTagline','bizTpin','bizAddr','bizPhone','bizEmail','bizMotto'].forEach(function(k){
+    document.getElementById(k).value = '';
+  });
+  liveUpdate();
+}
+
+// ── FORMAT SWITCH ─────────────────────────────────────────────
+function setFormat(fmt) {
+  currentFormat = fmt;
+  document.getElementById('fmtPOS').classList.toggle('active', fmt === 'pos');
+  document.getElementById('fmtA4').classList.toggle('active',  fmt === 'a4');
+  liveUpdate();
+}
+
+// ── ITEMS ─────────────────────────────────────────────────────
+function addItem() {
+  var list = document.getElementById('itemsList');
+  var row  = document.createElement('div');
+  row.className = 'item-row';
+  row.innerHTML = '<input class="mini it-desc" type="text" placeholder="Item / Service" oninput="liveUpdate()"/>'
+    + '<input class="mini it-qty" type="number" value="1" min="0" oninput="liveUpdate()"/>'
+    + '<input class="mini it-price" type="number" placeholder="0.00" min="0" oninput="liveUpdate()"/>'
+    + '<input class="mini it-amt" type="text" readonly style="background:var(--bg-alt);font-weight:700;color:var(--sky)"/>'
+    + '<button class="del-btn" onclick="delItem(this)">×</button>';
+  list.appendChild(row);
+}
+function delItem(btn) { btn.closest('.item-row').remove(); liveUpdate(); }
+
+// ── CALCULATIONS ──────────────────────────────────────────────
+function calcTotals() {
+  var cur      = document.getElementById('rcpCurrency').value;
+  var vatRate  = parseFloat(document.getElementById('rcpVat').value) || 0;
+  var discount = parseFloat(document.getElementById('rcpDiscount').value) || 0;
+  var rows     = document.querySelectorAll('#itemsList .item-row');
+  var sub = 0;
+  var items = [];
+  rows.forEach(function(r) {
+    var desc  = (r.querySelector('.it-desc')  || {}).value || '';
+    var qty   = parseFloat((r.querySelector('.it-qty')   || {}).value) || 0;
+    var price = parseFloat((r.querySelector('.it-price') || {}).value) || 0;
+    var amt   = qty * price;
+    sub += amt;
+    var amtEl = r.querySelector('.it-amt');
+    if (amtEl) amtEl.value = cur + ' ' + amt.toFixed(2);
+    items.push({ desc: desc, qty: qty, price: price, amt: amt });
+  });
+  var afterDisc = Math.max(0, sub - discount);
+  var vat   = afterDisc * vatRate;
+  var total = afterDisc + vat;
+
+  // Update form totals display
+  document.getElementById('tSub').textContent   = cur + ' ' + sub.toFixed(2);
+  document.getElementById('tTotal').textContent = cur + ' ' + total.toFixed(2);
+  var discRow = document.getElementById('discRow');
+  var vatRow  = document.getElementById('vatRow');
+  discRow.style.display = discount > 0 ? 'flex' : 'none';
+  vatRow.style.display  = vatRate  > 0 ? 'flex' : 'none';
+  document.getElementById('tDisc').textContent = '-' + cur + ' ' + discount.toFixed(2);
+  document.getElementById('tVat').textContent  = cur + ' ' + vat.toFixed(2);
+  document.getElementById('vatLabel').textContent = 'VAT (' + Math.round(vatRate*100) + '%)';
+
+  return { sub: sub, discount: discount, afterDisc: afterDisc, vat: vat, vatRate: vatRate, total: total, items: items, cur: cur };
+}
+
+function fmt(cur, n) { return cur + ' ' + Number(n).toLocaleString('en-ZM', {minimumFractionDigits:2, maximumFractionDigits:2}); }
+
+function fmtDate(val) {
+  if (!val) return new Date().toLocaleString('en-GB', {day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  return new Date(val).toLocaleString('en-GB', {day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+}
+
+// ── LIVE UPDATE ───────────────────────────────────────────────
+function liveUpdate() {
+  var t = calcTotals();
+  if (currentFormat === 'pos') renderPOS(t);
+  else renderA4(t);
+}
+
+// ── QR CODE GENERATION ───────────────────────────────────────
+function generateQR(text, targetId) {
+  var el = document.getElementById(targetId);
+  el.innerHTML = '';
+  try {
+    new QRCode(el, { text: text || 'blesstechx.com', width: 80, height: 80, correctLevel: QRCode.CorrectLevel.M });
+  } catch(e) { el.innerHTML = ''; }
+}
+
+// ── POS RECEIPT RENDER ────────────────────────────────────────
+function renderPOS(t) {
+  var bizName   = document.getElementById('bizName').value   || 'YOUR BUSINESS';
+  var bizTagline= document.getElementById('bizTagline').value|| '';
+  var bizTpin   = document.getElementById('bizTpin').value   || '';
+  var bizAddr   = document.getElementById('bizAddr').value   || '';
+  var bizPhone  = document.getElementById('bizPhone').value  || '';
+  var bizEmail  = document.getElementById('bizEmail').value  || '';
+  var bizMotto  = document.getElementById('bizMotto').value  || '';
+  var rcpNum    = document.getElementById('rcpNum').value    || 'RCP-001';
+  var rcpDate   = fmtDate(document.getElementById('rcpDate').value);
+  var cashier   = document.getElementById('rcpCashier').value || '';
+  var customer  = document.getElementById('rcpCustomer').value|| '';
+  var payment   = document.getElementById('rcpPayment').value;
+  var note      = document.getElementById('rcpNote').value   || 'Thank you for your business!';
+  var showPaid  = document.getElementById('rcpPaid').checked;
+  var showQR    = document.getElementById('rcpQr').checked;
+
+  var qrText = bizPhone || bizName + ' | ' + rcpNum + ' | ' + fmt(t.cur, t.total);
+
+  var html = '<div class="pos-receipt" id="posReceiptEl">';
+  html += '<div class="biz-name">' + esc(bizName) + '</div>';
+  if (bizTagline) html += '<div class="biz-sub">' + esc(bizTagline) + '</div>';
+  if (bizAddr)    html += '<div class="biz-sub">' + esc(bizAddr) + '</div>';
+  if (bizPhone)   html += '<div class="biz-sub">Tel: ' + esc(bizPhone) + '</div>';
+  if (bizEmail)   html += '<div class="biz-sub">' + esc(bizEmail) + '</div>';
+  if (bizTpin)    html += '<div class="biz-sub">TPIN: ' + esc(bizTpin) + '</div>';
+  if (bizMotto)   html += '<div class="biz-sub" style="font-style:italic;margin-top:3px">' + esc(bizMotto) + '</div>';
+
+  html += '<hr class="divider-solid"/>';
+  html += '<div class="row"><span>Receipt #:</span><span><b>' + esc(rcpNum) + '</b></span></div>';
+  html += '<div class="row"><span>Date:</span><span>' + rcpDate + '</span></div>';
+  if (cashier)  html += '<div class="row"><span>Cashier:</span><span>' + esc(cashier) + '</span></div>';
+  if (customer) html += '<div class="row"><span>Customer:</span><span>' + esc(customer) + '</span></div>';
+
+  html += '<hr class="divider"/>';
+  t.items.forEach(function(item) {
+    if (!item.desc && !item.amt) return;
+    html += '<div class="item-line"><span class="item-desc">' + esc(item.desc || '—') + '</span><span>' + fmt(t.cur, item.amt) + '</span></div>';
+    if (item.qty !== 1) html += '<div style="font-size:11px;color:#777;padding-left:4px">' + item.qty + ' × ' + fmt(t.cur, item.price) + '</div>';
+  });
+
+  html += '<hr class="divider"/>';
+  html += '<div class="row"><span>Subtotal</span><span>' + fmt(t.cur, t.sub) + '</span></div>';
+  if (t.discount > 0) html += '<div class="row"><span>Discount</span><span>-' + fmt(t.cur, t.discount) + '</span></div>';
+  if (t.vatRate  > 0) html += '<div class="row"><span>VAT (' + Math.round(t.vatRate*100) + '%)</span><span>' + fmt(t.cur, t.vat) + '</span></div>';
+  html += '<hr class="divider-solid"/>';
+  html += '<div class="row" style="font-size:15px;font-weight:700"><span>TOTAL</span><span>' + fmt(t.cur, t.total) + '</span></div>';
+  html += '<div class="row" style="font-size:11px;color:#555;margin-top:4px"><span>Payment:</span><span>' + esc(payment) + '</span></div>';
+
+  if (showPaid) html += '<div style="text-align:center;margin:10px 0"><div class="paid-stamp">✓ PAID</div></div>';
+
+  if (showQR) html += '<div class="qr-wrap"><div id="posQrEl"></div></div>';
+
+  html += '<hr class="divider"/>';
+  html += '<div style="text-align:center;font-size:11px;color:#555">' + esc(note) + '</div>';
+  html += '<div style="text-align:center;font-size:10px;color:#aaa;margin-top:8px">Generated by BLESSTech-X · blesstechx.com</div>';
+  html += '<div class="sig-line">Authorised Signature</div>';
+  html += '</div>';
+
+  document.getElementById('receiptPreview').innerHTML = html;
+
+  if (showQR) {
+    setTimeout(function(){
+      var el = document.getElementById('posQrEl');
+      if (el) {
+        el.innerHTML = '';
+        try { new QRCode(el, { text: qrText, width: 80, height: 80, correctLevel: QRCode.CorrectLevel.M }); } catch(e){}
+      }
+    }, 50);
+  }
+}
+
+// ── A4 RECEIPT RENDER ─────────────────────────────────────────
+function renderA4(t) {
+  var bizName   = document.getElementById('bizName').value   || 'YOUR BUSINESS';
+  var bizTagline= document.getElementById('bizTagline').value|| '';
+  var bizTpin   = document.getElementById('bizTpin').value   || '';
+  var bizAddr   = document.getElementById('bizAddr').value   || '';
+  var bizPhone  = document.getElementById('bizPhone').value  || '';
+  var bizEmail  = document.getElementById('bizEmail').value  || '';
+  var bizMotto  = document.getElementById('bizMotto').value  || '';
+  var rcpNum    = document.getElementById('rcpNum').value    || 'RCP-001';
+  var rcpDate   = fmtDate(document.getElementById('rcpDate').value);
+  var cashier   = document.getElementById('rcpCashier').value || '';
+  var customer  = document.getElementById('rcpCustomer').value|| '';
+  var payment   = document.getElementById('rcpPayment').value;
+  var note      = document.getElementById('rcpNote').value   || 'Thank you for your business!';
+  var showPaid  = document.getElementById('rcpPaid').checked;
+  var showQR    = document.getElementById('rcpQr').checked;
+  var qrText    = bizPhone || bizName + ' | ' + rcpNum + ' | ' + fmt(t.cur, t.total);
+
+  var html = '<div class="a4-receipt" id="a4ReceiptEl">';
+  html += '<div class="a4-top">';
+  html += '<div><div class="a4-biz-name">' + esc(bizName) + '</div>';
+  html += '<div class="a4-biz-sub">';
+  if (bizTagline) html += esc(bizTagline) + '<br/>';
+  if (bizAddr)    html += esc(bizAddr) + '<br/>';
+  if (bizPhone)   html += 'Tel: ' + esc(bizPhone);
+  if (bizPhone && bizEmail) html += ' · ';
+  if (bizEmail)   html += esc(bizEmail);
+  if (bizTpin)    html += '<br/>TPIN: ' + esc(bizTpin);
+  if (bizMotto)   html += '<br/><em>' + esc(bizMotto) + '</em>';
+  html += '</div></div>';
+
+  html += '<div class="a4-meta">';
+  html += '<div class="a4-receipt-label">Receipt</div>';
+  html += '<div class="a4-receipt-num">' + esc(rcpNum) + '</div>';
+  html += '<div style="font-size:.82rem;color:#64748b;margin-top:6px">' + rcpDate + '</div>';
+  if (cashier)  html += '<div style="font-size:.82rem;color:#64748b">Cashier: ' + esc(cashier) + '</div>';
+  if (customer) html += '<div style="font-size:.82rem;color:#64748b">Customer: ' + esc(customer) + '</div>';
+  if (showPaid) html += '<div style="margin-top:10px"><div class="a4-paid-stamp">✓ PAID</div></div>';
+  html += '</div></div>';
+
+  html += '<table><tr><th>Description</th><th>Qty</th><th>Unit Price</th><th style="text-align:right">Amount</th></tr>';
+  t.items.forEach(function(item) {
+    if (!item.desc && !item.amt) return;
+    html += '<tr><td>' + esc(item.desc||'—') + '</td><td>' + item.qty + '</td><td>' + fmt(t.cur, item.price) + '</td><td style="text-align:right;font-weight:700">' + fmt(t.cur, item.amt) + '</td></tr>';
+  });
+  html += '</table>';
+
+  html += '<div class="a4-totals">';
+  html += '<div class="a4-total-row"><span>Subtotal</span><span>' + fmt(t.cur, t.sub) + '</span></div>';
+  if (t.discount > 0) html += '<div class="a4-total-row"><span>Discount</span><span style="color:#ef4444">-' + fmt(t.cur, t.discount) + '</span></div>';
+  if (t.vatRate  > 0) html += '<div class="a4-total-row"><span>VAT (' + Math.round(t.vatRate*100) + '%)</span><span>' + fmt(t.cur, t.vat) + '</span></div>';
+  html += '<div class="a4-total-row a4-grand"><span>TOTAL</span><span>' + fmt(t.cur, t.total) + '</span></div>';
+  html += '</div>';
+
+  html += '<div style="background:#f0f9ff;border-left:4px solid #0ea5e9;padding:12px 16px;border-radius:0 8px 8px 0;font-size:.85rem;margin-bottom:20px">';
+  html += '<strong>Payment Method:</strong> ' + esc(payment);
+  html += '</div>';
+
+  html += '<div class="a4-footer">';
+  html += '<div><div style="font-size:.85rem;color:#475569;margin-bottom:16px">' + esc(note) + '</div>';
+  html += '<div class="a4-sig"><div class="a4-sig-line">Authorised Signature</div></div></div>';
+  if (showQR) {
+    html += '<div class="a4-qr"><div id="a4QrEl"></div><div class="a4-qr-label">Scan to verify</div></div>';
+  }
+  html += '</div>';
+
+  html += '<div style="text-align:center;font-size:.72rem;color:#94a3b8;border-top:1px solid #e2e8f0;padding-top:12px;margin-top:16px">Generated by BLESSTech-X Free Receipt Generator · blesstechx.com · +260 979 603 741</div>';
+  html += '</div>';
+
+  document.getElementById('receiptPreview').innerHTML = html;
+
+  if (showQR) {
+    setTimeout(function(){
+      var el = document.getElementById('a4QrEl');
+      if (el) {
+        el.innerHTML = '';
+        try { new QRCode(el, { text: qrText, width: 90, height: 90, correctLevel: QRCode.CorrectLevel.M }); } catch(e){}
+      }
+    }, 50);
+  }
+}
+
+// ── PRINT / PDF ───────────────────────────────────────────────
+function printReceipt() {
+  var isPOS = currentFormat === 'pos';
+  var content = document.getElementById('receiptPreview').innerHTML;
+  var w = window.open('', '_blank');
+  var posStyles = isPOS
+    ? '@page{size:80mm auto;margin:4mm}body{width:72mm;margin:0 auto}'
+    : '@page{size:A4;margin:18mm}body{max-width:760px;margin:0 auto;padding:32px}';
+  w.document.write('<!DOCTYPE html><html><head><title>Receipt — BLESSTech-X</title><style>'
+    + '*{box-sizing:border-box;margin:0;padding:0}'
+    + posStyles
+    + '.pos-receipt{font-family:"Courier New",Courier,monospace;font-size:13px;color:#111;padding:16px 12px;line-height:1.7}'
+    + '.biz-name{font-size:15px;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:2px;margin-bottom:2px}'
+    + '.biz-sub{text-align:center;font-size:11px;color:#555;margin-bottom:2px}'
+    + '.divider{border:none;border-top:1px dashed #aaa;margin:8px 0}'
+    + '.divider-solid{border:none;border-top:2px solid #111;margin:8px 0}'
+    + '.row{display:flex;justify-content:space-between}'
+    + '.item-line{display:flex;justify-content:space-between;margin-bottom:3px}'
+    + '.item-desc{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:160px}'
+    + '.paid-stamp{text-align:center;font-size:20px;font-weight:900;letter-spacing:6px;border:3px solid #059669;color:#059669;padding:5px 10px;display:inline-block;transform:rotate(-4deg);margin:8px auto;border-radius:4px}'
+    + '.qr-wrap{display:flex;justify-content:center;margin:10px 0}'
+    + '.sig-line{border-top:1px solid #aaa;margin-top:16px;padding-top:5px;font-size:11px;color:#777;text-align:center}'
+    + '.a4-receipt{font-family:"Segoe UI",Arial,sans-serif;color:#1e293b}'
+    + '.a4-top{display:flex;justify-content:space-between;margin-bottom:24px;padding-bottom:20px;border-bottom:3px solid #0ea5e9}'
+    + '.a4-biz-name{font-size:1.6rem;font-weight:900;color:#0ea5e9}'
+    + '.a4-biz-sub{font-size:.82rem;color:#64748b;margin-top:4px;line-height:1.6}'
+    + '.a4-receipt-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#64748b}'
+    + '.a4-receipt-num{font-size:1.3rem;font-weight:800;color:#0ea5e9}'
+    + 'table{width:100%;border-collapse:collapse;margin:20px 0}'
+    + 'th{background:#0ea5e9;color:white;padding:8px 12px;font-size:.78rem;font-weight:700;text-align:left}'
+    + 'td{padding:8px 12px;border-bottom:1px solid #e2e8f0;font-size:.85rem}'
+    + 'tr:nth-child(even) td{background:#f8fafc}'
+    + '.a4-totals{display:flex;flex-direction:column;align-items:flex-end;gap:5px;margin-bottom:20px}'
+    + '.a4-total-row{display:flex;gap:50px;font-size:.88rem;color:#475569}'
+    + '.a4-grand{font-size:1.1rem;font-weight:800;color:#0ea5e9;border-top:2px solid #e2e8f0;padding-top:8px;margin-top:3px}'
+    + '.a4-paid-stamp{display:inline-block;border:3px solid #059669;color:#059669;padding:5px 16px;border-radius:6px;font-size:.9rem;font-weight:900;transform:rotate(-5deg);letter-spacing:3px}'
+    + '.a4-footer{border-top:1px solid #e2e8f0;padding-top:14px;display:flex;justify-content:space-between;align-items:flex-end;margin-top:20px}'
+    + '.a4-sig-line{border-top:1px solid #94a3b8;padding-top:5px;font-size:.72rem;color:#94a3b8;width:160px;margin:0 auto;text-align:center}'
+    + '.a4-qr{display:flex;flex-direction:column;align-items:center;gap:5px}'
+    + '.a4-qr-label{font-size:.68rem;color:#94a3b8}'
+    + '</style></head><body>' + content + '</body></html>');
+  w.document.close();
+  setTimeout(function(){ w.print(); }, 500);
+}
+
+// ── COPY TEXT ─────────────────────────────────────────────────
+function copyReceiptText() {
+  var el = document.getElementById('receiptPreview');
+  navigator.clipboard.writeText(el.innerText).then(function(){
+    var t = document.getElementById('copyToast');
+    t.classList.add('show');
+    setTimeout(function(){ t.classList.remove('show'); }, 2500);
+  });
+}
+
+// ── WHATSAPP SHARE ────────────────────────────────────────────
+function shareWhatsApp() {
+  var t      = calcTotals();
+  var bizName= document.getElementById('bizName').value    || 'Our Store';
+  var rcpNum = document.getElementById('rcpNum').value     || 'RCP-001';
+  var rcpDate= fmtDate(document.getElementById('rcpDate').value);
+  var payment= document.getElementById('rcpPayment').value;
+  var customer = document.getElementById('rcpCustomer').value;
+
+  var lines = [];
+  lines.push('🧾 *RECEIPT — ' + bizName.toUpperCase() + '*');
+  lines.push('Receipt #: ' + rcpNum);
+  lines.push('Date: ' + rcpDate);
+  if (customer) lines.push('Customer: ' + customer);
+  lines.push('');
+  lines.push('*Items:*');
+  t.items.forEach(function(item){
+    if (item.desc || item.amt) lines.push('• ' + (item.desc||'Item') + ' × ' + item.qty + ' = ' + fmt(t.cur, item.amt));
+  });
+  lines.push('');
+  if (t.discount > 0) lines.push('Discount: -' + fmt(t.cur, t.discount));
+  if (t.vatRate  > 0) lines.push('VAT (' + Math.round(t.vatRate*100) + '%): ' + fmt(t.cur, t.vat));
+  lines.push('*TOTAL: ' + fmt(t.cur, t.total) + '*');
+  lines.push('Paid via: ' + payment);
+  lines.push('');
+  lines.push('Thank you for your business! 🙏');
+  lines.push('Generated by BLESSTech-X · blesstechx.com');
+
+  var msg = encodeURIComponent(lines.join('\n'));
+  window.open('https://wa.me/?text=' + msg, '_blank');
+}
+
+// ── ESCAPE HTML ───────────────────────────────────────────────
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── MOBILE MENU ───────────────────────────────────────────────
+document.getElementById('thToggle').addEventListener('click', function(){
+  document.getElementById('thNav').classList.toggle('th-nav-open');
+  document.getElementById('thToggle').classList.toggle('th-toggle-open');
+});
+</script>
+</body>
+</html>
