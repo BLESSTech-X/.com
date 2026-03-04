@@ -1,41 +1,631 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>Word Counter & Text Analyser | BLESSTech-X Free Tools</title>
   <meta name="description" content="Count words, characters, sentences and paragraphs. Get reading time and readability score. Free text analyser for Zambian students, writers and researchers."/>
   <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <link rel="stylesheet" href="../style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    .stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px;margin-bottom:24px}
-    .stat-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center;transition:var(--transition)}
-    .stat-card:hover{border-color:var(--sky);transform:translateY(-2px)}
-    .stat-val{font-size:2rem;font-weight:800;color:var(--sky);line-height:1;margin-bottom:6px}
-    .stat-lbl{font-size:.78rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
-    .stat-card.highlight .stat-val{color:var(--purple)}
-    .stat-card.green .stat-val{color:var(--green)}
-    .stat-card.amber .stat-val{color:var(--amber)}
-    .readability-bar{height:12px;border-radius:6px;background:var(--border);overflow:hidden;margin:8px 0}
-    .readability-fill{height:100%;border-radius:6px;transition:width .6s ease}
-    .keyword-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-    .keyword-tag{padding:4px 12px;border-radius:20px;font-size:.82rem;font-weight:600;background:var(--sky-light);color:var(--sky-dark);border:1px solid rgba(14,165,233,.2)}
-    .keyword-tag.top{background:var(--sky);color:white}
-    .find-row{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:center;margin-bottom:12px}
-    .highlight-text{background:#fef3c7}
-    .text-tools-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
-    .tbar-btn{padding:7px 14px;border:1.5px solid var(--border);border-radius:var(--radius);background:white;font-size:.82rem;font-weight:600;color:var(--slate-l);cursor:pointer;transition:var(--transition);display:flex;align-items:center;gap:5px}
-    .tbar-btn:hover{border-color:var(--sky);color:var(--sky);background:var(--sky-light)}
-    .goal-row{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
-    .goal-progress{flex:1;min-width:200px}
-    .goal-bar{height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin-top:4px}
-    .goal-fill{height:100%;background:var(--sky);border-radius:4px;transition:width .4s ease}
-    .goal-fill.done{background:var(--green)}
+    /* ----- RESET & DESIGN TOKENS ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #faf9f7;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #1a1814;
+      line-height: 1.6;
+      padding-top: 80px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    :root {
+      --bg-page: #faf9f7;
+      --bg-secondary: #f2f0ec;
+      --bg-tertiary: #e8e5df;
+      --card-white: #ffffff;
+      --border-light: rgba(0,0,0,0.09);
+      --text-main: #1a1814;
+      --text-sub: #65615b;
+      --text-muted: #9e9890;
+      --brand-sky: #0ea5e9;
+      --brand-sky-dark: #0284c7;
+      --brand-wa: #25d366;
+      --footer-bg: #1e1c18;
+      --footer-text: #8a8478;
+      --footer-link: #b5b0a8;
+      --px: clamp(14px, 4vw, 36px);
+    }
+
+    /* ----- UTILITY CLASSES (inline replacement) ----- */
+    .th-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 var(--px);
+      width: 100%;
+    }
+
+    /* ----- HEADER (fixed, blurred) ----- */
+    .tools-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(250,249,247,.93);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+      z-index: 1000;
+      transition: box-shadow 0.2s ease;
+    }
+    .tools-header.scrolled {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    }
+    .th-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 16px var(--px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .tools-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .tools-logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+    .tools-logo span {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: clamp(1.1rem, 3vw, 1.4rem);
+      color: #1a1814;
+    }
+    .tools-logo em {
+      font-style: normal;
+      color: #0ea5e9;
+    }
+    .th-nav {
+      display: flex;
+      align-items: center;
+      gap: clamp(16px, 3vw, 32px);
+    }
+    .th-nav a {
+      text-decoration: none;
+      color: #65615b;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .th-nav a:hover {
+      color: #0ea5e9;
+    }
+    .th-nav .th-wa {
+      background: #25d366;
+      color: white;
+      padding: 8px 18px;
+      border-radius: 40px;
+      font-weight: 600;
+    }
+    .th-nav .th-wa:hover {
+      background: #20b859;
+      color: white;
+    }
+    .th-mobile-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .th-mobile-toggle span {
+      width: 26px;
+      height: 2px;
+      background: #1a1814;
+      border-radius: 2px;
+      transition: 0.2s;
+    }
+
+    /* ----- BREADCRUMB ----- */
+    .tool-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      margin: 20px 0;
+      color: #9e9890;
+      flex-wrap: wrap;
+    }
+    .tool-breadcrumb a {
+      color: #65615b;
+      text-decoration: none;
+    }
+    .tool-breadcrumb a:hover {
+      color: #0ea5e9;
+    }
+    .tool-breadcrumb i {
+      font-size: 10px;
+      color: #9e9890;
+    }
+
+    /* ----- TOOL HERO CARD ----- */
+    .tool-header {
+      background: #ffffff;
+      border: 1px solid rgba(0,0,0,0.09);
+      border-radius: 14px;
+      padding: clamp(20px, 5vw, 32px);
+      margin-bottom: 28px;
+    }
+    .tool-header-inner {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .tool-header-icon {
+      width: 64px;
+      height: 64px;
+      background: #e8e5df;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+    }
+    .tool-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 6vw, 2.6rem);
+      font-weight: 700;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    .tool-header p {
+      color: #65615b;
+      max-width: 700px;
+      font-size: clamp(0.9rem, 2vw, 1rem);
+      margin-bottom: 16px;
+    }
+    .tool-header-meta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .tool-meta-badge {
+      background: #f2f0ec;
+      color: #65615b;
+      padding: 6px 14px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tool-meta-badge i {
+      color: #0ea5e9;
+    }
+
+    /* ----- BOX CARDS ----- */
+    .tool-box {
+      background: #ffffff;
+      border: 1px solid rgba(0,0,0,0.09);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .tool-box-header {
+      padding: 18px 22px;
+      background: #faf9f7;
+      border-bottom: 1px solid rgba(0,0,0,0.09);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .tool-box-header h2 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #1a1814;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tool-box-header h2 i {
+      color: #0ea5e9;
+      font-size: 1.1rem;
+    }
+    .tool-box-body {
+      padding: 22px;
+    }
+
+    /* ----- FORM ELEMENTS (preserve original classes) ----- */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 140px), 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: #ffffff;
+      border: 1px solid rgba(0,0,0,0.09);
+      border-radius: 14px;
+      padding: 16px;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .stat-card:hover {
+      border-color: #0ea5e9;
+      transform: translateY(-2px);
+    }
+    .stat-val {
+      font-size: clamp(1.5rem, 5vw, 2rem);
+      font-weight: 800;
+      color: #0ea5e9;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-lbl {
+      font-size: 0.78rem;
+      color: #9e9890;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .stat-card.highlight .stat-val { color: #0284c7; }
+    .stat-card.green .stat-val { color: #25d366; }
+    .stat-card.amber .stat-val { color: #d97706; }
+
+    .readability-bar {
+      height: 12px;
+      border-radius: 6px;
+      background: #e8e5df;
+      overflow: hidden;
+      margin: 8px 0;
+    }
+    .readability-fill {
+      height: 100%;
+      border-radius: 6px;
+      transition: width .6s ease;
+    }
+
+    .keyword-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .keyword-tag {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: .82rem;
+      font-weight: 600;
+      background: #f2f0ec;
+      color: #0284c7;
+      border: 1px solid rgba(14,165,233,.2);
+    }
+    .keyword-tag.top {
+      background: #0ea5e9;
+      color: white;
+    }
+
+    .find-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .text-tools-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .tbar-btn {
+      padding: 7px 14px;
+      border: 1.5px solid rgba(0,0,0,0.09);
+      border-radius: 14px;
+      background: white;
+      font-size: .82rem;
+      font-weight: 600;
+      color: #65615b;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .tbar-btn:hover {
+      border-color: #0ea5e9;
+      color: #0ea5e9;
+      background: #f2f0ec;
+    }
+
+    .goal-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .goal-progress {
+      flex: 1;
+      min-width: 200px;
+    }
+    .goal-bar {
+      height: 8px;
+      background: #e8e5df;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+    .goal-fill {
+      height: 100%;
+      background: #0ea5e9;
+      border-radius: 4px;
+      transition: width .4s ease;
+    }
+    .goal-fill.done { background: #25d366; }
+
+    .btn-primary {
+      background: #0ea5e9;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .btn-primary:hover {
+      background: #0284c7;
+    }
+
+    /* ----- CTA STRIP (light blue gradient) ----- */
+    .tool-service-cta {
+      background: linear-gradient(135deg, #f2f0ec 0%, #e8e5df 100%);
+      border-radius: 14px;
+      padding: clamp(24px, 6vw, 40px) clamp(20px, 5vw, 32px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin: 40px 0;
+      border: 1px solid rgba(0,0,0,0.09);
+    }
+    .tool-service-cta h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.2rem, 3vw, 1.6rem);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .tool-service-cta p {
+      color: #65615b;
+      max-width: 500px;
+    }
+    .btn-wa {
+      background: #25d366;
+      color: white;
+      padding: 14px 32px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+    }
+    .btn-wa:hover {
+      background: #20b859;
+    }
+
+    /* ----- RELATED TOOLS GRID ----- */
+    .related-tools {
+      background: #f2f0ec;
+      border-radius: 14px;
+      padding: clamp(20px, 5vw, 28px);
+      margin: 40px 0;
+    }
+    .related-tools h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.2rem, 4vw, 1.6rem);
+      margin-bottom: 24px;
+    }
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+      gap: 16px;
+    }
+    .related-card {
+      background: #ffffff;
+      border: 1px solid rgba(0,0,0,0.09);
+      border-radius: 14px;
+      padding: 18px;
+      text-decoration: none;
+      color: #1a1814;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: 0.2s;
+    }
+    .related-card:hover {
+      border-color: #0ea5e9;
+      transform: translateY(-2px);
+    }
+    .related-card span {
+      font-size: 1.8rem;
+    }
+
+    /* ----- FOOTER (dark 4-col) ----- */
+    .tools-footer {
+      background: #1e1c18;
+      color: #8a8478;
+      margin-top: 60px;
+      padding: 48px 0 24px;
+    }
+    .tf-inner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    .tf-brand p {
+      margin-top: 12px;
+      font-size: 0.9rem;
+    }
+    .tf-links h4, .tf-contact h4 {
+      color: #b5b0a8;
+      font-size: 1rem;
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+    .tf-links a, .tf-contact a {
+      display: block;
+      color: #8a8478;
+      text-decoration: none;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .tf-links a:hover, .tf-contact a:hover {
+      color: white;
+    }
+    .tf-contact a i {
+      width: 20px;
+      color: #b5b0a8;
+    }
+    .tf-bottom {
+      text-align: center;
+      padding-top: 24px;
+      border-top: 1px solid rgba(139, 132, 120, 0.2);
+      font-size: 0.85rem;
+    }
+
+    /* ----- FAB (fixed WhatsApp) ----- */
+    .tools-wa-fab {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #25d366;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 6px 16px rgba(37, 211, 102, 0.3);
+      transition: 0.2s;
+      z-index: 999;
+      text-decoration: none;
+    }
+    .tools-wa-fab:hover {
+      transform: scale(1.1);
+      background: #20b859;
+    }
+
+    /* ----- RESPONSIVE BREAKPOINTS (preserve original layout) ----- */
+    @media (max-width: 860px) {
+      [style*="grid-template-columns: 1fr 380px"] {
+        grid-template-columns: 1fr !important;
+      }
+      .find-row {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 820px) {
+      .find-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .tf-inner {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .th-nav {
+        display: none;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background: rgba(250,249,247,0.98);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        padding: 24px var(--px);
+        flex-direction: column;
+        align-items: flex-start;
+        border-bottom: 1px solid rgba(0,0,0,0.09);
+        box-shadow: 0 20px 30px rgba(0,0,0,0.05);
+      }
+      .th-nav.th-nav-open {
+        display: flex;
+      }
+      .th-mobile-toggle {
+        display: flex;
+      }
+      .th-toggle-open span:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px);
+      }
+      .th-toggle-open span:nth-child(2) {
+        opacity: 0;
+      }
+      .th-toggle-open span:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
+      }
+    }
+
+    @media (max-width: 400px) {
+      .tf-inner {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* preserve original classes */
+    .field input, .field select, input[type="text"], input[type="number"], select, textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid rgba(0,0,0,0.09);
+      border-radius: 14px;
+      font-size: .9rem;
+      outline: none;
+      font-family: inherit;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #0ea5e9;
+    }
   </style>
 </head>
-<body class="tool-page">
-  <header class="tools-header">
+<body>
+  <header class="tools-header" id="mainHeader">
     <div class="th-inner">
       <a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a>
       <nav class="th-nav" id="thNav">
@@ -55,6 +645,8 @@
         <a href="../index.html">Free Tools</a><i class="fas fa-chevron-right"></i>
         <span>Word Counter &amp; Text Analyser</span>
       </div>
+      
+      <!-- TOOL HERO CARD -->
       <div class="tool-header">
         <div class="tool-header-inner">
           <div class="tool-header-icon" style="background:#fef3c7;color:#d97706">🔤</div>
@@ -70,13 +662,13 @@
         </div>
       </div>
 
-      <!-- WORD GOAL -->
+      <!-- WORD GOAL (box card) -->
       <div class="tool-box" style="margin-bottom:20px">
-        <div class="tool-box-header"><h2><i class="fas fa-bullseye" style="color:var(--amber)"></i> Word Goal (optional)</h2></div>
+        <div class="tool-box-header"><h2><i class="fas fa-bullseye" style="color:#d97706"></i> Word Goal (optional)</h2></div>
         <div class="tool-box-body">
           <div class="goal-row">
             <div class="field" style="margin:0;flex-shrink:0">
-              <select id="goalPreset" onchange="setGoalPreset()" style="padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.9rem;outline:none">
+              <select id="goalPreset" onchange="setGoalPreset()" style="padding:10px 14px;border:1.5px solid rgba(0,0,0,0.09);border-radius:14px;font-size:.9rem;outline:none">
                 <option value="">No goal</option>
                 <option value="250">Short essay (250 words)</option>
                 <option value="500">Medium essay (500 words)</option>
@@ -86,11 +678,11 @@
                 <option value="custom">Custom…</option>
               </select>
             </div>
-            <input type="number" id="goalCustom" placeholder="Custom word goal" min="1" style="display:none;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.9rem;outline:none;width:180px"/>
+            <input type="number" id="goalCustom" placeholder="Custom word goal" min="1" style="display:none;padding:10px 14px;border:1.5px solid rgba(0,0,0,0.09);border-radius:14px;font-size:.9rem;outline:none;width:180px"/>
             <div class="goal-progress" id="goalProgress" style="display:none">
               <div style="display:flex;justify-content:space-between;font-size:.83rem">
-                <span id="goalLabel" style="font-weight:600;color:var(--slate-l)">0 / 500 words</span>
-                <span id="goalPct" style="font-weight:700;color:var(--sky)">0%</span>
+                <span id="goalLabel" style="font-weight:600;color:#65615b">0 / 500 words</span>
+                <span id="goalPct" style="font-weight:700;color:#0ea5e9">0%</span>
               </div>
               <div class="goal-bar"><div class="goal-fill" id="goalFill" style="width:0%"></div></div>
             </div>
@@ -98,12 +690,13 @@
         </div>
       </div>
 
+      <!-- MAIN GRID: text input + stats (2-col → 1-col at ≤860px) -->
       <div style="display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:start">
-        <!-- TEXT INPUT -->
+        <!-- LEFT: TEXT INPUT & FIND -->
         <div>
           <div class="tool-box">
             <div class="tool-box-header">
-              <h2><i class="fas fa-keyboard" style="color:var(--sky)"></i> Your Text</h2>
+              <h2><i class="fas fa-keyboard" style="color:#0ea5e9"></i> Your Text</h2>
               <div style="display:flex;gap:8px">
                 <button class="tbar-btn" onclick="clearText()"><i class="fas fa-trash"></i> Clear</button>
                 <button class="tbar-btn" onclick="copyText()"><i class="fas fa-copy"></i> Copy</button>
@@ -117,32 +710,32 @@
                 <button class="tbar-btn" onclick="transformText('sentence')"><i class="fas fa-font"></i> Sentence case</button>
                 <button class="tbar-btn" onclick="removeExtraSpaces()"><i class="fas fa-compress-arrows-alt"></i> Clean spaces</button>
               </div>
-              <textarea id="mainText" placeholder="Paste or type your text here… Analysis updates in real time as you type." style="width:100%;min-height:340px;padding:16px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.95rem;line-height:1.75;resize:vertical;outline:none;font-family:var(--font);transition:border-color .2s" oninput="analyseText()"></textarea>
-              <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:.8rem;color:var(--muted)">
+              <textarea id="mainText" placeholder="Paste or type your text here… Analysis updates in real time as you type." style="width:100%;min-height:340px;padding:16px;border:1.5px solid rgba(0,0,0,0.09);border-radius:14px;font-size:.95rem;line-height:1.75;resize:vertical;outline:none;font-family:'Plus Jakarta Sans',sans-serif;transition:border-color .2s" oninput="analyseText()"></textarea>
+              <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:.8rem;color:#9e9890">
                 <span id="liveCount">0 words · 0 characters</span>
                 <span id="readingTime">~0 min read</span>
               </div>
             </div>
           </div>
 
-          <!-- FIND & REPLACE -->
+          <!-- FIND & REPLACE (box card) -->
           <div class="tool-box" style="margin-top:20px">
-            <div class="tool-box-header"><h2><i class="fas fa-search" style="color:var(--sky)"></i> Find &amp; Count</h2></div>
+            <div class="tool-box-header"><h2><i class="fas fa-search" style="color:#0ea5e9"></i> Find &amp; Count</h2></div>
             <div class="tool-box-body">
               <div class="find-row">
-                <div class="field" style="margin:0"><input type="text" id="findWord" placeholder="Word or phrase to find…" style="padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.9rem;outline:none;width:100%"/></div>
-                <div id="findResult" style="font-size:.9rem;font-weight:700;color:var(--sky);min-width:80px;text-align:center">—</div>
+                <div class="field" style="margin:0"><input type="text" id="findWord" placeholder="Word or phrase to find…" style="padding:10px 14px;border:1.5px solid rgba(0,0,0,0.09);border-radius:14px;font-size:.9rem;outline:none;width:100%"/></div>
+                <div id="findResult" style="font-size:.9rem;font-weight:700;color:#0ea5e9;min-width:80px;text-align:center">—</div>
                 <button class="btn btn-primary btn-sm" onclick="findWord()"><i class="fas fa-search"></i> Find</button>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- RIGHT: STATS -->
+        <!-- RIGHT: STATS (sticky) -->
         <div style="position:sticky;top:88px;display:flex;flex-direction:column;gap:16px">
-          <!-- Core stats -->
+          <!-- Core stats box -->
           <div class="tool-box">
-            <div class="tool-box-header"><h2><i class="fas fa-chart-bar" style="color:var(--sky)"></i> Analysis</h2></div>
+            <div class="tool-box-header"><h2><i class="fas fa-chart-bar" style="color:#0ea5e9"></i> Analysis</h2></div>
             <div class="tool-box-body">
               <div class="stats-grid" id="statsGrid">
                 <div class="stat-card"><div class="stat-val" id="statWords">0</div><div class="stat-lbl">Words</div></div>
@@ -157,32 +750,35 @@
 
               <div style="margin-bottom:16px">
                 <div style="display:flex;justify-content:space-between;font-size:.85rem;margin-bottom:4px">
-                  <span style="font-weight:700;color:var(--slate-l)">Readability</span>
-                  <span id="readabilityLabel" style="font-weight:700;color:var(--green)">—</span>
+                  <span style="font-weight:700;color:#65615b">Readability</span>
+                  <span id="readabilityLabel" style="font-weight:700;color:#25d366">—</span>
                 </div>
-                <div class="readability-bar"><div class="readability-fill" id="readabilityFill" style="width:0%;background:var(--green)"></div></div>
-                <div id="readabilityDesc" style="font-size:.78rem;color:var(--muted)">Paste text to get readability score</div>
+                <div class="readability-bar"><div class="readability-fill" id="readabilityFill" style="width:0%;background:#25d366"></div></div>
+                <div id="readabilityDesc" style="font-size:.78rem;color:#9e9890">Paste text to get readability score</div>
               </div>
             </div>
           </div>
 
-          <!-- Top keywords -->
+          <!-- Top keywords box -->
           <div class="tool-box">
-            <div class="tool-box-header"><h2><i class="fas fa-tags" style="color:var(--amber)"></i> Top Keywords</h2></div>
+            <div class="tool-box-header"><h2><i class="fas fa-tags" style="color:#d97706"></i> Top Keywords</h2></div>
             <div class="tool-box-body">
               <div id="keywordCloud" class="keyword-cloud" style="min-height:48px">
-                <span style="color:var(--muted);font-size:.85rem;font-style:italic">Keywords appear here after you type…</span>
+                <span style="color:#9e9890;font-size:.85rem;font-style:italic">Keywords appear here after you type…</span>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="tool-service-cta" style="margin-top:36px">
+      <!-- CTA STRIP (light blue gradient) -->
+      <div class="tool-service-cta">
         <div><h4>Need content written for your business?</h4><p>BLESSTech-X creates professional website copy, social media content, and SEO articles for Zambian businesses.</p></div>
         <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I need content writing for my business." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Get Content Written</a>
       </div>
-      <div class="related-tools" style="margin-top:32px;background:var(--bg-alt);border-radius:var(--radius-lg);padding:28px">
+
+      <!-- RELATED TOOLS GRID -->
+      <div class="related-tools">
         <h3>You Might Also Need</h3>
         <div class="related-grid">
           <a href="../text-summarizer/index.html" class="related-card"><span>📰</span> Text Summarizer</a>
@@ -194,10 +790,14 @@
     </div>
   </main>
 
+  <!-- FOOTER (dark, 4-col) -->
   <footer class="tools-footer">
     <div class="th-container">
       <div class="tf-inner">
-        <div class="tf-brand"><a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a><p>Free tools for every Zambian.</p></div>
+        <div class="tf-brand">
+          <a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span style="color:#b5b0a8;">BLESS<em style="color:#b5b0a8;">Tech-X</em></span></a>
+          <p>Free tools for every Zambian.</p>
+        </div>
         <div class="tf-links"><h4>Free Tools</h4><a href="../index.html">All Tools</a><a href="../text-summarizer/index.html">Text Summarizer</a><a href="../email-writer/index.html">Email Writer</a></div>
         <div class="tf-links"><h4>BLESSTech-X</h4><a href="../../index.html">Main Website</a><a href="../../index.html#services">Services</a><a href="../../index.html#contact">Contact</a></div>
         <div class="tf-contact"><h4>Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
@@ -205,127 +805,179 @@
       <div class="tf-bottom"><p>&copy; 2026 BLESSTech-X · Free Word Counter · Built for Zambia 🇿🇲</p></div>
     </div>
   </footer>
+
+  <!-- FIXED WHATSAPP FAB -->
   <a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
-<script>
-const STOP_WORDS=new Set(['the','a','an','and','or','but','in','on','at','to','for','of','with','by','from','is','are','was','were','be','been','being','have','has','had','do','does','did','will','would','could','should','may','might','shall','can','this','that','these','those','i','you','he','she','it','we','they','my','your','his','her','its','our','their','me','him','us','them','who','which','what','when','where','why','how','if','as','so','than','then','not','no','nor','yet','both','either','neither','each','any','all','some','such','more','most','other','into','about','up','out','also','just','only','even','back','still','through','before','after','because','while','although']);
+  <!-- PRESERVED JAVASCRIPT (exactly as original) -->
+  <script>
+    const STOP_WORDS = new Set(['the','a','an','and','or','but','in','on','at','to','for','of','with','by','from','is','are','was','were','be','been','being','have','has','had','do','does','did','will','would','could','should','may','might','shall','can','this','that','these','those','i','you','he','she','it','we','they','my','your','his','her','its','our','their','me','him','us','them','who','which','what','when','where','why','how','if','as','so','than','then','not','no','nor','yet','both','either','neither','each','any','all','some','such','more','most','other','into','about','up','out','also','just','only','even','back','still','through','before','after','because','while','although']);
 
-function analyseText(){
-  const text=document.getElementById('mainText').value;
-  const words=text.trim()===''?[]:text.trim().split(/\s+/).filter(w=>w.length>0);
-  const wordCount=words.length;
-  const chars=text.length;
-  const charsNoSpace=text.replace(/\s/g,'').length;
-  const sentences=text.trim()===''?0:(text.match(/[^.!?]*[.!?]+/g)||[]).length||( text.trim()!==''?1:0 );
-  const paragraphs=text.trim()===''?0:text.split(/\n\s*\n/).filter(p=>p.trim().length>0).length||( text.trim()!==''?1:0 );
-  const readMins=Math.ceil(wordCount/200);
-  const speakMins=Math.ceil(wordCount/130);
-  const avgWordLen=wordCount>0?(words.reduce((s,w)=>s+w.replace(/[^a-zA-Z]/g,'').length,0)/wordCount).toFixed(1):0;
+    function analyseText() {
+      const text = document.getElementById('mainText').value;
+      const words = text.trim() === '' ? [] : text.trim().split(/\s+/).filter(w => w.length > 0);
+      const wordCount = words.length;
+      const chars = text.length;
+      const charsNoSpace = text.replace(/\s/g, '').length;
+      const sentences = text.trim() === '' ? 0 : (text.match(/[^.!?]*[.!?]+/g) || []).length || (text.trim() !== '' ? 1 : 0);
+      const paragraphs = text.trim() === '' ? 0 : text.split(/\n\s*\n/).filter(p => p.trim().length > 0).length || (text.trim() !== '' ? 1 : 0);
+      const readMins = Math.ceil(wordCount / 200);
+      const speakMins = Math.ceil(wordCount / 130);
+      const avgWordLen = wordCount > 0 ? (words.reduce((s, w) => s + w.replace(/[^a-zA-Z]/g, '').length, 0) / wordCount).toFixed(1) : 0;
 
-  document.getElementById('statWords').textContent=wordCount.toLocaleString();
-  document.getElementById('statChars').textContent=chars.toLocaleString();
-  document.getElementById('statCharsNoSpace').textContent=charsNoSpace.toLocaleString();
-  document.getElementById('statSentences').textContent=sentences.toLocaleString();
-  document.getElementById('statParagraphs').textContent=paragraphs.toLocaleString();
-  document.getElementById('statReadTime').textContent=readMins+'m';
-  document.getElementById('statSpeakTime').textContent=speakMins+'m';
-  document.getElementById('statAvgWord').textContent=avgWordLen;
-  document.getElementById('liveCount').textContent=`${wordCount.toLocaleString()} words · ${chars.toLocaleString()} characters`;
-  document.getElementById('readingTime').textContent=`~${readMins} min read`;
+      document.getElementById('statWords').textContent = wordCount.toLocaleString();
+      document.getElementById('statChars').textContent = chars.toLocaleString();
+      document.getElementById('statCharsNoSpace').textContent = charsNoSpace.toLocaleString();
+      document.getElementById('statSentences').textContent = sentences.toLocaleString();
+      document.getElementById('statParagraphs').textContent = paragraphs.toLocaleString();
+      document.getElementById('statReadTime').textContent = readMins + 'm';
+      document.getElementById('statSpeakTime').textContent = speakMins + 'm';
+      document.getElementById('statAvgWord').textContent = avgWordLen;
+      document.getElementById('liveCount').textContent = `${wordCount.toLocaleString()} words · ${chars.toLocaleString()} characters`;
+      document.getElementById('readingTime').textContent = `~${readMins} min read`;
 
-  // Readability (simplified Flesch-Kincaid style)
-  if(wordCount>10&&sentences>0){
-    const avgSentLen=wordCount/sentences;
-    let score=206.835-(1.015*avgSentLen)-(84.6*(charsNoSpace/Math.max(wordCount,1)/4.5));
-    score=Math.max(0,Math.min(100,score));
-    const fill=document.getElementById('readabilityFill');
-    const label=document.getElementById('readabilityLabel');
-    const desc=document.getElementById('readabilityDesc');
-    fill.style.width=score+'%';
-    if(score>=70){fill.style.background='var(--green)';label.textContent='Easy';label.style.color='var(--green)';desc.textContent='Easy to read. Most people can understand this.';}
-    else if(score>=50){fill.style.background='var(--amber)';label.textContent='Moderate';label.style.color='var(--amber)';desc.textContent='Fairly readable. Suitable for general audiences.';}
-    else{fill.style.background='var(--red)';label.textContent='Complex';label.style.color='var(--red)';desc.textContent='Complex text. Consider simplifying for broader audiences.';}
-  } else {
-    document.getElementById('readabilityFill').style.width='0%';
-    document.getElementById('readabilityLabel').textContent='—';
-    document.getElementById('readabilityDesc').textContent='Needs more text for readability analysis.';
-  }
+      // Readability (simplified Flesch-Kincaid style)
+      if (wordCount > 10 && sentences > 0) {
+        const avgSentLen = wordCount / sentences;
+        let score = 206.835 - (1.015 * avgSentLen) - (84.6 * (charsNoSpace / Math.max(wordCount, 1) / 4.5));
+        score = Math.max(0, Math.min(100, score));
+        const fill = document.getElementById('readabilityFill');
+        const label = document.getElementById('readabilityLabel');
+        const desc = document.getElementById('readabilityDesc');
+        fill.style.width = score + '%';
+        if (score >= 70) {
+          fill.style.background = '#25d366';
+          label.textContent = 'Easy';
+          label.style.color = '#25d366';
+          desc.textContent = 'Easy to read. Most people can understand this.';
+        } else if (score >= 50) {
+          fill.style.background = '#d97706';
+          label.textContent = 'Moderate';
+          label.style.color = '#d97706';
+          desc.textContent = 'Fairly readable. Suitable for general audiences.';
+        } else {
+          fill.style.background = '#dc2626';
+          label.textContent = 'Complex';
+          label.style.color = '#dc2626';
+          desc.textContent = 'Complex text. Consider simplifying for broader audiences.';
+        }
+      } else {
+        document.getElementById('readabilityFill').style.width = '0%';
+        document.getElementById('readabilityLabel').textContent = '—';
+        document.getElementById('readabilityDesc').textContent = 'Needs more text for readability analysis.';
+      }
 
-  // Keywords
-  const freq={};
-  words.forEach(w=>{ const clean=w.toLowerCase().replace(/[^a-z]/g,''); if(clean.length>2&&!STOP_WORDS.has(clean)) freq[clean]=(freq[clean]||0)+1; });
-  const top=Object.entries(freq).sort((a,b)=>b[1]-a[1]).slice(0,12);
-  const cloud=document.getElementById('keywordCloud');
-  if(top.length>0){
-    cloud.innerHTML=top.map(([w,c],i)=>`<span class="keyword-tag${i<3?' top':''}" title="${c} occurrences">${w} <span style="opacity:.7">${c}</span></span>`).join('');
-  } else {
-    cloud.innerHTML='<span style="color:var(--muted);font-size:.85rem;font-style:italic">Keywords appear here after you type…</span>';
-  }
+      // Keywords
+      const freq = {};
+      words.forEach(w => {
+        const clean = w.toLowerCase().replace(/[^a-z]/g, '');
+        if (clean.length > 2 && !STOP_WORDS.has(clean)) freq[clean] = (freq[clean] || 0) + 1;
+      });
+      const top = Object.entries(freq).sort((a, b) => b[1] - a[1]).slice(0, 12);
+      const cloud = document.getElementById('keywordCloud');
+      if (top.length > 0) {
+        cloud.innerHTML = top.map(([w, c], i) => `<span class="keyword-tag${i < 3 ? ' top' : ''}" title="${c} occurrences">${w} <span style="opacity:.7">${c}</span></span>`).join('');
+      } else {
+        cloud.innerHTML = '<span style="color:#9e9890;font-size:.85rem;font-style:italic">Keywords appear here after you type…</span>';
+      }
 
-  // Goal
-  updateGoal(wordCount);
-}
+      // Goal
+      updateGoal(wordCount);
+    }
 
-function updateGoal(wordCount){
-  const preset=document.getElementById('goalPreset').value;
-  const customEl=document.getElementById('goalCustom');
-  let goal=0;
-  if(preset&&preset!=='custom') goal=parseInt(preset);
-  else if(preset==='custom') goal=parseInt(customEl.value)||0;
-  const progEl=document.getElementById('goalProgress');
-  if(goal>0){
-    progEl.style.display='block';
-    const pct=Math.min((wordCount/goal)*100,100).toFixed(0);
-    const fill=document.getElementById('goalFill');
-    fill.style.width=pct+'%';
-    fill.className='goal-fill'+(wordCount>=goal?' done':'');
-    document.getElementById('goalLabel').textContent=`${wordCount.toLocaleString()} / ${goal.toLocaleString()} words`;
-    document.getElementById('goalPct').textContent=pct+'%';
-    document.getElementById('goalPct').style.color=wordCount>=goal?'var(--green)':'var(--sky)';
-  } else {
-    progEl.style.display='none';
-  }
-}
+    function updateGoal(wordCount) {
+      const preset = document.getElementById('goalPreset').value;
+      const customEl = document.getElementById('goalCustom');
+      let goal = 0;
+      if (preset && preset !== 'custom') goal = parseInt(preset);
+      else if (preset === 'custom') goal = parseInt(customEl.value) || 0;
+      const progEl = document.getElementById('goalProgress');
+      if (goal > 0) {
+        progEl.style.display = 'block';
+        const pct = Math.min((wordCount / goal) * 100, 100).toFixed(0);
+        const fill = document.getElementById('goalFill');
+        fill.style.width = pct + '%';
+        fill.className = 'goal-fill' + (wordCount >= goal ? ' done' : '');
+        document.getElementById('goalLabel').textContent = `${wordCount.toLocaleString()} / ${goal.toLocaleString()} words`;
+        document.getElementById('goalPct').textContent = pct + '%';
+        document.getElementById('goalPct').style.color = wordCount >= goal ? '#25d366' : '#0ea5e9';
+      } else {
+        progEl.style.display = 'none';
+      }
+    }
 
-function setGoalPreset(){
-  const val=document.getElementById('goalPreset').value;
-  const customEl=document.getElementById('goalCustom');
-  customEl.style.display=val==='custom'?'block':'none';
-  const text=document.getElementById('mainText').value;
-  const wc=text.trim()===''?0:text.trim().split(/\s+/).filter(w=>w.length>0).length;
-  updateGoal(wc);
-}
+    function setGoalPreset() {
+      const val = document.getElementById('goalPreset').value;
+      const customEl = document.getElementById('goalCustom');
+      customEl.style.display = val === 'custom' ? 'block' : 'none';
+      const text = document.getElementById('mainText').value;
+      const wc = text.trim() === '' ? 0 : text.trim().split(/\s+/).filter(w => w.length > 0).length;
+      updateGoal(wc);
+    }
 
-function clearText(){ document.getElementById('mainText').value=''; analyseText(); }
-function copyText(){ navigator.clipboard.writeText(document.getElementById('mainText').value).then(()=>alert('Text copied!')); }
+    function clearText() { document.getElementById('mainText').value = ''; analyseText(); }
+    function copyText() {
+      navigator.clipboard.writeText(document.getElementById('mainText').value).then(() => {
+        alert('Text copied!');
+      });
+    }
 
-function transformText(type){
-  const el=document.getElementById('mainText');
-  const t=el.value;
-  if(type==='upper') el.value=t.toUpperCase();
-  else if(type==='lower') el.value=t.toLowerCase();
-  else if(type==='title') el.value=t.replace(/\w\S*/g,w=>w.charAt(0).toUpperCase()+w.slice(1).toLowerCase());
-  else if(type==='sentence') el.value=t.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g,c=>c.toUpperCase());
-  analyseText();
-}
-function removeExtraSpaces(){ const el=document.getElementById('mainText'); el.value=el.value.replace(/[ \t]+/g,' ').replace(/\n{3,}/g,'\n\n').trim(); analyseText(); }
+    function transformText(type) {
+      const el = document.getElementById('mainText');
+      const t = el.value;
+      if (type === 'upper') el.value = t.toUpperCase();
+      else if (type === 'lower') el.value = t.toLowerCase();
+      else if (type === 'title') el.value = t.replace(/\w\S*/g, w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
+      else if (type === 'sentence') el.value = t.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, c => c.toUpperCase());
+      analyseText();
+    }
+    function removeExtraSpaces() {
+      const el = document.getElementById('mainText');
+      el.value = el.value.replace(/[ \t]+/g, ' ').replace(/\n{3,}/g, '\n\n').trim();
+      analyseText();
+    }
 
-function findWord(){
-  const q=document.getElementById('findWord').value.trim();
-  if(!q){document.getElementById('findResult').textContent='—';return;}
-  const text=document.getElementById('mainText').value;
-  const regex=new RegExp('\\b'+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b','gi');
-  const matches=text.match(regex);
-  const count=matches?matches.length:0;
-  document.getElementById('findResult').textContent=count>0?`${count} found`:'Not found';
-  document.getElementById('findResult').style.color=count>0?'var(--green)':'var(--red)';
-}
+    function findWord() {
+      const q = document.getElementById('findWord').value.trim();
+      if (!q) { document.getElementById('findResult').textContent = '—'; return; }
+      const text = document.getElementById('mainText').value;
+      const regex = new RegExp('\\b' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi');
+      const matches = text.match(regex);
+      const count = matches ? matches.length : 0;
+      document.getElementById('findResult').textContent = count > 0 ? `${count} found` : 'Not found';
+      document.getElementById('findResult').style.color = count > 0 ? '#25d366' : '#dc2626';
+    }
 
-document.getElementById('findWord').addEventListener('keydown',e=>{ if(e.key==='Enter') findWord(); });
-document.getElementById('goalCustom').addEventListener('input',()=>{ const text=document.getElementById('mainText').value; const wc=text.trim()===''?0:text.trim().split(/\s+/).filter(w=>w.length>0).length; updateGoal(wc); });
-document.getElementById('mainText').addEventListener('focus',e=>e.target.style.borderColor='var(--sky)');
-document.getElementById('mainText').addEventListener('blur',e=>e.target.style.borderColor='var(--border)');
-document.getElementById('thToggle').addEventListener('click',()=>{ document.getElementById('thNav').classList.toggle('th-nav-open'); document.getElementById('thToggle').classList.toggle('th-toggle-open'); });
-</script>
+    // Event listeners (preserved)
+    document.getElementById('findWord').addEventListener('keydown', e => { if (e.key === 'Enter') findWord(); });
+    document.getElementById('goalCustom').addEventListener('input', () => {
+      const text = document.getElementById('mainText').value;
+      const wc = text.trim() === '' ? 0 : text.trim().split(/\s+/).filter(w => w.length > 0).length;
+      updateGoal(wc);
+    });
+    document.getElementById('mainText').addEventListener('focus', e => e.target.style.borderColor = '#0ea5e9');
+    document.getElementById('mainText').addEventListener('blur', e => e.target.style.borderColor = 'rgba(0,0,0,0.09)');
+    document.getElementById('thToggle').addEventListener('click', () => {
+      document.getElementById('thNav').classList.toggle('th-nav-open');
+      document.getElementById('thToggle').classList.toggle('th-toggle-open');
+    });
+
+    // Header shadow on scroll
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('.tools-header');
+      if (window.scrollY > 10) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Initial analysis
+    window.addEventListener('load', () => {
+      analyseText();
+      // set up goal preset listeners
+      document.getElementById('goalPreset').addEventListener('change', setGoalPreset);
+    });
+  </script>
 </body>
 </html>
