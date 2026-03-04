@@ -4,309 +4,624 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Countdown Timer | BLESSTech-X Free Tools</title>
-  <meta name="description" content="Count down to any date. Exams, events, project deadlines, end of year. See days, hours, minutes and seconds. Free countdown timer for Zambia."/>
+  <meta name="description" content="Free countdown timer to any date or event. Custom title, sounds, confetti, WhatsApp share. Count down to exams, birthdays, weddings and more."/>
   <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <link rel="stylesheet" href="../style.css"/>
   <style>
-    .countdown-hero{background:linear-gradient(135deg,#0f172a,#1e293b);border-radius:var(--radius-lg);padding:48px 32px;text-align:center;margin-bottom:28px;position:relative;overflow:hidden}
-    .countdown-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(14,165,233,.12),transparent 70%)}
-    .countdown-title{font-size:1.4rem;font-weight:700;color:white;margin-bottom:6px;position:relative}
-    .countdown-subtitle{font-size:.85rem;color:rgba(255,255,255,.5);margin-bottom:28px;position:relative}
-    .countdown-units{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative}
-    .cd-unit{text-align:center;min-width:90px}
-    .cd-value{font-size:clamp(2.5rem,6vw,4rem);font-weight:900;color:var(--sky);line-height:1;display:block;font-variant-numeric:tabular-nums}
-    .cd-label{font-size:.75rem;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-top:4px;display:block}
-    .cd-sep{font-size:3rem;font-weight:900;color:rgba(255,255,255,.2);align-self:flex-start;padding-top:8px}
-    .cd-finished{font-size:2rem;color:#10b981;font-weight:800}
-    .event-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:20px}
-    .event-card{border:1.5px solid var(--border);border-radius:var(--radius);padding:14px;cursor:pointer;transition:var(--transition);background:white}
-    .event-card:hover{border-color:var(--sky);background:var(--sky-light)}
-    .event-card.active{border-color:var(--sky);background:var(--sky);color:white}
-    .event-card .ec-icon{font-size:1.4rem;margin-bottom:4px}
-    .event-card .ec-name{font-size:.88rem;font-weight:700;margin-bottom:2px}
-    .event-card .ec-date{font-size:.75rem;opacity:.7}
+    body{background:#0f172a}
+    .cd-page{min-height:calc(100vh - 70px);display:flex;flex-direction:column;align-items:center;padding:24px 16px 48px;gap:20px}
+
+    /* COUNTDOWN DISPLAY */
+    .cd-card{width:100%;max-width:540px;border-radius:24px;overflow:hidden;position:relative}
+    .cd-bg{padding:36px 24px 28px;text-align:center;position:relative;background:linear-gradient(135deg,#1e1b4b,#312e81)}
+    .cd-event-name{font-size:1.3rem;font-weight:900;color:white;margin-bottom:4px;line-height:1.3}
+    .cd-event-date{font-size:.78rem;color:#a5b4fc;margin-bottom:24px}
+    .cd-units{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+    .cd-unit{background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border-radius:16px;padding:14px 8px;text-align:center;border:1px solid rgba(255,255,255,.15)}
+    .cd-num{font-size:2.2rem;font-weight:900;color:white;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-1px}
+    @media(min-width:400px){.cd-num{font-size:2.8rem}}
+    @media(min-width:540px){.cd-num{font-size:3.2rem}}
+    .cd-unit-label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.5);margin-top:4px}
+    .cd-progress-bar{height:4px;background:rgba(255,255,255,.15);border-radius:2px;overflow:hidden;margin-bottom:16px}
+    .cd-progress-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#818cf8,#a78bfa);transition:width .5s ease}
+    .cd-status{font-size:.82rem;color:rgba(255,255,255,.6);font-style:italic}
+    .cd-actions{display:flex;gap:8px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+
+    /* PASSED STATE */
+    .cd-bg.passed{background:linear-gradient(135deg,#064e3b,#065f46)}
+    .cd-bg.passed .cd-num{color:#34d399}
+    .cd-bg.today{background:linear-gradient(135deg,#92400e,#b45309)}
+    .cd-bg.today .cd-num{color:#fbbf24}
+
+    /* CONFETTI */
+    .confetti-piece{position:fixed;top:-20px;width:10px;height:10px;border-radius:2px;animation:fall linear forwards;pointer-events:none;z-index:9999}
+    @keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
+
+    /* SETTINGS */
+    .cd-settings{width:100%;max-width:540px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:20px;backdrop-filter:blur(10px)}
+    .cd-settings-title{color:#94a3b8;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:6px}
+    .cd-field{margin-bottom:14px}
+    .cd-field label{display:block;color:#cbd5e1;font-size:.82rem;font-weight:600;margin-bottom:6px}
+    .cd-input{width:100%;padding:11px 14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:10px;color:white;font-size:.9rem;outline:none;transition:border .15s}
+    .cd-input:focus{border-color:#818cf8}
+    .cd-input::placeholder{color:#475569}
+    .cd-input option{background:#1e293b;color:white}
+
+    .cd-presets{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:14px}
+    .preset-btn{padding:10px 12px;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:10px;color:#94a3b8;font-size:.78rem;font-weight:600;cursor:pointer;text-align:center;transition:all .15s;display:flex;align-items:center;gap:8px}
+    .preset-btn:hover{background:rgba(129,140,248,.15);border-color:#818cf8;color:white}
+
+    /* THEME PICKER */
+    .theme-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+    .theme-opt{height:40px;border-radius:10px;cursor:pointer;border:2px solid transparent;transition:all .15s;position:relative}
+    .theme-opt.active{border-color:white;box-shadow:0 0 0 2px rgba(255,255,255,.3)}
+    .theme-opt:hover{transform:scale(1.08)}
+
+    /* SOUND GRID */
+    .sound-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+    .snd-opt{padding:8px;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:10px;color:#94a3b8;font-size:.72rem;font-weight:700;cursor:pointer;text-align:center;transition:all .15s}
+    .snd-opt:hover{background:rgba(255,255,255,.12);color:white}
+    .snd-opt.active{border-color:#818cf8;color:white;background:rgba(129,140,248,.15)}
+    .snd-opt .si{font-size:1rem;display:block;margin-bottom:2px}
+
+    /* MULTIPLE TIMERS */
+    .saved-timers{width:100%;max-width:540px}
+    .saved-title{color:#64748b;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
     .saved-list{display:flex;flex-direction:column;gap:8px}
-    .saved-item{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:white;border:1.5px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:var(--transition)}
-    .saved-item:hover{border-color:var(--sky);background:var(--sky-light)}
-    .saved-item .si-name{font-weight:700;font-size:.9rem;color:var(--slate)}
-    .saved-item .si-date{font-size:.78rem;color:var(--muted)}
-    .saved-item .si-cd{font-weight:800;color:var(--sky);font-size:.9rem}
-    .si-del{background:#fee2e2;border:none;width:28px;height:28px;border-radius:50%;cursor:pointer;color:var(--red);font-size:.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-    .si-del:hover{background:#dc2626;color:white}
+    .saved-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;transition:background .15s}
+    .saved-item:hover{background:rgba(255,255,255,.08)}
+    .saved-item .si-name{color:white;font-weight:700;font-size:.88rem}
+    .saved-item .si-date{color:#64748b;font-size:.75rem;margin-top:1px}
+    .saved-item .si-left{font-size:.78rem;font-weight:700;color:#818cf8}
+    .del-timer-btn{background:none;border:none;color:#475569;cursor:pointer;font-size:.85rem;padding:4px;transition:color .15s}
+    .del-timer-btn:hover{color:#ef4444}
+
+    .add-timer-btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:11px;background:rgba(255,255,255,.04);border:1.5px dashed rgba(255,255,255,.15);border-radius:12px;color:#64748b;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .15s;margin-top:8px}
+    .add-timer-btn:hover{border-color:#818cf8;color:#818cf8;background:rgba(129,140,248,.06)}
+
+    .toast{position:fixed;top:90px;left:50%;transform:translateX(-50%);padding:12px 24px;border-radius:50px;font-size:.88rem;font-weight:700;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;background:#1e293b;color:white}
+    .toast.show{opacity:1}
   </style>
 </head>
-<body class="tool-page">
-  <header class="tools-header">
-    <div class="th-inner">
-      <a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a>
-      <nav class="th-nav" id="thNav">
-        <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
-        <a href="../index.html"><i class="fas fa-tools"></i> All Tools</a>
-        <a href="../../index.html#services">Services</a>
-        <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-      </nav>
-      <button class="th-mobile-toggle" id="thToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
-    </div>
-  </header>
+<body>
 
-  <main class="tool-page-main">
-    <div class="th-container">
-      <div class="tool-breadcrumb">
-        <a href="../../index.html">Home</a><i class="fas fa-chevron-right"></i>
-        <a href="../index.html">Free Tools</a><i class="fas fa-chevron-right"></i>
-        <span>Countdown Timer</span>
+<header class="tools-header">
+  <div class="th-inner">
+    <a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a>
+    <nav class="th-nav" id="thNav">
+      <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
+      <a href="../index.html"><i class="fas fa-tools"></i> All Tools</a>
+      <a href="../../index.html#services">Services</a>
+      <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    </nav>
+    <button class="th-mobile-toggle" id="thToggle"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="cd-page">
+
+  <!-- MAIN COUNTDOWN DISPLAY -->
+  <div class="cd-card" id="cdCard">
+    <div class="cd-bg" id="cdBg">
+      <div class="cd-event-name" id="cdEventName">My Countdown</div>
+      <div class="cd-event-date" id="cdEventDate">Set your event below</div>
+      <div class="cd-units">
+        <div class="cd-unit"><div class="cd-num" id="cdDays">00</div><div class="cd-unit-label">Days</div></div>
+        <div class="cd-unit"><div class="cd-num" id="cdHours">00</div><div class="cd-unit-label">Hours</div></div>
+        <div class="cd-unit"><div class="cd-num" id="cdMins">00</div><div class="cd-unit-label">Minutes</div></div>
+        <div class="cd-unit"><div class="cd-num" id="cdSecs">00</div><div class="cd-unit-label">Seconds</div></div>
       </div>
-      <div class="tool-header">
-        <div class="tool-header-inner">
-          <div class="tool-header-icon" style="background:#fce7f3;color:#db2777">⏳</div>
-          <div>
-            <h1>Countdown Timer</h1>
-            <p>Count down to any date — exam day, event launch, project deadline, wedding, graduation, new year. See days, hours, minutes, and seconds in real time.</p>
-            <div class="tool-header-meta">
-              <span class="tool-meta-badge"><i class="fas fa-check-circle"></i> Free</span>
-              <span class="tool-meta-badge"><i class="fas fa-bolt"></i> Real-time</span>
-              <span class="tool-meta-badge"><i class="fas fa-save"></i> Save Multiple</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- MAIN COUNTDOWN DISPLAY -->
-      <div class="countdown-hero">
-        <div class="countdown-title" id="cdEventName">Set an event below to start counting down</div>
-        <div class="countdown-subtitle" id="cdEventDate">Choose from templates or enter a custom date</div>
-        <div class="countdown-units" id="cdUnits">
-          <div class="cd-unit"><span class="cd-value" id="cdDays">—</span><span class="cd-label">Days</span></div>
-          <div class="cd-sep">:</div>
-          <div class="cd-unit"><span class="cd-value" id="cdHours">—</span><span class="cd-label">Hours</span></div>
-          <div class="cd-sep">:</div>
-          <div class="cd-unit"><span class="cd-value" id="cdMins">—</span><span class="cd-label">Minutes</span></div>
-          <div class="cd-sep">:</div>
-          <div class="cd-unit"><span class="cd-value" id="cdSecs">—</span><span class="cd-label">Seconds</span></div>
-        </div>
-      </div>
-
-      <div style="display:grid;grid-template-columns:1fr 340px;gap:28px;align-items:start">
-        <!-- LEFT: SETUP -->
-        <div>
-          <!-- Quick Templates -->
-          <div class="tool-box" style="margin-bottom:20px">
-            <div class="tool-box-header"><h2><i class="fas fa-bolt" style="color:var(--amber)"></i> Quick Events</h2></div>
-            <div class="tool-box-body">
-              <div class="event-grid" id="templateGrid"></div>
-            </div>
-          </div>
-
-          <!-- Custom Event -->
-          <div class="tool-box">
-            <div class="tool-box-header"><h2><i class="fas fa-plus-circle" style="color:var(--sky)"></i> Custom Event</h2></div>
-            <div class="tool-box-body">
-              <div class="field"><label>Event Name</label><input type="text" id="customName" placeholder="My Exam / Wedding / Product Launch…"/></div>
-              <div class="field-row">
-                <div class="field"><label>Date</label><input type="date" id="customDate"/></div>
-                <div class="field"><label>Time (optional)</label><input type="time" id="customTime" value="00:00"/></div>
-              </div>
-              <div class="field">
-                <label>Event Icon (emoji)</label>
-                <input type="text" id="customIcon" placeholder="🎓 🚀 💍 🎂 ✈️" maxlength="2" style="width:80px;font-size:1.5rem;text-align:center;padding:8px"/>
-              </div>
-              <div style="display:flex;gap:10px;flex-wrap:wrap">
-                <button class="btn btn-primary" onclick="startCustom()"><i class="fas fa-play"></i> Start Countdown</button>
-                <button class="btn btn-secondary" onclick="saveEvent()"><i class="fas fa-save"></i> Save Event</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- RIGHT: SAVED -->
-        <div>
-          <div class="tool-box">
-            <div class="tool-box-header"><h2><i class="fas fa-bookmark" style="color:var(--sky)"></i> Saved Events</h2></div>
-            <div class="tool-box-body">
-              <div class="saved-list" id="savedList">
-                <div style="color:var(--muted);font-style:italic;font-size:.85rem;text-align:center;padding:20px">Save events to track multiple countdowns</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Progress -->
-          <div class="tool-box" style="margin-top:16px" id="progressBox" style="display:none">
-            <div class="tool-box-header"><h2><i class="fas fa-chart-bar" style="color:var(--sky)"></i> Progress</h2></div>
-            <div class="tool-box-body">
-              <div style="margin-bottom:12px">
-                <div style="display:flex;justify-content:space-between;font-size:.83rem;margin-bottom:6px">
-                  <span style="color:var(--muted)">Time elapsed</span>
-                  <span id="progressPct" style="font-weight:700;color:var(--sky)">—</span>
-                </div>
-                <div style="height:8px;background:var(--border);border-radius:4px;overflow:hidden">
-                  <div id="progressFill" style="height:100%;background:var(--sky);border-radius:4px;transition:width .5s ease;width:0%"></div>
-                </div>
-              </div>
-              <div id="progressStats" style="display:flex;flex-direction:column;gap:6px"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tool-service-cta" style="margin-top:36px">
-        <div><h4>Launching a product or event?</h4><p>BLESSTech-X builds event websites and landing pages with countdown timers built in from ZMW 650.</p></div>
-        <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I need an event website with a countdown." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Get Event Website</a>
-      </div>
-      <div class="related-tools" style="margin-top:32px;background:var(--bg-alt);border-radius:var(--radius-lg);padding:28px">
-        <h3>You Might Also Need</h3>
-        <div class="related-grid">
-          <a href="../pomodoro/index.html" class="related-card"><span>🍅</span> Pomodoro Timer</a>
-          <a href="../holidays/index.html" class="related-card"><span>🇿🇲</span> Zambia Holidays</a>
-          <a href="../qr-generator/index.html" class="related-card"><span>◼️</span> QR Generator</a>
-          <a href="../decision-maker/index.html" class="related-card"><span>🎯</span> Decision Maker</a>
-        </div>
+      <div class="cd-progress-bar"><div class="cd-progress-fill" id="cdProgressFill" style="width:0%"></div></div>
+      <div class="cd-status" id="cdStatus">Enter an event name and date to start</div>
+      <div class="cd-actions">
+        <button class="btn btn-sm" style="background:rgba(255,255,255,.15);color:white;border:none" onclick="shareWhatsApp()"><i class="fab fa-whatsapp"></i> Share</button>
+        <button class="btn btn-sm" style="background:rgba(255,255,255,.15);color:white;border:none" onclick="copyLink()"><i class="fas fa-copy"></i> Copy</button>
+        <button class="btn btn-sm" style="background:rgba(255,255,255,.15);color:white;border:none" onclick="saveCurrentTimer()"><i class="fas fa-bookmark"></i> Save</button>
       </div>
     </div>
-  </main>
+  </div>
 
-  <footer class="tools-footer">
-    <div class="th-container">
-      <div class="tf-inner">
-        <div class="tf-brand"><a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a><p>Free tools for every Zambian.</p></div>
-        <div class="tf-links"><h4>Free Tools</h4><a href="../index.html">All Tools</a><a href="../pomodoro/index.html">Pomodoro Timer</a><a href="../holidays/index.html">Zambia Holidays</a></div>
-        <div class="tf-links"><h4>BLESSTech-X</h4><a href="../../index.html">Main Website</a><a href="../../index.html#services">Services</a><a href="../../index.html#contact">Contact</a></div>
-        <div class="tf-contact"><h4>Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
-      </div>
-      <div class="tf-bottom"><p>&copy; 2026 BLESSTech-X · Free Countdown Timer · Built for Zambia 🇿🇲</p></div>
+  <!-- SETTINGS -->
+  <div class="cd-settings">
+    <div class="cd-settings-title"><i class="fas fa-cog"></i> Countdown Settings</div>
+
+    <!-- QUICK PRESETS -->
+    <div style="color:#94a3b8;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Quick Presets</div>
+    <div class="cd-presets">
+      <button class="preset-btn" onclick="loadPreset('exam')">📝 Next Exam</button>
+      <button class="preset-btn" onclick="loadPreset('birthday')">🎂 Birthday</button>
+      <button class="preset-btn" onclick="loadPreset('newyear')">🎆 New Year 2027</button>
+      <button class="preset-btn" onclick="loadPreset('weekend')">🎉 This Weekend</button>
+      <button class="preset-btn" onclick="loadPreset('christmas')">🎄 Christmas</button>
+      <button class="preset-btn" onclick="loadPreset('zambia')">🇿🇲 Zambia Day</button>
     </div>
-  </footer>
-  <a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+    <div class="cd-field">
+      <label>Event Name</label>
+      <input type="text" class="cd-input" id="inpName" placeholder="e.g. My Grade 12 Exams, Wedding Day, Birthday 🎂" oninput="updateCountdown()"/>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div class="cd-field">
+        <label>Target Date</label>
+        <input type="date" class="cd-input" id="inpDate" oninput="updateCountdown()"/>
+      </div>
+      <div class="cd-field">
+        <label>Target Time</label>
+        <input type="time" class="cd-input" id="inpTime" value="00:00" oninput="updateCountdown()"/>
+      </div>
+    </div>
+    <div class="cd-field">
+      <label>Message when it arrives 🎉</label>
+      <input type="text" class="cd-input" id="inpMessage" placeholder="It's here! 🎉" oninput="updateCountdown()"/>
+    </div>
+
+    <!-- THEME -->
+    <div class="cd-field">
+      <label>Colour Theme</label>
+      <div class="theme-grid" id="themeGrid">
+        <div class="theme-opt active" data-theme="indigo" style="background:linear-gradient(135deg,#1e1b4b,#312e81)" onclick="setTheme(this)"></div>
+        <div class="theme-opt" data-theme="ocean"  style="background:linear-gradient(135deg,#0c4a6e,#0284c7)" onclick="setTheme(this)"></div>
+        <div class="theme-opt" data-theme="forest" style="background:linear-gradient(135deg,#064e3b,#059669)" onclick="setTheme(this)"></div>
+        <div class="theme-opt" data-theme="sunset" style="background:linear-gradient(135deg,#7c2d12,#c2410c)" onclick="setTheme(this)"></div>
+        <div class="theme-opt" data-theme="rose"   style="background:linear-gradient(135deg,#881337,#be123c)" onclick="setTheme(this)"></div>
+        <div class="theme-opt" data-theme="gold"   style="background:linear-gradient(135deg,#92400e,#d97706)" onclick="setTheme(this)"></div>
+        <div class="theme-opt" data-theme="night"  style="background:linear-gradient(135deg,#0f172a,#1e293b)" onclick="setTheme(this)"></div>
+        <div class="theme-opt" data-theme="candy"  style="background:linear-gradient(135deg,#701a75,#a21caf)" onclick="setTheme(this)"></div>
+      </div>
+    </div>
+
+    <!-- SOUND ON COMPLETION -->
+    <div class="cd-field" style="margin-bottom:0">
+      <label>Sound when countdown ends</label>
+      <div class="sound-row" id="soundRow">
+        <div class="snd-opt active" data-snd="fanfare" onclick="selectSnd(this)"><span class="si">🎺</span>Fanfare</div>
+        <div class="snd-opt" data-snd="bell" onclick="selectSnd(this)"><span class="si">🔔</span>Bell</div>
+        <div class="snd-opt" data-snd="chime" onclick="selectSnd(this)"><span class="si">🎵</span>Chime</div>
+        <div class="snd-opt" data-snd="alarm" onclick="selectSnd(this)"><span class="si">⏰</span>Alarm</div>
+        <div class="snd-opt" data-snd="success" onclick="selectSnd(this)"><span class="si">✅</span>Success</div>
+        <div class="snd-opt" data-snd="none" onclick="selectSnd(this)"><span class="si">🔇</span>Silent</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:10px">
+        <span style="color:#64748b;font-size:.8rem">🔇</span>
+        <input type="range" id="cdVol" min="0" max="1" step="0.1" value="0.8" style="flex:1;accent-color:#818cf8;cursor:pointer"/>
+        <span style="color:#64748b;font-size:.8rem">🔊</span>
+        <button class="btn btn-sm" style="background:rgba(255,255,255,.08);color:#94a3b8;border:1px solid rgba(255,255,255,.1);font-size:.75rem;padding:6px 10px" onclick="testCdSound()"><i class="fas fa-play"></i> Test</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SAVED TIMERS -->
+  <div class="saved-timers">
+    <div class="saved-title">📌 Saved Countdowns</div>
+    <div class="saved-list" id="savedList"></div>
+    <button class="add-timer-btn" onclick="newTimer()"><i class="fas fa-plus"></i> Add New Countdown</button>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer class="tools-footer" style="background:#0f172a;border-top:1px solid rgba(255,255,255,.08)">
+  <div class="th-container">
+    <div class="tf-inner">
+      <div class="tf-brand"><a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a><p style="color:#475569">Free tools for every Zambian.</p></div>
+      <div class="tf-links"><h4 style="color:#64748b">Free Tools</h4><a href="../index.html" style="color:#475569">All Tools</a><a href="../pomodoro/index.html" style="color:#475569">Pomodoro Timer</a><a href="../study-timetable/index.html" style="color:#475569">Study Timetable</a></div>
+      <div class="tf-links"><h4 style="color:#64748b">BLESSTech-X</h4><a href="../../index.html" style="color:#475569">Main Website</a><a href="../../index.html#services" style="color:#475569">Services</a></div>
+      <div class="tf-contact"><h4 style="color:#64748b">Contact</h4><a href="tel:+260979603741" style="color:#475569"><i class="fas fa-phone"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank" style="color:#25d366"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
+    </div>
+    <div class="tf-bottom" style="border-color:rgba(255,255,255,.06)"><p style="color:#334155">&copy; 2026 BLESSTech-X · Free Countdown Timer · Built for Zambia 🇿🇲</p></div>
+  </div>
+</footer>
+<a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
 <script>
-let activeTarget=null;
-let activeStart=null;
-let activeEvent='';
-let cdInterval=null;
-let savedEvents=JSON.parse(localStorage.getItem('btx_cd_events')||'[]');
+var cdInterval   = null;
+var targetDate   = null;
+var startDate    = null;
+var currentTheme = 'indigo';
+var currentSnd   = 'fanfare';
+var hasReachedZero = false;
+var audioCtx     = null;
+var savedTimers  = JSON.parse(localStorage.getItem('blesstechx_countdowns') || '[]');
 
-const TEMPLATES=[
-  {icon:'🎓',name:'Grade 12 Exams',date:'2026-10-05'},
-  {icon:'🎄',name:'Christmas Day',date:'2026-12-25'},
-  {icon:'🎆',name:'New Year 2027',date:'2027-01-01'},
-  {icon:'🇿🇲',name:'Zambia Independence Day',date:'2026-10-24'},
-  {icon:'🚀',name:'My Project Launch',date:'2026-06-30'},
-  {icon:'📝',name:'UNZA Exams',date:'2026-11-15'},
-  {icon:'🌙',name:'Eid al-Fitr',date:'2027-03-20'},
-  {icon:'🎂',name:'Add Your Birthday',date:new Date(new Date().getFullYear()+1,new Date().getMonth(),new Date().getDate()).toISOString().split('T')[0]},
-];
+var THEMES = {
+  indigo:{ bg:'linear-gradient(135deg,#1e1b4b,#312e81)', acc:'#818cf8', prog:'linear-gradient(90deg,#818cf8,#a78bfa)' },
+  ocean: { bg:'linear-gradient(135deg,#0c4a6e,#0284c7)', acc:'#38bdf8', prog:'linear-gradient(90deg,#38bdf8,#7dd3fc)' },
+  forest:{ bg:'linear-gradient(135deg,#064e3b,#059669)', acc:'#34d399', prog:'linear-gradient(90deg,#34d399,#6ee7b7)' },
+  sunset:{ bg:'linear-gradient(135deg,#7c2d12,#c2410c)', acc:'#fb923c', prog:'linear-gradient(90deg,#fb923c,#fbbf24)' },
+  rose:  { bg:'linear-gradient(135deg,#881337,#be123c)', acc:'#fb7185', prog:'linear-gradient(90deg,#fb7185,#fda4af)' },
+  gold:  { bg:'linear-gradient(135deg,#92400e,#d97706)', acc:'#fbbf24', prog:'linear-gradient(90deg,#fbbf24,#fde68a)' },
+  night: { bg:'linear-gradient(135deg,#0f172a,#1e293b)', acc:'#94a3b8', prog:'linear-gradient(90deg,#94a3b8,#cbd5e1)' },
+  candy: { bg:'linear-gradient(135deg,#701a75,#a21caf)', acc:'#e879f9', prog:'linear-gradient(90deg,#e879f9,#f0abfc)' },
+};
 
-function renderTemplates(){
-  const grid=document.getElementById('templateGrid');
-  grid.innerHTML=TEMPLATES.map((t,i)=>`<div class="event-card" onclick="startTemplate(${i})"><div class="ec-icon">${t.icon}</div><div class="ec-name">${t.name}</div><div class="ec-date">${fmtDateShort(t.date)}</div></div>`).join('');
-}
+// ── INIT ──────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', function(){
+  // Set min date to today
+  var today = new Date();
+  today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
+  document.getElementById('inpDate').min = today.toISOString().slice(0,10);
 
-function fmtDateShort(d){ return new Date(d).toLocaleDateString('en-ZM',{day:'numeric',month:'short',year:'numeric'}); }
+  // Check URL params for shared countdown
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('name') && params.get('date')) {
+    document.getElementById('inpName').value = decodeURIComponent(params.get('name'));
+    document.getElementById('inpDate').value = params.get('date');
+    if (params.get('time')) document.getElementById('inpTime').value = params.get('time');
+    if (params.get('msg'))  document.getElementById('inpMessage').value = decodeURIComponent(params.get('msg'));
+    updateCountdown();
+  }
 
-function startTemplate(idx){
-  const t=TEMPLATES[idx];
-  document.querySelectorAll('.event-card').forEach((c,i)=>c.classList.toggle('active',i===idx));
-  startCountdown(t.name,t.icon,t.date,'00:00');
-}
+  renderSavedTimers();
+  cdInterval = setInterval(tick, 1000);
+});
 
-function startCustom(){
-  const name=document.getElementById('customName').value||'My Event';
-  const date=document.getElementById('customDate').value;
-  const time=document.getElementById('customTime').value||'00:00';
-  const icon=document.getElementById('customIcon').value||'⏳';
-  if(!date){ alert('Please select a date.'); return; }
-  document.querySelectorAll('.event-card').forEach(c=>c.classList.remove('active'));
-  startCountdown(name,icon,date,time);
-}
+// ── COUNTDOWN LOGIC ───────────────────────────────────────────
+function updateCountdown() {
+  var dateVal = document.getElementById('inpDate').value;
+  var timeVal = document.getElementById('inpTime').value || '00:00';
+  var nameVal = document.getElementById('inpName').value  || 'My Countdown';
 
-function saveEvent(){
-  const name=document.getElementById('customName').value||'My Event';
-  const date=document.getElementById('customDate').value;
-  const time=document.getElementById('customTime').value||'00:00';
-  const icon=document.getElementById('customIcon').value||'⏳';
-  if(!date){ alert('Please select a date first.'); return; }
-  savedEvents.push({name,icon,date,time,id:Date.now()});
-  localStorage.setItem('btx_cd_events',JSON.stringify(savedEvents));
-  renderSaved();
-  startCountdown(name,icon,date,time);
-}
+  document.getElementById('cdEventName').textContent = nameVal;
 
-function renderSaved(){
-  const list=document.getElementById('savedList');
-  if(savedEvents.length===0){ list.innerHTML='<div style="color:var(--muted);font-style:italic;font-size:.85rem;text-align:center;padding:20px">Save events to track multiple countdowns</div>'; return; }
-  list.innerHTML=savedEvents.map(e=>{
-    const diff=getTimeDiff(e.date,e.time);
-    const label=diff.total<=0?'Completed!':`${diff.days}d ${diff.hours}h ${diff.mins}m`;
-    return `<div class="saved-item" onclick="startCountdown('${e.name}','${e.icon}','${e.date}','${e.time}')">
-      <div><div class="si-name">${e.icon} ${e.name}</div><div class="si-date">${fmtDateShort(e.date)}</div></div>
-      <div style="display:flex;align-items:center;gap:8px"><span class="si-cd">${label}</span><button class="si-del" onclick="event.stopPropagation();deleteEvent(${e.id})">×</button></div>
-    </div>`;
-  }).join('');
-}
-
-function deleteEvent(id){
-  savedEvents=savedEvents.filter(e=>e.id!==id);
-  localStorage.setItem('btx_cd_events',JSON.stringify(savedEvents));
-  renderSaved();
-}
-
-function getTimeDiff(date,time){
-  const target=new Date(`${date}T${time||'00:00'}:00`);
-  const now=new Date();
-  const total=target-now;
-  if(total<=0) return {total:0,days:0,hours:0,mins:0,secs:0};
-  return { total, days:Math.floor(total/86400000), hours:Math.floor((total%86400000)/3600000), mins:Math.floor((total%3600000)/60000), secs:Math.floor((total%60000)/1000) };
-}
-
-function startCountdown(name,icon,date,time){
-  activeTarget=new Date(`${date}T${time||'00:00'}:00`);
-  activeStart=new Date();
-  activeEvent=`${icon} ${name}`;
-  document.getElementById('cdEventName').textContent=`${icon} ${name}`;
-  document.getElementById('cdEventDate').textContent=`Target: ${activeTarget.toLocaleDateString('en-ZM',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}${time&&time!=='00:00'?' at '+fmtTime(time):''}`;
-  if(cdInterval) clearInterval(cdInterval);
-  cdInterval=setInterval(updateCountdown,1000);
-  updateCountdown();
-  document.getElementById('progressBox').style.display='block';
-}
-
-function fmtTime(v){ const[h,m]=v.split(':'); const H=parseInt(h); return `${H>12?H-12:H||12}:${m} ${H>=12?'PM':'AM'}`; }
-
-function updateCountdown(){
-  if(!activeTarget) return;
-  const diff=getTimeDiff(activeTarget.toISOString().split('T')[0],activeTarget.toTimeString().slice(0,5));
-  if(diff.total<=0){
-    document.getElementById('cdDays').textContent='00';
-    document.getElementById('cdHours').textContent='00';
-    document.getElementById('cdMins').textContent='00';
-    document.getElementById('cdSecs').textContent='00';
-    document.getElementById('cdEventDate').textContent=`🎉 ${activeEvent} has arrived!`;
-    clearInterval(cdInterval);
+  if (!dateVal) {
+    document.getElementById('cdStatus').textContent = 'Enter a date to start counting down';
+    ['cdDays','cdHours','cdMins','cdSecs'].forEach(function(id){ document.getElementById(id).textContent = '00'; });
+    document.getElementById('cdProgressFill').style.width = '0%';
     return;
   }
-  document.getElementById('cdDays').textContent=String(diff.days).padStart(2,'0');
-  document.getElementById('cdHours').textContent=String(diff.hours).padStart(2,'0');
-  document.getElementById('cdMins').textContent=String(diff.mins).padStart(2,'0');
-  document.getElementById('cdSecs').textContent=String(diff.secs).padStart(2,'0');
 
-  // Progress
-  const totalDuration=activeTarget-activeStart;
-  const elapsed=new Date()-activeStart;
-  const pct=totalDuration>0?Math.max(0,Math.min((elapsed/totalDuration)*100,100)).toFixed(1):0;
-  document.getElementById('progressFill').style.width=pct+'%';
-  document.getElementById('progressPct').textContent=pct+'% of time elapsed';
-  const totalDays=Math.ceil(totalDuration/86400000);
-  const elapsedDays=Math.floor(elapsed/86400000);
-  document.getElementById('progressStats').innerHTML=`
-    <div style="font-size:.82rem;color:var(--slate-l)">Total duration: <strong>${totalDays} days</strong></div>
-    <div style="font-size:.82rem;color:var(--slate-l)">Days elapsed: <strong>${elapsedDays} days</strong></div>
-    <div style="font-size:.82rem;color:var(--slate-l)">Days remaining: <strong>${diff.days} days</strong></div>
-    <div style="font-size:.82rem;color:var(--slate-l)">Total remaining: <strong>${diff.total>0?Math.floor(diff.total/1000).toLocaleString()+' seconds':'Done!'}</strong></div>
-  `;
+  targetDate = new Date(dateVal + 'T' + timeVal);
+  startDate  = startDate || new Date();
+  hasReachedZero = false;
+
+  var opts = { weekday:'long', year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit' };
+  document.getElementById('cdEventDate').textContent = targetDate.toLocaleDateString('en-GB', opts);
+  tick();
 }
 
-renderTemplates(); renderSaved();
-document.getElementById('thToggle').addEventListener('click',()=>{ document.getElementById('thNav').classList.toggle('th-nav-open'); document.getElementById('thToggle').classList.toggle('th-toggle-open'); });
+function tick() {
+  if (!targetDate) return;
+  var now   = new Date();
+  var diff  = targetDate - now;
+
+  var cdBg = document.getElementById('cdBg');
+
+  if (diff <= 0) {
+    ['cdDays','cdHours','cdMins','cdSecs'].forEach(function(id){ document.getElementById(id).textContent = '00'; });
+    document.getElementById('cdProgressFill').style.width = '100%';
+
+    // Check if today
+    var today = new Date();
+    var isToday = targetDate.toDateString() === today.toDateString();
+
+    if (isToday && diff > -86400000) {
+      cdBg.className = 'cd-bg today';
+      document.getElementById('cdStatus').textContent = '🎉 ' + (document.getElementById('inpMessage').value || "It's here! 🎉");
+    } else {
+      cdBg.className = 'cd-bg passed';
+      var daysAgo = Math.floor(Math.abs(diff) / 86400000);
+      document.getElementById('cdStatus').textContent = '✅ This was ' + daysAgo + ' day' + (daysAgo !== 1 ? 's' : '') + ' ago.';
+    }
+
+    if (!hasReachedZero) {
+      hasReachedZero = true;
+      playCdSound(currentSnd);
+      launchConfetti();
+    }
+    return;
+  }
+
+  cdBg.className = 'cd-bg';
+
+  var days  = Math.floor(diff / 86400000);
+  var hours = Math.floor((diff % 86400000) / 3600000);
+  var mins  = Math.floor((diff % 3600000)  / 60000);
+  var secs  = Math.floor((diff % 60000)    / 1000);
+
+  document.getElementById('cdDays').textContent  = pad(days);
+  document.getElementById('cdHours').textContent = pad(hours);
+  document.getElementById('cdMins').textContent  = pad(mins);
+  document.getElementById('cdSecs').textContent  = pad(secs);
+
+  // Progress bar (from startDate to targetDate)
+  if (startDate) {
+    var total   = targetDate - startDate;
+    var elapsed = now - startDate;
+    var pct     = total > 0 ? Math.min(100, Math.max(0, (elapsed / total) * 100)) : 0;
+    document.getElementById('cdProgressFill').style.width = pct + '%';
+  }
+
+  // Status text
+  var totalDays = days + (hours > 0 || mins > 0 || secs > 0 ? 1 : 0);
+  if (days === 0 && hours === 0) {
+    document.getElementById('cdStatus').textContent = '⏰ Less than an hour to go!';
+  } else if (days === 0) {
+    document.getElementById('cdStatus').textContent = '⏰ Just ' + hours + ' hour' + (hours !== 1 ? 's' : '') + ' to go!';
+  } else if (days === 1) {
+    document.getElementById('cdStatus').textContent = '🔥 Tomorrow! Get ready.';
+  } else if (days <= 7) {
+    document.getElementById('cdStatus').textContent = '📅 Less than a week away!';
+  } else {
+    document.getElementById('cdStatus').textContent = '🗓️ ' + days + ' days to go — you\'ve got this!';
+  }
+
+  document.title = pad(days) + 'd ' + pad(hours) + 'h · ' + (document.getElementById('inpName').value || 'Countdown') + ' · BLESSTech-X';
+}
+
+function pad(n) { return n < 10 ? '0' + n : String(n); }
+
+// ── THEME ─────────────────────────────────────────────────────
+function setTheme(el) {
+  document.querySelectorAll('.theme-opt').forEach(function(t){ t.classList.remove('active'); });
+  el.classList.add('active');
+  currentTheme = el.getAttribute('data-theme');
+  var t = THEMES[currentTheme];
+  document.getElementById('cdBg').style.background = t.bg;
+  document.getElementById('cdProgressFill').style.background = t.prog;
+}
+
+// ── PRESETS ───────────────────────────────────────────────────
+function loadPreset(type) {
+  var now   = new Date();
+  var year  = now.getFullYear();
+  var d, name, msg;
+  switch(type) {
+    case 'exam':
+      d = new Date(year, now.getMonth() + 2, 1);
+      name = '📝 My Exams'; msg = 'Time to show what you know! 💪'; break;
+    case 'birthday':
+      d = new Date(year + 1, now.getMonth(), now.getDate());
+      name = '🎂 My Birthday!'; msg = 'Happy Birthday! 🎉🎈'; break;
+    case 'newyear':
+      d = new Date(2027, 0, 1);
+      name = '🎆 New Year 2027'; msg = 'Happy New Year! 🥳'; break;
+    case 'weekend':
+      var dayOfWeek = now.getDay();
+      var daysToSat = (6 - dayOfWeek + 7) % 7 || 7;
+      d = new Date(now); d.setDate(d.getDate() + daysToSat); d.setHours(0,0,0,0);
+      name = '🎉 Weekend!'; msg = 'Weekend is finally here! 🙌'; break;
+    case 'christmas':
+      d = new Date(year, 11, 25);
+      if (d < now) d = new Date(year + 1, 11, 25);
+      name = '🎄 Christmas Day'; msg = 'Merry Christmas! 🎁🎅'; break;
+    case 'zambia':
+      d = new Date(year, 9, 24);
+      if (d < now) d = new Date(year + 1, 9, 24);
+      name = '🇿🇲 Zambia Independence Day'; msg = 'Happy Zambia Day! One Zambia, One Nation 🦅'; break;
+  }
+  startDate = now;
+  var yyyy = d.getFullYear(), mm = String(d.getMonth()+1).padStart(2,'0'), dd = String(d.getDate()).padStart(2,'0');
+  document.getElementById('inpDate').value    = yyyy + '-' + mm + '-' + dd;
+  document.getElementById('inpTime').value    = '00:00';
+  document.getElementById('inpName').value    = name;
+  document.getElementById('inpMessage').value = msg;
+  hasReachedZero = false;
+  updateCountdown();
+  showToast('✅ Preset loaded!');
+}
+
+// ── SOUND ─────────────────────────────────────────────────────
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+
+function selectSnd(el) {
+  document.querySelectorAll('.snd-opt').forEach(function(b){ b.classList.remove('active'); });
+  el.classList.add('active');
+  currentSnd = el.getAttribute('data-snd');
+}
+
+function testCdSound() { playCdSound(currentSnd); }
+
+function playCdSound(type) {
+  if (type === 'none') return;
+  var vol = parseFloat(document.getElementById('cdVol').value);
+  if (vol === 0) return;
+  try {
+    var ctx = getAudioCtx();
+    if (ctx.state === 'suspended') ctx.resume();
+    var gain = ctx.createGain();
+    gain.gain.setValueAtTime(vol, ctx.currentTime);
+    gain.connect(ctx.destination);
+    switch(type) {
+      case 'fanfare': playFanfare(ctx, gain); break;
+      case 'bell':    playBell(ctx, gain);    break;
+      case 'chime':   playChime(ctx, gain);   break;
+      case 'alarm':   playAlarm(ctx, gain);   break;
+      case 'success': playSuccess(ctx, gain); break;
+    }
+  } catch(e){}
+}
+
+function playFanfare(ctx, g) {
+  var notes = [523,659,784,1047,784,1047,1175,1047];
+  notes.forEach(function(f,i){
+    var o = ctx.createOscillator(), g2 = ctx.createGain();
+    o.connect(g2); g2.connect(g);
+    o.type = 'triangle'; o.frequency.setValueAtTime(f, ctx.currentTime + i*0.12);
+    g2.gain.setValueAtTime(0.5, ctx.currentTime + i*0.12);
+    g2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i*0.12 + 0.35);
+    o.start(ctx.currentTime + i*0.12); o.stop(ctx.currentTime + i*0.12 + 0.35);
+  });
+}
+function playBell(ctx, g) {
+  [0,0.35,0.7].forEach(function(t){
+    var o = ctx.createOscillator(), g2 = ctx.createGain();
+    o.connect(g2); g2.connect(g);
+    o.type = 'sine'; o.frequency.setValueAtTime(880, ctx.currentTime+t);
+    g2.gain.setValueAtTime(0.8, ctx.currentTime+t);
+    g2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+t+1.2);
+    o.start(ctx.currentTime+t); o.stop(ctx.currentTime+t+1.2);
+  });
+}
+function playChime(ctx, g) {
+  [523,659,784,1047].forEach(function(f,i){
+    var o = ctx.createOscillator(), g2 = ctx.createGain();
+    o.connect(g2); g2.connect(g);
+    o.type = 'sine'; o.frequency.setValueAtTime(f, ctx.currentTime+i*0.2);
+    g2.gain.setValueAtTime(0.6, ctx.currentTime+i*0.2);
+    g2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+i*0.2+1.0);
+    o.start(ctx.currentTime+i*0.2); o.stop(ctx.currentTime+i*0.2+1.0);
+  });
+}
+function playAlarm(ctx, g) {
+  for (var i = 0; i < 6; i++) {
+    (function(idx){
+      var o = ctx.createOscillator(), g2 = ctx.createGain();
+      o.connect(g2); g2.connect(g);
+      o.type = 'square'; o.frequency.setValueAtTime(idx%2===0?880:660, ctx.currentTime+idx*0.15);
+      g2.gain.setValueAtTime(0.3, ctx.currentTime+idx*0.15);
+      g2.gain.setValueAtTime(0.001, ctx.currentTime+idx*0.15+0.12);
+      o.start(ctx.currentTime+idx*0.15); o.stop(ctx.currentTime+idx*0.15+0.13);
+    })(i);
+  }
+}
+function playSuccess(ctx, g) {
+  [392,494,587,784].forEach(function(f,i){
+    var o = ctx.createOscillator(), g2 = ctx.createGain();
+    o.connect(g2); g2.connect(g);
+    o.type = 'triangle'; o.frequency.setValueAtTime(f, ctx.currentTime+i*0.14);
+    g2.gain.setValueAtTime(0.5, ctx.currentTime+i*0.14);
+    g2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+i*0.14+0.5);
+    o.start(ctx.currentTime+i*0.14); o.stop(ctx.currentTime+i*0.14+0.5);
+  });
+}
+
+// ── CONFETTI ──────────────────────────────────────────────────
+function launchConfetti() {
+  var colors = ['#f59e0b','#ef4444','#10b981','#6366f1','#ec4899','#38bdf8','#fbbf24','#a78bfa'];
+  for (var i = 0; i < 80; i++) {
+    (function(idx){
+      setTimeout(function(){
+        var el = document.createElement('div');
+        el.className = 'confetti-piece';
+        el.style.cssText = 'left:' + Math.random()*100 + 'vw;'
+          + 'background:' + colors[Math.floor(Math.random()*colors.length)] + ';'
+          + 'width:' + (6+Math.random()*8) + 'px;height:' + (6+Math.random()*8) + 'px;'
+          + 'animation-duration:' + (2+Math.random()*2) + 's;'
+          + 'animation-delay:' + Math.random()*0.5 + 's';
+        document.body.appendChild(el);
+        setTimeout(function(){ el.remove(); }, 4000);
+      }, idx * 20);
+    })(i);
+  }
+}
+
+// ── SAVE / LOAD TIMERS ────────────────────────────────────────
+function saveCurrentTimer() {
+  var name = document.getElementById('inpName').value;
+  var date = document.getElementById('inpDate').value;
+  var time = document.getElementById('inpTime').value;
+  var msg  = document.getElementById('inpMessage').value;
+  if (!name || !date) { showToast('⚠️ Enter a name and date first'); return; }
+  var id = Date.now();
+  savedTimers.push({ id: id, name: name, date: date, time: time, msg: msg, theme: currentTheme });
+  localStorage.setItem('blesstechx_countdowns', JSON.stringify(savedTimers));
+  renderSavedTimers();
+  showToast('📌 Saved!');
+}
+
+function renderSavedTimers() {
+  var list = document.getElementById('savedList');
+  if (!savedTimers.length) {
+    list.innerHTML = '<div style="color:#475569;font-size:.8rem;padding:8px">No saved countdowns yet. Create one above and hit Save.</div>';
+    return;
+  }
+  var html = '';
+  savedTimers.forEach(function(t) {
+    var d    = new Date(t.date + 'T' + (t.time||'00:00'));
+    var diff = d - new Date();
+    var leftText;
+    if (diff <= 0) { leftText = '✅ Passed'; }
+    else {
+      var days = Math.floor(diff/86400000);
+      leftText = days > 0 ? days + 'd left' : Math.floor(diff/3600000) + 'h left';
+    }
+    html += '<div class="saved-item" onclick="loadTimer(' + t.id + ')">'
+      + '<div><div class="si-name">' + esc(t.name) + '</div><div class="si-date">' + d.toLocaleDateString('en-GB', {day:'2-digit',month:'short',year:'numeric'}) + '</div></div>'
+      + '<div style="display:flex;align-items:center;gap:8px"><div class="si-left">' + leftText + '</div>'
+      + '<button class="del-timer-btn" onclick="event.stopPropagation();deleteTimer(' + t.id + ')"><i class="fas fa-trash-alt"></i></button></div>'
+      + '</div>';
+  });
+  list.innerHTML = html;
+}
+
+function loadTimer(id) {
+  var t = savedTimers.find(function(x){ return x.id === id; });
+  if (!t) return;
+  document.getElementById('inpName').value    = t.name;
+  document.getElementById('inpDate').value    = t.date;
+  document.getElementById('inpTime').value    = t.time || '00:00';
+  document.getElementById('inpMessage').value = t.msg || '';
+  if (t.theme) {
+    var themeEl = document.querySelector('[data-theme="' + t.theme + '"]');
+    if (themeEl) setTheme(themeEl);
+  }
+  startDate = null;
+  hasReachedZero = false;
+  updateCountdown();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function deleteTimer(id) {
+  savedTimers = savedTimers.filter(function(t){ return t.id !== id; });
+  localStorage.setItem('blesstechx_countdowns', JSON.stringify(savedTimers));
+  renderSavedTimers();
+}
+
+function newTimer() {
+  document.getElementById('inpName').value    = '';
+  document.getElementById('inpDate').value    = '';
+  document.getElementById('inpTime').value    = '00:00';
+  document.getElementById('inpMessage').value = '';
+  startDate = null; targetDate = null; hasReachedZero = false;
+  ['cdDays','cdHours','cdMins','cdSecs'].forEach(function(id){ document.getElementById(id).textContent = '00'; });
+  document.getElementById('cdEventName').textContent = 'My Countdown';
+  document.getElementById('cdEventDate').textContent = 'Set your event below';
+  document.getElementById('cdStatus').textContent    = 'Enter an event name and date to start';
+  document.getElementById('cdProgressFill').style.width = '0%';
+  document.getElementById('inpName').focus();
+  window.scrollTo({ top: document.getElementById('inpName').offsetTop - 100, behavior: 'smooth' });
+}
+
+// ── SHARE ─────────────────────────────────────────────────────
+function shareWhatsApp() {
+  var name = document.getElementById('inpName').value || 'My event';
+  var date = document.getElementById('inpDate').value;
+  if (!date) { showToast('⚠️ Set a date first'); return; }
+  var d    = new Date(date + 'T' + (document.getElementById('inpTime').value || '00:00'));
+  var diff = d - new Date();
+  var days = diff > 0 ? Math.floor(diff/86400000) : 0;
+  var msg  = '⏳ *' + name + '* countdown!\n📅 Date: ' + d.toLocaleDateString('en-GB', {weekday:'long',year:'numeric',month:'long',day:'numeric'}) + '\n⏰ ' + (diff > 0 ? days + ' day' + (days!==1?'s':'') + ' to go!' : 'It\'s here!') + '\n\nGenerated by BLESSTech-X Free Tools · blesstechx.com';
+  window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
+}
+
+function copyLink() {
+  var name = document.getElementById('inpName').value;
+  var date = document.getElementById('inpDate').value;
+  var time = document.getElementById('inpTime').value;
+  var msg  = document.getElementById('inpMessage').value;
+  var url  = window.location.origin + window.location.pathname + '?name=' + encodeURIComponent(name) + '&date=' + date + '&time=' + time + '&msg=' + encodeURIComponent(msg);
+  navigator.clipboard.writeText(url).then(function(){ showToast('🔗 Link copied! Share it with anyone.'); });
+}
+
+// ── TOAST ─────────────────────────────────────────────────────
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); }, 3000);
+}
+
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+document.getElementById('thToggle').addEventListener('click', function(){
+  document.getElementById('thNav').classList.toggle('th-nav-open');
+  document.getElementById('thToggle').classList.toggle('th-toggle-open');
+});
 </script>
 </body>
 </html>
