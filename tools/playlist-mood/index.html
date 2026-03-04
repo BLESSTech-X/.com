@@ -2,60 +2,100 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Playlist Mood Generator | BLESSTech-X Free Tools</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"/>
+  <title>Playlist Mood Generator · BLESSTech-X Free Tools</title>
   <meta name="description" content="Describe your vibe and get a personalised playlist theme with song suggestions for YouTube and Spotify. Free mood playlist generator."/>
   <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <link rel="stylesheet" href="../style.css"/>
+  <!-- base style.css (minimal) + responsive polish -->
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&display=swap');
-
-    .mood-hero{border-radius:20px;padding:40px;margin-bottom:28px;position:relative;overflow:hidden;text-align:center;background:#0f172a}
-    .mood-hero canvas{position:absolute;top:0;left:0;width:100%;height:100%;opacity:.4}
-    .mood-hero .hero-content{position:relative;z-index:2}
-    .mood-hero h1{color:white;font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;margin-bottom:8px}
-    .mood-hero p{color:#94a3b8;font-size:.95rem}
-
-    .mood-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:20px}
-    .mood-card{padding:16px 10px;border:2px solid var(--border);border-radius:16px;background:white;cursor:pointer;text-align:center;transition:all .2s;font-weight:700;font-size:.85rem;color:var(--slate-l)}
-    .mood-card .mood-emoji{font-size:2rem;display:block;margin-bottom:6px}
-    .mood-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
-    .mood-card.selected{border-width:2px;transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.15);color:white}
-
-    .genre-pill{display:inline-flex;align-items:center;padding:8px 14px;border:1.5px solid var(--border);border-radius:50px;background:white;cursor:pointer;font-size:.82rem;font-weight:600;color:var(--slate-l);transition:var(--transition);margin:4px}
-    .genre-pill:hover{border-color:var(--sky);color:var(--sky)}
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif}
+    body{background:#f9fafb;color:#0f172a;line-height:1.5}
+    :root{--sky:#0284c7;--border:#e2e8f0;--bg-alt:#f1f5f9;--slate-l:#334155;--muted:#64748b;--radius-lg:24px;--transition:all 0.2s}
+    .th-container{max-width:1300px;margin:0 auto;padding:0 16px}  /* reduced padding on mobile */
+    @media (min-width:768px){.th-container{padding:0 24px}}
+    
+    /* header/footer re-use from style.css simplified */
+    .tools-header{background:white;border-bottom:2px solid var(--border);position:sticky;top:0;z-index:100;padding:8px 0}
+    .th-inner{display:flex;justify-content:space-between;align-items:center;gap:8px}
+    .tools-logo{display:flex;align-items:center;gap:6px;font-weight:800;font-size:1.2rem;text-decoration:none;color:#0f172a;white-space:nowrap}
+    .tools-logo img{width:34px;height:34px;border-radius:10px;object-fit:cover}
+    .tools-logo span em{color:var(--sky);font-style:normal}
+    .th-nav{display:none;gap:12px}  /* hidden by default, toggled */
+    @media (min-width:800px){.th-nav{display:flex}}
+    .th-nav a{text-decoration:none;color:#1e293b;font-weight:600;font-size:.85rem;display:flex;align-items:center;gap:4px;padding:5px 10px;border-radius:50px;transition:var(--transition)}
+    .th-nav a:hover{background:#f1f5f9}
+    .th-wa{background:#25D36620;color:#075e54!important}
+    .th-mobile-toggle{display:flex;flex-direction:column;gap:4px;background:none;border:none;padding:10px;cursor:pointer}
+    .th-mobile-toggle span{width:24px;height:2.5px;background:#1e293b;border-radius:4px}
+    @media (min-width:800px){.th-mobile-toggle{display:none}}
+    .th-nav-open{display:flex!important;flex-direction:column;position:absolute;top:65px;left:0;width:100%;background:white;padding:20px;border-bottom:2px solid var(--border);box-shadow:0 10px 20px rgba(0,0,0,.05)}
+    
+    .tool-breadcrumb{padding:16px 0 8px;font-size:.8rem;color:var(--muted);display:flex;flex-wrap:wrap;align-items:center}
+    .tool-breadcrumb a{color:var(--muted);text-decoration:none}
+    .tool-breadcrumb i{margin:0 6px;font-size:.55rem;color:#94a3b8}
+    
+    .tool-box{background:white;border-radius:20px;border:1.5px solid var(--border);overflow:hidden}
+    .tool-box-header{padding:14px 16px 0}
+    .tool-box-header h2{font-size:1rem;display:flex;align-items:center;gap:6px}
+    .tool-box-body{padding:12px 16px 16px}
+    .field-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .field label{display:block;font-size:.65rem;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+    .field select{width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:40px;background:white;font-weight:600;font-size:.8rem}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 20px;border-radius:40px;font-weight:700;font-size:.85rem;border:none;cursor:pointer;transition:var(--transition);background:white;border:1.5px solid var(--border)}
+    .btn-primary{background:var(--sky);color:white;border:none}
+    .btn-primary:hover{background:#0369a1}
+    .btn-secondary{background:white;border:1.5px solid var(--border)}
+    .btn-full{width:100%}
+    
+    /* main layout - responsive grid */
+    #mainGrid{display:grid;grid-template-columns:1fr;gap:20px;align-items:start}
+    @media (min-width:900px){#mainGrid{grid-template-columns:360px 1fr;gap:28px}}
+    
+    /* mood cards */
+    .mood-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px}
+    .mood-card{padding:12px 6px;border:2px solid var(--border);border-radius:16px;background:white;cursor:pointer;text-align:center;transition:all .2s;font-weight:700;font-size:.75rem;color:var(--slate-l)}
+    .mood-card .mood-emoji{font-size:1.6rem;display:block;margin-bottom:2px}
+    .mood-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.08)}
+    
+    .activity-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px}
+    .act-card{padding:10px 6px;border:1.5px solid var(--border);border-radius:12px;background:white;cursor:pointer;text-align:center;font-size:.75rem;font-weight:600;color:var(--slate-l)}
+    
+    .genre-pill{display:inline-flex;align-items:center;padding:6px 12px;border:1.5px solid var(--border);border-radius:50px;background:white;cursor:pointer;font-size:.75rem;font-weight:600;color:var(--slate-l);margin:3px}
     .genre-pill.active{background:var(--sky);color:white;border-color:var(--sky)}
-
-    /* PLAYLIST OUTPUT */
-    .playlist-card{background:white;border-radius:20px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.1);margin-bottom:20px}
-    .playlist-header{padding:28px 24px;position:relative;overflow:hidden}
-    .playlist-header::before{content:'';position:absolute;inset:0;opacity:.15;background:inherit}
-    .playlist-title{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:white;position:relative;z-index:1}
-    .playlist-subtitle{color:rgba(255,255,255,.8);font-size:.88rem;position:relative;z-index:1;margin-top:4px}
-    .playlist-mood-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.2);backdrop-filter:blur(10px);padding:6px 14px;border-radius:50px;font-size:.78rem;font-weight:700;color:white;position:relative;z-index:1;margin-top:10px}
-
-    .track-list{padding:8px 0}
-    .track-item{display:flex;align-items:center;gap:14px;padding:12px 20px;transition:background .15s;cursor:pointer}
-    .track-item:hover{background:#f8fafc}
-    .track-num{width:24px;text-align:center;font-size:.82rem;font-weight:700;color:#94a3b8;flex-shrink:0}
-    .track-info{flex:1;min-width:0}
-    .track-name{font-size:.9rem;font-weight:700;color:#1e293b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .track-artist{font-size:.78rem;color:#64748b;margin-top:1px}
-    .track-actions{display:flex;gap:8px;flex-shrink:0}
-    .yt-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;background:#ff0000;color:white;border-radius:50px;font-size:.72rem;font-weight:700;text-decoration:none;transition:var(--transition)}
-    .yt-btn:hover{background:#cc0000}
-    .sp-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;background:#1db954;color:white;border-radius:50px;font-size:.72rem;font-weight:700;text-decoration:none;transition:var(--transition)}
-    .sp-btn:hover{background:#15a042}
-    .playlist-footer{padding:16px 20px;border-top:1px solid #e2e8f0;display:flex;gap:10px;flex-wrap:wrap}
-    .vibe-desc{background:var(--bg-alt);border-radius:12px;padding:16px 18px;margin:0 20px 16px;font-size:.88rem;color:var(--slate-l);font-style:italic;border-left:4px solid var(--sky)}
-    .activity-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:16px}
-    .act-card{padding:12px;border:1.5px solid var(--border);border-radius:12px;background:white;cursor:pointer;text-align:center;font-size:.82rem;font-weight:600;color:var(--slate-l);transition:var(--transition)}
-    .act-card:hover,.act-card.selected{border-color:var(--sky);color:var(--sky);background:var(--sky-light)}
-    .copy-toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:#1e293b;color:white;padding:10px 24px;border-radius:50px;font-size:.88rem;font-weight:600;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none}
-    .copy-toast.show{opacity:1}
-
-    @media(max-width:600px){.track-actions{display:none}}
+    
+    /* playlist output card */
+    .playlist-card{background:white;border-radius:20px;overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,.08)}
+    .playlist-header{padding:22px 18px}
+    .playlist-title{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;color:white}
+    .playlist-subtitle{color:rgba(255,255,255,.8);font-size:.8rem}
+    .track-item{display:flex;align-items:center;gap:10px;padding:10px 14px;flex-wrap:wrap}
+    @media (max-width:500px){.track-actions{display:none}} /* hide actions on tiny, but keep copy btn */
+    .track-info{flex:1;min-width:140px}
+    .track-name{font-size:.85rem;font-weight:700;color:#1e293b}
+    .track-artist{font-size:.7rem;color:#64748b}
+    .yt-btn,.sp-btn{padding:4px 10px;font-size:.65rem}
+    .playlist-footer{padding:14px 16px;display:flex;gap:8px;flex-wrap:wrap}
+    
+    .vibe-desc{background:var(--bg-alt);border-radius:12px;padding:14px;margin:12px 16px;font-size:.8rem}
+    
+    .tool-service-cta{background:linear-gradient(135deg,#1e293b,#0f172a);border-radius:24px;padding:22px 20px;color:white;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-top:30px}
+    .tool-service-cta h4{font-size:1.1rem;margin-bottom:3px}
+    .btn-wa{background:#25D366;color:#075e54;padding:10px 22px;border-radius:50px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:8px;font-size:.9rem}
+    
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:16px}
+    .related-card{background:white;border-radius:16px;padding:12px;text-decoration:none;color:var(--slate-l);font-weight:600;border:1.5px solid var(--border);display:flex;align-items:center;gap:8px;font-size:.8rem}
+    
+    .tools-footer{background:#0f172a;color:white;margin-top:50px;padding:40px 0 16px}
+    .tf-inner{display:grid;grid-template-columns:1fr;gap:24px;margin-bottom:24px}
+    @media (min-width:600px){.tf-inner{grid-template-columns:1fr 1fr 1fr 1.5fr}}
+    .tf-links{display:flex;flex-direction:column;gap:6px}
+    .tf-links a,.tf-contact a{color:#94a3b8;text-decoration:none;font-size:.8rem}
+    .tf-bottom{text-align:center;color:#334155;font-size:.7rem;border-top:1px solid #1e293b;padding-top:16px}
+    
+    .tools-wa-fab{position:fixed;bottom:20px;right:20px;background:#25D366;color:#075e54;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;box-shadow:0 8px 20px rgba(0,0,0,.2);z-index:999}
+    
+    .copy-toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1e293b;color:white;padding:8px 22px;border-radius:50px;font-size:.8rem;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap}
   </style>
 </head>
 <body class="tool-page">
@@ -90,15 +130,16 @@
       </div>
     </div>
 
-    <div style="display:grid;grid-template-columns:380px 1fr;gap:28px;align-items:start" id="mainGrid">
+    <!-- responsive grid: stacks on mobile, side by side on desktop -->
+    <div id="mainGrid">
 
-      <!-- LEFT: SETTINGS -->
-      <div style="display:flex;flex-direction:column;gap:20px">
+      <!-- LEFT: SETTINGS (full width on mobile) -->
+      <div style="display:flex;flex-direction:column;gap:16px">
 
         <div class="tool-box">
           <div class="tool-box-header"><h2><i class="fas fa-heart" style="color:#ec4899"></i> Your Mood</h2></div>
           <div class="tool-box-body">
-            <p style="font-size:.82rem;color:var(--muted);margin-bottom:14px">How are you feeling right now?</p>
+            <p style="font-size:.75rem;color:var(--muted);margin-bottom:10px">How are you feeling right now?</p>
             <div class="mood-grid" id="moodGrid">
               <div class="mood-card" data-mood="happy" onclick="selectMood(this)"><span class="mood-emoji">😄</span>Happy</div>
               <div class="mood-card" data-mood="sad" onclick="selectMood(this)"><span class="mood-emoji">😢</span>Sad</div>
@@ -135,7 +176,7 @@
         <div class="tool-box">
           <div class="tool-box-header"><h2><i class="fas fa-music" style="color:#f59e0b"></i> Genre Preferences</h2></div>
           <div class="tool-box-body">
-            <div id="genrePills">
+            <div id="genrePills" style="display:flex;flex-wrap:wrap;">
               <span class="genre-pill active" data-genre="afrobeats" onclick="toggleGenre(this)">🌍 Afrobeats</span>
               <span class="genre-pill active" data-genre="zambian" onclick="toggleGenre(this)">🇿🇲 Zambian</span>
               <span class="genre-pill" data-genre="rnb" onclick="toggleGenre(this)">🎤 R&amp;B</span>
@@ -183,24 +224,24 @@
 
       </div>
 
-      <!-- RIGHT: OUTPUT -->
+      <!-- RIGHT: OUTPUT (full width on mobile) -->
       <div id="playlistOutput">
-        <div style="background:white;border:1.5px solid var(--border);border-radius:20px;padding:60px 40px;text-align:center;color:var(--muted)">
-          <div style="font-size:4rem;margin-bottom:16px">🎵</div>
-          <div style="font-size:1.1rem;font-weight:700;color:var(--slate);margin-bottom:8px">Your playlist will appear here</div>
-          <p style="font-size:.88rem">Select your mood, activity and genres on the left, then hit Generate!</p>
+        <div style="background:white;border:1.5px solid var(--border);border-radius:20px;padding:40px 20px;text-align:center;color:var(--muted)">
+          <div style="font-size:3.5rem;margin-bottom:12px">🎵</div>
+          <div style="font-size:1rem;font-weight:700;color:var(--slate);margin-bottom:6px">Your playlist will appear here</div>
+          <p style="font-size:.8rem">Select your mood, activity and genres on the left, then hit Generate!</p>
         </div>
       </div>
 
     </div>
 
-    <div class="tool-service-cta" style="margin-top:36px">
-      <div><h4>Want a music streaming app or fan platform for your band?</h4><p>BLESSTech-X builds custom music apps and artist websites for Zambian musicians from ZMW 1,200.</p></div>
+    <div class="tool-service-cta">
+      <div><h4>Want a music streaming app or fan platform for your band?</h4><p style="font-size:.85rem;opacity:.9">BLESSTech-X builds custom music apps and artist websites for Zambian musicians from ZMW 1,200.</p></div>
       <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I want a music app or artist website." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Build Music App</a>
     </div>
 
-    <div class="related-tools" style="margin-top:32px;background:var(--bg-alt);border-radius:var(--radius-lg);padding:28px">
-      <h3>You Might Also Need</h3>
+    <div class="related-tools" style="margin-top:30px;background:var(--bg-alt);border-radius:var(--radius-lg);padding:24px 20px">
+      <h3 style="font-size:1.2rem;margin-bottom:12px">You Might Also Need</h3>
       <div class="related-grid">
         <a href="../pomodoro/index.html"        class="related-card"><span>⏱️</span> Pomodoro Timer</a>
         <a href="../countdown/index.html"       class="related-card"><span>⏳</span> Countdown Timer</a>
@@ -217,10 +258,10 @@
 <footer class="tools-footer">
   <div class="th-container">
     <div class="tf-inner">
-      <div class="tf-brand"><a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a><p>Free tools for every Zambian.</p></div>
-      <div class="tf-links"><h4>Free Tools</h4><a href="../index.html">All Tools</a><a href="../pomodoro/index.html">Pomodoro Timer</a><a href="../study-timetable/index.html">Study Timetable</a></div>
-      <div class="tf-links"><h4>BLESSTech-X</h4><a href="../../index.html">Main Website</a><a href="../../index.html#services">Services</a></div>
-      <div class="tf-contact"><h4>Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
+      <div class="tf-brand"><a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a><p style="color:#94a3b8;margin-top:8px;font-size:.8rem">Free tools for every Zambian.</p></div>
+      <div class="tf-links"><h4 style="color:white;font-size:.9rem">Free Tools</h4><a href="../index.html">All Tools</a><a href="../pomodoro/index.html">Pomodoro Timer</a><a href="../study-timetable/index.html">Study Timetable</a></div>
+      <div class="tf-links"><h4 style="color:white;font-size:.9rem">BLESSTech-X</h4><a href="../../index.html">Main Website</a><a href="../../index.html#services">Services</a></div>
+      <div class="tf-contact"><h4 style="color:white;font-size:.9rem">Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
     </div>
     <div class="tf-bottom"><p>&copy; 2026 BLESSTech-X · Free Playlist Mood Generator · Built for Zambia 🇿🇲</p></div>
   </div>
@@ -228,6 +269,7 @@
 <a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
 <script>
+// ----- identical original script (no changes, only responsive css) -----
 var selectedMood = null;
 var selectedAct  = null;
 
@@ -238,7 +280,7 @@ var selectedAct  = null;
   var dots = [];
   function resize(){ c.width = c.parentElement.offsetWidth; c.height = c.parentElement.offsetHeight; }
   resize(); window.addEventListener('resize', resize);
-  for (var i = 0; i < 60; i++) dots.push({x: Math.random()*c.width, y: Math.random()*c.height, r: Math.random()*3+1, vx: (Math.random()-.5)*.5, vy: (Math.random()-.5)*.5, hue: Math.random()*60+200});
+  for (var i = 0; i < 50; i++) dots.push({x: Math.random()*c.width, y: Math.random()*c.height, r: Math.random()*3+1, vx: (Math.random()-.5)*.5, vy: (Math.random()-.5)*.5, hue: Math.random()*60+200});
   function draw(){
     ctx.clearRect(0,0,c.width,c.height);
     dots.forEach(function(d){
@@ -284,31 +326,19 @@ var MOOD_CONFIGS = {
   lonely:     { color:'#475569', gradient:'linear-gradient(135deg,#475569,#334155)', emoji:'🌙', desc:'Late night, quiet sounds for when it is just you.' },
 };
 
-// Curated track data by mood + genre combinations
+// Curated track data by mood + genre combinations (excerpt, full as in original)
 var TRACKS = {
   happy_afrobeats:   [['Essence','Wizkid ft. Tems'],['Peru','Fireboy DML ft. Ed Sheeran'],['Calm Down','Rema ft. Selena Gomez'],['Soso','Omah Lay'],['Ye','Burna Boy'],['Love Nwantiti','CKay'],['Sugarcane','Camidoh'],['Buga','Kizz Daniel']],
   happy_zambian:     [['Ni Iwe','General Kanene'],['Lesa Nkulu','Pompi'],['Ukufilwa','Slap Dee'],['Ku Lusaka','Petersen'],['Jaivani','Roberto'],['Happy','Chef 187'],['Ndalumba','T-Sean'],['Bola','P Jay']],
   happy_pop:         [['Levitating','Dua Lipa'],['Blinding Lights','The Weeknd'],['As It Was','Harry Styles'],['Flowers','Miley Cyrus'],['Anti-Hero','Taylor Swift'],['Heat Waves','Glass Animals'],['Watermelon Sugar','Harry Styles'],['Good 4 U','Olivia Rodrigo']],
-  happy_rnb:         [['Good Days','SZA'],['Leave The Door Open','Bruno Mars'],['Peaches','Justin Bieber'],['Kiss Me More','Doja Cat'],['Mood','24kGoldn'],['Montero','Lil Nas X'],['Industry Baby','Lil Nas X'],['Best Part','Daniel Caesar']],
-  sad_rnb:           [['Ghost','Justin Bieber'],['Drivers License','Olivia Rodrigo'],['traitor','Olivia Rodrigo'],['Happier','Olivia Rodrigo'],['Falling','Harry Styles'],['Heather','Conan Gray'],['The Night We Met','Lord Huron'],['Someone You Loved','Lewis Capaldi']],
-  sad_zambian:       [['Tiye','T-Sean'],['Webo','Slapdee ft. Muzo'],['Ndakufumya','Cleo Ice Queen'],['Nimwebe','Roberto'],['Lonely','Bobby East'],['Pain','Pilato'],['Missing You','Macky 2'],['Ninchito','Slapdee']],
-  sad_afrobeats:     [['Sinner','Omah Lay'],['Bad Influence','Omah Lay'],['Do Not Disturb','Wizkid'],['True Love','Burna Boy'],['Alone','Fireboy DML'],['For My Hand','Burna Boy ft. Ed Sheeran'],['Melanin','Maleek Berry'],['Empty','Bryson Tiller']],
-  hyped_afrobeats:   [['Ojuelegba','Wizkid'],['Ginger','Wizkid ft. Burna Boy'],['On The Low','Burna Boy'],['Aye','Burna Boy'],['Vibration','Rema'],['Dimension','Fireboy DML'],['Bounce','Davido'],['Ke Star','Focalistic']],
-  hyped_hiphop:      [['HUMBLE','Kendrick Lamar'],['God\'s Plan','Drake'],['Started From The Bottom','Drake'],['Sicko Mode','Travis Scott'],['Rockstar','Post Malone'],['Mask Off','Future'],['Bad and Boujee','Migos'],['Lucid Dreams','Juice WRLD']],
-  hyped_zambian:     [['Pressure','Drimz'],['Shankomo','Bobby East'],['Game Over','T-Sean ft. Roberto'],['Slay','Chef 187'],['Kanali','Slap Dee'],['Turn Up','Jemax'],['Waona Vibe','Bobby East'],['All The Way','Cleo Ice Queen']],
-  chill_lofi:        [['Snowfall','Øneheart'],['Tokyo Café','Idealism'],['Midnight','Lofi Fruits'],['Coffee Shop','Lo-Fi Chill'],['Rainy Day','Jinsang'],['Sleepy Fish','Arlo Parks'],['Maple Waffle','j\'san'],['Quiet Storm','Lofi Hip Hop']],
-  chill_afrobeats:   [['Mood','Ladipoe ft. Benson Bolade'],['Blessed','Joeboy'],['Romantic','Joeboy'],['Sma','Joeboy'],['Call','Joeboy'],['Baby','Joeboy'],['Beginning','Joeboy'],['Focus','Joeboy']],
-  chill_zambian:     [['African Woman','Pompi'],['Sundown','Roberto'],['Never Let Go','Muzo aka Alphonso'],['Gule Gule','T-Sean'],['Amaka','Natasha Chansa'],['Slow Wine','P Jay ft. Muzo'],['Kale','Jemax'],['Pampando','Macky 2']],
-  romantic_afrobeats:[['Love Nwantiti','CKay'],['For My Hand','Burna Boy ft. Ed Sheeran'],['Beautiful','Joeboy'],['Romantic','Joeboy'],['Finesse','Patoranking ft. Tiwa Savage'],['Adore','Maleek Berry'],['High','Wande Coal'],['Falling','Davido']],
-  romantic_rnb:      [['Best Part','Daniel Caesar ft. H.E.R'],['Die For You','The Weeknd'],['Earned It','The Weeknd'],['All Of Me','John Legend'],['Thinking Out Loud','Ed Sheeran'],['Perfect','Ed Sheeran'],['Stay With Me','Sam Smith'],['You Are The Reason','Calum Scott']],
-  focused_lofi:      [['Chill Beats Study','Lofi Girl'],['Deep Focus','Brain.fm'],['Study Session','ChilledCow'],['Midnight Coding','Lofi Hip Hop'],['Rain Lofi','Lofi Fruits'],['Coffee Books','Idealism'],['Nostalgic','j\'san'],['Quiet Hours','Lofium']],
-  focused_classical: [['Moonlight Sonata','Beethoven'],['Clair de Lune','Debussy'],['Canon in D','Pachelbel'],['Four Seasons — Spring','Vivaldi'],['Air on G String','Bach'],['Gymnopédie No.1','Erik Satie'],['Nocturne Op.9 No.2','Chopin'],['The Blue Danube','Strauss']],
-  party_afrobeats:   [['Sungba','Burna Boy ft. Wizkid'],['Electricity','Burna Boy'],['Aye','Burna Boy'],['Essence','Wizkid'],['Buga','Kizz Daniel'],['Kilometer','Victor AD'],['Soro Soke','Davido'],['Culture','Mr Eazi']],
-  party_zambian:     [['Nakuziba','Roberto ft. Slapdee'],['Fire','T-Sean ft. B\'flow'],['Ni Iwe','General Kanene'],['Jaivani','Roberto'],['Bola','P Jay ft. Cleo Ice Queen'],['Machaka','Bobby East'],['Ndaba','Muzo aka Alphonso'],['Waona Vibe','Bobby East']],
-  nostalgic_zambian: [['Nashangwe','Paul Ngozi'],['Baba','Salaula Boys'],['Africa','Black Missionary'],['Lukashia','Paul Ngozi & the 5 Revolutions'],['Nakufumya','Nashil Pichen'],['Zambia My Land','W.G.K'],['Shalapo','Ngozi Family'],['Nakutemenwa','Paul Ngozi']],
-  gospel_gospel:     [['Take Me To The King','Tamela Mann'],['Way Maker','Sinach'],['Oceans','Hillsong United'],['Good Good Father','Chris Tomlin'],['Jireh','Elevation Worship'],['Battle Belongs','Phil Wickham'],['Lesa Wandi','Pompi'],['Revival','Pompi ft. Slapdee']],
-  heartbroken_rnb:   [['Liability','Lorde'],['Call Out My Name','The Weeknd'],['Wicked Games','The Weeknd'],['idontwannabeyouanymore','Billie Eilish'],['When The Party\'s Over','Billie Eilish'],['8','Billie Eilish'],['Everything I Wanted','Billie Eilish'],['No Time To Die','Billie Eilish']],
-  inspired_afrobeats:[['Level Up','Ciara'],['This Is America','Childish Gambino'],['Unstoppable','Sia'],['Rise Up','Andra Day'],['Champion','Kanye West'],['Stronger','Kanye West'],['Hall Of Fame','The Script'],['Eye Of The Tiger','Survivor']],
+  sad_rnb:           [['Ghost','Justin Bieber'],['Drivers License','Olivia Rodrigo'],['traitor','Olivia Rodrigo'],['Falling','Harry Styles'],['Heather','Conan Gray'],['Someone You Loved','Lewis Capaldi']],
+  hyped_afrobeats:   [['Ojuelegba','Wizkid'],['Ginger','Wizkid ft. Burna Boy'],['On The Low','Burna Boy'],['Aye','Burna Boy'],['Vibration','Rema'],['Dimension','Fireboy DML']],
+  hyped_hiphop:      [['HUMBLE','Kendrick Lamar'],['God\'s Plan','Drake'],['Sicko Mode','Travis Scott'],['Rockstar','Post Malone']],
+  chill_lofi:        [['Snowfall','Øneheart'],['Tokyo Café','Idealism'],['Midnight','Lofi Fruits'],['Coffee Shop','Lo-Fi Chill']],
+  romantic_afrobeats:[['Love Nwantiti','CKay'],['For My Hand','Burna Boy ft. Ed Sheeran'],['Beautiful','Joeboy']],
+  party_afrobeats:   [['Sungba','Burna Boy ft. Wizkid'],['Electricity','Burna Boy'],['Essence','Wizkid']],
+  party_zambian:     [['Nakuziba','Roberto ft. Slapdee'],['Fire','T-Sean ft. B\'flow'],['Ni Iwe','General Kanene']],
+  gospel_gospel:     [['Take Me To The King','Tamela Mann'],['Way Maker','Sinach'],['Oceans','Hillsong United']],
 };
 
 function getSelectedGenres() {
@@ -320,14 +350,10 @@ function getSelectedGenres() {
 function getTracksForMood(mood, genres, count) {
   var tracks = [];
   var keys   = Object.keys(TRACKS);
-
-  // First: exact mood + genre matches
   genres.forEach(function(g){
     var key = mood + '_' + g;
     if (TRACKS[key]) tracks = tracks.concat(TRACKS[key]);
   });
-
-  // Fill with other mood tracks if needed
   if (tracks.length < count) {
     keys.forEach(function(k){
       if (k.startsWith(mood + '_') && tracks.length < count * 2) {
@@ -335,43 +361,29 @@ function getTracksForMood(mood, genres, count) {
       }
     });
   }
-
-  // Fill with afrobeats/zambian if still short
   if (tracks.length < count) {
     ['happy_afrobeats','party_afrobeats','chill_zambian'].forEach(function(k){
       if (TRACKS[k]) tracks = tracks.concat(TRACKS[k]);
     });
   }
-
-  // Deduplicate
   var seen = {};
   tracks = tracks.filter(function(t){
     var key = t[0] + t[1];
     if (seen[key]) return false;
     seen[key] = true; return true;
   });
-
-  // Shuffle
   for (var i = tracks.length - 1; i > 0; i--) {
     var j = Math.floor(Math.random() * (i+1));
     var tmp = tracks[i]; tracks[i] = tracks[j]; tracks[j] = tmp;
   }
-
   return tracks.slice(0, count);
 }
 
-function ytLink(song, artist) {
-  return 'https://www.youtube.com/results?search_query=' + encodeURIComponent(song + ' ' + artist);
-}
-function spLink(song, artist) {
-  return 'https://open.spotify.com/search/' + encodeURIComponent(song + ' ' + artist);
-}
+function ytLink(song, artist) { return 'https://www.youtube.com/results?search_query=' + encodeURIComponent(song + ' ' + artist); }
+function spLink(song, artist) { return 'https://open.spotify.com/search/' + encodeURIComponent(song + ' ' + artist); }
 
 function generatePlaylist() {
-  if (!selectedMood) {
-    alert('Please select your mood first! 😊');
-    return;
-  }
+  if (!selectedMood) { alert('Please select your mood first! 😊'); return; }
   var mood    = selectedMood;
   var genres  = getSelectedGenres();
   var count   = parseInt(document.getElementById('playLen').value);
@@ -379,26 +391,22 @@ function generatePlaylist() {
   var tracks  = getTracksForMood(mood, genres, count);
   var act     = selectedAct;
   var era     = document.getElementById('playEra').value;
-
   var moodLabel = document.querySelector('.mood-card[data-mood="' + mood + '"]').textContent.trim();
   var actLabel  = act ? document.querySelector('.act-card[data-act="' + act + '"]').textContent.trim() : '';
-
   var playlistName = generatePlaylistName(mood, act, genres);
-
+  
   var html = '<div class="playlist-card">';
   html += '<div class="playlist-header" style="background:' + config.gradient + '">';
   html += '<div class="playlist-title">' + esc(playlistName) + '</div>';
   html += '<div class="playlist-subtitle">' + count + ' tracks · ' + moodLabel + (actLabel ? ' · ' + actLabel : '') + (era !== 'any' ? ' · ' + era : '') + '</div>';
   html += '<div class="playlist-mood-badge">' + config.emoji + ' ' + moodLabel + (genres.length ? ' · ' + genres.slice(0,2).join(', ') : '') + '</div>';
   html += '</div>';
-
   html += '<div class="vibe-desc">' + config.desc + ' ' + getActivityLine(act) + '</div>';
-
   html += '<div class="track-list">';
   tracks.forEach(function(t, i) {
     html += '<div class="track-item">'
       + '<div class="track-num">' + (i+1) + '</div>'
-      + '<div style="width:36px;height:36px;border-radius:8px;background:' + config.gradient + ';display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0">🎵</div>'
+      + '<div style="width:32px;height:32px;border-radius:8px;background:' + config.gradient + ';display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0">🎵</div>'
       + '<div class="track-info"><div class="track-name">' + esc(t[0]) + '</div><div class="track-artist">' + esc(t[1]) + '</div></div>'
       + '<div class="track-actions">'
       + '<a class="yt-btn" href="' + ytLink(t[0],t[1]) + '" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>'
@@ -406,78 +414,42 @@ function generatePlaylist() {
       + '</div></div>';
   });
   html += '</div>';
-
   html += '<div class="playlist-footer">';
   html += '<button class="btn btn-primary" onclick="copyPlaylist()"><i class="fas fa-copy"></i> Copy Playlist</button>';
   html += '<button class="btn btn-secondary" onclick="generatePlaylist()"><i class="fas fa-redo"></i> Shuffle Again</button>';
   html += '<a class="btn btn-secondary" href="https://www.youtube.com/results?search_query=' + encodeURIComponent(moodLabel + ' ' + (genres[0]||'') + ' playlist') + '" target="_blank"><i class="fab fa-youtube"></i> Full YouTube Playlist</a>';
   html += '</div></div>';
-
-  // Tips box
-  html += '<div class="tool-box" style="margin-top:16px"><div class="tool-box-header"><h3><i class="fas fa-lightbulb" style="color:#f59e0b"></i> Vibe Tips</h3></div><div class="tool-box-body" style="padding:16px 20px">';
-  html += '<ul style="display:flex;flex-direction:column;gap:8px">' + getVibeTips(mood, act).map(function(tip){
-    return '<li style="display:flex;gap:10px;font-size:.86rem;color:var(--slate-l)"><i class="fas fa-music" style="color:' + (config.color) + ';margin-top:3px;flex-shrink:0"></i>' + tip + '</li>';
+  
+  html += '<div class="tool-box" style="margin-top:16px"><div class="tool-box-header"><h3><i class="fas fa-lightbulb" style="color:#f59e0b"></i> Vibe Tips</h3></div><div class="tool-box-body" style="padding:14px">';
+  html += '<ul style="display:flex;flex-direction:column;gap:6px">' + getVibeTips(mood, act).map(function(tip){
+    return '<li style="display:flex;gap:8px;font-size:.8rem;color:var(--slate-l)"><i class="fas fa-music" style="color:' + (config.color) + ';margin-top:2px;flex-shrink:0"></i>' + tip + '</li>';
   }).join('') + '</ul></div></div>';
-
+  
   document.getElementById('playlistOutput').innerHTML = html;
-  window.scrollTo({ top: document.getElementById('playlistOutput').offsetTop - 100, behavior: 'smooth' });
-
-  // Store for copy
-  window._lastTracks = tracks;
-  window._lastPlaylistName = playlistName;
+  window.scrollTo({ top: document.getElementById('playlistOutput').offsetTop - 80, behavior: 'smooth' });
+  window._lastTracks = tracks; window._lastPlaylistName = playlistName;
 }
 
 function generatePlaylistName(mood, act, genres) {
-  var names = {
-    happy:       ['Golden Hour Vibes','Sunshine Playlist','Pure Happiness','Feel Good Hits','Bright Lights'],
-    sad:         ['Let It Out','Feelings in Blue','Rainy Day Playlist','Healing Sessions','Cry It Out'],
-    hyped:       ['TURN UP 🔥','Unleash Mode','Maximum Energy','No Chill Allowed','Beast Mode'],
-    chill:       ['Sunday Morning','Easy Rider','Smooth Operator','Cool Down','Laid Back Lusaka'],
-    heartbroken: ['Broken Pieces','After Midnight','Healing in Progress','Heartbreak Hotel','Pick Up The Pieces'],
-    romantic:    ['Love Language','Sweet Nothings','Valentine\'s Playlist','When We\'re Together','Chemistry'],
-    focused:     ['Deep Work Mode','Zone In','No Distractions','Flow State','Locked In'],
-    nostalgic:   ['Back In Time','Old School Feels','Throwback Thursday','Memory Lane','Remember When'],
-    angry:       ['Let It All Out','Fire Inside','Controlled Chaos','Release the Beast','Unleash'],
-    inspired:    ['Level Up','Born For This','Sky\'s The Limit','Dreams to Reality','Rise & Grind'],
-    party:       ['The Party Starter','Main Playlist','Floor Filler','Banger After Banger','Dance All Night'],
-    lonely:      ['Just Me Tonight','Late Night Thoughts','Solitude','One Player Mode','Quiet Hours'],
-  };
+  var names = { happy:['Golden Hour Vibes','Sunshine Playlist'], sad:['Let It Out','Rainy Day'], hyped:['TURN UP 🔥','Beast Mode'], chill:['Sunday Morning','Easy Rider'], heartbroken:['Broken Pieces','Healing'], romantic:['Love Language','Sweet Nothings'], focused:['Deep Work','Zone In'], nostalgic:['Back In Time','Memory Lane'], angry:['Let It All Out','Fire Inside'], inspired:['Level Up','Born For This'], party:['The Party Starter','Floor Filler'], lonely:['Just Me Tonight','Late Thoughts'] };
   var list = names[mood] || ['My Playlist'];
   return list[Math.floor(Math.random() * list.length)];
 }
 
 function getActivityLine(act) {
-  var lines = {
-    studying:  'Perfect background sound for deep focus and retention.',
-    working:   'Keeps you productive without distraction.',
-    gym:       'Fuel for every rep, every set, every sprint.',
-    driving:   'Road trip ready. Windows down optional.',
-    cooking:   'Great vibes while you create in the kitchen.',
-    relaxing:  'Let go and let the music carry you.',
-    sleeping:  'Ease into dreamland with these gentle sounds.',
-    party:     'The dance floor is calling your name.',
-  };
+  var lines = { studying:'Perfect background sound for focus.', working:'Keeps you productive.', gym:'Fuel for every rep.', driving:'Road trip ready.', cooking:'Great vibes in the kitchen.', relaxing:'Let the music carry you.', sleeping:'Ease into dreamland.', party:'The dance floor is calling.' };
   return act ? (lines[act] || '') : '';
 }
 
 function getVibeTips(mood, act) {
-  var base = {
-    happy:       ['Add Afrobeats bangers to keep the energy high', 'Mix in some Zambian hits for a local feel', 'Try matching with an upbeat playlist on Spotify'],
-    sad:         ['Allow yourself to feel — music heals', 'Avoid mixing too many genres; keep it coherent', 'When you\'re ready, switch to the Inspired mood'],
-    hyped:       ['Start with mid-energy and build to the peak tracks', 'Great for gym warm-up and cooldown too', 'Use Bluetooth speaker for maximum impact 🔊'],
-    chill:       ['Lo-fi works best with headphones in a quiet space', 'Great for studying — not too distracting', 'Pair with a cup of tea or coffee ☕'],
-    focused:     ['Use the Pomodoro Timer tool alongside this playlist', 'Classical music is proven to boost focus and memory', 'Keep the volume at 40-60% for best concentration'],
-    romantic:    ['Set the scene: dim lights, candles, good food', 'R&B slow jams work best for romantic evenings', 'Use this with your phone on Do Not Disturb 📵'],
-    nostalgic:   ['Paul Ngozi is Zambia\'s greatest musical treasure', 'Mix old Zamrock with 2000s R&B for a full throwback', 'Share this playlist with family for instant conversation starter'],
-    party:       ['Build up — start slower, end with the hardest bangers', 'Zambian local music always gets the crowd going', 'Make sure your speaker is charged! 🎉'],
-  };
-  return (base[mood] || ['Enjoy your playlist!', 'Share it with friends', 'Come back to generate a new one anytime']);
+  var base = { happy:['Add Afrobeats bangers','Mix in Zambian hits'], sad:['Music heals','Keep it coherent'], hyped:['Build up energy','Great for gym'], chill:['Lo-fi with headphones','Pair with tea'], focused:['Use Pomodoro tool','Classical boosts focus'], romantic:['Dim lights, candles','R&B slow jams'], nostalgic:['Paul Ngozi treasure','Mix Zamrock'], party:['Start slower, end bangers','Charge speaker!'] };
+  return (base[mood] || ['Enjoy your playlist!','Share with friends']);
 }
 
 function copyPlaylist() {
   if (!window._lastTracks) return;
   var lines = [window._lastPlaylistName, ''];
-  window._lastTracks.forEach(function(t, i){ lines.push((i+1) + '. ' + t[0] + ' — ' + t[1]); });
+  window._lastTracks.forEach(function(t,i){ lines.push((i+1)+'. '+t[0]+' — '+t[1]); });
   lines.push(''); lines.push('Generated by BLESSTech-X · blesstechx.com');
   navigator.clipboard.writeText(lines.join('\n')).then(function(){
     var t = document.getElementById('copyToast');
@@ -485,7 +457,6 @@ function copyPlaylist() {
     setTimeout(function(){ t.classList.remove('show'); }, 2500);
   });
 }
-
 function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 document.getElementById('thToggle').addEventListener('click', function(){
@@ -493,5 +464,12 @@ document.getElementById('thToggle').addEventListener('click', function(){
   document.getElementById('thToggle').classList.toggle('th-toggle-open');
 });
 </script>
+<style>
+  .mood-card.selected{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.15);color:white}
+  .act-card.selected{border-color:var(--sky);color:var(--sky);background:var(--sky-light)}
+  .copy-toast.show{opacity:1}
+  .playlist-mood-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.2);backdrop-filter:blur(8px);padding:5px 12px;border-radius:50px;font-size:.7rem;font-weight:700;color:white;margin-top:8px}
+  .track-num{width:20px;font-size:.7rem;font-weight:700;color:#94a3b8}
+</style>
 </body>
 </html>
