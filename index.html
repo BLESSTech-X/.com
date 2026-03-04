@@ -41,6 +41,461 @@
       y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window,document,"clarity","script","v3eftj5zrx");
   </script>
+
+  <!-- ═══════════════════════════════════════════════
+       NOVA HOLOGRAPHIC PORTAL — ALL STYLES
+  ═══════════════════════════════════════════════ -->
+  <style>
+    /* ── Root tokens ── */
+    :root {
+      --nova-blue:       #0ea5e9;
+      --nova-blue-soft:  #38bdf8;
+      --nova-navy:       rgba(5, 15, 30, 0.92);
+      --nova-glow:       0 0 18px rgba(14,165,233,0.55), 0 0 40px rgba(14,165,233,0.25);
+    }
+
+    /* ══════════════════════════════════════
+       TRIGGER BUTTON (closed state)
+    ══════════════════════════════════════ */
+    #novaTriggerBtn {
+      position: fixed;
+      bottom: 22px;
+      left: 22px;
+      z-index: 9990;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--nova-navy);
+      border: 1.5px solid var(--nova-blue);
+      border-radius: 30px;
+      padding: 9px 16px 9px 12px;
+      cursor: pointer;
+      color: var(--nova-blue);
+      font-family: 'Courier New', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      box-shadow: var(--nova-glow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      animation: triggerPulse 3s ease-in-out infinite;
+    }
+    #novaTriggerBtn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 28px rgba(14,165,233,0.75), 0 0 55px rgba(14,165,233,0.35);
+    }
+    #novaTriggerBtn .trigger-dot {
+      width: 8px; height: 8px;
+      background: var(--nova-blue);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--nova-blue);
+      animation: triggerDotBlink 1.4s ease-in-out infinite;
+    }
+    @keyframes triggerPulse {
+      0%,100% { box-shadow: var(--nova-glow); }
+      50%      { box-shadow: 0 0 24px rgba(14,165,233,0.7), 0 0 50px rgba(14,165,233,0.3); }
+    }
+    @keyframes triggerDotBlink {
+      0%,100% { opacity:1; } 50% { opacity:0.3; }
+    }
+
+    /* ══════════════════════════════════════
+       PORTAL WRAPPER
+    ══════════════════════════════════════ */
+    #novaPortalWrap {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      z-index: 9991;
+      width: 260px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(30px) scale(0.92);
+      transition: opacity 0.55s cubic-bezier(.22,1,.36,1),
+                  transform 0.55s cubic-bezier(.22,1,.36,1);
+    }
+    #novaPortalWrap.nova-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    /* ── Ground shadow ── */
+    .nova-ground-shadow {
+      width: 170px;
+      height: 18px;
+      background: radial-gradient(ellipse, rgba(0,0,0,0.85) 0%, transparent 72%);
+      margin-bottom: -2px;
+      order: 2;
+      flex-shrink: 0;
+    }
+
+    /* ── Portal container ── */
+    .nova-portal {
+      order: 1;
+      position: relative;
+      width: 220px;
+      height: 320px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* ── Concentric ring waves ── */
+    .nova-ring {
+      position: absolute;
+      top: 50%; left: 50%;
+      border-radius: 50%;
+      border: 1.5px solid rgba(14,165,233,0.35);
+      transform: translate(-50%, -50%) scale(1);
+      animation: ringExpand 3.6s ease-out infinite;
+    }
+    .nova-ring:nth-child(1) { width: 230px; height: 340px; animation-delay: 0s; }
+    .nova-ring:nth-child(2) { width: 255px; height: 375px; animation-delay: 1.2s; }
+    .nova-ring:nth-child(3) { width: 280px; height: 410px; animation-delay: 2.4s; }
+    @keyframes ringExpand {
+      0%   { opacity: 0.6; transform: translate(-50%,-50%) scale(0.95); }
+      100% { opacity: 0;   transform: translate(-50%,-50%) scale(1.18); }
+    }
+
+    /* ── Portal oval rim ── */
+    .nova-rim {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 2.5px solid var(--nova-blue);
+      box-shadow:
+        0 0 14px rgba(14,165,233,0.65),
+        0 0 30px rgba(14,165,233,0.30),
+        inset 0 0 18px rgba(14,165,233,0.12);
+      animation: rimPulse 4s ease-in-out infinite;
+    }
+    @keyframes rimPulse {
+      0%,100% { box-shadow: 0 0 14px rgba(14,165,233,.65), 0 0 30px rgba(14,165,233,.30), inset 0 0 18px rgba(14,165,233,.12); }
+      50%      { box-shadow: 0 0 22px rgba(14,165,233,.90), 0 0 50px rgba(14,165,233,.45), inset 0 0 26px rgba(14,165,233,.20); }
+    }
+
+    /* ── Interior dark fill ── */
+    .nova-interior {
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at 50% 30%, rgba(5,20,40,0.96) 0%, rgba(2,8,18,0.99) 70%);
+      overflow: hidden;
+    }
+
+    /* ── Vertical scan-line grid ── */
+    .nova-grid-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          90deg,
+          rgba(14,165,233,0.04) 0px,
+          rgba(14,165,233,0.04) 1px,
+          transparent 1px,
+          transparent 14px
+        );
+      pointer-events: none;
+    }
+
+    /* ── Horizontal sweep scan line ── */
+    .nova-scanline {
+      position: absolute;
+      left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(56,189,248,0.0) 10%,
+        rgba(56,189,248,0.55) 40%,
+        rgba(14,165,233,0.80) 50%,
+        rgba(56,189,248,0.55) 60%,
+        rgba(56,189,248,0.0) 90%,
+        transparent 100%
+      );
+      top: -2px;
+      animation: scanSweep 3.5s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes scanSweep {
+      0%   { top: -2px; opacity: 0; }
+      5%   { opacity: 1; }
+      95%  { opacity: 1; }
+      100% { top: 100%; opacity: 0; }
+    }
+
+    /* ── Human silhouette SVG wrapper ── */
+    .nova-figure-wrap {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 140px;
+      height: 290px;
+      animation: figureFloat 3s ease-in-out infinite, figureFlicker 5s ease-in-out infinite;
+    }
+    @keyframes figureFloat {
+      0%,100% { transform: translateX(-50%) translateY(0px); }
+      50%      { transform: translateX(-50%) translateY(-6px); }
+    }
+    @keyframes figureFlicker {
+      0%,100% { opacity: 1; }
+      8%       { opacity: 0.87; }
+      16%      { opacity: 1; }
+      52%      { opacity: 0.92; }
+      60%      { opacity: 1; }
+      78%      { opacity: 0.88; }
+      86%      { opacity: 1; }
+    }
+
+    /* ── SVG hologram figure ── */
+    .nova-figure-svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    /* ── Mouth glow (active when speaking) ── */
+    .nova-mouth-glow {
+      position: absolute;
+      bottom: 160px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 22px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(14,165,233,0.0);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      pointer-events: none;
+    }
+    .nova-speaking .nova-mouth-glow {
+      background: rgba(56,189,248,0.55);
+      box-shadow: 0 0 12px rgba(14,165,233,0.9), 0 0 24px rgba(14,165,233,0.5);
+    }
+
+    /* ── Voice waveform ── */
+    .nova-waveform {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      height: 22px;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+    .nova-speaking .nova-waveform {
+      opacity: 1;
+    }
+    .nova-waveform span {
+      display: block;
+      width: 3px;
+      border-radius: 2px;
+      background: var(--nova-blue);
+      box-shadow: 0 0 6px var(--nova-blue);
+      height: 6px;
+      animation: waveBar 0.8s ease-in-out infinite;
+    }
+    .nova-waveform span:nth-child(1) { animation-delay: 0.0s; }
+    .nova-waveform span:nth-child(2) { animation-delay: 0.1s; }
+    .nova-waveform span:nth-child(3) { animation-delay: 0.2s; }
+    .nova-waveform span:nth-child(4) { animation-delay: 0.3s; }
+    .nova-waveform span:nth-child(5) { animation-delay: 0.2s; }
+    .nova-waveform span:nth-child(6) { animation-delay: 0.1s; }
+    .nova-waveform span:nth-child(7) { animation-delay: 0.0s; }
+    @keyframes waveBar {
+      0%,100% { height: 4px;  opacity: 0.5; }
+      50%      { height: 18px; opacity: 1.0; }
+    }
+
+    /* ── Label ── */
+    .nova-label {
+      order: 3;
+      font-family: 'Courier New', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--nova-blue);
+      text-shadow: 0 0 8px rgba(14,165,233,0.7);
+      margin-top: 6px;
+      margin-bottom: 10px;
+      animation: labelPulse 3s ease-in-out infinite;
+      user-select: none;
+    }
+    @keyframes labelPulse {
+      0%,100% { opacity: 0.75; }
+      50%      { opacity: 1.0; }
+    }
+
+    /* ══════════════════════════════════════
+       SPEECH BUBBLE
+    ══════════════════════════════════════ */
+    #novaBubble {
+      position: fixed;
+      bottom: 90px;
+      left: 250px;
+      z-index: 9992;
+      width: 300px;
+      max-width: calc(100vw - 280px);
+      background: var(--nova-navy);
+      border: 1.5px solid var(--nova-blue);
+      border-radius: 14px;
+      padding: 14px 16px;
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 0 22px rgba(14,165,233,0.25), 0 6px 30px rgba(0,0,0,0.55);
+      animation: bubbleFadeIn 0.4s cubic-bezier(.22,1,.36,1);
+    }
+    #novaBubble.nova-bubble-visible { display: flex; }
+
+    /* ── Tail pointing left ── */
+    #novaBubble::before {
+      content: '';
+      position: absolute;
+      left: -10px;
+      bottom: 36px;
+      width: 0; height: 0;
+      border-top:    9px solid transparent;
+      border-bottom: 9px solid transparent;
+      border-right:  10px solid var(--nova-blue);
+    }
+    #novaBubble::after {
+      content: '';
+      position: absolute;
+      left: -8px;
+      bottom: 37px;
+      width: 0; height: 0;
+      border-top:    8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-right:  9px solid rgba(5,15,30,0.92);
+    }
+    @keyframes bubbleFadeIn {
+      from { opacity: 0; transform: translateX(-10px) scale(0.95); }
+      to   { opacity: 1; transform: translateX(0)    scale(1); }
+    }
+
+    /* ── Bubble header ── */
+    .nova-bubble-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nova-bubble-title {
+      font-family: 'Courier New', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      color: var(--nova-blue);
+      text-transform: uppercase;
+    }
+    .nova-bubble-controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .nova-btn-icon {
+      background: none;
+      border: 1px solid rgba(14,165,233,0.35);
+      border-radius: 6px;
+      color: rgba(14,165,233,0.7);
+      font-size: 0.75rem;
+      width: 26px; height: 26px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nova-btn-icon:hover {
+      background: rgba(14,165,233,0.15);
+      color: var(--nova-blue);
+    }
+
+    /* ── Message text ── */
+    #novaMsgText {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #cbd5e1;
+      min-height: 48px;
+    }
+    .nova-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      background: var(--nova-blue);
+      margin-left: 2px;
+      vertical-align: middle;
+      animation: cursorBlink 0.7s step-end infinite;
+    }
+    @keyframes cursorBlink {
+      0%,100% { opacity: 1; } 50% { opacity: 0; }
+    }
+
+    /* ── Progress dots ── */
+    .nova-dots {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+    }
+    .nova-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: rgba(14,165,233,0.25);
+      border: 1px solid rgba(14,165,233,0.5);
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    .nova-dot.active {
+      background: var(--nova-blue);
+      box-shadow: 0 0 8px rgba(14,165,233,0.8);
+    }
+
+    /* ── CTA buttons (last message) ── */
+    .nova-cta-row {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .nova-cta-row a {
+      display: block;
+      text-align: center;
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .nova-cta-row a:hover { transform: translateY(-1px); }
+    .nova-cta-primary {
+      background: var(--nova-blue);
+      color: #fff;
+      box-shadow: 0 0 14px rgba(14,165,233,0.45);
+    }
+    .nova-cta-secondary {
+      background: transparent;
+      border: 1.5px solid var(--nova-blue);
+      color: var(--nova-blue);
+    }
+    .nova-cta-whatsapp {
+      background: rgba(37,211,102,0.12);
+      border: 1.5px solid #25d366;
+      color: #25d366;
+    }
+
+    /* ══════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════ */
+    @media (max-width: 540px) {
+      #novaBubble {
+        left: 16px;
+        bottom: 355px;
+        width: calc(100vw - 32px);
+        max-width: none;
+      }
+      #novaBubble::before, #novaBubble::after { display: none; }
+    }
+  </style>
 </head>
 <body>
 
@@ -411,7 +866,7 @@
   <!-- POPUP SYSTEM -->
   <div id="popupOverlay" class="popup-overlay" onclick="dismissPopup()"></div>
 
-  <!-- Popup 1: Welcome / Tools Discovery -->
+  <!-- Popup 1 -->
   <div id="popup1" class="popup-card popup-bottom-right" role="dialog" aria-label="Discover free tools">
     <button class="popup-close" onclick="dismissPopup()" aria-label="Close">×</button>
     <div class="popup-icon">🛠️</div>
@@ -423,7 +878,7 @@
     </div>
   </div>
 
-  <!-- Popup 2: Context — Tools nudge while browsing services -->
+  <!-- Popup 2 -->
   <div id="popup2" class="popup-card popup-bottom-right" role="dialog" aria-label="Related free tool">
     <button class="popup-close" onclick="dismissPopup()" aria-label="Close">×</button>
     <div class="popup-icon">💡</div>
@@ -435,7 +890,7 @@
     </div>
   </div>
 
-  <!-- Popup 3: Return visitor — specific tool highlight -->
+  <!-- Popup 3 -->
   <div id="popup3" class="popup-card popup-bottom-right" role="dialog" aria-label="Tool highlight">
     <button class="popup-close" onclick="dismissPopup()" aria-label="Close">×</button>
     <div class="popup-icon" id="popup3Icon">⚡</div>
@@ -462,6 +917,437 @@
       <div id="portfolioModalContent"></div>
     </div>
   </div>
+
+  <!-- ═══════════════════════════════════════════════
+       NOVA HOLOGRAPHIC PORTAL — HTML STRUCTURE
+  ═══════════════════════════════════════════════ -->
+
+  <!-- Trigger button (shown when portal is closed) -->
+  <button id="novaTriggerBtn" aria-label="Talk to Nova" onclick="novaOpen()">
+    <span class="trigger-dot"></span>
+    Ask Nova
+  </button>
+
+  <!-- Portal + label wrapper -->
+  <div id="novaPortalWrap" aria-label="Nova AI assistant portal" role="region">
+
+    <!-- Portal visual -->
+    <div class="nova-portal" id="novaPortal" onclick="novaHandlePortalClick()" title="Click to replay">
+
+      <!-- Concentric expanding rings (outside the portal) -->
+      <div class="nova-ring"></div>
+      <div class="nova-ring"></div>
+      <div class="nova-ring"></div>
+
+      <!-- Portal oval rim glow -->
+      <div class="nova-rim"></div>
+
+      <!-- Dark interior -->
+      <div class="nova-interior" id="novaInterior">
+
+        <!-- Vertical grid lines -->
+        <div class="nova-grid-lines"></div>
+
+        <!-- Sweeping horizontal scan line -->
+        <div class="nova-scanline"></div>
+
+        <!-- Human figure -->
+        <div class="nova-figure-wrap" id="novaFigure">
+          <svg class="nova-figure-svg" viewBox="0 0 140 290" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <!-- Body gradient: more opaque at core, transparent at edges -->
+              <radialGradient id="bodyGrad" cx="50%" cy="50%" r="50%">
+                <stop offset="0%"   stop-color="#0ea5e9" stop-opacity="0.32"/>
+                <stop offset="55%"  stop-color="#38bdf8" stop-opacity="0.18"/>
+                <stop offset="100%" stop-color="#0ea5e9" stop-opacity="0.06"/>
+              </radialGradient>
+              <!-- Head gradient -->
+              <radialGradient id="headGrad" cx="50%" cy="40%" r="55%">
+                <stop offset="0%"   stop-color="#38bdf8" stop-opacity="0.38"/>
+                <stop offset="60%"  stop-color="#0ea5e9" stop-opacity="0.22"/>
+                <stop offset="100%" stop-color="#0ea5e9" stop-opacity="0.06"/>
+              </radialGradient>
+              <!-- Edge rim gradient for figure outline -->
+              <linearGradient id="figureEdge" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%"   stop-color="#38bdf8" stop-opacity="0.55"/>
+                <stop offset="100%" stop-color="#0ea5e9" stop-opacity="0.25"/>
+              </linearGradient>
+              <!-- Highlight strip -->
+              <linearGradient id="highlightV" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%"   stop-color="#7dd3fc" stop-opacity="0.35"/>
+                <stop offset="40%"  stop-color="#38bdf8" stop-opacity="0.15"/>
+                <stop offset="100%" stop-color="#0ea5e9" stop-opacity="0.04"/>
+              </linearGradient>
+              <!-- Clip for figure (so internal effects stay inside) -->
+              <clipPath id="figureClip">
+                <!-- Head -->
+                <ellipse cx="70" cy="38" rx="26" ry="30"/>
+                <!-- Neck -->
+                <rect x="62" y="64" width="16" height="14"/>
+                <!-- Shoulders + torso -->
+                <path d="M18,80 Q28,72 70,72 Q112,72 122,80 L118,185 Q110,195 70,197 Q30,195 22,185 Z"/>
+                <!-- Arms left -->
+                <path d="M18,80 Q5,100 8,155 Q12,165 22,160 Q28,150 26,100 Z"/>
+                <!-- Arms right -->
+                <path d="M122,80 Q135,100 132,155 Q128,165 118,160 Q112,150 114,100 Z"/>
+                <!-- Lower torso / hips -->
+                <path d="M30,190 Q50,205 70,207 Q90,205 110,190 L106,260 Q90,275 70,277 Q50,275 34,260 Z"/>
+              </clipPath>
+            </defs>
+
+            <!-- ── Figure fill layers ── -->
+
+            <!-- Layer 1: soft body fill -->
+            <g clip-path="url(#figureClip)">
+              <ellipse cx="70" cy="38" rx="26" ry="30" fill="url(#headGrad)"/>
+              <rect x="62" y="64" width="16" height="14" fill="url(#bodyGrad)" opacity="0.6"/>
+              <path d="M18,80 Q28,72 70,72 Q112,72 122,80 L118,185 Q110,195 70,197 Q30,195 22,185 Z" fill="url(#bodyGrad)"/>
+              <path d="M18,80 Q5,100 8,155 Q12,165 22,160 Q28,150 26,100 Z" fill="url(#bodyGrad)" opacity="0.75"/>
+              <path d="M122,80 Q135,100 132,155 Q128,165 118,160 Q112,150 114,100 Z" fill="url(#bodyGrad)" opacity="0.75"/>
+              <path d="M30,190 Q50,205 70,207 Q90,205 110,190 L106,260 Q90,275 70,277 Q50,275 34,260 Z" fill="url(#bodyGrad)"/>
+              <!-- vertical highlight strip -->
+              <rect x="58" y="0" width="24" height="290" fill="url(#highlightV)" opacity="0.5"/>
+            </g>
+
+            <!-- Layer 2: outline strokes (the "hologram edge" look) -->
+            <!-- Head outline -->
+            <ellipse cx="70" cy="38" rx="26" ry="30"
+              fill="none" stroke="url(#figureEdge)" stroke-width="1.2" opacity="0.7"/>
+            <!-- Neck -->
+            <rect x="62" y="64" width="16" height="14"
+              fill="none" stroke="url(#figureEdge)" stroke-width="0.8" opacity="0.5"/>
+            <!-- Torso outline -->
+            <path d="M18,80 Q28,72 70,72 Q112,72 122,80 L118,185 Q110,195 70,197 Q30,195 22,185 Z"
+              fill="none" stroke="url(#figureEdge)" stroke-width="1.2" opacity="0.65"/>
+            <!-- Left arm -->
+            <path d="M18,80 Q5,100 8,155 Q12,165 22,160 Q28,150 26,100 Z"
+              fill="none" stroke="url(#figureEdge)" stroke-width="1.0" opacity="0.55"/>
+            <!-- Right arm -->
+            <path d="M122,80 Q135,100 132,155 Q128,165 118,160 Q112,150 114,100 Z"
+              fill="none" stroke="url(#figureEdge)" stroke-width="1.0" opacity="0.55"/>
+            <!-- Lower body -->
+            <path d="M30,190 Q50,205 70,207 Q90,205 110,190 L106,260 Q90,275 70,277 Q50,275 34,260 Z"
+              fill="none" stroke="url(#figureEdge)" stroke-width="1.2" opacity="0.6"/>
+
+            <!-- Layer 3: facial features — very subtle -->
+            <!-- Eyes -->
+            <ellipse cx="61" cy="33" rx="4" ry="2.5" fill="#38bdf8" opacity="0.40"/>
+            <ellipse cx="79" cy="33" rx="4" ry="2.5" fill="#38bdf8" opacity="0.40"/>
+            <!-- Eye glints -->
+            <circle cx="62.5" cy="32" r="1.2" fill="#7dd3fc" opacity="0.60"/>
+            <circle cx="80.5" cy="32" r="1.2" fill="#7dd3fc" opacity="0.60"/>
+            <!-- Nose bridge -->
+            <line x1="70" y1="36" x2="68" y2="43" stroke="#38bdf8" stroke-width="0.7" opacity="0.25"/>
+            <!-- Mouth — animated glow target -->
+            <path id="novaMouthPath" d="M63,48 Q70,53 77,48"
+              fill="none" stroke="#38bdf8" stroke-width="1.4"
+              stroke-linecap="round" opacity="0.40"/>
+
+            <!-- Layer 4: scan line internal texture -->
+            <rect x="0" y="0" width="140" height="290"
+              fill="none"
+              stroke="#0ea5e9"
+              stroke-width="0"
+              opacity="0"/>
+
+            <!-- Layer 5: shoulder highlight arc -->
+            <path d="M30,80 Q70,68 110,80"
+              fill="none" stroke="#7dd3fc" stroke-width="1.0" opacity="0.35"/>
+
+          </svg>
+        </div>
+        <!-- / nova-figure-wrap -->
+
+        <!-- Mouth area glow (brightens when speaking) -->
+        <div class="nova-mouth-glow" id="novaMouthGlow"></div>
+
+        <!-- Voice waveform bars -->
+        <div class="nova-waveform" id="novaWaveform">
+          <span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span>
+        </div>
+
+      </div>
+      <!-- / nova-interior -->
+
+    </div>
+    <!-- / nova-portal -->
+
+    <!-- Ground shadow -->
+    <div class="nova-ground-shadow"></div>
+
+    <!-- Label -->
+    <div class="nova-label">Nova &middot; Live Transmission</div>
+
+  </div>
+  <!-- / novaPortalWrap -->
+
+  <!-- Speech bubble -->
+  <div id="novaBubble" role="status" aria-live="polite">
+    <div class="nova-bubble-header">
+      <span class="nova-bubble-title">⬡ Nova — BLESSTech-X</span>
+      <div class="nova-bubble-controls">
+        <button class="nova-btn-icon" id="novaMuteBtn" onclick="novaToggleMute()" title="Mute / Unmute" aria-label="Toggle mute">
+          <i class="fas fa-volume-up" id="novaMuteIcon"></i>
+        </button>
+        <button class="nova-btn-icon" onclick="novaClose()" title="Close" aria-label="Close Nova">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="novaMsgText"><span class="nova-cursor"></span></div>
+
+    <div class="nova-dots" id="novaDots"></div>
+
+    <!-- CTA buttons (only shown on last message) -->
+    <div class="nova-cta-row" id="novaCtaRow" style="display:none">
+      <a href="#services" class="nova-cta-primary" onclick="novaClose()">
+        <i class="fas fa-rocket"></i> &nbsp;Explore Our Services
+      </a>
+      <a href="tools/index.html" class="nova-cta-secondary">
+        <i class="fas fa-tools"></i> &nbsp;Try Free Tools
+      </a>
+      <a href="https://wa.me/260979603741" class="nova-cta-whatsapp" target="_blank" rel="noopener">
+        <i class="fab fa-whatsapp"></i> &nbsp;WhatsApp Us Now
+      </a>
+    </div>
+  </div>
+  <!-- / novaBubble -->
+
+  <!-- ═══════════════════════════════════════════════
+       NOVA HOLOGRAPHIC PORTAL — JAVASCRIPT
+  ═══════════════════════════════════════════════ -->
+  <script>
+  (function () {
+    'use strict';
+
+    /* ── Config ─────────────────────────────────── */
+    const MESSAGES = [
+      "Hello! I'm Nova, your digital guide at BLESSTech-X. We help Zambian businesses go online — fast, affordable, and built to grow.",
+      "Did you know we offer 20-plus completely free tools? Invoice generators, CV builders, QR code makers — no account needed, right now.",
+      "Our e-commerce stores come with Airtel Money and MTN Money integration built in — so you can start selling online to all of Zambia.",
+      "Ready to grow your business digitally? Explore our services, try a free tool, or send us a WhatsApp message — we reply the same day!"
+    ];
+
+    const VOICE_NAME    = 'Google UK English Female';
+    const VOICE_RATE    = 0.95;
+    const VOICE_PITCH   = 1.1;
+    const VOICE_VOLUME  = 0.88;
+    const TYPE_SPEED    = 38;   // ms per character
+    const OPEN_DELAY    = 10000; // 10 s
+    const ADVANCE_PAUSE = 800;   // ms after both done
+
+    /* ── State ───────────────────────────────────── */
+    let isOpen        = false;
+    let isMuted       = false;
+    let currentMsg    = 0;
+    let typeTimer     = null;
+    let typingDone    = false;
+    let speechDone    = false;
+    let advanceQueued = false;
+    let voices        = [];
+
+    /* ── DOM refs ────────────────────────────────── */
+    const wrap       = document.getElementById('novaPortalWrap');
+    const bubble     = document.getElementById('novaBubble');
+    const msgText    = document.getElementById('novaMsgText');
+    const dotsWrap   = document.getElementById('novaDots');
+    const ctaRow     = document.getElementById('novaCtaRow');
+    const triggerBtn = document.getElementById('novaTriggerBtn');
+    const muteIcon   = document.getElementById('novaMuteIcon');
+    const interior   = document.getElementById('novaInterior');
+
+    /* ── Build progress dots ─────────────────────── */
+    function buildDots () {
+      dotsWrap.innerHTML = '';
+      MESSAGES.forEach((_, i) => {
+        const d = document.createElement('span');
+        d.className = 'nova-dot' + (i === 0 ? ' active' : '');
+        dotsWrap.appendChild(d);
+      });
+    }
+
+    function updateDots () {
+      Array.from(dotsWrap.children).forEach((d, i) => {
+        d.classList.toggle('active', i === currentMsg);
+      });
+    }
+
+    /* ── Voice loading ───────────────────────────── */
+    function loadVoices () {
+      voices = window.speechSynthesis.getVoices();
+    }
+    if (typeof speechSynthesis !== 'undefined') {
+      speechSynthesis.onvoiceschanged = loadVoices;
+      loadVoices();
+    }
+
+    function pickVoice () {
+      const exact = voices.find(v => v.name === VOICE_NAME);
+      if (exact) return exact;
+      const gb = voices.find(v => /en.*gb/i.test(v.lang) || /gb.*en/i.test(v.lang));
+      if (gb) return gb;
+      return voices.find(v => /en/i.test(v.lang)) || null;
+    }
+
+    /* ── Speaking state helpers ──────────────────── */
+    function setSpeaking (on) {
+      interior.classList.toggle('nova-speaking', on);
+    }
+
+    /* ── Typewriter ──────────────────────────────── */
+    function typeMessage (text, onComplete) {
+      clearTimeout(typeTimer);
+      msgText.innerHTML = '<span class="nova-cursor"></span>';
+      let i = 0;
+
+      function tick () {
+        if (i < text.length) {
+          // Insert char before the cursor span
+          const cursor = msgText.querySelector('.nova-cursor');
+          cursor.insertAdjacentText('beforebegin', text[i]);
+          i++;
+          typeTimer = setTimeout(tick, TYPE_SPEED);
+        } else {
+          // Remove cursor when done
+          const cursor = msgText.querySelector('.nova-cursor');
+          if (cursor) cursor.remove();
+          typingDone = true;
+          onComplete && onComplete();
+          tryAdvance();
+        }
+      }
+      tick();
+    }
+
+    /* ── Speech ──────────────────────────────────── */
+    function speakMessage (text) {
+      if (typeof speechSynthesis === 'undefined') {
+        speechDone = true;
+        tryAdvance();
+        return;
+      }
+      speechSynthesis.cancel();
+      if (isMuted) {
+        speechDone = true;
+        tryAdvance();
+        return;
+      }
+
+      const utt = new SpeechSynthesisUtterance(text);
+      const v = pickVoice();
+      if (v) utt.voice = v;
+      utt.rate   = VOICE_RATE;
+      utt.pitch  = VOICE_PITCH;
+      utt.volume = VOICE_VOLUME;
+
+      utt.onstart = () => setSpeaking(true);
+      utt.onend   = () => {
+        setSpeaking(false);
+        speechDone = true;
+        tryAdvance();
+      };
+      utt.onerror = () => {
+        setSpeaking(false);
+        speechDone = true;
+        tryAdvance();
+      };
+
+      speechSynthesis.speak(utt);
+    }
+
+    /* ── Advance guard ───────────────────────────── */
+    function tryAdvance () {
+      if (!typingDone || !speechDone) return;
+      if (advanceQueued) return;
+      if (currentMsg >= MESSAGES.length - 1) {
+        // Show CTAs on last message
+        ctaRow.style.display = 'flex';
+        return;
+      }
+      advanceQueued = true;
+      setTimeout(() => {
+        advanceQueued = false;
+        currentMsg++;
+        playMessage(currentMsg);
+      }, ADVANCE_PAUSE);
+    }
+
+    /* ── Play a message by index ─────────────────── */
+    function playMessage (idx) {
+      typingDone    = false;
+      speechDone    = false;
+      advanceQueued = false;
+      ctaRow.style.display = 'none';
+      currentMsg = idx;
+      updateDots();
+
+      const text = MESSAGES[idx];
+
+      // Start both in parallel; each fires tryAdvance when done
+      typeMessage(text);
+      speakMessage(text);
+    }
+
+    /* ── Open ────────────────────────────────────── */
+    function novaOpen () {
+      if (isOpen) return;
+      isOpen = true;
+      triggerBtn.style.display = 'none';
+      wrap.classList.add('nova-visible');
+      bubble.classList.add('nova-bubble-visible');
+      buildDots();
+      currentMsg = 0;
+      playMessage(0);
+    }
+    window.novaOpen = novaOpen;
+
+    /* ── Close ───────────────────────────────────── */
+    function novaClose () {
+      isOpen = false;
+      clearTimeout(typeTimer);
+      if (typeof speechSynthesis !== 'undefined') speechSynthesis.cancel();
+      setSpeaking(false);
+      wrap.classList.remove('nova-visible');
+      bubble.classList.remove('nova-bubble-visible');
+      triggerBtn.style.display = 'flex';
+    }
+    window.novaClose = novaClose;
+
+    /* ── Portal click = replay ───────────────────── */
+    function novaHandlePortalClick () {
+      if (!isOpen) { novaOpen(); return; }
+      // Replay from beginning
+      clearTimeout(typeTimer);
+      if (typeof speechSynthesis !== 'undefined') speechSynthesis.cancel();
+      setSpeaking(false);
+      currentMsg = 0;
+      playMessage(0);
+    }
+    window.novaHandlePortalClick = novaHandlePortalClick;
+
+    /* ── Mute toggle ─────────────────────────────── */
+    function novaToggleMute () {
+      isMuted = !isMuted;
+      muteIcon.className = isMuted ? 'fas fa-volume-mute' : 'fas fa-volume-up';
+      if (isMuted && typeof speechSynthesis !== 'undefined') {
+        speechSynthesis.cancel();
+        setSpeaking(false);
+        // If we muted mid-message, mark speech done so typing can advance
+        if (!speechDone) {
+          speechDone = true;
+          tryAdvance();
+        }
+      }
+    }
+    window.novaToggleMute = novaToggleMute;
+
+    /* ── Auto-open after 10 s ────────────────────── */
+    setTimeout(novaOpen, OPEN_DELAY);
+
+  })();
+  </script>
 
   <!-- Tawk.to -->
   <script>
