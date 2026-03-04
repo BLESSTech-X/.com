@@ -4,402 +4,505 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Free Tools | BLESSTech-X — 24 Free Tools for Zambia</title>
-  <meta name="description" content="24 free tools for Zambian workers, students and business owners. Email writer, receipt generator, photo editor, study timetable, CV builder, invoice generator and more."/>
+  <meta name="description" content="24 free tools for Zambian workers, students and business owners. No sign-up. No ads. 100% free."/>
   <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <link rel="stylesheet" href="style.css"/>
   <style>
-    .hub-hero{background:linear-gradient(135deg,#0f172a 0%,#0c4a6e 60%,#075985 100%);padding:56px 0;position:relative;overflow:hidden}
-    .hub-hero::before{content:'';position:absolute;top:-80px;right:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(14,165,233,.15),transparent 70%);pointer-events:none}
-    .hub-hero::after{content:'';position:absolute;bottom:-60px;left:-60px;width:300px;height:300px;background:radial-gradient(circle,rgba(99,102,241,.1),transparent 70%);pointer-events:none}
-    .hub-hero-inner{max-width:1200px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
-    .hub-hero h1{color:white;font-size:2.4rem;font-weight:900;margin-bottom:12px;line-height:1.2}
-    .hub-hero h1 em{color:#38bdf8;font-style:normal}
-    .hub-hero p{color:#94a3b8;font-size:1rem;max-width:560px;margin-bottom:24px;line-height:1.7}
-    .hub-stats{display:flex;gap:28px;flex-wrap:wrap}
-    .hub-stat{display:flex;align-items:center;gap:8px;color:white}
-    .hub-stat .sv{font-size:1.4rem;font-weight:900;color:#38bdf8}
-    .hub-stat .sl{font-size:.78rem;color:#94a3b8}
+    :root {
+      --bg: #05070f;
+      --surface: #0d111f;
+      --surface2: #131828;
+      --border: rgba(255,255,255,.07);
+      --text: #e8ecf5;
+      --muted: #5a6480;
+      --a1: #7c6aff;
+      --a2: #ff5fa0;
+      --a3: #00e5c4;
+      --a4: #ffb340;
+      --font-d: 'Syne', sans-serif;
+      --font-b: 'DM Sans', sans-serif;
+      --ease: cubic-bezier(.22,1,.36,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-b); background: var(--bg); color: var(--text); overflow-x: hidden; cursor: none; }
+    a { color: inherit; }
 
-    .hub-main{max-width:1200px;margin:0 auto;padding:40px 24px}
-    .cat-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px;padding-bottom:16px;border-bottom:1.5px solid var(--border)}
-    .cat-nav-btn{padding:8px 16px;border:1.5px solid var(--border);border-radius:50px;background:white;font-size:.82rem;font-weight:700;color:var(--muted);cursor:pointer;transition:var(--transition)}
-    .cat-nav-btn:hover{border-color:var(--sky);color:var(--sky)}
-    .cat-nav-btn.active{background:var(--sky);color:white;border-color:var(--sky)}
+    /* CURSOR */
+    #cDot { position:fixed; top:0; left:0; width:8px; height:8px; background:white; border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); mix-blend-mode:difference; transition:transform .08s; }
+    #cRing { position:fixed; top:0; left:0; width:38px; height:38px; border:1.5px solid rgba(255,255,255,.4); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:width .25s var(--ease),height .25s var(--ease),opacity .25s; }
+    body:has(a:hover) #cRing, body:has(button:hover) #cRing { width:58px; height:58px; opacity:.4; }
 
-    .cat-section{margin-bottom:44px}
-    .cat-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
-    .cat-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
-    .cat-title{font-size:1.1rem;font-weight:800;color:var(--slate)}
-    .cat-desc{font-size:.82rem;color:var(--muted);margin-top:1px}
+    /* NOISE */
+    body::after { content:''; position:fixed; inset:0; z-index:1; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E"); pointer-events:none; }
 
-    .tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
-    .tool-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:20px;transition:var(--transition);text-decoration:none;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden}
-    .tool-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--card-accent,var(--sky));opacity:0;transition:opacity .2s}
-    .tool-card:hover{border-color:var(--sky);transform:translateY(-3px);box-shadow:0 8px 24px rgba(14,165,233,.12)}
-    .tool-card:hover::before{opacity:1}
-    .tool-card.new-badge::after{content:'NEW';position:absolute;top:12px;right:12px;background:var(--sky);color:white;font-size:.62rem;font-weight:800;padding:2px 7px;border-radius:50px;letter-spacing:.5px}
-    .tool-card-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
-    .tool-card-name{font-size:.95rem;font-weight:800;color:var(--slate);line-height:1.3}
-    .tool-card-desc{font-size:.78rem;color:var(--muted);line-height:1.5;flex:1}
-    .tool-card-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
-    .tc-badge{padding:3px 8px;border-radius:50px;font-size:.65rem;font-weight:700;background:var(--bg-alt);color:var(--muted)}
+    /* HEADER */
+    .hdr { position:fixed; top:0; left:0; right:0; z-index:200; display:flex; align-items:center; justify-content:space-between; padding:16px 32px; background:rgba(5,7,15,.85); backdrop-filter:blur(24px); border-bottom:1px solid var(--border); }
+    .logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
+    .logo img { width:30px; height:30px; border-radius:8px; object-fit:cover; }
+    .logo-text { font-family:var(--font-d); font-weight:800; font-size:.95rem; color:white; }
+    .logo-text em { color:var(--a1); font-style:normal; }
+    .hnav { display:flex; align-items:center; gap:8px; }
+    .hl { padding:7px 15px; border-radius:50px; font-size:.8rem; font-weight:600; color:var(--muted); text-decoration:none; transition:all .2s; border:1px solid transparent; }
+    .hl:hover { color:white; border-color:var(--border); background:var(--surface); }
+    .hlwa { background:#25d366 !important; color:white !important; border-color:transparent !important; }
+    .hlwa:hover { background:#1fb055 !important; }
+    .snd-btn { width:34px; height:34px; border-radius:50%; border:1px solid var(--border); background:var(--surface); color:var(--muted); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:.85rem; transition:all .2s; }
+    .snd-btn.on { color:var(--a3); border-color:rgba(0,229,196,.3); }
+    @media(max-width:680px){.hl:not(.hlwa){display:none} .hdr{padding:14px 18px}}
 
-    .search-bar{position:relative;margin-bottom:28px}
-    .search-bar input{width:100%;padding:14px 20px 14px 48px;border:2px solid var(--border);border-radius:var(--radius-lg);font-size:.95rem;outline:none;transition:var(--transition);background:white}
-    .search-bar input:focus{border-color:var(--sky);box-shadow:0 0 0 4px rgba(14,165,233,.1)}
-    .search-bar i{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:1rem}
-    .search-bar .clear-btn{position:absolute;right:16px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);cursor:pointer;font-size:1rem;display:none}
-    .no-results{text-align:center;padding:60px 20px;color:var(--muted)}
+    /* HERO */
+    .hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:100px 24px 60px; position:relative; overflow:hidden; }
+    .orb { position:absolute; border-radius:50%; filter:blur(90px); pointer-events:none; }
+    .o1 { width:600px; height:600px; background:radial-gradient(circle,rgba(124,106,255,.16),transparent 70%); top:-150px; left:-150px; animation:of 9s ease-in-out infinite alternate; }
+    .o2 { width:500px; height:500px; background:radial-gradient(circle,rgba(255,95,160,.13),transparent 70%); bottom:-100px; right:-100px; animation:of 9s ease-in-out infinite alternate; animation-delay:-4s; }
+    .o3 { width:350px; height:350px; background:radial-gradient(circle,rgba(0,229,196,.09),transparent 70%); top:40%; left:45%; transform:translate(-50%,-50%); animation:of 7s ease-in-out infinite alternate; animation-delay:-2s; }
+    @keyframes of { from{transform:scale(1) translate(0,0)} to{transform:scale(1.2) translate(40px,-40px)} }
 
-    @media(max-width:600px){.hub-hero h1{font-size:1.7rem}.tools-grid{grid-template-columns:1fr 1fr}}
-    @media(max-width:400px){.tools-grid{grid-template-columns:1fr}}
+    .eyebrow { display:inline-flex; align-items:center; gap:8px; padding:6px 16px; border-radius:50px; border:1px solid rgba(124,106,255,.3); background:rgba(124,106,255,.08); font-size:.7rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--a1); margin-bottom:22px; animation:fu .8s var(--ease) both; }
+    .eyebrow-dot { width:6px; height:6px; border-radius:50%; background:var(--a3); animation:pulse 2s ease infinite; }
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.6)}}
+
+    .hero-h1 { font-family:var(--font-d); font-size:clamp(2.2rem,7vw,5.4rem); font-weight:900; line-height:1.04; letter-spacing:-2px; color:white; margin-bottom:18px; animation:fu .8s .1s var(--ease) both; }
+    .g1 { background:linear-gradient(90deg,var(--a1),var(--a2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .g2 { background:linear-gradient(90deg,var(--a3),var(--a4)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+
+    .hero-p { font-size:clamp(.88rem,2vw,1.1rem); color:var(--muted); max-width:540px; line-height:1.8; margin-bottom:36px; animation:fu .8s .2s var(--ease) both; }
+    .hero-stats { display:flex; gap:28px; justify-content:center; flex-wrap:wrap; margin-bottom:44px; animation:fu .8s .3s var(--ease) both; }
+    .hs { text-align:center; }
+    .hs .n { font-family:var(--font-d); font-size:2rem; font-weight:900; color:white; line-height:1; }
+    .hs .l { font-size:.68rem; color:var(--muted); font-weight:600; margin-top:3px; text-transform:uppercase; letter-spacing:1px; }
+    .hsep { width:1px; background:var(--border); align-self:stretch; }
+
+    .scroll-hint { position:absolute; bottom:28px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:6px; color:var(--muted); font-size:.68rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; animation:fi 1s 1.2s var(--ease) both; }
+    .sl { width:1px; height:40px; background:linear-gradient(to bottom,var(--muted),transparent); animation:sp 2s ease infinite; }
+    @keyframes sp{0%,100%{opacity:.3}50%{opacity:1}}
+    @keyframes fu { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fi { from{opacity:0} to{opacity:1} }
+
+    /* SEARCH */
+    .search-sec { max-width:680px; margin:0 auto; padding:0 24px 56px; animation:fu .8s .4s var(--ease) both; }
+    .sw { position:relative; background:var(--surface); border:1px solid var(--border); border-radius:18px; display:flex; align-items:center; padding:5px 5px 5px 20px; transition:border-color .3s,box-shadow .3s; }
+    .sw:focus-within { border-color:var(--a1); box-shadow:0 0 0 4px rgba(124,106,255,.1),0 20px 60px rgba(124,106,255,.08); }
+    .sw-icon { color:var(--muted); font-size:.95rem; flex-shrink:0; }
+    .si { flex:1; padding:11px 12px; background:transparent; border:none; outline:none; color:white; font-size:.95rem; font-family:var(--font-b); }
+    .si::placeholder { color:var(--muted); }
+    .vbtn { width:42px; height:42px; border-radius:10px; background:rgba(0,229,196,.08); border:1px solid rgba(0,229,196,.2); color:var(--a3); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:.95rem; margin-right:5px; transition:all .2s; flex-shrink:0; }
+    .vbtn:hover { background:rgba(0,229,196,.15); }
+    .vbtn.vl { animation:vp .7s ease infinite; background:rgba(255,95,160,.15); border-color:var(--a2); color:var(--a2); }
+    @keyframes vp{0%,100%{box-shadow:0 0 0 0 rgba(255,95,160,.4)}50%{box-shadow:0 0 0 9px rgba(255,95,160,0)}}
+    .sbtn { padding:11px 22px; border-radius:12px; background:linear-gradient(135deg,var(--a1),var(--a2)); border:none; color:white; font-weight:700; font-size:.85rem; cursor:pointer; font-family:var(--font-b); transition:opacity .2s,transform .2s; white-space:nowrap; }
+    .sbtn:hover { opacity:.85; transform:scale(.97); }
+    .stags { display:flex; gap:7px; flex-wrap:wrap; margin-top:12px; justify-content:center; }
+    .stag { padding:5px 12px; border-radius:50px; border:1px solid var(--border); background:var(--surface); font-size:.73rem; color:var(--muted); cursor:pointer; transition:all .2s; }
+    .stag:hover { color:white; border-color:var(--a1); background:rgba(124,106,255,.1); }
+
+    /* FEATURE BANNER */
+    .fbanner { margin:0 auto 52px; max-width:1260px; padding:0 24px; }
+    .fb-inner { border-radius:24px; overflow:hidden; background:linear-gradient(135deg,#0d0420,#1a0a38 60%,#0d1a30); border:1px solid rgba(124,106,255,.2); padding:40px; display:grid; grid-template-columns:1fr auto; gap:24px; align-items:center; position:relative; }
+    @media(max-width:600px){.fb-inner{grid-template-columns:1fr;padding:26px 22px}}
+    .fb-inner::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 20% 50%,rgba(124,106,255,.1),transparent 55%),radial-gradient(ellipse at 85% 50%,rgba(0,229,196,.07),transparent 50%); pointer-events:none; }
+    .fb-eye { font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:var(--a3); margin-bottom:8px; }
+    .fb-title { font-family:var(--font-d); font-size:clamp(1.3rem,2.5vw,1.9rem); font-weight:900; color:white; margin-bottom:8px; position:relative; }
+    .fb-desc { font-size:.85rem; color:var(--muted); line-height:1.7; max-width:500px; position:relative; }
+    .fb-cta { display:inline-flex; align-items:center; gap:8px; margin-top:18px; padding:13px 26px; border-radius:12px; background:linear-gradient(135deg,var(--a1),var(--a2)); color:white; font-weight:700; font-size:.88rem; text-decoration:none; transition:opacity .2s,transform .2s; position:relative; }
+    .fb-cta:hover { opacity:.85; transform:translateY(-2px); }
+    .fb-nums { display:flex; flex-direction:column; gap:18px; position:relative; z-index:1; }
+    @media(max-width:600px){.fb-nums{flex-direction:row}}
+    .fb-n { text-align:center; }
+    .fb-n .n { font-family:var(--font-d); font-size:1.8rem; font-weight:900; color:white; line-height:1; }
+    .fb-n .l { font-size:.62rem; color:var(--muted); font-weight:600; margin-top:2px; text-transform:uppercase; letter-spacing:1px; }
+
+    /* CAT SECTION */
+    .main { max-width:1280px; margin:0 auto; padding:0 24px 80px; }
+    .cattabs { display:flex; overflow-x:auto; padding-bottom:1px; margin-bottom:44px; border-bottom:1px solid var(--border); scrollbar-width:none; gap:0; }
+    .cattabs::-webkit-scrollbar { display:none; }
+    .ctab { padding:12px 22px; border:none; background:transparent; color:var(--muted); font-size:.83rem; font-weight:700; cursor:pointer; white-space:nowrap; transition:color .2s; font-family:var(--font-b); position:relative; }
+    .ctab::after { content:''; position:absolute; bottom:-1px; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--a1),var(--a2)); transform:scaleX(0); transition:transform .3s var(--ease); border-radius:2px 2px 0 0; }
+    .ctab:hover { color:white; }
+    .ctab.active { color:white; }
+    .ctab.active::after { transform:scaleX(1); }
+
+    /* TOOL CARDS */
+    .tgrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; }
+    @media(max-width:580px){.tgrid{grid-template-columns:1fr}}
+
+    .tc { position:relative; overflow:hidden; border-radius:20px; background:var(--surface); border:1px solid var(--border); padding:22px; text-decoration:none; display:flex; flex-direction:column; gap:12px; opacity:0; transform:translateY(18px); transition:opacity .5s var(--ease),transform .5s var(--ease); }
+    .tc.vis { opacity:1; transform:translateY(0); }
+    .tc:hover { transform:translateY(-5px) scale(1.01); border-color:rgba(255,255,255,.13); box-shadow:0 16px 48px rgba(0,0,0,.35); }
+    .tc::before { content:''; position:absolute; inset:0; opacity:0; background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.04),transparent 55%); transition:opacity .3s; pointer-events:none; }
+    .tc:hover::before { opacity:1; }
+    .tc-bar { position:absolute; top:0; left:0; right:0; height:2.5px; border-radius:20px 20px 0 0; opacity:0; transition:opacity .3s; }
+    .tc:hover .tc-bar { opacity:1; }
+
+    .tc-top { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+    .tc-ico { width:50px; height:50px; border-radius:13px; display:flex; align-items:center; justify-content:center; font-size:1.45rem; flex-shrink:0; }
+    .tc-new { padding:3px 8px; border-radius:50px; font-size:.58rem; font-weight:800; letter-spacing:.5px; text-transform:uppercase; background:linear-gradient(135deg,var(--a1),var(--a2)); color:white; }
+
+    .tc-name { font-family:var(--font-d); font-size:.97rem; font-weight:800; color:white; line-height:1.3; transition:color .2s; }
+    .tc:hover .tc-name { color:var(--card-c,var(--a1)); }
+    .tc-desc { font-size:.8rem; color:var(--muted); line-height:1.6; flex:1; }
+
+    .tc-foot { display:flex; align-items:center; justify-content:space-between; margin-top:2px; }
+    .tc-tags { display:flex; gap:4px; flex-wrap:wrap; }
+    .tc-tag { padding:3px 7px; border-radius:6px; font-size:.6rem; font-weight:700; background:rgba(255,255,255,.05); color:var(--muted); }
+    .tc-arr { width:26px; height:26px; border-radius:7px; background:rgba(255,255,255,.05); color:var(--muted); display:flex; align-items:center; justify-content:center; font-size:.72rem; transition:all .2s; flex-shrink:0; }
+    .tc:hover .tc-arr { background:rgba(124,106,255,.2); color:white; transform:translateX(3px); }
+
+    /* NO RESULTS */
+    .nr { text-align:center; padding:80px 24px; display:none; }
+    .nr-i { font-size:3.5rem; margin-bottom:14px; }
+    .nr h3 { font-family:var(--font-d); font-size:1.3rem; color:white; margin-bottom:8px; }
+    .nr p { color:var(--muted); }
+
+    /* FOOTER CTA */
+    .ftcta { max-width:1260px; margin:0 auto 60px; padding:0 24px; }
+    .ftcta-inner { padding:52px; border-radius:28px; text-align:center; background:linear-gradient(135deg,#080816,#180820,#081816); border:1px solid var(--border); position:relative; overflow:hidden; }
+    .ftcta-inner::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at center,rgba(124,106,255,.07),transparent 65%); pointer-events:none; }
+    .ftcta-inner h2 { font-family:var(--font-d); font-size:clamp(1.4rem,2.8vw,2.1rem); font-weight:900; color:white; margin-bottom:10px; position:relative; }
+    .ftcta-inner p { color:var(--muted); max-width:460px; margin:0 auto 26px; line-height:1.7; font-size:.9rem; position:relative; }
+    .ftcta-btn { display:inline-flex; align-items:center; gap:8px; padding:15px 30px; border-radius:14px; background:#25d366; color:white; font-weight:700; font-size:.95rem; text-decoration:none; transition:all .25s; position:relative; }
+    .ftcta-btn:hover { background:#1fb055; transform:translateY(-3px); box-shadow:0 16px 40px rgba(37,211,102,.25); }
+
+    /* FOOTER */
+    .foot { border-top:1px solid var(--border); padding:44px 24px; max-width:1280px; margin:0 auto; }
+    .foot-g { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:36px; margin-bottom:36px; }
+    @media(max-width:780px){.foot-g{grid-template-columns:1fr 1fr}}
+    @media(max-width:460px){.foot-g{grid-template-columns:1fr}}
+    .fc h4 { font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); margin-bottom:12px; }
+    .fc a { display:block; color:#3a4055; font-size:.8rem; text-decoration:none; margin-bottom:7px; transition:color .2s; }
+    .fc a:hover { color:white; }
+    .foot-bot { border-top:1px solid var(--border); padding-top:20px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+    .foot-bot p { color:var(--muted); font-size:.75rem; }
+
+    /* WA FAB */
+    .wafab { position:fixed; bottom:22px; right:22px; z-index:90; width:54px; height:54px; border-radius:50%; background:#25d366; color:white; display:flex; align-items:center; justify-content:center; font-size:1.35rem; box-shadow:0 8px 24px rgba(37,211,102,.35); text-decoration:none; transition:all .2s; }
+    .wafab:hover { transform:scale(1.1) translateY(-2px); box-shadow:0 14px 32px rgba(37,211,102,.45); }
+
+    /* VOICE INDICATOR */
+    .vi { position:fixed; top:76px; left:50%; transform:translateX(-50%); background:var(--surface2); border:1px solid rgba(0,229,196,.3); border-radius:50px; padding:9px 18px; display:flex; align-items:center; gap:10px; color:var(--a3); font-size:.82rem; font-weight:600; z-index:300; opacity:0; pointer-events:none; transition:opacity .3s; white-space:nowrap; }
+    .vi.show { opacity:1; }
+    .vi-bars { display:flex; gap:3px; align-items:center; }
+    .vi-b { width:3px; border-radius:2px; background:var(--a3); animation:vib .5s ease infinite alternate; }
+    .vi-b:nth-child(1){height:6px;animation-delay:0s}
+    .vi-b:nth-child(2){height:12px;animation-delay:.1s}
+    .vi-b:nth-child(3){height:18px;animation-delay:.2s}
+    .vi-b:nth-child(4){height:12px;animation-delay:.3s}
+    .vi-b:nth-child(5){height:6px;animation-delay:.4s}
+    @keyframes vib{from{transform:scaleY(.4)}to{transform:scaleY(1)}}
+
+    /* MODAL */
+    .moverlay { position:fixed; inset:0; z-index:500; background:rgba(5,7,15,.92); backdrop-filter:blur(20px); display:flex; align-items:center; justify-content:center; padding:20px; opacity:0; pointer-events:none; transition:opacity .3s; }
+    .moverlay.open { opacity:1; pointer-events:all; }
+    .mdl { background:var(--surface2); border:1px solid rgba(255,255,255,.1); border-radius:26px; max-width:540px; width:100%; padding:38px; transform:translateY(20px) scale(.96); transition:transform .4s var(--ease); position:relative; max-height:90vh; overflow-y:auto; }
+    .moverlay.open .mdl { transform:translateY(0) scale(1); }
+    .mclose { position:absolute; top:18px; right:18px; width:30px; height:30px; border-radius:50%; border:1px solid var(--border); background:var(--surface); color:var(--muted); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:.82rem; transition:all .2s; }
+    .mclose:hover { color:white; }
+    .mico { width:60px; height:60px; border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:1.8rem; margin-bottom:18px; }
+    .mname { font-family:var(--font-d); font-size:1.5rem; font-weight:900; color:white; margin-bottom:7px; }
+    .mdesc { color:var(--muted); font-size:.88rem; line-height:1.8; margin-bottom:20px; }
+    .mfeats { display:flex; flex-direction:column; gap:7px; margin-bottom:24px; }
+    .mfeat { display:flex; align-items:center; gap:9px; font-size:.83rem; color:var(--text); }
+    .mfeat i { color:var(--a3); font-size:.72rem; flex-shrink:0; }
+    .mbtns { display:flex; gap:9px; }
+    .mopen { flex:1; padding:13px; border-radius:12px; color:white; font-weight:700; font-size:.88rem; text-decoration:none; text-align:center; display:flex; align-items:center; justify-content:center; gap:7px; transition:opacity .2s; }
+    .mopen:hover { opacity:.85; }
+    .mwa { padding:13px 18px; border-radius:12px; background:rgba(37,211,102,.1); border:1px solid rgba(37,211,102,.25); color:#25d366; font-weight:700; font-size:.88rem; text-decoration:none; display:flex; align-items:center; gap:6px; transition:background .2s; }
+    .mwa:hover { background:rgba(37,211,102,.18); }
+
+    /* INFO STRIP */
+    .istrip { max-width:1260px; margin:0 auto 48px; padding:0 24px; }
+    .istrip-inner { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+    @media(max-width:700px){.istrip-inner{grid-template-columns:1fr 1fr}}
+    @media(max-width:420px){.istrip-inner{grid-template-columns:1fr}}
+    .icard { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:20px; text-align:center; transition:border-color .3s,transform .3s; }
+    .icard:hover { border-color:rgba(255,255,255,.14); transform:translateY(-3px); }
+    .ic-ico { font-size:1.8rem; margin-bottom:8px; }
+    .ic-n { font-family:var(--font-d); font-size:1.6rem; font-weight:900; color:white; margin-bottom:3px; }
+    .ic-l { font-size:.7rem; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:1px; }
   </style>
 </head>
 <body>
 
-<header class="tools-header">
-  <div class="th-inner">
-    <a href="../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a>
-    <nav class="th-nav" id="thNav">
-      <a href="../index.html"><i class="fas fa-home"></i> Home</a>
-      <a href="#" class="active"><i class="fas fa-tools"></i> All Tools</a>
-      <a href="../index.html#services">Services</a>
-      <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-    </nav>
-    <button class="th-mobile-toggle" id="thToggle"><span></span><span></span><span></span></button>
-  </div>
+<div id="cDot"></div>
+<div id="cRing"></div>
+
+<div class="vi" id="vi">
+  <div class="vi-bars"><div class="vi-b"></div><div class="vi-b"></div><div class="vi-b"></div><div class="vi-b"></div><div class="vi-b"></div></div>
+  Listening… say a tool name
+</div>
+
+<!-- HEADER -->
+<header class="hdr">
+  <a href="../index.html" class="logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span class="logo-text">BLESS<em>Tech-X</em></span></a>
+  <nav class="hnav">
+    <a href="../index.html" class="hl">Home</a>
+    <a href="../index.html#services" class="hl">Services</a>
+    <button class="snd-btn on" id="sndBtn" onclick="toggleSnd()" title="Toggle sound">🔔</button>
+    <a href="https://wa.me/260979603741" target="_blank" class="hl hlwa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+  </nav>
 </header>
 
 <!-- HERO -->
-<div class="hub-hero">
-  <div class="hub-hero-inner">
-    <h1>Free Tools for <em>Every Zambian</em></h1>
-    <p>24 powerful, free tools for workers, students, entrepreneurs and creatives. No sign-up. No ads. 100% free. Built in Lusaka, for Zambia. 🇿🇲</p>
-    <div class="hub-stats">
-      <div class="hub-stat"><div class="sv">24</div><div class="sl">Free Tools</div></div>
-      <div class="hub-stat"><div class="sv">7</div><div class="sl">Categories</div></div>
-      <div class="hub-stat"><div class="sv">0</div><div class="sl">Sign-ups Required</div></div>
-      <div class="hub-stat"><div class="sv">100%</div><div class="sl">Free Forever</div></div>
+<section class="hero">
+  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+  <div class="eyebrow"><div class="eyebrow-dot"></div>🇿🇲 Built in Lusaka for Zambia</div>
+  <h1 class="hero-h1">
+    <span class="g1">24 Free Tools</span><br/>
+    <span style="color:white">for Every</span> <span class="g2">Zambian</span>
+  </h1>
+  <p class="hero-p">Students, business owners, developers, creatives — we built tools for all of you. No sign-up. No ads. No nonsense. 100% free, forever. 🙌</p>
+  <div class="hero-stats">
+    <div class="hs"><div class="n" id="ctr">0</div><div class="l">Free Tools</div></div>
+    <div class="hsep"></div>
+    <div class="hs"><div class="n">7</div><div class="l">Categories</div></div>
+    <div class="hsep"></div>
+    <div class="hs"><div class="n">0</div><div class="l">Sign-ups</div></div>
+    <div class="hsep"></div>
+    <div class="hs"><div class="n">🆓</div><div class="l">Always Free</div></div>
+  </div>
+  <div class="scroll-hint"><div class="sl"></div>Scroll to explore</div>
+</section>
+
+<!-- SEARCH -->
+<div class="search-sec">
+  <div class="sw">
+    <i class="fas fa-search sw-icon"></i>
+    <input class="si" id="sInp" placeholder="Search tools — receipt, study, email, photo…" oninput="doSearch()"/>
+    <button class="vbtn" id="vbtn" onclick="startVoice()" title="Search by voice"><i class="fas fa-microphone"></i></button>
+    <button class="sbtn" onclick="doSearch()">Search</button>
+  </div>
+  <div class="stags">
+    <span class="stag" onclick="qSearch('receipt')">🧾 Receipt</span>
+    <span class="stag" onclick="qSearch('email')">📧 Email</span>
+    <span class="stag" onclick="qSearch('cv')">📑 CV Builder</span>
+    <span class="stag" onclick="qSearch('photo')">📸 Photo</span>
+    <span class="stag" onclick="qSearch('study')">📚 Study</span>
+    <span class="stag" onclick="qSearch('playlist')">🎵 Playlist</span>
+    <span class="stag" onclick="qSearch('countdown')">⏳ Countdown</span>
+    <span class="stag" onclick="qSearch('pomodoro')">🍅 Pomodoro</span>
+  </div>
+</div>
+
+<!-- FEATURE BANNER -->
+<div class="fbanner">
+  <div class="fb-inner">
+    <div style="position:relative;z-index:1">
+      <div class="fb-eye">⭐ Featured New Tool</div>
+      <div class="fb-title">🧾 Receipt Generator — Now Live!</div>
+      <div class="fb-desc">Generate POS thermal and A4 professional receipts for your Zambian business. QR code, 16% VAT, Airtel/MTN/Cash payment, WhatsApp share, and it saves your business info for next time.</div>
+      <a href="receipt-generator/index.html" class="fb-cta" onclick="pClick()"><i class="fas fa-arrow-right"></i> Try It Free</a>
+    </div>
+    <div class="fb-nums">
+      <div class="fb-n"><div class="n">POS</div><div class="l">Thermal</div></div>
+      <div class="fb-n"><div class="n">A4</div><div class="l">Pro Format</div></div>
+      <div class="fb-n"><div class="n">QR</div><div class="l">Code Built-in</div></div>
     </div>
   </div>
 </div>
 
-<div class="hub-main">
-
-  <!-- SEARCH -->
-  <div class="search-bar">
-    <i class="fas fa-search"></i>
-    <input type="text" id="searchInput" placeholder="Search tools — e.g. receipt, CV, timer..." oninput="filterTools()"/>
-    <button class="clear-btn" id="clearSearch" onclick="clearSearch()">×</button>
+<!-- INFO STRIP -->
+<div class="istrip">
+  <div class="istrip-inner">
+    <div class="icard"><div class="ic-ico">🆓</div><div class="ic-n">100%</div><div class="ic-l">Free Forever</div></div>
+    <div class="icard"><div class="ic-ico">🔒</div><div class="ic-n">Private</div><div class="ic-l">No Data Collected</div></div>
+    <div class="icard"><div class="ic-ico">📱</div><div class="ic-n">Mobile</div><div class="ic-l">Works on Any Device</div></div>
+    <div class="icard"><div class="ic-ico">⚡</div><div class="ic-n">Instant</div><div class="ic-l">No Loading, No Lag</div></div>
   </div>
-
-  <!-- CATEGORY NAV -->
-  <div class="cat-nav" id="catNav">
-    <button class="cat-nav-btn active" onclick="showCat('all',this)">🌟 All Tools</button>
-    <button class="cat-nav-btn" onclick="showCat('writing',this)">✍️ Writing</button>
-    <button class="cat-nav-btn" onclick="showCat('business',this)">💼 Business</button>
-    <button class="cat-nav-btn" onclick="showCat('student',this)">🎓 Students</button>
-    <button class="cat-nav-btn" onclick="showCat('creative',this)">🎨 Creative</button>
-    <button class="cat-nav-btn" onclick="showCat('productivity',this)">⚡ Productivity</button>
-    <button class="cat-nav-btn" onclick="showCat('calculators',this)">🧮 Calculators</button>
-    <button class="cat-nav-btn" onclick="showCat('developer',this)">🛠️ Developer</button>
-  </div>
-
-  <!-- NO RESULTS -->
-  <div class="no-results" id="noResults" style="display:none">
-    <div style="font-size:3rem;margin-bottom:12px">🔍</div>
-    <div style="font-size:1rem;font-weight:700;color:var(--slate);margin-bottom:6px">No tools found</div>
-    <p>Try a different search term or browse by category.</p>
-  </div>
-
-  <!-- WRITING & COMMUNICATION -->
-  <div class="cat-section" data-cat="writing" id="sec_writing">
-    <div class="cat-header">
-      <div class="cat-icon" style="background:#e0f2fe;color:#0284c7">✍️</div>
-      <div><div class="cat-title">Writing &amp; Communication</div><div class="cat-desc">Professional emails, letters, meeting minutes and documents</div></div>
-    </div>
-    <div class="tools-grid">
-      <a href="email-writer/index.html" class="tool-card" data-tags="email write professional communication" style="--card-accent:#0ea5e9">
-        <div class="tool-card-icon" style="background:#e0f2fe;color:#0284c7">📧</div>
-        <div><div class="tool-card-name">Professional Email Writer</div><div class="tool-card-desc">12 email types × 4 tones. Chasing payment, job application, resignation and more.</div></div>
-        <div class="tool-card-meta"><span class="tc-badge">12 Templates</span><span class="tc-badge">4 Tones</span><span class="tc-badge">Copy & Print</span></div>
-      </a>
-      <a href="letter-generator/index.html" class="tool-card" data-tags="letter formal write document" style="--card-accent:#6366f1">
-        <div class="tool-card-icon" style="background:#eef2ff;color:#4f46e5">📜</div>
-        <div><div class="tool-card-name">Letter Generator</div><div class="tool-card-desc">Formal letters for any purpose — cover letters, business letters, complaint letters.</div></div>
-        <div class="tool-card-meta"><span class="tc-badge">Multiple Types</span><span class="tc-badge">PDF Download</span></div>
-      </a>
-      <a href="meeting-minutes/index.html" class="tool-card" data-tags="meeting minutes notes agenda" style="--card-accent:#10b981">
-        <div class="tool-card-icon" style="background:#d1fae5;color:#059669">🗒️</div>
-        <div><div class="tool-card-name">Meeting Minutes</div><div class="tool-card-desc">Capture meeting notes in a structured, professional format ready to share.</div></div>
-        <div class="tool-card-meta"><span class="tc-badge">PDF Export</span><span class="tc-badge">Word Export</span></div>
-      </a>
-      <a href="word-counter/index.html" class="tool-card" data-tags="word count characters text" style="--card-accent:#f59e0b">
-        <div class="tool-card-icon" style="background:#fef3c7;color:#d97706">🔤</div>
-        <div><div class="tool-card-name">Word Counter</div><div class="tool-card-desc">Count words, characters, sentences and reading time. Great for essays and reports.</div></div>
-        <div class="tool-card-meta"><span class="tc-badge">Real-time</span><span class="tc-badge">Reading Time</span></div>
-      </a>
-      <a href="text-summarizer/index.html" class="tool-card" data-tags="text summarize shorten condense" style="--card-accent:#8b5cf6">
-        <div class="tool-card-icon" style="background:#ede9fe;color:#7c3aed">📝</div>
-        <div><div class="tool-card-name">Text Summarizer</div><div class="tool-card-desc">Paste any long text and get a clean, concise summary instantly.</div></div>
-        <div class="tool-card-meta"><span class="tc-badge">Instant</span></div>
-      </a>
-    </div>
-  </div>
-
-  <!-- BUSINESS TOOLS -->
-  <div class="cat-section" data-cat="business" id="sec_business">
-    <div class="cat-header">
-      <div class="cat-icon" style="background:#fce7f3;color:#db2777">💼</div>
-      <div><div class="cat-title">Business &amp; Finance</div><div class="cat-desc">Invoices, receipts, budgets and financial tools for Zambian businesses</div></div>
-    </div>
-    <div class="tools-grid">
-      <a href="receipt-generator/index.html" class="tool-card new-badge" data-tags="receipt business shop payment sales" style="--card-accent:#db2777">
-        <div class="tool-card-icon" style="background:#fce7f3;color:#db2777">🧾</div>
-        <div><div class="tool-card-name">Receipt Generator</div><div class="tool-card-desc">POS &amp; A4 receipts with QR code, VAT, Airtel/MTN payment, WhatsApp share. Save business info.</div></div>
-        <div class="tool-card-meta"><span class="tc-badge">POS + A4</span><span class="tc-badge">QR Code</span><span class="tc-badge">WhatsApp</span><span class="tc-badge">VAT</span></div>
-      </a>
-      <a href="invoice/index.html" class="tool-card" data-tags="invoice billing client payment" style="--card-accent:#0ea5e9">
-        <div class="tool-card-icon" style="background:#e0f2fe;color:#0284c7">📋</div>
-        <div><div class="tool-card-name">Invoice Generator</div><div class="tool-card-desc">Professional invoices with your logo, line items, VAT and payment terms.</div></div>
-        <div class="tool-card-meta"><span class="tc-badge">PDF Download</span><span class="tc-badge">Auto-number</span></div>
-      </a>
-      <a href="budget-planner/index.html" class="tool-card" data-tags="budget money finance spending income" style="--card-accent:#10b981">
-        <div class="tool-card-icon" style="background:#d1fae5;color:#059669">💰</div>
-        <div><div class="tool-card-name">Budget Planner</div><div class="tool-card-desc">Track income and expenses, see spending breakdown and save more money.</div></div>
-        <div class="tool-card-meta"><span class="tc-badge">ZMW</span><span class="tc-badge">Charts</span></div>
-      </a>
-      <a href="contract-generator/index.html" class="tool-card" data-tags="contract legal agreement freelance" style="--card-accent:#6366f1">
-        <div class="tool-card-icon" style="background:#eef2ff;color:#4f46e5">📄</div>
-        <div><div class="tool-card-name">Contract Generator</div><div class="tool-card-desc">Simple service contracts and freelance agreements you can customise and download.</div></div>
-        <div class="tool-card-meta"><span class="tc-badge">PDF</span><span class="tc-badge">Customisable</span></div>
-      </a>
-      <a href="tip-splitter/index.html" class="tool-card" data-tags="bill split tip restaurant share" style="--card-accent:#f59e0b">
-        <div class="tool-card-icon" style="background:#fef3c7;color:#d97706">🍽️</div>
-        <div><div class="tool-card-name">Bill Splitter</div><div class="tool-card-desc">Split restaurant bills, add tips and see exactly what each person owes.</div></div>
-        <div class="tool-card-meta"><span class="tc-badge">Group Split</span><span class="tc-badge">ZMW</span></div>
-      </a>
-      <a href="agenda-builder/index.html" class="tool-card" data-tags="agenda meeting plan schedule" style="--card-accent:#ec4899">
-        <div class="tool-card-icon" style="background:#fce7f3;color:#db2777">📅</div>
-        <div><div class="tool-card-name">Agenda Builder</div><div class="tool-card-desc">Build timed meeting agendas to keep your team on track and on time.</div></div>
-        <div class="tool-card-meta"><span class="tc-badge">Time Slots</span><span class="tc-badge">Print</span></div>
-      </a>
-    </div>
-  </div>
-
-  <!-- STUDENT TOOLS -->
-  <div class="cat-section" data-cat="student" id="sec_student">
-    <div class="cat-header">
-      <div class="cat-icon" style="background:#eef2ff;color:#4f46e5">🎓</div>
-      <div><div class="cat-title">Students &amp; Youth</div><div class="cat-desc">Tools to study smarter, build your career and have fun</div></div>
-    </div>
-    <div class="tools-grid">
-      <a href="study-timetable/index.html" class="tool-card new-badge" data-tags="study timetable schedule grade12 unza cbu exams" style="--card-accent:#6366f1">
-        <div class="tool-card-icon" style="background:#eef2ff;color:#4f46e5">📚</div>
-        <div><div class="tool-card-name">Study Timetable Generator</div><div class="tool-card-desc">Build a colour-coded study schedule for Grade 12, UNZA, CBU or any exams. PDF download.</div></div>
-        <div class="tool-card-meta"><span class="tc-badge">Colour-coded</span><span class="tc-badge">PDF Print</span><span class="tc-badge">Smart Scheduling</span></div>
-      </a>
-      <a href="cv-builder/index.html" class="tool-card" data-tags="cv resume job career application" style="--card-accent:#0ea5e9">
-        <div class="tool-card-icon" style="background:#e0f2fe;color:#0284c7">📑</div>
-        <div><div class="tool-card-name">CV Builder</div><div class="tool-card-desc">Build a professional Zambian CV with multiple templates. Download as PDF instantly.</div></div>
-        <div class="tool-card-meta"><span class="tc-badge">Multiple Templates</span><span class="tc-badge">PDF</span></div>
-      </a>
-      <a href="playlist-mood/index.html" class="tool-card new-badge" data-tags="music playlist mood song vibes afrobeats zambian" style="--card-accent:#ec4899">
-        <div class="tool-card-icon" style="background:#fce7f3;color:#db2777">🎵</div>
-        <div><div class="tool-card-name">Playlist Mood Generator</div><div class="tool-card-desc">Pick your vibe, activity and genres. Get a curated playlist with YouTube &amp; Spotify links.</div></div>
-        <div class="tool-card-meta"><span class="tc-badge">12 Moods</span><span class="tc-badge">YouTube Links</span><span class="tc-badge">Zambian Music</span></div>
-      </a>
-      <a href="decision-maker/index.html" class="tool-card" data-tags="decision choice random spin wheel" style="--card-accent:#f59e0b">
-        <div class="tool-card-icon" style="background:#fef3c7;color:#d97706">🎯</div>
-        <div><div class="tool-card-name">Decision Maker</div><div class="tool-card-desc">Can't decide? Spin the wheel! Add your options and let fate choose for you.</div></div>
-        <div class="tool-card-meta"><span class="tc-badge">Spin Wheel</span><span class="tc-badge">Random Pick</span></div>
-      </a>
-      <a href="countdown/index.html" class="tool-card" data-tags="countdown timer date event exam" style="--card-accent:#10b981">
-        <div class="tool-card-icon" style="background:#d1fae5;color:#059669">⏳</div>
-        <div><div class="tool-card-name">Countdown Timer</div><div class="tool-card-desc">Count down to your exam, event or deadline. Share with friends.</div></div>
-        <div class="tool-card-meta"><span class="tc-badge">Shareable</span></div>
-      </a>
-      <a href="pomodoro/index.html" class="tool-card" data-tags="pomodoro timer focus study work" style="--card-accent:#ef4444">
-        <div class="tool-card-icon" style="background:#fee2e2;color:#dc2626">⏱️</div>
-        <div><div class="tool-card-name">Pomodoro Timer</div><div class="tool-card-desc">Study with the Pomodoro technique — 25 min focus, 5 min break. Beat procrastination.</div></div>
-        <div class="tool-card-meta"><span class="tc-badge">Focus Technique</span><span class="tc-badge">Alerts</span></div>
-      </a>
-    </div>
-  </div>
-
-  <!-- CREATIVE TOOLS -->
-  <div class="cat-section" data-cat="creative" id="sec_creative">
-    <div class="cat-header">
-      <div class="cat-icon" style="background:#ede9fe;color:#7c3aed">🎨</div>
-      <div><div class="cat-title">Creative &amp; Media</div><div class="cat-desc">Photo editing, QR codes, watermarks and visual tools</div></div>
-    </div>
-    <div class="tools-grid">
-      <a href="photo-editor/index.html" class="tool-card new-badge" data-tags="photo editor image filter crop resize watermark instagram" style="--card-accent:#8b5cf6">
-        <div class="tool-card-icon" style="background:#ede9fe;color:#7c3aed">📸</div>
-        <div><div class="tool-card-name">Photo Editor</div><div class="tool-card-desc">Filters, brightness, contrast, text overlays, watermark, resize for Instagram/WhatsApp. 100% browser-based.</div></div>
-        <div class="tool-card-meta"><span class="tc-badge">9 Filters</span><span class="tc-badge">Text Overlay</span><span class="tc-badge">Social Resize</span><span class="tc-badge">No Upload</span></div>
-      </a>
-      <a href="qr-generator/index.html" class="tool-card" data-tags="qr code generate scan link" style="--card-accent:#0f172a">
-        <div class="tool-card-icon" style="background:#f1f5f9;color:#0f172a">◼️</div>
-        <div><div class="tool-card-name">QR Code Generator</div><div class="tool-card-desc">Generate QR codes for links, text, WhatsApp, phone numbers and more. Download PNG.</div></div>
-        <div class="tool-card-meta"><span class="tc-badge">Instant</span><span class="tc-badge">PNG Download</span></div>
-      </a>
-    </div>
-  </div>
-
-  <!-- PRODUCTIVITY -->
-  <div class="cat-section" data-cat="productivity" id="sec_productivity">
-    <div class="cat-header">
-      <div class="cat-icon" style="background:#d1fae5;color:#059669">⚡</div>
-      <div><div class="cat-title">Productivity &amp; Planning</div><div class="cat-desc">Stay organised, on time and on task</div></div>
-    </div>
-    <div class="tools-grid">
-      <a href="pomodoro/index.html" class="tool-card" data-tags="pomodoro focus timer work" style="--card-accent:#ef4444">
-        <div class="tool-card-icon" style="background:#fee2e2;color:#dc2626">🍅</div>
-        <div><div class="tool-card-name">Pomodoro Timer</div><div class="tool-card-desc">Work smarter with focused time blocks and scheduled breaks.</div></div>
-        <div class="tool-card-meta"><span class="tc-badge">25/5 Method</span></div>
-      </a>
-      <a href="countdown/index.html" class="tool-card" data-tags="countdown date event deadline" style="--card-accent:#10b981">
-        <div class="tool-card-icon" style="background:#d1fae5;color:#059669">⏳</div>
-        <div><div class="tool-card-name">Countdown Timer</div><div class="tool-card-desc">Set countdowns to any date — exams, events, launches, deadlines.</div></div>
-        <div class="tool-card-meta"><span class="tc-badge">Custom Date</span></div>
-      </a>
-      <a href="zambia-holidays/index.html" class="tool-card" data-tags="zambia holidays public calendar" style="--card-accent:#dc2626">
-        <div class="tool-card-icon" style="background:#fee2e2;color:#dc2626">🇿🇲</div>
-        <div><div class="tool-card-name">Zambia Public Holidays</div><div class="tool-card-desc">All Zambian public holidays for 2025–2026 with dates and descriptions.</div></div>
-        <div class="tool-card-meta"><span class="tc-badge">2025-2026</span><span class="tc-badge">Zambia Only</span></div>
-      </a>
-      <a href="decision-maker/index.html" class="tool-card" data-tags="decision spin random wheel" style="--card-accent:#f59e0b">
-        <div class="tool-card-icon" style="background:#fef3c7;color:#d97706">🎯</div>
-        <div><div class="tool-card-name">Decision Maker</div><div class="tool-card-desc">Add options, spin the wheel, let it decide. Perfect for groups and teams.</div></div>
-        <div class="tool-card-meta"><span class="tc-badge">Spin Wheel</span></div>
-      </a>
-    </div>
-  </div>
-
-  <!-- CALCULATORS -->
-  <div class="cat-section" data-cat="calculators" id="sec_calculators">
-    <div class="cat-header">
-      <div class="cat-icon" style="background:#fef3c7;color:#d97706">🧮</div>
-      <div><div class="cat-title">Calculators &amp; Converters</div><div class="cat-desc">Numbers made easy — units, currency and more</div></div>
-    </div>
-    <div class="tools-grid">
-      <a href="unit-converter/index.html" class="tool-card" data-tags="unit convert length weight temperature area volume" style="--card-accent:#0ea5e9">
-        <div class="tool-card-icon" style="background:#e0f2fe;color:#0284c7">📐</div>
-        <div><div class="tool-card-name">Unit Converter</div><div class="tool-card-desc">Convert length, weight, temperature, area, volume, speed, time and data units.</div></div>
-        <div class="tool-card-meta"><span class="tc-badge">8 Categories</span><span class="tc-badge">Instant</span></div>
-      </a>
-      <a href="currency-converter/index.html" class="tool-card" data-tags="currency zmw usd gbp zar convert money exchange" style="--card-accent:#ec4899">
-        <div class="tool-card-icon" style="background:#fce7f3;color:#db2777">💱</div>
-        <div><div class="tool-card-name">Currency Converter</div><div class="tool-card-desc">Convert Zambian Kwacha to USD, GBP, ZAR, EUR, KES and 10+ currencies.</div></div>
-        <div class="tool-card-meta"><span class="tc-badge">15+ Currencies</span><span class="tc-badge">ZMW Focus</span></div>
-      </a>
-      <a href="tip-splitter/index.html" class="tool-card" data-tags="bill split tip calculate share" style="--card-accent:#f59e0b">
-        <div class="tool-card-icon" style="background:#fef3c7;color:#d97706">🍽️</div>
-        <div><div class="tool-card-name">Bill Splitter</div><div class="tool-card-desc">Split bills evenly or unevenly between friends. Includes tip calculation.</div></div>
-        <div class="tool-card-meta"><span class="tc-badge">Group Split</span></div>
-      </a>
-    </div>
-  </div>
-
-  <!-- DEVELOPER -->
-  <div class="cat-section" data-cat="developer" id="sec_developer">
-    <div class="cat-header">
-      <div class="cat-icon" style="background:#f1f5f9;color:#475569">🛠️</div>
-      <div><div class="cat-title">Developer &amp; Technical</div><div class="cat-desc">Tools for developers, IT staff and technical users</div></div>
-    </div>
-    <div class="tools-grid">
-      <a href="json-formatter/index.html" class="tool-card" data-tags="json format developer code api" style="--card-accent:#10b981">
-        <div class="tool-card-icon" style="background:#d1fae5;color:#059669">{ }</div>
-        <div><div class="tool-card-name">JSON Formatter</div><div class="tool-card-desc">Paste messy JSON and get it beautifully formatted, validated and colour-coded.</div></div>
-        <div class="tool-card-meta"><span class="tc-badge">Validate</span><span class="tc-badge">Format</span><span class="tc-badge">Copy</span></div>
-      </a>
-      <a href="html-encoder/index.html" class="tool-card" data-tags="html encode decode developer code" style="--card-accent:#f59e0b">
-        <div class="tool-card-icon" style="background:#fef3c7;color:#d97706">&lt;/&gt;</div>
-        <div><div class="tool-card-name">HTML Entity Encoder</div><div class="tool-card-desc">Encode and decode HTML entities for safe web display.</div></div>
-        <div class="tool-card-meta"><span class="tc-badge">Encode</span><span class="tc-badge">Decode</span></div>
-      </a>
-      <a href="qr-generator/index.html" class="tool-card" data-tags="qr code generate developer link" style="--card-accent:#0f172a">
-        <div class="tool-card-icon" style="background:#f1f5f9;color:#0f172a">◼️</div>
-        <div><div class="tool-card-name">QR Code Generator</div><div class="tool-card-desc">Instant QR codes for any URL, text or contact information.</div></div>
-        <div class="tool-card-meta"><span class="tc-badge">PNG Download</span></div>
-      </a>
-    </div>
-  </div>
-
-  <!-- CTA -->
-  <div style="background:linear-gradient(135deg,#0f172a,#0c4a6e);border-radius:20px;padding:40px;text-align:center;margin-top:16px">
-    <h3 style="color:white;font-size:1.4rem;font-weight:800;margin-bottom:8px">Need a custom tool for your business?</h3>
-    <p style="color:#94a3b8;margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto">BLESSTech-X builds custom web apps, calculators, booking systems and business tools for Zambian companies from ZMW 980.</p>
-    <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I need a custom business tool." target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:#25d366;color:white;border-radius:50px;font-weight:700;font-size:.95rem;text-decoration:none"><i class="fab fa-whatsapp"></i> Let's Build It Together</a>
-  </div>
-
 </div>
 
-<footer class="tools-footer">
-  <div class="th-container">
-    <div class="tf-inner">
-      <div class="tf-brand"><a href="../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a><p>Free tools for every Zambian. Built in Lusaka. 🇿🇲</p></div>
-      <div class="tf-links"><h4>Top Tools</h4><a href="email-writer/index.html">Email Writer</a><a href="receipt-generator/index.html">Receipt Generator</a><a href="photo-editor/index.html">Photo Editor</a><a href="study-timetable/index.html">Study Timetable</a></div>
-      <div class="tf-links"><h4>More Tools</h4><a href="cv-builder/index.html">CV Builder</a><a href="invoice/index.html">Invoice Generator</a><a href="playlist-mood/index.html">Playlist Generator</a><a href="unit-converter/index.html">Unit Converter</a></div>
-      <div class="tf-links"><h4>BLESSTech-X</h4><a href="../index.html">Main Website</a><a href="../index.html#services">Services</a><a href="../index.html#contact">Contact</a></div>
-      <div class="tf-contact"><h4>Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
-    </div>
-    <div class="tf-bottom"><p>&copy; 2026 BLESSTech-X · 24 Free Tools · Built for Zambia 🇿🇲</p></div>
+<!-- TOOLS GRID -->
+<div class="main">
+  <div class="cattabs" id="catTabs">
+    <button class="ctab active" data-cat="all"          onclick="doCat('all',this)">🌟 All Tools</button>
+    <button class="ctab"        data-cat="writing"      onclick="doCat('writing',this)">✍️ Writing</button>
+    <button class="ctab"        data-cat="business"     onclick="doCat('business',this)">💼 Business</button>
+    <button class="ctab"        data-cat="student"      onclick="doCat('student',this)">🎓 Students</button>
+    <button class="ctab"        data-cat="creative"     onclick="doCat('creative',this)">🎨 Creative</button>
+    <button class="ctab"        data-cat="productivity" onclick="doCat('productivity',this)">⚡ Productivity</button>
+    <button class="ctab"        data-cat="calculators"  onclick="doCat('calculators',this)">🧮 Calculators</button>
+    <button class="ctab"        data-cat="developer"    onclick="doCat('developer',this)">🛠️ Developer</button>
   </div>
+  <div class="nr" id="nr"><div class="nr-i">🔍</div><h3>No tools found</h3><p>Try another search or browse by category above.</p></div>
+  <div class="tgrid" id="tgrid"></div>
+</div>
+
+<!-- FOOTER CTA -->
+<div class="ftcta">
+  <div class="ftcta-inner">
+    <h2>Need a custom tool for your business?</h2>
+    <p>BLESSTech-X builds custom web apps, booking systems, payment integrations and business tools for Zambian companies. From ZMW 980.</p>
+    <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I need a custom business tool." target="_blank" class="ftcta-btn" onclick="pClick()"><i class="fab fa-whatsapp"></i> Let's Build It Together</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="foot-g">
+    <div class="fc">
+      <a href="../index.html" class="logo" style="margin-bottom:12px;display:inline-flex"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X" style="width:28px;height:28px;border-radius:7px;object-fit:cover"/><span class="logo-text" style="font-size:.9rem;margin-left:8px">BLESS<em>Tech-X</em></span></a>
+      <p style="color:var(--muted);font-size:.8rem;line-height:1.7;max-width:210px;margin-top:4px">Free tools for every Zambian — workers, students, entrepreneurs and creatives. Built in Lusaka with love. 🇿🇲</p>
+    </div>
+    <div class="fc"><h4>Top Tools</h4><a href="email-writer/index.html">Email Writer</a><a href="receipt-generator/index.html">Receipt Generator</a><a href="photo-editor/index.html">Photo Editor</a><a href="study-timetable/index.html">Study Timetable</a></div>
+    <div class="fc"><h4>More Tools</h4><a href="cv-builder/index.html">CV Builder</a><a href="invoice/index.html">Invoice Generator</a><a href="playlist-mood/index.html">Playlist Generator</a><a href="countdown/index.html">Countdown Timer</a></div>
+    <div class="fc"><h4>BLESSTech-X</h4><a href="../index.html">Main Website</a><a href="../index.html#services">Services</a><a href="https://wa.me/260979603741">WhatsApp Us</a><a href="tel:+260979603741">+260 979 603 741</a></div>
+  </div>
+  <div class="foot-bot"><p>© 2026 BLESSTech-X · 24 Free Tools · Built for Zambia 🇿🇲</p><p style="color:#1e2535;font-size:.7rem">No sign-up · No ads · 100% free</p></div>
 </footer>
 
-<a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<a href="https://wa.me/260979603741" class="wafab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<!-- MODAL -->
+<div class="moverlay" id="moverlay" onclick="cModal(event)">
+  <div class="mdl">
+    <button class="mclose" onclick="cModalD()">×</button>
+    <div class="mico" id="mIco"></div>
+    <div style="font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:5px" id="mCat"></div>
+    <div class="mname" id="mName"></div>
+    <div class="mdesc" id="mDesc"></div>
+    <div class="mfeats" id="mFeats"></div>
+    <div class="mbtns">
+      <a href="#" id="mOpen" class="mopen" onclick="pClick()"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+      <a href="https://wa.me/260979603741" target="_blank" class="mwa"><i class="fab fa-whatsapp"></i></a>
+    </div>
+  </div>
+</div>
 
 <script>
-function showCat(cat, btn) {
-  document.querySelectorAll('.cat-nav-btn').forEach(function(b){ b.classList.remove('active'); });
-  btn.classList.add('active');
-  document.getElementById('searchInput').value = '';
-  document.getElementById('clearSearch').style.display = 'none';
-  document.getElementById('noResults').style.display = 'none';
-  var sections = document.querySelectorAll('.cat-section');
-  sections.forEach(function(s){
-    s.style.display = (cat === 'all' || s.getAttribute('data-cat') === cat) ? 'block' : 'none';
+var TOOLS=[
+  {id:'email-writer',     cat:'writing',     name:'Professional Email Writer',  e:'📧',c:'#0ea5e9',bg:'rgba(14,165,233,.12)',  desc:'Write polished professional emails in seconds. 12 email types, 4 tones — chasing payment, job applications, resignation, complaints and more.', feats:['12 email templates','4 tones: Formal, Friendly, Firm, Urgent','One-click copy & print','12 Zambian-context emails'], tags:['Emails','Professional','Copy'], isNew:false, url:'email-writer/index.html'},
+  {id:'letter-generator', cat:'writing',     name:'Letter Generator',            e:'📜',c:'#6366f1',bg:'rgba(99,102,241,.12)',  desc:'Generate formal letters for any occasion — cover letters, business letters, complaint letters, demand letters. Customisable and PDF-ready.', feats:['Multiple letter types','Formal formatting','PDF download','Zambian business context'], tags:['Letters','Formal','PDF'], isNew:false, url:'letter-generator/index.html'},
+  {id:'meeting-minutes',  cat:'writing',     name:'Meeting Minutes',             e:'🗒️',c:'#10b981',bg:'rgba(16,185,129,.12)',  desc:'Capture meeting notes in a clean structured format with agenda items, attendees, action points and decisions. Export to PDF or Word.', feats:['Structured format','Action items','PDF & Word export','WhatsApp share'], tags:['Meetings','Notes','Export'], isNew:false, url:'meeting-minutes/index.html'},
+  {id:'word-counter',     cat:'writing',     name:'Word Counter',                e:'🔤',c:'#f59e0b',bg:'rgba(245,158,11,.12)',  desc:'Count words, characters, sentences and estimated reading time in real time. Great for essays, reports and social media posts.', feats:['Real-time counting','Reading time estimate','Sentence & paragraph count','Keyword density'], tags:['Words','Count','Essays'], isNew:false, url:'word-counter/index.html'},
+  {id:'text-summarizer',  cat:'writing',     name:'Text Summarizer',             e:'📝',c:'#8b5cf6',bg:'rgba(139,92,246,.12)',  desc:'Paste any long text and get a concise summary instantly. Perfect for summarising reports, articles and study materials.', feats:['Instant summary','Adjustable length','Copy result','Works offline'], tags:['Summarise','Text','AI'], isNew:false, url:'text-summarizer/index.html'},
+  {id:'receipt-generator',cat:'business',   name:'Receipt Generator',           e:'🧾',c:'#db2777',bg:'rgba(219,39,119,.12)',  desc:'Create POS thermal and A4 professional receipts. QR code, 16% VAT, Airtel/MTN/Cash payment, WhatsApp share, and saves your business info automatically.', feats:['POS (thermal) & A4 formats','QR code built-in','VAT toggle (16%)','Airtel, MTN, Cash labels','WhatsApp share','Saves your business info'], tags:['Receipt','VAT','QR','Business'], isNew:true, url:'receipt-generator/index.html'},
+  {id:'invoice',          cat:'business',   name:'Invoice Generator',           e:'📋',c:'#0ea5e9',bg:'rgba(14,165,233,.12)',  desc:'Generate professional invoices with your details, line items, VAT, payment terms and auto-incrementing numbers. Download as PDF.', feats:['Auto-numbering','Line items with VAT','PDF download','ZMW currency'], tags:['Invoice','PDF','ZMW'], isNew:false, url:'invoice/index.html'},
+  {id:'budget-planner',   cat:'business',   name:'Budget Planner',              e:'💰',c:'#10b981',bg:'rgba(16,185,129,.12)',  desc:'Track your monthly income and expenses, see spending breakdown by category, and get tips to save more money. Works in Zambian Kwacha.', feats:['Income & expense tracking','Category breakdown charts','Savings calculator','ZMW currency'], tags:['Budget','Finance','ZMW'], isNew:false, url:'budget-planner/index.html'},
+  {id:'contract-generator',cat:'business', name:'Contract Generator',          e:'📄',c:'#6366f1',bg:'rgba(99,102,241,.12)',  desc:'Create simple service contracts and freelance agreements for Zambian businesses. Customisable terms, PDF download.', feats:['Multiple contract types','Customisable terms','PDF download','Zambia context'], tags:['Contract','Legal','PDF'], isNew:false, url:'contract-generator/index.html'},
+  {id:'tip-splitter',     cat:'business',   name:'Bill Splitter',               e:'🍽️',c:'#f59e0b',bg:'rgba(245,158,11,.12)',  desc:'Split restaurant bills and group expenses evenly or unevenly between friends. Add tips and see what each person owes.', feats:['Group splitting','Custom tip','Unequal split option','ZMW & USD'], tags:['Bills','Split','Group'], isNew:false, url:'tip-splitter/index.html'},
+  {id:'agenda-builder',   cat:'business',   name:'Agenda Builder',              e:'📅',c:'#ec4899',bg:'rgba(236,72,153,.12)',  desc:'Build timed meeting agendas to keep your team focused and on schedule. Add items, timings, presenters and notes.', feats:['Timed agenda items','Presenter assignment','Print-ready format','Share with team'], tags:['Meetings','Agenda','Plan'], isNew:false, url:'agenda-builder/index.html'},
+  {id:'study-timetable',  cat:'student',    name:'Study Timetable Generator',   e:'📚',c:'#6366f1',bg:'rgba(99,102,241,.12)',  desc:'Build a smart colour-coded study schedule for Grade 12, UNZA, CBU or any exams. Set subjects, priority and hours per week. PDF landscape download.', feats:['Smart subject distribution','5 colour themes','Grade 12, UNZA, CBU modes','PDF print','Motivational quotes'], tags:['Study','Timetable','Exams'], isNew:true, url:'study-timetable/index.html'},
+  {id:'cv-builder',       cat:'student',    name:'CV Builder',                  e:'📑',c:'#0ea5e9',bg:'rgba(14,165,233,.12)',  desc:'Build a professional Zambian CV with multiple templates. Add education, work experience, skills and references. Download as a polished PDF.', feats:['Multiple templates','Zambia-focused format','PDF download','ATS-friendly'], tags:['CV','Jobs','Career'], isNew:false, url:'cv-builder/index.html'},
+  {id:'playlist-mood',    cat:'student',    name:'Playlist Mood Generator',     e:'🎵',c:'#ec4899',bg:'rgba(236,72,153,.12)',  desc:'Pick your mood, activity and genre. Get a curated playlist with YouTube and Spotify links. Includes Zambian artists — Roberto, Slapdee, Chef 187, Pompi and more.', feats:['12 moods','Zambian & African music','YouTube & Spotify links','Copy to share'], tags:['Music','Playlist','Vibes'], isNew:true, url:'playlist-mood/index.html'},
+  {id:'decision-maker',   cat:'student',    name:'Decision Maker',              e:'🎯',c:'#f59e0b',bg:'rgba(245,158,11,.12)',  desc:'Can\'t decide? Spin the wheel. Add your choices and let fate pick for you. Great for groups, teams and indecisive moments.', feats:['Animated spin wheel','Unlimited options','Saves choices','Share result via WhatsApp'], tags:['Decision','Random','Fun'], isNew:false, url:'decision-maker/index.html'},
+  {id:'countdown',        cat:'student',    name:'Countdown Timer',             e:'⏳',c:'#10b981',bg:'rgba(16,185,129,.12)',  desc:'Count down to exams, results day, birthdays or events. 8 colour themes, confetti on arrival, WhatsApp sharing, save multiple countdowns.', feats:['Save multiple countdowns','8 colour themes','Confetti & sounds on zero','WhatsApp share & copyable link','Presets: Exams, Birthday, Zambia Day'], tags:['Countdown','Events','Timer'], isNew:true, url:'countdown/index.html'},
+  {id:'pomodoro',         cat:'student',    name:'Pomodoro Timer',              e:'🍅',c:'#ef4444',bg:'rgba(239,68,68,.12)',   desc:'Study smarter with the Pomodoro technique. Fully customisable focus and break durations, 5 alert sounds, auto-switching and day streak tracking.', feats:['Adjustable work & break times','5 real alert sounds','Auto-start breaks & sessions','Day streak tracker','Browser notifications'], tags:['Focus','Study','Timer'], isNew:true, url:'pomodoro/index.html'},
+  {id:'photo-editor',     cat:'creative',   name:'Photo Editor',                e:'📸',c:'#8b5cf6',bg:'rgba(139,92,246,.12)',  desc:'Edit photos in your browser — no uploads needed. 9 filters, brightness/contrast/saturation, text overlays, watermarks, and resize for Instagram, WhatsApp and more.', feats:['9 photo filters (B&W, Sepia, Vivid, Noir…)','Text overlays with custom fonts','Watermark tool','Resize for Instagram/WhatsApp/YouTube','Download PNG, JPG or WebP','100% private — never leaves your device'], tags:['Photo','Filters','Instagram'], isNew:true, url:'photo-editor/index.html'},
+  {id:'qr-generator',     cat:'creative',   name:'QR Code Generator',           e:'◼️',c:'#e2e8f0',bg:'rgba(226,232,240,.06)', desc:'Generate QR codes for any URL, phone number, WhatsApp link or plain text instantly. Download as PNG. Great for business cards, menus and flyers.', feats:['Instant QR generation','Any URL or text','PNG download','Multiple sizes'], tags:['QR','Code','Download'], isNew:false, url:'qr-generator/index.html'},
+  {id:'zambia-holidays',  cat:'productivity',name:'Zambia Public Holidays',     e:'🇿🇲',c:'#dc2626',bg:'rgba(220,38,38,.12)',   desc:'View all Zambia public holidays for 2025 and 2026 with descriptions, dates and day of week. Plan around official holidays.', feats:['All 2025–2026 holidays','Day of week shown','Download as calendar','WhatsApp share'], tags:['Zambia','Holidays','Calendar'], isNew:false, url:'zambia-holidays/index.html'},
+  {id:'unit-converter',   cat:'calculators', name:'Unit Converter',             e:'📐',c:'#0ea5e9',bg:'rgba(14,165,233,.12)',  desc:'Convert between any units — length, weight, temperature, area, volume, speed, time and data. Instant results with quick reference cards.', feats:['8 unit categories','Swap button','Quick reference cards','Instant'], tags:['Units','Convert','Maths'], isNew:true, url:'unit-converter/index.html'},
+  {id:'currency-converter',cat:'calculators',name:'Currency Converter',        e:'💱',c:'#ec4899',bg:'rgba(236,72,153,.12)',  desc:'Convert Zambian Kwacha to 14 other currencies — USD, GBP, EUR, ZAR, KES, TZS, CNY, AED and more. Includes a cross-rates table.', feats:['15 currencies including ZMW','Cross-rates table','Quick amounts','Zambia-focused'], tags:['Currency','ZMW','Exchange'], isNew:true, url:'currency-converter/index.html'},
+  {id:'json-formatter',   cat:'developer',   name:'JSON Formatter',             e:'{ }',c:'#10b981',bg:'rgba(16,185,129,.12)', desc:'Paste messy JSON and get it formatted, validated and colour-coded instantly. Identify errors quickly.', feats:['Format & validate','Colour-coded output','Error detection','Copy output'], tags:['JSON','Dev','Code'], isNew:false, url:'json-formatter/index.html'},
+  {id:'html-encoder',     cat:'developer',   name:'HTML Entity Encoder',        e:'</>',c:'#f59e0b',bg:'rgba(245,158,11,.12)', desc:'Encode and decode HTML entities for safe web display. Convert special characters to their HTML equivalents instantly.', feats:['Encode & decode','Special characters','Instant','Copy output'], tags:['HTML','Code','Web'], isNew:false, url:'html-encoder/index.html'},
+];
+
+var cat='all', q='', snd=true, actx=null, recog=null;
+
+// AUDIO
+function actx_() { if(!actx)actx=new(window.AudioContext||window.webkitAudioContext)(); if(actx.state==='suspended')actx.resume(); return actx; }
+function pClick(){if(!snd)return;try{var c=actx_(),g=c.createGain(),o=c.createOscillator();o.connect(g);g.connect(c.destination);o.type='sine';o.frequency.setValueAtTime(580,c.currentTime);o.frequency.exponentialRampToValueAtTime(280,c.currentTime+.08);g.gain.setValueAtTime(.1,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.1);o.start();o.stop(c.currentTime+.1);}catch(e){}}
+function pHover(){if(!snd)return;try{var c=actx_(),g=c.createGain(),o=c.createOscillator();o.connect(g);g.connect(c.destination);o.type='sine';o.frequency.setValueAtTime(420,c.currentTime);g.gain.setValueAtTime(.03,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.04);o.start();o.stop(c.currentTime+.04);}catch(e){}}
+function pTrans(){if(!snd)return;try{var c=actx_(),g=c.createGain(),o=c.createOscillator();o.connect(g);g.connect(c.destination);o.type='sine';o.frequency.setValueAtTime(340,c.currentTime);o.frequency.exponentialRampToValueAtTime(540,c.currentTime+.18);g.gain.setValueAtTime(.09,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.22);o.start();o.stop(c.currentTime+.22);}catch(e){}}
+function pSearch(){if(!snd)return;try{var c=actx_();[380,480,620].forEach(function(f,i){var g=c.createGain(),o=c.createOscillator();o.connect(g);g.connect(c.destination);o.type='triangle';o.frequency.setValueAtTime(f,c.currentTime+i*.06);g.gain.setValueAtTime(.07,c.currentTime+i*.06);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+i*.06+.12);o.start(c.currentTime+i*.06);o.stop(c.currentTime+i*.06+.12);});}catch(e){}}
+
+function toggleSnd(){snd=!snd;var b=document.getElementById('sndBtn');b.textContent=snd?'🔔':'🔕';b.classList.toggle('on',snd);if(snd)pClick();}
+
+// VOICE
+function speak(t){if(!snd||!window.speechSynthesis)return;speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.rate=1.1;u.pitch=1.05;u.volume=0.85;var vs=speechSynthesis.getVoices();var pv=vs.find(function(v){return v.lang.startsWith('en')&&(v.name.includes('Google')||v.name.includes('Samantha')||v.name.includes('Female'));});if(pv)u.voice=pv;speechSynthesis.speak(u);}
+function startVoice(){var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){alert('Voice search needs Chrome browser.');return;}if(recog&&recog._on){recog.stop();return;}recog=new SR();recog.lang='en-ZA';recog.interimResults=false;recog._on=true;document.getElementById('vbtn').classList.add('vl');document.getElementById('vi').classList.add('show');speak('Listening. Say a tool name.');recog.onresult=function(e){var t=e.results[0][0].transcript;document.getElementById('sInp').value=t;q=t;pSearch();render();speak('Showing results for '+t);};recog.onend=function(){recog._on=false;document.getElementById('vbtn').classList.remove('vl');document.getElementById('vi').classList.remove('show');};recog.onerror=function(){recog.onend();};recog.start();}
+
+// COUNTER
+function animN(el,to,dur){var s=0,step=to/(dur/16);var t=setInterval(function(){s+=step;if(s>=to){el.textContent=to;clearInterval(t);}else el.textContent=Math.floor(s);},16);}
+window.addEventListener('DOMContentLoaded',function(){setTimeout(function(){animN(document.getElementById('ctr'),24,1100);},500);});
+
+// RENDER
+function render(){
+  var filt=TOOLS.filter(function(t){
+    var mc=cat==='all'||t.cat===cat;
+    var mq=!q||t.name.toLowerCase().includes(q.toLowerCase())||t.desc.toLowerCase().includes(q.toLowerCase())||t.tags.some(function(tg){return tg.toLowerCase().includes(q.toLowerCase());});
+    return mc&&mq;
+  });
+  document.getElementById('nr').style.display=filt.length===0?'block':'none';
+  var g=document.getElementById('tgrid');
+  g.innerHTML=filt.map(function(t,i){
+    var bar='background:linear-gradient(90deg,'+t.c+','+t.c+'99)';
+    return '<a href="'+t.url+'" class="tc" data-id="'+t.id+'"'
+      +' style="animation-delay:'+(i*.045)+'s" onclick="pClick()" onmouseenter="pHover()">'
+      +'<div class="tc-bar" style="'+bar+'"></div>'
+      +'<div class="tc-top">'
+      +'<div class="tc-ico" style="background:'+t.bg+'">'+t.e+'</div>'
+      +'<div>'+(t.isNew?'<span class="tc-new">New</span>':'')+'</div>'
+      +'</div>'
+      +'<div>'
+      +'<div class="tc-name" style="--card-c:'+t.c+'">'+t.name+'</div>'
+      +'<div class="tc-desc">'+t.desc.slice(0,95)+'…</div>'
+      +'</div>'
+      +'<div class="tc-foot">'
+      +'<div class="tc-tags">'+t.tags.slice(0,3).map(function(tg){return'<span class="tc-tag">'+tg+'</span>';}).join('')+'</div>'
+      +'<div class="tc-arr"><i class="fas fa-arrow-right"></i></div>'
+      +'</div></a>';
+  }).join('');
+
+  // Intersection observer for fade-in
+  setTimeout(function(){
+    var cards=g.querySelectorAll('.tc');
+    if('IntersectionObserver' in window){
+      var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target);}});},{threshold:.08});
+      cards.forEach(function(c){obs.observe(c);});
+    } else { cards.forEach(function(c){c.classList.add('vis');}); }
+  },30);
+
+  // Mouse shimmer
+  g.querySelectorAll('.tc').forEach(function(card){
+    card.addEventListener('mousemove',function(e){
+      var r=card.getBoundingClientRect();
+      card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%');
+      card.style.setProperty('--my',((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
+    });
   });
 }
 
-function filterTools() {
-  var q = document.getElementById('searchInput').value.toLowerCase().trim();
-  document.getElementById('clearSearch').style.display = q ? 'block' : 'none';
-  if (!q) {
-    document.querySelectorAll('.cat-section').forEach(function(s){ s.style.display = 'block'; });
-    document.querySelectorAll('.tool-card').forEach(function(c){ c.style.display = 'flex'; });
-    document.getElementById('noResults').style.display = 'none';
-    return;
-  }
-  // Reset category nav
-  document.querySelectorAll('.cat-nav-btn').forEach(function(b){ b.classList.remove('active'); });
-  document.querySelector('.cat-nav-btn').classList.add('active');
+function doCat(c,btn){cat=c;document.querySelectorAll('.ctab').forEach(function(t){t.classList.remove('active');});btn.classList.add('active');pTrans();render();var n=TOOLS.filter(function(t){return c==='all'||t.cat===c;}).length;if(snd)speak(n+' tools in '+(c==='all'?'all categories':c));}
+function doSearch(){q=document.getElementById('sInp').value;if(q)pSearch();render();}
+function qSearch(s){document.getElementById('sInp').value=s;q=s;pSearch();render();document.getElementById('tgrid').scrollIntoView({behavior:'smooth',block:'start'});}
 
-  var found = 0;
-  document.querySelectorAll('.cat-section').forEach(function(s){ s.style.display = 'block'; });
-  document.querySelectorAll('.tool-card').forEach(function(card){
-    var text = (card.getAttribute('data-tags') || '') + ' ' + card.innerText.toLowerCase();
-    var show = text.includes(q);
-    card.style.display = show ? 'flex' : 'none';
-    if (show) found++;
-  });
-
-  document.getElementById('noResults').style.display = found === 0 ? 'block' : 'none';
+// MODAL
+function openModal(id){
+  var t=TOOLS.find(function(x){return x.id===id;});if(!t)return;
+  document.getElementById('mIco').innerHTML='<span style="font-size:1.8rem">'+t.e+'</span>';
+  document.getElementById('mIco').style.background=t.bg;
+  document.getElementById('mCat').textContent=t.cat.toUpperCase();
+  document.getElementById('mCat').style.color=t.c;
+  document.getElementById('mName').textContent=t.name;
+  document.getElementById('mDesc').textContent=t.desc;
+  document.getElementById('mFeats').innerHTML=t.feats.map(function(f){return'<div class="mfeat"><i class="fas fa-check-circle"></i>'+f+'</div>';}).join('');
+  document.getElementById('mOpen').href=t.url;
+  document.getElementById('mOpen').style.background='linear-gradient(135deg,'+t.c+','+t.c+'bb)';
+  document.getElementById('moverlay').classList.add('open');
+  pClick();speak(t.name+'. '+t.desc.slice(0,75));
 }
+function cModal(e){if(e.target===document.getElementById('moverlay'))cModalD();}
+function cModalD(){document.getElementById('moverlay').classList.remove('open');pClick();}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')cModalD();});
 
-function clearSearch() {
-  document.getElementById('searchInput').value = '';
-  filterTools();
-  document.getElementById('clearSearch').style.display = 'none';
-}
+// CURSOR
+(function(){
+  var dot=document.getElementById('cDot'),ring=document.getElementById('cRing');
+  var mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+  function loop(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);}
+  loop();
+})();
 
-document.getElementById('thToggle').addEventListener('click', function(){
-  document.getElementById('thNav').classList.toggle('th-nav-open');
-  document.getElementById('thToggle').classList.toggle('th-toggle-open');
-});
+// SCROLL HEADER
+window.addEventListener('scroll',function(){document.querySelector('.hdr').style.borderBottomColor=window.scrollY>10?'rgba(255,255,255,.12)':'rgba(255,255,255,.05)';});
+
+// INIT
+render();
+setTimeout(function(){if(snd)speak('Welcome to BLESSTech-X Free Tools. Twenty four free tools for every Zambian.');},1800);
 </script>
 </body>
 </html>
