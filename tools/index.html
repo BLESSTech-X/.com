@@ -1,545 +1,405 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Free Tools for Zambia | BLESSTech-X</title>
-  <meta name="description" content="20+ free tools for Zambian business owners, students, developers, workers and researchers. Invoice generator, CV builder, email writer, QR codes and more. No signup required." />
-  <meta name="keywords" content="free tools Zambia, invoice generator Zambia, CV builder Zambia, email writer, QR code generator, unit converter ZMW, BLESSTech-X tools" />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Free Tools for Zambia | BLESSTech-X" />
-  <meta property="og:description" content="20+ free tools — invoice generator, CV builder, email writer, QR codes, currency converter and more. Built for Zambia." />
-  <meta property="og:image" content="https://i.ibb.co/Q36vzP9z/Screenshot-20251229-131706.jpg" />
-  <meta property="og:url" content="https://blesstech-x.github.io/tools/" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Free Tools | BLESSTech-X — 24 Free Tools for Zambia</title>
+  <meta name="description" content="24 free tools for Zambian workers, students and business owners. Email writer, receipt generator, photo editor, study timetable, CV builder, invoice generator and more."/>
+  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .hub-hero{background:linear-gradient(135deg,#0f172a 0%,#0c4a6e 60%,#075985 100%);padding:56px 0;position:relative;overflow:hidden}
+    .hub-hero::before{content:'';position:absolute;top:-80px;right:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(14,165,233,.15),transparent 70%);pointer-events:none}
+    .hub-hero::after{content:'';position:absolute;bottom:-60px;left:-60px;width:300px;height:300px;background:radial-gradient(circle,rgba(99,102,241,.1),transparent 70%);pointer-events:none}
+    .hub-hero-inner{max-width:1200px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+    .hub-hero h1{color:white;font-size:2.4rem;font-weight:900;margin-bottom:12px;line-height:1.2}
+    .hub-hero h1 em{color:#38bdf8;font-style:normal}
+    .hub-hero p{color:#94a3b8;font-size:1rem;max-width:560px;margin-bottom:24px;line-height:1.7}
+    .hub-stats{display:flex;gap:28px;flex-wrap:wrap}
+    .hub-stat{display:flex;align-items:center;gap:8px;color:white}
+    .hub-stat .sv{font-size:1.4rem;font-weight:900;color:#38bdf8}
+    .hub-stat .sl{font-size:.78rem;color:#94a3b8}
+
+    .hub-main{max-width:1200px;margin:0 auto;padding:40px 24px}
+    .cat-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px;padding-bottom:16px;border-bottom:1.5px solid var(--border)}
+    .cat-nav-btn{padding:8px 16px;border:1.5px solid var(--border);border-radius:50px;background:white;font-size:.82rem;font-weight:700;color:var(--muted);cursor:pointer;transition:var(--transition)}
+    .cat-nav-btn:hover{border-color:var(--sky);color:var(--sky)}
+    .cat-nav-btn.active{background:var(--sky);color:white;border-color:var(--sky)}
+
+    .cat-section{margin-bottom:44px}
+    .cat-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+    .cat-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+    .cat-title{font-size:1.1rem;font-weight:800;color:var(--slate)}
+    .cat-desc{font-size:.82rem;color:var(--muted);margin-top:1px}
+
+    .tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+    .tool-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:20px;transition:var(--transition);text-decoration:none;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden}
+    .tool-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--card-accent,var(--sky));opacity:0;transition:opacity .2s}
+    .tool-card:hover{border-color:var(--sky);transform:translateY(-3px);box-shadow:0 8px 24px rgba(14,165,233,.12)}
+    .tool-card:hover::before{opacity:1}
+    .tool-card.new-badge::after{content:'NEW';position:absolute;top:12px;right:12px;background:var(--sky);color:white;font-size:.62rem;font-weight:800;padding:2px 7px;border-radius:50px;letter-spacing:.5px}
+    .tool-card-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+    .tool-card-name{font-size:.95rem;font-weight:800;color:var(--slate);line-height:1.3}
+    .tool-card-desc{font-size:.78rem;color:var(--muted);line-height:1.5;flex:1}
+    .tool-card-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+    .tc-badge{padding:3px 8px;border-radius:50px;font-size:.65rem;font-weight:700;background:var(--bg-alt);color:var(--muted)}
+
+    .search-bar{position:relative;margin-bottom:28px}
+    .search-bar input{width:100%;padding:14px 20px 14px 48px;border:2px solid var(--border);border-radius:var(--radius-lg);font-size:.95rem;outline:none;transition:var(--transition);background:white}
+    .search-bar input:focus{border-color:var(--sky);box-shadow:0 0 0 4px rgba(14,165,233,.1)}
+    .search-bar i{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:1rem}
+    .search-bar .clear-btn{position:absolute;right:16px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);cursor:pointer;font-size:1rem;display:none}
+    .no-results{text-align:center;padding:60px 20px;color:var(--muted)}
+
+    @media(max-width:600px){.hub-hero h1{font-size:1.7rem}.tools-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:400px){.tools-grid{grid-template-columns:1fr}}
+  </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header class="tools-header">
-    <div class="th-inner">
-      <a href="../index.html" class="tools-logo">
-        <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X" />
-        <span>BLESS<em>Tech-X</em></span>
+<header class="tools-header">
+  <div class="th-inner">
+    <a href="../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a>
+    <nav class="th-nav" id="thNav">
+      <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+      <a href="#" class="active"><i class="fas fa-tools"></i> All Tools</a>
+      <a href="../index.html#services">Services</a>
+      <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    </nav>
+    <button class="th-mobile-toggle" id="thToggle"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hub-hero">
+  <div class="hub-hero-inner">
+    <h1>Free Tools for <em>Every Zambian</em></h1>
+    <p>24 powerful, free tools for workers, students, entrepreneurs and creatives. No sign-up. No ads. 100% free. Built in Lusaka, for Zambia. 🇿🇲</p>
+    <div class="hub-stats">
+      <div class="hub-stat"><div class="sv">24</div><div class="sl">Free Tools</div></div>
+      <div class="hub-stat"><div class="sv">7</div><div class="sl">Categories</div></div>
+      <div class="hub-stat"><div class="sv">0</div><div class="sl">Sign-ups Required</div></div>
+      <div class="hub-stat"><div class="sv">100%</div><div class="sl">Free Forever</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="hub-main">
+
+  <!-- SEARCH -->
+  <div class="search-bar">
+    <i class="fas fa-search"></i>
+    <input type="text" id="searchInput" placeholder="Search tools — e.g. receipt, CV, timer..." oninput="filterTools()"/>
+    <button class="clear-btn" id="clearSearch" onclick="clearSearch()">×</button>
+  </div>
+
+  <!-- CATEGORY NAV -->
+  <div class="cat-nav" id="catNav">
+    <button class="cat-nav-btn active" onclick="showCat('all',this)">🌟 All Tools</button>
+    <button class="cat-nav-btn" onclick="showCat('writing',this)">✍️ Writing</button>
+    <button class="cat-nav-btn" onclick="showCat('business',this)">💼 Business</button>
+    <button class="cat-nav-btn" onclick="showCat('student',this)">🎓 Students</button>
+    <button class="cat-nav-btn" onclick="showCat('creative',this)">🎨 Creative</button>
+    <button class="cat-nav-btn" onclick="showCat('productivity',this)">⚡ Productivity</button>
+    <button class="cat-nav-btn" onclick="showCat('calculators',this)">🧮 Calculators</button>
+    <button class="cat-nav-btn" onclick="showCat('developer',this)">🛠️ Developer</button>
+  </div>
+
+  <!-- NO RESULTS -->
+  <div class="no-results" id="noResults" style="display:none">
+    <div style="font-size:3rem;margin-bottom:12px">🔍</div>
+    <div style="font-size:1rem;font-weight:700;color:var(--slate);margin-bottom:6px">No tools found</div>
+    <p>Try a different search term or browse by category.</p>
+  </div>
+
+  <!-- WRITING & COMMUNICATION -->
+  <div class="cat-section" data-cat="writing" id="sec_writing">
+    <div class="cat-header">
+      <div class="cat-icon" style="background:#e0f2fe;color:#0284c7">✍️</div>
+      <div><div class="cat-title">Writing &amp; Communication</div><div class="cat-desc">Professional emails, letters, meeting minutes and documents</div></div>
+    </div>
+    <div class="tools-grid">
+      <a href="email-writer/index.html" class="tool-card" data-tags="email write professional communication" style="--card-accent:#0ea5e9">
+        <div class="tool-card-icon" style="background:#e0f2fe;color:#0284c7">📧</div>
+        <div><div class="tool-card-name">Professional Email Writer</div><div class="tool-card-desc">12 email types × 4 tones. Chasing payment, job application, resignation and more.</div></div>
+        <div class="tool-card-meta"><span class="tc-badge">12 Templates</span><span class="tc-badge">4 Tones</span><span class="tc-badge">Copy & Print</span></div>
       </a>
-      <nav class="th-nav">
-        <a href="../index.html"><i class="fas fa-home"></i> Home</a>
-        <a href="../index.html#services">Services</a>
-        <a href="../index.html#contact">Get a Quote</a>
-        <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-      </nav>
-      <button class="th-mobile-toggle" id="thToggle" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
+      <a href="letter-generator/index.html" class="tool-card" data-tags="letter formal write document" style="--card-accent:#6366f1">
+        <div class="tool-card-icon" style="background:#eef2ff;color:#4f46e5">📜</div>
+        <div><div class="tool-card-name">Letter Generator</div><div class="tool-card-desc">Formal letters for any purpose — cover letters, business letters, complaint letters.</div></div>
+        <div class="tool-card-meta"><span class="tc-badge">Multiple Types</span><span class="tc-badge">PDF Download</span></div>
+      </a>
+      <a href="meeting-minutes/index.html" class="tool-card" data-tags="meeting minutes notes agenda" style="--card-accent:#10b981">
+        <div class="tool-card-icon" style="background:#d1fae5;color:#059669">🗒️</div>
+        <div><div class="tool-card-name">Meeting Minutes</div><div class="tool-card-desc">Capture meeting notes in a structured, professional format ready to share.</div></div>
+        <div class="tool-card-meta"><span class="tc-badge">PDF Export</span><span class="tc-badge">Word Export</span></div>
+      </a>
+      <a href="word-counter/index.html" class="tool-card" data-tags="word count characters text" style="--card-accent:#f59e0b">
+        <div class="tool-card-icon" style="background:#fef3c7;color:#d97706">🔤</div>
+        <div><div class="tool-card-name">Word Counter</div><div class="tool-card-desc">Count words, characters, sentences and reading time. Great for essays and reports.</div></div>
+        <div class="tool-card-meta"><span class="tc-badge">Real-time</span><span class="tc-badge">Reading Time</span></div>
+      </a>
+      <a href="text-summarizer/index.html" class="tool-card" data-tags="text summarize shorten condense" style="--card-accent:#8b5cf6">
+        <div class="tool-card-icon" style="background:#ede9fe;color:#7c3aed">📝</div>
+        <div><div class="tool-card-name">Text Summarizer</div><div class="tool-card-desc">Paste any long text and get a clean, concise summary instantly.</div></div>
+        <div class="tool-card-meta"><span class="tc-badge">Instant</span></div>
+      </a>
     </div>
-  </header>
+  </div>
 
-  <!-- HERO -->
-  <section class="tools-hero">
-    <div class="th-container">
-      <div class="tools-hero-badge"><i class="fas fa-tools"></i> 100% Free · No Signup · No Login</div>
-      <h1>Free Tools for<br/><span>Every Zambian</span></h1>
-      <p>20+ tools built for business owners, students, developers, workers, researchers, and individuals. Use them on any phone or computer.</p>
-      <div class="tools-search-wrap">
-        <i class="fas fa-search"></i>
-        <input type="text" id="toolsSearch" placeholder="Search tools… e.g. invoice, CV, QR code, email" aria-label="Search tools" />
-        <button class="ts-clear" id="tsClear" style="display:none" onclick="clearSearch()" aria-label="Clear search">×</button>
-      </div>
-      <div class="tools-hero-stats">
-        <div class="ths-item"><strong>20+</strong><span>Free Tools</span></div>
-        <div class="ths-sep"></div>
-        <div class="ths-item"><strong>7</strong><span>Categories</span></div>
-        <div class="ths-sep"></div>
-        <div class="ths-item"><strong>0</strong><span>Signups Needed</span></div>
-        <div class="ths-sep"></div>
-        <div class="ths-item"><strong>Works</strong><span>On Any Phone</span></div>
-      </div>
+  <!-- BUSINESS TOOLS -->
+  <div class="cat-section" data-cat="business" id="sec_business">
+    <div class="cat-header">
+      <div class="cat-icon" style="background:#fce7f3;color:#db2777">💼</div>
+      <div><div class="cat-title">Business &amp; Finance</div><div class="cat-desc">Invoices, receipts, budgets and financial tools for Zambian businesses</div></div>
     </div>
-  </section>
-
-  <!-- SEARCH RESULTS (shown only during search) -->
-  <section class="th-container search-results-section" id="searchResultsSection" style="display:none">
-    <div class="sr-header">
-      <h2 id="srTitle">Search Results</h2>
-      <button class="btn-clear-search" onclick="clearSearch()"><i class="fas fa-times"></i> Clear Search</button>
+    <div class="tools-grid">
+      <a href="receipt-generator/index.html" class="tool-card new-badge" data-tags="receipt business shop payment sales" style="--card-accent:#db2777">
+        <div class="tool-card-icon" style="background:#fce7f3;color:#db2777">🧾</div>
+        <div><div class="tool-card-name">Receipt Generator</div><div class="tool-card-desc">POS &amp; A4 receipts with QR code, VAT, Airtel/MTN payment, WhatsApp share. Save business info.</div></div>
+        <div class="tool-card-meta"><span class="tc-badge">POS + A4</span><span class="tc-badge">QR Code</span><span class="tc-badge">WhatsApp</span><span class="tc-badge">VAT</span></div>
+      </a>
+      <a href="invoice/index.html" class="tool-card" data-tags="invoice billing client payment" style="--card-accent:#0ea5e9">
+        <div class="tool-card-icon" style="background:#e0f2fe;color:#0284c7">📋</div>
+        <div><div class="tool-card-name">Invoice Generator</div><div class="tool-card-desc">Professional invoices with your logo, line items, VAT and payment terms.</div></div>
+        <div class="tool-card-meta"><span class="tc-badge">PDF Download</span><span class="tc-badge">Auto-number</span></div>
+      </a>
+      <a href="budget-planner/index.html" class="tool-card" data-tags="budget money finance spending income" style="--card-accent:#10b981">
+        <div class="tool-card-icon" style="background:#d1fae5;color:#059669">💰</div>
+        <div><div class="tool-card-name">Budget Planner</div><div class="tool-card-desc">Track income and expenses, see spending breakdown and save more money.</div></div>
+        <div class="tool-card-meta"><span class="tc-badge">ZMW</span><span class="tc-badge">Charts</span></div>
+      </a>
+      <a href="contract-generator/index.html" class="tool-card" data-tags="contract legal agreement freelance" style="--card-accent:#6366f1">
+        <div class="tool-card-icon" style="background:#eef2ff;color:#4f46e5">📄</div>
+        <div><div class="tool-card-name">Contract Generator</div><div class="tool-card-desc">Simple service contracts and freelance agreements you can customise and download.</div></div>
+        <div class="tool-card-meta"><span class="tc-badge">PDF</span><span class="tc-badge">Customisable</span></div>
+      </a>
+      <a href="tip-splitter/index.html" class="tool-card" data-tags="bill split tip restaurant share" style="--card-accent:#f59e0b">
+        <div class="tool-card-icon" style="background:#fef3c7;color:#d97706">🍽️</div>
+        <div><div class="tool-card-name">Bill Splitter</div><div class="tool-card-desc">Split restaurant bills, add tips and see exactly what each person owes.</div></div>
+        <div class="tool-card-meta"><span class="tc-badge">Group Split</span><span class="tc-badge">ZMW</span></div>
+      </a>
+      <a href="agenda-builder/index.html" class="tool-card" data-tags="agenda meeting plan schedule" style="--card-accent:#ec4899">
+        <div class="tool-card-icon" style="background:#fce7f3;color:#db2777">📅</div>
+        <div><div class="tool-card-name">Agenda Builder</div><div class="tool-card-desc">Build timed meeting agendas to keep your team on track and on time.</div></div>
+        <div class="tool-card-meta"><span class="tc-badge">Time Slots</span><span class="tc-badge">Print</span></div>
+      </a>
     </div>
-    <div class="tools-grid" id="searchResultsGrid"></div>
-  </section>
+  </div>
 
-  <!-- ALL CATEGORIES -->
-  <main class="th-container tools-main" id="toolsMain">
-
-    <!-- CATEGORY: WRITE BETTER -->
-    <section class="tool-category" id="write">
-      <div class="cat-header">
-        <div class="cat-icon" style="background:linear-gradient(135deg,#0ea5e9,#0284c7)">✍️</div>
-        <div>
-          <h2 class="cat-title">Write Better</h2>
-          <p class="cat-desc">Professional emails, letters, meeting minutes — write like a pro every time.</p>
-        </div>
-        <span class="cat-count">3 tools</span>
-      </div>
-      <div class="tools-grid">
-        <a href="email-writer/index.html" class="tool-card">
-          <div class="tool-card-icon" style="background:#e0f2fe;color:#0284c7">📧</div>
-          <div class="tool-card-body">
-            <h3>Professional Email Writer</h3>
-            <p>Write polished emails for any situation — chasing payment, job applications, complaints, proposals — in seconds.</p>
-            <div class="tool-tags">
-              <span class="ttag">Workers</span><span class="ttag">Students</span><span class="ttag">Business</span>
-            </div>
-          </div>
-          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
-        </a>
-        <a href="letter-generator/index.html" class="tool-card">
-          <div class="tool-card-icon" style="background:#e0f2fe;color:#0284c7">📜</div>
-          <div class="tool-card-body">
-            <h3>Letter Generator</h3>
-            <p>Generate formal Zambian letters — resignation, reference, recommendation, demand, tenancy, permission, introduction.</p>
-            <div class="tool-tags">
-              <span class="ttag">Workers</span><span class="ttag">Students</span><span class="ttag">Organisations</span>
-            </div>
-          </div>
-          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
-        </a>
-        <a href="meeting-minutes/index.html" class="tool-card">
-          <div class="tool-card-icon" style="background:#e0f2fe;color:#0284c7">🗒️</div>
-          <div class="tool-card-body">
-            <h3>Meeting Minutes Generator</h3>
-            <p>Professional meeting minutes ready to distribute. Input attendees, agenda and decisions — download as PDF.</p>
-            <div class="tool-tags">
-              <span class="ttag">Organisations</span><span class="ttag">Business</span><span class="ttag">Firms</span>
-            </div>
-          </div>
-          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
-        </a>
-      </div>
-    </section>
-
-    <!-- CATEGORY: CALCULATE -->
-    <section class="tool-category" id="calculate">
-      <div class="cat-header">
-        <div class="cat-icon" style="background:linear-gradient(135deg,#10b981,#059669)">🔢</div>
-        <div>
-          <h2 class="cat-title">Calculate Anything</h2>
-          <p class="cat-desc">Unit conversions, currency, and calculations for everyday Zambian life.</p>
-        </div>
-        <span class="cat-count">2 tools</span>
-      </div>
-      <div class="tools-grid">
-        <a href="unit-converter/index.html" class="tool-card">
-          <div class="tool-card-icon" style="background:#d1fae5;color:#059669">📏</div>
-          <div class="tool-card-body">
-            <h3>Unit Converter</h3>
-            <p>Length, weight, temperature, area, volume, data size — all in one place. Includes acres to hectares, bags to kg.</p>
-            <div class="tool-tags">
-              <span class="ttag">Everyone</span><span class="ttag">Farmers</span><span class="ttag">Students</span>
-            </div>
-          </div>
-          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
-        </a>
-        <a href="currency-converter/index.html" class="tool-card">
-          <div class="tool-card-icon" style="background:#d1fae5;color:#059669">💱</div>
-          <div class="tool-card-body">
-            <h3>Currency Converter</h3>
-            <p>ZMW to USD, GBP, ZAR, EUR, CNY and back. See what international prices really cost in Zambian Kwacha.</p>
-            <div class="tool-tags">
-              <span class="ttag">Business</span><span class="ttag">Students</span><span class="ttag">Travellers</span>
-            </div>
-          </div>
-          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
-        </a>
-      </div>
-    </section>
-
-    <!-- CATEGORY: DOCUMENTS -->
-    <section class="tool-category" id="documents">
-      <div class="cat-header">
-        <div class="cat-icon" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)">📄</div>
-        <div>
-          <h2 class="cat-title">Documents</h2>
-          <p class="cat-desc">Create, download and share professional documents — invoices, CVs, contracts, agendas, budgets.</p>
-        </div>
-        <span class="cat-count">5 tools</span>
-      </div>
-      <div class="tools-grid">
-        <a href="invoice/index.html" class="tool-card tool-card-featured">
-          <div class="tool-card-featured-badge">Most Used</div>
-          <div class="tool-card-icon" style="background:#ede9fe;color:#7c3aed">🧾</div>
-          <div class="tool-card-body">
-            <h3>Invoice Generator</h3>
-            <p>Create professional invoices with VAT calculation, line items, and your business branding. Download as PDF instantly.</p>
-            <div class="tool-tags">
-              <span class="ttag">Freelancers</span><span class="ttag">Business</span><span class="ttag">PDF</span>
-            </div>
-          </div>
-          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
-        </a>
-        <a href="agenda-builder/index.html" class="tool-card">
-          <div class="tool-card-icon" style="background:#ede9fe;color:#7c3aed">📋</div>
-          <div class="tool-card-body">
-            <h3>Meeting Agenda Builder</h3>
-            <p>Build professional meeting agendas with time allocations per item. Share or print before the meeting.</p>
-            <div class="tool-tags">
-              <span class="ttag">Organisations</span><span class="ttag">Business</span><span class="ttag">PDF</span>
-            </div>
-          </div>
-          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
-        </a>
-        <a href="contract-generator/index.html" class="tool-card">
-          <div class="tool-card-icon" style="background:#ede9fe;color:#7c3aed">🤝</div>
-          <div class="tool-card-body">
-            <h3>Simple Contract Generator</h3>
-            <p>Basic service contracts, freelance agreements, and rental agreements as a downloadable PDF.</p>
-            <div class="tool-tags">
-              <span class="ttag">Freelancers</span><span class="ttag">Landlords</span><span class="ttag">PDF</span>
-            </div>
-          </div>
-          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
-        </a>
-        <a href="cv-builder/index.html" class="tool-card tool-card-featured">
-          <div class="tool-card-featured-badge">Popular</div>
-          <div class="tool-card-icon" style="background:#ede9fe;color:#7c3aed">📑</div>
-          <div class="tool-card-body">
-            <h3>CV &amp; Resume Builder</h3>
-            <p>Zambia-appropriate CV templates. Fill in your details, pick a style, download a professional PDF ready to send.</p>
-            <div class="tool-tags">
-              <span class="ttag">Students</span><span class="ttag">Job Seekers</span><span class="ttag">PDF</span>
-            </div>
-          </div>
-          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
-        </a>
-        <a href="budget-planner/index.html" class="tool-card">
-          <div class="tool-card-icon" style="background:#ede9fe;color:#7c3aed">💰</div>
-          <div class="tool-card-body">
-            <h3>Budget Planner</h3>
-            <p>Personal and household budget with visual breakdown. Enter income and expenses, see exactly where your money goes.</p>
-            <div class="tool-tags">
-              <span class="ttag">Everyone</span><span class="ttag">Families</span><span class="ttag">PDF</span>
-            </div>
-          </div>
-          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
-        </a>
-      </div>
-    </section>
-
-    <!-- CATEGORY: RESEARCH & TEXT -->
-    <section class="tool-category" id="research">
-      <div class="cat-header">
-        <div class="cat-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706)">🔍</div>
-        <div>
-          <h2 class="cat-title">Research &amp; Text</h2>
-          <p class="cat-desc">Analyse, count, and summarize text for assignments, reports, and research.</p>
-        </div>
-        <span class="cat-count">2 tools</span>
-      </div>
-      <div class="tools-grid">
-        <a href="word-counter/index.html" class="tool-card">
-          <div class="tool-card-icon" style="background:#fef3c7;color:#d97706">🔤</div>
-          <div class="tool-card-body">
-            <h3>Word Counter &amp; Text Analyser</h3>
-            <p>Words, characters, sentences, paragraphs, reading time, and readability score. Paste any text and know everything.</p>
-            <div class="tool-tags">
-              <span class="ttag">Students</span><span class="ttag">Writers</span><span class="ttag">Researchers</span>
-            </div>
-          </div>
-          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
-        </a>
-        <a href="text-summarizer/index.html" class="tool-card">
-          <div class="tool-card-icon" style="background:#fef3c7;color:#d97706">📰</div>
-          <div class="tool-card-body">
-            <h3>Text Summarizer</h3>
-            <p>Paste any long document — article, research paper, report. Get a clean, structured summary of the key points.</p>
-            <div class="tool-tags">
-              <span class="ttag">Students</span><span class="ttag">Researchers</span><span class="ttag">Workers</span>
-            </div>
-          </div>
-          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
-        </a>
-      </div>
-    </section>
-
-    <!-- CATEGORY: DEVELOPER TOOLS -->
-    <section class="tool-category" id="developer">
-      <div class="cat-header">
-        <div class="cat-icon" style="background:linear-gradient(135deg,#ef4444,#dc2626)">💻</div>
-        <div>
-          <h2 class="cat-title">Developer Tools</h2>
-          <p class="cat-desc">Quick utilities for developers — format, encode, validate without leaving the browser.</p>
-        </div>
-        <span class="cat-count">2 tools</span>
-      </div>
-      <div class="tools-grid">
-        <a href="json-formatter/index.html" class="tool-card">
-          <div class="tool-card-icon" style="background:#fee2e2;color:#dc2626">🧩</div>
-          <div class="tool-card-body">
-            <h3>JSON Formatter &amp; Validator</h3>
-            <p>Paste messy JSON and get clean, indented, syntax-highlighted output with validation errors highlighted.</p>
-            <div class="tool-tags">
-              <span class="ttag">Developers</span><span class="ttag">API Work</span>
-            </div>
-          </div>
-          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
-        </a>
-        <a href="html-encoder/index.html" class="tool-card">
-          <div class="tool-card-icon" style="background:#fee2e2;color:#dc2626">🏷️</div>
-          <div class="tool-card-body">
-            <h3>HTML Entity Encoder</h3>
-            <p>Encode and decode HTML special characters instantly. Essential for web developers working with user-generated content.</p>
-            <div class="tool-tags">
-              <span class="ttag">Developers</span><span class="ttag">Frontend</span>
-            </div>
-          </div>
-          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
-        </a>
-      </div>
-    </section>
-
-    <!-- CATEGORY: PRODUCTIVITY -->
-    <section class="tool-category" id="productivity">
-      <div class="cat-header">
-        <div class="cat-icon" style="background:linear-gradient(135deg,#ec4899,#db2777)">⚡</div>
-        <div>
-          <h2 class="cat-title">Productivity</h2>
-          <p class="cat-desc">Timers, QR codes, countdowns, decision makers — tools that make daily life easier.</p>
-        </div>
-        <span class="cat-count">5 tools</span>
-      </div>
-      <div class="tools-grid">
-        <a href="pomodoro/index.html" class="tool-card">
-          <div class="tool-card-icon" style="background:#fce7f3;color:#db2777">🍅</div>
-          <div class="tool-card-body">
-            <h3>Pomodoro Focus Timer</h3>
-            <p>25-minute focus sessions with 5-minute breaks. Beat procrastination and get deep work done.</p>
-            <div class="tool-tags">
-              <span class="ttag">Students</span><span class="ttag">Developers</span><span class="ttag">Workers</span>
-            </div>
-          </div>
-          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
-        </a>
-        <a href="decision-maker/index.html" class="tool-card">
-          <div class="tool-card-icon" style="background:#fce7f3;color:#db2777">🎯</div>
-          <div class="tool-card-body">
-            <h3>Random Decision Maker</h3>
-            <p>Can't decide? Enter your options, spin the wheel, and let fate decide. Works for teams, groups, and individuals.</p>
-            <div class="tool-tags">
-              <span class="ttag">Everyone</span><span class="ttag">Teams</span>
-            </div>
-          </div>
-          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
-        </a>
-        <a href="qr-generator/index.html" class="tool-card tool-card-featured">
-          <div class="tool-card-featured-badge">Popular</div>
-          <div class="tool-card-icon" style="background:#fce7f3;color:#db2777">◼️</div>
-          <div class="tool-card-body">
-            <h3>QR Code Generator</h3>
-            <p>Generate downloadable QR codes for any URL, phone number, WhatsApp link, or text. Use on flyers, cards, menus.</p>
-            <div class="tool-tags">
-              <span class="ttag">Business</span><span class="ttag">Events</span><span class="ttag">Marketing</span>
-            </div>
-          </div>
-          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
-        </a>
-        <a href="countdown/index.html" class="tool-card">
-          <div class="tool-card-icon" style="background:#fce7f3;color:#db2777">⏳</div>
-          <div class="tool-card-body">
-            <h3>Countdown Timer</h3>
-            <p>Count down to any date — exam day, event launch, project deadline, end of year. See days, hours, minutes, seconds.</p>
-            <div class="tool-tags">
-              <span class="ttag">Students</span><span class="ttag">Events</span><span class="ttag">Business</span>
-            </div>
-          </div>
-          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
-        </a>
-        <a href="tip-splitter/index.html" class="tool-card">
-          <div class="tool-card-icon" style="background:#fce7f3;color:#db2777">🍽️</div>
-          <div class="tool-card-body">
-            <h3>Tip &amp; Bill Splitter</h3>
-            <p>Split any bill fairly between any number of people. Add a tip percentage and see exactly what each person owes.</p>
-            <div class="tool-tags">
-              <span class="ttag">Everyone</span><span class="ttag">Groups</span>
-            </div>
-          </div>
-          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
-        </a>
-      </div>
-    </section>
-
-    <!-- CATEGORY: ZAMBIA SPECIFIC -->
-    <section class="tool-category" id="zambia">
-      <div class="cat-header">
-        <div class="cat-icon" style="background:linear-gradient(135deg,#d97706,#b45309)">🇿🇲</div>
-        <div>
-          <h2 class="cat-title">Zambia Specific</h2>
-          <p class="cat-desc">Tools built specifically for the Zambian context — things no other site offers.</p>
-        </div>
-        <span class="cat-count">1 tool</span>
-      </div>
-      <div class="tools-grid">
-        <a href="holidays/index.html" class="tool-card">
-          <div class="tool-card-icon" style="background:#fef3c7;color:#b45309">🇿🇲</div>
-          <div class="tool-card-body">
-            <h3>Zambia Public Holiday Calculator</h3>
-            <p>All Zambian public holidays for any year. Calculate working days between two dates excluding weekends and holidays.</p>
-            <div class="tool-tags">
-              <span class="ttag">HR</span><span class="ttag">Business</span><span class="ttag">Workers</span>
-            </div>
-          </div>
-          <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
-        </a>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- CTA STRIP -->
-  <section class="tools-cta-strip">
-    <div class="th-container">
-      <div class="cta-strip-inner">
-        <div>
-          <h3>Need a professional website or online store?</h3>
-          <p>BLESSTech-X builds complete digital solutions for Zambian businesses — from ZMW 650.</p>
-        </div>
-        <div class="cta-strip-btns">
-          <a href="../index.html#services" class="btn-strip-primary"><i class="fas fa-rocket"></i> Explore Services</a>
-          <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I want to discuss a project." target="_blank" class="btn-strip-wa"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
-        </div>
-      </div>
+  <!-- STUDENT TOOLS -->
+  <div class="cat-section" data-cat="student" id="sec_student">
+    <div class="cat-header">
+      <div class="cat-icon" style="background:#eef2ff;color:#4f46e5">🎓</div>
+      <div><div class="cat-title">Students &amp; Youth</div><div class="cat-desc">Tools to study smarter, build your career and have fun</div></div>
     </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="tools-footer">
-    <div class="th-container">
-      <div class="tf-inner">
-        <div class="tf-brand">
-          <a href="../index.html" class="tools-logo">
-            <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X" />
-            <span>BLESS<em>Tech-X</em></span>
-          </a>
-          <p>Free tools for every Zambian. Built in Lusaka.</p>
-        </div>
-        <div class="tf-links">
-          <h4>Quick Links</h4>
-          <a href="../index.html">Main Website</a>
-          <a href="../index.html#services">Services</a>
-          <a href="../index.html#portfolio">Portfolio</a>
-          <a href="../index.html#contact">Contact</a>
-        </div>
-        <div class="tf-links">
-          <h4>Popular Tools</h4>
-          <a href="invoice/index.html">Invoice Generator</a>
-          <a href="cv-builder/index.html">CV Builder</a>
-          <a href="email-writer/index.html">Email Writer</a>
-          <a href="qr-generator/index.html">QR Code Generator</a>
-          <a href="currency-converter/index.html">Currency Converter</a>
-        </div>
-        <div class="tf-contact">
-          <h4>Contact Us</h4>
-          <a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a>
-          <a href="mailto:singbless89@gmail.com"><i class="fas fa-envelope"></i> singbless89@gmail.com</a>
-          <a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-        </div>
-      </div>
-      <div class="tf-bottom">
-        <p>&copy; 2026 BLESSTech-X. All tools are free. Built for Zambia 🇿🇲</p>
-      </div>
+    <div class="tools-grid">
+      <a href="study-timetable/index.html" class="tool-card new-badge" data-tags="study timetable schedule grade12 unza cbu exams" style="--card-accent:#6366f1">
+        <div class="tool-card-icon" style="background:#eef2ff;color:#4f46e5">📚</div>
+        <div><div class="tool-card-name">Study Timetable Generator</div><div class="tool-card-desc">Build a colour-coded study schedule for Grade 12, UNZA, CBU or any exams. PDF download.</div></div>
+        <div class="tool-card-meta"><span class="tc-badge">Colour-coded</span><span class="tc-badge">PDF Print</span><span class="tc-badge">Smart Scheduling</span></div>
+      </a>
+      <a href="cv-builder/index.html" class="tool-card" data-tags="cv resume job career application" style="--card-accent:#0ea5e9">
+        <div class="tool-card-icon" style="background:#e0f2fe;color:#0284c7">📑</div>
+        <div><div class="tool-card-name">CV Builder</div><div class="tool-card-desc">Build a professional Zambian CV with multiple templates. Download as PDF instantly.</div></div>
+        <div class="tool-card-meta"><span class="tc-badge">Multiple Templates</span><span class="tc-badge">PDF</span></div>
+      </a>
+      <a href="playlist-mood/index.html" class="tool-card new-badge" data-tags="music playlist mood song vibes afrobeats zambian" style="--card-accent:#ec4899">
+        <div class="tool-card-icon" style="background:#fce7f3;color:#db2777">🎵</div>
+        <div><div class="tool-card-name">Playlist Mood Generator</div><div class="tool-card-desc">Pick your vibe, activity and genres. Get a curated playlist with YouTube &amp; Spotify links.</div></div>
+        <div class="tool-card-meta"><span class="tc-badge">12 Moods</span><span class="tc-badge">YouTube Links</span><span class="tc-badge">Zambian Music</span></div>
+      </a>
+      <a href="decision-maker/index.html" class="tool-card" data-tags="decision choice random spin wheel" style="--card-accent:#f59e0b">
+        <div class="tool-card-icon" style="background:#fef3c7;color:#d97706">🎯</div>
+        <div><div class="tool-card-name">Decision Maker</div><div class="tool-card-desc">Can't decide? Spin the wheel! Add your options and let fate choose for you.</div></div>
+        <div class="tool-card-meta"><span class="tc-badge">Spin Wheel</span><span class="tc-badge">Random Pick</span></div>
+      </a>
+      <a href="countdown/index.html" class="tool-card" data-tags="countdown timer date event exam" style="--card-accent:#10b981">
+        <div class="tool-card-icon" style="background:#d1fae5;color:#059669">⏳</div>
+        <div><div class="tool-card-name">Countdown Timer</div><div class="tool-card-desc">Count down to your exam, event or deadline. Share with friends.</div></div>
+        <div class="tool-card-meta"><span class="tc-badge">Shareable</span></div>
+      </a>
+      <a href="pomodoro/index.html" class="tool-card" data-tags="pomodoro timer focus study work" style="--card-accent:#ef4444">
+        <div class="tool-card-icon" style="background:#fee2e2;color:#dc2626">⏱️</div>
+        <div><div class="tool-card-name">Pomodoro Timer</div><div class="tool-card-desc">Study with the Pomodoro technique — 25 min focus, 5 min break. Beat procrastination.</div></div>
+        <div class="tool-card-meta"><span class="tc-badge">Focus Technique</span><span class="tc-badge">Alerts</span></div>
+      </a>
     </div>
-  </footer>
+  </div>
 
-  <!-- WHATSAPP FAB -->
-  <a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
-    <i class="fab fa-whatsapp"></i>
-  </a>
+  <!-- CREATIVE TOOLS -->
+  <div class="cat-section" data-cat="creative" id="sec_creative">
+    <div class="cat-header">
+      <div class="cat-icon" style="background:#ede9fe;color:#7c3aed">🎨</div>
+      <div><div class="cat-title">Creative &amp; Media</div><div class="cat-desc">Photo editing, QR codes, watermarks and visual tools</div></div>
+    </div>
+    <div class="tools-grid">
+      <a href="photo-editor/index.html" class="tool-card new-badge" data-tags="photo editor image filter crop resize watermark instagram" style="--card-accent:#8b5cf6">
+        <div class="tool-card-icon" style="background:#ede9fe;color:#7c3aed">📸</div>
+        <div><div class="tool-card-name">Photo Editor</div><div class="tool-card-desc">Filters, brightness, contrast, text overlays, watermark, resize for Instagram/WhatsApp. 100% browser-based.</div></div>
+        <div class="tool-card-meta"><span class="tc-badge">9 Filters</span><span class="tc-badge">Text Overlay</span><span class="tc-badge">Social Resize</span><span class="tc-badge">No Upload</span></div>
+      </a>
+      <a href="qr-generator/index.html" class="tool-card" data-tags="qr code generate scan link" style="--card-accent:#0f172a">
+        <div class="tool-card-icon" style="background:#f1f5f9;color:#0f172a">◼️</div>
+        <div><div class="tool-card-name">QR Code Generator</div><div class="tool-card-desc">Generate QR codes for links, text, WhatsApp, phone numbers and more. Download PNG.</div></div>
+        <div class="tool-card-meta"><span class="tc-badge">Instant</span><span class="tc-badge">PNG Download</span></div>
+      </a>
+    </div>
+  </div>
 
-  <script>
-  // ── SEARCH ──────────────────────────────────────────────
-  const allTools = [
-    { title:'Professional Email Writer',    desc:'Write polished emails for any situation in seconds.',                    icon:'📧', tags:['Workers','Students','Business'],          url:'email-writer/index.html',      cat:'Write Better' },
-    { title:'Letter Generator',             desc:'Formal Zambian letters — resignation, reference, demand.',              icon:'📜', tags:['Workers','Students','Organisations'],     url:'letter-generator/index.html',  cat:'Write Better' },
-    { title:'Meeting Minutes Generator',    desc:'Professional meeting minutes ready to distribute.',                      icon:'🗒️', tags:['Organisations','Business','Firms'],        url:'meeting-minutes/index.html',   cat:'Write Better' },
-    { title:'Unit Converter',               desc:'Length, weight, temperature, area, volume, data — all in one.',         icon:'📏', tags:['Everyone','Farmers','Students'],           url:'unit-converter/index.html',    cat:'Calculate' },
-    { title:'Currency Converter',           desc:'ZMW to USD, GBP, ZAR, EUR and back.',                                  icon:'💱', tags:['Business','Students','Travellers'],        url:'currency-converter/index.html',cat:'Calculate' },
-    { title:'Invoice Generator',            desc:'Create and download professional invoices as PDF.',                      icon:'🧾', tags:['Freelancers','Business','PDF'],             url:'invoice/index.html',           cat:'Documents' },
-    { title:'Meeting Agenda Builder',       desc:'Build and share professional meeting agendas.',                          icon:'📋', tags:['Organisations','Business','PDF'],           url:'agenda-builder/index.html',    cat:'Documents' },
-    { title:'Simple Contract Generator',    desc:'Basic service contracts and agreements as PDF.',                         icon:'🤝', tags:['Freelancers','Landlords','PDF'],            url:'contract-generator/index.html',cat:'Documents' },
-    { title:'CV & Resume Builder',          desc:'Zambia-appropriate CV templates with PDF download.',                    icon:'📑', tags:['Students','Job Seekers','PDF'],             url:'cv-builder/index.html',        cat:'Documents' },
-    { title:'Budget Planner',               desc:'Personal and household budget with visual breakdown.',                   icon:'💰', tags:['Everyone','Families','PDF'],               url:'budget-planner/index.html',    cat:'Documents' },
-    { title:'Word Counter & Text Analyser', desc:'Words, characters, sentences, reading time, readability.',              icon:'🔤', tags:['Students','Writers','Researchers'],        url:'word-counter/index.html',      cat:'Research' },
-    { title:'Text Summarizer',              desc:'Paste any long text and get a clean summary instantly.',                 icon:'📰', tags:['Students','Researchers','Workers'],        url:'text-summarizer/index.html',   cat:'Research' },
-    { title:'JSON Formatter & Validator',   desc:'Paste messy JSON and get clean, validated, formatted output.',          icon:'🧩', tags:['Developers','API Work'],                   url:'json-formatter/index.html',    cat:'Developer' },
-    { title:'HTML Entity Encoder',          desc:'Encode and decode HTML special characters instantly.',                   icon:'🏷️', tags:['Developers','Frontend'],                   url:'html-encoder/index.html',      cat:'Developer' },
-    { title:'Pomodoro Focus Timer',         desc:'25-minute focus sessions with break reminders.',                        icon:'🍅', tags:['Students','Developers','Workers'],         url:'pomodoro/index.html',          cat:'Productivity' },
-    { title:'Random Decision Maker',        desc:'Enter options, spin the wheel, get a decision.',                        icon:'🎯', tags:['Everyone','Teams'],                        url:'decision-maker/index.html',    cat:'Productivity' },
-    { title:'QR Code Generator',            desc:'Generate downloadable QR codes for any URL or text.',                   icon:'◼️', tags:['Business','Events','Marketing'],           url:'qr-generator/index.html',      cat:'Productivity' },
-    { title:'Countdown Timer',              desc:'Count down to any date — exams, events, deadlines.',                    icon:'⏳', tags:['Students','Events','Business'],            url:'countdown/index.html',         cat:'Productivity' },
-    { title:'Tip & Bill Splitter',          desc:'Split any bill fairly between any number of people.',                   icon:'🍽️', tags:['Everyone','Groups'],                       url:'tip-splitter/index.html',      cat:'Productivity' },
-    { title:'Zambia Public Holiday Calc',   desc:'All Zambian public holidays with working day calculator.',              icon:'🇿🇲', tags:['HR','Business','Workers'],                 url:'holidays/index.html',          cat:'Zambia' },
-  ];
+  <!-- PRODUCTIVITY -->
+  <div class="cat-section" data-cat="productivity" id="sec_productivity">
+    <div class="cat-header">
+      <div class="cat-icon" style="background:#d1fae5;color:#059669">⚡</div>
+      <div><div class="cat-title">Productivity &amp; Planning</div><div class="cat-desc">Stay organised, on time and on task</div></div>
+    </div>
+    <div class="tools-grid">
+      <a href="pomodoro/index.html" class="tool-card" data-tags="pomodoro focus timer work" style="--card-accent:#ef4444">
+        <div class="tool-card-icon" style="background:#fee2e2;color:#dc2626">🍅</div>
+        <div><div class="tool-card-name">Pomodoro Timer</div><div class="tool-card-desc">Work smarter with focused time blocks and scheduled breaks.</div></div>
+        <div class="tool-card-meta"><span class="tc-badge">25/5 Method</span></div>
+      </a>
+      <a href="countdown/index.html" class="tool-card" data-tags="countdown date event deadline" style="--card-accent:#10b981">
+        <div class="tool-card-icon" style="background:#d1fae5;color:#059669">⏳</div>
+        <div><div class="tool-card-name">Countdown Timer</div><div class="tool-card-desc">Set countdowns to any date — exams, events, launches, deadlines.</div></div>
+        <div class="tool-card-meta"><span class="tc-badge">Custom Date</span></div>
+      </a>
+      <a href="zambia-holidays/index.html" class="tool-card" data-tags="zambia holidays public calendar" style="--card-accent:#dc2626">
+        <div class="tool-card-icon" style="background:#fee2e2;color:#dc2626">🇿🇲</div>
+        <div><div class="tool-card-name">Zambia Public Holidays</div><div class="tool-card-desc">All Zambian public holidays for 2025–2026 with dates and descriptions.</div></div>
+        <div class="tool-card-meta"><span class="tc-badge">2025-2026</span><span class="tc-badge">Zambia Only</span></div>
+      </a>
+      <a href="decision-maker/index.html" class="tool-card" data-tags="decision spin random wheel" style="--card-accent:#f59e0b">
+        <div class="tool-card-icon" style="background:#fef3c7;color:#d97706">🎯</div>
+        <div><div class="tool-card-name">Decision Maker</div><div class="tool-card-desc">Add options, spin the wheel, let it decide. Perfect for groups and teams.</div></div>
+        <div class="tool-card-meta"><span class="tc-badge">Spin Wheel</span></div>
+      </a>
+    </div>
+  </div>
 
-  const searchInput = document.getElementById('toolsSearch');
-  const clearBtn = document.getElementById('tsClear');
-  const resultsSection = document.getElementById('searchResultsSection');
-  const resultsGrid = document.getElementById('searchResultsGrid');
-  const srTitle = document.getElementById('srTitle');
-  const mainSection = document.getElementById('toolsMain');
+  <!-- CALCULATORS -->
+  <div class="cat-section" data-cat="calculators" id="sec_calculators">
+    <div class="cat-header">
+      <div class="cat-icon" style="background:#fef3c7;color:#d97706">🧮</div>
+      <div><div class="cat-title">Calculators &amp; Converters</div><div class="cat-desc">Numbers made easy — units, currency and more</div></div>
+    </div>
+    <div class="tools-grid">
+      <a href="unit-converter/index.html" class="tool-card" data-tags="unit convert length weight temperature area volume" style="--card-accent:#0ea5e9">
+        <div class="tool-card-icon" style="background:#e0f2fe;color:#0284c7">📐</div>
+        <div><div class="tool-card-name">Unit Converter</div><div class="tool-card-desc">Convert length, weight, temperature, area, volume, speed, time and data units.</div></div>
+        <div class="tool-card-meta"><span class="tc-badge">8 Categories</span><span class="tc-badge">Instant</span></div>
+      </a>
+      <a href="currency-converter/index.html" class="tool-card" data-tags="currency zmw usd gbp zar convert money exchange" style="--card-accent:#ec4899">
+        <div class="tool-card-icon" style="background:#fce7f3;color:#db2777">💱</div>
+        <div><div class="tool-card-name">Currency Converter</div><div class="tool-card-desc">Convert Zambian Kwacha to USD, GBP, ZAR, EUR, KES and 10+ currencies.</div></div>
+        <div class="tool-card-meta"><span class="tc-badge">15+ Currencies</span><span class="tc-badge">ZMW Focus</span></div>
+      </a>
+      <a href="tip-splitter/index.html" class="tool-card" data-tags="bill split tip calculate share" style="--card-accent:#f59e0b">
+        <div class="tool-card-icon" style="background:#fef3c7;color:#d97706">🍽️</div>
+        <div><div class="tool-card-name">Bill Splitter</div><div class="tool-card-desc">Split bills evenly or unevenly between friends. Includes tip calculation.</div></div>
+        <div class="tool-card-meta"><span class="tc-badge">Group Split</span></div>
+      </a>
+    </div>
+  </div>
 
-  searchInput.addEventListener('input', () => {
-    const q = searchInput.value.trim().toLowerCase();
-    clearBtn.style.display = q ? 'block' : 'none';
-    if (!q) { clearSearch(); return; }
-    const matches = allTools.filter(t =>
-      t.title.toLowerCase().includes(q) ||
-      t.desc.toLowerCase().includes(q) ||
-      t.cat.toLowerCase().includes(q) ||
-      t.tags.some(tag => tag.toLowerCase().includes(q))
-    );
-    srTitle.textContent = matches.length ? `${matches.length} tool${matches.length>1?'s':''} found for "${searchInput.value}"` : `No tools found for "${searchInput.value}"`;
-    resultsGrid.innerHTML = matches.length
-      ? matches.map(t => toolCardHTML(t)).join('')
-      : `<div class="no-results"><div class="nr-icon">🔍</div><h3>No tools found</h3><p>Try searching for "invoice", "email", "CV", "QR", or "convert"</p></div>`;
-    resultsSection.style.display = 'block';
-    mainSection.style.display = 'none';
+  <!-- DEVELOPER -->
+  <div class="cat-section" data-cat="developer" id="sec_developer">
+    <div class="cat-header">
+      <div class="cat-icon" style="background:#f1f5f9;color:#475569">🛠️</div>
+      <div><div class="cat-title">Developer &amp; Technical</div><div class="cat-desc">Tools for developers, IT staff and technical users</div></div>
+    </div>
+    <div class="tools-grid">
+      <a href="json-formatter/index.html" class="tool-card" data-tags="json format developer code api" style="--card-accent:#10b981">
+        <div class="tool-card-icon" style="background:#d1fae5;color:#059669">{ }</div>
+        <div><div class="tool-card-name">JSON Formatter</div><div class="tool-card-desc">Paste messy JSON and get it beautifully formatted, validated and colour-coded.</div></div>
+        <div class="tool-card-meta"><span class="tc-badge">Validate</span><span class="tc-badge">Format</span><span class="tc-badge">Copy</span></div>
+      </a>
+      <a href="html-encoder/index.html" class="tool-card" data-tags="html encode decode developer code" style="--card-accent:#f59e0b">
+        <div class="tool-card-icon" style="background:#fef3c7;color:#d97706">&lt;/&gt;</div>
+        <div><div class="tool-card-name">HTML Entity Encoder</div><div class="tool-card-desc">Encode and decode HTML entities for safe web display.</div></div>
+        <div class="tool-card-meta"><span class="tc-badge">Encode</span><span class="tc-badge">Decode</span></div>
+      </a>
+      <a href="qr-generator/index.html" class="tool-card" data-tags="qr code generate developer link" style="--card-accent:#0f172a">
+        <div class="tool-card-icon" style="background:#f1f5f9;color:#0f172a">◼️</div>
+        <div><div class="tool-card-name">QR Code Generator</div><div class="tool-card-desc">Instant QR codes for any URL, text or contact information.</div></div>
+        <div class="tool-card-meta"><span class="tc-badge">PNG Download</span></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div style="background:linear-gradient(135deg,#0f172a,#0c4a6e);border-radius:20px;padding:40px;text-align:center;margin-top:16px">
+    <h3 style="color:white;font-size:1.4rem;font-weight:800;margin-bottom:8px">Need a custom tool for your business?</h3>
+    <p style="color:#94a3b8;margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto">BLESSTech-X builds custom web apps, calculators, booking systems and business tools for Zambian companies from ZMW 980.</p>
+    <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I need a custom business tool." target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:#25d366;color:white;border-radius:50px;font-weight:700;font-size:.95rem;text-decoration:none"><i class="fab fa-whatsapp"></i> Let's Build It Together</a>
+  </div>
+
+</div>
+
+<footer class="tools-footer">
+  <div class="th-container">
+    <div class="tf-inner">
+      <div class="tf-brand"><a href="../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a><p>Free tools for every Zambian. Built in Lusaka. 🇿🇲</p></div>
+      <div class="tf-links"><h4>Top Tools</h4><a href="email-writer/index.html">Email Writer</a><a href="receipt-generator/index.html">Receipt Generator</a><a href="photo-editor/index.html">Photo Editor</a><a href="study-timetable/index.html">Study Timetable</a></div>
+      <div class="tf-links"><h4>More Tools</h4><a href="cv-builder/index.html">CV Builder</a><a href="invoice/index.html">Invoice Generator</a><a href="playlist-mood/index.html">Playlist Generator</a><a href="unit-converter/index.html">Unit Converter</a></div>
+      <div class="tf-links"><h4>BLESSTech-X</h4><a href="../index.html">Main Website</a><a href="../index.html#services">Services</a><a href="../index.html#contact">Contact</a></div>
+      <div class="tf-contact"><h4>Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
+    </div>
+    <div class="tf-bottom"><p>&copy; 2026 BLESSTech-X · 24 Free Tools · Built for Zambia 🇿🇲</p></div>
+  </div>
+</footer>
+
+<a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+function showCat(cat, btn) {
+  document.querySelectorAll('.cat-nav-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  document.getElementById('searchInput').value = '';
+  document.getElementById('clearSearch').style.display = 'none';
+  document.getElementById('noResults').style.display = 'none';
+  var sections = document.querySelectorAll('.cat-section');
+  sections.forEach(function(s){
+    s.style.display = (cat === 'all' || s.getAttribute('data-cat') === cat) ? 'block' : 'none';
+  });
+}
+
+function filterTools() {
+  var q = document.getElementById('searchInput').value.toLowerCase().trim();
+  document.getElementById('clearSearch').style.display = q ? 'block' : 'none';
+  if (!q) {
+    document.querySelectorAll('.cat-section').forEach(function(s){ s.style.display = 'block'; });
+    document.querySelectorAll('.tool-card').forEach(function(c){ c.style.display = 'flex'; });
+    document.getElementById('noResults').style.display = 'none';
+    return;
+  }
+  // Reset category nav
+  document.querySelectorAll('.cat-nav-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelector('.cat-nav-btn').classList.add('active');
+
+  var found = 0;
+  document.querySelectorAll('.cat-section').forEach(function(s){ s.style.display = 'block'; });
+  document.querySelectorAll('.tool-card').forEach(function(card){
+    var text = (card.getAttribute('data-tags') || '') + ' ' + card.innerText.toLowerCase();
+    var show = text.includes(q);
+    card.style.display = show ? 'flex' : 'none';
+    if (show) found++;
   });
 
-  function clearSearch() {
-    searchInput.value = '';
-    clearBtn.style.display = 'none';
-    resultsSection.style.display = 'none';
-    mainSection.style.display = 'block';
-  }
+  document.getElementById('noResults').style.display = found === 0 ? 'block' : 'none';
+}
 
-  function toolCardHTML(t) {
-    return `<a href="${t.url}" class="tool-card">
-      <div class="tool-card-icon" style="background:#f1f5f9;color:#0284c7;font-size:1.6rem">${t.icon}</div>
-      <div class="tool-card-body">
-        <div class="tool-card-cat">${t.cat}</div>
-        <h3>${t.title}</h3>
-        <p>${t.desc}</p>
-        <div class="tool-tags">${t.tags.map(tag=>`<span class="ttag">${tag}</span>`).join('')}</div>
-      </div>
-      <div class="tool-card-arrow"><i class="fas fa-arrow-right"></i></div>
-    </a>`;
-  }
+function clearSearch() {
+  document.getElementById('searchInput').value = '';
+  filterTools();
+  document.getElementById('clearSearch').style.display = 'none';
+}
 
-  // ── MOBILE MENU ──────────────────────────────────────────
-  const thToggle = document.getElementById('thToggle');
-  const thNav = document.querySelector('.th-nav');
-  thToggle.addEventListener('click', () => {
-    thNav.classList.toggle('th-nav-open');
-    thToggle.classList.toggle('th-toggle-open');
-  });
-
-  // ── HASH SCROLL ──────────────────────────────────────────
-  if (window.location.hash) {
-    setTimeout(() => {
-      const el = document.querySelector(window.location.hash);
-      if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
-    }, 300);
-  }
-  </script>
+document.getElementById('thToggle').addEventListener('click', function(){
+  document.getElementById('thNav').classList.toggle('th-nav-open');
+  document.getElementById('thToggle').classList.toggle('th-toggle-open');
+});
+</script>
 </body>
 </html>
