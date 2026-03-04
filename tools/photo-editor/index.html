@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Photo Editor | BLESSTech-X Free Tools</title>
+  <meta name="description" content="Free online photo editor. Add filters, adjust brightness, contrast, crop, add text overlays and resize for Instagram, WhatsApp and Facebook. No upload needed."/>
+  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../style.css"/>
+  <style>
+    .pe-layout{display:grid;grid-template-columns:280px 1fr 260px;gap:0;height:calc(100vh - 70px);overflow:hidden}
+    @media(max-width:1100px){.pe-layout{grid-template-columns:220px 1fr 220px}}
+    @media(max-width:800px){.pe-layout{grid-template-columns:1fr;height:auto;overflow:visible}}
+
+    .pe-left,.pe-right{background:#0f172a;overflow-y:auto;padding:16px}
+    .pe-left::-webkit-scrollbar,.pe-right::-webkit-scrollbar{width:4px}
+    .pe-left::-webkit-scrollbar-thumb,.pe-right::-webkit-scrollbar-thumb{background:#334155;border-radius:2px}
+
+    .pe-center{background:#1e293b;display:flex;align-items:center;justify-content:center;flex-direction:column;position:relative;overflow:hidden}
+
+    .pe-section{margin-bottom:20px}
+    .pe-section-title{color:#94a3b8;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+
+    .pe-btn{display:flex;align-items:center;gap:8px;padding:9px 12px;background:#1e293b;border:1px solid #334155;border-radius:8px;color:#cbd5e1;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .15s;width:100%;margin-bottom:6px}
+    .pe-btn:hover{background:#334155;color:white;border-color:#475569}
+    .pe-btn.active{background:#0ea5e9;border-color:#0ea5e9;color:white}
+    .pe-btn .pe-btn-icon{width:20px;text-align:center;font-size:.9rem}
+
+    .slider-row{margin-bottom:12px}
+    .slider-label{display:flex;justify-content:space-between;color:#94a3b8;font-size:.75rem;font-weight:600;margin-bottom:4px}
+    .slider-label span:last-child{color:#0ea5e9;font-weight:700}
+    input[type=range].pe-slider{width:100%;height:4px;border-radius:2px;background:#334155;outline:none;-webkit-appearance:none;cursor:pointer}
+    input[type=range].pe-slider::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:#0ea5e9;cursor:pointer}
+
+    .filter-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+    .filter-thumb{border-radius:8px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:all .15s;aspect-ratio:1}
+    .filter-thumb:hover{border-color:#0ea5e9;transform:scale(1.05)}
+    .filter-thumb.active{border-color:#0ea5e9;box-shadow:0 0 0 2px rgba(14,165,233,.4)}
+    .filter-thumb canvas{width:100%;height:100%;display:block}
+    .filter-label{text-align:center;color:#94a3b8;font-size:.65rem;font-weight:600;margin-top:3px}
+
+    .canvas-wrap{position:relative;box-shadow:0 8px 40px rgba(0,0,0,.5);border-radius:4px}
+    #mainCanvas{display:block;max-width:100%;max-height:calc(100vh - 200px);border-radius:4px;cursor:crosshair}
+
+    .upload-zone{border:2px dashed #334155;border-radius:16px;padding:60px 40px;text-align:center;cursor:pointer;transition:all .2s;color:#94a3b8}
+    .upload-zone:hover{border-color:#0ea5e9;background:rgba(14,165,233,.05)}
+    .upload-zone i{font-size:3rem;margin-bottom:16px;display:block;color:#334155}
+    .upload-zone h3{color:#cbd5e1;font-size:1.1rem;font-weight:700;margin-bottom:8px}
+
+    .text-overlay-panel{background:#1e293b;border:1px solid #334155;border-radius:10px;padding:14px;margin-top:8px}
+    .pe-input{width:100%;padding:8px 12px;background:#0f172a;border:1px solid #334155;border-radius:6px;color:#e2e8f0;font-size:.85rem;outline:none;transition:border .15s}
+    .pe-input:focus{border-color:#0ea5e9}
+    .pe-select{width:100%;padding:8px 12px;background:#0f172a;border:1px solid #334155;border-radius:6px;color:#e2e8f0;font-size:.85rem;outline:none;cursor:pointer}
+
+    .social-sizes{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+    .size-btn{padding:8px;background:#1e293b;border:1px solid #334155;border-radius:8px;color:#94a3b8;font-size:.72rem;font-weight:600;cursor:pointer;text-align:center;transition:all .15s}
+    .size-btn:hover{background:#334155;color:white;border-color:#475569}
+
+    .toolbar-bottom{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:8px;background:rgba(15,23,42,.9);backdrop-filter:blur(10px);padding:10px 16px;border-radius:50px;border:1px solid #334155}
+    .tb-btn{width:36px;height:36px;border-radius:50%;background:transparent;border:none;color:#94a3b8;font-size:.9rem;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
+    .tb-btn:hover{background:#334155;color:white}
+    .tb-btn.active{background:#0ea5e9;color:white}
+
+    .zoom-info{position:absolute;top:16px;right:16px;background:rgba(15,23,42,.8);color:#94a3b8;font-size:.72rem;padding:5px 10px;border-radius:6px}
+    @media(max-width:800px){.pe-layout{display:flex;flex-direction:column}.pe-left,.pe-right{padding:12px}.pe-center{min-height:300px}.toolbar-bottom{bottom:8px}}
+  </style>
+</head>
+<body style="margin:0;padding:0;background:#0f172a">
+
+<header class="tools-header" style="position:sticky;top:0;z-index:100">
+  <div class="th-inner">
+    <a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a>
+    <nav class="th-nav" id="thNav">
+      <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
+      <a href="../index.html"><i class="fas fa-tools"></i> All Tools</a>
+      <a href="../../index.html#services">Services</a>
+      <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    </nav>
+    <button class="th-mobile-toggle" id="thToggle"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="pe-layout">
+
+  <!-- LEFT PANEL -->
+  <div class="pe-left">
+
+    <!-- Upload -->
+    <div class="pe-section">
+      <div class="pe-section-title"><i class="fas fa-upload"></i> Image</div>
+      <button class="pe-btn" onclick="document.getElementById('fileInput').click()">
+        <span class="pe-btn-icon">📂</span> Open Image
+      </button>
+      <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="loadImage(event)"/>
+      <button class="pe-btn" onclick="resetAll()"><span class="pe-btn-icon">🔄</span> Reset All</button>
+    </div>
+
+    <!-- Filters -->
+    <div class="pe-section">
+      <div class="pe-section-title"><i class="fas fa-magic"></i> Filters</div>
+      <div class="filter-grid" id="filterGrid">
+        <div><div class="filter-thumb active" id="ft_none" onclick="applyFilter('none')"><canvas id="fc_none"></canvas></div><div class="filter-label">Normal</div></div>
+        <div><div class="filter-thumb" id="ft_grayscale" onclick="applyFilter('grayscale')"><canvas id="fc_grayscale"></canvas></div><div class="filter-label">B&amp;W</div></div>
+        <div><div class="filter-thumb" id="ft_sepia" onclick="applyFilter('sepia')"><canvas id="fc_sepia"></canvas></div><div class="filter-label">Sepia</div></div>
+        <div><div class="filter-thumb" id="ft_warm" onclick="applyFilter('warm')"><canvas id="fc_warm"></canvas></div><div class="filter-label">Warm</div></div>
+        <div><div class="filter-thumb" id="ft_cool" onclick="applyFilter('cool')"><canvas id="fc_cool"></canvas></div><div class="filter-label">Cool</div></div>
+        <div><div class="filter-thumb" id="ft_vivid" onclick="applyFilter('vivid')"><canvas id="fc_vivid"></canvas></div><div class="filter-label">Vivid</div></div>
+        <div><div class="filter-thumb" id="ft_vintage" onclick="applyFilter('vintage')"><canvas id="fc_vintage"></canvas></div><div class="filter-label">Vintage</div></div>
+        <div><div class="filter-thumb" id="ft_fade" onclick="applyFilter('fade')"><canvas id="fc_fade"></canvas></div><div class="filter-label">Fade</div></div>
+        <div><div class="filter-thumb" id="ft_noir" onclick="applyFilter('noir')"><canvas id="fc_noir"></canvas></div><div class="filter-label">Noir</div></div>
+      </div>
+    </div>
+
+    <!-- Adjustments -->
+    <div class="pe-section">
+      <div class="pe-section-title"><i class="fas fa-sliders-h"></i> Adjustments</div>
+      <div class="slider-row"><div class="slider-label"><span>Brightness</span><span id="vBright">100</span></div><input type="range" class="pe-slider" id="sBright" min="0" max="200" value="100" oninput="applyAdjustments()"/></div>
+      <div class="slider-row"><div class="slider-label"><span>Contrast</span><span id="vContrast">100</span></div><input type="range" class="pe-slider" id="sContrast" min="0" max="200" value="100" oninput="applyAdjustments()"/></div>
+      <div class="slider-row"><div class="slider-label"><span>Saturation</span><span id="vSat">100</span></div><input type="range" class="pe-slider" id="sSat" min="0" max="300" value="100" oninput="applyAdjustments()"/></div>
+      <div class="slider-row"><div class="slider-label"><span>Blur</span><span id="vBlur">0</span></div><input type="range" class="pe-slider" id="sBlur" min="0" max="20" value="0" oninput="applyAdjustments()"/></div>
+      <div class="slider-row"><div class="slider-label"><span>Opacity</span><span id="vOpacity">100</span></div><input type="range" class="pe-slider" id="sOpacity" min="0" max="100" value="100" oninput="applyAdjustments()"/></div>
+      <div class="slider-row"><div class="slider-label"><span>Rotate</span><span id="vRotate">0°</span></div><input type="range" class="pe-slider" id="sRotate" min="-180" max="180" value="0" oninput="applyAdjustments()"/></div>
+      <button class="pe-btn" onclick="resetAdjustments()" style="margin-top:4px"><span class="pe-btn-icon">↩️</span> Reset Adjustments</button>
+    </div>
+
+  </div>
+
+  <!-- CANVAS CENTER -->
+  <div class="pe-center" id="canvasArea">
+    <div id="uploadPrompt" class="upload-zone" onclick="document.getElementById('fileInput').click()" style="max-width:400px;width:90%">
+      <i class="fas fa-image"></i>
+      <h3>Click to open an image</h3>
+      <p style="font-size:.88rem">or drag &amp; drop here<br/>JPG, PNG, WebP · Works 100% in your browser — nothing is uploaded</p>
+    </div>
+    <div class="canvas-wrap" id="canvasWrap" style="display:none">
+      <canvas id="mainCanvas"></canvas>
+    </div>
+    <div class="toolbar-bottom" id="toolbarBottom" style="display:none">
+      <button class="tb-btn" id="tbCrop" onclick="toggleTool('crop')" title="Crop"><i class="fas fa-crop-alt"></i></button>
+      <button class="tb-btn" id="tbText" onclick="toggleTool('text')" title="Add Text"><i class="fas fa-font"></i></button>
+      <button class="tb-btn" id="tbDraw" onclick="toggleTool('draw')" title="Draw"><i class="fas fa-pen"></i></button>
+      <button class="tb-btn" id="tbFlipH" onclick="flipImage('h')" title="Flip Horizontal"><i class="fas fa-arrows-alt-h"></i></button>
+      <button class="tb-btn" id="tbFlipV" onclick="flipImage('v')" title="Flip Vertical"><i class="fas fa-arrows-alt-v"></i></button>
+      <button class="tb-btn" id="tbUndo" onclick="undoEdit()" title="Undo"><i class="fas fa-undo"></i></button>
+    </div>
+    <div class="zoom-info" id="zoomInfo" style="display:none"></div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="pe-right">
+
+    <!-- Text Overlay -->
+    <div class="pe-section">
+      <div class="pe-section-title"><i class="fas fa-font"></i> Text Overlay</div>
+      <div class="text-overlay-panel">
+        <div style="margin-bottom:8px"><input type="text" class="pe-input" id="textContent" placeholder="Your text here..." value="BLESSTech-X"/></div>
+        <div style="margin-bottom:8px">
+          <select class="pe-select" id="textFont">
+            <option value="Arial">Arial</option>
+            <option value="'Times New Roman'">Times New Roman</option>
+            <option value="Georgia">Georgia</option>
+            <option value="'Courier New'">Courier New</option>
+            <option value="Impact">Impact</option>
+            <option value="Verdana">Verdana</option>
+          </select>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 60px;gap:8px;margin-bottom:8px">
+          <input type="color" id="textColor" value="#ffffff" style="width:100%;height:36px;border:1px solid #334155;border-radius:6px;background:#0f172a;cursor:pointer"/>
+          <input type="number" class="pe-input" id="textSize" value="32" min="8" max="200" placeholder="32"/>
+        </div>
+        <div style="margin-bottom:8px">
+          <select class="pe-select" id="textAlign">
+            <option value="center">Center</option>
+            <option value="left">Left</option>
+            <option value="right">Right</option>
+          </select>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px">
+          <select class="pe-select" id="textPosX">
+            <option value="center">H: Center</option>
+            <option value="left">H: Left</option>
+            <option value="right">H: Right</option>
+          </select>
+          <select class="pe-select" id="textPosY">
+            <option value="bottom">V: Bottom</option>
+            <option value="top">V: Top</option>
+            <option value="center">V: Center</option>
+          </select>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+          <input type="checkbox" id="textShadow" checked style="accent-color:#0ea5e9;cursor:pointer"/>
+          <label for="textShadow" style="color:#94a3b8;font-size:.78rem;cursor:pointer">Text shadow</label>
+        </div>
+        <button class="pe-btn" onclick="addTextOverlay()"><span class="pe-btn-icon"><i class="fas fa-plus"></i></span> Add Text to Photo</button>
+      </div>
+    </div>
+
+    <!-- Watermark -->
+    <div class="pe-section">
+      <div class="pe-section-title"><i class="fas fa-stamp"></i> Watermark</div>
+      <div class="text-overlay-panel">
+        <input type="text" class="pe-input" id="wmText" placeholder="© Your Name 2026" style="margin-bottom:8px"/>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px">
+          <select class="pe-select" id="wmPos">
+            <option value="br">Bottom Right</option>
+            <option value="bl">Bottom Left</option>
+            <option value="tr">Top Right</option>
+            <option value="tl">Top Left</option>
+            <option value="center">Center</option>
+          </select>
+          <input type="range" class="pe-slider" id="wmOpacity" min="10" max="100" value="60" style="margin-top:10px"/>
+        </div>
+        <button class="pe-btn" onclick="addWatermark()"><span class="pe-btn-icon">💧</span> Add Watermark</button>
+      </div>
+    </div>
+
+    <!-- Social Media Resize -->
+    <div class="pe-section">
+      <div class="pe-section-title"><i class="fas fa-mobile-alt"></i> Resize for Social Media</div>
+      <div class="social-sizes">
+        <button class="size-btn" onclick="resizeCanvas(1080,1080)">📷 Instagram<br/>1080×1080</button>
+        <button class="size-btn" onclick="resizeCanvas(1080,1920)">📱 Story<br/>1080×1920</button>
+        <button class="size-btn" onclick="resizeCanvas(1200,630)">📘 Facebook<br/>1200×630</button>
+        <button class="size-btn" onclick="resizeCanvas(1280,720)">📺 YouTube<br/>1280×720</button>
+        <button class="size-btn" onclick="resizeCanvas(800,800)">💬 WhatsApp<br/>800×800</button>
+        <button class="size-btn" onclick="resizeCanvas(1500,500)">🐦 Twitter<br/>1500×500</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 80px;gap:6px;margin-top:10px">
+        <input type="number" class="pe-input" id="custW" placeholder="Width" min="1"/>
+        <input type="number" class="pe-input" id="custH" placeholder="Height" min="1"/>
+        <button class="pe-btn" style="margin:0" onclick="resizeCustom()">Go</button>
+      </div>
+    </div>
+
+    <!-- Export -->
+    <div class="pe-section">
+      <div class="pe-section-title"><i class="fas fa-download"></i> Export</div>
+      <button class="pe-btn" onclick="downloadImage('png')"><span class="pe-btn-icon">🖼️</span> Download PNG (Best Quality)</button>
+      <button class="pe-btn" onclick="downloadImage('jpeg')"><span class="pe-btn-icon">📷</span> Download JPG (Smaller File)</button>
+      <button class="pe-btn" onclick="downloadImage('webp')"><span class="pe-btn-icon">⚡</span> Download WebP (Web Optimised)</button>
+      <div style="display:grid;grid-template-columns:1fr auto;gap:6px;margin-top:6px;align-items:center">
+        <div class="slider-label"><span style="color:#94a3b8;font-size:.72rem">JPG Quality</span><span style="color:#0ea5e9;font-size:.72rem" id="vQuality">92%</span></div>
+      </div>
+      <input type="range" class="pe-slider" id="sQuality" min="10" max="100" value="92" oninput="document.getElementById('vQuality').textContent=this.value+'%'"/>
+    </div>
+
+    <!-- Info -->
+    <div class="pe-section">
+      <div class="pe-section-title"><i class="fas fa-info-circle"></i> Image Info</div>
+      <div style="background:#1e293b;border-radius:8px;padding:12px;font-size:.75rem;color:#94a3b8;line-height:2" id="imgInfo">
+        No image loaded
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+var originalImage  = null;
+var currentFilter  = 'none';
+var flipH = false, flipV = false;
+var textLayers     = [];
+var history        = [];
+var canvas         = document.getElementById('mainCanvas');
+var ctx            = canvas.getContext('2d');
+
+// ── DRAG & DROP ──────────────────────────────────────────────
+var ca = document.getElementById('canvasArea');
+ca.addEventListener('dragover', function(e){ e.preventDefault(); });
+ca.addEventListener('drop', function(e){
+  e.preventDefault();
+  var file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) loadFile(file);
+});
+
+// ── LOAD IMAGE ───────────────────────────────────────────────
+function loadImage(e) { if (e.target.files[0]) loadFile(e.target.files[0]); }
+
+function loadFile(file) {
+  var reader = new FileReader();
+  reader.onload = function(ev) {
+    var img = new Image();
+    img.onload = function() {
+      originalImage = img;
+      flipH = false; flipV = false;
+      resetAdjustments();
+      currentFilter = 'none';
+      textLayers = [];
+      history = [];
+      canvas.width  = img.width;
+      canvas.height = img.height;
+      document.getElementById('uploadPrompt').style.display = 'none';
+      document.getElementById('canvasWrap').style.display   = 'block';
+      document.getElementById('toolbarBottom').style.display = 'flex';
+      document.getElementById('zoomInfo').style.display      = 'block';
+      document.getElementById('imgInfo').innerHTML = 'Size: ' + img.width + ' × ' + img.height + ' px<br/>File: ' + file.name + '<br/>Type: ' + file.type;
+      renderAll();
+      buildFilterThumbs();
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+// ── RENDER PIPELINE ──────────────────────────────────────────
+function renderAll() {
+  if (!originalImage) return;
+  saveHistory();
+
+  var bright   = parseInt(document.getElementById('sBright').value);
+  var contrast = parseInt(document.getElementById('sContrast').value);
+  var sat      = parseInt(document.getElementById('sSat').value);
+  var blur     = parseInt(document.getElementById('sBlur').value);
+  var opacity  = parseInt(document.getElementById('sOpacity').value);
+  var rotate   = parseInt(document.getElementById('sRotate').value);
+
+  // Update labels
+  document.getElementById('vBright').textContent  = bright;
+  document.getElementById('vContrast').textContent = contrast;
+  document.getElementById('vSat').textContent      = sat;
+  document.getElementById('vBlur').textContent     = blur;
+  document.getElementById('vOpacity').textContent  = opacity;
+  document.getElementById('vRotate').textContent   = rotate + '°';
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.save();
+
+  // Rotation
+  if (rotate !== 0) {
+    ctx.translate(canvas.width/2, canvas.height/2);
+    ctx.rotate(rotate * Math.PI / 180);
+    ctx.translate(-canvas.width/2, -canvas.height/2);
+  }
+
+  // Flip
+  if (flipH || flipV) {
+    ctx.translate(flipH ? canvas.width : 0, flipV ? canvas.height : 0);
+    ctx.scale(flipH ? -1 : 1, flipV ? -1 : 1);
+  }
+
+  ctx.globalAlpha = opacity / 100;
+  ctx.filter = buildFilter(bright, contrast, sat, blur, currentFilter);
+  ctx.drawImage(originalImage, 0, 0, canvas.width, canvas.height);
+  ctx.restore();
+  ctx.filter = 'none';
+  ctx.globalAlpha = 1;
+
+  // Text layers
+  textLayers.forEach(function(layer) { drawTextLayer(layer); });
+
+  document.getElementById('zoomInfo').textContent = canvas.width + ' × ' + canvas.height + 'px';
+}
+
+function buildFilter(bright, contrast, sat, blur, filter) {
+  var base = 'brightness(' + bright + '%) contrast(' + contrast + '%) saturate(' + sat + '%)';
+  if (blur > 0) base += ' blur(' + blur + 'px)';
+  switch(filter) {
+    case 'grayscale': base += ' grayscale(100%)'; break;
+    case 'sepia':     base += ' sepia(80%)'; break;
+    case 'warm':      base += ' sepia(30%) saturate(150%)'; break;
+    case 'cool':      base += ' hue-rotate(200deg) saturate(120%)'; break;
+    case 'vivid':     base += ' saturate(200%) contrast(110%)'; break;
+    case 'vintage':   base += ' sepia(50%) contrast(80%) brightness(90%)'; break;
+    case 'fade':      base += ' brightness(110%) contrast(80%) saturate(80%)'; break;
+    case 'noir':      base += ' grayscale(100%) contrast(150%) brightness(80%)'; break;
+  }
+  return base;
+}
+
+function applyFilter(f) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-thumb').forEach(function(t){ t.classList.remove('active'); });
+  var el = document.getElementById('ft_' + f);
+  if (el) el.classList.add('active');
+  renderAll();
+}
+
+function applyAdjustments() { renderAll(); }
+
+function resetAdjustments() {
+  document.getElementById('sBright').value  = 100;
+  document.getElementById('sContrast').value = 100;
+  document.getElementById('sSat').value     = 100;
+  document.getElementById('sBlur').value    = 0;
+  document.getElementById('sOpacity').value = 100;
+  document.getElementById('sRotate').value  = 0;
+  renderAll();
+}
+
+// ── FLIP ─────────────────────────────────────────────────────
+function flipImage(dir) { if(dir==='h') flipH=!flipH; else flipV=!flipV; renderAll(); }
+
+// ── TEXT OVERLAY ─────────────────────────────────────────────
+function addTextOverlay() {
+  var text    = document.getElementById('textContent').value;
+  if (!text.trim() || !originalImage) return;
+  var font    = document.getElementById('textFont').value;
+  var size    = parseInt(document.getElementById('textSize').value) || 32;
+  var color   = document.getElementById('textColor').value;
+  var align   = document.getElementById('textAlign').value;
+  var posX    = document.getElementById('textPosX').value;
+  var posY    = document.getElementById('textPosY').value;
+  var shadow  = document.getElementById('textShadow').checked;
+  textLayers.push({ text: text, font: font, size: size, color: color, align: align, posX: posX, posY: posY, shadow: shadow });
+  renderAll();
+}
+
+function drawTextLayer(layer) {
+  var cw = canvas.width, ch = canvas.height;
+  ctx.font = 'bold ' + layer.size + 'px ' + layer.font;
+  ctx.textAlign    = layer.align === 'center' ? 'center' : (layer.align === 'right' ? 'right' : 'left');
+  ctx.textBaseline = 'middle';
+  var x = layer.posX === 'center' ? cw/2 : (layer.posX === 'right' ? cw - 40 : 40);
+  var y = layer.posY === 'center' ? ch/2  : (layer.posY === 'bottom' ? ch - layer.size : layer.size + 10);
+  if (layer.shadow) {
+    ctx.shadowColor   = 'rgba(0,0,0,0.7)';
+    ctx.shadowBlur    = 8;
+    ctx.shadowOffsetX = 2;
+    ctx.shadowOffsetY = 2;
+  }
+  ctx.fillStyle = layer.color;
+  ctx.fillText(layer.text, x, y);
+  ctx.shadowColor = 'transparent';
+  ctx.shadowBlur  = 0;
+}
+
+// ── WATERMARK ────────────────────────────────────────────────
+function addWatermark() {
+  var text    = document.getElementById('wmText').value;
+  if (!text.trim() || !originalImage) return;
+  var pos     = document.getElementById('wmPos').value;
+  var opacity = parseInt(document.getElementById('wmOpacity').value) / 100;
+  var cw = canvas.width, ch = canvas.height;
+  var size = Math.max(16, Math.min(cw, ch) / 25);
+  ctx.save();
+  ctx.globalAlpha = opacity;
+  ctx.font        = 'bold ' + size + 'px Arial';
+  ctx.fillStyle   = 'white';
+  ctx.shadowColor = 'rgba(0,0,0,0.5)';
+  ctx.shadowBlur  = 4;
+  var padding = 20;
+  var tw = ctx.measureText(text).width;
+  var x, y;
+  if      (pos === 'br') { x = cw - tw - padding; y = ch - size - padding; }
+  else if (pos === 'bl') { x = padding; y = ch - size - padding; }
+  else if (pos === 'tr') { x = cw - tw - padding; y = size + padding; }
+  else if (pos === 'tl') { x = padding; y = size + padding; }
+  else                   { x = (cw - tw) / 2; y = ch / 2; }
+  ctx.fillText(text, x, y);
+  ctx.restore();
+  // Bake watermark into original so it persists
+  var dataURL = canvas.toDataURL();
+  var img = new Image();
+  img.onload = function(){ originalImage = img; };
+  img.src = dataURL;
+}
+
+// ── RESIZE ───────────────────────────────────────────────────
+function resizeCanvas(w, h) {
+  if (!originalImage) return alert('Open an image first!');
+  var tmp = document.createElement('canvas');
+  tmp.width = w; tmp.height = h;
+  var tctx = tmp.getContext('2d');
+  tctx.drawImage(canvas, 0, 0, w, h);
+  var img = new Image();
+  img.onload = function() { originalImage = img; canvas.width = w; canvas.height = h; renderAll(); document.getElementById('imgInfo').innerHTML = 'Size: ' + w + ' × ' + h + ' px'; };
+  img.src = tmp.toDataURL();
+}
+
+function resizeCustom() {
+  var w = parseInt(document.getElementById('custW').value);
+  var h = parseInt(document.getElementById('custH').value);
+  if (w > 0 && h > 0) resizeCanvas(w, h);
+}
+
+// ── DOWNLOAD ─────────────────────────────────────────────────
+function downloadImage(fmt) {
+  if (!originalImage) return;
+  var quality = parseInt(document.getElementById('sQuality').value) / 100;
+  var mime    = fmt === 'jpeg' ? 'image/jpeg' : (fmt === 'webp' ? 'image/webp' : 'image/png');
+  var dataURL = canvas.toDataURL(mime, quality);
+  var a = document.createElement('a');
+  a.href = dataURL;
+  a.download = 'blesstechx-photo.' + (fmt === 'jpeg' ? 'jpg' : fmt);
+  a.click();
+}
+
+// ── TOOL TOGGLE ──────────────────────────────────────────────
+var activeTool = null;
+function toggleTool(t) {
+  activeTool = activeTool === t ? null : t;
+  ['crop','text','draw'].forEach(function(id){
+    var btn = document.getElementById('tb' + id.charAt(0).toUpperCase() + id.slice(1));
+    if (btn) btn.classList.toggle('active', activeTool === id);
+  });
+  canvas.style.cursor = activeTool ? 'crosshair' : 'default';
+  if (activeTool === 'text') {
+    document.getElementById('textContent').focus();
+  }
+}
+
+// ── UNDO ─────────────────────────────────────────────────────
+function saveHistory() {
+  if (history.length > 20) history.shift();
+}
+function undoEdit() {
+  if (!originalImage) return;
+  textLayers.pop();
+  renderAll();
+}
+
+// ── RESET ALL ────────────────────────────────────────────────
+function resetAll() {
+  originalImage = null;
+  textLayers = []; history = [];
+  flipH = false; flipV = false;
+  currentFilter = 'none';
+  resetAdjustments();
+  document.getElementById('uploadPrompt').style.display  = 'block';
+  document.getElementById('canvasWrap').style.display    = 'none';
+  document.getElementById('toolbarBottom').style.display = 'none';
+  document.getElementById('zoomInfo').style.display      = 'none';
+  document.getElementById('imgInfo').innerHTML = 'No image loaded';
+  document.getElementById('fileInput').value  = '';
+}
+
+// ── FILTER THUMBNAILS ────────────────────────────────────────
+function buildFilterThumbs() {
+  if (!originalImage) return;
+  var filters = ['none','grayscale','sepia','warm','cool','vivid','vintage','fade','noir'];
+  filters.forEach(function(f) {
+    var c = document.getElementById('fc_' + f);
+    if (!c) return;
+    c.width = 70; c.height = 70;
+    var tc = c.getContext('2d');
+    tc.filter = buildFilter(100, 100, 100, 0, f);
+    tc.drawImage(originalImage, 0, 0, 70, 70);
+  });
+}
+
+document.getElementById('thToggle').addEventListener('click', function(){
+  document.getElementById('thNav').classList.toggle('th-nav-open');
+  document.getElementById('thToggle').classList.toggle('th-toggle-open');
+});
+</script>
+</body>
+</html>
