@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Playlist Mood Generator | BLESSTech-X Free Tools</title>
+  <meta name="description" content="Describe your vibe and get a personalised playlist theme with song suggestions for YouTube and Spotify. Free mood playlist generator."/>
+  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="../style.css"/>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&display=swap');
+
+    .mood-hero{border-radius:20px;padding:40px;margin-bottom:28px;position:relative;overflow:hidden;text-align:center;background:#0f172a}
+    .mood-hero canvas{position:absolute;top:0;left:0;width:100%;height:100%;opacity:.4}
+    .mood-hero .hero-content{position:relative;z-index:2}
+    .mood-hero h1{color:white;font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;margin-bottom:8px}
+    .mood-hero p{color:#94a3b8;font-size:.95rem}
+
+    .mood-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:20px}
+    .mood-card{padding:16px 10px;border:2px solid var(--border);border-radius:16px;background:white;cursor:pointer;text-align:center;transition:all .2s;font-weight:700;font-size:.85rem;color:var(--slate-l)}
+    .mood-card .mood-emoji{font-size:2rem;display:block;margin-bottom:6px}
+    .mood-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
+    .mood-card.selected{border-width:2px;transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.15);color:white}
+
+    .genre-pill{display:inline-flex;align-items:center;padding:8px 14px;border:1.5px solid var(--border);border-radius:50px;background:white;cursor:pointer;font-size:.82rem;font-weight:600;color:var(--slate-l);transition:var(--transition);margin:4px}
+    .genre-pill:hover{border-color:var(--sky);color:var(--sky)}
+    .genre-pill.active{background:var(--sky);color:white;border-color:var(--sky)}
+
+    /* PLAYLIST OUTPUT */
+    .playlist-card{background:white;border-radius:20px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.1);margin-bottom:20px}
+    .playlist-header{padding:28px 24px;position:relative;overflow:hidden}
+    .playlist-header::before{content:'';position:absolute;inset:0;opacity:.15;background:inherit}
+    .playlist-title{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:white;position:relative;z-index:1}
+    .playlist-subtitle{color:rgba(255,255,255,.8);font-size:.88rem;position:relative;z-index:1;margin-top:4px}
+    .playlist-mood-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.2);backdrop-filter:blur(10px);padding:6px 14px;border-radius:50px;font-size:.78rem;font-weight:700;color:white;position:relative;z-index:1;margin-top:10px}
+
+    .track-list{padding:8px 0}
+    .track-item{display:flex;align-items:center;gap:14px;padding:12px 20px;transition:background .15s;cursor:pointer}
+    .track-item:hover{background:#f8fafc}
+    .track-num{width:24px;text-align:center;font-size:.82rem;font-weight:700;color:#94a3b8;flex-shrink:0}
+    .track-info{flex:1;min-width:0}
+    .track-name{font-size:.9rem;font-weight:700;color:#1e293b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .track-artist{font-size:.78rem;color:#64748b;margin-top:1px}
+    .track-actions{display:flex;gap:8px;flex-shrink:0}
+    .yt-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;background:#ff0000;color:white;border-radius:50px;font-size:.72rem;font-weight:700;text-decoration:none;transition:var(--transition)}
+    .yt-btn:hover{background:#cc0000}
+    .sp-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;background:#1db954;color:white;border-radius:50px;font-size:.72rem;font-weight:700;text-decoration:none;transition:var(--transition)}
+    .sp-btn:hover{background:#15a042}
+    .playlist-footer{padding:16px 20px;border-top:1px solid #e2e8f0;display:flex;gap:10px;flex-wrap:wrap}
+    .vibe-desc{background:var(--bg-alt);border-radius:12px;padding:16px 18px;margin:0 20px 16px;font-size:.88rem;color:var(--slate-l);font-style:italic;border-left:4px solid var(--sky)}
+    .activity-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:16px}
+    .act-card{padding:12px;border:1.5px solid var(--border);border-radius:12px;background:white;cursor:pointer;text-align:center;font-size:.82rem;font-weight:600;color:var(--slate-l);transition:var(--transition)}
+    .act-card:hover,.act-card.selected{border-color:var(--sky);color:var(--sky);background:var(--sky-light)}
+    .copy-toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:#1e293b;color:white;padding:10px 24px;border-radius:50px;font-size:.88rem;font-weight:600;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none}
+    .copy-toast.show{opacity:1}
+
+    @media(max-width:600px){.track-actions{display:none}}
+  </style>
+</head>
+<body class="tool-page">
+
+<header class="tools-header">
+  <div class="th-inner">
+    <a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a>
+    <nav class="th-nav" id="thNav">
+      <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
+      <a href="../index.html"><i class="fas fa-tools"></i> All Tools</a>
+      <a href="../../index.html#services">Services</a>
+      <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    </nav>
+    <button class="th-mobile-toggle" id="thToggle"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main class="tool-page-main">
+  <div class="th-container">
+
+    <div class="tool-breadcrumb">
+      <a href="../../index.html">Home</a><i class="fas fa-chevron-right"></i>
+      <a href="../index.html">Free Tools</a><i class="fas fa-chevron-right"></i>
+      <span>Playlist Mood Generator</span>
+    </div>
+
+    <div class="mood-hero">
+      <canvas id="heroCanvas"></canvas>
+      <div class="hero-content">
+        <h1>🎵 Playlist Mood Generator</h1>
+        <p>Pick your vibe. Get your perfect playlist — with direct YouTube &amp; Spotify links.</p>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:380px 1fr;gap:28px;align-items:start" id="mainGrid">
+
+      <!-- LEFT: SETTINGS -->
+      <div style="display:flex;flex-direction:column;gap:20px">
+
+        <div class="tool-box">
+          <div class="tool-box-header"><h2><i class="fas fa-heart" style="color:#ec4899"></i> Your Mood</h2></div>
+          <div class="tool-box-body">
+            <p style="font-size:.82rem;color:var(--muted);margin-bottom:14px">How are you feeling right now?</p>
+            <div class="mood-grid" id="moodGrid">
+              <div class="mood-card" data-mood="happy" onclick="selectMood(this)"><span class="mood-emoji">😄</span>Happy</div>
+              <div class="mood-card" data-mood="sad" onclick="selectMood(this)"><span class="mood-emoji">😢</span>Sad</div>
+              <div class="mood-card" data-mood="hyped" onclick="selectMood(this)"><span class="mood-emoji">🔥</span>Hyped</div>
+              <div class="mood-card" data-mood="chill" onclick="selectMood(this)"><span class="mood-emoji">😌</span>Chill</div>
+              <div class="mood-card" data-mood="heartbroken" onclick="selectMood(this)"><span class="mood-emoji">💔</span>Heartbroken</div>
+              <div class="mood-card" data-mood="romantic" onclick="selectMood(this)"><span class="mood-emoji">❤️</span>Romantic</div>
+              <div class="mood-card" data-mood="focused" onclick="selectMood(this)"><span class="mood-emoji">🎯</span>Focused</div>
+              <div class="mood-card" data-mood="nostalgic" onclick="selectMood(this)"><span class="mood-emoji">🌅</span>Nostalgic</div>
+              <div class="mood-card" data-mood="angry" onclick="selectMood(this)"><span class="mood-emoji">😤</span>Angry</div>
+              <div class="mood-card" data-mood="inspired" onclick="selectMood(this)"><span class="mood-emoji">✨</span>Inspired</div>
+              <div class="mood-card" data-mood="party" onclick="selectMood(this)"><span class="mood-emoji">🎉</span>Party</div>
+              <div class="mood-card" data-mood="lonely" onclick="selectMood(this)"><span class="mood-emoji">🌙</span>Lonely</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tool-box">
+          <div class="tool-box-header"><h2><i class="fas fa-running" style="color:#6366f1"></i> Activity</h2></div>
+          <div class="tool-box-body">
+            <div class="activity-grid" id="activityGrid">
+              <div class="act-card" data-act="studying" onclick="selectAct(this)">📚 Studying</div>
+              <div class="act-card" data-act="working" onclick="selectAct(this)">💼 Working</div>
+              <div class="act-card" data-act="gym" onclick="selectAct(this)">🏋️ Gym</div>
+              <div class="act-card" data-act="driving" onclick="selectAct(this)">🚗 Driving</div>
+              <div class="act-card" data-act="cooking" onclick="selectAct(this)">👨‍🍳 Cooking</div>
+              <div class="act-card" data-act="relaxing" onclick="selectAct(this)">🛋️ Relaxing</div>
+              <div class="act-card" data-act="sleeping" onclick="selectAct(this)">😴 Sleeping</div>
+              <div class="act-card" data-act="party" onclick="selectAct(this)">🕺 Party</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tool-box">
+          <div class="tool-box-header"><h2><i class="fas fa-music" style="color:#f59e0b"></i> Genre Preferences</h2></div>
+          <div class="tool-box-body">
+            <div id="genrePills">
+              <span class="genre-pill active" data-genre="afrobeats" onclick="toggleGenre(this)">🌍 Afrobeats</span>
+              <span class="genre-pill active" data-genre="zambian" onclick="toggleGenre(this)">🇿🇲 Zambian</span>
+              <span class="genre-pill" data-genre="rnb" onclick="toggleGenre(this)">🎤 R&amp;B</span>
+              <span class="genre-pill" data-genre="hiphop" onclick="toggleGenre(this)">🎧 Hip-Hop</span>
+              <span class="genre-pill" data-genre="gospel" onclick="toggleGenre(this)">✝️ Gospel</span>
+              <span class="genre-pill" data-genre="pop" onclick="toggleGenre(this)">🎵 Pop</span>
+              <span class="genre-pill" data-genre="reggae" onclick="toggleGenre(this)">🌿 Reggae</span>
+              <span class="genre-pill" data-genre="classical" onclick="toggleGenre(this)">🎻 Classical</span>
+              <span class="genre-pill" data-genre="jazz" onclick="toggleGenre(this)">🎷 Jazz</span>
+              <span class="genre-pill" data-genre="lofi" onclick="toggleGenre(this)">☕ Lo-fi</span>
+              <span class="genre-pill" data-genre="house" onclick="toggleGenre(this)">🎹 House</span>
+              <span class="genre-pill" data-genre="kizomba" onclick="toggleGenre(this)">💃 Kizomba</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tool-box">
+          <div class="tool-box-header"><h2><i class="fas fa-sliders-h" style="color:var(--sky)"></i> Options</h2></div>
+          <div class="tool-box-body">
+            <div class="field-row">
+              <div class="field"><label>Playlist Length</label>
+                <select id="playLen">
+                  <option value="8">8 songs (Quick)</option>
+                  <option value="12" selected>12 songs (Standard)</option>
+                  <option value="20">20 songs (Long)</option>
+                </select>
+              </div>
+              <div class="field"><label>Era / Decade</label>
+                <select id="playEra">
+                  <option value="any">Any Era</option>
+                  <option value="2020s">2020s (Latest)</option>
+                  <option value="2010s">2010s</option>
+                  <option value="2000s">2000s</option>
+                  <option value="90s">90s Classics</option>
+                  <option value="80s">80s Throwback</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-full" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);border:none" onclick="generatePlaylist()">
+          <i class="fas fa-magic"></i> Generate My Playlist
+        </button>
+
+      </div>
+
+      <!-- RIGHT: OUTPUT -->
+      <div id="playlistOutput">
+        <div style="background:white;border:1.5px solid var(--border);border-radius:20px;padding:60px 40px;text-align:center;color:var(--muted)">
+          <div style="font-size:4rem;margin-bottom:16px">🎵</div>
+          <div style="font-size:1.1rem;font-weight:700;color:var(--slate);margin-bottom:8px">Your playlist will appear here</div>
+          <p style="font-size:.88rem">Select your mood, activity and genres on the left, then hit Generate!</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="tool-service-cta" style="margin-top:36px">
+      <div><h4>Want a music streaming app or fan platform for your band?</h4><p>BLESSTech-X builds custom music apps and artist websites for Zambian musicians from ZMW 1,200.</p></div>
+      <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I want a music app or artist website." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Build Music App</a>
+    </div>
+
+    <div class="related-tools" style="margin-top:32px;background:var(--bg-alt);border-radius:var(--radius-lg);padding:28px">
+      <h3>You Might Also Need</h3>
+      <div class="related-grid">
+        <a href="../pomodoro/index.html"        class="related-card"><span>⏱️</span> Pomodoro Timer</a>
+        <a href="../countdown/index.html"       class="related-card"><span>⏳</span> Countdown Timer</a>
+        <a href="../decision-maker/index.html"  class="related-card"><span>🎯</span> Decision Maker</a>
+        <a href="../study-timetable/index.html" class="related-card"><span>📚</span> Study Timetable</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<div class="copy-toast" id="copyToast">✅ Playlist copied!</div>
+
+<footer class="tools-footer">
+  <div class="th-container">
+    <div class="tf-inner">
+      <div class="tf-brand"><a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a><p>Free tools for every Zambian.</p></div>
+      <div class="tf-links"><h4>Free Tools</h4><a href="../index.html">All Tools</a><a href="../pomodoro/index.html">Pomodoro Timer</a><a href="../study-timetable/index.html">Study Timetable</a></div>
+      <div class="tf-links"><h4>BLESSTech-X</h4><a href="../../index.html">Main Website</a><a href="../../index.html#services">Services</a></div>
+      <div class="tf-contact"><h4>Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
+    </div>
+    <div class="tf-bottom"><p>&copy; 2026 BLESSTech-X · Free Playlist Mood Generator · Built for Zambia 🇿🇲</p></div>
+  </div>
+</footer>
+<a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+var selectedMood = null;
+var selectedAct  = null;
+
+// Animated hero canvas
+(function(){
+  var c = document.getElementById('heroCanvas');
+  var ctx = c.getContext('2d');
+  var dots = [];
+  function resize(){ c.width = c.parentElement.offsetWidth; c.height = c.parentElement.offsetHeight; }
+  resize(); window.addEventListener('resize', resize);
+  for (var i = 0; i < 60; i++) dots.push({x: Math.random()*c.width, y: Math.random()*c.height, r: Math.random()*3+1, vx: (Math.random()-.5)*.5, vy: (Math.random()-.5)*.5, hue: Math.random()*60+200});
+  function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    dots.forEach(function(d){
+      d.x += d.vx; d.y += d.vy;
+      if(d.x<0||d.x>c.width) d.vx *= -1;
+      if(d.y<0||d.y>c.height) d.vy *= -1;
+      ctx.beginPath(); ctx.arc(d.x,d.y,d.r,0,Math.PI*2);
+      ctx.fillStyle = 'hsla('+d.hue+',80%,70%,0.8)'; ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+function selectMood(el) {
+  document.querySelectorAll('.mood-card').forEach(function(c){ c.classList.remove('selected'); c.style.background=''; c.style.borderColor=''; });
+  el.classList.add('selected');
+  selectedMood = el.getAttribute('data-mood');
+  var config = MOOD_CONFIGS[selectedMood];
+  if (config) { el.style.background = config.color; el.style.borderColor = config.color; }
+}
+
+function selectAct(el) {
+  document.querySelectorAll('.act-card').forEach(function(c){ c.classList.remove('selected'); });
+  el.classList.add('selected');
+  selectedAct = el.getAttribute('data-act');
+}
+
+function toggleGenre(el) { el.classList.toggle('active'); }
+
+var MOOD_CONFIGS = {
+  happy:      { color:'#f59e0b', gradient:'linear-gradient(135deg,#f59e0b,#fbbf24)', emoji:'😄', desc:'Bright, feel-good energy. Pure happiness in sound.' },
+  sad:        { color:'#6366f1', gradient:'linear-gradient(135deg,#6366f1,#4338ca)', emoji:'😢', desc:'Slow, emotional melodies to sit with your feelings.' },
+  hyped:      { color:'#ef4444', gradient:'linear-gradient(135deg,#ef4444,#f97316)', emoji:'🔥', desc:'Maximum energy. Turn it up and let loose.' },
+  chill:      { color:'#10b981', gradient:'linear-gradient(135deg,#10b981,#059669)', emoji:'😌', desc:'Smooth, laid-back vibes for an easy mind.' },
+  heartbroken:{ color:'#8b5cf6', gradient:'linear-gradient(135deg,#8b5cf6,#7c3aed)', emoji:'💔', desc:'Deep feelings, raw emotion, healing through music.' },
+  romantic:   { color:'#ec4899', gradient:'linear-gradient(135deg,#ec4899,#db2777)', emoji:'❤️', desc:'Sweet, tender sounds for love and connection.' },
+  focused:    { color:'#0ea5e9', gradient:'linear-gradient(135deg,#0ea5e9,#0284c7)', emoji:'🎯', desc:'Clean, minimal sound to sharpen your concentration.' },
+  nostalgic:  { color:'#d97706', gradient:'linear-gradient(135deg,#d97706,#b45309)', emoji:'🌅', desc:'Throwback feelings. Music that takes you back.' },
+  angry:      { color:'#dc2626', gradient:'linear-gradient(135deg,#dc2626,#991b1b)', emoji:'😤', desc:'Powerful, intense tracks to release that fire inside.' },
+  inspired:   { color:'#7c3aed', gradient:'linear-gradient(135deg,#7c3aed,#6366f1)', emoji:'✨', desc:'Uplifting anthems to fuel your dreams and ambitions.' },
+  party:      { color:'#f43f5e', gradient:'linear-gradient(135deg,#f43f5e,#ec4899)', emoji:'🎉', desc:'Non-stop bangers. The dance floor belongs to you.' },
+  lonely:     { color:'#475569', gradient:'linear-gradient(135deg,#475569,#334155)', emoji:'🌙', desc:'Late night, quiet sounds for when it is just you.' },
+};
+
+// Curated track data by mood + genre combinations
+var TRACKS = {
+  happy_afrobeats:   [['Essence','Wizkid ft. Tems'],['Peru','Fireboy DML ft. Ed Sheeran'],['Calm Down','Rema ft. Selena Gomez'],['Soso','Omah Lay'],['Ye','Burna Boy'],['Love Nwantiti','CKay'],['Sugarcane','Camidoh'],['Buga','Kizz Daniel']],
+  happy_zambian:     [['Ni Iwe','General Kanene'],['Lesa Nkulu','Pompi'],['Ukufilwa','Slap Dee'],['Ku Lusaka','Petersen'],['Jaivani','Roberto'],['Happy','Chef 187'],['Ndalumba','T-Sean'],['Bola','P Jay']],
+  happy_pop:         [['Levitating','Dua Lipa'],['Blinding Lights','The Weeknd'],['As It Was','Harry Styles'],['Flowers','Miley Cyrus'],['Anti-Hero','Taylor Swift'],['Heat Waves','Glass Animals'],['Watermelon Sugar','Harry Styles'],['Good 4 U','Olivia Rodrigo']],
+  happy_rnb:         [['Good Days','SZA'],['Leave The Door Open','Bruno Mars'],['Peaches','Justin Bieber'],['Kiss Me More','Doja Cat'],['Mood','24kGoldn'],['Montero','Lil Nas X'],['Industry Baby','Lil Nas X'],['Best Part','Daniel Caesar']],
+  sad_rnb:           [['Ghost','Justin Bieber'],['Drivers License','Olivia Rodrigo'],['traitor','Olivia Rodrigo'],['Happier','Olivia Rodrigo'],['Falling','Harry Styles'],['Heather','Conan Gray'],['The Night We Met','Lord Huron'],['Someone You Loved','Lewis Capaldi']],
+  sad_zambian:       [['Tiye','T-Sean'],['Webo','Slapdee ft. Muzo'],['Ndakufumya','Cleo Ice Queen'],['Nimwebe','Roberto'],['Lonely','Bobby East'],['Pain','Pilato'],['Missing You','Macky 2'],['Ninchito','Slapdee']],
+  sad_afrobeats:     [['Sinner','Omah Lay'],['Bad Influence','Omah Lay'],['Do Not Disturb','Wizkid'],['True Love','Burna Boy'],['Alone','Fireboy DML'],['For My Hand','Burna Boy ft. Ed Sheeran'],['Melanin','Maleek Berry'],['Empty','Bryson Tiller']],
+  hyped_afrobeats:   [['Ojuelegba','Wizkid'],['Ginger','Wizkid ft. Burna Boy'],['On The Low','Burna Boy'],['Aye','Burna Boy'],['Vibration','Rema'],['Dimension','Fireboy DML'],['Bounce','Davido'],['Ke Star','Focalistic']],
+  hyped_hiphop:      [['HUMBLE','Kendrick Lamar'],['God\'s Plan','Drake'],['Started From The Bottom','Drake'],['Sicko Mode','Travis Scott'],['Rockstar','Post Malone'],['Mask Off','Future'],['Bad and Boujee','Migos'],['Lucid Dreams','Juice WRLD']],
+  hyped_zambian:     [['Pressure','Drimz'],['Shankomo','Bobby East'],['Game Over','T-Sean ft. Roberto'],['Slay','Chef 187'],['Kanali','Slap Dee'],['Turn Up','Jemax'],['Waona Vibe','Bobby East'],['All The Way','Cleo Ice Queen']],
+  chill_lofi:        [['Snowfall','Øneheart'],['Tokyo Café','Idealism'],['Midnight','Lofi Fruits'],['Coffee Shop','Lo-Fi Chill'],['Rainy Day','Jinsang'],['Sleepy Fish','Arlo Parks'],['Maple Waffle','j\'san'],['Quiet Storm','Lofi Hip Hop']],
+  chill_afrobeats:   [['Mood','Ladipoe ft. Benson Bolade'],['Blessed','Joeboy'],['Romantic','Joeboy'],['Sma','Joeboy'],['Call','Joeboy'],['Baby','Joeboy'],['Beginning','Joeboy'],['Focus','Joeboy']],
+  chill_zambian:     [['African Woman','Pompi'],['Sundown','Roberto'],['Never Let Go','Muzo aka Alphonso'],['Gule Gule','T-Sean'],['Amaka','Natasha Chansa'],['Slow Wine','P Jay ft. Muzo'],['Kale','Jemax'],['Pampando','Macky 2']],
+  romantic_afrobeats:[['Love Nwantiti','CKay'],['For My Hand','Burna Boy ft. Ed Sheeran'],['Beautiful','Joeboy'],['Romantic','Joeboy'],['Finesse','Patoranking ft. Tiwa Savage'],['Adore','Maleek Berry'],['High','Wande Coal'],['Falling','Davido']],
+  romantic_rnb:      [['Best Part','Daniel Caesar ft. H.E.R'],['Die For You','The Weeknd'],['Earned It','The Weeknd'],['All Of Me','John Legend'],['Thinking Out Loud','Ed Sheeran'],['Perfect','Ed Sheeran'],['Stay With Me','Sam Smith'],['You Are The Reason','Calum Scott']],
+  focused_lofi:      [['Chill Beats Study','Lofi Girl'],['Deep Focus','Brain.fm'],['Study Session','ChilledCow'],['Midnight Coding','Lofi Hip Hop'],['Rain Lofi','Lofi Fruits'],['Coffee Books','Idealism'],['Nostalgic','j\'san'],['Quiet Hours','Lofium']],
+  focused_classical: [['Moonlight Sonata','Beethoven'],['Clair de Lune','Debussy'],['Canon in D','Pachelbel'],['Four Seasons — Spring','Vivaldi'],['Air on G String','Bach'],['Gymnopédie No.1','Erik Satie'],['Nocturne Op.9 No.2','Chopin'],['The Blue Danube','Strauss']],
+  party_afrobeats:   [['Sungba','Burna Boy ft. Wizkid'],['Electricity','Burna Boy'],['Aye','Burna Boy'],['Essence','Wizkid'],['Buga','Kizz Daniel'],['Kilometer','Victor AD'],['Soro Soke','Davido'],['Culture','Mr Eazi']],
+  party_zambian:     [['Nakuziba','Roberto ft. Slapdee'],['Fire','T-Sean ft. B\'flow'],['Ni Iwe','General Kanene'],['Jaivani','Roberto'],['Bola','P Jay ft. Cleo Ice Queen'],['Machaka','Bobby East'],['Ndaba','Muzo aka Alphonso'],['Waona Vibe','Bobby East']],
+  nostalgic_zambian: [['Nashangwe','Paul Ngozi'],['Baba','Salaula Boys'],['Africa','Black Missionary'],['Lukashia','Paul Ngozi & the 5 Revolutions'],['Nakufumya','Nashil Pichen'],['Zambia My Land','W.G.K'],['Shalapo','Ngozi Family'],['Nakutemenwa','Paul Ngozi']],
+  gospel_gospel:     [['Take Me To The King','Tamela Mann'],['Way Maker','Sinach'],['Oceans','Hillsong United'],['Good Good Father','Chris Tomlin'],['Jireh','Elevation Worship'],['Battle Belongs','Phil Wickham'],['Lesa Wandi','Pompi'],['Revival','Pompi ft. Slapdee']],
+  heartbroken_rnb:   [['Liability','Lorde'],['Call Out My Name','The Weeknd'],['Wicked Games','The Weeknd'],['idontwannabeyouanymore','Billie Eilish'],['When The Party\'s Over','Billie Eilish'],['8','Billie Eilish'],['Everything I Wanted','Billie Eilish'],['No Time To Die','Billie Eilish']],
+  inspired_afrobeats:[['Level Up','Ciara'],['This Is America','Childish Gambino'],['Unstoppable','Sia'],['Rise Up','Andra Day'],['Champion','Kanye West'],['Stronger','Kanye West'],['Hall Of Fame','The Script'],['Eye Of The Tiger','Survivor']],
+};
+
+function getSelectedGenres() {
+  var genres = [];
+  document.querySelectorAll('.genre-pill.active').forEach(function(p){ genres.push(p.getAttribute('data-genre')); });
+  return genres;
+}
+
+function getTracksForMood(mood, genres, count) {
+  var tracks = [];
+  var keys   = Object.keys(TRACKS);
+
+  // First: exact mood + genre matches
+  genres.forEach(function(g){
+    var key = mood + '_' + g;
+    if (TRACKS[key]) tracks = tracks.concat(TRACKS[key]);
+  });
+
+  // Fill with other mood tracks if needed
+  if (tracks.length < count) {
+    keys.forEach(function(k){
+      if (k.startsWith(mood + '_') && tracks.length < count * 2) {
+        TRACKS[k].forEach(function(t){ tracks.push(t); });
+      }
+    });
+  }
+
+  // Fill with afrobeats/zambian if still short
+  if (tracks.length < count) {
+    ['happy_afrobeats','party_afrobeats','chill_zambian'].forEach(function(k){
+      if (TRACKS[k]) tracks = tracks.concat(TRACKS[k]);
+    });
+  }
+
+  // Deduplicate
+  var seen = {};
+  tracks = tracks.filter(function(t){
+    var key = t[0] + t[1];
+    if (seen[key]) return false;
+    seen[key] = true; return true;
+  });
+
+  // Shuffle
+  for (var i = tracks.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i+1));
+    var tmp = tracks[i]; tracks[i] = tracks[j]; tracks[j] = tmp;
+  }
+
+  return tracks.slice(0, count);
+}
+
+function ytLink(song, artist) {
+  return 'https://www.youtube.com/results?search_query=' + encodeURIComponent(song + ' ' + artist);
+}
+function spLink(song, artist) {
+  return 'https://open.spotify.com/search/' + encodeURIComponent(song + ' ' + artist);
+}
+
+function generatePlaylist() {
+  if (!selectedMood) {
+    alert('Please select your mood first! 😊');
+    return;
+  }
+  var mood    = selectedMood;
+  var genres  = getSelectedGenres();
+  var count   = parseInt(document.getElementById('playLen').value);
+  var config  = MOOD_CONFIGS[mood];
+  var tracks  = getTracksForMood(mood, genres, count);
+  var act     = selectedAct;
+  var era     = document.getElementById('playEra').value;
+
+  var moodLabel = document.querySelector('.mood-card[data-mood="' + mood + '"]').textContent.trim();
+  var actLabel  = act ? document.querySelector('.act-card[data-act="' + act + '"]').textContent.trim() : '';
+
+  var playlistName = generatePlaylistName(mood, act, genres);
+
+  var html = '<div class="playlist-card">';
+  html += '<div class="playlist-header" style="background:' + config.gradient + '">';
+  html += '<div class="playlist-title">' + esc(playlistName) + '</div>';
+  html += '<div class="playlist-subtitle">' + count + ' tracks · ' + moodLabel + (actLabel ? ' · ' + actLabel : '') + (era !== 'any' ? ' · ' + era : '') + '</div>';
+  html += '<div class="playlist-mood-badge">' + config.emoji + ' ' + moodLabel + (genres.length ? ' · ' + genres.slice(0,2).join(', ') : '') + '</div>';
+  html += '</div>';
+
+  html += '<div class="vibe-desc">' + config.desc + ' ' + getActivityLine(act) + '</div>';
+
+  html += '<div class="track-list">';
+  tracks.forEach(function(t, i) {
+    html += '<div class="track-item">'
+      + '<div class="track-num">' + (i+1) + '</div>'
+      + '<div style="width:36px;height:36px;border-radius:8px;background:' + config.gradient + ';display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0">🎵</div>'
+      + '<div class="track-info"><div class="track-name">' + esc(t[0]) + '</div><div class="track-artist">' + esc(t[1]) + '</div></div>'
+      + '<div class="track-actions">'
+      + '<a class="yt-btn" href="' + ytLink(t[0],t[1]) + '" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>'
+      + '<a class="sp-btn" href="' + spLink(t[0],t[1]) + '" target="_blank"><i class="fab fa-spotify"></i> Spotify</a>'
+      + '</div></div>';
+  });
+  html += '</div>';
+
+  html += '<div class="playlist-footer">';
+  html += '<button class="btn btn-primary" onclick="copyPlaylist()"><i class="fas fa-copy"></i> Copy Playlist</button>';
+  html += '<button class="btn btn-secondary" onclick="generatePlaylist()"><i class="fas fa-redo"></i> Shuffle Again</button>';
+  html += '<a class="btn btn-secondary" href="https://www.youtube.com/results?search_query=' + encodeURIComponent(moodLabel + ' ' + (genres[0]||'') + ' playlist') + '" target="_blank"><i class="fab fa-youtube"></i> Full YouTube Playlist</a>';
+  html += '</div></div>';
+
+  // Tips box
+  html += '<div class="tool-box" style="margin-top:16px"><div class="tool-box-header"><h3><i class="fas fa-lightbulb" style="color:#f59e0b"></i> Vibe Tips</h3></div><div class="tool-box-body" style="padding:16px 20px">';
+  html += '<ul style="display:flex;flex-direction:column;gap:8px">' + getVibeTips(mood, act).map(function(tip){
+    return '<li style="display:flex;gap:10px;font-size:.86rem;color:var(--slate-l)"><i class="fas fa-music" style="color:' + (config.color) + ';margin-top:3px;flex-shrink:0"></i>' + tip + '</li>';
+  }).join('') + '</ul></div></div>';
+
+  document.getElementById('playlistOutput').innerHTML = html;
+  window.scrollTo({ top: document.getElementById('playlistOutput').offsetTop - 100, behavior: 'smooth' });
+
+  // Store for copy
+  window._lastTracks = tracks;
+  window._lastPlaylistName = playlistName;
+}
+
+function generatePlaylistName(mood, act, genres) {
+  var names = {
+    happy:       ['Golden Hour Vibes','Sunshine Playlist','Pure Happiness','Feel Good Hits','Bright Lights'],
+    sad:         ['Let It Out','Feelings in Blue','Rainy Day Playlist','Healing Sessions','Cry It Out'],
+    hyped:       ['TURN UP 🔥','Unleash Mode','Maximum Energy','No Chill Allowed','Beast Mode'],
+    chill:       ['Sunday Morning','Easy Rider','Smooth Operator','Cool Down','Laid Back Lusaka'],
+    heartbroken: ['Broken Pieces','After Midnight','Healing in Progress','Heartbreak Hotel','Pick Up The Pieces'],
+    romantic:    ['Love Language','Sweet Nothings','Valentine\'s Playlist','When We\'re Together','Chemistry'],
+    focused:     ['Deep Work Mode','Zone In','No Distractions','Flow State','Locked In'],
+    nostalgic:   ['Back In Time','Old School Feels','Throwback Thursday','Memory Lane','Remember When'],
+    angry:       ['Let It All Out','Fire Inside','Controlled Chaos','Release the Beast','Unleash'],
+    inspired:    ['Level Up','Born For This','Sky\'s The Limit','Dreams to Reality','Rise & Grind'],
+    party:       ['The Party Starter','Main Playlist','Floor Filler','Banger After Banger','Dance All Night'],
+    lonely:      ['Just Me Tonight','Late Night Thoughts','Solitude','One Player Mode','Quiet Hours'],
+  };
+  var list = names[mood] || ['My Playlist'];
+  return list[Math.floor(Math.random() * list.length)];
+}
+
+function getActivityLine(act) {
+  var lines = {
+    studying:  'Perfect background sound for deep focus and retention.',
+    working:   'Keeps you productive without distraction.',
+    gym:       'Fuel for every rep, every set, every sprint.',
+    driving:   'Road trip ready. Windows down optional.',
+    cooking:   'Great vibes while you create in the kitchen.',
+    relaxing:  'Let go and let the music carry you.',
+    sleeping:  'Ease into dreamland with these gentle sounds.',
+    party:     'The dance floor is calling your name.',
+  };
+  return act ? (lines[act] || '') : '';
+}
+
+function getVibeTips(mood, act) {
+  var base = {
+    happy:       ['Add Afrobeats bangers to keep the energy high', 'Mix in some Zambian hits for a local feel', 'Try matching with an upbeat playlist on Spotify'],
+    sad:         ['Allow yourself to feel — music heals', 'Avoid mixing too many genres; keep it coherent', 'When you\'re ready, switch to the Inspired mood'],
+    hyped:       ['Start with mid-energy and build to the peak tracks', 'Great for gym warm-up and cooldown too', 'Use Bluetooth speaker for maximum impact 🔊'],
+    chill:       ['Lo-fi works best with headphones in a quiet space', 'Great for studying — not too distracting', 'Pair with a cup of tea or coffee ☕'],
+    focused:     ['Use the Pomodoro Timer tool alongside this playlist', 'Classical music is proven to boost focus and memory', 'Keep the volume at 40-60% for best concentration'],
+    romantic:    ['Set the scene: dim lights, candles, good food', 'R&B slow jams work best for romantic evenings', 'Use this with your phone on Do Not Disturb 📵'],
+    nostalgic:   ['Paul Ngozi is Zambia\'s greatest musical treasure', 'Mix old Zamrock with 2000s R&B for a full throwback', 'Share this playlist with family for instant conversation starter'],
+    party:       ['Build up — start slower, end with the hardest bangers', 'Zambian local music always gets the crowd going', 'Make sure your speaker is charged! 🎉'],
+  };
+  return (base[mood] || ['Enjoy your playlist!', 'Share it with friends', 'Come back to generate a new one anytime']);
+}
+
+function copyPlaylist() {
+  if (!window._lastTracks) return;
+  var lines = [window._lastPlaylistName, ''];
+  window._lastTracks.forEach(function(t, i){ lines.push((i+1) + '. ' + t[0] + ' — ' + t[1]); });
+  lines.push(''); lines.push('Generated by BLESSTech-X · blesstechx.com');
+  navigator.clipboard.writeText(lines.join('\n')).then(function(){
+    var t = document.getElementById('copyToast');
+    t.classList.add('show');
+    setTimeout(function(){ t.classList.remove('show'); }, 2500);
+  });
+}
+
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+document.getElementById('thToggle').addEventListener('click', function(){
+  document.getElementById('thNav').classList.toggle('th-nav-open');
+  document.getElementById('thToggle').classList.toggle('th-toggle-open');
+});
+</script>
+</body>
+</html>
