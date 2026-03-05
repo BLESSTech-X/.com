@@ -1385,6 +1385,9 @@ function switchSource(src){
   renderPlayer();
 }
 
+/* ── YouTube video ID cache so we don't re-fetch ── */
+var ytIdCache = {};
+
 function renderPlayer(){
   var tracks = window._lastTracks;
   if(!tracks) return;
@@ -1395,52 +1398,102 @@ function renderPlayer(){
   document.getElementById('srcYT').classList.toggle('active', playerSource==='yt');
   document.getElementById('srcSP').classList.toggle('active', playerSource==='sp');
 
-  var wrap = document.getElementById('playerWrap');
-  wrap.innerHTML = '<div class="player-loading"><div class="spin"></div>Loading player…</div>';
-
-  var query = encodeURIComponent(t[0] + ' ' + t[1]);
+  var wrap  = document.getElementById('playerWrap');
+  var query = t[0] + ' ' + t[1];
+  var qEnc  = encodeURIComponent(query);
 
   if(playerSource === 'yt'){
-    // YouTube embed via search — use nocookie domain for privacy
-    var ytSearch = 'https://www.youtube.com/results?search_query=' + query;
+    var ytSearch = 'https://www.youtube.com/results?search_query=' + qEnc;
     document.getElementById('playerExtLink').href = ytSearch;
     document.getElementById('playerExtLink').innerHTML = '<i class="fab fa-youtube"></i> Open on YouTube';
 
-    // We embed YouTube search using the ytembed trick:
-    // Use youtube-nocookie search embed (shows results page)
-    // Best approach: embed the search results in an iframe
-    var iframe = document.createElement('iframe');
-    iframe.src = 'https://www.youtube.com/embed?listType=search&list=' + query + '&autoplay=1&rel=0';
-    iframe.allow = 'autoplay; encrypted-media; fullscreen; picture-in-picture';
-    iframe.allowFullscreen = true;
-    iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:none;';
-    wrap.innerHTML = '';
-    wrap.appendChild(iframe);
+    // Check cache first
+    if(ytIdCache[query]){
+      embedYTVideo(wrap, ytIdCache[query]);
+      return;
+    }
+
+    wrap.innerHTML = '<div class="player-loading"><div class="spin"></div>Searching YouTube…</div>';
+
+    /* Use the publicly accessible YouTube oEmbed + noembed.com to resolve
+       a video ID from a search without needing an API key.
+       Strategy: fetch noembed for a direct youtube search URL via
+       Invidious public API (no key needed, open-source YT front-end). */
+    var invidiousHosts = [
+      'https://inv.nadeko.net',
+      'https://invidious.privacyredirect.com',
+      'https://yt.drgnz.club'
+    ];
+    fetchVideoId(invidiousHosts, 0, query, function(videoId){
+      if(videoId){
+        ytIdCache[query] = videoId;
+        embedYTVideo(wrap, videoId);
+      } else {
+        // Final fallback — show a clean "open externally" card
+        showYTFallbackCard(wrap, t, qEnc, ytSearch);
+      }
+    });
 
   } else {
-    // Spotify embed — search link (Spotify doesn't allow direct search embeds without auth)
-    // Show a styled card with deep-link to Spotify app/web
-    var spUrl  = 'https://open.spotify.com/search/' + query;
-    var spApp  = 'spotify:search:' + decodeURIComponent(query);
+    /* ── Spotify: show open-in-app card ─────────────────── */
+    var spUrl = 'https://open.spotify.com/search/' + qEnc;
+    var spApp = 'spotify:search:' + query;
     document.getElementById('playerExtLink').href = spUrl;
     document.getElementById('playerExtLink').innerHTML = '<i class="fab fa-spotify"></i> Open on Spotify';
 
-    wrap.innerHTML = `
-      <div style="position:absolute;inset:0;background:linear-gradient(135deg,#0a3d1f,#1db954 120%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:28px;text-align:center;">
-        <div style="font-size:3.5rem">🎵</div>
-        <div style="color:white;font-weight:800;font-size:1.1rem;line-height:1.3">${esc(t[0])}</div>
-        <div style="color:rgba(255,255,255,.7);font-size:.84rem">${esc(t[1])}</div>
-        <div style="display:flex;flex-direction:column;gap:10px;width:100%;max-width:260px;margin-top:6px">
-          <a href="${spApp}" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;background:#1db954;color:white;border-radius:50px;font-weight:800;font-size:.84rem;text-decoration:none;">
-            <i class="fab fa-spotify"></i> Open in Spotify App
-          </a>
-          <a href="${spUrl}" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 20px;background:rgba(255,255,255,.15);color:white;border-radius:50px;font-weight:700;font-size:.78rem;text-decoration:none;border:1.5px solid rgba(255,255,255,.25);">
-            <i class="fas fa-external-link-alt"></i> Open Spotify Web
-          </a>
-        </div>
-        <div style="color:rgba(255,255,255,.4);font-size:.68rem;margin-top:4px">Spotify requires their app or web player for playback</div>
-      </div>`;
+    wrap.innerHTML =
+      '<div style="position:absolute;inset:0;background:linear-gradient(135deg,#0a3d1f,#1db954 120%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:28px;text-align:center;">'
+      +'<div style="font-size:3.2rem">🎵</div>'
+      +'<div style="color:white;font-weight:800;font-size:1.05rem;line-height:1.3">'+esc(t[0])+'</div>'
+      +'<div style="color:rgba(255,255,255,.7);font-size:.82rem">'+esc(t[1])+'</div>'
+      +'<div style="display:flex;flex-direction:column;gap:9px;width:100%;max-width:240px;margin-top:4px">'
+      +'<a href="'+spApp+'" style="display:flex;align-items:center;justify-content:center;gap:7px;padding:11px 18px;background:#1db954;color:white;border-radius:50px;font-weight:800;font-size:.82rem;text-decoration:none;"><i class="fab fa-spotify"></i> Open in Spotify App</a>'
+      +'<a href="'+spUrl+'" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:7px;padding:9px 18px;background:rgba(255,255,255,.14);color:white;border-radius:50px;font-weight:700;font-size:.76rem;text-decoration:none;border:1.5px solid rgba(255,255,255,.22);"><i class="fas fa-external-link-alt"></i> Open Spotify Web</a>'
+      +'</div>'
+      +'<div style="color:rgba(255,255,255,.35);font-size:.64rem;margin-top:2px">Spotify requires their app or web player</div>'
+      +'</div>';
   }
+}
+
+/* ── Fetch real video ID from Invidious public API ── */
+function fetchVideoId(hosts, idx, query, cb){
+  if(idx >= hosts.length){ cb(null); return; }
+  var url = hosts[idx] + '/api/v1/search?q=' + encodeURIComponent(query) + '&type=video&fields=videoId&page=1';
+  fetch(url, {signal: AbortSignal.timeout ? AbortSignal.timeout(5000) : undefined})
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if(data && data[0] && data[0].videoId){
+        cb(data[0].videoId);
+      } else {
+        fetchVideoId(hosts, idx+1, query, cb);
+      }
+    })
+    .catch(function(){
+      fetchVideoId(hosts, idx+1, query, cb);
+    });
+}
+
+/* ── Embed the real YouTube video ── */
+function embedYTVideo(wrap, videoId){
+  wrap.innerHTML = '';
+  var iframe = document.createElement('iframe');
+  iframe.src = 'https://www.youtube-nocookie.com/embed/' + videoId + '?autoplay=1&rel=0&modestbranding=1';
+  iframe.allow = 'autoplay; encrypted-media; fullscreen; picture-in-picture';
+  iframe.allowFullscreen = true;
+  iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:none;';
+  wrap.appendChild(iframe);
+}
+
+/* ── Fallback card if all Invidious hosts fail ── */
+function showYTFallbackCard(wrap, t, qEnc, ytSearch){
+  wrap.innerHTML =
+    '<div style="position:absolute;inset:0;background:linear-gradient(135deg,#1a0000,#cc0000 160%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:28px;text-align:center;">'
+    +'<div style="font-size:3rem">▶️</div>'
+    +'<div style="color:white;font-weight:800;font-size:1rem;line-height:1.3">'+esc(t[0])+'</div>'
+    +'<div style="color:rgba(255,255,255,.7);font-size:.8rem">'+esc(t[1])+'</div>'
+    +'<a href="'+ytSearch+'" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:7px;padding:11px 20px;background:#ff0000;color:white;border-radius:50px;font-weight:800;font-size:.82rem;text-decoration:none;margin-top:4px;"><i class="fab fa-youtube"></i> Search on YouTube</a>'
+    +'<div style="color:rgba(255,255,255,.35);font-size:.64rem">Could not load embedded player — tap above to listen</div>'
+    +'</div>';
 }
 
 /* keyboard close */
