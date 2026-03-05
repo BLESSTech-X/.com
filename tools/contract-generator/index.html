@@ -6,445 +6,1058 @@
   <title>Contract Generator | BLESSTech-X Free Tools</title>
   <meta name="description" content="Generate simple service contracts, freelance agreements and rental agreements as PDF. Free contract generator for Zambian businesses and freelancers."/>
   <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <link rel="stylesheet" href="../style.css"/>
   <style>
-    .ct-type-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:24px}
-    .ct-btn{padding:14px 12px;border:1.5px solid var(--border);border-radius:var(--radius);background:white;cursor:pointer;font-size:.85rem;font-weight:600;color:var(--slate-l);transition:var(--transition);text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}
-    .ct-btn:hover{border-color:var(--sky);color:var(--sky);background:var(--sky-light)}
-    .ct-btn.active{border-color:var(--sky);background:var(--sky);color:white}
-    .ct-btn .ct-icon{font-size:1.4rem}
-    .contract-preview{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:40px;font-family:'Times New Roman',serif;font-size:.93rem;line-height:1.9;color:#1a1a1a;min-height:500px;white-space:pre-wrap}
-    .contract-preview .cp-empty{font-family:var(--font);font-style:italic;color:var(--muted);text-align:center;padding-top:80px;font-size:.93rem}
-    .disclaimer{background:#fef3c7;border:1px solid #f59e0b;border-radius:var(--radius);padding:14px 16px;font-size:.83rem;color:#92400e;display:flex;gap:10px;align-items:flex-start;margin-bottom:20px}
-    .disclaimer i{flex-shrink:0;margin-top:2px;color:#f59e0b}
+/* ════════════════════════════════════════════
+   TOKENS
+════════════════════════════════════════════ */
+:root{
+  --bg:     #faf9f7;
+  --bg2:    #f2f0ec;
+  --bg3:    #e8e5df;
+  --card:   #ffffff;
+  --bdr:    rgba(0,0,0,.09);
+  --bdr2:   rgba(0,0,0,.15);
+  --text:   #1a1814;
+  --sub:    #65615b;
+  --muted:  #9e9890;
+  --brand:  #0ea5e9;
+  --brd:    #0284c7;
+  --green:  #10b981;
+  --red:    #ef4444;
+  --amber:  #f59e0b;
+  --purple: #7c3aed;
+  --wa:     #25d366;
+  --foot-bg:  #1e1c18;
+  --foot-bdr: rgba(255,255,255,.07);
+  --foot-sub: #8a8478;
+  --foot-lnk: #b5b0a8;
+  --fd: 'Playfair Display', Georgia, serif;
+  --fb: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --ease: cubic-bezier(.22,1,.36,1);
+  --px: clamp(14px,4vw,36px);
+  --hh: 60px;
+  --s1: 0 1px 5px rgba(0,0,0,.06);
+  --s2: 0 4px 20px rgba(0,0,0,.09);
+  --r: 14px;
+}
+@media(min-width:640px){ :root{ --hh:64px; } }
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--fb);background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+button,select,textarea{font-family:var(--fb)}
+
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.022'/%3E%3C/svg%3E");
+}
+
+/* ════════════════════════════════════════════
+   HEADER
+════════════════════════════════════════════ */
+.hdr{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:var(--hh);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 var(--px);
+  background:rgba(250,249,247,.93);
+  backdrop-filter:blur(18px) saturate(160%);
+  border-bottom:1px solid var(--bdr);
+  transition:box-shadow .25s;
+}
+.hdr.scrolled{box-shadow:0 2px 18px rgba(0,0,0,.08)}
+.logo{display:flex;align-items:center;gap:9px;flex-shrink:0}
+.logo img{width:30px;height:30px;border-radius:8px;object-fit:cover}
+.logo-t{font-family:var(--fd);font-weight:900;font-size:.95rem;color:var(--text);white-space:nowrap}
+.logo-t em{color:var(--brand);font-style:normal}
+.hnav{display:flex;align-items:center;gap:5px}
+.hl{padding:6px 12px;border-radius:50px;font-size:.78rem;font-weight:600;color:var(--sub);border:1px solid transparent;transition:all .18s;white-space:nowrap}
+.hl:hover{color:var(--text);background:var(--bg2);border-color:var(--bdr)}
+.hlwa{background:var(--wa)!important;color:white!important;border-color:transparent!important;box-shadow:0 3px 12px rgba(37,211,102,.28)}
+.hlwa:hover{background:#1fb055!important}
+.mob-toggle{
+  display:none;flex-direction:column;gap:4px;
+  width:32px;height:32px;align-items:center;justify-content:center;
+  background:none;border:1.5px solid var(--bdr);border-radius:8px;cursor:pointer;padding:0;
+}
+.mob-toggle span{display:block;width:16px;height:2px;background:var(--sub);border-radius:2px;transition:all .25s}
+.mob-toggle.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.mob-toggle.open span:nth-child(2){opacity:0}
+.mob-toggle.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+@media(max-width:640px){
+  .mob-toggle{display:flex}
+  .hnav{
+    position:fixed;top:var(--hh);left:0;right:0;
+    flex-direction:column;align-items:flex-start;gap:4px;
+    padding:14px var(--px) 18px;
+    background:rgba(250,249,247,.97);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid var(--bdr);
+    transform:translateY(-110%);opacity:0;
+    transition:transform .3s var(--ease),opacity .3s;
+    pointer-events:none;
+  }
+  .hnav.open{transform:translateY(0);opacity:1;pointer-events:all}
+  .hl{width:100%;border-radius:10px}
+}
+
+/* ════════════════════════════════════════════
+   PAGE & WRAP
+════════════════════════════════════════════ */
+.page{padding-top:var(--hh)}
+.wrap{max-width:1300px;margin:0 auto;padding:0 var(--px)}
+
+/* ════════════════════════════════════════════
+   BREADCRUMB
+════════════════════════════════════════════ */
+.breadcrumb{
+  display:flex;align-items:center;gap:7px;flex-wrap:wrap;
+  padding:clamp(14px,2vw,22px) 0 clamp(10px,1.5vw,16px);
+  font-size:.75rem;font-weight:600;color:var(--muted);
+}
+.breadcrumb a{color:var(--sub);transition:color .16s}
+.breadcrumb a:hover{color:var(--brand)}
+.breadcrumb i{font-size:.55rem}
+.breadcrumb span{color:var(--brand)}
+
+/* ════════════════════════════════════════════
+   TOOL HERO
+════════════════════════════════════════════ */
+.tool-hero{
+  display:flex;align-items:flex-start;gap:clamp(12px,2vw,20px);
+  padding:clamp(16px,3vw,26px);
+  background:var(--card);border:1.5px solid var(--bdr);
+  border-radius:var(--r);box-shadow:var(--s1);
+  margin-bottom:clamp(14px,2vw,18px);
+}
+.tool-hero-icon{
+  width:54px;height:54px;border-radius:14px;
+  background:#ede9fe;color:#7c3aed;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.55rem;flex-shrink:0;
+}
+.tool-hero-text h1{
+  font-family:var(--fd);font-weight:900;
+  font-size:clamp(1.25rem,2.5vw,1.85rem);
+  color:var(--text);margin-bottom:6px;line-height:1.2;
+}
+.tool-hero-text p{font-size:clamp(.82rem,1.5vw,.9rem);color:var(--sub);line-height:1.7;margin-bottom:11px}
+.hero-badges{display:flex;gap:7px;flex-wrap:wrap}
+.hbadge{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:4px 10px;border-radius:50px;
+  font-size:.65rem;font-weight:700;
+  background:var(--bg2);color:var(--sub);border:1px solid var(--bdr);
+}
+.hbadge i{color:var(--brand);font-size:.62rem}
+
+/* ════════════════════════════════════════════
+   DISCLAIMER BANNER
+════════════════════════════════════════════ */
+.disclaimer{
+  display:flex;gap:11px;align-items:flex-start;
+  padding:clamp(12px,2vw,16px) clamp(14px,2.5vw,18px);
+  background:#fef3c7;border:1.5px solid rgba(245,158,11,.3);
+  border-radius:11px;margin-bottom:clamp(14px,2vw,20px);
+  font-size:clamp(.78rem,1.3vw,.84rem);color:#92400e;line-height:1.6;
+}
+.disclaimer i{flex-shrink:0;margin-top:2px;color:#f59e0b}
+
+/* ════════════════════════════════════════════
+   BOXES
+════════════════════════════════════════════ */
+.box{
+  background:var(--card);border:1.5px solid var(--bdr);
+  border-radius:var(--r);box-shadow:var(--s1);overflow:hidden;
+}
+.box-hd{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:clamp(11px,1.8vw,15px) clamp(14px,2.5vw,20px);
+  border-bottom:1px solid var(--bdr);background:var(--bg);
+  flex-wrap:wrap;gap:8px;
+}
+.box-hd h2{
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--fd);font-size:clamp(.88rem,1.4vw,.98rem);
+  font-weight:700;color:var(--text);
+}
+.box-hd h2 i{color:var(--brand)}
+.box-bd{padding:clamp(14px,2.5vw,20px)}
+
+/* ════════════════════════════════════════════
+   MAIN 2-COL GRID
+════════════════════════════════════════════ */
+.tool-grid{
+  display:grid;
+  grid-template-columns:400px 1fr;
+  gap:clamp(12px,2vw,22px);
+  align-items:start;
+  margin-bottom:clamp(20px,3vw,30px);
+}
+@media(max-width:900px){ .tool-grid{grid-template-columns:1fr} }
+@media(min-width:901px){ .right-sticky{position:sticky;top:calc(var(--hh)+16px)} }
+
+/* ════════════════════════════════════════════
+   CONTRACT TYPE GRID
+════════════════════════════════════════════ */
+.ct-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(100px,1fr));
+  gap:8px;margin-bottom:18px;
+}
+.ct-btn{
+  padding:clamp(10px,1.8vw,13px) 8px;
+  border:1.5px solid var(--bdr);border-radius:11px;
+  background:var(--bg2);cursor:pointer;
+  font-size:.72rem;font-weight:700;color:var(--sub);
+  transition:all .18s;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+}
+.ct-btn:hover{border-color:var(--brand);color:var(--brand);background:rgba(14,165,233,.06)}
+.ct-btn.active{border-color:var(--brand);background:var(--brand);color:white;box-shadow:0 3px 12px rgba(14,165,233,.25)}
+.ct-icon{font-size:1.3rem;line-height:1}
+
+/* ════════════════════════════════════════════
+   FORM FIELDS
+════════════════════════════════════════════ */
+.field{margin-bottom:11px}
+.field:last-child{margin-bottom:0}
+.slabel{display:block;font-size:.68rem;font-weight:800;color:var(--sub);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px}
+.field input,.field textarea,.field select{
+  width:100%;padding:9px 12px;
+  border:1.5px solid var(--bdr);border-radius:9px;
+  background:var(--bg);color:var(--text);
+  font-size:.86rem;font-family:var(--fb);outline:none;
+  transition:border-color .18s,box-shadow .18s;
+}
+.field input:focus,.field textarea:focus,.field select:focus{
+  border-color:var(--brand);
+  box-shadow:0 0 0 3px rgba(14,165,233,.1);
+  background:var(--card);
+}
+.field input::placeholder,.field textarea::placeholder{color:var(--muted)}
+.field textarea{resize:vertical;min-height:64px}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* SECTION divider */
+.form-section{
+  padding:clamp(12px,2vw,16px) 0 0;
+  margin-top:clamp(10px,1.5vw,14px);
+  border-top:1px solid var(--bdr);
+}
+.form-section-title{
+  font-size:.68rem;font-weight:800;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.7px;margin-bottom:12px;
+  display:flex;align-items:center;gap:6px;
+}
+.form-section-title i{color:var(--brand);font-size:.72rem}
+
+/* TOGGLE SWITCHES for optional clauses */
+.clause-grid{display:flex;flex-direction:column;gap:7px;margin-bottom:14px}
+.clause-toggle{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:8px 12px;border-radius:9px;
+  background:var(--bg2);border:1.5px solid var(--bdr);
+  cursor:pointer;transition:all .16s;
+  font-size:.8rem;font-weight:600;color:var(--sub);
+}
+.clause-toggle:hover{border-color:var(--bdr2);color:var(--text)}
+.clause-toggle.on{border-color:rgba(14,165,233,.35);background:rgba(14,165,233,.06);color:var(--brand)}
+.clause-toggle .ct-label{display:flex;align-items:center;gap:8px}
+.toggle-pill{
+  width:34px;height:19px;border-radius:10px;
+  background:var(--bg3);position:relative;
+  transition:background .2s;flex-shrink:0;
+}
+.toggle-pill::after{
+  content:'';position:absolute;top:3px;left:3px;
+  width:13px;height:13px;border-radius:50%;
+  background:white;transition:left .2s;
+  box-shadow:0 1px 3px rgba(0,0,0,.2);
+}
+.clause-toggle.on .toggle-pill{background:var(--brand)}
+.clause-toggle.on .toggle-pill::after{left:18px}
+
+/* CONTRACT STYLE SELECTOR */
+.style-row{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.style-btn{
+  padding:6px 14px;border-radius:50px;
+  border:1.5px solid var(--bdr);background:var(--bg2);
+  font-size:.74rem;font-weight:700;color:var(--sub);
+  cursor:pointer;transition:all .16s;font-family:var(--fb);
+}
+.style-btn:hover{border-color:var(--brand);color:var(--brand)}
+.style-btn.active{border-color:var(--brand);background:var(--brand);color:white}
+
+/* ════════════════════════════════════════════
+   CONTRACT PREVIEW DOCUMENT
+════════════════════════════════════════════ */
+.contract-doc{
+  padding:clamp(24px,5vw,44px) clamp(20px,5vw,48px);
+  background:white;
+  border:1.5px solid var(--bdr);
+  border-radius:12px;
+  min-height:500px;
+  box-shadow:var(--s2);
+}
+.contract-doc.style-modern{font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:clamp(.8rem,1.3vw,.88rem);line-height:1.85}
+.contract-doc.style-formal{font-family:'Times New Roman',Georgia,serif;font-size:clamp(.84rem,1.3vw,.92rem);line-height:1.9}
+.contract-doc.style-minimal{font-family:'Courier New',monospace;font-size:clamp(.78rem,1.2vw,.84rem);line-height:1.8;color:#2a2a2a}
+pre.contract-text{white-space:pre-wrap;word-break:break-word}
+
+/* empty state */
+.contract-empty{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:360px;text-align:center;
+  font-size:.9rem;color:var(--muted);font-style:italic;gap:12px;
+}
+
+/* ════════════════════════════════════════════
+   BUTTONS
+════════════════════════════════════════════ */
+.btn{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:10px 18px;border-radius:10px;border:none;
+  font-weight:700;font-size:.84rem;cursor:pointer;
+  font-family:var(--fb);transition:all .18s;white-space:nowrap;
+}
+.btn-primary{background:var(--brand);color:white;box-shadow:0 3px 12px rgba(14,165,233,.28)}
+.btn-primary:hover{background:var(--brd);transform:translateY(-1px)}
+.btn-secondary{background:var(--bg2);color:var(--sub);border:1.5px solid var(--bdr)}
+.btn-secondary:hover{color:var(--text);border-color:var(--bdr2)}
+.btn-full{width:100%;justify-content:center;padding:13px 18px}
+.btn-sm{padding:7px 13px;font-size:.76rem;border-radius:8px}
+.btn-row{display:flex;gap:7px;flex-wrap:wrap}
+
+/* ════════════════════════════════════════════
+   SERVICE CTA
+════════════════════════════════════════════ */
+.cta-strip{
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:14px;
+  padding:clamp(16px,2.5vw,22px) clamp(18px,3vw,26px);
+  background:linear-gradient(135deg,#ede9fe,#f5f3ff);
+  border:1.5px solid rgba(124,58,237,.15);
+  border-radius:var(--r);
+  margin-bottom:clamp(16px,2.5vw,22px);
+}
+.cta-strip h4{font-family:var(--fd);font-size:clamp(.95rem,1.8vw,1.1rem);font-weight:900;color:var(--text);margin-bottom:4px}
+.cta-strip p{font-size:clamp(.78rem,1.4vw,.84rem);color:var(--sub)}
+.btn-wa{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 20px;border-radius:11px;
+  background:var(--wa);color:white;
+  font-weight:700;font-size:.84rem;
+  box-shadow:0 4px 14px rgba(37,211,102,.28);
+  transition:all .18s;white-space:nowrap;flex-shrink:0;
+}
+.btn-wa:hover{background:#1fb055;transform:translateY(-1px)}
+
+/* ════════════════════════════════════════════
+   RELATED TOOLS
+════════════════════════════════════════════ */
+.related{
+  background:var(--bg2);border:1.5px solid var(--bdr);
+  border-radius:var(--r);padding:clamp(18px,3vw,26px);
+  margin-bottom:clamp(20px,3vw,36px);
+}
+.related h3{font-family:var(--fd);font-size:clamp(.95rem,1.5vw,1.05rem);font-weight:900;color:var(--text);margin-bottom:14px}
+.related-grid{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+.related-card{
+  display:flex;align-items:center;gap:9px;
+  padding:11px 13px;border-radius:11px;
+  background:var(--card);border:1.5px solid var(--bdr);
+  font-size:.82rem;font-weight:700;color:var(--sub);
+  transition:all .18s;box-shadow:var(--s1);
+}
+.related-card:hover{color:var(--brand);border-color:rgba(14,165,233,.3);transform:translateY(-2px);box-shadow:var(--s2)}
+.related-card span{font-size:1.1rem}
+
+/* ════════════════════════════════════════════
+   FOOTER — dark
+════════════════════════════════════════════ */
+.foot{
+  background:var(--foot-bg);
+  border-top:1px solid var(--foot-bdr);
+  padding:clamp(28px,5vw,48px) var(--px) 0;
+}
+.foot-g{
+  max-width:1300px;margin:0 auto;
+  display:grid;gap:clamp(20px,3vw,36px);
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  padding-bottom:clamp(22px,3vw,36px);
+}
+@media(max-width:700px){ .foot-g{grid-template-columns:1fr 1fr} }
+@media(max-width:400px){ .foot-g{grid-template-columns:1fr} }
+.foot .logo-t{color:#e8e5df}
+.foot .logo-t em{color:var(--brand)}
+.foot-desc{font-size:.8rem;color:var(--foot-sub);line-height:1.75;margin-top:10px;max-width:220px}
+.fc h4{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--foot-sub);margin-bottom:12px}
+.fc a{display:block;color:var(--foot-lnk);font-size:.8rem;margin-bottom:8px;transition:color .16s}
+.fc a:hover{color:white}
+.foot-bot{
+  max-width:1300px;margin:0 auto;
+  border-top:1px solid var(--foot-bdr);
+  padding:clamp(14px,2vw,20px) 0 clamp(18px,2.5vw,26px);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+}
+.foot-bot p{color:var(--foot-sub);font-size:.72rem}
+
+/* WA FAB */
+.wafab{
+  position:fixed;bottom:18px;right:18px;z-index:90;
+  width:50px;height:50px;border-radius:50%;
+  background:var(--wa);color:white;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.28rem;box-shadow:0 5px 20px rgba(37,211,102,.35);
+  transition:all .2s;
+}
+.wafab:hover{transform:scale(1.1) translateY(-2px)}
+
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:3px}
   </style>
 </head>
-<body class="tool-page">
-  <header class="tools-header">
-    <div class="th-inner">
-      <a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a>
-      <nav class="th-nav" id="thNav">
-        <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
-        <a href="../index.html"><i class="fas fa-tools"></i> All Tools</a>
-        <a href="../../index.html#services">Services</a>
-        <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-      </nav>
-      <button class="th-mobile-toggle" id="thToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
-    </div>
-  </header>
+<body>
 
-  <main class="tool-page-main">
-    <div class="th-container">
-      <div class="tool-breadcrumb">
-        <a href="../../index.html">Home</a><i class="fas fa-chevron-right"></i>
-        <a href="../index.html">Free Tools</a><i class="fas fa-chevron-right"></i>
-        <span>Contract Generator</span>
-      </div>
-      <div class="tool-header">
-        <div class="tool-header-inner">
-          <div class="tool-header-icon" style="background:#ede9fe;color:#7c3aed">🤝</div>
-          <div>
-            <h1>Simple Contract Generator</h1>
-            <p>Generate basic service contracts, freelance agreements, and rental agreements. Download as PDF. For complex legal matters, consult a qualified lawyer.</p>
-            <div class="tool-header-meta">
-              <span class="tool-meta-badge"><i class="fas fa-check-circle"></i> Free</span>
-              <span class="tool-meta-badge"><i class="fas fa-file-pdf"></i> PDF Download</span>
-              <span class="tool-meta-badge"><i class="fas fa-users"></i> Freelancers · Business · Landlords</span>
-            </div>
-          </div>
+<!-- HEADER -->
+<header class="hdr" id="hdr">
+  <a href="../../index.html" class="logo">
+    <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/>
+    <span class="logo-t">BLESS<em>Tech-X</em></span>
+  </a>
+  <nav class="hnav" id="hnav">
+    <a href="../../index.html" class="hl"><i class="fas fa-home"></i> Home</a>
+    <a href="../index.html" class="hl"><i class="fas fa-tools"></i> All Tools</a>
+    <a href="../../index.html#services" class="hl">Services</a>
+    <a href="https://wa.me/260979603741" target="_blank" class="hl hlwa">
+      <i class="fab fa-whatsapp"></i> WhatsApp
+    </a>
+  </nav>
+  <button class="mob-toggle" id="mobToggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<div class="page">
+  <div class="wrap">
+
+    <!-- BREADCRUMB -->
+    <nav class="breadcrumb">
+      <a href="../../index.html">Home</a>
+      <i class="fas fa-chevron-right"></i>
+      <a href="../index.html">Free Tools</a>
+      <i class="fas fa-chevron-right"></i>
+      <span>Contract Generator</span>
+    </nav>
+
+    <!-- TOOL HERO -->
+    <div class="tool-hero">
+      <div class="tool-hero-icon">🤝</div>
+      <div class="tool-hero-text">
+        <h1>Simple Contract Generator</h1>
+        <p>Generate basic service contracts, freelance agreements, rental agreements, NDAs, employment letters and more. Download as PDF. For complex legal matters, consult a qualified lawyer.</p>
+        <div class="hero-badges">
+          <span class="hbadge"><i class="fas fa-check-circle"></i> Free</span>
+          <span class="hbadge"><i class="fas fa-file-pdf"></i> PDF Download</span>
+          <span class="hbadge"><i class="fas fa-sliders-h"></i> Customisable Clauses</span>
+          <span class="hbadge"><i class="fas fa-users"></i> Freelancers · Business · Landlords</span>
         </div>
       </div>
+    </div>
 
-      <div class="disclaimer">
-        <i class="fas fa-exclamation-triangle"></i>
-        <span><strong>Important:</strong> This tool generates basic contract templates for simple everyday agreements. For complex business deals, employment contracts, or legal disputes, always consult a qualified Zambian lawyer. These templates are starting points, not legal advice.</span>
-      </div>
+    <!-- DISCLAIMER -->
+    <div class="disclaimer">
+      <i class="fas fa-exclamation-triangle"></i>
+      <span><strong>Important:</strong> This tool generates basic contract templates for simple everyday agreements. For complex business deals, employment contracts, or legal disputes, always consult a qualified Zambian lawyer. These templates are starting points, not legal advice.</span>
+    </div>
 
-      <div style="display:grid;grid-template-columns:380px 1fr;gap:28px;align-items:start">
-        <!-- FORM -->
-        <div>
-          <div class="tool-box">
-            <div class="tool-box-header"><h2><i class="fas fa-file-contract" style="color:var(--sky)"></i> Contract Settings</h2></div>
-            <div class="tool-box-body">
-              <p style="font-size:.82rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">Contract Type</p>
-              <div class="ct-type-grid">
-                <button class="ct-btn active" data-ct="service" onclick="setCT(this)"><span class="ct-icon">🛠️</span>Service</button>
-                <button class="ct-btn" data-ct="freelance" onclick="setCT(this)"><span class="ct-icon">💻</span>Freelance</button>
-                <button class="ct-btn" data-ct="rental" onclick="setCT(this)"><span class="ct-icon">🏠</span>Rental</button>
-                <button class="ct-btn" data-ct="supply" onclick="setCT(this)"><span class="ct-icon">📦</span>Supply</button>
-                <button class="ct-btn" data-ct="nda" onclick="setCT(this)"><span class="ct-icon">🔒</span>NDA</button>
-                <button class="ct-btn" data-ct="employment" onclick="setCT(this)"><span class="ct-icon">💼</span>Employment</button>
-              </div>
-              <hr class="tool-divider"/>
-              <div class="field"><label>Party 1 (Provider / Landlord / Employer)</label><input type="text" id="ct_p1" placeholder="Barack Blessings / BLESSTech-X"/></div>
-              <div class="field"><label>Party 1 Address</label><input type="text" id="ct_p1addr" placeholder="Lusaka, Zambia"/></div>
-              <div class="field"><label>Party 2 (Client / Tenant / Employee)</label><input type="text" id="ct_p2" placeholder="Client Name / Company"/></div>
-              <div class="field"><label>Party 2 Address</label><input type="text" id="ct_p2addr" placeholder="Kitwe, Zambia"/></div>
-              <div class="field"><label>Contract Date</label><input type="date" id="ct_date"/></div>
-              <div class="field"><label>Service / Property Description</label><textarea id="ct_scope" placeholder="Describe the service, property, or work scope…" style="min-height:70px"></textarea></div>
+    <!-- MAIN GRID -->
+    <div class="tool-grid">
+
+      <!-- LEFT: FORM -->
+      <div>
+        <div class="box">
+          <div class="box-hd"><h2><i class="fas fa-file-contract"></i> Contract Settings</h2></div>
+          <div class="box-bd">
+
+            <!-- Contract type -->
+            <div class="slabel" style="margin-bottom:9px">Contract Type</div>
+            <div class="ct-grid">
+              <button class="ct-btn active" data-ct="service"    onclick="setCT(this)"><span class="ct-icon">🛠️</span>Service</button>
+              <button class="ct-btn"        data-ct="freelance"  onclick="setCT(this)"><span class="ct-icon">💻</span>Freelance</button>
+              <button class="ct-btn"        data-ct="rental"     onclick="setCT(this)"><span class="ct-icon">🏠</span>Rental</button>
+              <button class="ct-btn"        data-ct="supply"     onclick="setCT(this)"><span class="ct-icon">📦</span>Supply</button>
+              <button class="ct-btn"        data-ct="nda"        onclick="setCT(this)"><span class="ct-icon">🔒</span>NDA</button>
+              <button class="ct-btn"        data-ct="employment" onclick="setCT(this)"><span class="ct-icon">💼</span>Employment</button>
+              <button class="ct-btn"        data-ct="loan"       onclick="setCT(this)"><span class="ct-icon">💸</span>Loan</button>
+              <button class="ct-btn"        data-ct="partnership"onclick="setCT(this)"><span class="ct-icon">🤝</span>Partnership</button>
+              <button class="ct-btn"        data-ct="consultancy"onclick="setCT(this)"><span class="ct-icon">🎯</span>Consultancy</button>
+            </div>
+
+            <!-- Parties -->
+            <div class="form-section">
+              <div class="form-section-title"><i class="fas fa-users"></i> Parties</div>
+              <div class="field"><label class="slabel" id="p1Label">Party 1 — Provider / Employer / Landlord</label><input type="text" id="ct_p1" placeholder="Barack Blessings / BLESSTech-X"/></div>
+              <div class="field"><label class="slabel">Party 1 Address</label><input type="text" id="ct_p1addr" placeholder="Lusaka, Zambia"/></div>
+              <div class="field"><label class="slabel" id="p2Label">Party 2 — Client / Employee / Tenant</label><input type="text" id="ct_p2" placeholder="Client Name / Company"/></div>
+              <div class="field"><label class="slabel">Party 2 Address</label><input type="text" id="ct_p2addr" placeholder="Kitwe, Zambia"/></div>
+            </div>
+
+            <!-- Core details -->
+            <div class="form-section">
+              <div class="form-section-title"><i class="fas fa-info-circle"></i> Core Details</div>
+              <div class="field"><label class="slabel">Contract Date</label><input type="date" id="ct_date"/></div>
+              <div class="field"><label class="slabel" id="scopeLabel">Service / Scope Description</label><textarea id="ct_scope" placeholder="Describe the service, work scope, or property…"></textarea></div>
               <div class="field-row">
-                <div class="field"><label>Amount / Rent (ZMW)</label><input type="text" id="ct_amount" placeholder="e.g. 2,500"/></div>
-                <div class="field"><label>Duration / Term</label><input type="text" id="ct_duration" placeholder="e.g. 3 months"/></div>
+                <div class="field"><label class="slabel" id="amountLabel">Amount / Fee (ZMW)</label><input type="text" id="ct_amount" placeholder="e.g. 2,500"/></div>
+                <div class="field"><label class="slabel" id="durationLabel">Duration / Term</label><input type="text" id="ct_duration" placeholder="e.g. 3 months"/></div>
               </div>
-              <div class="field"><label>Payment Terms</label><input type="text" id="ct_payment" placeholder="e.g. 50% upfront, 50% on completion"/></div>
-              <div class="field"><label>Special Conditions (optional)</label><textarea id="ct_conditions" placeholder="Any special terms, penalties, warranties…" style="min-height:60px"></textarea></div>
-              <button class="btn btn-primary btn-full" style="margin-top:8px" onclick="generateContract()">
-                <i class="fas fa-magic"></i> Generate Contract
-              </button>
+              <div class="field"><label class="slabel">Payment Terms</label><input type="text" id="ct_payment" placeholder="e.g. 50% upfront, 50% on completion"/></div>
+            </div>
+
+            <!-- Optional clauses -->
+            <div class="form-section">
+              <div class="form-section-title"><i class="fas fa-sliders-h"></i> Optional Clauses</div>
+              <div class="clause-grid" id="clauseGrid">
+                <!-- populated by JS based on contract type -->
+              </div>
+            </div>
+
+            <!-- Custom conditions -->
+            <div class="form-section">
+              <div class="form-section-title"><i class="fas fa-pen"></i> Custom Conditions</div>
+              <div class="field">
+                <label class="slabel">Special Terms (optional)</label>
+                <textarea id="ct_conditions" placeholder="Any extra terms, penalties, warranties, or custom clauses…" style="min-height:72px"></textarea>
+              </div>
+            </div>
+
+            <!-- Style -->
+            <div class="form-section">
+              <div class="form-section-title"><i class="fas fa-paint-brush"></i> Document Style</div>
+              <div class="style-row">
+                <button class="style-btn active" data-style="formal"  onclick="setStyle(this)">Formal (Serif)</button>
+                <button class="style-btn"        data-style="modern"  onclick="setStyle(this)">Modern (Sans)</button>
+                <button class="style-btn"        data-style="minimal" onclick="setStyle(this)">Typewriter</button>
+              </div>
+            </div>
+
+            <button class="btn btn-primary btn-full" style="margin-top:14px" onclick="generateContract()">
+              <i class="fas fa-magic"></i> Generate Contract
+            </button>
+
+          </div>
+        </div>
+      </div><!-- /left -->
+
+      <!-- RIGHT: PREVIEW -->
+      <div class="right-sticky">
+        <div class="box">
+          <div class="box-hd">
+            <h2><i class="fas fa-file-alt"></i> Contract Preview</h2>
+            <div class="btn-row">
+              <button class="btn btn-sm btn-secondary" id="copyCtBtn" onclick="copyContract()" style="display:none"><i class="fas fa-copy"></i> Copy</button>
+              <button class="btn btn-sm btn-secondary" id="editCtBtn" onclick="enableEdit()" style="display:none"><i class="fas fa-edit"></i> Edit</button>
+              <button class="btn btn-sm btn-primary"   id="pdfCtBtn"  onclick="printContract()"  style="display:none"><i class="fas fa-file-pdf"></i> PDF</button>
+            </div>
+          </div>
+          <div class="box-bd" style="padding:0">
+            <div id="contractPreview" class="contract-doc style-formal">
+              <div class="contract-empty">
+                <span style="font-size:2rem">🤝</span>
+                <span>Your contract will appear here.<br/>Fill in the details and click Generate.</span>
+              </div>
             </div>
           </div>
         </div>
-
-        <!-- PREVIEW -->
-        <div>
-          <div class="tool-box">
-            <div class="tool-box-header">
-              <h2><i class="fas fa-file-alt" style="color:var(--sky)"></i> Contract Preview</h2>
-              <div style="display:flex;gap:8px">
-                <button class="btn btn-sm btn-secondary" id="copyCtBtn" onclick="copyContract()" style="display:none"><i class="fas fa-copy"></i> Copy</button>
-                <button class="btn btn-sm btn-primary" id="pdfCtBtn" onclick="printContract()" style="display:none"><i class="fas fa-file-pdf"></i> PDF</button>
-              </div>
-            </div>
-            <div class="tool-box-body" style="padding:0">
-              <div id="contractPreview" class="contract-preview"><div class="cp-empty">🤝 Your contract will appear here.<br/>Fill in the details and click Generate.</div></div>
-            </div>
-          </div>
-        </div>
+        <p style="font-size:.7rem;color:var(--muted);margin-top:10px;line-height:1.6;padding:0 4px">
+          <i class="fas fa-info-circle" style="color:var(--amber)"></i>
+          After generating, click <strong>Edit</strong> to make manual changes directly in the document before downloading as PDF.
+        </p>
       </div>
 
-      <div class="tool-service-cta" style="margin-top:36px">
-        <div><h4>Need a professional website or online store?</h4><p>BLESSTech-X builds complete digital solutions for Zambian businesses from ZMW 650.</p></div>
-        <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I want to discuss a project." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Get a Quote</a>
+    </div><!-- /tool-grid -->
+
+    <!-- SERVICE CTA -->
+    <div class="cta-strip">
+      <div>
+        <h4>Need a professional website or online store?</h4>
+        <p>BLESSTech-X builds complete digital solutions for Zambian businesses from ZMW 650.</p>
       </div>
-      <div class="related-tools" style="margin-top:32px;background:var(--bg-alt);border-radius:var(--radius-lg);padding:28px">
-        <h3>You Might Also Need</h3>
-        <div class="related-grid">
-          <a href="../invoice/index.html" class="related-card"><span>🧾</span> Invoice Generator</a>
-          <a href="../letter-generator/index.html" class="related-card"><span>📜</span> Letter Generator</a>
-          <a href="../email-writer/index.html" class="related-card"><span>📧</span> Email Writer</a>
-          <a href="../cv-builder/index.html" class="related-card"><span>📑</span> CV Builder</a>
-        </div>
+      <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I want to discuss a project."
+         target="_blank" class="btn-wa">
+        <i class="fab fa-whatsapp"></i> Get a Quote
+      </a>
+    </div>
+
+    <!-- RELATED -->
+    <div class="related">
+      <h3>You Might Also Need</h3>
+      <div class="related-grid">
+        <a href="../invoice/index.html"          class="related-card"><span>🧾</span> Invoice Generator</a>
+        <a href="../letter-generator/index.html" class="related-card"><span>📜</span> Letter Generator</a>
+        <a href="../email-writer/index.html"     class="related-card"><span>📧</span> Email Writer</a>
+        <a href="../cv-builder/index.html"       class="related-card"><span>📑</span> CV Builder</a>
       </div>
     </div>
-  </main>
 
-  <footer class="tools-footer">
-    <div class="th-container">
-      <div class="tf-inner">
-        <div class="tf-brand"><a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a><p>Free tools for every Zambian.</p></div>
-        <div class="tf-links"><h4>Free Tools</h4><a href="../index.html">All Tools</a><a href="../invoice/index.html">Invoice Generator</a><a href="../cv-builder/index.html">CV Builder</a></div>
-        <div class="tf-links"><h4>BLESSTech-X</h4><a href="../../index.html">Main Website</a><a href="../../index.html#services">Services</a><a href="../../index.html#contact">Contact</a></div>
-        <div class="tf-contact"><h4>Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
-      </div>
-      <div class="tf-bottom"><p>&copy; 2026 BLESSTech-X · Free Contract Generator · Built for Zambia 🇿🇲</p></div>
+  </div><!-- /wrap -->
+</div><!-- /page -->
+
+<!-- FOOTER — dark -->
+<footer class="foot">
+  <div class="foot-g">
+    <div class="fc">
+      <a href="../../index.html" class="logo">
+        <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"
+             style="width:28px;height:28px;border-radius:7px;object-fit:cover"/>
+        <span class="logo-t" style="font-size:.9rem;margin-left:8px">BLESS<em>Tech-X</em></span>
+      </a>
+      <p class="foot-desc">Free tools for every Zambian. Built in Lusaka with love. 🇿🇲</p>
     </div>
-  </footer>
-  <a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <div class="fc">
+      <h4>Free Tools</h4>
+      <a href="../index.html">All Tools</a>
+      <a href="../invoice/index.html">Invoice Generator</a>
+      <a href="../cv-builder/index.html">CV Builder</a>
+      <a href="../budget-planner/index.html">Budget Planner</a>
+    </div>
+    <div class="fc">
+      <h4>BLESSTech-X</h4>
+      <a href="../../index.html">Main Website</a>
+      <a href="../../index.html#services">Services</a>
+      <a href="../../index.html#contact">Contact</a>
+    </div>
+    <div class="fc">
+      <h4>Contact</h4>
+      <a href="tel:+260979603741"><i class="fas fa-phone" style="width:14px"></i> +260 979 603 741</a>
+      <a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp" style="width:14px"></i> WhatsApp</a>
+    </div>
+  </div>
+  <div class="foot-bot">
+    <p>© 2026 BLESSTech-X · Free Contract Generator · Built for Zambia 🇿🇲</p>
+    <p>No sign-up · No ads · 100% free</p>
+  </div>
+</footer>
+
+<a href="https://wa.me/260979603741" class="wafab" target="_blank" aria-label="WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
 
 <script>
-let currentCT='service';
-document.getElementById('ct_date').valueAsDate=new Date();
-function setCT(btn){ document.querySelectorAll('.ct-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); currentCT=btn.dataset.ct; }
-
-function fmtDate(v){ if(!v)return new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}); return new Date(v).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}); }
-
-const CONTRACTS={
-  service:(d)=>`SERVICE AGREEMENT
-
-This Service Agreement ("Agreement") is entered into on ${d.date} between:
-
-PROVIDER: ${d.p1}, of ${d.p1addr} ("the Provider")
-CLIENT: ${d.p2}, of ${d.p2addr} ("the Client")
-
-1. SCOPE OF SERVICES
-The Provider agrees to provide the following services to the Client:
-${d.scope||'[Describe services]'}
-
-2. PAYMENT
-The total fee for the services is ZMW ${d.amount||'[Amount]'}, payable as follows:
-${d.payment||'As agreed between the parties.'}
-
-3. DURATION
-This Agreement commences on ${d.date} and shall be completed within ${d.duration||'[timeframe]'} unless otherwise agreed in writing.
-
-4. OBLIGATIONS OF THE PROVIDER
-4.1 The Provider shall perform the services with reasonable skill and care.
-4.2 The Provider shall complete the work within the agreed timeframe.
-4.3 The Provider shall communicate promptly regarding any delays or issues.
-
-5. OBLIGATIONS OF THE CLIENT
-5.1 The Client shall provide timely payment as per the agreed terms.
-5.2 The Client shall provide necessary information and materials required for the service.
-5.3 The Client shall review and approve deliverables within 5 working days of receipt.
-
-6. INTELLECTUAL PROPERTY
-Upon full payment, all deliverables created under this Agreement become the property of the Client.
-
-7. CONFIDENTIALITY
-Both parties agree to keep confidential any sensitive information shared during this engagement.
-
-${d.conditions?`8. SPECIAL CONDITIONS\n${d.conditions}\n\n`:''}
-${d.conditions?'9':'8'}. DISPUTE RESOLUTION
-Any disputes arising from this Agreement shall be resolved amicably between the parties. If resolution cannot be reached, Zambian law shall govern.
-
-${d.conditions?'10':'9'}. SIGNATURES
-
-IN WITNESS WHEREOF, the parties have signed this Agreement on the date stated above.
-
-PROVIDER: ________________________________    Date: _______________
-${d.p1}
-
-CLIENT: ________________________________    Date: _______________
-${d.p2}
-
-Witness: ________________________________    Date: _______________`,
-
-  freelance:(d)=>`FREELANCE SERVICES AGREEMENT
-
-This Freelance Agreement is entered into on ${d.date} between:
-
-FREELANCER: ${d.p1}, of ${d.p1addr}
-CLIENT: ${d.p2}, of ${d.p2addr}
-
-1. PROJECT SCOPE
-The Freelancer agrees to complete the following project:
-${d.scope||'[Describe the project]'}
-
-2. COMPENSATION
-Project fee: ZMW ${d.amount||'[Amount]'}
-Payment terms: ${d.payment||'As agreed.'}
-
-3. TIMELINE
-Project to be completed within: ${d.duration||'[Duration]'} from the signing of this agreement.
-
-4. REVISIONS
-The Client is entitled to two (2) rounds of revisions included in the project fee. Additional revisions will be charged at an agreed rate.
-
-5. INTELLECTUAL PROPERTY
-All work produced shall remain the property of the Freelancer until full payment is received, after which ownership transfers to the Client.
-
-6. INDEPENDENT CONTRACTOR
-The Freelancer is an independent contractor and not an employee of the Client. The Freelancer is responsible for their own tax obligations.
-
-7. TERMINATION
-Either party may terminate this agreement with 7 days written notice. Any work completed up to the termination date must be compensated.
-
-${d.conditions?`8. SPECIAL CONDITIONS\n${d.conditions}\n\n`:''}
-SIGNATURES
-
-FREELANCER: ________________________________    Date: _______________
-${d.p1}
-
-CLIENT: ________________________________    Date: _______________
-${d.p2}`,
-
-  rental:(d)=>`RESIDENTIAL / COMMERCIAL RENTAL AGREEMENT
-
-This Rental Agreement is entered into on ${d.date} between:
-
-LANDLORD: ${d.p1}, of ${d.p1addr} ("the Landlord")
-TENANT: ${d.p2}, of ${d.p2addr} ("the Tenant")
-
-1. PROPERTY
-The Landlord agrees to rent to the Tenant the property located at:
-${d.scope||'[Full property address]'}
-
-2. RENTAL PERIOD
-Commencement Date: ${d.date}
-Duration: ${d.duration||'12 months'}
-This tenancy shall continue on a month-to-month basis thereafter unless terminated by either party with one month's written notice.
-
-3. RENTAL AMOUNT
-Monthly Rent: ZMW ${d.amount||'[Amount]'}
-Payment Terms: ${d.payment||'Payable on the 1st of each month.'}
-
-4. SECURITY DEPOSIT
-A security deposit equivalent to one month's rent is payable upon signing. This is refundable at the end of the tenancy subject to the property being returned in satisfactory condition.
-
-5. TENANT OBLIGATIONS
-5.1 Keep the property clean and in good condition.
-5.2 Not sublet the property without written consent.
-5.3 Report any damage or repairs needed promptly.
-5.4 Not carry out alterations without written consent.
-
-6. LANDLORD OBLIGATIONS
-6.1 Ensure the property is habitable and safe.
-6.2 Attend to essential repairs within a reasonable time.
-6.3 Respect the Tenant's right to quiet enjoyment.
-
-7. UTILITIES
-Unless otherwise stated, the Tenant is responsible for all utility bills including water, electricity (ZESCO), and refuse collection.
-
-${d.conditions?`8. SPECIAL CONDITIONS\n${d.conditions}\n\n`:''}
-SIGNATURES
-
-LANDLORD: ________________________________    Date: _______________
-${d.p1}
-
-TENANT: ________________________________    Date: _______________
-${d.p2}
-
-Witness: ________________________________    Date: _______________`,
-
-  supply:(d)=>`SUPPLY AGREEMENT
-
-This Supply Agreement is entered into on ${d.date} between:
-
-SUPPLIER: ${d.p1}, of ${d.p1addr}
-BUYER: ${d.p2}, of ${d.p2addr}
-
-1. GOODS / SERVICES TO BE SUPPLIED
-${d.scope||'[Describe goods or services to be supplied]'}
-
-2. PRICE AND PAYMENT
-Total Value: ZMW ${d.amount||'[Amount]'}
-Payment Terms: ${d.payment||'As agreed between parties.'}
-
-3. DELIVERY
-Delivery Period: ${d.duration||'[Timeframe]'}
-Delivery Location: ${d.p2addr||'[Buyer address]'}
-
-4. QUALITY
-The Supplier warrants that all goods supplied shall be of merchantable quality and fit for purpose.
-
-5. RISK AND OWNERSHIP
-Risk of loss passes to the Buyer upon delivery. Ownership passes upon full payment.
-
-6. DEFAULT
-In the event of non-payment, the Supplier reserves the right to recover goods supplied.
-
-${d.conditions?`7. SPECIAL CONDITIONS\n${d.conditions}\n\n`:''}
-SIGNATURES
-
-SUPPLIER: ________________________________    Date: _______________
-${d.p1}
-
-BUYER: ________________________________    Date: _______________
-${d.p2}`,
-
-  nda:(d)=>`NON-DISCLOSURE AGREEMENT (NDA)
-
-This Non-Disclosure Agreement is entered into on ${d.date} between:
-
-DISCLOSING PARTY: ${d.p1}, of ${d.p1addr}
-RECEIVING PARTY: ${d.p2}, of ${d.p2addr}
-
-1. PURPOSE
-The parties wish to explore a potential business relationship regarding:
-${d.scope||'[Describe the business context]'}
-
-2. CONFIDENTIAL INFORMATION
-"Confidential Information" means any non-public information disclosed by the Disclosing Party including but not limited to business plans, financial data, technical information, customer lists, and trade secrets.
-
-3. OBLIGATIONS
-The Receiving Party agrees to:
-3.1 Keep all Confidential Information strictly confidential.
-3.2 Not disclose Confidential Information to any third party without written consent.
-3.3 Use Confidential Information only for the stated purpose.
-3.4 Protect Confidential Information with the same degree of care used for its own confidential information.
-
-4. EXCLUSIONS
-These obligations do not apply to information that is publicly available, independently developed, or required to be disclosed by law.
-
-5. DURATION
-This Agreement shall remain in effect for ${d.duration||'2 years'} from the date of signing.
-
-${d.conditions?`6. SPECIAL CONDITIONS\n${d.conditions}\n\n`:''}
-SIGNATURES
-
-DISCLOSING PARTY: ________________________________    Date: _______________
-${d.p1}
-
-RECEIVING PARTY: ________________________________    Date: _______________
-${d.p2}`,
-
-  employment:(d)=>`CONTRACT OF EMPLOYMENT
-
-This Employment Contract is entered into on ${d.date} between:
-
-EMPLOYER: ${d.p1}, of ${d.p1addr} ("the Employer")
-EMPLOYEE: ${d.p2}, of ${d.p2addr} ("the Employee")
-
-1. POSITION AND DUTIES
-The Employee is appointed to the position of: ${d.scope||'[Job Title]'}
-The Employee shall perform duties as reasonably required by the Employer.
-
-2. COMMENCEMENT AND DURATION
-Start Date: ${d.date}
-Contract Type: ${d.duration||'Permanent / Fixed Term [specify]'}
-
-3. REMUNERATION
-Gross Monthly Salary: ZMW ${d.amount||'[Amount]'}
-Payment: ${d.payment||'Paid monthly on the last working day of each month.'}
-
-4. WORKING HOURS
-Standard working hours are 8:00 AM to 5:00 PM, Monday to Friday, unless otherwise agreed.
-
-5. LEAVE ENTITLEMENT
-The Employee is entitled to annual leave in accordance with the Zambia Employment Code Act No. 3 of 2019.
-
-6. PROBATION
-The Employee shall serve a probationary period of three (3) months during which either party may terminate with two weeks' notice.
-
-7. TERMINATION
-After probation, either party may terminate with one month's written notice. Gross misconduct may result in summary dismissal.
-
-8. CONFIDENTIALITY
-The Employee agrees to keep all business information confidential during and after employment.
-
-${d.conditions?`9. SPECIAL CONDITIONS\n${d.conditions}\n\n`:''}
-SIGNATURES
-
-EMPLOYER: ________________________________    Date: _______________
-${d.p1}
-
-EMPLOYEE: ________________________________    Date: _______________
-${d.p2}
-
-Witness: ________________________________    Date: _______________`
+/* ══════════════════════════════════════════
+   STATE
+══════════════════════════════════════════ */
+let currentCT    = 'service';
+let currentStyle = 'formal';
+let activeClauses = {};
+
+document.getElementById('ct_date').valueAsDate = new Date();
+
+/* ══════════════════════════════════════════
+   OPTIONAL CLAUSES PER CONTRACT TYPE
+══════════════════════════════════════════ */
+const CLAUSES = {
+  service:     [{id:'ip',      label:'Intellectual Property clause'},
+                {id:'conf',    label:'Confidentiality clause'},
+                {id:'liability',label:'Limitation of Liability'},
+                {id:'termination',label:'Early Termination clause'},
+                {id:'warranty', label:'Workmanship Warranty'},
+                {id:'dispute',  label:'Dispute Resolution clause'}],
+  freelance:   [{id:'ip',      label:'IP transfer on full payment'},
+                {id:'revisions',label:'Revision rounds (2 included)'},
+                {id:'credit',  label:'Portfolio / Credit rights'},
+                {id:'kill_fee', label:'Kill Fee (50% if cancelled)'},
+                {id:'conf',    label:'Confidentiality clause'},
+                {id:'dispute', label:'Dispute Resolution clause'}],
+  rental:      [{id:'deposit', label:'Security Deposit clause'},
+                {id:'utilities',label:'Tenant pays all utilities'},
+                {id:'subletting',label:'No subletting without consent'},
+                {id:'pets',    label:'No pets allowed'},
+                {id:'alterations',label:'No alterations without consent'},
+                {id:'inspection',label:'Monthly inspection right'}],
+  supply:      [{id:'warranty', label:'Quality Warranty'},
+                {id:'returns',  label:'Returns & Defects policy'},
+                {id:'delivery', label:'Delivery timeline clause'},
+                {id:'force',   label:'Force Majeure clause'},
+                {id:'dispute', label:'Dispute Resolution clause'}],
+  nda:         [{id:'mutual',  label:'Mutual (both parties)'},
+                {id:'onesided',label:'One-sided (receiving party only)'},
+                {id:'exceptions',label:'Exceptions clause'},
+                {id:'return',  label:'Return/Destroy of materials'},
+                {id:'injunctive',label:'Injunctive relief clause'}],
+  employment:  [{id:'probation',label:'3-month probation period'},
+                {id:'benefits', label:'Benefits (medical, leave)'},
+                {id:'noncompete',label:'Non-compete (12 months)'},
+                {id:'ip',       label:'IP belongs to employer'},
+                {id:'conf',     label:'Confidentiality clause'},
+                {id:'grievance',label:'Grievance procedure'}],
+  loan:        [{id:'interest', label:'Interest rate clause'},
+                {id:'schedule', label:'Repayment schedule'},
+                {id:'penalty',  label:'Late payment penalty'},
+                {id:'security', label:'Security/Collateral clause'},
+                {id:'default',  label:'Default & recovery clause'},
+                {id:'witness',  label:'Witness signature block'}],
+  partnership: [{id:'profit',   label:'Profit sharing clause'},
+                {id:'roles',    label:'Defined roles & responsibilities'},
+                {id:'banking',  label:'Joint banking clause'},
+                {id:'exit',     label:'Exit / Buy-out clause'},
+                {id:'dissolution',label:'Dissolution procedure'},
+                {id:'dispute',  label:'Dispute Resolution clause'}],
+  consultancy: [{id:'deliverables',label:'Defined deliverables'},
+                {id:'ip',       label:'IP ownership clause'},
+                {id:'conf',     label:'Confidentiality clause'},
+                {id:'expenses', label:'Expense reimbursement'},
+                {id:'noncompete',label:'Non-compete clause'},
+                {id:'dispute',  label:'Dispute Resolution clause'}]
 };
 
+/* ══════════════════════════════════════════
+   CLAUSE CONTENT BLOCKS
+══════════════════════════════════════════ */
+const CLAUSE_BLOCKS = {
+  ip:          (d) => `INTELLECTUAL PROPERTY
+Upon receipt of full payment, all work product, designs, code, and deliverables created under this Agreement become the exclusive property of ${d.p2}. The ${d.p1} retains no rights to use such materials without written consent.`,
+  conf:        (d) => `CONFIDENTIALITY
+Both parties agree to keep strictly confidential all non-public information, trade secrets, business plans, and data shared during this engagement. This obligation survives termination of the Agreement for a period of two (2) years.`,
+  liability:   (d) => `LIMITATION OF LIABILITY
+The Provider's total liability under this Agreement shall not exceed the total fees paid by the Client. Neither party shall be liable for indirect, incidental, or consequential damages.`,
+  termination: (d) => `TERMINATION
+Either party may terminate this Agreement with fourteen (14) days' written notice. Work completed up to the termination date shall be compensated on a pro-rata basis. Deposits already paid are non-refundable unless termination is due to the Provider's default.`,
+  warranty:    (d) => `WORKMANSHIP WARRANTY
+The Provider warrants that all work shall be performed in a professional and workmanlike manner. Any defects reported within 30 days of completion shall be rectified at no additional cost.`,
+  dispute:     (d) => `DISPUTE RESOLUTION
+The parties shall first attempt to resolve any dispute amicably through good-faith negotiation within 21 days of written notice. If unresolved, the matter shall be referred to mediation before litigation. This Agreement is governed by the laws of the Republic of Zambia.`,
+  revisions:   (d) => `REVISIONS
+The Client is entitled to two (2) rounds of revisions included in the agreed fee. Additional revision rounds shall be charged at ZMW 500 per round or as separately agreed in writing.`,
+  credit:      (d) => `PORTFOLIO RIGHTS
+The Freelancer retains the right to display completed work in their professional portfolio and marketing materials unless the Client provides a written request for confidentiality.`,
+  kill_fee:    (d) => `KILL FEE
+If the Client cancels the project after work has commenced, a kill fee of 50% of the total project fee shall be payable for work completed to date, in addition to any out-of-pocket expenses incurred.`,
+  deposit:     (d) => `SECURITY DEPOSIT
+A refundable security deposit of one (1) month's rent shall be paid upon signing. The deposit shall be returned within 30 days of vacating, subject to deductions for damage beyond normal wear and tear and any outstanding rent.`,
+  utilities:   (d) => `UTILITIES
+The Tenant is solely responsible for all utility bills including electricity (ZESCO), water, internet, and refuse collection for the duration of the tenancy.`,
+  subletting:  (d) => `NO SUBLETTING
+The Tenant shall not sublet the property or any part thereof, or allow any other person to occupy the premises, without the prior written consent of the Landlord.`,
+  pets:        (d) => `NO PETS
+No pets or animals shall be kept on the premises without the prior written consent of the Landlord. Consent, if granted, may be withdrawn if nuisance or damage occurs.`,
+  alterations: (d) => `NO ALTERATIONS
+The Tenant shall make no structural or cosmetic alterations, additions, or improvements to the property without prior written consent from the Landlord.`,
+  inspection:  (d) => `LANDLORD INSPECTION
+The Landlord or their agent reserves the right to inspect the property with a minimum of 48 hours' written notice, at a reasonable time, no more than once per calendar month.`,
+  returns:     (d) => `RETURNS & DEFECTS
+The Buyer must notify the Supplier of any defects or non-conforming goods within 7 days of delivery. The Supplier shall replace or repair defective goods within 14 days of notification.`,
+  delivery:    (d) => `DELIVERY
+All goods shall be delivered to the Buyer's address within the agreed timeline. Delays beyond 14 days of the agreed delivery date entitle the Buyer to cancel the order and receive a full refund.`,
+  force:       (d) => `FORCE MAJEURE
+Neither party shall be liable for delays or failures caused by events beyond their reasonable control including natural disasters, government actions, strikes, or power outages. Affected parties must notify the other within 48 hours.`,
+  mutual:      (d) => `MUTUAL OBLIGATION
+This Agreement applies equally to both parties. Each party may share confidential information with the other and both are bound by the same obligations of non-disclosure and protection.`,
+  onesided:    (d) => `ONE-SIDED OBLIGATION
+Only ${d.p2} (the Receiving Party) is bound by confidentiality obligations under this Agreement. ${d.p1} (the Disclosing Party) is not restricted in how it may use information provided by the Receiving Party.`,
+  exceptions:  (d) => `EXCEPTIONS
+Confidentiality obligations do not apply to: (a) information already in the public domain; (b) information independently developed without reference to Confidential Information; (c) information required to be disclosed by law or court order.`,
+  return:      (d) => `RETURN OF MATERIALS
+Upon termination of this Agreement or written request by ${d.p1}, ${d.p2} shall promptly return or permanently destroy all Confidential Information and certify such destruction in writing.`,
+  injunctive:  (d) => `INJUNCTIVE RELIEF
+The parties acknowledge that any breach of confidentiality obligations may cause irreparable harm for which monetary damages would be inadequate, and the Disclosing Party shall be entitled to seek injunctive relief without posting bond.`,
+  probation:   (d) => `PROBATIONARY PERIOD
+The Employee shall serve a probationary period of three (3) months commencing on the start date. During this period, either party may terminate the contract with two (2) weeks' written notice.`,
+  benefits:    (d) => `EMPLOYEE BENEFITS
+The Employee shall be entitled to annual leave and public holidays as provided under the Zambia Employment Code Act No. 3 of 2019, medical allowance as agreed, and any other benefits stipulated in the Employer's HR policy.`,
+  noncompete:  (d) => `NON-COMPETE
+For a period of twelve (12) months following termination of employment, the Employee shall not engage in any business activity that directly competes with the Employer's current business operations within Zambia.`,
+  grievance:   (d) => `GRIEVANCE PROCEDURE
+Any grievances shall be raised in writing with the Employee's immediate supervisor. If unresolved within 14 days, the matter shall be escalated to senior management before any external process is pursued.`,
+  interest:    (d) => `INTEREST
+The loan amount shall attract interest at a rate of ____% per annum (or as separately agreed in writing). Interest shall be calculated on the outstanding balance and paid monthly alongside principal repayments.`,
+  schedule:    (d) => `REPAYMENT SCHEDULE
+The Borrower shall repay the loan in equal monthly instalments of ZMW _____ commencing on the _____ day of each month, until the full loan amount plus interest is repaid. A repayment schedule shall be attached to this Agreement as Annexure A.`,
+  penalty:     (d) => `LATE PAYMENT PENALTY
+Any instalment not paid within 7 days of the due date shall attract a late payment penalty of 5% of the overdue amount per month, calculated daily, until the amount is settled in full.`,
+  security:    (d) => `SECURITY / COLLATERAL
+As security for the repayment of the loan, the Borrower hereby pledges the following as collateral: [Describe asset / property]. The Lender shall have the right to enforce this security upon default.`,
+  default:     (d) => `DEFAULT & RECOVERY
+If the Borrower fails to make two (2) consecutive payments, the entire outstanding balance shall become immediately due and payable. The Lender reserves the right to pursue all legal remedies available under Zambian law.`,
+  witness:     (d) => `WITNESS SIGNATURES
+This Agreement shall be signed in the presence of a witness who is not a party to this Agreement. The witness shall confirm the identity of the signatories and their voluntary execution of this document.`,
+  profit:      (d) => `PROFIT SHARING
+Net profits from the partnership shall be distributed as follows: ${d.p1} — ____%, ${d.p2} — ____%. Distributions shall be made quarterly after deducting all operating expenses and reserves as agreed by both partners.`,
+  roles:       (d) => `ROLES & RESPONSIBILITIES
+${d.p1} shall be responsible for: [describe responsibilities].
+${d.p2} shall be responsible for: [describe responsibilities].
+No partner shall make binding commitments on behalf of the partnership exceeding ZMW _____ without written consent from the other partner.`,
+  banking:     (d) => `JOINT BANKING
+The partners shall open a joint business bank account in the name of the partnership. Both partners' signatures shall be required for withdrawals or transfers exceeding ZMW _____.`,
+  exit:        (d) => `EXIT / BUY-OUT
+Should either partner wish to exit the partnership, they must provide 60 days' written notice. The remaining partner shall have first right of refusal to purchase the exiting partner's share at fair market value determined by an independent valuation.`,
+  dissolution: (d) => `DISSOLUTION
+The partnership may be dissolved by: (a) mutual written agreement; (b) death or incapacity of a partner; (c) court order. Upon dissolution, all debts shall be settled first, then remaining assets distributed in proportion to each partner's share.`,
+  deliverables:(d) => `DEFINED DELIVERABLES
+The Consultant shall produce the following deliverables: ${d.scope||'[list specific deliverables, reports, or outcomes]'}. Deliverables shall be submitted in the format and by the dates specified in the project timeline agreed in writing.`,
+  expenses:    (d) => `EXPENSE REIMBURSEMENT
+Pre-approved out-of-pocket expenses (travel, accommodation, materials) incurred by the Consultant in performing services shall be reimbursed by the Client within 14 days of submission of receipts.`
+};
+
+/* ══════════════════════════════════════════
+   DYNAMIC LABELS PER CONTRACT TYPE
+══════════════════════════════════════════ */
+const CT_LABELS = {
+  service:     {p1:'Provider / Service Company', p2:'Client', scope:'Scope of Services', amount:'Total Fee (ZMW)', duration:'Completion Timeframe'},
+  freelance:   {p1:'Freelancer', p2:'Client', scope:'Project Description', amount:'Project Fee (ZMW)', duration:'Project Deadline'},
+  rental:      {p1:'Landlord', p2:'Tenant', scope:'Property Address & Description', amount:'Monthly Rent (ZMW)', duration:'Rental Period'},
+  supply:      {p1:'Supplier', p2:'Buyer', scope:'Goods / Services to be Supplied', amount:'Total Value (ZMW)', duration:'Delivery Timeframe'},
+  nda:         {p1:'Disclosing Party', p2:'Receiving Party', scope:'Business Context / Purpose', amount:'N/A (NDA)', duration:'Confidentiality Period'},
+  employment:  {p1:'Employer', p2:'Employee', scope:'Job Title & Key Duties', amount:'Gross Monthly Salary (ZMW)', duration:'Contract Type (Permanent / Fixed)'},
+  loan:        {p1:'Lender', p2:'Borrower', scope:'Purpose of Loan', amount:'Loan Amount (ZMW)', duration:'Repayment Period'},
+  partnership: {p1:'Partner 1', p2:'Partner 2', scope:'Business / Venture Description', amount:'Initial Capital Each (ZMW)', duration:'Partnership Duration'},
+  consultancy: {p1:'Consultant', p2:'Client', scope:'Consultancy Scope & Objectives', amount:'Consultancy Fee (ZMW)', duration:'Engagement Period'}
+};
+
+/* ══════════════════════════════════════════
+   CONTRACT TEMPLATES
+══════════════════════════════════════════ */
+const CT_TITLES = {
+  service:'SERVICE AGREEMENT', freelance:'FREELANCE SERVICES AGREEMENT',
+  rental:'RENTAL AGREEMENT', supply:'SUPPLY AGREEMENT',
+  nda:'NON-DISCLOSURE AGREEMENT (NDA)', employment:'CONTRACT OF EMPLOYMENT',
+  loan:'LOAN AGREEMENT', partnership:'BUSINESS PARTNERSHIP AGREEMENT',
+  consultancy:'CONSULTANCY AGREEMENT'
+};
+
+const CT_INTROS = {
+  service:     (d) => `PROVIDER: ${d.p1}, of ${d.p1addr}\nCLIENT:   ${d.p2}, of ${d.p2addr}`,
+  freelance:   (d) => `FREELANCER: ${d.p1}, of ${d.p1addr}\nCLIENT:     ${d.p2}, of ${d.p2addr}`,
+  rental:      (d) => `LANDLORD: ${d.p1}, of ${d.p1addr}\nTENANT:   ${d.p2}, of ${d.p2addr}`,
+  supply:      (d) => `SUPPLIER: ${d.p1}, of ${d.p1addr}\nBUYER:    ${d.p2}, of ${d.p2addr}`,
+  nda:         (d) => `DISCLOSING PARTY: ${d.p1}, of ${d.p1addr}\nRECEIVING PARTY:  ${d.p2}, of ${d.p2addr}`,
+  employment:  (d) => `EMPLOYER: ${d.p1}, of ${d.p1addr}\nEMPLOYEE: ${d.p2}, of ${d.p2addr}`,
+  loan:        (d) => `LENDER:   ${d.p1}, of ${d.p1addr}\nBORROWER: ${d.p2}, of ${d.p2addr}`,
+  partnership: (d) => `PARTNER 1: ${d.p1}, of ${d.p1addr}\nPARTNER 2: ${d.p2}, of ${d.p2addr}`,
+  consultancy: (d) => `CONSULTANT: ${d.p1}, of ${d.p1addr}\nCLIENT:     ${d.p2}, of ${d.p2addr}`
+};
+
+const CT_CORE = {
+  service: (d) => `1. SCOPE OF SERVICES\nThe Provider agrees to deliver the following services:\n${d.scope||'[Describe services in detail]'}\n\n2. PAYMENT\nTotal Fee: ZMW ${d.amount||'[Amount]'}\nPayment Terms: ${d.payment||'As agreed between the parties.'}\n\n3. DURATION\nThis Agreement commences on ${d.date} and the services shall be completed within ${d.duration||'[timeframe]'}.`,
+  freelance:(d) => `1. PROJECT SCOPE\nThe Freelancer agrees to complete the following project:\n${d.scope||'[Describe the project]'}\n\n2. COMPENSATION\nProject Fee: ZMW ${d.amount||'[Amount]'}\nPayment Terms: ${d.payment||'As agreed.'}\n\n3. TIMELINE\nProject to be delivered within ${d.duration||'[Duration]'} from the date of signing.`,
+  rental:  (d) => `1. PROPERTY\nThe Landlord agrees to rent to the Tenant the following property:\n${d.scope||'[Full property address and description]'}\n\n2. RENTAL PERIOD\nCommencement Date: ${d.date}\nDuration: ${d.duration||'12 months'}\nThe tenancy continues on a month-to-month basis thereafter unless terminated by either party with one (1) month's written notice.\n\n3. RENT\nMonthly Rent: ZMW ${d.amount||'[Amount]'}\nPayment Terms: ${d.payment||'Payable on the 1st of each month.'}`,
+  supply:  (d) => `1. GOODS / SERVICES TO BE SUPPLIED\n${d.scope||'[Describe goods or services]'}\n\n2. PRICE AND PAYMENT\nTotal Value: ZMW ${d.amount||'[Amount]'}\nPayment Terms: ${d.payment||'As agreed between the parties.'}\n\n3. DELIVERY\nDelivery Period: ${d.duration||'[Timeframe]'}\nDelivery Location: ${d.p2addr||'[Buyer address]'}`,
+  nda:     (d) => `1. PURPOSE\nThe parties wish to explore a potential business relationship regarding:\n${d.scope||'[Describe the business context]'}\n\n2. CONFIDENTIAL INFORMATION\n"Confidential Information" means any non-public information including business plans, financial data, technical information, customer lists, pricing, and trade secrets.\n\n3. DURATION\nThis Agreement is effective from ${d.date} and shall remain in force for ${d.duration||'2 years'}.`,
+  employment:(d)=> `1. POSITION AND DUTIES\nThe Employee is appointed to the position of: ${d.scope||'[Job Title and Key Duties]'}\n\n2. COMMENCEMENT AND DURATION\nStart Date: ${d.date}\nContract Type: ${d.duration||'Permanent'}\n\n3. REMUNERATION\nGross Monthly Salary: ZMW ${d.amount||'[Amount]'}\nPayment: ${d.payment||'Paid monthly on the last working day of each month.'}\n\n4. WORKING HOURS\nStandard working hours are 08:00 to 17:00, Monday to Friday.`,
+  loan:    (d) => `1. LOAN AMOUNT\nThe Lender agrees to lend to the Borrower the sum of ZMW ${d.amount||'[Amount]'} ("the Loan").\n\n2. PURPOSE\nThe Loan shall be used for the following purpose:\n${d.scope||'[State the purpose of the loan]'}\n\n3. DISBURSEMENT\nThe Loan shall be disbursed on ${d.date} by cash / bank transfer to the Borrower's account.\n\n4. REPAYMENT\nRepayment Period: ${d.duration||'[Duration]'}\nPayment Terms: ${d.payment||'Monthly instalments as agreed.'}`,
+  partnership:(d)=>`1. BUSINESS VENTURE\nThe Partners agree to carry on the following business in partnership:\n${d.scope||'[Describe the business]'}\n\n2. CAPITAL CONTRIBUTION\nEach partner shall contribute an initial capital of ZMW ${d.amount||'[Amount]'} to the partnership.\n\n3. DURATION\nThe partnership commences on ${d.date} and shall continue for ${d.duration||'an indefinite period'} unless dissolved earlier.\n\n4. PAYMENT AND DISTRIBUTIONS\n${d.payment||'Net profits and losses to be shared equally unless otherwise stated.'}`,
+  consultancy:(d)=>`1. SCOPE OF CONSULTANCY\nThe Consultant is engaged to provide the following consultancy services:\n${d.scope||'[Describe the consultancy scope and objectives]'}\n\n2. FEES\nConsultancy Fee: ZMW ${d.amount||'[Amount]'}\nPayment Terms: ${d.payment||'As agreed.'}\n\n3. ENGAGEMENT PERIOD\nCommencement Date: ${d.date}\nDuration: ${d.duration||'[Duration]'}\n\n4. INDEPENDENT CONTRACTOR\nThe Consultant is an independent contractor and not an employee. The Consultant is responsible for all applicable taxes.`
+};
+
+const SIGNING_BLOCKS = {
+  service:     (d) => `SIGNATURES\n\nIN WITNESS WHEREOF, the parties have executed this Agreement on the date stated above.\n\nPROVIDER: _______________________________   Date: ___________\n${d.p1}\n\nCLIENT: _______________________________   Date: ___________\n${d.p2}\n\nWitness: _______________________________   Date: ___________`,
+  freelance:   (d) => `SIGNATURES\n\nFREELANCER: _______________________________   Date: ___________\n${d.p1}\n\nCLIENT: _______________________________   Date: ___________\n${d.p2}`,
+  rental:      (d) => `SIGNATURES\n\nLANDLORD: _______________________________   Date: ___________\n${d.p1}\n\nTENANT: _______________________________   Date: ___________\n${d.p2}\n\nWitness: _______________________________   Date: ___________`,
+  supply:      (d) => `SIGNATURES\n\nSUPPLIER: _______________________________   Date: ___________\n${d.p1}\n\nBUYER: _______________________________   Date: ___________\n${d.p2}`,
+  nda:         (d) => `SIGNATURES\n\nDISCLOSING PARTY: _______________________________   Date: ___________\n${d.p1}\n\nRECEIVING PARTY: _______________________________   Date: ___________\n${d.p2}`,
+  employment:  (d) => `SIGNATURES\n\nEMPLOYER: _______________________________   Date: ___________\n${d.p1}\n\nEMPLOYEE: _______________________________   Date: ___________\n${d.p2}\n\nWitness: _______________________________   Date: ___________`,
+  loan:        (d) => `SIGNATURES\n\nLENDER: _______________________________   Date: ___________\n${d.p1}\n\nBORROWER: _______________________________   Date: ___________\n${d.p2}\n\nWitness: _______________________________   Date: ___________`,
+  partnership: (d) => `SIGNATURES\n\nPARTNER 1: _______________________________   Date: ___________\n${d.p1}\n\nPARTNER 2: _______________________________   Date: ___________\n${d.p2}\n\nWitness: _______________________________   Date: ___________`,
+  consultancy: (d) => `SIGNATURES\n\nCONSULTANT: _______________________________   Date: ___________\n${d.p1}\n\nCLIENT: _______________________________   Date: ___________\n${d.p2}`
+};
+
+/* ══════════════════════════════════════════
+   UI HELPERS
+══════════════════════════════════════════ */
+function setCT(btn){
+  document.querySelectorAll('.ct-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  currentCT = btn.dataset.ct;
+  activeClauses = {};
+  updateLabels();
+  renderClauses();
+}
+
+function setStyle(btn){
+  document.querySelectorAll('.style-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  currentStyle = btn.dataset.style;
+  const doc = document.getElementById('contractPreview');
+  doc.className = `contract-doc style-${currentStyle}`;
+}
+
+function updateLabels(){
+  const L = CT_LABELS[currentCT];
+  document.getElementById('p1Label').textContent   = `Party 1 — ${L.p1}`;
+  document.getElementById('p2Label').textContent   = `Party 2 — ${L.p2}`;
+  document.getElementById('scopeLabel').textContent  = L.scope;
+  document.getElementById('amountLabel').textContent = L.amount;
+  document.getElementById('durationLabel').textContent = L.duration;
+}
+
+function renderClauses(){
+  const grid  = document.getElementById('clauseGrid');
+  const items = CLAUSES[currentCT] || [];
+  grid.innerHTML = items.map(c=>`
+    <div class="clause-toggle" id="ct_${c.id}" onclick="toggleClause('${c.id}')">
+      <span class="ct-label"><i class="fas fa-check-circle" style="font-size:.7rem;opacity:.5"></i>${c.label}</span>
+      <div class="toggle-pill"></div>
+    </div>`).join('');
+}
+
+function toggleClause(id){
+  activeClauses[id] = !activeClauses[id];
+  const el = document.getElementById('ct_'+id);
+  if(el) el.classList.toggle('on', !!activeClauses[id]);
+}
+
+function fmtDate(v){
+  if(!v) return new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+  return new Date(v).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+}
+
+/* ══════════════════════════════════════════
+   GENERATE
+══════════════════════════════════════════ */
 function generateContract(){
-  const d={
-    p1:document.getElementById('ct_p1').value||'[Party 1]',
-    p1addr:document.getElementById('ct_p1addr').value||'Zambia',
-    p2:document.getElementById('ct_p2').value||'[Party 2]',
-    p2addr:document.getElementById('ct_p2addr').value||'Zambia',
-    date:fmtDate(document.getElementById('ct_date').value),
-    scope:document.getElementById('ct_scope').value,
-    amount:document.getElementById('ct_amount').value,
-    duration:document.getElementById('ct_duration').value,
-    payment:document.getElementById('ct_payment').value,
+  const d = {
+    p1:        document.getElementById('ct_p1').value       || '[Party 1]',
+    p1addr:    document.getElementById('ct_p1addr').value   || 'Zambia',
+    p2:        document.getElementById('ct_p2').value       || '[Party 2]',
+    p2addr:    document.getElementById('ct_p2addr').value   || 'Zambia',
+    date:      fmtDate(document.getElementById('ct_date').value),
+    scope:     document.getElementById('ct_scope').value,
+    amount:    document.getElementById('ct_amount').value,
+    duration:  document.getElementById('ct_duration').value,
+    payment:   document.getElementById('ct_payment').value,
     conditions:document.getElementById('ct_conditions').value
   };
-  const fn=CONTRACTS[currentCT]; if(!fn)return;
-  const preview=document.getElementById('contractPreview');
-  preview.style.fontFamily="'Times New Roman',serif";
-  preview.textContent=fn(d);
-  document.getElementById('copyCtBtn').style.display='flex';
-  document.getElementById('pdfCtBtn').style.display='flex';
+
+  const title  = CT_TITLES[currentCT]  || 'AGREEMENT';
+  const intro  = CT_INTROS[currentCT]  ? CT_INTROS[currentCT](d)  : '';
+  const core   = CT_CORE[currentCT]    ? CT_CORE[currentCT](d)    : '';
+  const signing= SIGNING_BLOCKS[currentCT] ? SIGNING_BLOCKS[currentCT](d) : '';
+
+  // Build optional clause sections
+  const clauseItems = CLAUSES[currentCT] || [];
+  let optionalSections = '';
+  let clauseNum = (core.match(/^\d+\./gm)||[]).length + 1;
+  clauseItems.forEach(c=>{
+    if(activeClauses[c.id] && CLAUSE_BLOCKS[c.id]){
+      optionalSections += `\n${clauseNum}. ${CLAUSE_BLOCKS[c.id](d)}\n`;
+      clauseNum++;
+    }
+  });
+
+  // Custom conditions
+  let customSection = '';
+  if(d.conditions){
+    customSection = `\n${clauseNum}. SPECIAL CONDITIONS\n${d.conditions}\n`;
+    clauseNum++;
+  }
+
+  // Assemble
+  const contract = [
+    title,
+    `\nThis Agreement is entered into on ${d.date} between:\n\n${intro}`,
+    `\n${core}`,
+    optionalSections,
+    customSection,
+    `\n─────────────────────────────────────────────────────────\n${signing}`,
+    `\n─────────────────────────────────────────────────────────\nThis document was generated by BLESSTech-X Free Contract Generator. It is a starting point and not formal legal advice. For complex matters, consult a qualified Zambian lawyer.`
+  ].join('\n');
+
+  const preview = document.getElementById('contractPreview');
+  preview.className = `contract-doc style-${currentStyle}`;
+  preview.innerHTML = `<pre class="contract-text">${escHtml(contract)}</pre>`;
+  preview.setAttribute('contenteditable','false');
+
+  document.getElementById('copyCtBtn').style.display = 'inline-flex';
+  document.getElementById('editCtBtn').style.display = 'inline-flex';
+  document.getElementById('pdfCtBtn').style.display  = 'inline-flex';
+
+  // Scroll to preview on mobile
+  if(window.innerWidth <= 900){
+    setTimeout(()=>preview.scrollIntoView({behavior:'smooth',block:'start'}),100);
+  }
 }
+
+function escHtml(t){ return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function enableEdit(){
+  const preview = document.getElementById('contractPreview');
+  preview.setAttribute('contenteditable','true');
+  preview.focus();
+  const btn = document.getElementById('editCtBtn');
+  btn.innerHTML = '<i class="fas fa-lock"></i> Lock';
+  btn.onclick = lockEdit;
+  preview.style.outline = '2px solid rgba(14,165,233,.3)';
+  preview.style.borderRadius = '4px';
+}
+
+function lockEdit(){
+  const preview = document.getElementById('contractPreview');
+  preview.setAttribute('contenteditable','false');
+  preview.style.outline = '';
+  const btn = document.getElementById('editCtBtn');
+  btn.innerHTML = '<i class="fas fa-edit"></i> Edit';
+  btn.onclick = enableEdit;
+}
+
 function copyContract(){
-  navigator.clipboard.writeText(document.getElementById('contractPreview').textContent).then(()=>alert('Contract copied!'));
+  const text = document.getElementById('contractPreview').innerText;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn = document.getElementById('copyCtBtn');
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+    setTimeout(()=>btn.innerHTML=orig, 2000);
+  });
 }
+
 function printContract(){
-  const text=document.getElementById('contractPreview').textContent;
-  const w=window.open('','_blank');
-  w.document.write(`<html><head><title>Contract — BLESSTech-X</title>
-  <style>body{font-family:'Times New Roman',serif;padding:72px;max-width:760px;margin:0 auto;color:#1a1a1a;font-size:12pt;line-height:1.9}
-  pre{white-space:pre-wrap;font-family:'Times New Roman',serif;font-size:12pt;line-height:1.9}
-  .footer{margin-top:48px;padding-top:16px;border-top:1px solid #ccc;font-size:9pt;color:#999;font-family:Arial,sans-serif;text-align:center}
-  @media print{body{padding:32px}}</style></head><body>
-  <pre>${text.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</pre>
-  <div class="footer">Generated by BLESSTech-X Free Contract Generator · blesstechx.com · Not legal advice. Consult a lawyer for complex matters.</div>
+  lockEdit();
+  const text = document.getElementById('contractPreview').innerText;
+  const styleMap = {
+    formal:  `font-family:'Times New Roman',Georgia,serif;font-size:12pt`,
+    modern:  `font-family:'Segoe UI',Arial,sans-serif;font-size:11pt`,
+    minimal: `font-family:'Courier New',monospace;font-size:10.5pt`
+  };
+  const bodyStyle = styleMap[currentStyle] || styleMap.formal;
+  const w = window.open('','_blank');
+  w.document.write(`<!DOCTYPE html><html><head><title>Contract — BLESSTech-X</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{${bodyStyle};padding:72px;max-width:780px;margin:0 auto;color:#1a1a1a;line-height:1.9}
+    pre{white-space:pre-wrap;word-break:break-word;${bodyStyle};line-height:1.9}
+    .footer{margin-top:48px;padding-top:14px;border-top:1px solid #ccc;font-size:9pt;color:#999;font-family:Arial,sans-serif;text-align:center}
+    @media print{body{padding:32px}}
+  </style></head><body>
+  <pre>${text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</pre>
+  <div class="footer">Generated by BLESSTech-X Free Contract Generator · blesstech-x.github.io · Not legal advice. Consult a qualified Zambian lawyer for complex matters.</div>
   </body></html>`);
-  w.document.close(); setTimeout(()=>w.print(),400);
+  w.document.close();
+  setTimeout(()=>w.print(), 400);
 }
-document.getElementById('thToggle').addEventListener('click',()=>{
-  document.getElementById('thNav').classList.toggle('th-nav-open');
-  document.getElementById('thToggle').classList.toggle('th-toggle-open');
+
+/* ══════════════════════════════════════════
+   INIT
+══════════════════════════════════════════ */
+updateLabels();
+renderClauses();
+
+/* mobile nav */
+document.getElementById('mobToggle').addEventListener('click',()=>{
+  document.getElementById('hnav').classList.toggle('open');
+  document.getElementById('mobToggle').classList.toggle('open');
 });
+/* scroll shadow */
+window.addEventListener('scroll',()=>{
+  document.getElementById('hdr').classList.toggle('scrolled', window.scrollY>8);
+},{passive:true});
 </script>
 </body>
 </html>
