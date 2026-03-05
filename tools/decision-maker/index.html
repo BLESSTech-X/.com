@@ -6,257 +6,1027 @@
   <title>Random Decision Maker | BLESSTech-X Free Tools</title>
   <meta name="description" content="Can't decide? Enter your options, spin the wheel and let fate decide. Free decision maker for individuals, teams and groups."/>
   <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <link rel="stylesheet" href="../style.css"/>
   <style>
-    .wheel-wrap{position:relative;width:340px;height:340px;margin:0 auto 32px}
-    #wheelCanvas{border-radius:50%;box-shadow:0 16px 48px rgba(0,0,0,.2)}
-    .wheel-pointer{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:2rem;filter:drop-shadow(0 2px 4px rgba(0,0,0,.3));z-index:10}
-    .spin-btn{display:block;margin:0 auto 28px;padding:16px 48px;background:var(--sky);color:white;border:none;border-radius:50px;font-size:1.1rem;font-weight:800;cursor:pointer;box-shadow:0 8px 24px rgba(14,165,233,.35);transition:var(--transition)}
-    .spin-btn:hover{background:var(--sky-dark);transform:translateY(-3px)}
-    .spin-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
-    .result-banner{text-align:center;padding:20px 32px;border-radius:var(--radius-lg);margin-bottom:24px;display:none}
-    .result-banner.show{display:block;animation:pop .4s ease}
-    @keyframes pop{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
-    .result-banner .winner{font-size:2rem;font-weight:900;color:var(--sky);margin-bottom:4px}
-    .option-row{display:grid;grid-template-columns:1fr auto;gap:8px;margin-bottom:8px;align-items:center}
-    .option-input{padding:11px 14px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.9rem;outline:none;transition:var(--transition);width:100%}
-    .option-input:focus{border-color:var(--sky)}
-    .del-btn{width:36px;height:36px;border-radius:var(--radius);background:#fee2e2;border:none;color:var(--red);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--transition)}
-    .del-btn:hover{background:#dc2626;color:white}
-    .add-opt-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--sky-light);border:1.5px solid rgba(14,165,233,.3);border-radius:var(--radius);color:var(--sky-dark);font-size:.85rem;font-weight:700;cursor:pointer;transition:var(--transition);margin-top:4px}
-    .add-opt-btn:hover{background:var(--sky);color:white}
-    .history-chip{display:inline-flex;align-items:center;gap:6px;background:var(--sky-light);border:1px solid rgba(14,165,233,.2);color:var(--sky-dark);padding:5px 12px;border-radius:20px;font-size:.82rem;font-weight:600;margin:3px}
-    .history-chip .num{background:var(--sky);color:white;border-radius:50%;width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:800}
+/* ════════════════════════════════════════════
+   TOKENS
+════════════════════════════════════════════ */
+:root{
+  --bg:#faf9f7; --bg2:#f2f0ec; --bg3:#e8e5df; --card:#ffffff;
+  --bdr:rgba(0,0,0,.09); --bdr2:rgba(0,0,0,.15);
+  --text:#1a1814; --sub:#65615b; --muted:#9e9890;
+  --brand:#0ea5e9; --brd:#0284c7;
+  --green:#10b981; --red:#ef4444; --amber:#f59e0b; --pink:#ec4899;
+  --wa:#25d366;
+  --foot-bg:#1e1c18; --foot-bdr:rgba(255,255,255,.07);
+  --foot-sub:#8a8478; --foot-lnk:#b5b0a8;
+  --fd:'Playfair Display',Georgia,serif;
+  --fs:'Syne',sans-serif;
+  --fb:'Plus Jakarta Sans',system-ui,sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --px:clamp(14px,4vw,36px); --hh:60px;
+  --s1:0 1px 5px rgba(0,0,0,.06);
+  --s2:0 4px 20px rgba(0,0,0,.09);
+  --s3:0 16px 48px rgba(0,0,0,.15);
+  --r:14px;
+}
+@media(min-width:640px){:root{--hh:64px}}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--fb);background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+button,select,input{font-family:var(--fb)}
+
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.022'/%3E%3C/svg%3E")}
+
+/* ════════════════════════════════════════════
+   HEADER
+════════════════════════════════════════════ */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--hh);
+  display:flex;align-items:center;justify-content:space-between;padding:0 var(--px);
+  background:rgba(250,249,247,.93);backdrop-filter:blur(18px) saturate(160%);
+  border-bottom:1px solid var(--bdr);transition:box-shadow .25s}
+.hdr.scrolled{box-shadow:0 2px 18px rgba(0,0,0,.08)}
+.logo{display:flex;align-items:center;gap:9px;flex-shrink:0}
+.logo img{width:30px;height:30px;border-radius:8px;object-fit:cover}
+.logo-t{font-family:var(--fd);font-weight:900;font-size:.95rem;color:var(--text);white-space:nowrap}
+.logo-t em{color:var(--brand);font-style:normal}
+.hnav{display:flex;align-items:center;gap:5px}
+.hl{padding:6px 12px;border-radius:50px;font-size:.78rem;font-weight:600;color:var(--sub);border:1px solid transparent;transition:all .18s;white-space:nowrap}
+.hl:hover{color:var(--text);background:var(--bg2);border-color:var(--bdr)}
+.hlwa{background:var(--wa)!important;color:white!important;border-color:transparent!important;box-shadow:0 3px 12px rgba(37,211,102,.28)}
+.hlwa:hover{background:#1fb055!important}
+.mob-toggle{display:none;flex-direction:column;gap:4px;width:32px;height:32px;align-items:center;justify-content:center;background:none;border:1.5px solid var(--bdr);border-radius:8px;cursor:pointer;padding:0}
+.mob-toggle span{display:block;width:16px;height:2px;background:var(--sub);border-radius:2px;transition:all .25s}
+.mob-toggle.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.mob-toggle.open span:nth-child(2){opacity:0}
+.mob-toggle.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+@media(max-width:640px){
+  .mob-toggle{display:flex}
+  .hnav{position:fixed;top:var(--hh);left:0;right:0;flex-direction:column;align-items:flex-start;gap:4px;padding:14px var(--px) 18px;background:rgba(250,249,247,.97);backdrop-filter:blur(18px);border-bottom:1px solid var(--bdr);transform:translateY(-110%);opacity:0;transition:transform .3s var(--ease),opacity .3s;pointer-events:none}
+  .hnav.open{transform:translateY(0);opacity:1;pointer-events:all}
+  .hl{width:100%;border-radius:10px}
+}
+
+/* ════════════════════════════════════════════
+   PAGE & WRAP
+════════════════════════════════════════════ */
+.page{padding-top:var(--hh)}
+.wrap{max-width:1200px;margin:0 auto;padding:0 var(--px)}
+
+/* ════════════════════════════════════════════
+   BREADCRUMB
+════════════════════════════════════════════ */
+.breadcrumb{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:clamp(14px,2vw,22px) 0 clamp(10px,1.5vw,16px);font-size:.75rem;font-weight:600;color:var(--muted)}
+.breadcrumb a{color:var(--sub);transition:color .16s}
+.breadcrumb a:hover{color:var(--brand)}
+.breadcrumb i{font-size:.55rem}
+.breadcrumb span{color:var(--brand)}
+
+/* ════════════════════════════════════════════
+   TOOL HERO
+════════════════════════════════════════════ */
+.tool-hero{display:flex;align-items:flex-start;gap:clamp(12px,2vw,20px);padding:clamp(16px,3vw,26px);background:var(--card);border:1.5px solid var(--bdr);border-radius:var(--r);box-shadow:var(--s1);margin-bottom:clamp(14px,2vw,20px)}
+.tool-hero-icon{width:54px;height:54px;border-radius:14px;background:#fce7f3;color:#db2777;display:flex;align-items:center;justify-content:center;font-size:1.55rem;flex-shrink:0}
+.tool-hero-text h1{font-family:var(--fd);font-weight:900;font-size:clamp(1.25rem,2.5vw,1.85rem);color:var(--text);margin-bottom:6px;line-height:1.2}
+.tool-hero-text p{font-size:clamp(.82rem,1.5vw,.9rem);color:var(--sub);line-height:1.7;margin-bottom:11px}
+.hero-badges{display:flex;gap:7px;flex-wrap:wrap}
+.hbadge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:50px;font-size:.65rem;font-weight:700;background:var(--bg2);color:var(--sub);border:1px solid var(--bdr)}
+.hbadge i{color:var(--brand);font-size:.62rem}
+
+/* ════════════════════════════════════════════
+   MAIN GRID
+════════════════════════════════════════════ */
+.main-grid{display:grid;grid-template-columns:1fr 380px;gap:clamp(16px,2.5vw,32px);align-items:start;margin-bottom:clamp(20px,3vw,32px)}
+@media(max-width:860px){.main-grid{grid-template-columns:1fr}}
+
+/* ════════════════════════════════════════════
+   WHEEL ARENA
+════════════════════════════════════════════ */
+.wheel-arena{
+  background:linear-gradient(160deg,#0d0b14,#1a1030);
+  border-radius:clamp(18px,3vw,26px);
+  padding:clamp(24px,4vw,40px) clamp(16px,3vw,32px);
+  position:relative;overflow:hidden;
+  border:1.5px solid rgba(255,255,255,.06);
+  box-shadow:var(--s3);
+  display:flex;flex-direction:column;align-items:center;
+}
+/* ambient glow that follows wheel color */
+.wheel-arena::before{
+  content:'';position:absolute;top:-40%;left:50%;
+  transform:translateX(-50%);
+  width:500px;height:500px;border-radius:50%;
+  background:var(--wheel-glow,rgba(99,102,241,.18));
+  filter:blur(80px);pointer-events:none;
+  transition:background 1s;
+}
+/* confetti particles */
+.confetti-wrap{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:10}
+.cp{position:absolute;top:-14px;width:10px;height:10px;border-radius:2px;opacity:0;animation:confettiFall 1.4s ease-in forwards}
+@keyframes confettiFall{0%{opacity:1;transform:translateY(0) rotate(0deg) scale(1)}100%{opacity:0;transform:translateY(100vh) rotate(720deg) scale(.4)}}
+
+/* wheel wrap */
+.wheel-wrap{position:relative;margin:0 auto clamp(20px,3vw,28px)}
+.wheel-pointer{
+  position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+  font-size:2rem;z-index:10;
+  filter:drop-shadow(0 3px 8px rgba(0,0,0,.5));
+  animation:pointerBounce 2s ease-in-out infinite;
+}
+@keyframes pointerBounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-5px)}}
+.wheel-pointer.locked{animation:none}
+#wheelCanvas{
+  display:block;border-radius:50%;
+  box-shadow:0 0 0 6px rgba(255,255,255,.08), 0 20px 60px rgba(0,0,0,.5);
+  transition:filter .3s;
+}
+.wheel-arena:not(.spinning) #wheelCanvas:hover{filter:brightness(1.08)}
+
+/* spin button */
+.spin-btn{
+  padding:clamp(13px,2vw,17px) clamp(32px,5vw,56px);
+  background:linear-gradient(135deg,#6366f1,#8b5cf6,#ec4899);
+  background-size:200% 200%;
+  animation:gradShift 3s ease infinite;
+  border:none;border-radius:50px;
+  color:white;font-weight:900;font-size:clamp(.95rem,1.8vw,1.15rem);
+  font-family:var(--fs);
+  cursor:pointer;letter-spacing:.5px;
+  box-shadow:0 8px 28px rgba(99,102,241,.45);
+  transition:transform .2s,box-shadow .2s;
+  position:relative;overflow:hidden;
+}
+.spin-btn::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);
+  transform:translateX(-100%);transition:transform .5s;
+}
+.spin-btn:hover::before{transform:translateX(100%)}
+.spin-btn:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 14px 36px rgba(99,102,241,.55)}
+.spin-btn:active{transform:scale(.98)}
+.spin-btn:disabled{opacity:.55;cursor:not-allowed;transform:none;animation:none;background:#4b5563}
+@keyframes gradShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+/* pulse ring on spin */
+.spin-ring{
+  position:absolute;inset:-4px;border-radius:50px;
+  border:3px solid rgba(139,92,246,.6);
+  opacity:0;pointer-events:none;
+}
+.spinning .spin-ring{animation:ringPulse 1s ease-in-out infinite}
+@keyframes ringPulse{0%,100%{opacity:0;transform:scale(1)}50%{opacity:1;transform:scale(1.04)}}
+
+/* ════════════════════════════════════════════
+   RESULT BANNER
+════════════════════════════════════════════ */
+.result-banner{
+  width:100%;border-radius:16px;margin-bottom:clamp(16px,2.5vw,22px);
+  padding:clamp(16px,2.5vw,22px) clamp(20px,3vw,28px);
+  text-align:center;
+  border:2px solid rgba(99,102,241,.35);
+  background:linear-gradient(135deg,rgba(99,102,241,.12),rgba(236,72,153,.08));
+  display:none;
+  position:relative;overflow:hidden;
+}
+.result-banner::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.04),transparent);
+  animation:shimmer 2.5s ease-in-out infinite;
+}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.result-banner.show{display:block;animation:popIn .45s var(--ease)}
+@keyframes popIn{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+.result-label{font-size:.72rem;font-weight:800;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px}
+.result-winner{
+  font-family:var(--fs);font-size:clamp(1.6rem,4vw,2.6rem);
+  font-weight:800;color:white;
+  text-shadow:0 0 30px rgba(139,92,246,.7),0 2px 8px rgba(0,0,0,.4);
+  margin-bottom:6px;line-height:1.15;
+  animation:winnerGlow 2s ease-in-out infinite alternate;
+}
+@keyframes winnerGlow{from{text-shadow:0 0 20px rgba(99,102,241,.5),0 2px 8px rgba(0,0,0,.4)}to{text-shadow:0 0 40px rgba(236,72,153,.7),0 2px 8px rgba(0,0,0,.4)}}
+.result-sub{font-size:.8rem;color:rgba(255,255,255,.5);font-weight:600}
+.result-emoji{font-size:2rem;display:block;margin-bottom:6px;animation:emojiSpin 1s var(--ease)}
+@keyframes emojiSpin{from{transform:rotate(-30deg) scale(0)}to{transform:rotate(0) scale(1)}}
+
+/* spin counter badge */
+.spin-count-badge{
+  position:absolute;top:16px;right:16px;
+  background:rgba(255,255,255,.1);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.12);
+  padding:4px 12px;border-radius:50px;
+  font-size:.68rem;font-weight:800;color:rgba(255,255,255,.7);
+}
+
+/* ════════════════════════════════════════════
+   BOXES
+════════════════════════════════════════════ */
+.box{background:var(--card);border:1.5px solid var(--bdr);border-radius:var(--r);box-shadow:var(--s1);overflow:hidden;margin-bottom:clamp(10px,1.8vw,14px)}
+.box:last-child{margin-bottom:0}
+.box-hd{display:flex;align-items:center;justify-content:space-between;padding:clamp(11px,1.8vw,14px) clamp(14px,2.5vw,20px);border-bottom:1px solid var(--bdr);background:var(--bg);flex-wrap:wrap;gap:8px}
+.box-hd h2{display:flex;align-items:center;gap:8px;font-family:var(--fd);font-size:clamp(.86rem,1.4vw,.96rem);font-weight:700;color:var(--text)}
+.box-hd h2 i{color:var(--brand)}
+.box-bd{padding:clamp(12px,2.5vw,18px)}
+
+/* ════════════════════════════════════════════
+   OPTIONS
+════════════════════════════════════════════ */
+.option-row{display:grid;grid-template-columns:auto 1fr auto;gap:7px;margin-bottom:7px;align-items:center}
+.opt-color{width:14px;height:14px;border-radius:50%;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.option-input{
+  padding:9px 12px;border:1.5px solid var(--bdr);border-radius:9px;
+  font-size:.85rem;outline:none;background:var(--bg);color:var(--text);
+  transition:border-color .18s,box-shadow .18s;width:100%;
+}
+.option-input:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(14,165,233,.1);background:var(--card)}
+.option-input::placeholder{color:var(--muted)}
+.del-btn{width:32px;height:32px;border-radius:8px;background:rgba(239,68,68,.1);border:1.5px solid rgba(239,68,68,.18);color:var(--red);cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
+.del-btn:hover{background:var(--red);color:white;border-color:var(--red)}
+.add-opt-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:rgba(14,165,233,.07);border:1.5px solid rgba(14,165,233,.22);border-radius:9px;color:var(--brd);font-size:.78rem;font-weight:700;cursor:pointer;transition:all .16s;margin-top:4px}
+.add-opt-btn:hover{background:var(--brand);color:white;border-color:var(--brand)}
+
+/* quick sets */
+.quick-sets{display:flex;flex-wrap:wrap;gap:7px;margin-top:2px}
+.qs-btn{padding:6px 13px;border-radius:50px;border:1.5px solid var(--bdr);background:var(--bg2);font-size:.74rem;font-weight:700;color:var(--sub);cursor:pointer;transition:all .16s;white-space:nowrap}
+.qs-btn:hover{border-color:var(--brand);color:var(--brand);background:rgba(14,165,233,.06)}
+
+/* stats */
+.stats-row{display:flex;gap:clamp(8px,2vw,16px);flex-wrap:wrap;margin-top:14px;padding-top:12px;border-top:1px solid var(--bdr)}
+.stat-item{display:flex;flex-direction:column;align-items:center;flex:1;min-width:60px}
+.stat-val{font-family:var(--fs);font-size:clamp(1.1rem,2.5vw,1.5rem);font-weight:800;color:var(--brand)}
+.stat-lbl{font-size:.62rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+
+/* divider */
+.divider{height:1px;background:var(--bdr);margin:14px 0}
+
+/* ════════════════════════════════════════════
+   HISTORY
+════════════════════════════════════════════ */
+.history-box{margin-top:clamp(10px,1.8vw,14px)}
+.hist-item{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:8px 12px;border-radius:9px;margin-bottom:6px;
+  background:var(--bg2);border:1.5px solid var(--bdr);
+  font-size:.82rem;font-weight:700;color:var(--sub);
+  animation:slideIn .3s var(--ease);
+}
+@keyframes slideIn{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:translateX(0)}}
+.hist-item:first-child{border-color:rgba(99,102,241,.35);background:rgba(99,102,241,.06);color:var(--text)}
+.hist-badge{background:var(--brand);color:white;border-radius:50px;padding:2px 9px;font-size:.65rem;font-weight:800;flex-shrink:0}
+.hist-item:first-child .hist-badge{background:linear-gradient(135deg,#6366f1,#ec4899)}
+.hist-time{font-size:.65rem;color:var(--muted);font-weight:500}
+
+/* ════════════════════════════════════════════
+   MODE TABS (Wheel / Random / Yes-No)
+════════════════════════════════════════════ */
+.mode-tabs{display:flex;gap:0;margin-bottom:clamp(14px,2vw,20px);background:var(--bg2);border:1.5px solid var(--bdr);border-radius:11px;padding:4px}
+.mode-tab{flex:1;padding:9px;border:none;border-radius:8px;background:none;font-family:var(--fb);font-size:.76rem;font-weight:700;color:var(--muted);cursor:pointer;transition:all .18s;text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px}
+.mode-tab .tab-icon{font-size:1.1rem}
+.mode-tab:hover{color:var(--text)}
+.mode-tab.active{background:var(--card);color:var(--brand);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+
+/* ════════════════════════════════════════════
+   COIN FLIP MODE
+════════════════════════════════════════════ */
+.coin-wrap{display:flex;flex-direction:column;align-items:center;padding:clamp(20px,4vw,36px) 0;gap:24px}
+.coin{
+  width:clamp(100px,18vw,140px);height:clamp(100px,18vw,140px);
+  border-radius:50%;position:relative;
+  transform-style:preserve-3d;
+  cursor:pointer;
+}
+.coin.flipping{animation:coinFlip .8s ease-in-out}
+@keyframes coinFlip{
+  0%{transform:rotateX(0)}
+  25%{transform:rotateX(900deg) translateY(-60px)}
+  75%{transform:rotateX(1620deg) translateY(-60px)}
+  100%{transform:rotateX(1800deg)}
+}
+.coin-face{
+  position:absolute;inset:0;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:clamp(2rem,5vw,2.8rem);
+  box-shadow:0 8px 24px rgba(0,0,0,.25),inset 0 2px 4px rgba(255,255,255,.3);
+  backface-visibility:hidden;
+}
+.coin-heads{background:linear-gradient(135deg,#f59e0b,#fbbf24)}
+.coin-tails{background:linear-gradient(135deg,#6366f1,#8b5cf6);transform:rotateX(180deg)}
+.coin-result{font-family:var(--fs);font-size:clamp(1.2rem,3vw,1.6rem);font-weight:800;color:var(--text);text-align:center;min-height:2rem}
+.flip-btn{padding:12px 32px;background:linear-gradient(135deg,#f59e0b,#ec4899);border:none;border-radius:50px;color:white;font-weight:800;font-size:.9rem;font-family:var(--fs);cursor:pointer;box-shadow:0 6px 20px rgba(245,158,11,.35);transition:all .2s}
+.flip-btn:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 10px 28px rgba(245,158,11,.45)}
+.flip-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+/* ════════════════════════════════════════════
+   RANDOM NUMBER MODE
+════════════════════════════════════════════ */
+.rng-wrap{display:flex;flex-direction:column;align-items:center;padding:clamp(16px,3vw,28px) 0;gap:18px}
+.rng-display{
+  font-family:var(--fs);font-size:clamp(3rem,10vw,6rem);font-weight:800;
+  color:transparent;
+  background:linear-gradient(135deg,#6366f1,#ec4899);
+  -webkit-background-clip:text;background-clip:text;
+  line-height:1;text-align:center;min-width:200px;
+  animation:numPop .35s var(--ease);
+}
+@keyframes numPop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+.rng-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center}
+.rng-input{width:80px;padding:9px 12px;border:1.5px solid var(--bdr);border-radius:9px;font-size:.88rem;text-align:center;outline:none;background:var(--bg);color:var(--text);transition:border-color .18s}
+.rng-input:focus{border-color:var(--brand)}
+.rng-label{font-size:.78rem;font-weight:700;color:var(--muted)}
+.rng-btn{padding:11px 28px;background:linear-gradient(135deg,#6366f1,#8b5cf6);border:none;border-radius:50px;color:white;font-weight:800;font-size:.84rem;font-family:var(--fs);cursor:pointer;box-shadow:0 5px 18px rgba(99,102,241,.35);transition:all .2s}
+.rng-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(99,102,241,.45)}
+
+/* ════════════════════════════════════════════
+   BUTTONS
+════════════════════════════════════════════ */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:9px;border:none;font-weight:700;font-size:.8rem;cursor:pointer;font-family:var(--fb);transition:all .18s;white-space:nowrap}
+.btn-primary{background:var(--brand);color:white;box-shadow:0 3px 10px rgba(14,165,233,.25)}
+.btn-primary:hover{background:var(--brd);transform:translateY(-1px)}
+.btn-secondary{background:var(--bg2);color:var(--sub);border:1.5px solid var(--bdr)}
+.btn-secondary:hover{color:var(--text);border-color:var(--bdr2)}
+.btn-sm{padding:6px 12px;font-size:.74rem;border-radius:8px}
+
+/* ════════════════════════════════════════════
+   CTA
+════════════════════════════════════════════ */
+.cta-strip{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;padding:clamp(16px,2.5vw,22px) clamp(18px,3vw,26px);background:linear-gradient(135deg,#fce7f3,#ede9fe);border:1.5px solid rgba(219,39,119,.12);border-radius:var(--r);margin-bottom:clamp(16px,2.5vw,22px)}
+.cta-strip h4{font-family:var(--fd);font-size:clamp(.95rem,1.8vw,1.1rem);font-weight:900;color:var(--text);margin-bottom:4px}
+.cta-strip p{font-size:clamp(.78rem,1.4vw,.84rem);color:var(--sub)}
+.btn-wa{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:11px;background:var(--wa);color:white;font-weight:700;font-size:.84rem;box-shadow:0 4px 14px rgba(37,211,102,.28);transition:all .18s;white-space:nowrap;flex-shrink:0}
+.btn-wa:hover{background:#1fb055;transform:translateY(-1px)}
+
+/* related */
+.related{background:var(--bg2);border:1.5px solid var(--bdr);border-radius:var(--r);padding:clamp(18px,3vw,26px);margin-bottom:clamp(20px,3vw,36px)}
+.related h3{font-family:var(--fd);font-size:clamp(.95rem,1.5vw,1.05rem);font-weight:900;color:var(--text);margin-bottom:14px}
+.related-grid{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+.related-card{display:flex;align-items:center;gap:9px;padding:11px 13px;border-radius:11px;background:var(--card);border:1.5px solid var(--bdr);font-size:.82rem;font-weight:700;color:var(--sub);transition:all .18s;box-shadow:var(--s1)}
+.related-card:hover{color:var(--brand);border-color:rgba(14,165,233,.3);transform:translateY(-2px);box-shadow:var(--s2)}
+.related-card span{font-size:1.1rem}
+
+/* ════════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════════ */
+.foot{background:var(--foot-bg);border-top:1px solid var(--foot-bdr);padding:clamp(28px,5vw,48px) var(--px) 0}
+.foot-g{max-width:1200px;margin:0 auto;display:grid;gap:clamp(20px,3vw,36px);grid-template-columns:2fr 1fr 1fr 1fr;padding-bottom:clamp(22px,3vw,36px)}
+@media(max-width:700px){.foot-g{grid-template-columns:1fr 1fr}}
+@media(max-width:400px){.foot-g{grid-template-columns:1fr}}
+.foot .logo-t{color:#e8e5df}
+.foot .logo-t em{color:var(--brand)}
+.foot-desc{font-size:.8rem;color:var(--foot-sub);line-height:1.75;margin-top:10px;max-width:220px}
+.fc h4{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--foot-sub);margin-bottom:12px}
+.fc a{display:block;color:var(--foot-lnk);font-size:.8rem;margin-bottom:8px;transition:color .16s}
+.fc a:hover{color:white}
+.foot-bot{max-width:1200px;margin:0 auto;border-top:1px solid var(--foot-bdr);padding:clamp(14px,2vw,20px) 0 clamp(18px,2.5vw,26px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.foot-bot p{color:var(--foot-sub);font-size:.72rem}
+
+.wafab{position:fixed;bottom:18px;right:18px;z-index:90;width:50px;height:50px;border-radius:50%;background:var(--wa);color:white;display:flex;align-items:center;justify-content:center;font-size:1.28rem;box-shadow:0 5px 20px rgba(37,211,102,.35);transition:all .2s}
+.wafab:hover{transform:scale(1.1) translateY(-2px)}
+
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:3px}
   </style>
 </head>
-<body class="tool-page">
-  <header class="tools-header">
-    <div class="th-inner">
-      <a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a>
-      <nav class="th-nav" id="thNav">
-        <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
-        <a href="../index.html"><i class="fas fa-tools"></i> All Tools</a>
-        <a href="../../index.html#services">Services</a>
-        <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-      </nav>
-      <button class="th-mobile-toggle" id="thToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
-    </div>
-  </header>
+<body>
 
-  <main class="tool-page-main">
-    <div class="th-container">
-      <div class="tool-breadcrumb">
-        <a href="../../index.html">Home</a><i class="fas fa-chevron-right"></i>
-        <a href="../index.html">Free Tools</a><i class="fas fa-chevron-right"></i>
-        <span>Random Decision Maker</span>
-      </div>
-      <div class="tool-header">
-        <div class="tool-header-inner">
-          <div class="tool-header-icon" style="background:#fce7f3;color:#db2777">🎯</div>
-          <div>
-            <h1>Random Decision Maker</h1>
-            <p>Can't decide? Enter your options, spin the wheel and let fate choose for you. Works for lunch choices, team decisions, game night picks, and more.</p>
-            <div class="tool-header-meta">
-              <span class="tool-meta-badge"><i class="fas fa-check-circle"></i> Free</span>
-              <span class="tool-meta-badge"><i class="fas fa-sync"></i> Animated Spin</span>
-              <span class="tool-meta-badge"><i class="fas fa-users"></i> Everyone · Teams</span>
-            </div>
-          </div>
+<!-- HEADER -->
+<header class="hdr" id="hdr">
+  <a href="../../index.html" class="logo">
+    <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/>
+    <span class="logo-t">BLESS<em>Tech-X</em></span>
+  </a>
+  <nav class="hnav" id="hnav">
+    <a href="../../index.html" class="hl"><i class="fas fa-home"></i> Home</a>
+    <a href="../index.html" class="hl"><i class="fas fa-tools"></i> All Tools</a>
+    <a href="../../index.html#services" class="hl">Services</a>
+    <a href="https://wa.me/260979603741" target="_blank" class="hl hlwa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+  </nav>
+  <button class="mob-toggle" id="mobToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+</header>
+
+<div class="page">
+  <div class="wrap">
+
+    <nav class="breadcrumb">
+      <a href="../../index.html">Home</a><i class="fas fa-chevron-right"></i>
+      <a href="../index.html">Free Tools</a><i class="fas fa-chevron-right"></i>
+      <span>Random Decision Maker</span>
+    </nav>
+
+    <div class="tool-hero">
+      <div class="tool-hero-icon">🎯</div>
+      <div class="tool-hero-text">
+        <h1>Random Decision Maker</h1>
+        <p>Can't decide? Enter your options, spin the wheel, flip a coin, or generate a random number — and let fate choose for you. Works for lunch, team picks, game nights and life decisions.</p>
+        <div class="hero-badges">
+          <span class="hbadge"><i class="fas fa-check-circle"></i> Free</span>
+          <span class="hbadge"><i class="fas fa-sync"></i> Spin Wheel</span>
+          <span class="hbadge"><i class="fas fa-coins"></i> Coin Flip</span>
+          <span class="hbadge"><i class="fas fa-dice"></i> Random Number</span>
+          <span class="hbadge"><i class="fas fa-users"></i> Everyone · Teams</span>
         </div>
       </div>
+    </div>
 
-      <div style="display:grid;grid-template-columns:1fr 380px;gap:36px;align-items:start">
-        <!-- WHEEL -->
+    <!-- MODE TABS -->
+    <div class="mode-tabs">
+      <button class="mode-tab active" id="tabWheel" onclick="setMode('wheel')"><span class="tab-icon">🎡</span>Spin Wheel</button>
+      <button class="mode-tab" id="tabCoin"  onclick="setMode('coin')"><span class="tab-icon">🪙</span>Coin Flip</button>
+      <button class="mode-tab" id="tabRng"   onclick="setMode('rng')"><span class="tab-icon">🎲</span>Random Number</button>
+    </div>
+
+    <!-- ══ WHEEL MODE ══ -->
+    <div id="modeWheel">
+      <div class="main-grid">
+
+        <!-- LEFT: WHEEL -->
         <div>
-          <div id="resultBanner" class="result-banner" style="background:linear-gradient(135deg,var(--sky-light),rgba(14,165,233,.08));border:2px solid rgba(14,165,233,.3)">
-            <div style="font-size:.88rem;font-weight:700;color:var(--muted);margin-bottom:4px">🎉 The decision is…</div>
-            <div class="winner" id="winnerText">—</div>
-            <div style="font-size:.83rem;color:var(--muted);margin-top:4px" id="winnerSub"></div>
-          </div>
+          <div class="wheel-arena" id="wheelArena">
+            <div class="confetti-wrap" id="confettiWrap"></div>
+            <div class="spin-count-badge" id="spinCountBadge">Spins: 0</div>
 
-          <div class="wheel-wrap">
-            <div class="wheel-pointer">▼</div>
-            <canvas id="wheelCanvas" width="340" height="340"></canvas>
-          </div>
+            <!-- result banner inside dark arena -->
+            <div id="resultBanner" class="result-banner" style="width:100%">
+              <div class="result-label">🎉 The decision is…</div>
+              <span class="result-emoji" id="resultEmoji">🎯</span>
+              <div class="result-winner" id="winnerText">—</div>
+              <div class="result-sub" id="winnerSub"></div>
+            </div>
 
-          <button class="spin-btn" id="spinBtn" onclick="spinWheel()">
-            <i class="fas fa-sync-alt"></i> SPIN THE WHEEL
-          </button>
+            <div class="wheel-wrap" id="wheelWrap">
+              <div class="wheel-pointer" id="wheelPointer">▼</div>
+              <canvas id="wheelCanvas" width="320" height="320"></canvas>
+            </div>
+
+            <div style="position:relative">
+              <button class="spin-btn" id="spinBtn" onclick="spinWheel()">
+                <div class="spin-ring"></div>
+                <i class="fas fa-sync-alt"></i> SPIN THE WHEEL
+              </button>
+            </div>
+          </div>
 
           <!-- History -->
-          <div class="tool-box" style="margin-top:8px">
-            <div class="tool-box-header"><h2><i class="fas fa-history" style="color:var(--sky)"></i> Recent Decisions</h2><button class="btn btn-sm btn-secondary" onclick="clearHistory()">Clear</button></div>
-            <div class="tool-box-body">
-              <div id="histDiv" style="min-height:40px"><span style="color:var(--muted);font-size:.85rem;font-style:italic">Spin results will appear here</span></div>
+          <div class="box history-box">
+            <div class="box-hd">
+              <h2><i class="fas fa-history"></i> Decision History</h2>
+              <button class="btn btn-sm btn-secondary" onclick="clearHistory()"><i class="fas fa-trash-alt"></i> Clear</button>
+            </div>
+            <div class="box-bd" id="histDiv">
+              <span style="color:var(--muted);font-size:.84rem;font-style:italic">Spin results will appear here…</span>
             </div>
           </div>
         </div>
 
-        <!-- OPTIONS -->
+        <!-- RIGHT: OPTIONS -->
         <div>
-          <div class="tool-box">
-            <div class="tool-box-header"><h2><i class="fas fa-list" style="color:var(--sky)"></i> Your Options</h2><button class="btn btn-sm btn-secondary" onclick="clearOptions()">Clear all</button></div>
-            <div class="tool-box-body">
-              <div id="optionsList">
-                <div class="option-row"><input class="option-input" type="text" placeholder="Option 1" value="Option A"/><button class="del-btn" onclick="delOpt(this)">×</button></div>
-                <div class="option-row"><input class="option-input" type="text" placeholder="Option 2" value="Option B"/><button class="del-btn" onclick="delOpt(this)">×</button></div>
-                <div class="option-row"><input class="option-input" type="text" placeholder="Option 3" value="Option C"/><button class="del-btn" onclick="delOpt(this)">×</button></div>
-              </div>
+          <div class="box">
+            <div class="box-hd">
+              <h2><i class="fas fa-list-ul"></i> Your Options</h2>
+              <button class="btn btn-sm btn-secondary" onclick="clearOptions()">Clear all</button>
+            </div>
+            <div class="box-bd">
+              <div id="optionsList"></div>
               <button class="add-opt-btn" onclick="addOpt()"><i class="fas fa-plus"></i> Add Option</button>
-              <hr class="tool-divider"/>
-              <p style="font-size:.8rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Quick Sets</p>
-              <div style="display:flex;flex-wrap:wrap;gap:8px">
-                <button class="btn btn-secondary btn-sm" onclick="loadSet(['Yes','No'])">Yes / No</button>
-                <button class="btn btn-secondary btn-sm" onclick="loadSet(['Nshima','Rice','Bread','Pizza','Chips'])">Lunch Ideas</button>
-                <button class="btn btn-secondary btn-sm" onclick="loadSet(['Option A','Option B','Option C','Option D'])">A B C D</button>
-                <button class="btn btn-secondary btn-sm" onclick="loadSet(['Monday','Tuesday','Wednesday','Thursday','Friday'])">Weekdays</button>
-                <button class="btn btn-secondary btn-sm" onclick="loadSet(['Team 1','Team 2','Team 3'])">3 Teams</button>
+
+              <div class="divider"></div>
+              <div style="font-size:.72rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">⚡ Quick Sets</div>
+              <div class="quick-sets">
+                <button class="qs-btn" onclick="loadSet(['Yes','No'])">✅ Yes / No</button>
+                <button class="qs-btn" onclick="loadSet(['Nshima','Rice','Bread','Pizza','Chips'])">🍽️ Lunch</button>
+                <button class="qs-btn" onclick="loadSet(['Option A','Option B','Option C','Option D'])">🔤 A B C D</button>
+                <button class="qs-btn" onclick="loadSet(['Monday','Tuesday','Wednesday','Thursday','Friday'])">📅 Weekdays</button>
+                <button class="qs-btn" onclick="loadSet(['Team 1','Team 2','Team 3'])">👥 3 Teams</button>
+                <button class="qs-btn" onclick="loadSet(['Rock','Paper','Scissors'])">✊ RPS</button>
+                <button class="qs-btn" onclick="loadSet(['Go Out','Stay Home','Netflix','Read','Exercise'])">😴 Tonight?</button>
+                <button class="qs-btn" onclick="loadSet(['Airtel','MTN','Zamtel'])">📱 Network</button>
               </div>
-              <hr class="tool-divider"/>
-              <div style="font-size:.82rem;color:var(--muted);margin-bottom:8px;font-weight:600">Options count: <span id="optCount" style="color:var(--sky);font-weight:800">3</span></div>
-              <div style="font-size:.82rem;color:var(--muted)">Each option has an equal <span id="optChance" style="color:var(--sky);font-weight:700">33.3%</span> chance of being selected.</div>
+
+              <div class="stats-row">
+                <div class="stat-item">
+                  <div class="stat-val" id="statCount">3</div>
+                  <div class="stat-lbl">Options</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-val" id="statChance">33%</div>
+                  <div class="stat-lbl">Each Chance</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-val" id="statSpins">0</div>
+                  <div class="stat-lbl">Total Spins</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-val" id="statWinner">—</div>
+                  <div class="stat-lbl">Last Pick</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /modeWheel -->
+
+    <!-- ══ COIN MODE ══ -->
+    <div id="modeCoin" style="display:none">
+      <div style="max-width:520px;margin:0 auto">
+        <div class="box">
+          <div class="box-hd"><h2><i class="fas fa-coins" style="color:#f59e0b"></i> Coin Flip</h2></div>
+          <div class="box-bd">
+            <div class="coin-wrap">
+              <div class="coin" id="coin" onclick="flipCoin()">
+                <div class="coin-face coin-heads">👑</div>
+                <div class="coin-face coin-tails">🦅</div>
+              </div>
+              <div class="coin-result" id="coinResult">Tap the coin or press Flip!</div>
+              <button class="flip-btn" id="flipBtn" onclick="flipCoin()"><i class="fas fa-coins"></i> Flip Coin</button>
+              <div style="font-size:.78rem;color:var(--muted);text-align:center">Tap the coin or click Flip — best of <select id="bestOf" style="border:1px solid var(--bdr);border-radius:6px;padding:2px 6px;font-size:.74rem;background:var(--bg);color:var(--text);outline:none"><option value="1">1</option><option value="3" selected>3</option><option value="5">5</option><option value="7">7</option></select> rounds</div>
+              <div id="coinHistory" style="width:100%;display:flex;gap:6px;flex-wrap:wrap;justify-content:center;min-height:28px;margin-top:4px"></div>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="tool-service-cta" style="margin-top:36px">
-        <div><h4>Need help deciding on your digital strategy?</h4><p>BLESSTech-X offers free digital consultations for Zambian businesses. Let's plan your online presence.</p></div>
-        <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I want a free digital consultation." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Free Consultation</a>
-      </div>
-      <div class="related-tools" style="margin-top:32px;background:var(--bg-alt);border-radius:var(--radius-lg);padding:28px">
-        <h3>You Might Also Need</h3>
-        <div class="related-grid">
-          <a href="../pomodoro/index.html" class="related-card"><span>🍅</span> Pomodoro Timer</a>
-          <a href="../countdown/index.html" class="related-card"><span>⏳</span> Countdown Timer</a>
-          <a href="../tip-splitter/index.html" class="related-card"><span>🍽️</span> Bill Splitter</a>
-          <a href="../qr-generator/index.html" class="related-card"><span>◼️</span> QR Generator</a>
+    <!-- ══ RNG MODE ══ -->
+    <div id="modeRng" style="display:none">
+      <div style="max-width:520px;margin:0 auto">
+        <div class="box">
+          <div class="box-hd"><h2><i class="fas fa-dice" style="color:#8b5cf6"></i> Random Number Generator</h2></div>
+          <div class="box-bd">
+            <div class="rng-wrap">
+              <div class="rng-display" id="rngDisplay">?</div>
+              <div class="rng-controls">
+                <div class="rng-label">From</div>
+                <input class="rng-input" type="number" id="rngMin" value="1"/>
+                <div class="rng-label">To</div>
+                <input class="rng-input" type="number" id="rngMax" value="100"/>
+              </div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+                <button class="rng-btn" onclick="rollRng()"><i class="fas fa-dice"></i> Generate</button>
+                <button class="btn btn-secondary" onclick="rollRngMulti()" title="Roll 5 numbers"><i class="fas fa-th"></i> Roll ×5</button>
+              </div>
+              <div id="rngMulti" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;min-height:32px"></div>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:4px">
+                <button class="qs-btn" onclick="setRngRange(1,6)">🎲 Dice (1-6)</button>
+                <button class="qs-btn" onclick="setRngRange(1,10)">1-10</button>
+                <button class="qs-btn" onclick="setRngRange(1,100)">1-100</button>
+                <button class="qs-btn" onclick="setRngRange(1,1000)">1-1000</button>
+                <button class="qs-btn" onclick="setRngRange(0,9)">0-9 PIN digit</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </main>
 
-  <footer class="tools-footer">
-    <div class="th-container">
-      <div class="tf-inner">
-        <div class="tf-brand"><a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a><p>Free tools for every Zambian.</p></div>
-        <div class="tf-links"><h4>Free Tools</h4><a href="../index.html">All Tools</a><a href="../pomodoro/index.html">Pomodoro Timer</a><a href="../tip-splitter/index.html">Bill Splitter</a></div>
-        <div class="tf-links"><h4>BLESSTech-X</h4><a href="../../index.html">Main Website</a><a href="../../index.html#services">Services</a><a href="../../index.html#contact">Contact</a></div>
-        <div class="tf-contact"><h4>Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
+    <!-- CTA -->
+    <div class="cta-strip">
+      <div>
+        <h4>Need help deciding on your digital strategy?</h4>
+        <p>BLESSTech-X offers free digital consultations for Zambian businesses. Let's plan your online presence.</p>
       </div>
-      <div class="tf-bottom"><p>&copy; 2026 BLESSTech-X · Free Decision Maker · Built for Zambia 🇿🇲</p></div>
+      <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I want a free digital consultation." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Free Consultation</a>
     </div>
-  </footer>
-  <a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+    <div class="related">
+      <h3>You Might Also Need</h3>
+      <div class="related-grid">
+        <a href="../pomodoro/index.html"       class="related-card"><span>🍅</span> Pomodoro Timer</a>
+        <a href="../countdown/index.html"      class="related-card"><span>⏳</span> Countdown Timer</a>
+        <a href="../tip-splitter/index.html"   class="related-card"><span>🍽️</span> Bill Splitter</a>
+        <a href="../playlist-mood/index.html"  class="related-card"><span>🎵</span> Playlist Mood</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="foot-g">
+    <div class="fc">
+      <a href="../../index.html" class="logo">
+        <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X" style="width:28px;height:28px;border-radius:7px;object-fit:cover"/>
+        <span class="logo-t" style="font-size:.9rem;margin-left:8px">BLESS<em>Tech-X</em></span>
+      </a>
+      <p class="foot-desc">Free tools for every Zambian. Built in Lusaka with love. 🇿🇲</p>
+    </div>
+    <div class="fc">
+      <h4>Free Tools</h4>
+      <a href="../index.html">All Tools</a>
+      <a href="../pomodoro/index.html">Pomodoro Timer</a>
+      <a href="../tip-splitter/index.html">Bill Splitter</a>
+      <a href="../budget-planner/index.html">Budget Planner</a>
+    </div>
+    <div class="fc">
+      <h4>BLESSTech-X</h4>
+      <a href="../../index.html">Main Website</a>
+      <a href="../../index.html#services">Services</a>
+      <a href="../../index.html#contact">Contact</a>
+    </div>
+    <div class="fc">
+      <h4>Contact</h4>
+      <a href="tel:+260979603741"><i class="fas fa-phone" style="width:14px"></i> +260 979 603 741</a>
+      <a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp" style="width:14px"></i> WhatsApp</a>
+    </div>
+  </div>
+  <div class="foot-bot">
+    <p>© 2026 BLESSTech-X · Free Decision Maker · Built for Zambia 🇿🇲</p>
+    <p>No sign-up · No ads · 100% free</p>
+  </div>
+</footer>
+
+<a href="https://wa.me/260979603741" class="wafab" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
 
 <script>
-const COLORS=['#0ea5e9','#8b5cf6','#10b981','#f59e0b','#ef4444','#ec4899','#06b6d4','#d97706','#6366f1','#14b8a6','#f97316','#84cc16'];
-let spinning=false;
+/* ══════════════════════════════════════════
+   CONSTANTS & STATE
+══════════════════════════════════════════ */
+const COLORS=['#6366f1','#ec4899','#10b981','#f59e0b','#ef4444','#0ea5e9','#8b5cf6','#d97706','#06b6d4','#f97316','#14b8a6','#84cc16','#a855f7','#e11d48'];
+const RESULT_EMOJIS={win:'🎉',pick:'🎯',food:'🍽️',team:'👥',day:'📅',yesno:'✅'};
+let spinning=false, currentAngle=0, totalSpins=0;
 let decisionHistory=[];
-let currentAngle=0;
 
-function getOptions(){ return Array.from(document.querySelectorAll('.option-input')).map(i=>i.value.trim()).filter(Boolean); }
+/* ══════════════════════════════════════════
+   MODE SWITCHING
+══════════════════════════════════════════ */
+function setMode(m){
+  ['wheel','coin','rng'].forEach(function(id){
+    document.getElementById('mode'+id.charAt(0).toUpperCase()+id.slice(1)).style.display = m===id?'block':'none';
+    document.getElementById('tab'+id.charAt(0).toUpperCase()+id.slice(1)).classList.toggle('active', m===id);
+  });
+}
 
-function drawWheel(angle=0){
-  const canvas=document.getElementById('wheelCanvas');
-  const ctx=canvas.getContext('2d');
-  const opts=getOptions();
-  const cx=170,cy=170,r=160;
-  ctx.clearRect(0,0,340,340);
-  if(opts.length===0){ ctx.fillStyle='#e2e8f0'; ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fill(); return; }
-  const slice=(Math.PI*2)/opts.length;
-  opts.forEach((opt,i)=>{
-    const start=angle+i*slice;
-    const end=start+slice;
-    ctx.beginPath(); ctx.moveTo(cx,cy);
-    ctx.arc(cx,cy,r,start,end); ctx.closePath();
-    ctx.fillStyle=COLORS[i%COLORS.length]; ctx.fill();
-    ctx.strokeStyle='white'; ctx.lineWidth=3; ctx.stroke();
+/* ══════════════════════════════════════════
+   WHEEL — draw
+══════════════════════════════════════════ */
+function getOptions(){
+  return Array.from(document.querySelectorAll('.option-input')).map(function(i){return i.value.trim();}).filter(Boolean);
+}
+
+function drawWheel(angle){
+  angle = angle||0;
+  var canvas=document.getElementById('wheelCanvas');
+  var ctx=canvas.getContext('2d');
+  var opts=getOptions();
+  var cx=160,cy=160,r=152;
+  ctx.clearRect(0,0,320,320);
+
+  if(!opts.length){
+    ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2);
+    var g=ctx.createRadialGradient(cx,cy,40,cx,cy,r);
+    g.addColorStop(0,'#2d1b69'); g.addColorStop(1,'#1a0a3d');
+    ctx.fillStyle=g; ctx.fill();
+    ctx.fillStyle='rgba(255,255,255,.2)'; ctx.font='bold 14px Plus Jakarta Sans,sans-serif';
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText('Add options →',cx,cy);
+    return;
+  }
+
+  var slice=(Math.PI*2)/opts.length;
+  // outer glow ring
+  ctx.beginPath(); ctx.arc(cx,cy,r+4,0,Math.PI*2);
+  ctx.strokeStyle='rgba(255,255,255,.08)'; ctx.lineWidth=8; ctx.stroke();
+
+  opts.forEach(function(opt,i){
+    var start=angle+i*slice, end=start+slice;
+    // slice fill
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.arc(cx,cy,r,start,end); ctx.closePath();
+    var col=COLORS[i%COLORS.length];
+    // gradient per slice for depth
+    var mx=cx+Math.cos(start+slice/2)*r*.6, my=cy+Math.sin(start+slice/2)*r*.6;
+    var sg=ctx.createRadialGradient(mx,my,0,cx,cy,r);
+    sg.addColorStop(0,lighten(col,.25)); sg.addColorStop(1,col);
+    ctx.fillStyle=sg; ctx.fill();
+    ctx.strokeStyle='rgba(0,0,0,.25)'; ctx.lineWidth=2; ctx.stroke();
+
+    // text
     ctx.save(); ctx.translate(cx,cy); ctx.rotate(start+slice/2);
-    ctx.textAlign='right'; ctx.fillStyle='white'; ctx.font=`bold ${Math.min(16,Math.max(10,200/opts.length))}px Segoe UI,sans-serif`;
-    ctx.shadowColor='rgba(0,0,0,.3)'; ctx.shadowBlur=3;
-    const maxLen=Math.min(opt.length,18);
-    ctx.fillText(opt.substring(0,maxLen),r-10,5);
+    ctx.textAlign='right';
+    var fs=Math.min(15,Math.max(9,180/opts.length));
+    ctx.font='bold '+fs+'px Plus Jakarta Sans,sans-serif';
+    ctx.fillStyle='white';
+    ctx.shadowColor='rgba(0,0,0,.5)'; ctx.shadowBlur=4;
+    var label=opt.length>16?opt.substring(0,15)+'…':opt;
+    ctx.fillText(label, r-10, fs/3);
     ctx.restore();
   });
-  // Center circle
-  ctx.beginPath(); ctx.arc(cx,cy,24,0,Math.PI*2);
-  ctx.fillStyle='white'; ctx.fill();
-  ctx.fillStyle='#0ea5e9'; ctx.font='bold 14px Segoe UI'; ctx.textAlign='center'; ctx.textBaseline='middle';
+
+  // center hub
+  var hubGrad=ctx.createRadialGradient(cx,cy,0,cx,cy,26);
+  hubGrad.addColorStop(0,'#ffffff'); hubGrad.addColorStop(1,'#e2e8f0');
+  ctx.beginPath(); ctx.arc(cx,cy,26,0,Math.PI*2); ctx.fillStyle=hubGrad; ctx.fill();
+  ctx.strokeStyle='rgba(0,0,0,.15)'; ctx.lineWidth=2; ctx.stroke();
+  ctx.fillStyle='#6366f1'; ctx.font='bold 13px Syne,sans-serif';
+  ctx.textAlign='center'; ctx.textBaseline='middle';
   ctx.fillText('GO',cx,cy);
 }
 
+function lighten(hex,amt){
+  var n=parseInt(hex.slice(1),16);
+  var r=Math.min(255,((n>>16)&0xff)+Math.round(255*amt));
+  var g=Math.min(255,((n>>8)&0xff)+Math.round(255*amt));
+  var b=Math.min(255,(n&0xff)+Math.round(255*amt));
+  return'#'+[r,g,b].map(function(x){return x.toString(16).padStart(2,'0')}).join('');
+}
+
+/* ══════════════════════════════════════════
+   WHEEL — SPIN
+══════════════════════════════════════════ */
 function spinWheel(){
-  const opts=getOptions();
-  if(opts.length<2){ alert('Add at least 2 options to spin!'); return; }
+  var opts=getOptions();
+  if(opts.length<2){alert('Add at least 2 options to spin! 🎡');return;}
   if(spinning) return;
   spinning=true;
   document.getElementById('spinBtn').disabled=true;
   document.getElementById('resultBanner').classList.remove('show');
-  const totalSpins=5+Math.random()*5;
-  const targetAngle=currentAngle+totalSpins*Math.PI*2+Math.random()*Math.PI*2;
-  const duration=3000+Math.random()*1000;
-  const start=performance.now();
-  const startAngle=currentAngle;
+  document.getElementById('wheelPointer').classList.add('locked');
+  document.getElementById('wheelArena').classList.add('spinning');
+
+  var extraSpins=5+Math.random()*5;
+  var targetAngle=currentAngle+extraSpins*Math.PI*2+Math.random()*Math.PI*2;
+  var duration=3200+Math.random()*1000;
+  var start=performance.now(), startAngle=currentAngle;
 
   function animate(now){
-    const elapsed=now-start;
-    const progress=Math.min(elapsed/duration,1);
-    const ease=1-Math.pow(1-progress,4);
+    var elapsed=now-start;
+    var progress=Math.min(elapsed/duration,1);
+    var ease=1-Math.pow(1-progress,4);
     currentAngle=startAngle+(targetAngle-startAngle)*ease;
     drawWheel(currentAngle);
-    if(progress<1){ requestAnimationFrame(animate); }
-    else {
+    if(progress<1){requestAnimationFrame(animate);}
+    else{
       spinning=false;
       document.getElementById('spinBtn').disabled=false;
-      const slice=(Math.PI*2)/opts.length;
-      const normalised=((currentAngle%(Math.PI*2))+Math.PI*2)%(Math.PI*2);
-      const pointerAngle=(Math.PI*3.5-normalised)%(Math.PI*2);
-      const idx=Math.floor(pointerAngle/slice)%opts.length;
-      showResult(opts[idx]);
+      document.getElementById('wheelPointer').classList.remove('locked');
+      document.getElementById('wheelArena').classList.remove('spinning');
+
+      // Determine winner
+      var slice=(Math.PI*2)/opts.length;
+      var normalised=((currentAngle%(Math.PI*2))+Math.PI*2)%(Math.PI*2);
+      var pointerAngle=(Math.PI*3.5-normalised+Math.PI*2)%(Math.PI*2);
+      var idx=Math.floor(pointerAngle/slice)%opts.length;
+      showResult(opts[idx], idx);
     }
   }
   requestAnimationFrame(animate);
 }
 
-function showResult(winner){
-  const banner=document.getElementById('resultBanner');
+function showResult(winner, idx){
+  totalSpins++;
+  document.getElementById('spinCountBadge').textContent='Spins: '+totalSpins;
+  document.getElementById('statSpins').textContent=totalSpins;
+
+  var opts=getOptions();
+  var winnerShort=winner.length>10?winner.substring(0,9)+'…':winner;
+  document.getElementById('statWinner').textContent=winnerShort;
   document.getElementById('winnerText').textContent=winner;
-  const opts=getOptions();
-  document.getElementById('winnerSub').textContent=`Selected from ${opts.length} options`;
-  banner.classList.add('show');
-  decisionHistory.unshift(winner);
-  if(decisionHistory.length>10) decisionHistory.pop();
-  const freq={};
-  decisionHistory.forEach(d=>freq[d]=(freq[d]||0)+1);
-  document.getElementById('histDiv').innerHTML=Object.entries(freq).map(([opt,count])=>`<span class="history-chip"><span>${opt}</span><span class="num">${count}</span></span>`).join('');
+  document.getElementById('winnerSub').textContent='Chosen from '+opts.length+' option'+(opts.length!==1?'s':'');
+
+  // Pick a fun emoji based on content
+  var lw=winner.toLowerCase();
+  var em = lw.includes('yes')||lw.includes('no')?'🎯':
+           lw.includes('nshima')||lw.includes('rice')||lw.includes('food')||lw.includes('pizza')?'🍽️':
+           lw.includes('team')?'👥':'🎉';
+  document.getElementById('resultEmoji').textContent=em;
+
+  // Set arena glow to winner color
+  var col=COLORS[idx%COLORS.length];
+  document.getElementById('wheelArena').style.setProperty('--wheel-glow','rgba('+hexToRgb(col)+',.25)');
+
+  document.getElementById('resultBanner').classList.add('show');
+  launchConfetti(col);
+
+  // Update history
+  decisionHistory.unshift({text:winner,time:new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})});
+  if(decisionHistory.length>8) decisionHistory.pop();
+  renderHistory();
 }
 
-function addOpt(){
-  const row=document.createElement('div'); row.className='option-row';
-  const count=document.querySelectorAll('.option-input').length+1;
-  row.innerHTML=`<input class="option-input" type="text" placeholder="Option ${count}"/><button class="del-btn" onclick="delOpt(this)">×</button>`;
-  document.getElementById('optionsList').appendChild(row);
+function hexToRgb(hex){
+  var n=parseInt(hex.slice(1),16);
+  return [((n>>16)&0xff),((n>>8)&0xff),(n&0xff)].join(',');
+}
+
+/* ══════════════════════════════════════════
+   CONFETTI
+══════════════════════════════════════════ */
+function launchConfetti(baseColor){
+  var wrap=document.getElementById('confettiWrap');
+  wrap.innerHTML='';
+  var confColors=[baseColor,'#f59e0b','#ec4899','#10b981','#6366f1','#ffffff'];
+  for(var i=0;i<45;i++){
+    var p=document.createElement('div');
+    p.className='cp';
+    p.style.cssText=[
+      'left:'+Math.random()*100+'%',
+      'background:'+confColors[Math.floor(Math.random()*confColors.length)],
+      'width:'+(6+Math.random()*8)+'px',
+      'height:'+(6+Math.random()*8)+'px',
+      'border-radius:'+(Math.random()>.5?'50%':'2px'),
+      'animation-delay:'+(Math.random()*.6)+'s',
+      'animation-duration:'+(1+Math.random()*.8)+'s'
+    ].join(';');
+    wrap.appendChild(p);
+  }
+  setTimeout(function(){wrap.innerHTML='';},2500);
+}
+
+/* ══════════════════════════════════════════
+   OPTIONS MANAGEMENT
+══════════════════════════════════════════ */
+var defaultOptions=['Option A','Option B','Option C'];
+
+function buildOptionRow(value){
+  var row=document.createElement('div');
+  row.className='option-row';
+  var count=document.querySelectorAll('#optionsList .option-row').length;
+  var col=COLORS[count%COLORS.length];
+  row.innerHTML=
+    '<div class="opt-color" style="background:'+col+'"></div>'+
+    '<input class="option-input" type="text" placeholder="Option '+(count+1)+'" value="'+escAttr(value||'')+'"/>'+
+    '<button class="del-btn" onclick="delOpt(this)" title="Remove">×</button>';
+  return row;
+}
+
+function addOpt(value){
+  document.getElementById('optionsList').appendChild(buildOptionRow(value||''));
+  updateStats(); drawWheel(currentAngle);
+  if(!value) document.querySelectorAll('.option-input')[document.querySelectorAll('.option-input').length-1].focus();
+}
+
+function delOpt(btn){
+  btn.closest('.option-row').remove();
+  // recolor remaining dots
+  recolorDots();
   updateStats(); drawWheel(currentAngle);
 }
-function delOpt(btn){ btn.closest('.option-row').remove(); updateStats(); drawWheel(currentAngle); }
-function clearOptions(){ document.getElementById('optionsList').innerHTML=''; addOpt(); addOpt(); updateStats(); drawWheel(currentAngle); }
-function clearHistory(){ decisionHistory=[]; document.getElementById('histDiv').innerHTML='<span style="color:var(--muted);font-size:.85rem;font-style:italic">Spin results will appear here</span>'; }
+
+function recolorDots(){
+  document.querySelectorAll('#optionsList .opt-color').forEach(function(dot,i){
+    dot.style.background=COLORS[i%COLORS.length];
+  });
+}
+
+function clearOptions(){
+  document.getElementById('optionsList').innerHTML='';
+  addOpt('Option A'); addOpt('Option B'); addOpt('Option C');
+}
+
 function loadSet(opts){
   document.getElementById('optionsList').innerHTML='';
-  opts.forEach(o=>{ const row=document.createElement('div'); row.className='option-row'; row.innerHTML=`<input class="option-input" type="text" value="${o}"/><button class="del-btn" onclick="delOpt(this)">×</button>`; document.getElementById('optionsList').appendChild(row); });
+  opts.forEach(function(o){document.getElementById('optionsList').appendChild(buildOptionRow(o));});
   updateStats(); drawWheel(currentAngle);
 }
-function updateStats(){
-  const count=document.querySelectorAll('.option-input').length;
-  document.getElementById('optCount').textContent=count;
-  document.getElementById('optChance').textContent=count>0?(100/count).toFixed(1)+'%':'—';
+
+function clearHistory(){
+  decisionHistory=[];
+  document.getElementById('histDiv').innerHTML='<span style="color:var(--muted);font-size:.84rem;font-style:italic">Spin results will appear here…</span>';
+  totalSpins=0;
+  document.getElementById('spinCountBadge').textContent='Spins: 0';
+  document.getElementById('statSpins').textContent='0';
+  document.getElementById('statWinner').textContent='—';
 }
 
-document.getElementById('optionsList').addEventListener('input',()=>{ drawWheel(currentAngle); updateStats(); });
-drawWheel(currentAngle); updateStats();
-document.getElementById('thToggle').addEventListener('click',()=>{ document.getElementById('thNav').classList.toggle('th-nav-open'); document.getElementById('thToggle').classList.toggle('th-toggle-open'); });
+function renderHistory(){
+  if(!decisionHistory.length) return;
+  document.getElementById('histDiv').innerHTML=decisionHistory.map(function(d,i){
+    return '<div class="hist-item">'
+      +(i===0?'<span style="font-size:.9rem">🏆</span>':'<span style="font-size:.82rem;color:var(--muted)">'+(i+1)+'.</span>')
+      +'<span style="flex:1;margin:0 8px">'+(d.text||d)+'</span>'
+      +'<span class="hist-time">'+(d.time||'')+'</span>'
+      +'</div>';
+  }).join('');
+}
+
+function updateStats(){
+  var count=document.querySelectorAll('#optionsList .option-input').length;
+  document.getElementById('statCount').textContent=count;
+  document.getElementById('statChance').textContent=count>0?Math.round(100/count)+'%':'—';
+}
+
+function escAttr(s){return s.replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
+/* ══════════════════════════════════════════
+   COIN FLIP
+══════════════════════════════════════════ */
+var coinFlipping=false, coinResults=[], coinRound=0, coinHeads=0, coinTails=0;
+
+function flipCoin(){
+  if(coinFlipping) return;
+  var bestOf=parseInt(document.getElementById('bestOf').value);
+
+  // If a series is over, reset
+  if(coinRound>=bestOf){coinRound=0;coinResults=[];coinHeads=0;coinTails=0;document.getElementById('coinHistory').innerHTML='';}
+
+  coinFlipping=true;
+  document.getElementById('flipBtn').disabled=true;
+  var coin=document.getElementById('coin');
+  coin.classList.add('flipping');
+
+  setTimeout(function(){
+    coin.classList.remove('flipping');
+    var result=Math.random()<.5?'heads':'tails';
+    coinRound++;
+    if(result==='heads') coinHeads++; else coinTails++;
+    coinResults.push(result);
+
+    // Update coin face display
+    coin.style.transform=result==='tails'?'rotateX(180deg)':'rotateX(0)';
+
+    // Result text
+    var needed=Math.ceil(bestOf/2);
+    var over=coinHeads>=needed||coinTails>=needed||coinRound>=bestOf;
+    var resEl=document.getElementById('coinResult');
+
+    if(over){
+      var series_winner=coinHeads>coinTails?'HEADS wins!':'TAILS wins!';
+      resEl.innerHTML='<span style="font-family:var(--fs);font-size:1.4rem;font-weight:800;color:var(--text)">'+series_winner+'</span><br><span style="font-size:.78rem;color:var(--muted)">'+coinHeads+' heads · '+coinTails+' tails in '+coinRound+' flips</span>';
+      coinRound=bestOf; // mark done
+    } else {
+      resEl.innerHTML='<span style="font-family:var(--fs);font-size:1.3rem;font-weight:800;color:'+(result==='heads'?'#f59e0b':'#6366f1')+'">'+result.toUpperCase()+'</span><br><span style="font-size:.72rem;color:var(--muted)">Round '+coinRound+' of '+bestOf+' · Heads '+coinHeads+' · Tails '+coinTails+'</span>';
+    }
+
+    // History dots
+    document.getElementById('coinHistory').innerHTML=coinResults.map(function(r){
+      return '<span style="width:28px;height:28px;border-radius:50%;background:'+(r==='heads'?'linear-gradient(135deg,#f59e0b,#fbbf24)':'linear-gradient(135deg,#6366f1,#8b5cf6)')+';display:inline-flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;color:white">'+(r==='heads'?'H':'T')+'</span>';
+    }).join('');
+
+    coinFlipping=false;
+    document.getElementById('flipBtn').disabled=false;
+  }, 900);
+}
+
+/* ══════════════════════════════════════════
+   RANDOM NUMBER
+══════════════════════════════════════════ */
+var rngHistory=[];
+
+function rollRng(){
+  var min=parseInt(document.getElementById('rngMin').value)||1;
+  var max=parseInt(document.getElementById('rngMax').value)||100;
+  if(min>max){var t=min;min=max;max=t;}
+  var num=Math.floor(Math.random()*(max-min+1))+min;
+  var el=document.getElementById('rngDisplay');
+  // Quick roll animation
+  var frames=0, maxFrames=18;
+  var anim=setInterval(function(){
+    el.textContent=Math.floor(Math.random()*(max-min+1))+min;
+    frames++;
+    if(frames>=maxFrames){clearInterval(anim);el.textContent=num;el.style.animation='none';void el.offsetHeight;el.style.animation='';}
+  },40);
+  document.getElementById('rngMulti').innerHTML='';
+}
+
+function rollRngMulti(){
+  var min=parseInt(document.getElementById('rngMin').value)||1;
+  var max=parseInt(document.getElementById('rngMax').value)||100;
+  if(min>max){var t=min;min=max;max=t;}
+  var nums=[];
+  for(var i=0;i<5;i++) nums.push(Math.floor(Math.random()*(max-min+1))+min);
+  document.getElementById('rngDisplay').textContent=nums[0];
+  document.getElementById('rngMulti').innerHTML=nums.map(function(n,i){
+    return '<span style="padding:7px 14px;border-radius:50px;background:'+(i===0?'linear-gradient(135deg,#6366f1,#8b5cf6)':'var(--bg2)')+';color:'+(i===0?'white':'var(--sub)')+';font-weight:800;font-size:.84rem;border:1.5px solid '+(i===0?'transparent':'var(--bdr)')+'">'+n+'</span>';
+  }).join('');
+}
+
+function setRngRange(min,max){
+  document.getElementById('rngMin').value=min;
+  document.getElementById('rngMax').value=max;
+  rollRng();
+}
+
+/* ══════════════════════════════════════════
+   INIT
+══════════════════════════════════════════ */
+document.getElementById('optionsList').innerHTML='';
+defaultOptions.forEach(function(o){document.getElementById('optionsList').appendChild(buildOptionRow(o));});
+updateStats(); drawWheel(0);
+
+document.getElementById('optionsList').addEventListener('input',function(){ drawWheel(currentAngle); updateStats(); recolorDots(); });
+
+/* keyboard shortcut: Space to spin */
+document.addEventListener('keydown',function(e){
+  if(e.code==='Space'&&document.getElementById('modeWheel').style.display!=='none'&&e.target.tagName!=='INPUT'){
+    e.preventDefault(); spinWheel();
+  }
+});
+
+document.getElementById('mobToggle').addEventListener('click',function(){
+  document.getElementById('hnav').classList.toggle('open');
+  document.getElementById('mobToggle').classList.toggle('open');
+});
+window.addEventListener('scroll',function(){
+  document.getElementById('hdr').classList.toggle('scrolled',window.scrollY>8);
+},{passive:true});
 </script>
 </body>
 </html>
