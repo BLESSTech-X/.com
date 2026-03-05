@@ -1,511 +1,1216 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Study Timetable Generator | BLESSTech-X Free Tools</title>
-  <meta name="description" content="Build a personalised study timetable for UNZA, CBU, Grade 12 or any exams. Free study planner with PDF download for Zambian students."/>
-  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <link rel="stylesheet" href="../style.css"/>
-  <style>
-    .tt-hero{background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 60%,#312e81 100%);border-radius:20px;padding:36px;margin-bottom:28px;position:relative;overflow:hidden}
-    .tt-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:250px;height:250px;background:radial-gradient(circle,rgba(99,102,241,.25),transparent 70%);pointer-events:none}
-    .tt-hero::after{content:'📚';position:absolute;bottom:-10px;right:30px;font-size:5rem;opacity:.12}
-    .tt-hero h1{color:white;font-size:1.8rem;font-weight:900;margin-bottom:6px}
-    .tt-hero p{color:#a5b4fc;font-size:.95rem}
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Study Timetable Generator | BLESSTech-X Free Tools</title>
+<meta name="description" content="Build a fully customisable study timetable for UNZA, CBU, Grade 12 or any exams. Free study planner with PDF download for Zambian students."/>
+<link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<style>
+/* ══ TOKENS ══ */
+:root{
+  --bg:#faf9f7;--bg2:#f2f0ec;--bg3:#e8e5df;--card:#fff;
+  --bdr:rgba(0,0,0,.09);--bdr2:rgba(0,0,0,.16);
+  --text:#1a1814;--sub:#65615b;--muted:#9e9890;
+  --brand:#6366f1;--brd:#4f46e5;
+  --green:#10b981;--red:#ef4444;--amber:#f59e0b;--pink:#ec4899;
+  --wa:#25d366;
+  --foot-bg:#1e1c18;--foot-bdr:rgba(255,255,255,.07);
+  --foot-sub:#8a8478;--foot-lnk:#b5b0a8;
+  --fd:'Playfair Display',Georgia,serif;
+  --fs:'Syne',sans-serif;
+  --fb:'Plus Jakarta Sans',system-ui,sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --px:clamp(14px,4vw,36px);--hh:60px;--r:14px;
+}
+@media(min-width:640px){:root{--hh:64px}}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--fb);background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+button,select,input,textarea{font-family:var(--fb)}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.022'/%3E%3C/svg%3E")}
 
-    .subject-row{display:grid;grid-template-columns:1fr 100px 80px 36px;gap:8px;margin-bottom:8px;align-items:center}
-    .subject-row.hdr{font-size:.71rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
-    .mini{padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.88rem;outline:none;transition:var(--transition);width:100%;background:white}
-    .mini:focus{border-color:#6366f1;box-shadow:0 0 0 3px rgba(99,102,241,.1)}
-    .del-btn{width:36px;height:36px;border-radius:var(--radius);background:#fee2e2;border:none;color:#ef4444;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--transition);font-size:1rem}
-    .del-btn:hover{background:#ef4444;color:white}
-    .add-sub-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;background:#eef2ff;border:1.5px solid rgba(99,102,241,.3);border-radius:var(--radius);color:#4f46e5;font-size:.83rem;font-weight:700;cursor:pointer;transition:var(--transition);margin-top:6px}
-    .add-sub-btn:hover{background:#6366f1;color:white}
+/* ══ HEADER ══ */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--hh);display:flex;align-items:center;justify-content:space-between;padding:0 var(--px);background:rgba(250,249,247,.93);backdrop-filter:blur(18px) saturate(160%);border-bottom:1px solid var(--bdr);transition:box-shadow .25s}
+.hdr.scrolled{box-shadow:0 2px 18px rgba(0,0,0,.08)}
+.logo{display:flex;align-items:center;gap:9px;flex-shrink:0}
+.logo img{width:30px;height:30px;border-radius:8px;object-fit:cover}
+.logo-t{font-family:var(--fd);font-weight:900;font-size:.95rem;color:var(--text);white-space:nowrap}
+.logo-t em{color:var(--brand);font-style:normal}
+.hnav{display:flex;align-items:center;gap:5px}
+.hl{padding:6px 12px;border-radius:50px;font-size:.78rem;font-weight:600;color:var(--sub);border:1px solid transparent;transition:all .18s;white-space:nowrap}
+.hl:hover{color:var(--text);background:var(--bg2);border-color:var(--bdr)}
+.hlwa{background:var(--wa)!important;color:white!important;box-shadow:0 3px 12px rgba(37,211,102,.28)}
+.hlwa:hover{background:#1fb055!important}
+.mob-tog{display:none;flex-direction:column;gap:4px;width:32px;height:32px;align-items:center;justify-content:center;background:none;border:1.5px solid var(--bdr);border-radius:8px;cursor:pointer;padding:0}
+.mob-tog span{display:block;width:16px;height:2px;background:var(--sub);border-radius:2px;transition:all .25s}
+.mob-tog.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.mob-tog.open span:nth-child(2){opacity:0}
+.mob-tog.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+@media(max-width:640px){
+  .mob-tog{display:flex}
+  .hnav{position:fixed;top:var(--hh);left:0;right:0;flex-direction:column;align-items:flex-start;gap:4px;padding:14px var(--px) 18px;background:rgba(250,249,247,.97);backdrop-filter:blur(18px);border-bottom:1px solid var(--bdr);transform:translateY(-110%);opacity:0;transition:transform .3s var(--ease),opacity .3s;pointer-events:none}
+  .hnav.open{transform:translateY(0);opacity:1;pointer-events:all}
+  .hl{width:100%;border-radius:10px}
+}
 
-    .day-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:16px}
-    .day-cb{display:flex;flex-direction:column;align-items:center;gap:5px}
-    .day-cb input{width:20px;height:20px;accent-color:#6366f1;cursor:pointer}
-    .day-cb label{font-size:.72rem;font-weight:700;color:var(--slate-l);cursor:pointer}
+/* ══ PAGE ══ */
+.page{padding-top:var(--hh)}
+.wrap{max-width:1400px;margin:0 auto;padding:0 var(--px)}
+.bc{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:clamp(14px,2vw,22px) 0 clamp(10px,1.5vw,14px);font-size:.75rem;font-weight:600;color:var(--muted)}
+.bc a{color:var(--sub);transition:color .16s}.bc a:hover{color:var(--brand)}
+.bc i{font-size:.55rem}.bc span{color:var(--brand)}
 
-    /* TIMETABLE */
-    .tt-wrap{overflow-x:auto;border-radius:var(--radius-lg);border:1.5px solid var(--border)}
-    table.tt{width:100%;border-collapse:collapse;min-width:580px;font-size:.82rem}
-    table.tt th{padding:10px 8px;font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;text-align:center;border:1px solid #e2e8f0}
-    table.tt th.day-head{background:#0f172a;color:white;min-width:90px}
-    table.tt th.time-head{background:#f1f5f9;color:#64748b;min-width:80px}
-    table.tt td{padding:0;border:1px solid #e2e8f0;vertical-align:top;height:70px}
-    .tt-cell{height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:6px;text-align:center;font-size:.78rem;font-weight:600;border-radius:2px;min-height:70px;cursor:default}
-    .tt-cell.empty{background:#fafafa;color:#cbd5e1}
-    .tt-cell.break{background:#fef3c7;color:#92400e}
-    .tt-cell.subj{color:white;font-weight:700}
-    .tt-cell .hrs{font-size:.65rem;font-weight:600;opacity:.85;margin-top:2px}
-    .tt-legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-    .tt-legend-item{display:flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;color:var(--slate-l)}
-    .tt-legend-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
-    .stats-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
-    .stat-card{background:white;border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 16px;text-align:center}
-    .stat-card .sv{font-size:1.5rem;font-weight:900;color:#6366f1}
-    .stat-card .sl{font-size:.75rem;color:var(--muted);font-weight:600}
-    .motivational{background:linear-gradient(135deg,#6366f1,#8b5cf6);border-radius:var(--radius);padding:14px 18px;color:white;font-size:.88rem;font-weight:600;text-align:center;margin-bottom:20px}
-  </style>
+/* ══ HERO ══ */
+.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 50%,#312e81 100%);border-radius:clamp(16px,3vw,24px);padding:clamp(28px,5vw,52px) clamp(20px,4vw,44px);margin-bottom:clamp(16px,2.5vw,22px);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.hero::before{content:'';position:absolute;top:-80px;right:-80px;width:360px;height:360px;background:radial-gradient(circle,rgba(99,102,241,.3),transparent 70%);pointer-events:none}
+.hero::after{content:'📚';position:absolute;bottom:-10px;right:32px;font-size:clamp(4rem,8vw,7rem);opacity:.1;line-height:1}
+.hero h1{font-family:var(--fs);font-weight:800;font-size:clamp(1.4rem,3.5vw,2.2rem);color:white;line-height:1.15;margin-bottom:8px}
+.hero h1 span{background:linear-gradient(90deg,#a5b4fc,#c4b5fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{color:#a5b4fc;font-size:clamp(.82rem,1.4vw,.92rem);line-height:1.6;max-width:520px}
+.hero-badges{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.hbadge{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:50px;font-size:.64rem;font-weight:700;background:rgba(255,255,255,.1);color:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.13)}
+
+/* ══ MAIN GRID ══ */
+.mgrid{display:grid;grid-template-columns:440px 1fr;gap:clamp(14px,2vw,22px);align-items:start;margin-bottom:clamp(20px,3vw,32px)}
+@media(max-width:980px){.mgrid{grid-template-columns:1fr}}
+@media(min-width:981px){.rcol{position:sticky;top:calc(var(--hh)+14px)}}
+.lpanel{display:flex;flex-direction:column;gap:clamp(10px,1.8vw,13px)}
+
+/* ══ BOXES ══ */
+.box{background:var(--card);border:1.5px solid var(--bdr);border-radius:var(--r);overflow:hidden}
+.bx-hd{display:flex;align-items:center;justify-content:space-between;padding:clamp(10px,1.8vw,13px) clamp(14px,2.5vw,18px);border-bottom:1px solid var(--bdr);background:var(--bg);flex-wrap:wrap;gap:8px;cursor:pointer;user-select:none}
+.bx-hd:hover{background:var(--bg2)}
+.bx-hd h2{display:flex;align-items:center;gap:8px;font-family:var(--fd);font-size:clamp(.84rem,1.3vw,.93rem);font-weight:700;color:var(--text)}
+.bx-hd h2 i{color:var(--brand)}
+.bx-chevron{font-size:.65rem;color:var(--muted);transition:transform .22s}
+.bx-hd.open .bx-chevron{transform:rotate(180deg)}
+.bx-bd{padding:clamp(12px,2.5vw,16px)}
+.bx-bd.collapsed{display:none}
+
+/* ══ INNER TABS ══ */
+.itabs{display:flex;background:var(--bg2);border:1px solid var(--bdr);border-radius:9px;padding:3px;margin-bottom:13px;gap:0}
+.itab{flex:1;padding:7px 5px;border:none;border-radius:7px;background:none;font-size:.72rem;font-weight:700;color:var(--muted);cursor:pointer;transition:all .16s;text-align:center}
+.itab.on{background:var(--card);color:var(--brand);box-shadow:0 1px 6px rgba(0,0,0,.07)}
+
+/* ══ FIELDS ══ */
+.f{margin-bottom:10px}
+.f:last-child{margin-bottom:0}
+.f label,.slbl{display:block;font-size:.67rem;font-weight:800;color:var(--sub);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px}
+.f input,.f select,.f textarea{width:100%;padding:8px 11px;border:1.5px solid var(--bdr);border-radius:9px;font-size:.84rem;outline:none;background:var(--bg);color:var(--text);transition:border-color .18s,box-shadow .18s}
+.f input:focus,.f select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(99,102,241,.1);background:var(--card)}
+.f input::placeholder{color:var(--muted)}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.fr3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.hdiv{height:1px;background:var(--bdr);margin:11px 0}
+
+/* range */
+.rw{display:flex;align-items:center;gap:10px}
+input[type=range].sl{flex:1;height:5px;border-radius:3px;-webkit-appearance:none;background:var(--bg3);outline:none;cursor:pointer}
+input[type=range].sl::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--brand);box-shadow:0 2px 6px rgba(99,102,241,.35);cursor:pointer;transition:transform .14s}
+input[type=range].sl::-webkit-slider-thumb:hover{transform:scale(1.2)}
+.rv{font-size:.78rem;font-weight:800;color:var(--brand);min-width:42px;text-align:right}
+
+/* ══ DAY TOGGLES ══ */
+.dg{display:flex;gap:5px;flex-wrap:wrap}
+.dtog{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
+.dtog input{display:none}
+.dpill{width:38px;height:38px;border-radius:50%;border:2px solid var(--bdr);background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;color:var(--muted);transition:all .18s}
+.dtog input:checked+.dpill{background:var(--brand);border-color:var(--brand);color:white;box-shadow:0 3px 10px rgba(99,102,241,.28)}
+.dlbl{font-size:.58rem;font-weight:700;color:var(--muted);text-transform:uppercase}
+
+/* ══ SUBJECTS ══ */
+.slist{display:flex;flex-direction:column;gap:6px;margin-bottom:9px}
+.srow{background:var(--bg2);border:1.5px solid var(--bdr);border-radius:10px;padding:8px 9px;display:flex;align-items:center;gap:6px;transition:border-color .15s;animation:slideIn .25s var(--ease)}
+@keyframes slideIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.srow:hover{border-color:var(--bdr2)}
+.sc{width:22px;height:22px;border:none;cursor:pointer;border-radius:5px;padding:0;background:none;flex-shrink:0}
+.sni{flex:1;padding:7px 9px;border:1.5px solid var(--bdr);border-radius:8px;font-size:.82rem;outline:none;background:var(--card);color:var(--text);min-width:0;transition:border-color .16s}
+.sni:focus{border-color:var(--brand)}
+.spri{padding:7px 5px;border:1.5px solid var(--bdr);border-radius:8px;font-size:.74rem;outline:none;background:var(--card);color:var(--text);cursor:pointer}
+.shrs{width:50px;padding:7px 5px;border:1.5px solid var(--bdr);border-radius:8px;font-size:.78rem;outline:none;background:var(--card);color:var(--text);text-align:center}
+.spref{width:76px;padding:7px 5px;border:1.5px solid var(--bdr);border-radius:8px;font-size:.72rem;outline:none;background:var(--card);color:var(--text);cursor:pointer}
+.sdel{width:28px;height:28px;border-radius:7px;background:rgba(239,68,68,.09);border:1.5px solid rgba(239,68,68,.15);color:var(--red);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .13s;font-size:.82rem}
+.sdel:hover{background:var(--red);color:white;border-color:var(--red)}
+.shdr{display:grid;grid-template-columns:22px 1fr auto auto auto 28px;gap:6px;padding:0 9px;margin-bottom:3px;align-items:center}
+.shl{font-size:.6rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.addsub{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;background:rgba(99,102,241,.07);border:1.5px solid rgba(99,102,241,.2);border-radius:9px;color:var(--brd);font-size:.76rem;font-weight:700;cursor:pointer;transition:all .15s}
+.addsub:hover{background:var(--brand);color:white;border-color:var(--brand)}
+
+/* ══ BLOCKED SLOTS ══ */
+.blrow{display:flex;align-items:center;gap:6px;margin-bottom:7px;flex-wrap:wrap}
+.blrow input[type=time],.blrow select,.blrow input[type=text]{padding:7px 9px;border:1.5px solid var(--bdr);border-radius:8px;font-size:.8rem;outline:none;background:var(--bg);color:var(--text);transition:border-color .16s}
+.blrow input[type=time]:focus,.blrow select:focus,.blrow input[type=text]:focus{border-color:var(--red)}
+.bldash{font-size:.7rem;font-weight:700;color:var(--muted);flex-shrink:0}
+
+/* ══ QUICK SETS ══ */
+.qset{display:flex;flex-wrap:wrap;gap:6px}
+.qbtn{padding:5px 10px;border-radius:50px;border:1.5px solid var(--bdr);background:var(--bg2);font-size:.71rem;font-weight:700;color:var(--sub);cursor:pointer;transition:all .14s;white-space:nowrap}
+.qbtn:hover{border-color:var(--brand);color:var(--brand);background:rgba(99,102,241,.06)}
+
+/* ══ STATS ══ */
+.strow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:13px}
+@media(max-width:560px){.strow{grid-template-columns:repeat(2,1fr)}}
+.stc{background:var(--bg2);border:1.5px solid var(--bdr);border-radius:11px;padding:clamp(9px,1.5vw,13px);text-align:center}
+.stv{font-family:var(--fs);font-size:clamp(1.1rem,2.5vw,1.5rem);font-weight:800;color:var(--brand)}
+.stl{font-size:.6rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
+
+/* ══ COUNTDOWN ══ */
+.cdbar{background:linear-gradient(135deg,#0f172a,#1e1b4b);border-radius:11px;padding:13px 17px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.cdlbl{font-size:.68rem;font-weight:800;color:rgba(165,180,252,.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}
+.cdv{font-family:var(--fs);font-size:1.35rem;font-weight:800;color:white}
+.cdsub{font-size:.76rem;color:#a5b4fc}
+
+/* ══ MOTIV ══ */
+.motiv{background:linear-gradient(135deg,#6366f1,#8b5cf6);border-radius:11px;padding:13px 17px;font-size:clamp(.8rem,1.3vw,.87rem);font-weight:600;color:white;text-align:center;margin-bottom:12px;line-height:1.55}
+
+/* ══ PREVIEW BOX ══ */
+.pbox{background:var(--card);border:1.5px solid var(--bdr);border-radius:var(--r);overflow:hidden}
+.pbx-hd{display:flex;align-items:center;justify-content:space-between;padding:clamp(10px,1.8vw,13px) clamp(14px,2.5vw,18px);border-bottom:1px solid var(--bdr);background:var(--bg);flex-wrap:wrap;gap:8px}
+.pbx-hd h2{display:flex;align-items:center;gap:8px;font-family:var(--fd);font-size:clamp(.84rem,1.3vw,.93rem);font-weight:700;color:var(--text)}
+.pbx-hd h2 i{color:var(--brand)}
+.pbx-bd{padding:clamp(12px,2vw,16px);overflow-x:auto}
+.tt-empty{color:var(--muted);text-align:center;padding:clamp(36px,6vw,60px) 24px;font-style:italic;font-size:.88rem}
+
+/* ══ TABLE ══ */
+.ttscroll{overflow-x:auto;border-radius:10px;border:1.5px solid var(--bdr)}
+table.tt{border-collapse:collapse;min-width:480px}
+table.tt th{padding:clamp(7px,1.2vw,10px) clamp(5px,1vw,9px);font-weight:700;font-size:.66rem;text-transform:uppercase;letter-spacing:.5px;text-align:center;border:1px solid rgba(0,0,0,.08);white-space:nowrap}
+.tht{background:var(--bg2);color:var(--muted);min-width:68px}
+.thd{color:white;min-width:82px}
+table.tt td{border:1px solid rgba(0,0,0,.07);vertical-align:top;padding:0}
+.tc{display:flex;flex-direction:column;justify-content:center;align-items:center;padding:clamp(4px,1vw,7px);text-align:center;transition:filter .14s;position:relative;cursor:default}
+.tc:hover{filter:brightness(1.08)}
+.tc .csub{font-weight:800;line-height:1.2}
+.tc .ctim{font-size:.6rem;opacity:.72;margin-top:2px;font-weight:500}
+.tc .ctag{font-size:.56rem;opacity:.78;margin-top:1px;padding:1px 5px;border-radius:3px;background:rgba(0,0,0,.12)}
+.tc.brkc{background:#fef3c7;color:#92400e}
+.tc.frec{background:var(--bg);color:var(--muted);font-style:italic;font-size:.7rem;font-weight:400}
+.tc.blkc{background:repeating-linear-gradient(45deg,#f1f5f9 0,#f1f5f9 4px,#e2e8f0 4px,#e2e8f0 8px);color:#94a3b8;font-size:.68rem;font-weight:600}
+.edhint{position:absolute;bottom:2px;right:3px;font-size:.52rem;color:rgba(0,0,0,.22);opacity:0;transition:opacity .14s}
+.tc:hover .edhint{opacity:1}
+
+/* ══ LEGEND ══ */
+.leg{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
+.lgi{display:flex;align-items:center;gap:5px;font-size:.75rem;font-weight:600;color:var(--sub)}
+.lgd{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+
+/* ══ HOURS BREAKDOWN ══ */
+.hbrow{display:flex;flex-direction:column;gap:8px}
+.hbmeta{display:flex;justify-content:space-between;margin-bottom:4px}
+.hbname{font-size:.78rem;font-weight:700;color:var(--text)}
+.hbval{font-size:.74rem;color:var(--muted)}
+.hbbg{height:7px;background:var(--bg3);border-radius:4px;overflow:hidden}
+.hbfill{height:100%;border-radius:4px;transition:width .5s var(--ease)}
+
+/* ══ CTX MENU ══ */
+.ctx{position:fixed;z-index:400;background:var(--card);border:1.5px solid var(--bdr);border-radius:12px;box-shadow:0 16px 48px rgba(0,0,0,.18);padding:6px;min-width:192px;display:none}
+.ctx.on{display:block;animation:ctxp .14s var(--ease)}
+@keyframes ctxp{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+.ctxi{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;font-size:.8rem;font-weight:600;cursor:pointer;color:var(--sub);transition:all .12s;border:none;background:none;width:100%;text-align:left}
+.ctxi:hover{background:var(--bg2);color:var(--text)}
+.ctxi i{font-size:.7rem;color:var(--brand);width:13px}
+.ctxsep{height:1px;background:var(--bdr);margin:4px 0}
+.ctxlbl{padding:4px 10px;font-size:.6rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.ctxsb{display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:7px;font-size:.76rem;font-weight:700;cursor:pointer;transition:all .12s;border:none;background:none;width:100%;text-align:left}
+.ctxsb:hover{background:var(--bg2)}
+.ctxsd{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+
+/* ══ BUTTONS ══ */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:10px;border:none;font-weight:700;font-size:.82rem;cursor:pointer;font-family:var(--fb);transition:all .18s;white-space:nowrap}
+.btn-p{background:var(--brand);color:white;box-shadow:0 3px 12px rgba(99,102,241,.28)}
+.btn-p:hover{background:var(--brd);transform:translateY(-1px)}
+.btn-s{background:var(--bg2);color:var(--sub);border:1.5px solid var(--bdr)}
+.btn-s:hover{color:var(--text);border-color:var(--bdr2)}
+.btn-full{width:100%;justify-content:center;padding:13px}
+.btn-sm{padding:6px 11px;font-size:.74rem;border-radius:8px}
+.btn-grad{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;box-shadow:0 3px 12px rgba(99,102,241,.28)}
+.btn-grad:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(99,102,241,.35)}
+.btnrow{display:flex;gap:8px}
+.btnrow .btn{flex:1;justify-content:center}
+
+/* ══ CTA / RELATED ══ */
+.cta{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;padding:clamp(16px,2.5vw,22px) clamp(18px,3vw,26px);background:linear-gradient(135deg,#eef2ff,#ede9fe);border:1.5px solid rgba(99,102,241,.12);border-radius:var(--r);margin-bottom:clamp(16px,2.5vw,22px)}
+.cta h4{font-family:var(--fd);font-size:clamp(.95rem,1.8vw,1.1rem);font-weight:900;color:var(--text);margin-bottom:4px}
+.cta p{font-size:clamp(.78rem,1.4vw,.84rem);color:var(--sub)}
+.btn-wa{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:11px;background:var(--wa);color:white;font-weight:700;font-size:.84rem;box-shadow:0 4px 14px rgba(37,211,102,.28);transition:all .18s;white-space:nowrap;flex-shrink:0}
+.btn-wa:hover{background:#1fb055;transform:translateY(-1px)}
+.rel{background:var(--bg2);border:1.5px solid var(--bdr);border-radius:var(--r);padding:clamp(18px,3vw,26px);margin-bottom:clamp(20px,3vw,36px)}
+.rel h3{font-family:var(--fd);font-size:clamp(.95rem,1.5vw,1.05rem);font-weight:900;color:var(--text);margin-bottom:14px}
+.relg{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+.relc{display:flex;align-items:center;gap:9px;padding:11px 13px;border-radius:11px;background:var(--card);border:1.5px solid var(--bdr);font-size:.82rem;font-weight:700;color:var(--sub);transition:all .18s}
+.relc:hover{color:var(--brand);border-color:rgba(99,102,241,.3);transform:translateY(-2px)}
+.relc span{font-size:1.1rem}
+
+/* ══ FOOTER ══ */
+.foot{background:var(--foot-bg);border-top:1px solid var(--foot-bdr);padding:clamp(28px,5vw,48px) var(--px) 0}
+.footg{max-width:1400px;margin:0 auto;display:grid;gap:clamp(20px,3vw,36px);grid-template-columns:2fr 1fr 1fr 1fr;padding-bottom:clamp(22px,3vw,36px)}
+@media(max-width:700px){.footg{grid-template-columns:1fr 1fr}}
+@media(max-width:400px){.footg{grid-template-columns:1fr}}
+.foot .logo-t{color:#e8e5df}.foot .logo-t em{color:var(--brand)}
+.fdesc{font-size:.8rem;color:var(--foot-sub);line-height:1.75;margin-top:10px;max-width:220px}
+.fc h4{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--foot-sub);margin-bottom:12px}
+.fc a{display:block;color:var(--foot-lnk);font-size:.8rem;margin-bottom:8px;transition:color .16s}
+.fc a:hover{color:white}
+.footbot{max-width:1400px;margin:0 auto;border-top:1px solid var(--foot-bdr);padding:clamp(14px,2vw,20px) 0 clamp(18px,2.5vw,26px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.footbot p{color:var(--foot-sub);font-size:.72rem}
+.wafab{position:fixed;bottom:18px;right:18px;z-index:90;width:50px;height:50px;border-radius:50%;background:var(--wa);color:white;display:flex;align-items:center;justify-content:center;font-size:1.28rem;box-shadow:0 5px 20px rgba(37,211,102,.35);transition:all .2s}
+.wafab:hover{transform:scale(1.1) translateY(-2px)}
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#1a1814;color:white;padding:10px 22px;border-radius:50px;font-size:.84rem;font-weight:600;z-index:9999;opacity:0;transition:opacity .28s;pointer-events:none;white-space:nowrap;box-shadow:0 6px 20px rgba(0,0,0,.22)}
+.toast.show{opacity:1}
+::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:var(--bg2)}::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:3px}
+</style>
 </head>
-<body class="tool-page">
+<body>
 
-<header class="tools-header">
-  <div class="th-inner">
-    <a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a>
-    <nav class="th-nav" id="thNav">
-      <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
-      <a href="../index.html"><i class="fas fa-tools"></i> All Tools</a>
-      <a href="../../index.html#services">Services</a>
-      <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-    </nav>
-    <button class="th-mobile-toggle" id="thToggle"><span></span><span></span><span></span></button>
-  </div>
+<header class="hdr" id="hdr">
+  <a href="../../index.html" class="logo">
+    <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/>
+    <span class="logo-t">BLESS<em>Tech-X</em></span>
+  </a>
+  <nav class="hnav" id="hnav">
+    <a href="../../index.html" class="hl"><i class="fas fa-home"></i> Home</a>
+    <a href="../index.html" class="hl"><i class="fas fa-tools"></i> All Tools</a>
+    <a href="../../index.html#services" class="hl">Services</a>
+    <a href="https://wa.me/260979603741" target="_blank" class="hl hlwa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+  </nav>
+  <button class="mob-tog" id="mobTog"><span></span><span></span><span></span></button>
 </header>
 
-<main class="tool-page-main">
-  <div class="th-container">
+<div class="page">
+ <div class="wrap">
+  <nav class="bc">
+    <a href="../../index.html">Home</a><i class="fas fa-chevron-right"></i>
+    <a href="../index.html">Free Tools</a><i class="fas fa-chevron-right"></i>
+    <span>Study Timetable Generator</span>
+  </nav>
 
-    <div class="tool-breadcrumb">
-      <a href="../../index.html">Home</a><i class="fas fa-chevron-right"></i>
-      <a href="../index.html">Free Tools</a><i class="fas fa-chevron-right"></i>
-      <span>Study Timetable Generator</span>
-    </div>
-
-    <div class="tt-hero">
-      <h1>📚 Study Timetable Generator</h1>
-      <p>Build a smart, colour-coded study schedule for Grade 12, UNZA, CBU or any exams. Download as PDF and stick it on your wall.</p>
-    </div>
-
-    <div style="display:grid;grid-template-columns:420px 1fr;gap:28px;align-items:start" id="mainGrid">
-
-      <!-- LEFT: SETTINGS -->
-      <div style="display:flex;flex-direction:column;gap:20px">
-
-        <div class="tool-box">
-          <div class="tool-box-header"><h2><i class="fas fa-user-graduate" style="color:#6366f1"></i> Your Details</h2></div>
-          <div class="tool-box-body">
-            <div class="field"><label>Your Name</label><input type="text" id="stdName" placeholder="e.g. Chanda Mwale" oninput="buildTT()"/></div>
-            <div class="field-row">
-              <div class="field"><label>Level / Class</label>
-                <select id="stdLevel" onchange="buildTT()">
-                  <option>Grade 12</option>
-                  <option>Grade 11</option>
-                  <option>Grade 10</option>
-                  <option>UNZA Year 1</option>
-                  <option>UNZA Year 2</option>
-                  <option>UNZA Year 3</option>
-                  <option>UNZA Year 4</option>
-                  <option>CBU Year 1</option>
-                  <option>CBU Year 2</option>
-                  <option>CBU Year 3</option>
-                  <option>CBU Year 4</option>
-                  <option>ZCAS</option>
-                  <option>Professional Exams</option>
-                  <option>Self Study</option>
-                </select>
-              </div>
-              <div class="field"><label>Goal</label>
-                <select id="stdGoal" onchange="buildTT()">
-                  <option value="exam">Exam Preparation</option>
-                  <option value="revision">Weekly Revision</option>
-                  <option value="assignment">Assignment Focus</option>
-                  <option value="general">General Learning</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="tool-box">
-          <div class="tool-box-header"><h2><i class="fas fa-clock" style="color:#6366f1"></i> Study Schedule</h2></div>
-          <div class="tool-box-body">
-            <div class="field-row">
-              <div class="field"><label>Study Start</label><input type="time" id="startTime" value="06:00" onchange="buildTT()"/></div>
-              <div class="field"><label>Study End</label><input type="time" id="endTime" value="22:00" onchange="buildTT()"/></div>
-            </div>
-            <div class="field-row">
-              <div class="field"><label>Session Length (min)</label>
-                <select id="sessionLen" onchange="buildTT()">
-                  <option value="45">45 minutes</option>
-                  <option value="60" selected>1 hour</option>
-                  <option value="90">1.5 hours</option>
-                  <option value="120">2 hours</option>
-                </select>
-              </div>
-              <div class="field"><label>Break Length (min)</label>
-                <select id="breakLen" onchange="buildTT()">
-                  <option value="10">10 minutes</option>
-                  <option value="15" selected>15 minutes</option>
-                  <option value="20">20 minutes</option>
-                  <option value="30">30 minutes</option>
-                </select>
-              </div>
-            </div>
-            <div class="field"><label>Study Days</label></div>
-            <div class="day-grid">
-              <div class="day-cb"><input type="checkbox" id="dMon" checked onchange="buildTT()"/><label for="dMon">Mon</label></div>
-              <div class="day-cb"><input type="checkbox" id="dTue" checked onchange="buildTT()"/><label for="dTue">Tue</label></div>
-              <div class="day-cb"><input type="checkbox" id="dWed" checked onchange="buildTT()"/><label for="dWed">Wed</label></div>
-              <div class="day-cb"><input type="checkbox" id="dThu" checked onchange="buildTT()"/><label for="dThu">Thu</label></div>
-              <div class="day-cb"><input type="checkbox" id="dFri" checked onchange="buildTT()"/><label for="dFri">Fri</label></div>
-              <div class="day-cb"><input type="checkbox" id="dSat" onchange="buildTT()"/><label for="dSat">Sat</label></div>
-              <div class="day-cb"><input type="checkbox" id="dSun" onchange="buildTT()"/><label for="dSun">Sun</label></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="tool-box">
-          <div class="tool-box-header"><h2><i class="fas fa-book-open" style="color:#6366f1"></i> Subjects</h2></div>
-          <div class="tool-box-body">
-            <p style="font-size:.82rem;color:var(--muted);margin-bottom:12px">Add your subjects, set priority (High = more sessions) and hours per week.</p>
-            <div class="subject-row hdr"><span>Subject</span><span>Priority</span><span>Hrs/wk</span><span></span></div>
-            <div id="subjectList">
-              <div class="subject-row">
-                <input class="mini sub-name" type="text" placeholder="Mathematics" oninput="buildTT()"/>
-                <select class="mini sub-pri" onchange="buildTT()"><option value="3">High</option><option value="2" selected>Med</option><option value="1">Low</option></select>
-                <input class="mini sub-hrs" type="number" value="6" min="1" max="30" oninput="buildTT()"/>
-                <button class="del-btn" onclick="delSubject(this)">×</button>
-              </div>
-              <div class="subject-row">
-                <input class="mini sub-name" type="text" placeholder="English" oninput="buildTT()"/>
-                <select class="mini sub-pri" onchange="buildTT()"><option value="3">High</option><option value="2" selected>Med</option><option value="1">Low</option></select>
-                <input class="mini sub-hrs" type="number" value="4" min="1" max="30" oninput="buildTT()"/>
-                <button class="del-btn" onclick="delSubject(this)">×</button>
-              </div>
-              <div class="subject-row">
-                <input class="mini sub-name" type="text" placeholder="Science" oninput="buildTT()"/>
-                <select class="mini sub-pri" onchange="buildTT()"><option value="3">High</option><option value="2" selected>Med</option><option value="1">Low</option></select>
-                <input class="mini sub-hrs" type="number" value="5" min="1" max="30" oninput="buildTT()"/>
-                <button class="del-btn" onclick="delSubject(this)">×</button>
-              </div>
-            </div>
-            <button class="add-sub-btn" onclick="addSubject()"><i class="fas fa-plus"></i> Add Subject</button>
-          </div>
-        </div>
-
-        <div class="tool-box">
-          <div class="tool-box-header"><h2><i class="fas fa-palette" style="color:#6366f1"></i> Style</h2></div>
-          <div class="tool-box-body">
-            <div class="field-row">
-              <div class="field"><label>Colour Theme</label>
-                <select id="colorTheme" onchange="buildTT()">
-                  <option value="indigo">Indigo (Default)</option>
-                  <option value="ocean">Ocean Blue</option>
-                  <option value="forest">Forest Green</option>
-                  <option value="sunset">Sunset</option>
-                  <option value="candy">Candy</option>
-                </select>
-              </div>
-              <div class="field"><label>Motivational Quote</label>
-                <select id="quoteStyle" onchange="buildTT()">
-                  <option value="1">Show Quote</option>
-                  <option value="0">Hide Quote</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <button class="btn btn-primary btn-full" onclick="printTT()"><i class="fas fa-file-pdf"></i> Download as PDF</button>
-
-      </div>
-
-      <!-- RIGHT: TIMETABLE PREVIEW -->
-      <div>
-        <div id="statsBar" class="stats-bar" style="display:none">
-          <div class="stat-card"><div class="sv" id="statHrs">0</div><div class="sl">Study Hours/Week</div></div>
-          <div class="stat-card"><div class="sv" id="statSessions">0</div><div class="sl">Sessions/Week</div></div>
-          <div class="stat-card"><div class="sv" id="statSubjects">0</div><div class="sl">Subjects</div></div>
-        </div>
-        <div id="motivBox" style="display:none" class="motivational"></div>
-        <div class="tool-box">
-          <div class="tool-box-header">
-            <h2><i class="fas fa-calendar-alt" style="color:#6366f1"></i> Your Timetable</h2>
-            <button class="btn btn-sm btn-secondary" onclick="printTT()"><i class="fas fa-print"></i> Print / PDF</button>
-          </div>
-          <div class="tool-box-body" style="padding:16px">
-            <div id="ttOutput" style="color:var(--muted);text-align:center;padding:40px;font-style:italic">Add your subjects and configure your schedule on the left to generate your timetable.</div>
-            <div class="tt-legend" id="ttLegend"></div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="tool-service-cta" style="margin-top:36px">
-      <div><h4>Struggling with grades? Need tutoring or study materials?</h4><p>BLESSTech-X connects Zambian students with affordable tutors and study resources online.</p></div>
-      <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I need study help." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Get Study Help</a>
-    </div>
-
-    <div class="related-tools" style="margin-top:32px;background:var(--bg-alt);border-radius:var(--radius-lg);padding:28px">
-      <h3>You Might Also Need</h3>
-      <div class="related-grid">
-        <a href="../word-counter/index.html"     class="related-card"><span>🔤</span> Word Counter</a>
-        <a href="../pomodoro/index.html"          class="related-card"><span>⏱️</span> Pomodoro Timer</a>
-        <a href="../cv-builder/index.html"        class="related-card"><span>📑</span> CV Builder</a>
-        <a href="../countdown/index.html"         class="related-card"><span>⏳</span> Countdown Timer</a>
+  <div class="hero">
+    <div>
+      <h1>📚 Study <span>Timetable</span> Generator</h1>
+      <p>Fully customisable, colour-coded study schedules for Grade 12, UNZA, CBU or any exam. Set blocked slots, preferences, cell styles and more — then download as PDF.</p>
+      <div class="hero-badges">
+        <span class="hbadge"><i class="fas fa-check-circle"></i> Free</span>
+        <span class="hbadge"><i class="fas fa-mouse-pointer"></i> Right-click any cell to edit</span>
+        <span class="hbadge"><i class="fas fa-ban"></i> Blocked Slots</span>
+        <span class="hbadge"><i class="fas fa-clock"></i> Time Preferences</span>
+        <span class="hbadge"><i class="fas fa-file-pdf"></i> PDF Download</span>
       </div>
     </div>
   </div>
-</main>
 
-<footer class="tools-footer">
-  <div class="th-container">
-    <div class="tf-inner">
-      <div class="tf-brand"><a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a><p>Free tools for every Zambian student.</p></div>
-      <div class="tf-links"><h4>Free Tools</h4><a href="../index.html">All Tools</a><a href="../word-counter/index.html">Word Counter</a><a href="../pomodoro/index.html">Pomodoro Timer</a></div>
-      <div class="tf-links"><h4>BLESSTech-X</h4><a href="../../index.html">Main Website</a><a href="../../index.html#services">Services</a></div>
-      <div class="tf-contact"><h4>Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
+  <div class="mgrid">
+   <!-- ══ LEFT ══ -->
+   <div class="lpanel">
+
+    <!-- 1. DETAILS -->
+    <div class="box">
+      <div class="bx-hd open" onclick="toggleBox(this)">
+        <h2><i class="fas fa-user-graduate"></i> Your Details</h2>
+        <i class="fas fa-chevron-down bx-chevron"></i>
+      </div>
+      <div class="bx-bd">
+        <div class="f"><label>Your Name</label><input type="text" id="sName" placeholder="e.g. Chanda Mwale"/></div>
+        <div class="fr">
+          <div class="f"><label>Level / Class</label>
+            <select id="sLevel">
+              <option>Grade 12</option><option>Grade 11</option><option>Grade 10</option>
+              <option>UNZA Year 1</option><option>UNZA Year 2</option><option>UNZA Year 3</option><option>UNZA Year 4</option>
+              <option>CBU Year 1</option><option>CBU Year 2</option><option>CBU Year 3</option><option>CBU Year 4</option>
+              <option>ZCAS</option><option>Professional Exams</option><option>Self Study</option>
+            </select>
+          </div>
+          <div class="f"><label>Target Exam Date</label><input type="date" id="examDate"/></div>
+        </div>
+        <div class="f"><label>Custom Timetable Title (optional)</label><input type="text" id="ttTitle" placeholder="e.g. Term 1 Revision Plan — ECZ 2026"/></div>
+      </div>
     </div>
-    <div class="tf-bottom"><p>&copy; 2026 BLESSTech-X · Free Study Timetable Generator · Built for Zambia 🇿🇲</p></div>
+
+    <!-- 2. SCHEDULE -->
+    <div class="box">
+      <div class="bx-hd open" onclick="toggleBox(this)">
+        <h2><i class="fas fa-clock"></i> Schedule &amp; Timing</h2>
+        <i class="fas fa-chevron-down bx-chevron"></i>
+      </div>
+      <div class="bx-bd">
+        <div class="fr">
+          <div class="f"><label>Study Start</label><input type="time" id="tStart" value="06:00"/></div>
+          <div class="f"><label>Study End</label><input type="time" id="tEnd" value="22:00"/></div>
+        </div>
+        <div class="fr">
+          <div class="f"><label>Session Length</label>
+            <select id="sessLen">
+              <option value="30">30 min</option>
+              <option value="45">45 min</option>
+              <option value="60" selected>1 hour</option>
+              <option value="90">1.5 hours</option>
+              <option value="120">2 hours</option>
+            </select>
+          </div>
+          <div class="f"><label>Break After Every</label>
+            <select id="brkAfter">
+              <option value="1">1 session</option>
+              <option value="2" selected>2 sessions</option>
+              <option value="3">3 sessions</option>
+              <option value="4">4 sessions</option>
+              <option value="0">No auto breaks</option>
+            </select>
+          </div>
+        </div>
+        <div class="f">
+          <label>Break Length — <span id="brkLenV" style="color:var(--brand)">15 min</span></label>
+          <div class="rw"><input type="range" class="sl" id="brkLen" min="5" max="60" value="15" step="5" oninput="document.getElementById('brkLenV').textContent=this.value+' min'"/></div>
+        </div>
+        <div class="f"><label>Study Days</label>
+          <div class="dg">
+            <label class="dtog"><input type="checkbox" id="dMon" checked/><div class="dpill">M</div><span class="dlbl">Mon</span></label>
+            <label class="dtog"><input type="checkbox" id="dTue" checked/><div class="dpill">T</div><span class="dlbl">Tue</span></label>
+            <label class="dtog"><input type="checkbox" id="dWed" checked/><div class="dpill">W</div><span class="dlbl">Wed</span></label>
+            <label class="dtog"><input type="checkbox" id="dThu" checked/><div class="dpill">T</div><span class="dlbl">Thu</span></label>
+            <label class="dtog"><input type="checkbox" id="dFri" checked/><div class="dpill">F</div><span class="dlbl">Fri</span></label>
+            <label class="dtog"><input type="checkbox" id="dSat"/><div class="dpill">S</div><span class="dlbl">Sat</span></label>
+            <label class="dtog"><input type="checkbox" id="dSun"/><div class="dpill">S</div><span class="dlbl">Sun</span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. SUBJECTS -->
+    <div class="box">
+      <div class="bx-hd open" onclick="toggleBox(this)">
+        <h2><i class="fas fa-book-open"></i> Subjects</h2>
+        <i class="fas fa-chevron-down bx-chevron"></i>
+      </div>
+      <div class="bx-bd">
+        <div class="shdr">
+          <div></div>
+          <span class="shl">Subject</span>
+          <span class="shl">Priority</span>
+          <span class="shl">Hrs/wk</span>
+          <span class="shl">Prefers</span>
+          <div></div>
+        </div>
+        <div class="slist" id="sList"></div>
+        <button class="addsub" onclick="addSub()"><i class="fas fa-plus"></i> Add Subject</button>
+        <div class="hdiv"></div>
+        <div class="slbl" style="margin-bottom:8px">⚡ Quick Subject Sets</div>
+        <div class="qset">
+          <button class="qbtn" onclick="loadSet('g12')">Grade 12 ECZ</button>
+          <button class="qbtn" onclick="loadSet('sci')">Pure Sciences</button>
+          <button class="qbtn" onclick="loadSet('arts')">Arts</button>
+          <button class="qbtn" onclick="loadSet('biz')">Business</button>
+          <button class="qbtn" onclick="loadSet('unza')">UNZA General</button>
+          <button class="qbtn" onclick="loadSet('law')">Law</button>
+          <button class="qbtn" onclick="loadSet('ict')">ICT / Computing</button>
+          <button class="qbtn" onclick="loadSet('med')">Medicine / Health</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. BLOCKED SLOTS -->
+    <div class="box">
+      <div class="bx-hd" onclick="toggleBox(this)">
+        <h2><i class="fas fa-ban" style="color:var(--red)"></i> Blocked &amp; Fixed Times</h2>
+        <i class="fas fa-chevron-down bx-chevron"></i>
+      </div>
+      <div class="bx-bd collapsed">
+        <p style="font-size:.78rem;color:var(--muted);margin-bottom:10px;line-height:1.55">Mark times you're unavailable — church, meals, sport, sleep. These show as blocked on the timetable.</p>
+        <div id="blList"></div>
+        <button class="addsub" style="border-color:rgba(239,68,68,.3);color:var(--red);background:rgba(239,68,68,.06)" onclick="addBlocked()"><i class="fas fa-plus"></i> Add Blocked Slot</button>
+        <div class="hdiv"></div>
+        <div class="slbl" style="margin-bottom:8px">Common Presets</div>
+        <div class="qset">
+          <button class="qbtn" onclick="quickBlock('07:00','08:00','Every Day','🍳 Breakfast')">Breakfast 7–8am</button>
+          <button class="qbtn" onclick="quickBlock('13:00','14:00','Every Day','🍽️ Lunch')">Lunch 1–2pm</button>
+          <button class="qbtn" onclick="quickBlock('18:00','19:00','Every Day','🍽️ Dinner')">Dinner 6–7pm</button>
+          <button class="qbtn" onclick="quickBlock('21:00','22:00','Every Day','😴 Wind Down')">Wind Down 9–10pm</button>
+          <button class="qbtn" onclick="quickBlock('09:00','13:00','Sunday','⛪ Church')">Church Sun 9–1pm</button>
+          <button class="qbtn" onclick="quickBlock('16:00','18:00','Every Day','⚽ Sport / Exercise')">Sport 4–6pm</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. APPEARANCE -->
+    <div class="box">
+      <div class="bx-hd" onclick="toggleBox(this)">
+        <h2><i class="fas fa-palette"></i> Appearance &amp; Style</h2>
+        <i class="fas fa-chevron-down bx-chevron"></i>
+      </div>
+      <div class="bx-bd collapsed">
+        <div class="itabs">
+          <button class="itab on" onclick="showTab('tTheme',this)">Theme</button>
+          <button class="itab" onclick="showTab('tLayout',this)">Layout</button>
+          <button class="itab" onclick="showTab('tExtras',this)">Extras</button>
+        </div>
+
+        <div id="tTheme">
+          <div class="fr">
+            <div class="f"><label>Header Colour</label>
+              <select id="hdrCol">
+                <option value="#0f172a">Dark Navy</option>
+                <option value="#3730a3">Deep Indigo</option>
+                <option value="#14532d">Forest Green</option>
+                <option value="#0c4a6e">Ocean Blue</option>
+                <option value="#7f1d1d">Deep Red</option>
+                <option value="#1f2937">Charcoal</option>
+                <option value="#4a044e">Purple Night</option>
+                <option value="#78350f">Warm Coffee</option>
+              </select>
+            </div>
+            <div class="f"><label>Cell Style</label>
+              <select id="cellStyle">
+                <option value="solid">Solid Fill</option>
+                <option value="gradient">Gradient</option>
+                <option value="pastel">Pastel Tint</option>
+                <option value="outline">Outline Only</option>
+              </select>
+            </div>
+          </div>
+          <div class="fr">
+            <div class="f"><label>Break Style</label>
+              <select id="brkStyle">
+                <option value="amber">☕ Amber (default)</option>
+                <option value="green">🌿 Green</option>
+                <option value="blue">💧 Blue</option>
+                <option value="pink">🌸 Pink</option>
+                <option value="minimal">⬜ Minimal</option>
+              </select>
+            </div>
+            <div class="f"><label>Cell Corner Radius</label>
+              <select id="cellR">
+                <option value="0">Sharp</option>
+                <option value="4" selected>Slight</option>
+                <option value="8">Rounded</option>
+                <option value="14">Very Rounded</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div id="tLayout" style="display:none">
+          <div class="f">
+            <label>Cell Height — <span id="cellHV" style="color:var(--brand)">64px</span></label>
+            <div class="rw"><input type="range" class="sl" id="cellH" min="40" max="120" value="64" step="4" oninput="document.getElementById('cellHV').textContent=this.value+'px'"/></div>
+          </div>
+          <div class="f">
+            <label>Font Size — <span id="cellFsV" style="color:var(--brand)">12px</span></label>
+            <div class="rw"><input type="range" class="sl" id="cellFs" min="9" max="16" value="12" step="1" oninput="document.getElementById('cellFsV').textContent=this.value+'px'"/></div>
+          </div>
+          <div class="fr">
+            <div class="f"><label>Show Time Column</label>
+              <select id="showTime"><option value="1">Yes</option><option value="0">No</option></select>
+            </div>
+            <div class="f"><label>Show Break Rows</label>
+              <select id="showBrk"><option value="1">Yes</option><option value="0">Hide</option></select>
+            </div>
+          </div>
+          <div class="fr">
+            <div class="f"><label>Day Label Format</label>
+              <select id="dayFmt">
+                <option value="short">Mon / Tue / Wed</option>
+                <option value="full">Monday / Tuesday</option>
+                <option value="letter">M / T / W</option>
+              </select>
+            </div>
+            <div class="f"><label>Free Cell Label</label>
+              <select id="freeLabel">
+                <option value="Free">Free</option>
+                <option value="—">— (dash)</option>
+                <option value="">Empty</option>
+                <option value="Rest">Rest</option>
+                <option value="Flex">Flex</option>
+              </select>
+            </div>
+          </div>
+          <div class="f"><label>Table Width</label>
+            <select id="tblWidth"><option value="full">Full Width</option><option value="auto">Auto (fit content)</option></select>
+          </div>
+        </div>
+
+        <div id="tExtras" style="display:none">
+          <div class="fr">
+            <div class="f"><label>Stats Bar</label>
+              <select id="showStats"><option value="1">Show</option><option value="0">Hide</option></select>
+            </div>
+            <div class="f"><label>Motivational Quote</label>
+              <select id="showQuote"><option value="1">Show</option><option value="0">Hide</option></select>
+            </div>
+          </div>
+          <div class="fr">
+            <div class="f"><label>Exam Countdown</label>
+              <select id="showCd"><option value="1">Show (if date set)</option><option value="0">Hide</option></select>
+            </div>
+            <div class="f"><label>Hours Breakdown</label>
+              <select id="showHbd"><option value="1">Show</option><option value="0">Hide</option></select>
+            </div>
+          </div>
+          <div class="fr">
+            <div class="f"><label>Priority Tag in Cell</label>
+              <select id="showTag"><option value="0">No</option><option value="1">Yes</option></select>
+            </div>
+            <div class="f"><label>Show Session Length</label>
+              <select id="showSessLen"><option value="1">Yes</option><option value="0">No</option></select>
+            </div>
+          </div>
+          <div class="f"><label>Custom Footer Note (PDF)</label>
+            <input type="text" id="footNote" placeholder="e.g. Zambia's future is in your hands! 🇿🇲"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTIONS -->
+    <button class="btn btn-grad btn-full" onclick="buildTT()"><i class="fas fa-magic"></i> Generate Timetable</button>
+    <div class="btnrow">
+      <button class="btn btn-p" onclick="printTT()"><i class="fas fa-file-pdf"></i> PDF</button>
+      <button class="btn btn-s" onclick="copyTxt()"><i class="fas fa-copy"></i> Copy</button>
+      <button class="btn btn-s" onclick="resetAll()"><i class="fas fa-redo"></i> Reset</button>
+    </div>
+
+   </div><!-- /lpanel -->
+
+   <!-- ══ RIGHT ══ -->
+   <div class="rcol">
+     <div id="statsWrap" style="display:none"><div class="strow">
+       <div class="stc"><div class="stv" id="stH">—</div><div class="stl">Hrs / Week</div></div>
+       <div class="stc"><div class="stv" id="stS">—</div><div class="stl">Sessions</div></div>
+       <div class="stc"><div class="stv" id="stSu">—</div><div class="stl">Subjects</div></div>
+       <div class="stc"><div class="stv" id="stD">—</div><div class="stl">Study Days</div></div>
+     </div></div>
+
+     <div id="cdWrap" style="display:none"><div class="cdbar">
+       <div><div class="cdlbl">⏳ Exam Countdown</div><div class="cdv" id="cdV">—</div></div>
+       <div class="cdsub" id="cdSub"></div>
+     </div></div>
+
+     <div id="motivWrap" style="display:none"><div class="motiv" id="motivTxt"></div></div>
+
+     <div class="pbox">
+       <div class="pbx-hd">
+         <h2><i class="fas fa-calendar-alt"></i> Timetable Preview</h2>
+         <div style="display:flex;gap:7px;flex-wrap:wrap">
+           <button class="btn btn-sm btn-s" id="editBtn" onclick="toggleEdit()"><i class="fas fa-edit"></i> Edit Mode</button>
+           <button class="btn btn-sm btn-p" onclick="printTT()"><i class="fas fa-print"></i> PDF</button>
+         </div>
+       </div>
+       <div class="pbx-bd">
+         <div id="ttOut" class="tt-empty">Configure your schedule on the left, then click <strong>Generate Timetable</strong>. 📚</div>
+         <div class="leg" id="ttLeg"></div>
+       </div>
+     </div>
+
+     <div id="hbdWrap" style="display:none;margin-top:12px">
+       <div class="box">
+         <div class="bx-hd open" onclick="toggleBox(this)" style="cursor:default;pointer-events:none">
+           <h2><i class="fas fa-chart-bar"></i> Hours Breakdown</h2>
+         </div>
+         <div class="bx-bd" id="hbdCont"></div>
+       </div>
+     </div>
+   </div>
+  </div><!-- /mgrid -->
+
+  <div class="cta">
+    <div><h4>Struggling with grades? Need tutoring?</h4><p>BLESSTech-X connects Zambian students with affordable tutors and study resources.</p></div>
+    <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I need study help." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Get Study Help</a>
   </div>
+  <div class="rel">
+    <h3>You Might Also Need</h3>
+    <div class="relg">
+      <a href="../pomodoro/index.html"     class="relc"><span>⏱️</span> Pomodoro Timer</a>
+      <a href="../word-counter/index.html" class="relc"><span>🔤</span> Word Counter</a>
+      <a href="../cv-builder/index.html"   class="relc"><span>📑</span> CV Builder</a>
+      <a href="../countdown/index.html"    class="relc"><span>⏳</span> Countdown Timer</a>
+    </div>
+  </div>
+ </div>
+</div>
+
+<!-- CONTEXT MENU -->
+<div class="ctx" id="ctxM">
+  <button class="ctxi" id="ctxBrk"><i class="fas fa-coffee"></i> Set as Break</button>
+  <button class="ctxi" id="ctxFre"><i class="fas fa-times-circle"></i> Set as Free</button>
+  <button class="ctxi" id="ctxBlk"><i class="fas fa-ban"></i> Set as Blocked…</button>
+  <div class="ctxsep"></div>
+  <div class="ctxlbl">Assign Subject</div>
+  <div id="ctxSubs"></div>
+</div>
+
+<footer class="foot">
+  <div class="footg">
+    <div class="fc"><a href="../../index.html" class="logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X" style="width:28px;height:28px;border-radius:7px;object-fit:cover"/><span class="logo-t" style="font-size:.9rem;margin-left:8px">BLESS<em>Tech-X</em></span></a><p class="fdesc">Free tools for every Zambian student. Built in Lusaka. 🇿🇲</p></div>
+    <div class="fc"><h4>Free Tools</h4><a href="../index.html">All Tools</a><a href="../pomodoro/index.html">Pomodoro Timer</a><a href="../word-counter/index.html">Word Counter</a></div>
+    <div class="fc"><h4>BLESSTech-X</h4><a href="../../index.html">Main Website</a><a href="../../index.html#services">Services</a><a href="../../index.html#contact">Contact</a></div>
+    <div class="fc"><h4>Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone" style="width:14px"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp" style="width:14px"></i> WhatsApp</a></div>
+  </div>
+  <div class="footbot"><p>© 2026 BLESSTech-X · Free Study Timetable Generator · Built for Zambia 🇿🇲</p><p>No sign-up · No ads · 100% free</p></div>
 </footer>
-<a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<a href="https://wa.me/260979603741" class="wafab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<div class="toast" id="toast"></div>
 
 <script>
-var THEMES = {
-  indigo:['#6366f1','#8b5cf6','#a78bfa','#c4b5fd','#e0e7ff','#4f46e5','#7c3aed','#ddd6fe','#ede9fe','#f5f3ff'],
-  ocean: ['#0ea5e9','#06b6d4','#38bdf8','#7dd3fc','#e0f2fe','#0284c7','#0891b2','#bae6fd','#cffafe','#f0f9ff'],
-  forest:['#10b981','#059669','#34d399','#6ee7b7','#d1fae5','#047857','#065f46','#a7f3d0','#bbf7d0','#ecfdf5'],
-  sunset:['#f59e0b','#ef4444','#fbbf24','#fca5a5','#fef3c7','#d97706','#dc2626','#fde68a','#fee2e2','#fffbeb'],
-  candy: ['#ec4899','#8b5cf6','#f43f5e','#a78bfa','#fce7f3','#db2777','#7c3aed','#fbcfe8','#ede9fe','#fff1f2'],
+/* ══════════════════════════════════════
+   DATA
+══════════════════════════════════════ */
+var COLORS=['#6366f1','#ec4899','#10b981','#f59e0b','#ef4444','#0ea5e9','#8b5cf6','#d97706','#06b6d4','#f97316','#14b8a6','#84cc16','#a855f7','#e11d48','#0891b2','#65a30d'];
+
+var BRK_STYLES={
+  amber:{bg:'#fef3c7',col:'#92400e',ic:'☕'},
+  green:{bg:'#dcfce7',col:'#166534',ic:'🌿'},
+  blue: {bg:'#dbeafe',col:'#1e40af',ic:'💧'},
+  pink: {bg:'#fce7f3',col:'#9d174d',ic:'🌸'},
+  minimal:{bg:'#f9fafb',col:'#9ca3af',ic:'—'},
 };
 
-var QUOTES = [
-  '"Success is the sum of small efforts, repeated day in and day out." — Robert Collier',
+var QUOTES=[
+  '"Success is the sum of small efforts, repeated day in and day out." — Collier',
   '"The secret of getting ahead is getting started." — Mark Twain',
   '"An investment in knowledge pays the best interest." — Benjamin Franklin',
-  '"Education is the most powerful weapon to change the world." — Nelson Mandela',
-  '"The more that you read, the more things you will know." — Dr. Seuss',
-  '"Dream big. Study hard. Think for yourself." — Unknown',
-  '"Your future is created by what you do today, not tomorrow." — Robert Kiyosaki',
+  '"Education is the most powerful weapon to change the world." — Mandela',
+  '"Your future is created by what you do today, not tomorrow."',
+  '"Push yourself — no one else is going to do it for you."',
+  '"Zambia\'s future is in your hands. Study hard. 🇿🇲"',
+  '"Small daily improvements lead to stunning results over time."',
+  '"Dream big. Study hard. Think for yourself."',
 ];
 
-function getSubjects() {
-  var rows = document.querySelectorAll('#subjectList .subject-row');
-  var subs = [];
-  rows.forEach(function(r) {
-    var name = r.querySelector('.sub-name').value.trim();
-    var pri  = parseInt(r.querySelector('.sub-pri').value);
-    var hrs  = parseFloat(r.querySelector('.sub-hrs').value) || 1;
-    if (name) subs.push({ name: name, pri: pri, hrs: hrs });
+var SETS={
+  g12:  [{n:'Mathematics',p:3,h:8,pr:'Morning'},{n:'English Language',p:2,h:5,pr:'Any'},{n:'Biology',p:2,h:6,pr:'Morning'},{n:'Chemistry',p:2,h:6,pr:'Any'},{n:'Physics',p:2,h:6,pr:'Afternoon'},{n:'Geography',p:1,h:3,pr:'Evening'},{n:'Civic Education',p:1,h:2,pr:'Evening'}],
+  sci:  [{n:'Mathematics',p:3,h:8,pr:'Morning'},{n:'Physics',p:3,h:6,pr:'Morning'},{n:'Chemistry',p:3,h:6,pr:'Any'},{n:'Biology',p:2,h:5,pr:'Afternoon'},{n:'Additional Maths',p:2,h:4,pr:'Morning'},{n:'Computer Science',p:1,h:3,pr:'Evening'}],
+  arts: [{n:'English Literature',p:3,h:6,pr:'Morning'},{n:'History',p:2,h:5,pr:'Any'},{n:'Geography',p:2,h:5,pr:'Any'},{n:'Zambian Languages',p:1,h:3,pr:'Evening'},{n:'Fine Art',p:1,h:3,pr:'Afternoon'}],
+  biz:  [{n:'Principles of Accounts',p:3,h:7,pr:'Morning'},{n:'Business Studies',p:3,h:6,pr:'Any'},{n:'Economics',p:2,h:5,pr:'Afternoon'},{n:'Mathematics',p:2,h:5,pr:'Morning'},{n:'English',p:1,h:3,pr:'Evening'}],
+  unza: [{n:'Research Methods',p:3,h:6,pr:'Morning'},{n:'Statistics',p:2,h:5,pr:'Morning'},{n:'Core Module',p:2,h:5,pr:'Any'},{n:'Elective 1',p:2,h:4,pr:'Afternoon'},{n:'Elective 2',p:1,h:3,pr:'Evening'},{n:'Revision',p:1,h:4,pr:'Any'}],
+  law:  [{n:'Constitutional Law',p:3,h:7,pr:'Morning'},{n:'Contract Law',p:3,h:7,pr:'Morning'},{n:'Criminal Law',p:2,h:5,pr:'Any'},{n:'Legal Research',p:2,h:4,pr:'Afternoon'},{n:'Jurisprudence',p:1,h:3,pr:'Evening'}],
+  ict:  [{n:'Programming',p:3,h:8,pr:'Morning'},{n:'Database Systems',p:2,h:5,pr:'Any'},{n:'Networking',p:2,h:5,pr:'Afternoon'},{n:'Web Development',p:2,h:5,pr:'Evening'},{n:'ICT Theory',p:1,h:3,pr:'Any'}],
+  med:  [{n:'Anatomy',p:3,h:8,pr:'Morning'},{n:'Physiology',p:3,h:7,pr:'Morning'},{n:'Biochemistry',p:2,h:6,pr:'Any'},{n:'Pharmacology',p:2,h:5,pr:'Afternoon'},{n:'Pathology',p:2,h:5,pr:'Any'},{n:'Clinical Skills',p:1,h:4,pr:'Evening'}],
+};
+
+var DAY_IDS=['dMon','dTue','dWed','dThu','dFri','dSat','dSun'];
+var DAY_FULL=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+var DAY_SHORT=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+var DAY_LETTER=['M','T','W','T','F','S','S'];
+
+/* ══════════════════════════════════════
+   STATE
+══════════════════════════════════════ */
+var G={cells:{},slots:[],days:[],editMode:false};
+
+/* ══════════════════════════════════════
+   UI HELPERS
+══════════════════════════════════════ */
+function toggleBox(hd){
+  hd.classList.toggle('open');
+  hd.nextElementSibling.classList.toggle('collapsed');
+}
+function showTab(id,btn){
+  ['tTheme','tLayout','tExtras'].forEach(function(t){
+    document.getElementById(t).style.display=(t===id)?'block':'none';
   });
-  return subs;
+  btn.parentElement.querySelectorAll('.itab').forEach(function(b){b.classList.remove('on');});
+  btn.classList.add('on');
+}
+function toast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},2400);
+}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function escA(s){return String(s||'').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+function t2m(t){var p=t.split(':');return parseInt(p[0])*60+parseInt(p[1]);}
+function m2t(m){var h=Math.floor(m/60),mm=m%60;return(h<10?'0':'')+h+':'+(mm<10?'0':'')+mm;}
+function darken(hex,a){var n=parseInt(hex.slice(1),16);return'#'+[((n>>16)&255),((n>>8)&255),(n&255)].map(function(c){return Math.max(0,c-Math.round(255*a)).toString(16).padStart(2,'0');}).join('');}
+function rgba(hex,a){var n=parseInt(hex.slice(1),16);return'rgba('+((n>>16)&255)+','+((n>>8)&255)+','+(n&255)+','+a+')';}
+
+/* ══════════════════════════════════════
+   SUBJECTS
+══════════════════════════════════════ */
+function getSubs(){
+  return Array.from(document.querySelectorAll('#sList .srow')).map(function(r,i){
+    return{name:r.querySelector('.sni').value.trim(),p:parseInt(r.querySelector('.spri').value)||2,h:parseFloat(r.querySelector('.shrs').value)||3,pr:r.querySelector('.spref').value,col:r.querySelector('.sc').value};
+  }).filter(function(s){return s.name;});
+}
+function addSub(ps){
+  var list=document.getElementById('sList'),idx=list.querySelectorAll('.srow').length;
+  var col=(ps&&ps.col)||COLORS[idx%COLORS.length];
+  var p=ps||{};
+  var row=document.createElement('div');row.className='srow';
+  row.innerHTML='<input type="color" class="sc" value="'+col+'" title="Cell colour"/>'
+    +'<input class="sni" type="text" placeholder="Subject name" value="'+escA(p.n||'')+'"/>'
+    +'<select class="spri">'
+    +'<option value="3"'+(p.p===3?' selected':'')+'>🔴 High</option>'
+    +'<option value="2"'+(!p.p||p.p===2?' selected':'')+'>🟡 Med</option>'
+    +'<option value="1"'+(p.p===1?' selected':'')+'>🟢 Low</option>'
+    +'</select>'
+    +'<input class="shrs" type="number" value="'+(p.h||3)+'" min="1" max="40" title="Hours/week"/>'
+    +'<select class="spref" title="Preferred time of day">'
+    +'<option'+((!p.pr||p.pr==='Any')?' selected':'')+'>Any</option>'
+    +'<option'+(p.pr==='Morning'?' selected':'')+'>Morning</option>'
+    +'<option'+(p.pr==='Afternoon'?' selected':'')+'>Afternoon</option>'
+    +'<option'+(p.pr==='Evening'?' selected':'')+'>Evening</option>'
+    +'</select>'
+    +'<button class="sdel" onclick="this.closest(\'.srow\').remove()" title="Remove">×</button>';
+  list.appendChild(row);
+}
+function loadSet(k){
+  document.getElementById('sList').innerHTML='';
+  (SETS[k]||[]).forEach(addSub);
+  toast('Loaded subjects!');
 }
 
-function getActiveDays() {
-  var days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-  var ids  = ['dMon','dTue','dWed','dThu','dFri','dSat','dSun'];
-  return days.filter(function(_, i){ return document.getElementById(ids[i]).checked; });
+/* ══════════════════════════════════════
+   BLOCKED SLOTS
+══════════════════════════════════════ */
+function addBlocked(ps){
+  var p=ps||{};
+  var row=document.createElement('div');row.className='blrow';
+  row.innerHTML='<input type="time" class="bl-s" value="'+(p.s||'12:00')+'"/>'
+    +'<span class="bldash">→</span>'
+    +'<input type="time" class="bl-e" value="'+(p.e||'13:00')+'"/>'
+    +'<select class="bl-d" style="flex:1;min-width:90px">'
+    +'<option'+((!p.d||p.d==='Every Day')?' selected':'')+'>Every Day</option>'
+    +DAY_FULL.map(function(d){return'<option'+(p.d===d?' selected':'')+'>'+d+'</option>';}).join('')
+    +'</select>'
+    +'<input type="text" class="bl-l" placeholder="Label" value="'+escA(p.l||'')+'" style="width:88px"/>'
+    +'<button class="sdel" onclick="this.closest(\'.blrow\').remove()">×</button>';
+  document.getElementById('blList').appendChild(row);
+}
+function quickBlock(s,e,d,l){addBlocked({s,e,d,l});}
+function getBlocked(){
+  return Array.from(document.querySelectorAll('#blList .blrow')).map(function(r){
+    return{s:r.querySelector('.bl-s').value,e:r.querySelector('.bl-e').value,d:r.querySelector('.bl-d').value,l:r.querySelector('.bl-l').value.trim()};
+  });
+}
+function isBlocked(dayFull,start,end){
+  return getBlocked().some(function(b){
+    if(b.d!=='Every Day'&&b.d!==dayFull) return false;
+    return start<t2m(b.e)&&end>t2m(b.s);
+  });
+}
+function blockedLabel(dayFull,start,end){
+  var bl=getBlocked();
+  for(var i=0;i<bl.length;i++){
+    var b=bl[i];
+    if(b.d!=='Every Day'&&b.d!==dayFull) continue;
+    if(start<t2m(b.e)&&end>t2m(b.s)) return b.l||'Blocked';
+  }
+  return 'Blocked';
 }
 
-function timeToMins(t) { var p = t.split(':'); return parseInt(p[0])*60 + parseInt(p[1]); }
-function minsToTime(m) { var h = Math.floor(m/60); var mm = m%60; return (h<10?'0':'')+h+':'+(mm<10?'0':'')+mm; }
+/* ══════════════════════════════════════
+   GET ACTIVE DAYS
+══════════════════════════════════════ */
+function getActiveDays(){
+  return DAY_IDS.map(function(id,i){return{id,full:DAY_FULL[i],short:DAY_SHORT[i],letter:DAY_LETTER[i]};})
+    .filter(function(d){return document.getElementById(d.id).checked;});
+}
 
-function buildTT() {
-  var subs      = getSubjects();
-  var days      = getActiveDays();
-  var startM    = timeToMins(document.getElementById('startTime').value || '06:00');
-  var endM      = timeToMins(document.getElementById('endTime').value   || '22:00');
-  var sessLen   = parseInt(document.getElementById('sessionLen').value);
-  var breakLen  = parseInt(document.getElementById('breakLen').value);
-  var theme     = document.getElementById('colorTheme').value;
-  var showQuote = document.getElementById('quoteStyle').value === '1';
-  var name      = document.getElementById('stdName').value;
-  var level     = document.getElementById('stdLevel').value;
-  var colors    = THEMES[theme] || THEMES.indigo;
-
-  if (!subs.length || !days.length) {
-    document.getElementById('ttOutput').innerHTML = '<div style="color:var(--muted);text-align:center;padding:40px;font-style:italic">Add subjects and select at least one study day.</div>';
-    document.getElementById('ttLegend').innerHTML = '';
-    document.getElementById('statsBar').style.display = 'none';
-    document.getElementById('motivBox').style.display = 'none';
+/* ══════════════════════════════════════
+   BUILD TIMETABLE
+══════════════════════════════════════ */
+function buildTT(){
+  var subs=getSubs(),days=getActiveDays();
+  if(!subs.length||!days.length){
+    document.getElementById('ttOut').innerHTML='<div class="tt-empty">Add subjects and select at least one study day. 📚</div>';
+    document.getElementById('ttLeg').innerHTML='';
+    ['statsWrap','cdWrap','motivWrap','hbdWrap'].forEach(function(id){document.getElementById(id).style.display='none';});
     return;
   }
 
-  // Build time slots
-  var slots = [];
-  var cur   = startM;
-  var slotIdx = 0;
-  while (cur + sessLen <= endM) {
-    slots.push({ start: cur, end: cur + sessLen, type: 'study', idx: slotIdx });
-    cur += sessLen;
-    slotIdx++;
-    if (cur + breakLen <= endM && cur + sessLen <= endM) {
-      slots.push({ start: cur, end: cur + breakLen, type: 'break' });
-      cur += breakLen;
+  var startM=t2m(document.getElementById('tStart').value||'06:00');
+  var endM=t2m(document.getElementById('tEnd').value||'22:00');
+  var sl=parseInt(document.getElementById('sessLen').value);
+  var ba=parseInt(document.getElementById('brkAfter').value);
+  var bl=parseInt(document.getElementById('brkLen').value);
+  var showBrk=document.getElementById('showBrk').value==='1';
+
+  // Build slots
+  var slots=[],cur=startM,si=0,sc=0;
+  while(cur+sl<=endM){
+    slots.push({start:cur,end:cur+sl,type:'study',si:si});
+    si++;sc++;cur+=sl;
+    if(ba>0&&sc%ba===0&&cur+bl<=endM){
+      slots.push({start:cur,end:cur+bl,type:'break'});
+      cur+=bl;
     }
   }
+  G.slots=slots;G.days=days;
 
-  // Distribute subjects across slots × days
-  // Build a weighted pool
-  var pool = [];
-  subs.forEach(function(s) { for (var i = 0; i < s.pri; i++) pool.push(s.name); });
+  var studySlots=slots.filter(function(s){return s.type==='study';});
+  var totalCells=studySlots.length*days.length;
+  var totalWt=subs.reduce(function(a,b){return a+b.h*b.p;},0);
 
-  var studySlots = slots.filter(function(s){ return s.type === 'study'; });
-  var totalSessions = studySlots.length * days.length;
-
-  // Assign subjects proportionally by hours
-  var totalHrs = subs.reduce(function(a,b){ return a + b.hrs * b.pri; }, 0);
-  var assign = {}; // day -> slotIdx -> subjectName
-  var subjectCounters = {};
-  subs.forEach(function(s){ subjectCounters[s.name] = 0; });
-
-  // Create a repeated ordered list based on priority + hrs
-  var orderedPool = [];
+  // Build weighted pool
+  var pool=[];
   subs.forEach(function(s){
-    var count = Math.max(1, Math.round((s.hrs * s.pri / totalHrs) * totalSessions));
-    for (var i = 0; i < count; i++) orderedPool.push(s.name);
+    var cnt=Math.max(1,Math.round((s.h*s.p/totalWt)*totalCells));
+    for(var i=0;i<cnt;i++) pool.push({name:s.name,col:s.col,pr:s.pr});
   });
-  // Shuffle for variety
-  for (var i = orderedPool.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.random() * (i + 1));
-    var tmp = orderedPool[i]; orderedPool[i] = orderedPool[j]; orderedPool[j] = tmp;
-  }
+  // Shuffle
+  for(var i=pool.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var tmp=pool[i];pool[i]=pool[j];pool[j]=tmp;}
 
-  var poolIdx = 0;
-  days.forEach(function(day) {
-    assign[day] = {};
-    studySlots.forEach(function(slot) {
-      assign[day][slot.idx] = orderedPool[poolIdx % orderedPool.length];
-      poolIdx++;
+  // Assign with time-of-day preference
+  function period(m){return m<t2m('12:00')?'Morning':m<t2m('17:00')?'Afternoon':'Evening';}
+  var pi=0;
+  days.forEach(function(day){
+    studySlots.forEach(function(slot){
+      var key=day.full+'|'+slot.si;
+      if(G.cells[key]&&!G.cells[key]._a) return; // keep manual
+      if(isBlocked(day.full,slot.start,slot.end)){
+        G.cells[key]={type:'blocked',label:blockedLabel(day.full,slot.start,slot.end),_a:true};
+        return;
+      }
+      var pd=period(slot.start),matched=null;
+      for(var k=0;k<pool.length;k++){
+        var idx=(pi+k)%pool.length;
+        if(pool[idx].pr==='Any'||pool[idx].pr===pd){matched=pool[idx];pi+=k+1;break;}
+      }
+      if(!matched){matched=pool[pi%pool.length];pi++;}
+      G.cells[key]={type:'subj',sub:matched.name,col:matched.col,_a:true};
     });
   });
 
-  // Stats
-  var totalStudyHrs = (studySlots.length * days.length * sessLen / 60).toFixed(1);
-  document.getElementById('statHrs').textContent = totalStudyHrs;
-  document.getElementById('statSessions').textContent = studySlots.length * days.length;
-  document.getElementById('statSubjects').textContent = subs.length;
-  document.getElementById('statsBar').style.display = 'grid';
+  renderTT(subs,days,slots,studySlots,showBrk,sl);
+  renderStats(subs,days,studySlots,sl);
+  renderCD();
+  renderHBD(subs,days,studySlots,sl);
+  renderMotiv();
+}
 
-  // Quote
-  if (showQuote) {
-    var q = QUOTES[Math.floor(Math.random() * QUOTES.length)];
-    document.getElementById('motivBox').innerHTML = '💡 ' + q;
-    document.getElementById('motivBox').style.display = 'block';
-  } else {
-    document.getElementById('motivBox').style.display = 'none';
+/* ══════════════════════════════════════
+   RENDER TABLE
+══════════════════════════════════════ */
+function renderTT(subs,days,slots,studySlots,showBrk,sl){
+  var hc=document.getElementById('hdrCol').value;
+  var cs=document.getElementById('cellStyle').value;
+  var bs=BRK_STYLES[document.getElementById('brkStyle').value]||BRK_STYLES.amber;
+  var ch=document.getElementById('cellH').value+'px';
+  var fs=document.getElementById('cellFs').value+'px';
+  var cr=document.getElementById('cellR').value+'px';
+  var st=document.getElementById('showTime').value==='1';
+  var stag=document.getElementById('showTag').value==='1';
+  var ssl=document.getElementById('showSessLen').value==='1';
+  var df=document.getElementById('dayFmt').value;
+  var fl=document.getElementById('freeLabel').value;
+  var tw=document.getElementById('tblWidth').value==='full'?'width:100%':'';
+  var em=G.editMode;
+
+  function dlbl(d){return df==='full'?d.full:df==='letter'?d.letter:d.short;}
+
+  var name=document.getElementById('sName').value;
+  var level=document.getElementById('sLevel').value;
+  var title=document.getElementById('ttTitle').value;
+
+  var hdr='';
+  if(name||level||title){
+    hdr='<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;flex-wrap:wrap;gap:8px">'
+      +'<div><div style="font-family:var(--fs);font-size:clamp(.95rem,2vw,1.1rem);font-weight:800;color:var(--text)">'+(title?esc(title):esc(name||'My')+' Study Timetable')+'</div>'
+      +(name||level?'<div style="font-size:.74rem;color:var(--muted)">'+esc(name)+(level?' · ':'')+esc(level)+'</div>':'')
+      +'</div><div style="font-size:.68rem;color:var(--muted)">BLESSTech-X</div></div>';
   }
 
-  // Build HTML table
-  var html = '<div class="tt-wrap"><table class="tt">';
-  html += '<tr><th class="time-head">Time</th>';
-  days.forEach(function(d){ html += '<th class="day-head">' + d + '</th>'; });
-  html += '</tr>';
+  var html=hdr+'<div class="ttscroll"><table class="tt" style="'+tw+'"><thead><tr>';
+  if(st) html+='<th class="tht">Time</th>';
+  days.forEach(function(d){
+    var lbl=dlbl(d);
+    html+='<th class="thd" style="background:'+hc+'">'+esc(lbl)+'</th>';
+  });
+  html+='</tr></thead><tbody>';
 
-  slots.forEach(function(slot) {
-    var label = minsToTime(slot.start) + '<br/>' + minsToTime(slot.end);
-    html += '<tr><th class="time-head" style="font-size:.7rem">' + label + '</th>';
-    if (slot.type === 'break') {
+  slots.forEach(function(slot){
+    if(!showBrk&&slot.type==='break') return;
+    html+='<tr>';
+    if(st){
+      html+='<th class="tht" style="font-size:.66rem;font-weight:600;color:var(--muted);background:var(--bg2)">'
+        +m2t(slot.start)+'<br/><span style="font-size:.57rem;opacity:.7">'+m2t(slot.end)+'</span></th>';
+    }
+    if(slot.type==='break'){
       days.forEach(function(){
-        html += '<td><div class="tt-cell break">☕ Break<div class="hrs">' + breakLen + 'min</div></div></td>';
+        html+='<td><div class="tc brkc" style="background:'+bs.bg+';color:'+bs.col+';min-height:'+ch+';font-size:'+fs+';border-radius:'+cr+'">'
+          +bs.ic+' Break'+(ssl?'<div class="ctim">'+document.getElementById('brkLen').value+'min</div>':'')+'</div></td>';
       });
     } else {
-      days.forEach(function(day) {
-        var subName = assign[day][slot.idx];
-        var subIdx  = subs.findIndex(function(s){ return s.name === subName; });
-        var color   = colors[subIdx % colors.length] || '#6366f1';
-        html += '<td><div class="tt-cell subj" style="background:' + color + '">'
-          + esc(subName) + '<div class="hrs">' + sessLen + 'min</div></div></td>';
+      days.forEach(function(day){
+        var key=day.full+'|'+slot.si;
+        var cell=G.cells[key]||{type:'free'};
+        var inner='';
+        var base='min-height:'+ch+';font-size:'+fs+';border-radius:'+cr;
+        var dk=em?' data-key="'+key+'" onclick="cellClick(this)"':'';
+
+        if(cell.type==='blocked'){
+          inner='<div class="tc blkc" style="'+base+'"'+dk+' title="Blocked: '+escA(cell.label||'Blocked')+'">🚫 <span class="csub">'+esc((cell.label||'Blocked').substring(0,12))+'</span>'+(em?'<span class="edhint">✏️</span>':'')+'</div>';
+        } else if(cell.type==='break'){
+          inner='<div class="tc brkc" style="background:'+bs.bg+';color:'+bs.col+';'+base+'"'+dk+'>'+bs.ic+' Break</div>';
+        } else if(cell.type==='free'){
+          inner='<div class="tc frec" style="'+base+'"'+dk+'>'+esc(fl)+(em?'<span class="edhint">✏️</span>':'')+'</div>';
+        } else {
+          var color=cell.col||'#6366f1';
+          var bg=cs==='gradient'?('linear-gradient(135deg,'+color+','+darken(color,.15)+')')
+                :cs==='pastel'?rgba(color,.18)
+                :cs==='outline'?'transparent'
+                :color;
+          var tc2=cs==='pastel'||cs==='outline'?color:'white';
+          var brd=cs==='outline'?'border:2px solid '+color+';':'';
+          var sub2=subs.find(function(s){return s.name===cell.sub;});
+          var plab=sub2?['Low','Med','High'][sub2.p-1]:'';
+          inner='<div class="tc" style="background:'+bg+';color:'+tc2+';'+brd+base+'"'+dk+' title="'+escA(cell.sub)+(em?' — click/right-click to reassign':'')+'">'
+            +'<div class="csub">'+esc(cell.sub)+'</div>'
+            +(stag&&sub2?'<div class="ctag">'+plab+'</div>':'')
+            +(ssl?'<div class="ctim">'+sl+'min</div>':'')
+            +(em?'<span class="edhint">✏️</span>':'')
+            +'</div>';
+        }
+        html+='<td>'+inner+'</td>';
       });
     }
-    html += '</tr>';
+    html+='</tr>';
   });
-
-  html += '</table></div>';
-
-  // Header
-  var header = '';
-  if (name || level) {
-    header = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px">'
-      + '<div><div style="font-size:1rem;font-weight:800;color:var(--slate)">' + esc(name || 'Student') + '</div>'
-      + '<div style="font-size:.78rem;color:var(--muted)">' + esc(level) + ' · Study Timetable</div></div>'
-      + '<div style="font-size:.75rem;color:var(--muted)">Generated by BLESSTech-X</div></div>';
-  }
-
-  document.getElementById('ttOutput').innerHTML = header + html;
+  html+='</tbody></table></div>';
+  document.getElementById('ttOut').innerHTML=html;
 
   // Legend
-  var legend = '';
-  subs.forEach(function(s, i) {
-    var color = colors[i % colors.length];
-    legend += '<div class="tt-legend-item"><div class="tt-legend-dot" style="background:' + color + '"></div>' + esc(s.name) + '</div>';
+  var leg='';
+  subs.forEach(function(s){leg+='<div class="lgi"><div class="lgd" style="background:'+s.col+'"></div>'+esc(s.name)+'</div>';});
+  leg+='<div class="lgi"><div class="lgd" style="background:#fef3c7;border:1px solid #f59e0b"></div>Break</div>';
+  leg+='<div class="lgi"><div class="lgd" style="background:var(--bg3)"></div>Free</div>';
+  leg+='<div class="lgi"><div class="lgd" style="background:repeating-linear-gradient(45deg,#f1f5f9 0,#f1f5f9 3px,#e2e8f0 3px,#e2e8f0 6px)"></div>Blocked</div>';
+  document.getElementById('ttLeg').innerHTML=leg;
+}
+
+/* ══════════════════════════════════════
+   STATS / COUNTDOWN / MOTIV / HBD
+══════════════════════════════════════ */
+function renderStats(subs,days,studySlots,sl){
+  var show=document.getElementById('showStats').value==='1';
+  document.getElementById('statsWrap').style.display=show?'block':'none';
+  if(!show) return;
+  document.getElementById('stH').textContent=(studySlots.length*days.length*sl/60).toFixed(1);
+  document.getElementById('stS').textContent=studySlots.length*days.length;
+  document.getElementById('stSu').textContent=subs.length;
+  document.getElementById('stD').textContent=days.length;
+}
+function renderCD(){
+  var show=document.getElementById('showCd').value==='1';
+  var dv=document.getElementById('examDate').value;
+  var w=document.getElementById('cdWrap');
+  w.style.display=(show&&dv)?'block':'none';
+  if(!show||!dv) return;
+  var exam=new Date(dv),today=new Date();today.setHours(0,0,0,0);
+  var diff=Math.round((exam-today)/86400000);
+  document.getElementById('cdV').textContent=diff>0?diff+' days to go':diff===0?'TODAY! 🎓':Math.abs(diff)+' days ago';
+  document.getElementById('cdSub').textContent='Exam: '+exam.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+}
+function renderMotiv(){
+  var show=document.getElementById('showQuote').value==='1';
+  document.getElementById('motivWrap').style.display=show?'block':'none';
+  if(show) document.getElementById('motivTxt').textContent='💡 '+QUOTES[Math.floor(Math.random()*QUOTES.length)];
+}
+function renderHBD(subs,days,studySlots,sl){
+  var show=document.getElementById('showHbd').value==='1';
+  document.getElementById('hbdWrap').style.display=show?'block':'none';
+  if(!show) return;
+  var cnt={};subs.forEach(function(s){cnt[s.name]=0;});
+  Object.values(G.cells).forEach(function(c){if(c.type==='subj'&&cnt[c.sub]!==undefined)cnt[c.sub]++;});
+  var total=Object.values(cnt).reduce(function(a,b){return a+b;},0)||1;
+  var html='<div class="hbrow">';
+  subs.forEach(function(s){
+    var c2=cnt[s.name]||0,hrs=(c2*sl/60).toFixed(1),pct=Math.round(c2/total*100);
+    html+='<div><div class="hbmeta"><span class="hbname">'+esc(s.name)+'</span><span class="hbval">'+hrs+'h / '+pct+'%</span></div>'
+      +'<div class="hbbg"><div class="hbfill" style="width:'+pct+'%;background:'+s.col+'"></div></div></div>';
   });
-  legend += '<div class="tt-legend-item"><div class="tt-legend-dot" style="background:#fef3c7;border:1px solid #f59e0b"></div>Break</div>';
-  document.getElementById('ttLegend').innerHTML = legend;
+  document.getElementById('hbdCont').innerHTML=html+'</div>';
 }
 
-function addSubject() {
-  var list = document.getElementById('subjectList');
-  var row  = document.createElement('div');
-  row.className = 'subject-row';
-  row.innerHTML = '<input class="mini sub-name" type="text" placeholder="Subject name" oninput="buildTT()"/>'
-    + '<select class="mini sub-pri" onchange="buildTT()"><option value="3">High</option><option value="2" selected>Med</option><option value="1">Low</option></select>'
-    + '<input class="mini sub-hrs" type="number" value="3" min="1" max="30" oninput="buildTT()"/>'
-    + '<button class="del-btn" onclick="delSubject(this)">×</button>';
-  list.appendChild(row);
+/* ══════════════════════════════════════
+   EDIT MODE + CONTEXT MENU
+══════════════════════════════════════ */
+function toggleEdit(){
+  G.editMode=!G.editMode;
+  var b=document.getElementById('editBtn');
+  b.innerHTML=G.editMode?'<i class="fas fa-lock"></i> Lock':'<i class="fas fa-edit"></i> Edit Mode';
+  b.className=G.editMode?'btn btn-sm btn-grad':'btn btn-sm btn-s';
+  reRender();
+  toast(G.editMode?'Edit Mode ON — click or right-click any cell to reassign':'Timetable locked');
 }
 
-function delSubject(btn) { btn.closest('.subject-row').remove(); buildTT(); }
+var ctxKey=null;
 
-function printTT() {
-  var ttContent  = document.getElementById('ttOutput').innerHTML;
-  var legendContent = document.getElementById('ttLegend').innerHTML;
-  var statsHTML  = document.getElementById('statsBar').innerHTML;
-  var name       = document.getElementById('stdName').value || 'Student';
-  var level      = document.getElementById('stdLevel').value;
-  var theme      = document.getElementById('colorTheme').value;
-  var colors     = THEMES[theme] || THEMES.indigo;
-  var w = window.open('', '_blank');
-  w.document.write('<!DOCTYPE html><html><head><title>Study Timetable — ' + name + '</title>'
-    + '<style>*{box-sizing:border-box}@page{size:A4 landscape;margin:12mm}'
-    + 'body{font-family:"Segoe UI",Arial,sans-serif;color:#1e293b;background:white;padding:0}'
-    + '.print-header{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;background:#0f172a;color:white;border-radius:8px;margin-bottom:16px}'
-    + '.print-header h1{font-size:1.2rem;font-weight:800;margin:0}'
-    + '.print-header p{font-size:.78rem;opacity:.7;margin:4px 0 0}'
-    + '.stats-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}'
-    + '.stat-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px;text-align:center}'
-    + '.stat-card .sv{font-size:1.3rem;font-weight:900;color:#6366f1}'
-    + '.stat-card .sl{font-size:.68rem;color:#94a3b8;font-weight:600}'
-    + '.tt-wrap{overflow:hidden}'
-    + 'table.tt{width:100%;border-collapse:collapse;font-size:.72rem}'
-    + 'table.tt th{padding:8px 6px;font-weight:700;font-size:.65rem;text-transform:uppercase;letter-spacing:.5px;text-align:center;border:1px solid #e2e8f0}'
-    + 'table.tt th.day-head{background:#0f172a;color:white}'
-    + 'table.tt th.time-head{background:#f1f5f9;color:#64748b}'
-    + 'table.tt td{border:1px solid #e2e8f0;vertical-align:top;height:56px;padding:0}'
-    + '.tt-cell{height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:4px;text-align:center;font-size:.68rem;font-weight:700;min-height:56px}'
-    + '.tt-cell.break{background:#fef3c7;color:#92400e}'
-    + '.tt-cell.subj{color:white}'
-    + '.tt-cell .hrs{font-size:.58rem;opacity:.85;margin-top:1px}'
-    + '.tt-legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}'
-    + '.tt-legend-item{display:flex;align-items:center;gap:5px;font-size:.72rem;font-weight:600;color:#475569}'
-    + '.tt-legend-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}'
-    + '.footer{text-align:center;font-size:.65rem;color:#94a3b8;margin-top:12px}'
-    + '</style></head><body>'
-    + '<div class="print-header"><div><h1>📚 Study Timetable</h1><p>' + esc(name) + ' · ' + esc(level) + '</p></div><div style="font-size:.75rem;opacity:.7">BLESSTech-X · blesstechx.com</div></div>'
-    + '<div class="stats-bar">' + statsHTML + '</div>'
-    + ttContent
-    + '<div class="tt-legend">' + legendContent + '</div>'
-    + '<div class="footer">Generated by BLESSTech-X Free Tools · blesstechx.com · +260 979 603 741 · Keep studying, keep growing! 🇿🇲</div>'
-    + '</body></html>');
+function cellClick(el){
+  if(!G.editMode) return;
+  ctxKey=el.getAttribute('data-key');
+  var r=el.getBoundingClientRect();
+  openCtx(r.left,r.bottom+4);
+}
+document.addEventListener('contextmenu',function(e){
+  var c=e.target.closest('[data-key]');
+  if(!c) return;
+  e.preventDefault();
+  ctxKey=c.getAttribute('data-key');
+  openCtx(e.clientX,e.clientY);
+});
+document.addEventListener('click',function(e){
+  if(!e.target.closest('#ctxM')) closeCtx();
+});
+function openCtx(x,y){
+  var subs=getSubs();
+  var sl=document.getElementById('ctxSubs');
+  sl.innerHTML=subs.map(function(s){
+    return'<button class="ctxsb" onclick="assignCell(ctxKey,\'subj\',\''+escA(s.name)+'\',\''+s.col+'\')">'
+      +'<span class="ctxsd" style="background:'+s.col+'"></span>'+esc(s.name)+'</button>';
+  }).join('');
+  var m=document.getElementById('ctxM');
+  m.style.left=Math.min(x,window.innerWidth-210)+'px';
+  m.style.top=Math.min(y,window.innerHeight-320)+'px';
+  m.classList.add('on');
+}
+function closeCtx(){document.getElementById('ctxM').classList.remove('on');}
+document.getElementById('ctxBrk').onclick=function(){assignCell(ctxKey,'break');closeCtx();};
+document.getElementById('ctxFre').onclick=function(){assignCell(ctxKey,'free');closeCtx();};
+document.getElementById('ctxBlk').onclick=function(){
+  var lbl=prompt('Label for this blocked slot (e.g. Lunch, Church):','Blocked');
+  if(lbl!==null) assignCell(ctxKey,'blocked',lbl,'');
+  closeCtx();
+};
+function assignCell(key,type,sub,col){
+  if(!key) return;
+  if(type==='break')   G.cells[key]={type:'break',_a:false};
+  else if(type==='free') G.cells[key]={type:'free',_a:false};
+  else if(type==='blocked') G.cells[key]={type:'blocked',label:sub,_a:false};
+  else G.cells[key]={type:'subj',sub:sub,col:col,_a:false};
+  reRender();
+}
+function reRender(){
+  var subs=getSubs(),days=G.days,slots=G.slots;
+  var ss=slots.filter(function(s){return s.type==='study';});
+  if(slots.length){
+    renderTT(subs,days,slots,ss,document.getElementById('showBrk').value==='1',parseInt(document.getElementById('sessLen').value));
+    renderHBD(subs,days,ss,parseInt(document.getElementById('sessLen').value));
+  }
+}
+
+/* ══════════════════════════════════════
+   PDF
+══════════════════════════════════════ */
+function printTT(){
+  var ttC=document.getElementById('ttOut').innerHTML;
+  var legC=document.getElementById('ttLeg').innerHTML;
+  var statsH=document.getElementById('statsWrap').innerHTML;
+  var name=document.getElementById('sName').value||'Student';
+  var level=document.getElementById('sLevel').value;
+  var footN=document.getElementById('footNote').value||'Keep studying, keep growing! 🇿🇲';
+  var hc=document.getElementById('hdrCol').value||'#0f172a';
+  var bs=BRK_STYLES[document.getElementById('brkStyle').value]||BRK_STYLES.amber;
+
+  var w=window.open('','_blank');
+  w.document.write('<!DOCTYPE html><html><head><title>Timetable — '+esc(name)+'</title>'
+    +'<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>'
+    +'<style>*{box-sizing:border-box}@page{size:A4 landscape;margin:9mm}'
+    +'body{font-family:"Plus Jakarta Sans",Arial,sans-serif;color:#1e293b;background:white;margin:0;padding:0}'
+    +'.ph{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;background:'+hc+';color:white;border-radius:9px;margin-bottom:11px}'
+    +'.pht{font-family:"Syne",sans-serif;font-size:1.1rem;font-weight:800}'
+    +'.strow{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:10px}'
+    +'.stc{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:8px;text-align:center}'
+    +'.stv{font-family:"Syne",sans-serif;font-size:1.1rem;font-weight:800;color:#6366f1}'
+    +'.stl{font-size:.58rem;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:.4px}'
+    +'.ttscroll{overflow:hidden}.ttscroll table{width:100%;border-collapse:collapse;font-size:.7rem}'
+    +'table.tt th{padding:6px 5px;font-weight:700;font-size:.61rem;text-transform:uppercase;letter-spacing:.4px;text-align:center;border:1px solid #e2e8f0;white-space:nowrap}'
+    +'.tht{background:#f1f5f9;color:#64748b}.thd{background:'+hc+';color:white}'
+    +'table.tt td{border:1px solid #e2e8f0;padding:0}'
+    +'.tc{display:flex;flex-direction:column;justify-content:center;align-items:center;padding:4px;text-align:center;font-size:.66rem;font-weight:700;min-height:50px}'
+    +'.csub{font-weight:800;line-height:1.2}.ctim{font-size:.56rem;opacity:.7;margin-top:1px}.ctag{font-size:.54rem;opacity:.72;margin-top:1px}.edhint{display:none}'
+    +'.frec{background:#f9fafb;color:#94a3b8;font-style:italic;font-weight:400}'
+    +'.brkc{background:'+bs.bg+';color:'+bs.col+'}'
+    +'.blkc{background:repeating-linear-gradient(45deg,#f1f5f9 0,#f1f5f9 4px,#e2e8f0 4px,#e2e8f0 8px);color:#94a3b8}'
+    +'.leg{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}'
+    +'.lgi{display:flex;align-items:center;gap:5px;font-size:.68rem;font-weight:600;color:#475569}'
+    +'.lgd{width:9px;height:9px;border-radius:2px;flex-shrink:0}'
+    +'.footer{text-align:center;font-size:.6rem;color:#94a3b8;margin-top:10px;border-top:1px solid #e2e8f0;padding-top:7px}'
+    +'</style></head><body>'
+    +'<div class="ph"><div><div class="pht">📚 Study Timetable</div><div style="font-size:.72rem;opacity:.75;margin-top:2px">'+esc(name)+(level?' · '+esc(level):'')+'</div></div><div style="font-size:.7rem;opacity:.65">BLESSTech-X</div></div>'
+    +(statsH||'')
+    +ttC
+    +'<div class="leg">'+legC+'</div>'
+    +'<div class="footer">'+esc(footN)+' · Generated by BLESSTech-X Free Tools · +260 979 603 741</div>'
+    +'</body></html>');
   w.document.close();
-  setTimeout(function(){ w.print(); }, 500);
+  setTimeout(function(){w.print();},600);
 }
 
-function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+/* ══════════════════════════════════════
+   COPY TEXT
+══════════════════════════════════════ */
+function copyTxt(){
+  var subs=getSubs(),days=G.days,slots=G.slots;
+  if(!slots.length){toast('Generate a timetable first!');return;}
+  var sl=parseInt(document.getElementById('sessLen').value);
+  var lines=[document.getElementById('ttTitle').value||document.getElementById('sName').value+"'s Timetable",''];
+  var studySlots=slots.filter(function(s){return s.type==='study';});
+  lines.push(days.map(function(d){return d.short.padEnd(14);}).join(''));
+  studySlots.forEach(function(s){
+    var row=m2t(s.start)+' ';
+    days.forEach(function(d){
+      var c=G.cells[d.full+'|'+s.si]||{type:'free'};
+      var lbl=c.type==='subj'?c.sub:c.type==='break'?'BREAK':c.type==='blocked'?(c.label||'Blocked'):'Free';
+      row+=lbl.substring(0,13).padEnd(14);
+    });
+    lines.push(row);
+  });
+  lines.push('','Generated by BLESSTech-X · +260 979 603 741');
+  navigator.clipboard.writeText(lines.join('\n')).then(function(){toast('Timetable copied!');}).catch(function(){toast('Copy failed — try PDF instead');});
+}
 
-document.getElementById('thToggle').addEventListener('click', function(){
-  document.getElementById('thNav').classList.toggle('th-nav-open');
-  document.getElementById('thToggle').classList.toggle('th-toggle-open');
+/* ══════════════════════════════════════
+   RESET
+══════════════════════════════════════ */
+function resetAll(){
+  if(!confirm('Reset everything? This clears all subjects, blocked slots and cells.')) return;
+  G.cells={};G.slots=[];G.days=[];G.editMode=false;
+  document.getElementById('editBtn').innerHTML='<i class="fas fa-edit"></i> Edit Mode';
+  document.getElementById('editBtn').className='btn btn-sm btn-s';
+  document.getElementById('ttOut').innerHTML='<div class="tt-empty">Configure your schedule and click Generate. 📚</div>';
+  document.getElementById('ttLeg').innerHTML='';
+  ['statsWrap','cdWrap','motivWrap','hbdWrap'].forEach(function(id){document.getElementById(id).style.display='none';});
+  document.getElementById('sList').innerHTML='';
+  document.getElementById('blList').innerHTML='';
+  loadSet('g12');
+  toast('Reset complete!');
+}
+
+/* ══════════════════════════════════════
+   AUTO-REBUILD on settings change
+══════════════════════════════════════ */
+document.addEventListener('change',function(e){
+  if(G.slots.length&&!e.target.closest('#ctxM')){
+    setTimeout(function(){if(G.slots.length) buildTT();},50);
+  }
+});
+document.addEventListener('input',function(e){
+  if(e.target.matches('#sName,#ttTitle,#footNote')&&G.slots.length){
+    clearTimeout(window._d);
+    window._d=setTimeout(reRender,380);
+  }
 });
 
+/* ══════════════════════════════════════
+   GLOBAL EVENTS
+══════════════════════════════════════ */
+document.getElementById('mobTog').addEventListener('click',function(){
+  document.getElementById('hnav').classList.toggle('open');
+  this.classList.toggle('open');
+});
+window.addEventListener('scroll',function(){
+  document.getElementById('hdr').classList.toggle('scrolled',window.scrollY>8);
+},{passive:true});
+
 // Init
-buildTT();
+loadSet('g12');
 </script>
 </body>
 </html>
