@@ -418,15 +418,19 @@ input[type=range].intensity::-webkit-slider-thumb:hover{transform:scale(1.2)}
 .track-actions{display:flex;gap:6px;flex-shrink:0}
 .yt-btn,.sp-btn{
   display:inline-flex;align-items:center;gap:4px;
-  padding:5px 10px;border-radius:50px;
+  padding:5px 11px;border-radius:50px;
   font-size:.68rem;font-weight:800;transition:all .16s;
-  white-space:nowrap;
+  white-space:nowrap;cursor:pointer;border:none;
 }
 .yt-btn{background:#ff0000;color:white}
-.yt-btn:hover{background:#cc0000;transform:scale(1.05)}
+.yt-btn:hover{background:#cc0000;transform:scale(1.04)}
 .sp-btn{background:#1db954;color:white}
-.sp-btn:hover{background:#15a042;transform:scale(1.05)}
-@media(max-width:560px){ .track-actions{display:none} }
+.sp-btn:hover{background:#15a042;transform:scale(1.04)}
+/* always visible — stack vertically on small phones */
+@media(max-width:420px){
+  .track-actions{flex-direction:column;gap:4px}
+  .yt-btn,.sp-btn{font-size:.62rem;padding:4px 9px}
+}
 
 /* stats bar */
 .stats-bar{
@@ -587,6 +591,100 @@ input[type=range].intensity::-webkit-slider-thumb:hover{transform:scale(1.2)}
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-track{background:var(--bg2)}
 ::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:3px}
+
+/* ════════════════════════════════════════════
+   IN-PAGE PLAYER MODAL
+════════════════════════════════════════════ */
+.player-backdrop{
+  position:fixed;inset:0;z-index:500;
+  background:rgba(0,0,0,.72);
+  backdrop-filter:blur(10px);
+  display:flex;align-items:center;justify-content:center;
+  padding:var(--px);
+  opacity:0;pointer-events:none;
+  transition:opacity .28s;
+}
+.player-backdrop.open{opacity:1;pointer-events:all}
+.player-modal{
+  background:var(--foot-bg);
+  border-radius:20px;
+  width:100%;max-width:660px;
+  overflow:hidden;
+  box-shadow:0 24px 60px rgba(0,0,0,.5);
+  transform:translateY(24px) scale(.97);
+  transition:transform .32s var(--ease);
+}
+.player-backdrop.open .player-modal{transform:translateY(0) scale(1)}
+.player-top{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.player-track-info{flex:1;min-width:0}
+.player-track-name{font-weight:800;font-size:.88rem;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.player-track-artist{font-size:.72rem;color:var(--foot-sub);margin-top:2px}
+.player-source-tabs{display:flex;gap:6px;flex-shrink:0;margin-left:12px}
+.psrc-btn{
+  padding:5px 12px;border-radius:50px;border:1.5px solid rgba(255,255,255,.15);
+  font-size:.7rem;font-weight:800;cursor:pointer;
+  font-family:var(--fb);transition:all .16s;background:none;color:rgba(255,255,255,.55);
+}
+.psrc-btn.yt.active{background:#ff0000;border-color:#ff0000;color:white}
+.psrc-btn.sp.active{background:#1db954;border-color:#1db954;color:white}
+.psrc-btn:not(.active):hover{border-color:rgba(255,255,255,.4);color:white}
+.player-close{
+  width:30px;height:30px;border-radius:50%;
+  background:rgba(255,255,255,.1);border:none;
+  color:rgba(255,255,255,.6);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.8rem;transition:all .16s;flex-shrink:0;margin-left:8px;
+}
+.player-close:hover{background:rgba(255,255,255,.2);color:white}
+.player-iframe-wrap{
+  position:relative;width:100%;padding-top:56.25%;
+  background:#000;
+}
+.player-iframe-wrap iframe{
+  position:absolute;inset:0;width:100%;height:100%;border:none;
+}
+.player-iframe-wrap .player-loading{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:10px;color:rgba(255,255,255,.5);font-size:.82rem;
+  background:#111;
+}
+.player-loading .spin{
+  width:28px;height:28px;border-radius:50%;
+  border:3px solid rgba(255,255,255,.15);
+  border-top-color:var(--brand);
+  animation:spin .7s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.player-footer{
+  padding:12px 18px;
+  display:flex;align-items:center;gap:10px;
+  border-top:1px solid rgba(255,255,255,.07);
+  flex-wrap:wrap;
+}
+.player-prev,.player-next{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:7px 13px;border-radius:9px;
+  border:1.5px solid rgba(255,255,255,.12);
+  background:none;color:rgba(255,255,255,.7);
+  font-size:.74rem;font-weight:700;cursor:pointer;
+  font-family:var(--fb);transition:all .16s;
+}
+.player-prev:hover,.player-next:hover{border-color:rgba(255,255,255,.35);color:white}
+.player-open-ext{
+  margin-left:auto;
+  display:inline-flex;align-items:center;gap:5px;
+  padding:7px 13px;border-radius:9px;
+  background:rgba(255,255,255,.08);border:none;
+  color:rgba(255,255,255,.55);font-size:.72rem;font-weight:700;
+  cursor:pointer;font-family:var(--fb);transition:all .16s;
+  text-decoration:none;
+}
+.player-open-ext:hover{background:rgba(255,255,255,.14);color:white}
   </style>
 </head>
 <body>
@@ -801,6 +899,31 @@ input[type=range].intensity::-webkit-slider-thumb:hover{transform:scale(1.2)}
 
   </div><!-- /wrap -->
 </div><!-- /page -->
+
+<!-- IN-PAGE PLAYER MODAL -->
+<div class="player-backdrop" id="playerBackdrop" onclick="closePlayerOnBackdrop(event)">
+  <div class="player-modal">
+    <div class="player-top">
+      <div class="player-track-info">
+        <div class="player-track-name" id="playerTrackName">—</div>
+        <div class="player-track-artist" id="playerTrackArtist">—</div>
+      </div>
+      <div class="player-source-tabs">
+        <button class="psrc-btn yt active" id="srcYT" onclick="switchSource('yt')"><i class="fab fa-youtube"></i> YouTube</button>
+        <button class="psrc-btn sp"        id="srcSP" onclick="switchSource('sp')"><i class="fab fa-spotify"></i> Spotify</button>
+      </div>
+      <button class="player-close" onclick="closePlayer()" aria-label="Close"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="player-iframe-wrap" id="playerWrap">
+      <div class="player-loading"><div class="spin"></div>Loading…</div>
+    </div>
+    <div class="player-footer">
+      <button class="player-prev" onclick="playerNav(-1)"><i class="fas fa-step-backward"></i> Prev</button>
+      <button class="player-next" onclick="playerNav(1)">Next <i class="fas fa-step-forward"></i></button>
+      <a class="player-open-ext" id="playerExtLink" href="#" target="_blank"><i class="fas fa-external-link-alt"></i> Open in app</a>
+    </div>
+  </div>
+</div>
 
 <!-- TOAST -->
 <div class="toast" id="copyToast">✅ Playlist copied!</div>
@@ -1099,8 +1222,8 @@ function generatePlaylist(){
     html += '<div class="track-thumb" style="background:'+cfg.gradient+'">🎵</div>';
     html += '<div class="track-info"><div class="track-name">'+esc(t[0])+'</div><div class="track-artist">'+esc(t[1])+'</div></div>';
     html += '<div class="track-actions">';
-    html += '<a class="yt-btn" href="'+ytLink(t[0],t[1])+'" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>';
-    html += '<a class="sp-btn" href="'+spLink(t[0],t[1])+'" target="_blank"><i class="fab fa-spotify"></i> Spotify</a>';
+    html += '<button class="yt-btn" onclick="openPlayer('+i+',\'yt\')"><i class="fab fa-youtube"></i> YouTube</button>';
+    html += '<button class="sp-btn" onclick="openPlayer('+i+',\'sp\')"><i class="fab fa-spotify"></i> Spotify</button>';
     html += '</div></div>';
   });
   html += '</div>';
@@ -1221,6 +1344,111 @@ function copyPlaylist(){
     setTimeout(function(){ t.classList.remove('show'); },2500);
   });
 }
+
+/* ══════════════════════════════════════════
+   IN-PAGE PLAYER
+══════════════════════════════════════════ */
+var playerCurrentIdx = 0;
+var playerSource     = 'yt'; // 'yt' or 'sp'
+
+function openPlayer(idx, src){
+  if(!window._lastTracks || !window._lastTracks[idx]) return;
+  playerCurrentIdx = idx;
+  playerSource     = src || 'yt';
+  renderPlayer();
+  document.getElementById('playerBackdrop').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePlayer(){
+  document.getElementById('playerBackdrop').classList.remove('open');
+  document.body.style.overflow = '';
+  // kill iframe to stop audio
+  document.getElementById('playerWrap').innerHTML = '<div class="player-loading"><div class="spin"></div>Loading…</div>';
+}
+
+function closePlayerOnBackdrop(e){
+  if(e.target === document.getElementById('playerBackdrop')) closePlayer();
+}
+
+function playerNav(dir){
+  var tracks = window._lastTracks;
+  if(!tracks) return;
+  playerCurrentIdx = (playerCurrentIdx + dir + tracks.length) % tracks.length;
+  renderPlayer();
+}
+
+function switchSource(src){
+  playerSource = src;
+  document.getElementById('srcYT').classList.toggle('active', src==='yt');
+  document.getElementById('srcSP').classList.toggle('active', src==='sp');
+  renderPlayer();
+}
+
+function renderPlayer(){
+  var tracks = window._lastTracks;
+  if(!tracks) return;
+  var t = tracks[playerCurrentIdx];
+
+  document.getElementById('playerTrackName').textContent   = t[0];
+  document.getElementById('playerTrackArtist').textContent = t[1];
+  document.getElementById('srcYT').classList.toggle('active', playerSource==='yt');
+  document.getElementById('srcSP').classList.toggle('active', playerSource==='sp');
+
+  var wrap = document.getElementById('playerWrap');
+  wrap.innerHTML = '<div class="player-loading"><div class="spin"></div>Loading player…</div>';
+
+  var query = encodeURIComponent(t[0] + ' ' + t[1]);
+
+  if(playerSource === 'yt'){
+    // YouTube embed via search — use nocookie domain for privacy
+    var ytSearch = 'https://www.youtube.com/results?search_query=' + query;
+    document.getElementById('playerExtLink').href = ytSearch;
+    document.getElementById('playerExtLink').innerHTML = '<i class="fab fa-youtube"></i> Open on YouTube';
+
+    // We embed YouTube search using the ytembed trick:
+    // Use youtube-nocookie search embed (shows results page)
+    // Best approach: embed the search results in an iframe
+    var iframe = document.createElement('iframe');
+    iframe.src = 'https://www.youtube.com/embed?listType=search&list=' + query + '&autoplay=1&rel=0';
+    iframe.allow = 'autoplay; encrypted-media; fullscreen; picture-in-picture';
+    iframe.allowFullscreen = true;
+    iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:none;';
+    wrap.innerHTML = '';
+    wrap.appendChild(iframe);
+
+  } else {
+    // Spotify embed — search link (Spotify doesn't allow direct search embeds without auth)
+    // Show a styled card with deep-link to Spotify app/web
+    var spUrl  = 'https://open.spotify.com/search/' + query;
+    var spApp  = 'spotify:search:' + decodeURIComponent(query);
+    document.getElementById('playerExtLink').href = spUrl;
+    document.getElementById('playerExtLink').innerHTML = '<i class="fab fa-spotify"></i> Open on Spotify';
+
+    wrap.innerHTML = `
+      <div style="position:absolute;inset:0;background:linear-gradient(135deg,#0a3d1f,#1db954 120%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:28px;text-align:center;">
+        <div style="font-size:3.5rem">🎵</div>
+        <div style="color:white;font-weight:800;font-size:1.1rem;line-height:1.3">${esc(t[0])}</div>
+        <div style="color:rgba(255,255,255,.7);font-size:.84rem">${esc(t[1])}</div>
+        <div style="display:flex;flex-direction:column;gap:10px;width:100%;max-width:260px;margin-top:6px">
+          <a href="${spApp}" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;background:#1db954;color:white;border-radius:50px;font-weight:800;font-size:.84rem;text-decoration:none;">
+            <i class="fab fa-spotify"></i> Open in Spotify App
+          </a>
+          <a href="${spUrl}" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 20px;background:rgba(255,255,255,.15);color:white;border-radius:50px;font-weight:700;font-size:.78rem;text-decoration:none;border:1.5px solid rgba(255,255,255,.25);">
+            <i class="fas fa-external-link-alt"></i> Open Spotify Web
+          </a>
+        </div>
+        <div style="color:rgba(255,255,255,.4);font-size:.68rem;margin-top:4px">Spotify requires their app or web player for playback</div>
+      </div>`;
+  }
+}
+
+/* keyboard close */
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') closePlayer();
+  if(e.key === 'ArrowRight' && document.getElementById('playerBackdrop').classList.contains('open')) playerNav(1);
+  if(e.key === 'ArrowLeft'  && document.getElementById('playerBackdrop').classList.contains('open')) playerNav(-1);
+});
 
 /* ══════════════════════════════════════════
    GLOBAL EVENTS
