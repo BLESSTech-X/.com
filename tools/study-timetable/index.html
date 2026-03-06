@@ -127,28 +127,31 @@ input[type=range].sl::-webkit-slider-thumb:hover{transform:scale(1.2)}
 .dlbl{font-size:.58rem;font-weight:700;color:var(--muted);text-transform:uppercase}
 
 /* ══ SUBJECTS ══ */
-.slist{display:flex;flex-direction:column;gap:6px;margin-bottom:9px}
-.srow{background:var(--bg2);border:1.5px solid var(--bdr);border-radius:10px;padding:8px 9px;display:flex;align-items:center;gap:6px;transition:border-color .15s;animation:slideIn .25s var(--ease)}
+.slist{display:flex;flex-direction:column;gap:7px;margin-bottom:9px}
+.srow{background:var(--bg2);border:1.5px solid var(--bdr);border-radius:10px;padding:9px 10px;display:flex;flex-direction:column;gap:7px;transition:border-color .15s;animation:slideIn .25s var(--ease)}
 @keyframes slideIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
 .srow:hover{border-color:var(--bdr2)}
-.sc{width:22px;height:22px;border:none;cursor:pointer;border-radius:5px;padding:0;background:none;flex-shrink:0}
-.sni{flex:1;padding:7px 9px;border:1.5px solid var(--bdr);border-radius:8px;font-size:.82rem;outline:none;background:var(--card);color:var(--text);min-width:0;transition:border-color .16s}
+.srow-top{display:flex;align-items:center;gap:7px}
+.srow-bot{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+.srow-bot-lbl{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:-3px}
+.sc{width:24px;height:24px;border:none;cursor:pointer;border-radius:6px;padding:0;background:none;flex-shrink:0;cursor:pointer}
+.sni{flex:1;padding:7px 10px;border:1.5px solid var(--bdr);border-radius:8px;font-size:.83rem;outline:none;background:var(--card);color:var(--text);min-width:0;transition:border-color .16s}
 .sni:focus{border-color:var(--brand)}
-.spri{padding:7px 5px;border:1.5px solid var(--bdr);border-radius:8px;font-size:.74rem;outline:none;background:var(--card);color:var(--text);cursor:pointer}
-.shrs{width:50px;padding:7px 5px;border:1.5px solid var(--bdr);border-radius:8px;font-size:.78rem;outline:none;background:var(--card);color:var(--text);text-align:center}
-.spref{width:76px;padding:7px 5px;border:1.5px solid var(--bdr);border-radius:8px;font-size:.72rem;outline:none;background:var(--card);color:var(--text);cursor:pointer}
+.spri,.shrs,.spref{width:100%;padding:7px 8px;border:1.5px solid var(--bdr);border-radius:8px;font-size:.78rem;outline:none;background:var(--card);color:var(--text);cursor:pointer;transition:border-color .16s}
+.shrs{text-align:center}
+.spri:focus,.shrs:focus,.spref:focus{border-color:var(--brand)}
 .sdel{width:28px;height:28px;border-radius:7px;background:rgba(239,68,68,.09);border:1.5px solid rgba(239,68,68,.15);color:var(--red);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .13s;font-size:.82rem}
 .sdel:hover{background:var(--red);color:white;border-color:var(--red)}
-.shdr{display:grid;grid-template-columns:22px 1fr auto auto auto 28px;gap:6px;padding:0 9px;margin-bottom:3px;align-items:center}
-.shl{font-size:.6rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.shdr{display:none}
+.shl{font-size:.59rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
 .addsub{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;background:rgba(99,102,241,.07);border:1.5px solid rgba(99,102,241,.2);border-radius:9px;color:var(--brd);font-size:.76rem;font-weight:700;cursor:pointer;transition:all .15s}
 .addsub:hover{background:var(--brand);color:white;border-color:var(--brand)}
 
 /* ══ BLOCKED SLOTS ══ */
-.blrow{display:flex;align-items:center;gap:6px;margin-bottom:7px;flex-wrap:wrap}
-.blrow input[type=time],.blrow select,.blrow input[type=text]{padding:7px 9px;border:1.5px solid var(--bdr);border-radius:8px;font-size:.8rem;outline:none;background:var(--bg);color:var(--text);transition:border-color .16s}
-.blrow input[type=time]:focus,.blrow select:focus,.blrow input[type=text]:focus{border-color:var(--red)}
-.bldash{font-size:.7rem;font-weight:700;color:var(--muted);flex-shrink:0}
+.blrow{display:grid;grid-template-columns:80px auto 80px 1fr 90px 28px;align-items:center;gap:6px;margin-bottom:7px}
+.blrow input[type=time],.blrow select,.blrow input[type=text]{padding:7px 8px;border:1.5px solid var(--bdr);border-radius:8px;font-size:.78rem;outline:none;background:var(--bg);color:var(--text);width:100%;transition:border-color .16s}
+.blrow input[type=time]:focus,.blrow select:focus,.blrow input[type=text]:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(239,68,68,.1)}
+.bldash{font-size:.7rem;font-weight:700;color:var(--muted);text-align:center}
 
 /* ══ QUICK SETS ══ */
 .qset{display:flex;flex-wrap:wrap;gap:6px}
@@ -389,14 +392,6 @@ table.tt td{border:1px solid rgba(0,0,0,.07);vertical-align:top;padding:0}
         <i class="fas fa-chevron-down bx-chevron"></i>
       </div>
       <div class="bx-bd">
-        <div class="shdr">
-          <div></div>
-          <span class="shl">Subject</span>
-          <span class="shl">Priority</span>
-          <span class="shl">Hrs/wk</span>
-          <span class="shl">Prefers</span>
-          <div></div>
-        </div>
         <div class="slist" id="sList"></div>
         <button class="addsub" onclick="addSub()"><i class="fas fa-plus"></i> Add Subject</button>
         <div class="hdiv"></div>
@@ -742,21 +737,26 @@ function addSub(ps){
   var col=(ps&&ps.col)||COLORS[idx%COLORS.length];
   var p=ps||{};
   var row=document.createElement('div');row.className='srow';
-  row.innerHTML='<input type="color" class="sc" value="'+col+'" title="Cell colour"/>'
+  row.innerHTML='<div class="srow-top">'
+    +'<input type="color" class="sc" value="'+col+'" title="Cell colour"/>'
     +'<input class="sni" type="text" placeholder="Subject name" value="'+escA(p.n||'')+'"/>'
+    +'<button class="sdel" onclick="this.closest(\'.srow\').remove()" title="Remove">×</button>'
+    +'</div>'
+    +'<div class="srow-bot-lbl"><span class="shl">Priority</span><span class="shl">Hrs / week</span><span class="shl">Preferred time</span></div>'
+    +'<div class="srow-bot">'
     +'<select class="spri">'
     +'<option value="3"'+(p.p===3?' selected':'')+'>🔴 High</option>'
-    +'<option value="2"'+(!p.p||p.p===2?' selected':'')+'>🟡 Med</option>'
+    +'<option value="2"'+(!p.p||p.p===2?' selected':'')+'>🟡 Medium</option>'
     +'<option value="1"'+(p.p===1?' selected':'')+'>🟢 Low</option>'
     +'</select>'
-    +'<input class="shrs" type="number" value="'+(p.h||3)+'" min="1" max="40" title="Hours/week"/>'
+    +'<input class="shrs" type="number" value="'+(p.h||3)+'" min="1" max="40" title="Hours per week" placeholder="Hrs"/>'
     +'<select class="spref" title="Preferred time of day">'
     +'<option'+((!p.pr||p.pr==='Any')?' selected':'')+'>Any</option>'
     +'<option'+(p.pr==='Morning'?' selected':'')+'>Morning</option>'
     +'<option'+(p.pr==='Afternoon'?' selected':'')+'>Afternoon</option>'
     +'<option'+(p.pr==='Evening'?' selected':'')+'>Evening</option>'
     +'</select>'
-    +'<button class="sdel" onclick="this.closest(\'.srow\').remove()" title="Remove">×</button>';
+    +'</div>';
   list.appendChild(row);
 }
 function loadSet(k){
