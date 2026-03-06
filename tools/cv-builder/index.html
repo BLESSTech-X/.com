@@ -1,404 +1,721 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CV & Resume Builder | BLESSTech-X Free Tools</title>
-  <meta name="description" content="Build a professional CV or resume with Zambia-appropriate templates. Free CV builder with PDF download for Zambian job seekers and students."/>
-  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <link rel="stylesheet" href="../style.css"/>
-  <style>
-    .cv-section-block{background:white;border:1.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:16px}
-    .cv-section-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:var(--bg-alt);border-bottom:1px solid var(--border);cursor:pointer}
-    .cv-section-header h3{font-size:.95rem;font-weight:700;color:var(--slate);display:flex;align-items:center;gap:8px}
-    .cv-section-body{padding:20px}
-    .entry-block{border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;position:relative;background:white}
-    .entry-del{position:absolute;top:12px;right:12px;background:#fee2e2;border:none;width:28px;height:28px;border-radius:50%;cursor:pointer;color:var(--red);font-size:.9rem;display:flex;align-items:center;justify-content:center}
-    .entry-del:hover{background:#dc2626;color:white}
-    .add-entry-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--sky-light);border:1.5px solid rgba(14,165,233,.3);border-radius:var(--radius);color:var(--sky-dark);font-size:.83rem;font-weight:700;cursor:pointer;transition:var(--transition);width:100%;justify-content:center;margin-top:4px}
-    .add-entry-btn:hover{background:var(--sky);color:white}
-    .template-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
-    .tmpl-btn{padding:12px;border:2px solid var(--border);border-radius:var(--radius);background:white;cursor:pointer;font-size:.83rem;font-weight:700;color:var(--slate-l);transition:var(--transition);text-align:center}
-    .tmpl-btn:hover{border-color:var(--sky);color:var(--sky)}
-    .tmpl-btn.active{border-color:var(--sky);background:var(--sky);color:white}
-    /* CV TEMPLATES */
-    .cv-wrap{background:white;font-family:'Segoe UI',Arial,sans-serif;color:#1e293b;border:1px solid var(--border);border-radius:var(--radius)}
-    /* Classic Blue */
-    .cv-classic .cv-header{background:#0ea5e9;color:white;padding:32px 36px}
-    .cv-classic .cv-header h1{font-size:1.8rem;font-weight:800;margin-bottom:4px}
-    .cv-classic .cv-header p{font-size:.93rem;opacity:.85}
-    .cv-classic .cv-contact-bar{background:#0284c7;padding:10px 36px;display:flex;gap:20px;flex-wrap:wrap}
-    .cv-classic .cv-contact-bar span{font-size:.8rem;color:rgba(255,255,255,.9);display:flex;align-items:center;gap:5px}
-    .cv-classic .cv-body{padding:28px 36px;display:grid;grid-template-columns:1fr 2fr;gap:32px}
-    .cv-classic .cv-left{}
-    .cv-classic .cv-sec-title{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#0ea5e9;margin-bottom:10px;padding-bottom:4px;border-bottom:2px solid #0ea5e9}
-    .cv-classic .cv-sec{margin-bottom:24px}
-    .cv-classic .cv-skill-bar{margin-bottom:6px}
-    .cv-classic .cv-skill-name{font-size:.83rem;font-weight:600;margin-bottom:3px}
-    .cv-classic .cv-skill-track{background:#e2e8f0;border-radius:4px;height:6px;overflow:hidden}
-    .cv-classic .cv-skill-fill{background:#0ea5e9;height:100%;border-radius:4px}
-    .cv-classic .cv-entry{margin-bottom:16px}
-    .cv-classic .cv-entry-title{font-weight:700;font-size:.95rem;color:#0f172a}
-    .cv-classic .cv-entry-sub{font-size:.83rem;color:#0ea5e9;font-weight:600;margin-bottom:4px}
-    .cv-classic .cv-entry-date{font-size:.78rem;color:#94a3b8}
-    .cv-classic .cv-entry-desc{font-size:.85rem;color:#475569;margin-top:5px;line-height:1.6}
-    /* Modern Dark */
-    .cv-modern .cv-header{background:#0f172a;color:white;padding:32px 36px;display:flex;justify-content:space-between;align-items:flex-start}
-    .cv-modern .cv-header h1{font-size:1.7rem;font-weight:800;margin-bottom:4px}
-    .cv-modern .cv-header p{font-size:.9rem;color:#94a3b8}
-    .cv-modern .cv-contact-info{text-align:right;display:flex;flex-direction:column;gap:4px}
-    .cv-modern .cv-contact-info span{font-size:.78rem;color:#94a3b8;display:flex;align-items:center;gap:5px;justify-content:flex-end}
-    .cv-modern .cv-body{padding:28px 36px}
-    .cv-modern .cv-grid{display:grid;grid-template-columns:1fr 2fr;gap:32px}
-    .cv-modern .cv-sec-title{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#0ea5e9;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-    .cv-modern .cv-sec-title::after{content:'';flex:1;height:1px;background:#e2e8f0}
-    .cv-modern .cv-sec{margin-bottom:24px}
-    .cv-modern .cv-entry{margin-bottom:16px;padding-left:14px;border-left:3px solid #e2e8f0}
-    .cv-modern .cv-entry:hover{border-left-color:#0ea5e9}
-    .cv-modern .cv-entry-title{font-weight:700;font-size:.95rem}
-    .cv-modern .cv-entry-sub{font-size:.83rem;color:#0ea5e9;font-weight:600}
-    .cv-modern .cv-entry-date{font-size:.75rem;color:#94a3b8;background:#f1f5f9;display:inline-block;padding:2px 8px;border-radius:20px;margin:3px 0}
-    .cv-modern .cv-entry-desc{font-size:.83rem;color:#475569;margin-top:4px;line-height:1.6}
-    .cv-modern .cv-tag{display:inline-block;background:#e0f2fe;color:#0284c7;font-size:.72rem;font-weight:700;padding:3px 8px;border-radius:4px;margin:2px}
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CV &amp; Resume Builder | BLESSTech-X Free Tools</title>
+<meta name="description" content="Build a professional CV with Zambia-appropriate templates. Free CV builder with PDF download for Zambian job seekers and students."/>
+<link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<style>
+/* ══ TOKENS ══ */
+:root{
+  --bg:#faf9f7;--bg2:#f2f0ec;--bg3:#e8e5df;--card:#fff;
+  --bdr:rgba(0,0,0,.08);--bdr2:rgba(0,0,0,.14);
+  --text:#1a1814;--sub:#65615b;--muted:#9e9890;
+  --brand:#6366f1;--brd:#4f46e5;
+  --green:#10b981;--red:#ef4444;--amber:#f59e0b;
+  --wa:#25d366;
+  --foot-bg:#1e1c18;--foot-bdr:rgba(255,255,255,.07);--foot-sub:#8a8478;--foot-lnk:#b5b0a8;
+  /* cv accent — deep indigo + gold */
+  --cv1:#312e81;--cv2:#4f46e5;--cv3:#ede9fe;
+  --cvg:linear-gradient(135deg,#1e1b4b 0%,#312e81 45%,#3730a3 100%);
+  --fd:'Playfair Display',Georgia,serif;
+  --fs:'Syne',sans-serif;
+  --fb:'Plus Jakarta Sans',system-ui,sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --px:clamp(14px,4vw,36px);--hh:60px;--r:14px;
+}
+@media(min-width:640px){:root{--hh:64px}}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--fb);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font-family:var(--fb)}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.02'/%3E%3C/svg%3E")}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg2)}::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:3px}
+
+/* ══ HEADER ══ */
+.hdr{position:sticky;top:0;z-index:200;height:var(--hh);display:flex;align-items:center;justify-content:space-between;padding:0 var(--px);background:rgba(250,249,247,.93);backdrop-filter:blur(18px) saturate(160%);border-bottom:1px solid var(--bdr);transition:box-shadow .25s}
+.hdr.scrolled{box-shadow:0 2px 18px rgba(0,0,0,.07)}
+.logo{display:flex;align-items:center;gap:9px}
+.logo img{width:30px;height:30px;border-radius:8px;object-fit:cover}
+.logo-t{font-family:var(--fd);font-weight:900;font-size:.95rem;color:var(--text)}
+.logo-t em{color:var(--brand);font-style:normal}
+.hnav{display:flex;align-items:center;gap:5px}
+.hl{padding:6px 12px;border-radius:50px;font-size:.78rem;font-weight:600;color:var(--sub);border:1px solid transparent;transition:all .18s}
+.hl:hover{color:var(--text);background:var(--bg2);border-color:var(--bdr)}
+.hlwa{background:var(--wa)!important;color:white!important;box-shadow:0 3px 12px rgba(37,211,102,.28)}
+.hlwa:hover{background:#1fb055!important}
+.mob-tog{display:none;flex-direction:column;gap:4px;width:32px;height:32px;align-items:center;justify-content:center;background:none;border:1.5px solid var(--bdr);border-radius:8px;cursor:pointer;padding:0}
+.mob-tog span{display:block;width:16px;height:2px;background:var(--sub);border-radius:2px;transition:all .25s}
+.mob-tog.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.mob-tog.open span:nth-child(2){opacity:0}
+.mob-tog.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+@media(max-width:640px){
+  .mob-tog{display:flex}
+  .hnav{position:fixed;top:var(--hh);left:0;right:0;flex-direction:column;align-items:flex-start;gap:4px;padding:14px var(--px) 18px;background:rgba(250,249,247,.97);backdrop-filter:blur(18px);border-bottom:1px solid var(--bdr);transform:translateY(-110%);opacity:0;transition:transform .3s var(--ease),opacity .3s;pointer-events:none}
+  .hnav.open{transform:translateY(0);opacity:1;pointer-events:all}
+  .hl{width:100%;border-radius:10px}
+}
+
+/* ══ PAGE ══ */
+.page{padding-top:var(--hh)}
+.wrap{max-width:1280px;margin:0 auto;padding:0 var(--px)}
+.bc{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:clamp(14px,2vw,20px) 0 0;font-size:.75rem;font-weight:600;color:var(--muted)}
+.bc a{color:var(--sub);transition:color .16s}.bc a:hover{color:var(--brand)}
+.bc i{font-size:.55rem}.bc span{color:var(--brand)}
+
+/* ══ HERO ══ */
+.hero{position:relative;overflow:hidden;background:var(--cvg);border-radius:clamp(16px,3vw,24px);padding:clamp(28px,5vw,52px) clamp(24px,5vw,52px);margin:clamp(12px,2vw,18px) 0 clamp(18px,3vw,28px);display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:320px;height:320px;background:radial-gradient(circle,rgba(199,210,254,.15),transparent 70%);pointer-events:none}
+.hero::after{content:'📑';position:absolute;bottom:-10px;right:32px;font-size:clamp(5rem,9vw,8rem);opacity:.1;line-height:1}
+.hero-text h1{font-family:var(--fs);font-weight:800;font-size:clamp(1.5rem,3.8vw,2.4rem);color:white;line-height:1.15;margin-bottom:10px}
+.hero-text h1 span{background:linear-gradient(90deg,#c7d2fe,#a5b4fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-text p{color:rgba(199,210,254,.82);font-size:clamp(.82rem,1.4vw,.93rem);line-height:1.65;max-width:500px}
+.hero-badges{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.hbadge{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:50px;font-size:.64rem;font-weight:700;background:rgba(255,255,255,.1);color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.15)}
+
+/* ══ MAIN GRID ══ */
+.mgrid{display:grid;grid-template-columns:400px 1fr;gap:clamp(14px,2.5vw,24px);align-items:start;margin-bottom:clamp(20px,3vw,36px)}
+@media(max-width:960px){.mgrid{grid-template-columns:1fr}}
+@media(min-width:961px){.sticky-col{position:sticky;top:calc(var(--hh)+14px)}}
+
+/* ══ CARDS ══ */
+.card{background:var(--card);border:1.5px solid var(--bdr);border-radius:var(--r);overflow:hidden;margin-bottom:clamp(10px,1.8vw,14px)}
+.card:last-child{margin-bottom:0}
+.card-hd{display:flex;align-items:center;justify-content:space-between;padding:clamp(11px,1.8vw,15px) clamp(14px,2.5vw,20px);border-bottom:1px solid var(--bdr);background:var(--bg)}
+.card-hd h2{display:flex;align-items:center;gap:9px;font-family:var(--fd);font-size:clamp(.86rem,1.4vw,.96rem);font-weight:700;color:var(--text)}
+.card-hd h2 i{color:var(--cv2)}
+.card-bd{padding:clamp(14px,2.5vw,18px)}
+
+/* ══ TEMPLATE CHOOSER ══ */
+.tmpl-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.tbtn{padding:11px 8px;border:2px solid var(--bdr);border-radius:11px;background:var(--bg2);cursor:pointer;font-size:.75rem;font-weight:700;color:var(--sub);transition:all .18s;text-align:center;line-height:1.5}
+.tbtn small{display:block;font-weight:400;opacity:.65;font-size:.65rem;margin-top:2px}
+.tbtn:hover{border-color:var(--cv2);color:var(--cv2);background:var(--cv3)}
+.tbtn.on{border-color:var(--cv2);background:var(--cv2);color:white}
+.tbtn.on small{opacity:.8}
+
+/* ══ FORM SECTIONS ══ */
+.fsec{border:1.5px solid var(--bdr);border-radius:11px;overflow:hidden;margin-bottom:10px}
+.fsec-hd{display:flex;align-items:center;justify-content:space-between;padding:11px 15px;background:var(--bg2);cursor:pointer;user-select:none}
+.fsec-hd h3{display:flex;align-items:center;gap:8px;font-family:var(--fd);font-size:.86rem;font-weight:700;color:var(--text)}
+.fsec-hd h3 i{color:var(--cv2);font-size:.78rem}
+.fsec-hd .chev{font-size:.7rem;color:var(--muted);transition:transform .25s}
+.fsec-hd.open .chev{transform:rotate(180deg)}
+.fsec-bd{padding:14px 15px;display:none}
+.fsec-bd.open{display:block}
+
+/* ══ FIELDS ══ */
+.f{margin-bottom:10px}
+.f:last-child{margin-bottom:0}
+.f label{display:block;font-size:.62rem;font-weight:800;color:var(--sub);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+.f input,.f select,.f textarea{width:100%;padding:9px 12px;border:1.5px solid var(--bdr);border-radius:9px;font-size:.85rem;outline:none;background:var(--bg);color:var(--text);transition:border-color .18s,box-shadow .18s;font-family:var(--fb)}
+.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--cv2);box-shadow:0 0 0 3px rgba(79,70,229,.1);background:var(--card)}
+.f input::placeholder,.f textarea::placeholder{color:var(--muted)}
+.f textarea{resize:vertical;min-height:72px;line-height:1.6}
+.fr2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* ══ ENTRY BLOCKS ══ */
+.eblock{background:var(--bg2);border:1.5px solid var(--bdr);border-radius:10px;padding:12px 14px;margin-bottom:8px;position:relative;animation:slideIn .22s var(--ease)}
+@keyframes slideIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.eblock:last-child{margin-bottom:0}
+.edel{position:absolute;top:10px;right:10px;width:26px;height:26px;border-radius:7px;background:rgba(239,68,68,.1);border:1.5px solid rgba(239,68,68,.15);color:var(--red);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.72rem;transition:all .13s}
+.edel:hover{background:var(--red);color:white;border-color:var(--red)}
+.add-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:9px 14px;background:rgba(79,70,229,.07);border:1.5px solid rgba(79,70,229,.2);border-radius:9px;color:var(--cv2);font-size:.78rem;font-weight:700;cursor:pointer;transition:all .15s;margin-top:10px}
+.add-btn:hover{background:var(--cv2);color:white;border-color:var(--cv2)}
+
+/* ══ PREVIEW AREA ══ */
+.preview-box{background:var(--card);border:1.5px solid var(--bdr);border-radius:var(--r);overflow:hidden}
+.preview-hd{display:flex;align-items:center;justify-content:space-between;padding:clamp(11px,1.8vw,15px) clamp(14px,2.5vw,20px);border-bottom:1px solid var(--bdr);background:var(--bg)}
+.preview-hd h2{display:flex;align-items:center;gap:9px;font-family:var(--fd);font-size:clamp(.86rem,1.4vw,.96rem);font-weight:700;color:var(--text)}
+.preview-hd h2 i{color:var(--cv2)}
+#cvPreview{min-height:500px}
+.cv-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:80px 24px;text-align:center;color:var(--muted)}
+.cv-empty .cv-empty-icon{font-size:3rem;opacity:.3}
+.cv-empty p{font-size:.85rem;line-height:1.7}
+
+/* ══ GENERATE BTN ══ */
+.gen-btn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;padding:14px;background:var(--cvg);color:white;border:none;border-radius:11px;font-family:var(--fs);font-size:.95rem;font-weight:800;cursor:pointer;transition:all .2s;letter-spacing:.3px;box-shadow:0 4px 16px rgba(79,70,229,.3);margin-top:4px}
+.gen-btn:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(79,70,229,.4)}
+.gen-btn:active{transform:translateY(0)}
+
+/* ══ ACTION BUTTONS ══ */
+.act-btns{display:flex;gap:8px}
+.abtn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9px;font-size:.76rem;font-weight:700;cursor:pointer;transition:all .16s;border:1.5px solid var(--bdr);background:var(--bg2);color:var(--sub)}
+.abtn:hover{color:var(--text);border-color:var(--bdr2)}
+.abtn.primary{background:var(--cv2);border-color:var(--cv2);color:white;box-shadow:0 3px 10px rgba(79,70,229,.28)}
+.abtn.primary:hover{background:var(--cv1)}
+
+/* ══ CTA / RELATED / FOOTER ══ */
+.cta{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;padding:clamp(16px,2.5vw,22px) clamp(18px,3vw,26px);background:linear-gradient(135deg,#ede9fe,#ddd6fe);border:1.5px solid rgba(79,70,229,.15);border-radius:var(--r);margin-bottom:clamp(16px,2.5vw,22px)}
+.cta h4{font-family:var(--fd);font-size:clamp(.95rem,1.8vw,1.1rem);font-weight:900;color:var(--text);margin-bottom:4px}
+.cta p{font-size:clamp(.78rem,1.4vw,.84rem);color:var(--sub)}
+.btn-wa-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:11px;background:var(--wa);color:white;font-weight:700;font-size:.84rem;box-shadow:0 4px 14px rgba(37,211,102,.28);transition:all .18s;white-space:nowrap;flex-shrink:0}
+.btn-wa-cta:hover{background:#1fb055;transform:translateY(-1px)}
+.rel{background:var(--bg2);border:1.5px solid var(--bdr);border-radius:var(--r);padding:clamp(18px,3vw,26px);margin-bottom:clamp(20px,3vw,36px)}
+.rel h3{font-family:var(--fd);font-size:clamp(.95rem,1.5vw,1.05rem);font-weight:900;color:var(--text);margin-bottom:14px}
+.relg{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+.relc{display:flex;align-items:center;gap:9px;padding:11px 13px;border-radius:11px;background:var(--card);border:1.5px solid var(--bdr);font-size:.82rem;font-weight:700;color:var(--sub);transition:all .18s}
+.relc:hover{color:var(--brand);border-color:rgba(99,102,241,.3);transform:translateY(-2px)}
+.relc span{font-size:1.1rem}
+.foot{background:var(--foot-bg);border-top:1px solid var(--foot-bdr);padding:clamp(28px,5vw,48px) var(--px) 0}
+.footg{max-width:1280px;margin:0 auto;display:grid;gap:clamp(20px,3vw,36px);grid-template-columns:2fr 1fr 1fr 1fr;padding-bottom:clamp(22px,3vw,36px)}
+@media(max-width:700px){.footg{grid-template-columns:1fr 1fr}}
+@media(max-width:400px){.footg{grid-template-columns:1fr}}
+.foot .logo-t{color:#e8e5df}.foot .logo-t em{color:var(--brand)}
+.fdesc{font-size:.8rem;color:var(--foot-sub);line-height:1.75;margin-top:10px;max-width:220px}
+.fc h4{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--foot-sub);margin-bottom:12px}
+.fc a{display:block;color:var(--foot-lnk);font-size:.8rem;margin-bottom:8px;transition:color .16s}
+.fc a:hover{color:white}
+.footbot{max-width:1280px;margin:0 auto;border-top:1px solid var(--foot-bdr);padding:clamp(14px,2vw,20px) 0 clamp(18px,2.5vw,26px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.footbot p{color:var(--foot-sub);font-size:.72rem}
+.wafab{position:fixed;bottom:18px;right:18px;z-index:90;width:50px;height:50px;border-radius:50%;background:var(--wa);color:white;display:flex;align-items:center;justify-content:center;font-size:1.28rem;box-shadow:0 5px 20px rgba(37,211,102,.35);transition:all .2s}
+.wafab:hover{transform:scale(1.1) translateY(-2px)}
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#1a1814;color:white;padding:10px 22px;border-radius:50px;font-size:.82rem;font-weight:600;z-index:9999;opacity:0;transition:opacity .28s;pointer-events:none;white-space:nowrap;box-shadow:0 6px 20px rgba(0,0,0,.22)}
+.toast.show{opacity:1}
+
+/* ══════════════════════════════════════
+   CV TEMPLATE STYLES (shared)
+══════════════════════════════════════ */
+.cv-doc{font-family:'Segoe UI',Arial,sans-serif;color:#1e293b;background:white;width:100%}
+
+/* ── CLASSIC BLUE ── */
+.cv-classic .cvh{background:#312e81;color:white;padding:28px 32px}
+.cv-classic .cvh h1{font-size:1.7rem;font-weight:800;margin-bottom:3px;letter-spacing:-.3px}
+.cv-classic .cvh p{font-size:.88rem;opacity:.8;font-weight:500}
+.cv-classic .cvc{background:#3730a3;padding:9px 32px;display:flex;gap:18px;flex-wrap:wrap}
+.cv-classic .cvc span{font-size:.74rem;color:rgba(255,255,255,.88);display:flex;align-items:center;gap:5px}
+.cv-classic .cvb{padding:24px 32px;display:grid;grid-template-columns:200px 1fr;gap:28px}
+.cv-classic .cvst{font-size:.64rem;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:#312e81;margin-bottom:9px;padding-bottom:4px;border-bottom:2px solid #312e81}
+.cv-classic .cvs{margin-bottom:20px}
+.cv-classic .cvskb{margin-bottom:7px}
+.cv-classic .cvskn{font-size:.78rem;font-weight:600;margin-bottom:3px;color:#1e293b}
+.cv-classic .cvskt{background:#e2e8f0;border-radius:3px;height:5px;overflow:hidden}
+.cv-classic .cvskf{background:#312e81;height:100%;border-radius:3px}
+.cv-classic .cve{margin-bottom:14px}
+.cv-classic .cvet{font-weight:700;font-size:.88rem;color:#0f172a}
+.cv-classic .cves{font-size:.78rem;color:#4f46e5;font-weight:600;margin-bottom:2px}
+.cv-classic .cved{font-size:.7rem;color:#94a3b8}
+.cv-classic .cvex{font-size:.8rem;color:#475569;margin-top:4px;line-height:1.65}
+
+/* ── MODERN DARK ── */
+.cv-modern .cvh{background:#0f172a;color:white;padding:28px 32px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.cv-modern .cvh h1{font-size:1.6rem;font-weight:800;margin-bottom:3px}
+.cv-modern .cvh p{font-size:.85rem;color:#94a3b8}
+.cv-modern .cvc-r{text-align:right;display:flex;flex-direction:column;gap:4px;flex-shrink:0}
+.cv-modern .cvc-r span{font-size:.72rem;color:#94a3b8;display:flex;align-items:center;gap:5px;justify-content:flex-end}
+.cv-modern .cvb{padding:24px 32px}
+.cv-modern .cvst{font-size:.63rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#6366f1;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.cv-modern .cvst::after{content:'';flex:1;height:1px;background:#1e293b}
+.cv-modern .cvs{margin-bottom:22px}
+.cv-modern .cve{margin-bottom:14px;padding-left:12px;border-left:3px solid #1e293b;transition:border-left-color .2s}
+.cv-modern .cvet{font-weight:700;font-size:.88rem}
+.cv-modern .cves{font-size:.78rem;color:#6366f1;font-weight:600}
+.cv-modern .cved{font-size:.68rem;color:#94a3b8;background:#1e293b;display:inline-block;padding:1px 7px;border-radius:20px;margin:2px 0}
+.cv-modern .cvex{font-size:.8rem;color:#94a3b8;margin-top:4px;line-height:1.65}
+.cv-modern .cvtag{display:inline-block;background:#1e293b;color:#818cf8;font-size:.68rem;font-weight:700;padding:3px 8px;border-radius:4px;margin:2px}
+.cv-modern .cvgrid{display:grid;grid-template-columns:180px 1fr;gap:28px}
+
+/* ── MINIMAL ── */
+.cv-minimal .cvh{padding:32px 36px 20px;border-bottom:3px solid #1a1814}
+.cv-minimal .cvh h1{font-size:1.9rem;font-weight:900;color:#1a1814;letter-spacing:-.5px;margin-bottom:2px}
+.cv-minimal .cvh p{font-size:.9rem;color:#65615b;font-weight:500}
+.cv-minimal .cvc{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px}
+.cv-minimal .cvc span{font-size:.74rem;color:#9e9890;display:flex;align-items:center;gap:5px}
+.cv-minimal .cvb{padding:24px 36px;display:grid;grid-template-columns:1fr 2fr;gap:32px}
+.cv-minimal .cvst{font-size:.63rem;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;color:#1a1814;margin-bottom:9px;padding-bottom:4px;border-bottom:1.5px solid #1a1814}
+.cv-minimal .cvs{margin-bottom:22px}
+.cv-minimal .cve{margin-bottom:14px}
+.cv-minimal .cvet{font-weight:800;font-size:.88rem;color:#1a1814}
+.cv-minimal .cves{font-size:.78rem;color:#65615b;font-weight:600}
+.cv-minimal .cved{font-size:.7rem;color:#9e9890}
+.cv-minimal .cvex{font-size:.8rem;color:#65615b;margin-top:4px;line-height:1.65}
+.cv-minimal .cvtag{display:inline-block;border:1px solid #e8e5df;color:#65615b;font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:4px;margin:2px}
+
+.cv-foot{text-align:center;padding:10px;font-size:.66rem;color:#94a3b8;border-top:1px solid #e2e8f0}
+</style>
 </head>
-<body class="tool-page">
-  <header class="tools-header">
-    <div class="th-inner">
-      <a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a>
-      <nav class="th-nav" id="thNav">
-        <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
-        <a href="../index.html"><i class="fas fa-tools"></i> All Tools</a>
-        <a href="../../index.html#services">Services</a>
-        <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-      </nav>
-      <button class="th-mobile-toggle" id="thToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+<body>
+
+<header class="hdr" id="hdr">
+  <a href="../../index.html" class="logo">
+    <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/>
+    <span class="logo-t">BLESS<em>Tech-X</em></span>
+  </a>
+  <nav class="hnav" id="hnav">
+    <a href="../../index.html" class="hl"><i class="fas fa-home"></i> Home</a>
+    <a href="../index.html" class="hl"><i class="fas fa-tools"></i> All Tools</a>
+    <a href="../../index.html#services" class="hl">Services</a>
+    <a href="https://wa.me/260979603741" target="_blank" class="hl hlwa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+  </nav>
+  <button class="mob-tog" id="mobTog"><span></span><span></span><span></span></button>
+</header>
+
+<div class="page">
+ <div class="wrap">
+  <nav class="bc">
+    <a href="../../index.html">Home</a><i class="fas fa-chevron-right"></i>
+    <a href="../index.html">Free Tools</a><i class="fas fa-chevron-right"></i>
+    <span>CV &amp; Resume Builder</span>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-text">
+      <h1>CV &amp; <span>Resume Builder</span></h1>
+      <p>Build a professional CV with Zambia-appropriate templates. Fill in your details, pick a style, and download a print-ready PDF to send to employers.</p>
+      <div class="hero-badges">
+        <span class="hbadge"><i class="fas fa-check-circle"></i> Free</span>
+        <span class="hbadge"><i class="fas fa-file-pdf"></i> PDF Download</span>
+        <span class="hbadge"><i class="fas fa-paint-brush"></i> 3 Templates</span>
+        <span class="hbadge"><i class="fas fa-users"></i> Students · Job Seekers</span>
+      </div>
     </div>
-  </header>
+  </div>
 
-  <main class="tool-page-main">
-    <div class="th-container">
-      <div class="tool-breadcrumb">
-        <a href="../../index.html">Home</a><i class="fas fa-chevron-right"></i>
-        <a href="../index.html">Free Tools</a><i class="fas fa-chevron-right"></i>
-        <span>CV &amp; Resume Builder</span>
-      </div>
-      <div class="tool-header">
-        <div class="tool-header-inner">
-          <div class="tool-header-icon" style="background:#ede9fe;color:#7c3aed">📑</div>
-          <div>
-            <h1>CV &amp; Resume Builder</h1>
-            <p>Build a professional CV with Zambia-appropriate templates. Add your experience, education, and skills — download a polished PDF ready to send to employers.</p>
-            <div class="tool-header-meta">
-              <span class="tool-meta-badge"><i class="fas fa-check-circle"></i> Free</span>
-              <span class="tool-meta-badge"><i class="fas fa-file-pdf"></i> PDF Download</span>
-              <span class="tool-meta-badge"><i class="fas fa-paint-brush"></i> 2 Templates</span>
-              <span class="tool-meta-badge"><i class="fas fa-users"></i> Students · Job Seekers</span>
-            </div>
-          </div>
-        </div>
-      </div>
+  <div class="mgrid">
 
-      <div style="display:grid;grid-template-columns:380px 1fr;gap:28px;align-items:start">
-        <!-- FORM -->
-        <div>
-          <!-- Template -->
-          <div class="tool-box" style="margin-bottom:16px">
-            <div class="tool-box-header"><h2><i class="fas fa-paint-brush" style="color:var(--sky)"></i> Choose Template</h2></div>
-            <div class="tool-box-body">
-              <div class="template-grid">
-                <button class="tmpl-btn active" data-tmpl="classic" onclick="setTmpl(this)">🔵 Classic Blue<br/><small style="font-weight:400;opacity:.7">Sidebar layout</small></button>
-                <button class="tmpl-btn" data-tmpl="modern" onclick="setTmpl(this)">⚫ Modern Dark<br/><small style="font-weight:400;opacity:.7">Clean timeline</small></button>
-              </div>
-            </div>
-          </div>
+   <!-- ══ FORM COLUMN ══ -->
+   <div>
 
-          <!-- Personal -->
-          <div class="cv-section-block">
-            <div class="cv-section-header"><h3><i class="fas fa-user" style="color:var(--sky)"></i> Personal Information</h3></div>
-            <div class="cv-section-body">
-              <div class="field"><label>Full Name</label><input type="text" id="cv_name" placeholder="Barack Blessings"/></div>
-              <div class="field"><label>Professional Title</label><input type="text" id="cv_title" placeholder="Software Developer / Marketing Manager"/></div>
-              <div class="field-row">
-                <div class="field"><label>Phone</label><input type="text" id="cv_phone" placeholder="+260 979 603 741"/></div>
-                <div class="field"><label>Email</label><input type="email" id="cv_email" placeholder="bless@email.com"/></div>
-              </div>
-              <div class="field-row">
-                <div class="field"><label>Location</label><input type="text" id="cv_location" placeholder="Lusaka, Zambia"/></div>
-                <div class="field"><label>LinkedIn / Website</label><input type="text" id="cv_linkedin" placeholder="linkedin.com/in/yourname"/></div>
-              </div>
-              <div class="field"><label>Professional Summary</label><textarea id="cv_summary" placeholder="A brief 2-3 sentence summary of who you are, your experience, and what you bring to employers…" style="min-height:80px"></textarea></div>
-            </div>
-          </div>
-
-          <!-- Experience -->
-          <div class="cv-section-block">
-            <div class="cv-section-header"><h3><i class="fas fa-briefcase" style="color:var(--sky)"></i> Work Experience</h3></div>
-            <div class="cv-section-body">
-              <div id="expList">
-                <div class="entry-block">
-                  <button class="entry-del" onclick="delEntry(this)">×</button>
-                  <div class="field"><label>Job Title</label><input class="exp-title" type="text" placeholder="Software Developer"/></div>
-                  <div class="field"><label>Company</label><input class="exp-company" type="text" placeholder="BLESSTech-X"/></div>
-                  <div class="field-row">
-                    <div class="field"><label>Start Date</label><input class="exp-start" type="text" placeholder="Jan 2023"/></div>
-                    <div class="field"><label>End Date</label><input class="exp-end" type="text" placeholder="Present"/></div>
-                  </div>
-                  <div class="field"><label>Key Achievements</label><textarea class="exp-desc" placeholder="• Built responsive websites for 20+ clients&#10;• Increased client revenue by 40% through SEO&#10;• Managed social media campaigns" style="min-height:70px"></textarea></div>
-                </div>
-              </div>
-              <button class="add-entry-btn" onclick="addExp()"><i class="fas fa-plus"></i> Add Experience</button>
-            </div>
-          </div>
-
-          <!-- Education -->
-          <div class="cv-section-block">
-            <div class="cv-section-header"><h3><i class="fas fa-graduation-cap" style="color:var(--sky)"></i> Education</h3></div>
-            <div class="cv-section-body">
-              <div id="eduList">
-                <div class="entry-block">
-                  <button class="entry-del" onclick="delEntry(this)">×</button>
-                  <div class="field"><label>Qualification</label><input class="edu-qual" type="text" placeholder="Grade 12 Certificate / Bachelor of Science"/></div>
-                  <div class="field"><label>Institution</label><input class="edu-inst" type="text" placeholder="Lusaka Secondary School / UNZA"/></div>
-                  <div class="field-row">
-                    <div class="field"><label>Year</label><input class="edu-year" type="text" placeholder="2025"/></div>
-                    <div class="field"><label>Grade / Result</label><input class="edu-grade" type="text" placeholder="Merit / 2:1 / Distinction"/></div>
-                  </div>
-                </div>
-              </div>
-              <button class="add-entry-btn" onclick="addEdu()"><i class="fas fa-plus"></i> Add Education</button>
-            </div>
-          </div>
-
-          <!-- Skills -->
-          <div class="cv-section-block">
-            <div class="cv-section-header"><h3><i class="fas fa-star" style="color:var(--sky)"></i> Skills</h3></div>
-            <div class="cv-section-body">
-              <div class="field"><label>Technical Skills (comma separated)</label><input type="text" id="cv_tech_skills" placeholder="HTML, CSS, JavaScript, MySQL, Python"/></div>
-              <div class="field"><label>Soft Skills (comma separated)</label><input type="text" id="cv_soft_skills" placeholder="Communication, Leadership, Problem Solving"/></div>
-              <div class="field"><label>Languages</label><input type="text" id="cv_languages" placeholder="English (Fluent), Nyanja (Native), Bemba"/></div>
-            </div>
-          </div>
-
-          <!-- Referees -->
-          <div class="cv-section-block">
-            <div class="cv-section-header"><h3><i class="fas fa-address-card" style="color:var(--sky)"></i> References</h3></div>
-            <div class="cv-section-body">
-              <div id="refList">
-                <div class="entry-block">
-                  <button class="entry-del" onclick="delEntry(this)">×</button>
-                  <div class="field-row">
-                    <div class="field"><label>Name</label><input class="ref-name" type="text" placeholder="Mr. Phiri"/></div>
-                    <div class="field"><label>Title</label><input class="ref-title" type="text" placeholder="HR Manager"/></div>
-                  </div>
-                  <div class="field-row">
-                    <div class="field"><label>Organisation</label><input class="ref-org" type="text" placeholder="Zanaco Bank"/></div>
-                    <div class="field"><label>Phone / Email</label><input class="ref-contact" type="text" placeholder="+260 9XX / email"/></div>
-                  </div>
-                </div>
-              </div>
-              <button class="add-entry-btn" onclick="addRef()"><i class="fas fa-plus"></i> Add Reference</button>
-            </div>
-          </div>
-
-          <button class="btn btn-primary btn-full" style="padding:16px;margin-top:8px" onclick="generateCV()">
-            <i class="fas fa-eye"></i> Preview CV
-          </button>
-        </div>
-
-        <!-- PREVIEW -->
-        <div style="position:sticky;top:88px">
-          <div class="tool-box">
-            <div class="tool-box-header">
-              <h2><i class="fas fa-id-card" style="color:var(--sky)"></i> CV Preview</h2>
-              <div style="display:flex;gap:8px">
-                <button class="btn btn-sm btn-primary" id="pdfCvBtn" onclick="printCV()" style="display:none"><i class="fas fa-file-pdf"></i> Download PDF</button>
-              </div>
-            </div>
-            <div class="tool-box-body" style="padding:0">
-              <div id="cvPreview" class="cv-wrap">
-                <div style="text-align:center;color:var(--muted);font-style:italic;padding:80px 20px;font-family:var(--font)">📑 Your CV will appear here.<br/>Fill in your details and click Preview CV.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tool-service-cta" style="margin-top:36px">
-        <div><h4>Need a portfolio website to showcase your skills?</h4><p>BLESSTech-X builds professional portfolio websites from ZMW 650. Stand out to employers.</p></div>
-        <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I want a portfolio website." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Get Portfolio Website</a>
-      </div>
-      <div class="related-tools" style="margin-top:32px;background:var(--bg-alt);border-radius:var(--radius-lg);padding:28px">
-        <h3>You Might Also Need</h3>
-        <div class="related-grid">
-          <a href="../email-writer/index.html" class="related-card"><span>📧</span> Job Application Email</a>
-          <a href="../letter-generator/index.html" class="related-card"><span>📜</span> Reference Letter</a>
-          <a href="../invoice/index.html" class="related-card"><span>🧾</span> Invoice Generator</a>
-          <a href="../contract-generator/index.html" class="related-card"><span>🤝</span> Contract Generator</a>
+    <!-- Template -->
+    <div class="card">
+      <div class="card-hd"><h2><i class="fas fa-palette"></i> Choose Template</h2></div>
+      <div class="card-bd">
+        <div class="tmpl-grid">
+          <button class="tbtn on" data-t="classic" onclick="setTmpl(this)">🔵 Classic Blue<small>Sidebar layout</small></button>
+          <button class="tbtn" data-t="modern" onclick="setTmpl(this)">⚫ Modern Dark<small>Timeline style</small></button>
+          <button class="tbtn" data-t="minimal" onclick="setTmpl(this)">⬜ Minimal<small>Clean &amp; elegant</small></button>
         </div>
       </div>
     </div>
-  </main>
 
-  <footer class="tools-footer">
-    <div class="th-container">
-      <div class="tf-inner">
-        <div class="tf-brand"><a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a><p>Free tools for every Zambian.</p></div>
-        <div class="tf-links"><h4>Free Tools</h4><a href="../index.html">All Tools</a><a href="../email-writer/index.html">Email Writer</a><a href="../invoice/index.html">Invoice Generator</a></div>
-        <div class="tf-links"><h4>BLESSTech-X</h4><a href="../../index.html">Main Website</a><a href="../../index.html#services">Services</a><a href="../../index.html#contact">Contact</a></div>
-        <div class="tf-contact"><h4>Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
+    <!-- Personal -->
+    <div class="fsec">
+      <div class="fsec-hd open" onclick="toggleSec(this)">
+        <h3><i class="fas fa-user"></i> Personal Information</h3>
+        <i class="fas fa-chevron-down chev"></i>
       </div>
-      <div class="tf-bottom"><p>&copy; 2026 BLESSTech-X · Free CV Builder · Built for Zambia 🇿🇲</p></div>
+      <div class="fsec-bd open">
+        <div class="f"><label>Full Name</label><input type="text" id="cv_name" placeholder="Chanda Mwale"/></div>
+        <div class="f"><label>Professional Title</label><input type="text" id="cv_title" placeholder="Software Developer · Marketing Manager"/></div>
+        <div class="fr2">
+          <div class="f"><label>Phone</label><input type="text" id="cv_phone" placeholder="+260 979 603 741"/></div>
+          <div class="f"><label>Email</label><input type="email" id="cv_email" placeholder="chanda@email.com"/></div>
+        </div>
+        <div class="fr2">
+          <div class="f"><label>Location</label><input type="text" id="cv_location" placeholder="Lusaka, Zambia"/></div>
+          <div class="f"><label>LinkedIn / Website</label><input type="text" id="cv_linkedin" placeholder="linkedin.com/in/yourname"/></div>
+        </div>
+        <div class="f"><label>Professional Summary</label><textarea id="cv_summary" placeholder="A brief 2–3 sentence summary of who you are, your experience, and what you bring to employers…"></textarea></div>
+      </div>
     </div>
-  </footer>
-  <a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+    <!-- Experience -->
+    <div class="fsec">
+      <div class="fsec-hd open" onclick="toggleSec(this)">
+        <h3><i class="fas fa-briefcase"></i> Work Experience</h3>
+        <i class="fas fa-chevron-down chev"></i>
+      </div>
+      <div class="fsec-bd open">
+        <div id="expList">
+          <div class="eblock">
+            <button class="edel" onclick="delBlock(this)" title="Remove"><i class="fas fa-times"></i></button>
+            <div class="f"><label>Job Title</label><input class="exp-title" type="text" placeholder="Software Developer"/></div>
+            <div class="f"><label>Company / Organisation</label><input class="exp-company" type="text" placeholder="BLESSTech-X, Lusaka"/></div>
+            <div class="fr2">
+              <div class="f"><label>Start Date</label><input class="exp-start" type="text" placeholder="Jan 2023"/></div>
+              <div class="f"><label>End Date</label><input class="exp-end" type="text" placeholder="Present"/></div>
+            </div>
+            <div class="f"><label>Key Achievements</label><textarea class="exp-desc" placeholder="• Built responsive websites for 20+ clients&#10;• Increased revenue by 40% through SEO&#10;• Led team of 4 developers"></textarea></div>
+          </div>
+        </div>
+        <button class="add-btn" onclick="addExp()"><i class="fas fa-plus"></i> Add Experience</button>
+      </div>
+    </div>
+
+    <!-- Education -->
+    <div class="fsec">
+      <div class="fsec-hd open" onclick="toggleSec(this)">
+        <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+        <i class="fas fa-chevron-down chev"></i>
+      </div>
+      <div class="fsec-bd open">
+        <div id="eduList">
+          <div class="eblock">
+            <button class="edel" onclick="delBlock(this)" title="Remove"><i class="fas fa-times"></i></button>
+            <div class="f"><label>Qualification</label><input class="edu-qual" type="text" placeholder="Grade 12 Certificate · Bachelor of Science"/></div>
+            <div class="f"><label>Institution</label><input class="edu-inst" type="text" placeholder="Lusaka Secondary School · UNZA"/></div>
+            <div class="fr2">
+              <div class="f"><label>Year</label><input class="edu-year" type="text" placeholder="2025"/></div>
+              <div class="f"><label>Grade / Result</label><input class="edu-grade" type="text" placeholder="Merit · 2:1 · Distinction"/></div>
+            </div>
+          </div>
+        </div>
+        <button class="add-btn" onclick="addEdu()"><i class="fas fa-plus"></i> Add Education</button>
+      </div>
+    </div>
+
+    <!-- Skills -->
+    <div class="fsec">
+      <div class="fsec-hd open" onclick="toggleSec(this)">
+        <h3><i class="fas fa-star"></i> Skills</h3>
+        <i class="fas fa-chevron-down chev"></i>
+      </div>
+      <div class="fsec-bd open">
+        <div class="f"><label>Technical Skills <span style="font-weight:400;text-transform:none;letter-spacing:0">(comma separated)</span></label><input type="text" id="cv_tech" placeholder="HTML, CSS, JavaScript, Python, MySQL"/></div>
+        <div class="f"><label>Soft Skills <span style="font-weight:400;text-transform:none;letter-spacing:0">(comma separated)</span></label><input type="text" id="cv_soft" placeholder="Communication, Leadership, Problem Solving"/></div>
+        <div class="f"><label>Languages</label><input type="text" id="cv_lang" placeholder="English (Fluent), Nyanja (Native), Bemba"/></div>
+      </div>
+    </div>
+
+    <!-- References -->
+    <div class="fsec">
+      <div class="fsec-hd" onclick="toggleSec(this)">
+        <h3><i class="fas fa-address-card"></i> References</h3>
+        <i class="fas fa-chevron-down chev"></i>
+      </div>
+      <div class="fsec-bd">
+        <div id="refList">
+          <div class="eblock">
+            <button class="edel" onclick="delBlock(this)" title="Remove"><i class="fas fa-times"></i></button>
+            <div class="fr2">
+              <div class="f"><label>Name</label><input class="ref-name" type="text" placeholder="Mr. Phiri"/></div>
+              <div class="f"><label>Title</label><input class="ref-title" type="text" placeholder="HR Manager"/></div>
+            </div>
+            <div class="fr2">
+              <div class="f"><label>Organisation</label><input class="ref-org" type="text" placeholder="Zanaco Bank"/></div>
+              <div class="f"><label>Phone / Email</label><input class="ref-contact" type="text" placeholder="+260 9XX · email"/></div>
+            </div>
+          </div>
+        </div>
+        <button class="add-btn" onclick="addRef()"><i class="fas fa-plus"></i> Add Reference</button>
+      </div>
+    </div>
+
+    <button class="gen-btn" onclick="generateCV()"><i class="fas fa-magic"></i> Generate My CV</button>
+
+   </div>
+
+   <!-- ══ PREVIEW COLUMN ══ -->
+   <div class="sticky-col">
+     <div class="preview-box">
+       <div class="preview-hd">
+         <h2><i class="fas fa-id-card"></i> CV Preview</h2>
+         <div class="act-btns" id="actBtns" style="display:none">
+           <button class="abtn" onclick="printCV()"><i class="fas fa-print"></i> Print</button>
+           <button class="abtn primary" onclick="printCV()"><i class="fas fa-file-pdf"></i> Download PDF</button>
+         </div>
+       </div>
+       <div id="cvPreview">
+         <div class="cv-empty">
+           <div class="cv-empty-icon">📑</div>
+           <p>Fill in your details and click<br/><strong>Generate My CV</strong> to see your preview here.</p>
+         </div>
+       </div>
+     </div>
+   </div>
+
+  </div><!-- /mgrid -->
+
+  <div class="cta">
+    <div><h4>Need a portfolio website to showcase your skills?</h4><p>BLESSTech-X builds professional portfolio websites from ZMW 650. Stand out to employers.</p></div>
+    <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I want a portfolio website." target="_blank" class="btn-wa-cta"><i class="fab fa-whatsapp"></i> Get Portfolio Website</a>
+  </div>
+  <div class="rel">
+    <h3>You Might Also Need</h3>
+    <div class="relg">
+      <a href="../email-writer/index.html" class="relc"><span>📧</span> Job Application Email</a>
+      <a href="../letter-generator/index.html" class="relc"><span>📜</span> Reference Letter</a>
+      <a href="../invoice/index.html" class="relc"><span>🧾</span> Invoice Generator</a>
+      <a href="../contract-generator/index.html" class="relc"><span>🤝</span> Contract Generator</a>
+    </div>
+  </div>
+ </div>
+</div>
+
+<footer class="foot">
+  <div class="footg">
+    <div class="fc"><a href="../../index.html" class="logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X" style="width:28px;height:28px;border-radius:7px;object-fit:cover"/><span class="logo-t" style="font-size:.9rem;margin-left:8px">BLESS<em>Tech-X</em></span></a><p class="fdesc">Free tools for every Zambian. Built in Lusaka. 🇿🇲</p></div>
+    <div class="fc"><h4>Free Tools</h4><a href="../index.html">All Tools</a><a href="../email-writer/index.html">Email Writer</a><a href="../invoice/index.html">Invoice Generator</a></div>
+    <div class="fc"><h4>BLESSTech-X</h4><a href="../../index.html">Main Website</a><a href="../../index.html#services">Services</a><a href="../../index.html#contact">Contact</a></div>
+    <div class="fc"><h4>Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone" style="width:14px"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp" style="width:14px"></i> WhatsApp</a></div>
+  </div>
+  <div class="footbot"><p>© 2026 BLESSTech-X · Free CV Builder · Built for Zambia 🇿🇲</p><p>No sign-up · No ads · 100% free</p></div>
+</footer>
+
+<a href="https://wa.me/260979603741" class="wafab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<div class="toast" id="toast"></div>
 
 <script>
-let currentTmpl='classic';
-function setTmpl(btn){ document.querySelectorAll('.tmpl-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); currentTmpl=btn.dataset.tmpl; }
-function delEntry(btn){ btn.closest('.entry-block').remove(); }
-function addExp(){
-  const b=document.createElement('div'); b.className='entry-block';
-  b.innerHTML=`<button class="entry-del" onclick="delEntry(this)">×</button><div class="field"><label>Job Title</label><input class="exp-title" type="text" placeholder="Job Title"/></div><div class="field"><label>Company</label><input class="exp-company" type="text" placeholder="Company Name"/></div><div class="field-row"><div class="field"><label>Start</label><input class="exp-start" type="text" placeholder="Jan 2024"/></div><div class="field"><label>End</label><input class="exp-end" type="text" placeholder="Present"/></div></div><div class="field"><label>Achievements</label><textarea class="exp-desc" placeholder="• Key achievement" style="min-height:60px"></textarea></div>`;
+/* ══════════════════════════════════════
+   STATE
+══════════════════════════════════════ */
+var currentTmpl = 'classic';
+
+/* ══════════════════════════════════════
+   TEMPLATE SELECT
+══════════════════════════════════════ */
+function setTmpl(btn) {
+  document.querySelectorAll('.tbtn').forEach(function(b) { b.classList.remove('on'); });
+  btn.classList.add('on');
+  currentTmpl = btn.dataset.t;
+}
+
+/* ══════════════════════════════════════
+   COLLAPSIBLE SECTIONS
+══════════════════════════════════════ */
+function toggleSec(hd) {
+  hd.classList.toggle('open');
+  var bd = hd.nextElementSibling;
+  bd.classList.toggle('open');
+}
+
+/* ══════════════════════════════════════
+   ENTRY BLOCKS
+══════════════════════════════════════ */
+function delBlock(btn) {
+  var block = btn.closest('.eblock');
+  block.style.opacity = '0';
+  block.style.transform = 'translateX(8px)';
+  block.style.transition = 'all .18s';
+  setTimeout(function() { block.remove(); }, 200);
+}
+
+function addExp() {
+  var b = document.createElement('div'); b.className = 'eblock';
+  b.innerHTML = '<button class="edel" onclick="delBlock(this)" title="Remove"><i class="fas fa-times"></i></button>'
+    + '<div class="f"><label>Job Title</label><input class="exp-title" type="text" placeholder="Job Title"/></div>'
+    + '<div class="f"><label>Company / Organisation</label><input class="exp-company" type="text" placeholder="Company Name"/></div>'
+    + '<div class="fr2"><div class="f"><label>Start Date</label><input class="exp-start" type="text" placeholder="Jan 2024"/></div><div class="f"><label>End Date</label><input class="exp-end" type="text" placeholder="Present"/></div></div>'
+    + '<div class="f"><label>Key Achievements</label><textarea class="exp-desc" placeholder="• Key achievement here"></textarea></div>';
   document.getElementById('expList').appendChild(b);
 }
-function addEdu(){
-  const b=document.createElement('div'); b.className='entry-block';
-  b.innerHTML=`<button class="entry-del" onclick="delEntry(this)">×</button><div class="field"><label>Qualification</label><input class="edu-qual" type="text" placeholder="Degree / Certificate"/></div><div class="field"><label>Institution</label><input class="edu-inst" type="text" placeholder="School / University"/></div><div class="field-row"><div class="field"><label>Year</label><input class="edu-year" type="text" placeholder="2025"/></div><div class="field"><label>Grade</label><input class="edu-grade" type="text" placeholder="Merit"/></div></div>`;
+
+function addEdu() {
+  var b = document.createElement('div'); b.className = 'eblock';
+  b.innerHTML = '<button class="edel" onclick="delBlock(this)" title="Remove"><i class="fas fa-times"></i></button>'
+    + '<div class="f"><label>Qualification</label><input class="edu-qual" type="text" placeholder="Degree / Certificate"/></div>'
+    + '<div class="f"><label>Institution</label><input class="edu-inst" type="text" placeholder="School / University"/></div>'
+    + '<div class="fr2"><div class="f"><label>Year</label><input class="edu-year" type="text" placeholder="2025"/></div><div class="f"><label>Grade</label><input class="edu-grade" type="text" placeholder="Merit"/></div></div>';
   document.getElementById('eduList').appendChild(b);
 }
-function addRef(){
-  const b=document.createElement('div'); b.className='entry-block';
-  b.innerHTML=`<button class="entry-del" onclick="delEntry(this)">×</button><div class="field-row"><div class="field"><label>Name</label><input class="ref-name" type="text" placeholder="Referee Name"/></div><div class="field"><label>Title</label><input class="ref-title" type="text" placeholder="Title"/></div></div><div class="field-row"><div class="field"><label>Organisation</label><input class="ref-org" type="text" placeholder="Organisation"/></div><div class="field"><label>Contact</label><input class="ref-contact" type="text" placeholder="Phone / Email"/></div></div>`;
+
+function addRef() {
+  var b = document.createElement('div'); b.className = 'eblock';
+  b.innerHTML = '<button class="edel" onclick="delBlock(this)" title="Remove"><i class="fas fa-times"></i></button>'
+    + '<div class="fr2"><div class="f"><label>Name</label><input class="ref-name" type="text" placeholder="Referee Name"/></div><div class="f"><label>Title</label><input class="ref-title" type="text" placeholder="Title"/></div></div>'
+    + '<div class="fr2"><div class="f"><label>Organisation</label><input class="ref-org" type="text" placeholder="Organisation"/></div><div class="f"><label>Contact</label><input class="ref-contact" type="text" placeholder="Phone / Email"/></div></div>';
   document.getElementById('refList').appendChild(b);
 }
 
-function getExps(){ return Array.from(document.querySelectorAll('#expList .entry-block')).map(b=>({title:b.querySelector('.exp-title')?.value||'',company:b.querySelector('.exp-company')?.value||'',start:b.querySelector('.exp-start')?.value||'',end:b.querySelector('.exp-end')?.value||'',desc:b.querySelector('.exp-desc')?.value||''})); }
-function getEdus(){ return Array.from(document.querySelectorAll('#eduList .entry-block')).map(b=>({qual:b.querySelector('.edu-qual')?.value||'',inst:b.querySelector('.edu-inst')?.value||'',year:b.querySelector('.edu-year')?.value||'',grade:b.querySelector('.edu-grade')?.value||''})); }
-function getRefs(){ return Array.from(document.querySelectorAll('#refList .entry-block')).map(b=>({name:b.querySelector('.ref-name')?.value||'',title:b.querySelector('.ref-title')?.value||'',org:b.querySelector('.ref-org')?.value||'',contact:b.querySelector('.ref-contact')?.value||''})); }
+/* ══════════════════════════════════════
+   DATA COLLECTORS
+══════════════════════════════════════ */
+function getExps() {
+  return Array.from(document.querySelectorAll('#expList .eblock')).map(function(b) {
+    return { title: b.querySelector('.exp-title').value || '', company: b.querySelector('.exp-company').value || '', start: b.querySelector('.exp-start').value || '', end: b.querySelector('.exp-end').value || '', desc: b.querySelector('.exp-desc').value || '' };
+  });
+}
+function getEdus() {
+  return Array.from(document.querySelectorAll('#eduList .eblock')).map(function(b) {
+    return { qual: b.querySelector('.edu-qual').value || '', inst: b.querySelector('.edu-inst').value || '', year: b.querySelector('.edu-year').value || '', grade: b.querySelector('.edu-grade').value || '' };
+  });
+}
+function getRefs() {
+  return Array.from(document.querySelectorAll('#refList .eblock')).map(function(b) {
+    return { name: b.querySelector('.ref-name').value || '', title: b.querySelector('.ref-title').value || '', org: b.querySelector('.ref-org').value || '', contact: b.querySelector('.ref-contact').value || '' };
+  });
+}
 
-function generateCV(){
-  const name=document.getElementById('cv_name').value||'Your Name';
-  const title=document.getElementById('cv_title').value||'Professional';
-  const phone=document.getElementById('cv_phone').value||'';
-  const email=document.getElementById('cv_email').value||'';
-  const location=document.getElementById('cv_location').value||'Zambia';
-  const linkedin=document.getElementById('cv_linkedin').value||'';
-  const summary=document.getElementById('cv_summary').value||'';
-  const techSkills=(document.getElementById('cv_tech_skills').value||'').split(',').map(s=>s.trim()).filter(Boolean);
-  const softSkills=(document.getElementById('cv_soft_skills').value||'').split(',').map(s=>s.trim()).filter(Boolean);
-  const languages=document.getElementById('cv_languages').value||'';
-  const exps=getExps(); const edus=getEdus(); const refs=getRefs();
+/* ══════════════════════════════════════
+   GENERATE CV
+══════════════════════════════════════ */
+function generateCV() {
+  var d = {
+    name: v('cv_name') || 'Your Name',
+    title: v('cv_title') || 'Professional',
+    phone: v('cv_phone'), email: v('cv_email'),
+    location: v('cv_location'), linkedin: v('cv_linkedin'),
+    summary: v('cv_summary'),
+    tech: csv('cv_tech'), soft: csv('cv_soft'),
+    lang: v('cv_lang'),
+    exps: getExps(), edus: getEdus(), refs: getRefs()
+  };
 
-  if(currentTmpl==='classic'){
-    document.getElementById('cvPreview').className='cv-wrap cv-classic';
-    document.getElementById('cvPreview').innerHTML=`
-      <div class="cv-header">
-        <h1>${name}</h1>
-        <p>${title}</p>
-      </div>
-      <div class="cv-contact-bar">
-        ${phone?`<span><i class="fas fa-phone"></i>${phone}</span>`:''}
-        ${email?`<span><i class="fas fa-envelope"></i>${email}</span>`:''}
-        ${location?`<span><i class="fas fa-map-marker-alt"></i>${location}</span>`:''}
-        ${linkedin?`<span><i class="fas fa-globe"></i>${linkedin}</span>`:''}
-      </div>
-      <div class="cv-body">
-        <div class="cv-left">
-          ${techSkills.length||softSkills.length?`<div class="cv-sec"><div class="cv-sec-title">Skills</div>${techSkills.map(s=>`<div class="cv-skill-bar"><div class="cv-skill-name">${s}</div><div class="cv-skill-track"><div class="cv-skill-fill" style="width:${70+Math.random()*25}%"></div></div></div>`).join('')}${softSkills.map(s=>`<div style="font-size:.83rem;padding:3px 0;color:#475569;border-bottom:1px solid #f1f5f9">• ${s}</div>`).join('')}</div>`:''}
-          ${languages?`<div class="cv-sec"><div class="cv-sec-title">Languages</div>${languages.split(',').map(l=>`<div style="font-size:.85rem;padding:3px 0;color:#475569">• ${l.trim()}</div>`).join('')}</div>`:''}
-          ${refs.length?`<div class="cv-sec"><div class="cv-sec-title">References</div>${refs.map(r=>`<div style="margin-bottom:12px"><div style="font-weight:700;font-size:.85rem">${r.name}</div><div style="font-size:.78rem;color:#0ea5e9">${r.title}${r.org?', '+r.org:''}</div><div style="font-size:.75rem;color:#94a3b8">${r.contact}</div></div>`).join('')}</div>`:''}
-        </div>
-        <div class="cv-right">
-          ${summary?`<div class="cv-sec"><div class="cv-sec-title">Profile</div><p style="font-size:.88rem;color:#475569;line-height:1.7">${summary}</p></div>`:''}
-          ${exps.length?`<div class="cv-sec"><div class="cv-sec-title">Experience</div>${exps.map(e=>`<div class="cv-entry"><div class="cv-entry-title">${e.title}</div><div class="cv-entry-sub">${e.company}</div><div class="cv-entry-date">${e.start}${e.end?' – '+e.end:''}</div><div class="cv-entry-desc">${e.desc.replace(/\n/g,'<br/>')}</div></div>`).join('')}</div>`:''}
-          ${edus.length?`<div class="cv-sec"><div class="cv-sec-title">Education</div>${edus.map(e=>`<div class="cv-entry"><div class="cv-entry-title">${e.qual}</div><div class="cv-entry-sub">${e.inst}</div><div class="cv-entry-date">${e.year}${e.grade?' · '+e.grade:''}</div></div>`).join('')}</div>`:''}
-        </div>
-      </div>
-      <div style="text-align:center;padding:12px;font-size:.72rem;color:#94a3b8;border-top:1px solid #e2e8f0">Generated by BLESSTech-X Free CV Builder · blesstechx.com</div>
-    `;
-  } else {
-    document.getElementById('cvPreview').className='cv-wrap cv-modern';
-    document.getElementById('cvPreview').innerHTML=`
-      <div class="cv-header">
-        <div><h1>${name}</h1><p>${title}</p></div>
-        <div class="cv-contact-info">
-          ${phone?`<span><i class="fas fa-phone"></i>${phone}</span>`:''}
-          ${email?`<span><i class="fas fa-envelope"></i>${email}</span>`:''}
-          ${location?`<span><i class="fas fa-map-marker-alt"></i>${location}</span>`:''}
-          ${linkedin?`<span><i class="fas fa-globe"></i>${linkedin}</span>`:''}
-        </div>
-      </div>
-      <div class="cv-body">
-        ${summary?`<div class="cv-sec"><div class="cv-sec-title">Profile</div><p style="font-size:.88rem;color:#475569;line-height:1.7;margin-bottom:0">${summary}</p></div>`:''}
-        <div class="cv-grid">
-          <div>
-            ${techSkills.length?`<div class="cv-sec"><div class="cv-sec-title">Technical Skills</div><div>${techSkills.map(s=>`<span class="cv-tag">${s}</span>`).join('')}</div></div>`:''}
-            ${softSkills.length?`<div class="cv-sec"><div class="cv-sec-title">Soft Skills</div><div>${softSkills.map(s=>`<span class="cv-tag">${s}</span>`).join('')}</div></div>`:''}
-            ${languages?`<div class="cv-sec"><div class="cv-sec-title">Languages</div>${languages.split(',').map(l=>`<div style="font-size:.83rem;padding:3px 0;color:#475569">• ${l.trim()}</div>`).join('')}</div>`:''}
-            ${refs.length?`<div class="cv-sec"><div class="cv-sec-title">References</div>${refs.map(r=>`<div style="margin-bottom:12px"><div style="font-weight:700;font-size:.85rem">${r.name}</div><div style="font-size:.78rem;color:#0ea5e9">${r.title}${r.org?', '+r.org:''}</div><div style="font-size:.75rem;color:#94a3b8">${r.contact}</div></div>`).join('')}</div>`:''}
-          </div>
-          <div>
-            ${exps.length?`<div class="cv-sec"><div class="cv-sec-title">Work Experience</div>${exps.map(e=>`<div class="cv-entry"><div class="cv-entry-title">${e.title}</div><div class="cv-entry-sub">${e.company}</div><span class="cv-entry-date">${e.start}${e.end?' – '+e.end:''}</span><div class="cv-entry-desc">${e.desc.replace(/\n/g,'<br/>')}</div></div>`).join('')}</div>`:''}
-            ${edus.length?`<div class="cv-sec"><div class="cv-sec-title">Education</div>${edus.map(e=>`<div class="cv-entry"><div class="cv-entry-title">${e.qual}</div><div class="cv-entry-sub">${e.inst}</div><span class="cv-entry-date">${e.year}${e.grade?' · '+e.grade:''}</span></div>`).join('')}</div>`:''}
-          </div>
-        </div>
-      </div>
-      <div style="text-align:center;padding:12px;font-size:.72rem;color:#94a3b8;border-top:1px solid #1e293b;background:#0f172a">Generated by BLESSTech-X Free CV Builder · blesstechx.com</div>
-    `;
+  var html = '';
+  if (currentTmpl === 'classic') html = buildClassic(d);
+  else if (currentTmpl === 'modern') html = buildModern(d);
+  else html = buildMinimal(d);
+
+  document.getElementById('cvPreview').innerHTML = html;
+  document.getElementById('actBtns').style.display = 'flex';
+  showToast('CV generated! ✓');
+
+  // scroll to preview on mobile
+  if (window.innerWidth < 960) {
+    setTimeout(function() { document.getElementById('cvPreview').scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
   }
-  document.getElementById('pdfCvBtn').style.display='flex';
 }
 
-function printCV(){
-  const content=document.getElementById('cvPreview').innerHTML;
-  const isModern=currentTmpl==='modern';
-  const w=window.open('','_blank');
-  w.document.write(`<html><head><title>CV — BLESSTech-X</title>
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Segoe UI',Arial,sans-serif;max-width:800px;margin:0 auto;color:#1e293b}
-    .cv-classic .cv-header{background:#0ea5e9;color:white;padding:28px 32px}
-    .cv-classic .cv-header h1{font-size:1.6rem;font-weight:800;margin-bottom:3px}
-    .cv-classic .cv-contact-bar{background:#0284c7;padding:8px 32px;display:flex;gap:16px;flex-wrap:wrap}
-    .cv-classic .cv-contact-bar span{font-size:.75rem;color:rgba(255,255,255,.9)}
-    .cv-classic .cv-body{padding:24px 32px;display:grid;grid-template-columns:1fr 2fr;gap:28px}
-    .cv-classic .cv-sec-title{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#0ea5e9;margin-bottom:8px;padding-bottom:3px;border-bottom:2px solid #0ea5e9}
-    .cv-classic .cv-sec{margin-bottom:20px}
-    .cv-classic .cv-skill-bar{margin-bottom:5px}
-    .cv-classic .cv-skill-name{font-size:.78rem;font-weight:600;margin-bottom:2px}
-    .cv-classic .cv-skill-track{background:#e2e8f0;border-radius:3px;height:5px;overflow:hidden}
-    .cv-classic .cv-skill-fill{background:#0ea5e9;height:100%}
-    .cv-classic .cv-entry{margin-bottom:14px}
-    .cv-classic .cv-entry-title{font-weight:700;font-size:.88rem}
-    .cv-classic .cv-entry-sub{font-size:.78rem;color:#0ea5e9;font-weight:600;margin-bottom:3px}
-    .cv-classic .cv-entry-date{font-size:.72rem;color:#94a3b8}
-    .cv-classic .cv-entry-desc{font-size:.8rem;color:#475569;margin-top:4px;line-height:1.6}
-    .cv-modern .cv-header{background:#0f172a;color:white;padding:28px 32px;display:flex;justify-content:space-between}
-    .cv-modern .cv-header h1{font-size:1.5rem;font-weight:800;margin-bottom:3px}
-    .cv-modern .cv-header p{font-size:.85rem;color:#94a3b8}
-    .cv-modern .cv-contact-info{text-align:right;display:flex;flex-direction:column;gap:3px}
-    .cv-modern .cv-contact-info span{font-size:.72rem;color:#94a3b8}
-    .cv-modern .cv-body{padding:24px 32px}
-    .cv-modern .cv-grid{display:grid;grid-template-columns:1fr 2fr;gap:28px}
-    .cv-modern .cv-sec-title{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#0ea5e9;margin-bottom:10px}
-    .cv-modern .cv-sec{margin-bottom:20px}
-    .cv-modern .cv-entry{margin-bottom:14px;padding-left:12px;border-left:3px solid #e2e8f0}
-    .cv-modern .cv-entry-title{font-weight:700;font-size:.88rem}
-    .cv-modern .cv-entry-sub{font-size:.78rem;color:#0ea5e9;font-weight:600}
-    .cv-modern .cv-entry-date{font-size:.7rem;color:#94a3b8;background:#f1f5f9;display:inline-block;padding:1px 6px;border-radius:10px;margin:2px 0}
-    .cv-modern .cv-entry-desc{font-size:.8rem;color:#475569;margin-top:3px;line-height:1.6}
-    .cv-modern .cv-tag{display:inline-block;background:#e0f2fe;color:#0284c7;font-size:.68rem;font-weight:700;padding:2px 6px;border-radius:3px;margin:2px}
-    @media print{body{max-width:none}}
-  </style></head><body class="${isModern?'cv-modern':'cv-classic'}">${content}</body></html>`);
-  w.document.close(); setTimeout(()=>w.print(),400);
+function v(id) { return (document.getElementById(id).value || '').trim(); }
+function csv(id) { return v(id).split(',').map(function(s) { return s.trim(); }).filter(Boolean); }
+function e(s) { return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+function nl(s) { return e(s).replace(/\n/g, '<br/>'); }
+
+function contactSpans(d, dark) {
+  var c = dark ? 'color:#94a3b8' : '';
+  var out = '';
+  if (d.phone) out += '<span><i class="fas fa-phone" style="width:11px"></i> ' + e(d.phone) + '</span>';
+  if (d.email) out += '<span><i class="fas fa-envelope" style="width:11px"></i> ' + e(d.email) + '</span>';
+  if (d.location) out += '<span><i class="fas fa-map-marker-alt" style="width:11px"></i> ' + e(d.location) + '</span>';
+  if (d.linkedin) out += '<span><i class="fas fa-globe" style="width:11px"></i> ' + e(d.linkedin) + '</span>';
+  return out;
 }
 
-document.getElementById('thToggle').addEventListener('click',()=>{
-  document.getElementById('thNav').classList.toggle('th-nav-open');
-  document.getElementById('thToggle').classList.toggle('th-toggle-open');
+/* ── CLASSIC BLUE ── */
+function buildClassic(d) {
+  return '<div class="cv-doc cv-classic">'
+    + '<div class="cvh"><h1>' + e(d.name) + '</h1><p>' + e(d.title) + '</p></div>'
+    + '<div class="cvc">' + contactSpans(d) + '</div>'
+    + '<div class="cvb"><div class="cv-left">'
+    + (d.tech.length || d.soft.length ? '<div class="cvs"><div class="cvst">Skills</div>'
+        + d.tech.map(function(s) { return '<div class="cvskb"><div class="cvskn">' + e(s) + '</div><div class="cvskt"><div class="cvskf" style="width:' + (68 + Math.floor(Math.random() * 28)) + '%"></div></div></div>'; }).join('')
+        + d.soft.map(function(s) { return '<div style="font-size:.78rem;padding:3px 0;color:#475569;border-bottom:1px solid #f1f5f9">• ' + e(s) + '</div>'; }).join('')
+        + '</div>' : '')
+    + (d.lang ? '<div class="cvs"><div class="cvst">Languages</div>' + d.lang.split(',').map(function(l) { return '<div style="font-size:.8rem;padding:3px 0;color:#475569">• ' + e(l.trim()) + '</div>'; }).join('') + '</div>' : '')
+    + (d.refs.length ? '<div class="cvs"><div class="cvst">References</div>' + d.refs.map(function(r) { return '<div style="margin-bottom:10px"><div style="font-weight:700;font-size:.82rem">' + e(r.name) + '</div><div style="font-size:.74rem;color:#4f46e5">' + e(r.title) + (r.org ? ', ' + e(r.org) : '') + '</div><div style="font-size:.7rem;color:#94a3b8">' + e(r.contact) + '</div></div>'; }).join('') + '</div>' : '')
+    + '</div><div class="cv-right">'
+    + (d.summary ? '<div class="cvs"><div class="cvst">Profile</div><p style="font-size:.84rem;color:#475569;line-height:1.7">' + nl(d.summary) + '</p></div>' : '')
+    + (d.exps.length ? '<div class="cvs"><div class="cvst">Work Experience</div>' + d.exps.map(function(ex) { return '<div class="cve"><div class="cvet">' + e(ex.title) + '</div><div class="cves">' + e(ex.company) + '</div><div class="cved">' + e(ex.start) + (ex.end ? ' – ' + e(ex.end) : '') + '</div><div class="cvex">' + nl(ex.desc) + '</div></div>'; }).join('') + '</div>' : '')
+    + (d.edus.length ? '<div class="cvs"><div class="cvst">Education</div>' + d.edus.map(function(ed) { return '<div class="cve"><div class="cvet">' + e(ed.qual) + '</div><div class="cves">' + e(ed.inst) + '</div><div class="cved">' + e(ed.year) + (ed.grade ? ' · ' + e(ed.grade) : '') + '</div></div>'; }).join('') + '</div>' : '')
+    + '</div></div>'
+    + '<div class="cv-foot">Generated by BLESSTech-X Free CV Builder · blesstechx.com</div>'
+    + '</div>';
+}
+
+/* ── MODERN DARK ── */
+function buildModern(d) {
+  return '<div class="cv-doc cv-modern">'
+    + '<div class="cvh"><div><h1>' + e(d.name) + '</h1><p>' + e(d.title) + '</p></div>'
+    + '<div class="cvc-r">' + contactSpans(d, true) + '</div></div>'
+    + '<div class="cvb">'
+    + (d.summary ? '<div class="cvs"><div class="cvst">Profile</div><p style="font-size:.84rem;color:#94a3b8;line-height:1.7">' + nl(d.summary) + '</p></div>' : '')
+    + '<div class="cvgrid"><div>'
+    + (d.tech.length ? '<div class="cvs"><div class="cvst">Technical Skills</div>' + d.tech.map(function(s) { return '<span class="cvtag">' + e(s) + '</span>'; }).join('') + '</div>' : '')
+    + (d.soft.length ? '<div class="cvs"><div class="cvst">Soft Skills</div>' + d.soft.map(function(s) { return '<span class="cvtag">' + e(s) + '</span>'; }).join('') + '</div>' : '')
+    + (d.lang ? '<div class="cvs"><div class="cvst">Languages</div>' + d.lang.split(',').map(function(l) { return '<div style="font-size:.78rem;padding:3px 0;color:#94a3b8">• ' + e(l.trim()) + '</div>'; }).join('') + '</div>' : '')
+    + (d.refs.length ? '<div class="cvs"><div class="cvst">References</div>' + d.refs.map(function(r) { return '<div style="margin-bottom:10px"><div style="font-weight:700;font-size:.8rem;color:#e2e8f0">' + e(r.name) + '</div><div style="font-size:.72rem;color:#6366f1">' + e(r.title) + (r.org ? ', ' + e(r.org) : '') + '</div><div style="font-size:.68rem;color:#64748b">' + e(r.contact) + '</div></div>'; }).join('') + '</div>' : '')
+    + '</div><div>'
+    + (d.exps.length ? '<div class="cvs"><div class="cvst">Work Experience</div>' + d.exps.map(function(ex) { return '<div class="cve"><div class="cvet">' + e(ex.title) + '</div><div class="cves">' + e(ex.company) + '</div><span class="cved">' + e(ex.start) + (ex.end ? ' – ' + e(ex.end) : '') + '</span><div class="cvex">' + nl(ex.desc) + '</div></div>'; }).join('') + '</div>' : '')
+    + (d.edus.length ? '<div class="cvs"><div class="cvst">Education</div>' + d.edus.map(function(ed) { return '<div class="cve"><div class="cvet">' + e(ed.qual) + '</div><div class="cves">' + e(ed.inst) + '</div><span class="cved">' + e(ed.year) + (ed.grade ? ' · ' + e(ed.grade) : '') + '</span></div>'; }).join('') + '</div>' : '')
+    + '</div></div>'
+    + '</div>'
+    + '<div style="text-align:center;padding:10px;font-size:.66rem;color:#334155;border-top:1px solid #1e293b;background:#0f172a">Generated by BLESSTech-X Free CV Builder · blesstechx.com</div>'
+    + '</div>';
+}
+
+/* ── MINIMAL ── */
+function buildMinimal(d) {
+  return '<div class="cv-doc cv-minimal">'
+    + '<div class="cvh"><h1>' + e(d.name) + '</h1><p>' + e(d.title) + '</p>'
+    + '<div class="cvc">' + contactSpans(d) + '</div></div>'
+    + '<div class="cvb"><div class="cv-left">'
+    + (d.tech.length || d.soft.length ? '<div class="cvs"><div class="cvst">Skills</div>'
+        + d.tech.map(function(s) { return '<span class="cvtag">' + e(s) + '</span> '; }).join('')
+        + (d.tech.length && d.soft.length ? '<br/>' : '')
+        + d.soft.map(function(s) { return '<div style="font-size:.78rem;padding:3px 0;color:#65615b">• ' + e(s) + '</div>'; }).join('')
+        + '</div>' : '')
+    + (d.lang ? '<div class="cvs"><div class="cvst">Languages</div>' + d.lang.split(',').map(function(l) { return '<div style="font-size:.8rem;padding:3px 0;color:#65615b">• ' + e(l.trim()) + '</div>'; }).join('') + '</div>' : '')
+    + (d.refs.length ? '<div class="cvs"><div class="cvst">References</div>' + d.refs.map(function(r) { return '<div style="margin-bottom:10px"><div style="font-weight:800;font-size:.82rem">' + e(r.name) + '</div><div style="font-size:.74rem;color:#65615b">' + e(r.title) + (r.org ? ', ' + e(r.org) : '') + '</div><div style="font-size:.7rem;color:#9e9890">' + e(r.contact) + '</div></div>'; }).join('') + '</div>' : '')
+    + '</div><div class="cv-right">'
+    + (d.summary ? '<div class="cvs"><div class="cvst">Profile</div><p style="font-size:.85rem;color:#65615b;line-height:1.7">' + nl(d.summary) + '</p></div>' : '')
+    + (d.exps.length ? '<div class="cvs"><div class="cvst">Experience</div>' + d.exps.map(function(ex) { return '<div class="cve"><div class="cvet">' + e(ex.title) + '</div><div class="cves">' + e(ex.company) + '</div><div class="cved">' + e(ex.start) + (ex.end ? ' – ' + e(ex.end) : '') + '</div><div class="cvex">' + nl(ex.desc) + '</div></div>'; }).join('') + '</div>' : '')
+    + (d.edus.length ? '<div class="cvs"><div class="cvst">Education</div>' + d.edus.map(function(ed) { return '<div class="cve"><div class="cvet">' + e(ed.qual) + '</div><div class="cves">' + e(ed.inst) + '</div><div class="cved">' + e(ed.year) + (ed.grade ? ' · ' + e(ed.grade) : '') + '</div></div>'; }).join('') + '</div>' : '')
+    + '</div></div>'
+    + '<div class="cv-foot">Generated by BLESSTech-X Free CV Builder · blesstechx.com</div>'
+    + '</div>';
+}
+
+/* ══════════════════════════════════════
+   PRINT / PDF
+══════════════════════════════════════ */
+function printCV() {
+  var content = document.getElementById('cvPreview').innerHTML;
+  var w = window.open('', '_blank');
+  w.document.write('<!DOCTYPE html><html><head><title>CV — BLESSTech-X</title>'
+    + '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>'
+    + '<style>'
+    + '*{box-sizing:border-box;margin:0;padding:0}'
+    + 'body{font-family:"Segoe UI",Arial,sans-serif;max-width:860px;margin:0 auto;color:#1e293b;background:white}'
+    + '.cv-doc{width:100%;background:white}'
+    /* Classic */
+    + '.cv-classic .cvh{background:#312e81;color:white;padding:24px 28px}'
+    + '.cv-classic .cvh h1{font-size:1.6rem;font-weight:800;margin-bottom:2px}'
+    + '.cv-classic .cvh p{font-size:.85rem;opacity:.8}'
+    + '.cv-classic .cvc{background:#3730a3;padding:7px 28px;display:flex;gap:14px;flex-wrap:wrap}'
+    + '.cv-classic .cvc span{font-size:.7rem;color:rgba(255,255,255,.88);display:flex;align-items:center;gap:4px}'
+    + '.cv-classic .cvb{padding:20px 28px;display:grid;grid-template-columns:190px 1fr;gap:24px}'
+    + '.cv-classic .cvst{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#312e81;margin-bottom:7px;padding-bottom:3px;border-bottom:2px solid #312e81}'
+    + '.cv-classic .cvs{margin-bottom:16px}'
+    + '.cv-classic .cvskb{margin-bottom:5px}.cv-classic .cvskn{font-size:.75rem;font-weight:600;margin-bottom:2px}'
+    + '.cv-classic .cvskt{background:#e2e8f0;border-radius:3px;height:4px;overflow:hidden}.cv-classic .cvskf{background:#312e81;height:100%}'
+    + '.cv-classic .cve{margin-bottom:12px}.cv-classic .cvet{font-weight:700;font-size:.85rem}.cv-classic .cves{font-size:.75rem;color:#4f46e5;font-weight:600;margin-bottom:1px}.cv-classic .cved{font-size:.68rem;color:#94a3b8}.cv-classic .cvex{font-size:.77rem;color:#475569;margin-top:3px;line-height:1.6}'
+    /* Modern */
+    + '.cv-modern .cvh{background:#0f172a;color:white;padding:24px 28px;display:flex;justify-content:space-between;align-items:flex-start}'
+    + '.cv-modern .cvh h1{font-size:1.5rem;font-weight:800;margin-bottom:2px}.cv-modern .cvh p{font-size:.82rem;color:#94a3b8}'
+    + '.cv-modern .cvc-r{text-align:right;display:flex;flex-direction:column;gap:3px}'
+    + '.cv-modern .cvc-r span{font-size:.68rem;color:#94a3b8;display:flex;align-items:center;gap:4px;justify-content:flex-end}'
+    + '.cv-modern .cvb{padding:20px 28px}.cv-modern .cvgrid{display:grid;grid-template-columns:170px 1fr;gap:24px}'
+    + '.cv-modern .cvst{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#6366f1;margin-bottom:8px}'
+    + '.cv-modern .cvs{margin-bottom:18px}.cv-modern .cve{margin-bottom:12px;padding-left:10px;border-left:3px solid #1e293b}'
+    + '.cv-modern .cvet{font-weight:700;font-size:.85rem}.cv-modern .cves{font-size:.75rem;color:#6366f1;font-weight:600}'
+    + '.cv-modern .cved{font-size:.65rem;color:#94a3b8;background:#1e293b;display:inline-block;padding:1px 6px;border-radius:20px;margin:2px 0}'
+    + '.cv-modern .cvex{font-size:.77rem;color:#94a3b8;margin-top:3px;line-height:1.6}'
+    + '.cv-modern .cvtag{display:inline-block;background:#1e293b;color:#818cf8;font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:4px;margin:2px}'
+    /* Minimal */
+    + '.cv-minimal .cvh{padding:28px 32px 16px;border-bottom:2px solid #1a1814}'
+    + '.cv-minimal .cvh h1{font-size:1.75rem;font-weight:900;letter-spacing:-.4px;margin-bottom:2px}'
+    + '.cv-minimal .cvh p{font-size:.87rem;color:#65615b}'
+    + '.cv-minimal .cvc{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}'
+    + '.cv-minimal .cvc span{font-size:.7rem;color:#9e9890;display:flex;align-items:center;gap:4px}'
+    + '.cv-minimal .cvb{padding:20px 32px;display:grid;grid-template-columns:1fr 2fr;gap:28px}'
+    + '.cv-minimal .cvst{font-size:.6rem;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:7px;padding-bottom:3px;border-bottom:1.5px solid #1a1814}'
+    + '.cv-minimal .cvs{margin-bottom:18px}.cv-minimal .cve{margin-bottom:12px}'
+    + '.cv-minimal .cvet{font-weight:800;font-size:.85rem}.cv-minimal .cves{font-size:.75rem;color:#65615b;font-weight:600}.cv-minimal .cved{font-size:.68rem;color:#9e9890}'
+    + '.cv-minimal .cvex{font-size:.78rem;color:#65615b;margin-top:3px;line-height:1.65}'
+    + '.cv-minimal .cvtag{display:inline-block;border:1px solid #e8e5df;color:#65615b;font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:4px;margin:2px}'
+    + '.cv-foot{text-align:center;padding:8px;font-size:.62rem;color:#94a3b8;border-top:1px solid #e2e8f0}'
+    + '@media print{@page{size:A4;margin:10mm}body{max-width:none}}'
+    + '</style></head><body>'
+    + content
+    + '</body></html>');
+  w.document.close();
+  setTimeout(function() { w.print(); }, 500);
+}
+
+/* ══════════════════════════════════════
+   HELPERS
+══════════════════════════════════════ */
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(window._t);
+  window._t = setTimeout(function() { t.classList.remove('show'); }, 2400);
+}
+document.getElementById('mobTog').addEventListener('click', function() {
+  document.getElementById('hnav').classList.toggle('open');
+  this.classList.toggle('open');
 });
+window.addEventListener('scroll', function() {
+  document.getElementById('hdr').classList.toggle('scrolled', window.scrollY > 8);
+}, { passive: true });
 </script>
 </body>
 </html>
