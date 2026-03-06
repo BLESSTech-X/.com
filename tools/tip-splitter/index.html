@@ -1,275 +1,603 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tip & Bill Splitter | BLESSTech-X Free Tools</title>
-  <meta name="description" content="Split any bill fairly between any number of people. Add a tip and see exactly what each person owes. Free bill splitter for Zambia."/>
-  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <link rel="stylesheet" href="../style.css"/>
-  <style>
-    .big-result{background:linear-gradient(135deg,var(--sky),var(--sky-dark));border-radius:var(--radius-lg);padding:32px;text-align:center;color:white;margin-bottom:24px}
-    .big-result .br-label{font-size:.88rem;font-weight:700;opacity:.8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
-    .big-result .br-amount{font-size:3.5rem;font-weight:900;line-height:1;margin-bottom:4px}
-    .big-result .br-sub{font-size:.9rem;opacity:.75}
-    .person-list{display:flex;flex-direction:column;gap:8px}
-    .person-row{display:grid;grid-template-columns:1fr auto auto 36px;gap:10px;align-items:center}
-    .person-row.hdr{font-size:.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;padding:0 4px}
-    .mini{padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.9rem;outline:none;transition:var(--transition);width:100%}
-    .mini:focus{border-color:var(--sky)}
-    .del-btn{width:36px;height:36px;border-radius:var(--radius);background:#fee2e2;border:none;color:var(--red);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--transition)}
-    .del-btn:hover{background:#dc2626;color:white}
-    .add-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--sky-light);border:1.5px solid rgba(14,165,233,.3);border-radius:var(--radius);color:var(--sky-dark);font-size:.83rem;font-weight:700;cursor:pointer;transition:var(--transition);margin-top:4px}
-    .add-btn:hover{background:var(--sky);color:white}
-    .tip-btns{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
-    .tip-btn{padding:8px 16px;border:1.5px solid var(--border);border-radius:50px;background:white;font-size:.85rem;font-weight:700;color:var(--muted);cursor:pointer;transition:var(--transition)}
-    .tip-btn:hover{border-color:var(--sky);color:var(--sky)}
-    .tip-btn.active{border-color:var(--sky);background:var(--sky);color:white}
-    .summary-table{width:100%;border-collapse:collapse}
-    .summary-table th{background:var(--bg-alt);padding:10px 14px;text-align:left;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);border-bottom:2px solid var(--border)}
-    .summary-table td{padding:10px 14px;border-bottom:1px solid var(--border);font-size:.9rem}
-    .summary-table tr:last-child td{border-bottom:none}
-    .summary-table .amount-col{font-weight:800;color:var(--sky);text-align:right}
-    .item-row{display:grid;grid-template-columns:1fr 120px 36px;gap:8px;margin-bottom:8px;align-items:center}
-    .copy-toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:var(--slate);color:white;padding:10px 24px;border-radius:50px;font-size:.88rem;font-weight:600;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none}
-    .copy-toast.show{opacity:1}
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Tip &amp; Bill Splitter | BLESSTech-X Free Tools</title>
+<meta name="description" content="Split any bill fairly between any number of people. Add a tip and see exactly what each person owes. Free bill splitter for Zambia."/>
+<link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<style>
+/* ══ TOKENS ══ */
+:root{
+  --bg:#faf9f7;--bg2:#f2f0ec;--bg3:#e8e5df;--card:#fff;
+  --bdr:rgba(0,0,0,.08);--bdr2:rgba(0,0,0,.14);
+  --text:#1a1814;--sub:#65615b;--muted:#9e9890;
+  --brand:#6366f1;--brd:#4f46e5;
+  --green:#10b981;--red:#ef4444;--amber:#f59e0b;
+  --wa:#25d366;
+  --foot-bg:#1e1c18;--foot-bdr:rgba(255,255,255,.07);--foot-sub:#8a8478;--foot-lnk:#b5b0a8;
+  /* splitter accent — warm emerald + citrus */
+  --sp1:#064e3b;--sp2:#059669;--sp3:#d1fae5;
+  --spg:linear-gradient(135deg,#064e3b 0%,#065f46 40%,#047857 100%);
+  --fd:'Playfair Display',Georgia,serif;
+  --fs:'Syne',sans-serif;
+  --fb:'Plus Jakarta Sans',system-ui,sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --px:clamp(14px,4vw,36px);--hh:60px;--r:14px;
+}
+@media(min-width:640px){:root{--hh:64px}}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--fb);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button,input,select{font-family:var(--fb)}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.02'/%3E%3C/svg%3E")}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg2)}::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:3px}
+
+/* ══ HEADER ══ */
+.hdr{position:sticky;top:0;z-index:200;height:var(--hh);display:flex;align-items:center;justify-content:space-between;padding:0 var(--px);background:rgba(250,249,247,.93);backdrop-filter:blur(18px) saturate(160%);border-bottom:1px solid var(--bdr);transition:box-shadow .25s}
+.hdr.scrolled{box-shadow:0 2px 18px rgba(0,0,0,.07)}
+.logo{display:flex;align-items:center;gap:9px}
+.logo img{width:30px;height:30px;border-radius:8px;object-fit:cover}
+.logo-t{font-family:var(--fd);font-weight:900;font-size:.95rem;color:var(--text)}
+.logo-t em{color:var(--brand);font-style:normal}
+.hnav{display:flex;align-items:center;gap:5px}
+.hl{padding:6px 12px;border-radius:50px;font-size:.78rem;font-weight:600;color:var(--sub);border:1px solid transparent;transition:all .18s}
+.hl:hover{color:var(--text);background:var(--bg2);border-color:var(--bdr)}
+.hlwa{background:var(--wa)!important;color:white!important;box-shadow:0 3px 12px rgba(37,211,102,.28)}
+.hlwa:hover{background:#1fb055!important}
+.mob-tog{display:none;flex-direction:column;gap:4px;width:32px;height:32px;align-items:center;justify-content:center;background:none;border:1.5px solid var(--bdr);border-radius:8px;cursor:pointer;padding:0}
+.mob-tog span{display:block;width:16px;height:2px;background:var(--sub);border-radius:2px;transition:all .25s}
+.mob-tog.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.mob-tog.open span:nth-child(2){opacity:0}
+.mob-tog.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+@media(max-width:640px){
+  .mob-tog{display:flex}
+  .hnav{position:fixed;top:var(--hh);left:0;right:0;flex-direction:column;align-items:flex-start;gap:4px;padding:14px var(--px) 18px;background:rgba(250,249,247,.97);backdrop-filter:blur(18px);border-bottom:1px solid var(--bdr);transform:translateY(-110%);opacity:0;transition:transform .3s var(--ease),opacity .3s;pointer-events:none}
+  .hnav.open{transform:translateY(0);opacity:1;pointer-events:all}
+  .hl{width:100%;border-radius:10px}
+}
+
+/* ══ PAGE ══ */
+.page{padding-top:var(--hh)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 var(--px)}
+.bc{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:clamp(14px,2vw,20px) 0 0;font-size:.75rem;font-weight:600;color:var(--muted)}
+.bc a{color:var(--sub);transition:color .16s}.bc a:hover{color:var(--brand)}
+.bc i{font-size:.55rem}.bc span{color:var(--brand)}
+
+/* ══ HERO BANNER ══ */
+.hero{position:relative;overflow:hidden;background:var(--spg);border-radius:clamp(16px,3vw,24px);padding:clamp(32px,5vw,56px) clamp(24px,5vw,52px);margin:clamp(12px,2vw,18px) 0 clamp(18px,3vw,28px);display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:320px;height:320px;background:radial-gradient(circle,rgba(167,243,208,.2),transparent 70%);pointer-events:none}
+.hero::after{content:'🍽️';position:absolute;bottom:-12px;right:36px;font-size:clamp(5rem,9vw,8rem);opacity:.12;line-height:1}
+.hero-text h1{font-family:var(--fs);font-weight:800;font-size:clamp(1.5rem,3.8vw,2.4rem);color:white;line-height:1.15;margin-bottom:10px}
+.hero-text h1 span{background:linear-gradient(90deg,#a7f3d0,#6ee7b7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-text p{color:rgba(167,243,208,.85);font-size:clamp(.82rem,1.4vw,.93rem);line-height:1.65;max-width:480px}
+.hero-badges{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.hbadge{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:50px;font-size:.64rem;font-weight:700;background:rgba(255,255,255,.1);color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.15)}
+
+/* ══ MAIN GRID ══ */
+.mgrid{display:grid;grid-template-columns:1fr 380px;gap:clamp(14px,2.5vw,24px);align-items:start;margin-bottom:clamp(20px,3vw,36px)}
+@media(max-width:900px){.mgrid{grid-template-columns:1fr}}
+@media(min-width:901px){.sticky-col{position:sticky;top:calc(var(--hh)+14px)}}
+
+/* ══ CARDS ══ */
+.card{background:var(--card);border:1.5px solid var(--bdr);border-radius:var(--r);overflow:hidden;margin-bottom:clamp(12px,2vw,16px)}
+.card:last-child{margin-bottom:0}
+.card-hd{display:flex;align-items:center;justify-content:space-between;padding:clamp(12px,2vw,16px) clamp(14px,2.5vw,20px);border-bottom:1px solid var(--bdr);background:var(--bg)}
+.card-hd h2{display:flex;align-items:center;gap:9px;font-family:var(--fd);font-size:clamp(.88rem,1.4vw,.98rem);font-weight:700;color:var(--text)}
+.card-hd h2 i{color:var(--sp2)}
+.card-bd{padding:clamp(14px,2.5vw,20px)}
+
+/* ══ FIELDS ══ */
+.f{margin-bottom:clamp(10px,1.8vw,13px)}
+.f:last-child{margin-bottom:0}
+.f label{display:block;font-size:.67rem;font-weight:800;color:var(--sub);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px}
+.f input,.f select{width:100%;padding:10px 13px;border:1.5px solid var(--bdr);border-radius:9px;font-size:.88rem;outline:none;background:var(--bg);color:var(--text);transition:border-color .18s,box-shadow .18s}
+.f input:focus,.f select:focus{border-color:var(--sp2);box-shadow:0 0 0 3px rgba(5,150,105,.12);background:var(--card)}
+.f input::placeholder{color:var(--muted)}
+.fr2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(8px,1.5vw,12px)}
+
+/* ══ TIP BUTTONS ══ */
+.tip-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.tbtn{padding:9px 16px;border:1.5px solid var(--bdr);border-radius:50px;background:var(--bg2);font-size:.82rem;font-weight:700;color:var(--sub);cursor:pointer;transition:all .18s;white-space:nowrap}
+.tbtn:hover{border-color:var(--sp2);color:var(--sp2);background:var(--sp3)}
+.tbtn.on{border-color:var(--sp2);background:var(--sp2);color:white;box-shadow:0 3px 10px rgba(5,150,105,.25)}
+
+/* ══ PEOPLE LIST ══ */
+.people{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.prow{display:grid;grid-template-columns:1fr 110px 28px;gap:8px;align-items:center;animation:slideIn .22s var(--ease)}
+@keyframes slideIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.prow-inp{padding:9px 12px;border:1.5px solid var(--bdr);border-radius:9px;font-size:.85rem;outline:none;background:var(--bg);color:var(--text);width:100%;transition:border-color .16s,box-shadow .16s;font-family:var(--fb)}
+.prow-inp:focus{border-color:var(--sp2);box-shadow:0 0 0 3px rgba(5,150,105,.1);background:var(--card)}
+.prow-inp::placeholder{color:var(--muted)}
+.del-btn{width:28px;height:28px;border-radius:7px;background:rgba(239,68,68,.09);border:1.5px solid rgba(239,68,68,.15);color:var(--red);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;transition:all .13s;flex-shrink:0}
+.del-btn:hover{background:var(--red);color:white;border-color:var(--red)}
+.add-person{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(5,150,105,.07);border:1.5px solid rgba(5,150,105,.22);border-radius:9px;color:var(--sp2);font-size:.78rem;font-weight:700;cursor:pointer;transition:all .15s}
+.add-person:hover{background:var(--sp2);color:white;border-color:var(--sp2)}
+.prow-hint{font-size:.6rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;padding:0 2px}
+
+/* ══ BIG RESULT ══ */
+.big-result{background:var(--spg);border-radius:var(--r);padding:clamp(24px,4vw,36px) clamp(20px,3vw,28px);text-align:center;margin-bottom:clamp(12px,2vw,16px);position:relative;overflow:hidden}
+.big-result::before{content:'';position:absolute;top:-40px;left:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(167,243,208,.15),transparent 70%)}
+.big-result::after{content:'';position:absolute;bottom:-30px;right:-30px;width:160px;height:160px;background:radial-gradient(circle,rgba(6,78,59,.4),transparent 70%)}
+.br-lbl{font-size:.7rem;font-weight:800;color:rgba(167,243,208,.7);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:8px;position:relative;z-index:1}
+.br-amt{font-family:var(--fs);font-size:clamp(2.2rem,6vw,3.8rem);font-weight:800;color:white;line-height:1.05;margin-bottom:6px;position:relative;z-index:1;transition:all .3s var(--ease)}
+.br-sub{font-size:clamp(.74rem,1.3vw,.82rem);color:rgba(167,243,208,.72);position:relative;z-index:1;line-height:1.6}
+
+/* ══ BREAKDOWN TABLE ══ */
+.btable{width:100%;border-collapse:collapse}
+.btable th{padding:9px 14px;background:var(--bg);font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);border-bottom:2px solid var(--bdr);text-align:left}
+.btable th.ra{text-align:right}
+.btable td{padding:11px 14px;border-bottom:1px solid var(--bdr);font-size:.87rem;color:var(--text)}
+.btable tr:last-child td{border-bottom:none}
+.btable .amt{font-weight:800;color:var(--sp2);text-align:right;font-family:var(--fs);font-size:.92rem}
+.btable .total-row td{background:rgba(5,150,105,.05);font-weight:700}
+.btable .total-row .amt{color:var(--sp1);font-size:1rem}
+.empty-state{padding:clamp(24px,4vw,40px) 24px;text-align:center;color:var(--muted);font-size:.88rem;font-style:italic}
+
+/* ══ PERSON RESULT BADGES ══ */
+.per-result{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.pr-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--bg2);border:1.5px solid var(--bdr);border-radius:10px;transition:all .18s}
+.pr-row:hover{border-color:rgba(5,150,105,.3);background:var(--sp3)}
+.pr-name{font-size:.84rem;font-weight:700;color:var(--text)}
+.pr-amt{font-family:var(--fs);font-size:1.05rem;font-weight:800;color:var(--sp2)}
+
+/* ══ BUTTONS ══ */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border-radius:10px;border:none;font-weight:700;font-size:.82rem;cursor:pointer;font-family:var(--fb);transition:all .18s;white-space:nowrap}
+.btn-primary{background:var(--sp2);color:white;box-shadow:0 3px 12px rgba(5,150,105,.28)}
+.btn-primary:hover{background:var(--sp1);transform:translateY(-1px)}
+.btn-secondary{background:var(--bg2);color:var(--sub);border:1.5px solid var(--bdr)}
+.btn-secondary:hover{color:var(--text);border-color:var(--bdr2)}
+.btn-full{width:100%;justify-content:center;padding:14px}
+.btn-sm{padding:6px 12px;font-size:.74rem;border-radius:8px}
+.btn-wa-big{background:var(--wa);color:white;box-shadow:0 4px 16px rgba(37,211,102,.3)}
+.btn-wa-big:hover{background:#1fb055;transform:translateY(-1px)}
+
+/* ══ CTA / RELATED / FOOTER ══ */
+.cta{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;padding:clamp(16px,2.5vw,22px) clamp(18px,3vw,26px);background:linear-gradient(135deg,#ecfdf5,#d1fae5);border:1.5px solid rgba(5,150,105,.15);border-radius:var(--r);margin-bottom:clamp(16px,2.5vw,22px)}
+.cta h4{font-family:var(--fd);font-size:clamp(.95rem,1.8vw,1.1rem);font-weight:900;color:var(--text);margin-bottom:4px}
+.cta p{font-size:clamp(.78rem,1.4vw,.84rem);color:var(--sub)}
+.btn-wa-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:11px;background:var(--wa);color:white;font-weight:700;font-size:.84rem;box-shadow:0 4px 14px rgba(37,211,102,.28);transition:all .18s;white-space:nowrap;flex-shrink:0}
+.btn-wa-cta:hover{background:#1fb055;transform:translateY(-1px)}
+.rel{background:var(--bg2);border:1.5px solid var(--bdr);border-radius:var(--r);padding:clamp(18px,3vw,26px);margin-bottom:clamp(20px,3vw,36px)}
+.rel h3{font-family:var(--fd);font-size:clamp(.95rem,1.5vw,1.05rem);font-weight:900;color:var(--text);margin-bottom:14px}
+.relg{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+.relc{display:flex;align-items:center;gap:9px;padding:11px 13px;border-radius:11px;background:var(--card);border:1.5px solid var(--bdr);font-size:.82rem;font-weight:700;color:var(--sub);transition:all .18s}
+.relc:hover{color:var(--brand);border-color:rgba(99,102,241,.3);transform:translateY(-2px)}
+.relc span{font-size:1.1rem}
+.foot{background:var(--foot-bg);border-top:1px solid var(--foot-bdr);padding:clamp(28px,5vw,48px) var(--px) 0}
+.footg{max-width:1180px;margin:0 auto;display:grid;gap:clamp(20px,3vw,36px);grid-template-columns:2fr 1fr 1fr 1fr;padding-bottom:clamp(22px,3vw,36px)}
+@media(max-width:700px){.footg{grid-template-columns:1fr 1fr}}
+@media(max-width:400px){.footg{grid-template-columns:1fr}}
+.foot .logo-t{color:#e8e5df}.foot .logo-t em{color:var(--brand)}
+.fdesc{font-size:.8rem;color:var(--foot-sub);line-height:1.75;margin-top:10px;max-width:220px}
+.fc h4{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--foot-sub);margin-bottom:12px}
+.fc a{display:block;color:var(--foot-lnk);font-size:.8rem;margin-bottom:8px;transition:color .16s}
+.fc a:hover{color:white}
+.footbot{max-width:1180px;margin:0 auto;border-top:1px solid var(--foot-bdr);padding:clamp(14px,2vw,20px) 0 clamp(18px,2.5vw,26px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.footbot p{color:var(--foot-sub);font-size:.72rem}
+.wafab{position:fixed;bottom:18px;right:18px;z-index:90;width:50px;height:50px;border-radius:50%;background:var(--wa);color:white;display:flex;align-items:center;justify-content:center;font-size:1.28rem;box-shadow:0 5px 20px rgba(37,211,102,.35);transition:all .2s}
+.wafab:hover{transform:scale(1.1) translateY(-2px)}
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#1a1814;color:white;padding:10px 22px;border-radius:50px;font-size:.82rem;font-weight:600;z-index:9999;opacity:0;transition:opacity .28s;pointer-events:none;white-space:nowrap;box-shadow:0 6px 20px rgba(0,0,0,.22);display:flex;align-items:center;gap:8px}
+.toast.show{opacity:1}
+
+/* ══ SPLIT MODE TOGGLE ══ */
+.mode-toggle{display:flex;background:var(--bg2);border:1.5px solid var(--bdr);border-radius:10px;padding:3px;gap:0;margin-bottom:14px}
+.mtab{flex:1;padding:8px 10px;border:none;border-radius:8px;background:none;font-size:.76rem;font-weight:700;color:var(--muted);cursor:pointer;transition:all .16s;text-align:center}
+.mtab.on{background:var(--card);color:var(--sp2);box-shadow:0 1px 6px rgba(0,0,0,.07)}
+
+/* ══ DIVIDER ══ */
+.hdiv{height:1px;background:var(--bdr);margin:clamp(10px,1.8vw,14px) 0}
+</style>
 </head>
-<body class="tool-page">
-  <header class="tools-header">
-    <div class="th-inner">
-      <a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a>
-      <nav class="th-nav" id="thNav">
-        <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
-        <a href="../index.html"><i class="fas fa-tools"></i> All Tools</a>
-        <a href="../../index.html#services">Services</a>
-        <a href="https://wa.me/260979603741" target="_blank" class="th-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-      </nav>
-      <button class="th-mobile-toggle" id="thToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+<body>
+
+<header class="hdr" id="hdr">
+  <a href="../../index.html" class="logo">
+    <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/>
+    <span class="logo-t">BLESS<em>Tech-X</em></span>
+  </a>
+  <nav class="hnav" id="hnav">
+    <a href="../../index.html" class="hl"><i class="fas fa-home"></i> Home</a>
+    <a href="../index.html" class="hl"><i class="fas fa-tools"></i> All Tools</a>
+    <a href="../../index.html#services" class="hl">Services</a>
+    <a href="https://wa.me/260979603741" target="_blank" class="hl hlwa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+  </nav>
+  <button class="mob-tog" id="mobTog"><span></span><span></span><span></span></button>
+</header>
+
+<div class="page">
+ <div class="wrap">
+  <nav class="bc">
+    <a href="../../index.html">Home</a><i class="fas fa-chevron-right"></i>
+    <a href="../index.html">Free Tools</a><i class="fas fa-chevron-right"></i>
+    <span>Tip &amp; Bill Splitter</span>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-text">
+      <h1>Tip &amp; <span>Bill Splitter</span></h1>
+      <p>Split any bill fairly between any number of people. Add a tip and see exactly what each person owes — no arguments, just maths.</p>
+      <div class="hero-badges">
+        <span class="hbadge"><i class="fas fa-check-circle"></i> Free</span>
+        <span class="hbadge"><i class="fas fa-bolt"></i> Real-time</span>
+        <span class="hbadge"><i class="fas fa-users"></i> Any group size</span>
+        <span class="hbadge"><i class="fab fa-whatsapp"></i> Share via WhatsApp</span>
+      </div>
     </div>
-  </header>
+  </div>
 
-  <main class="tool-page-main">
-    <div class="th-container">
-      <div class="tool-breadcrumb">
-        <a href="../../index.html">Home</a><i class="fas fa-chevron-right"></i>
-        <a href="../index.html">Free Tools</a><i class="fas fa-chevron-right"></i>
-        <span>Tip &amp; Bill Splitter</span>
-      </div>
-      <div class="tool-header">
-        <div class="tool-header-inner">
-          <div class="tool-header-icon" style="background:#fce7f3;color:#db2777">🍽️</div>
-          <div>
-            <h1>Tip &amp; Bill Splitter</h1>
-            <p>Split any bill fairly between any number of people. Add a tip percentage and see exactly what each person owes in Zambian Kwacha.</p>
-            <div class="tool-header-meta">
-              <span class="tool-meta-badge"><i class="fas fa-check-circle"></i> Free</span>
-              <span class="tool-meta-badge"><i class="fas fa-bolt"></i> Real-time</span>
-              <span class="tool-meta-badge"><i class="fas fa-users"></i> Everyone · Groups</span>
-            </div>
+  <div class="mgrid">
+
+   <!-- ══ LEFT ══ -->
+   <div>
+    <div class="card">
+      <div class="card-hd"><h2><i class="fas fa-receipt"></i> Bill Details</h2></div>
+      <div class="card-bd">
+        <div class="fr2">
+          <div class="f">
+            <label>Total Bill Amount</label>
+            <input type="number" id="billAmt" placeholder="0.00" min="0" step="0.01" oninput="calc()"/>
           </div>
-        </div>
-      </div>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start">
-        <!-- LEFT: INPUT -->
-        <div style="display:flex;flex-direction:column;gap:20px">
-          <!-- Bill Details -->
-          <div class="tool-box">
-            <div class="tool-box-header"><h2><i class="fas fa-receipt" style="color:var(--sky)"></i> Bill Details</h2></div>
-            <div class="tool-box-body">
-              <div class="field">
-                <label>Total Bill Amount (ZMW)</label>
-                <input type="number" id="billAmount" placeholder="0.00" min="0" step="0.01" oninput="calculate()"/>
-              </div>
-              <div class="field">
-                <label>Currency</label>
-                <select id="billCurrency" onchange="calculate()" style="padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.9rem;outline:none;width:100%">
-                  <option value="ZMW">ZMW — Zambian Kwacha</option>
-                  <option value="USD">USD — US Dollar</option>
-                  <option value="ZAR">ZAR — South African Rand</option>
-                  <option value="GBP">GBP — British Pound</option>
-                </select>
-              </div>
-
-              <p style="font-size:.82rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Tip Percentage</p>
-              <div class="tip-btns">
-                <button class="tip-btn active" data-tip="0" onclick="setTip(this)">No Tip</button>
-                <button class="tip-btn" data-tip="5" onclick="setTip(this)">5%</button>
-                <button class="tip-btn" data-tip="10" onclick="setTip(this)">10%</button>
-                <button class="tip-btn" data-tip="15" onclick="setTip(this)">15%</button>
-                <button class="tip-btn" data-tip="20" onclick="setTip(this)">20%</button>
-                <button class="tip-btn" data-tip="custom" onclick="setTip(this)">Custom</button>
-              </div>
-              <div class="field" id="customTipField" style="display:none">
-                <label>Custom Tip %</label>
-                <input type="number" id="customTipVal" placeholder="12" min="0" max="100" oninput="calculate()"/>
-              </div>
-            </div>
-          </div>
-
-          <!-- People -->
-          <div class="tool-box">
-            <div class="tool-box-header"><h2><i class="fas fa-users" style="color:var(--sky)"></i> People</h2></div>
-            <div class="tool-box-body">
-              <div class="person-row hdr"><span>Name</span><span style="text-align:center">Items (ZMW)</span><span style="text-align:right">Owes</span><span></span></div>
-              <div id="peopleList">
-                <div class="person-row">
-                  <input class="mini p-name" type="text" placeholder="Person 1" oninput="calculate()"/>
-                  <input class="mini p-items" type="number" placeholder="0.00" min="0" step="0.01" oninput="calculate()" title="Custom amount this person owes (leave blank for equal split)"/>
-                  <span class="p-owes" style="font-weight:800;color:var(--sky);text-align:right;font-size:.93rem;white-space:nowrap">—</span>
-                  <button class="del-btn" onclick="delPerson(this)">×</button>
-                </div>
-                <div class="person-row">
-                  <input class="mini p-name" type="text" placeholder="Person 2" oninput="calculate()"/>
-                  <input class="mini p-items" type="number" placeholder="0.00" min="0" step="0.01" oninput="calculate()" title="Leave blank for equal split"/>
-                  <span class="p-owes" style="font-weight:800;color:var(--sky);text-align:right;font-size:.93rem;white-space:nowrap">—</span>
-                  <button class="del-btn" onclick="delPerson(this)">×</button>
-                </div>
-              </div>
-              <button class="add-btn" onclick="addPerson()"><i class="fas fa-plus"></i> Add Person</button>
-              <p style="font-size:.78rem;color:var(--muted);margin-top:10px"><i class="fas fa-info-circle"></i> Leave "Items" blank for equal split. Enter an amount to assign specific costs to a person.</p>
-            </div>
+          <div class="f">
+            <label>Currency</label>
+            <select id="cur" onchange="calc()">
+              <option value="ZMW">ZMW — Kwacha</option>
+              <option value="USD">USD — Dollar</option>
+              <option value="ZAR">ZAR — Rand</option>
+              <option value="GBP">GBP — Pound</option>
+              <option value="EUR">EUR — Euro</option>
+              <option value="KES">KES — Shilling</option>
+            </select>
           </div>
         </div>
 
-        <!-- RIGHT: RESULT -->
-        <div style="position:sticky;top:88px">
-          <div id="bigResult" class="big-result" style="display:none">
-            <div class="br-label">Each person pays</div>
-            <div class="br-amount" id="brAmount">ZMW 0.00</div>
-            <div class="br-sub" id="brSub">Equal split · No tip</div>
-          </div>
-
-          <div class="tool-box">
-            <div class="tool-box-header">
-              <h2><i class="fas fa-table" style="color:var(--sky)"></i> Full Breakdown</h2>
-              <button class="btn btn-sm btn-secondary" id="copyBreakdownBtn" onclick="copyBreakdown()" style="display:none"><i class="fas fa-copy"></i> Copy</button>
-            </div>
-            <div class="tool-box-body" style="padding:0;overflow:hidden">
-              <div id="breakdownContent" style="padding:20px;color:var(--muted);font-style:italic;font-size:.88rem;text-align:center">Enter a bill amount to see the breakdown</div>
-            </div>
-          </div>
-
-          <!-- WhatsApp share -->
-          <div id="waShareBox" style="display:none;margin-top:16px">
-            <button class="btn btn-full" style="background:#25D366;color:white;padding:14px" onclick="shareWhatsApp()"><i class="fab fa-whatsapp"></i> Share Split via WhatsApp</button>
-          </div>
+        <div class="hdiv"></div>
+        <div style="font-size:.67rem;font-weight:800;color:var(--sub);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Tip Percentage</div>
+        <div class="tip-row">
+          <button class="tbtn on" data-tip="0" onclick="setTip(this)">No Tip</button>
+          <button class="tbtn" data-tip="5" onclick="setTip(this)">5%</button>
+          <button class="tbtn" data-tip="10" onclick="setTip(this)">10%</button>
+          <button class="tbtn" data-tip="15" onclick="setTip(this)">15%</button>
+          <button class="tbtn" data-tip="20" onclick="setTip(this)">20%</button>
+          <button class="tbtn" data-tip="custom" onclick="setTip(this)">Custom…</button>
         </div>
-      </div>
-
-      <div class="tool-service-cta" style="margin-top:36px">
-        <div><h4>Running a restaurant or food business?</h4><p>BLESSTech-X builds restaurant websites with online menus, ordering, and mobile money payments.</p></div>
-        <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I want a restaurant website." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Get Restaurant Website</a>
-      </div>
-      <div class="related-tools" style="margin-top:32px;background:var(--bg-alt);border-radius:var(--radius-lg);padding:28px">
-        <h3>You Might Also Need</h3>
-        <div class="related-grid">
-          <a href="../budget-planner/index.html" class="related-card"><span>💰</span> Budget Planner</a>
-          <a href="../invoice/index.html" class="related-card"><span>🧾</span> Invoice Generator</a>
-          <a href="../currency-converter/index.html" class="related-card"><span>💱</span> Currency Converter</a>
-          <a href="../qr-generator/index.html" class="related-card"><span>◼️</span> QR Generator</a>
+        <div class="f" id="customTipWrap" style="display:none">
+          <label>Custom Tip %</label>
+          <input type="number" id="customTip" placeholder="e.g. 12" min="0" max="200" oninput="calc()"/>
         </div>
       </div>
     </div>
-  </main>
 
-  <div class="copy-toast" id="copyToast">✅ Copied!</div>
-
-  <footer class="tools-footer">
-    <div class="th-container">
-      <div class="tf-inner">
-        <div class="tf-brand"><a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a><p>Free tools for every Zambian.</p></div>
-        <div class="tf-links"><h4>Free Tools</h4><a href="../index.html">All Tools</a><a href="../budget-planner/index.html">Budget Planner</a><a href="../invoice/index.html">Invoice Generator</a></div>
-        <div class="tf-links"><h4>BLESSTech-X</h4><a href="../../index.html">Main Website</a><a href="../../index.html#services">Services</a><a href="../../index.html#contact">Contact</a></div>
-        <div class="tf-contact"><h4>Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
+    <div class="card">
+      <div class="card-hd">
+        <h2><i class="fas fa-users"></i> People</h2>
+        <div style="display:flex;gap:7px">
+          <button class="btn btn-secondary btn-sm" onclick="quickAdd(2)">+2</button>
+          <button class="btn btn-secondary btn-sm" onclick="quickAdd(4)">+4</button>
+        </div>
       </div>
-      <div class="tf-bottom"><p>&copy; 2026 BLESSTech-X · Free Bill Splitter · Built for Zambia 🇿🇲</p></div>
+      <div class="card-bd">
+        <div class="mode-toggle">
+          <button class="mtab on" id="mEqual" onclick="setMode('equal')">⚖️ Equal Split</button>
+          <button class="mtab" id="mCustom" onclick="setMode('custom')">🎯 Custom Amounts</button>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 110px 28px;gap:8px;padding:0 2px;margin-bottom:5px">
+          <span class="prow-hint">Name</span>
+          <span class="prow-hint" id="amtHdr" style="text-align:right">Owes</span>
+          <span></span>
+        </div>
+
+        <div class="people" id="peopleList"></div>
+
+        <button class="add-person" onclick="addPerson()"><i class="fas fa-plus"></i> Add Person</button>
+        <p id="customHint" style="display:none;font-size:.74rem;color:var(--muted);margin-top:9px;line-height:1.6"><i class="fas fa-lightbulb" style="color:var(--amber)"></i> Enter each person's share of the bill. Leave blank to split the remainder equally.</p>
+      </div>
     </div>
-  </footer>
-  <a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+   </div>
+
+   <!-- ══ RIGHT ══ -->
+   <div class="sticky-col">
+     <div class="big-result" id="bigResult">
+       <div class="br-lbl">Each person pays</div>
+       <div class="br-amt" id="brAmt">ZMW —</div>
+       <div class="br-sub" id="brSub">Enter a bill amount to get started</div>
+     </div>
+
+     <div class="card">
+       <div class="card-hd">
+         <h2><i class="fas fa-list"></i> Who Pays What</h2>
+         <button class="btn btn-secondary btn-sm" id="copyBtn" onclick="copyBreakdown()" style="display:none"><i class="fas fa-copy"></i> Copy</button>
+       </div>
+       <div id="perPersonList"><div class="empty-state">Add people and a bill amount to see the split</div></div>
+       <div id="totalsRow" style="display:none;padding:14px 20px;border-top:2px solid var(--bdr);display:none">
+         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+           <div style="font-size:.74rem;color:var(--muted)">Bill <strong id="totBill" style="color:var(--text)">—</strong> + Tip <strong id="totTip" style="color:var(--text)">—</strong></div>
+           <div style="font-family:var(--fs);font-size:1.1rem;font-weight:800;color:var(--sp1)">Total: <span id="totTotal">—</span></div>
+         </div>
+       </div>
+     </div>
+
+     <div id="waBox" style="display:none;margin-top:12px">
+       <button class="btn btn-full btn-wa-big" onclick="shareWA()"><i class="fab fa-whatsapp"></i> Share Split via WhatsApp</button>
+     </div>
+   </div>
+  </div>
+
+  <div class="cta">
+    <div><h4>Running a restaurant or food business?</h4><p>BLESSTech-X builds restaurant websites with online menus, ordering, and mobile money payments.</p></div>
+    <a href="https://wa.me/260979603741?text=Hello BLESSTech-X! I want a restaurant website." target="_blank" class="btn-wa-cta"><i class="fab fa-whatsapp"></i> Get Restaurant Website</a>
+  </div>
+  <div class="rel">
+    <h3>You Might Also Need</h3>
+    <div class="relg">
+      <a href="../budget-planner/index.html" class="relc"><span>💰</span> Budget Planner</a>
+      <a href="../invoice/index.html" class="relc"><span>🧾</span> Invoice Generator</a>
+      <a href="../currency-converter/index.html" class="relc"><span>💱</span> Currency Converter</a>
+      <a href="../qr-generator/index.html" class="relc"><span>◼️</span> QR Generator</a>
+    </div>
+  </div>
+ </div>
+</div>
+
+<footer class="foot">
+  <div class="footg">
+    <div class="fc"><a href="../../index.html" class="logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X" style="width:28px;height:28px;border-radius:7px;object-fit:cover"/><span class="logo-t" style="font-size:.9rem;margin-left:8px">BLESS<em>Tech-X</em></span></a><p class="fdesc">Free tools for every Zambian. Built in Lusaka. 🇿🇲</p></div>
+    <div class="fc"><h4>Free Tools</h4><a href="../index.html">All Tools</a><a href="../budget-planner/index.html">Budget Planner</a><a href="../invoice/index.html">Invoice Generator</a></div>
+    <div class="fc"><h4>BLESSTech-X</h4><a href="../../index.html">Main Website</a><a href="../../index.html#services">Services</a><a href="../../index.html#contact">Contact</a></div>
+    <div class="fc"><h4>Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone" style="width:14px"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp" style="width:14px"></i> WhatsApp</a></div>
+  </div>
+  <div class="footbot"><p>© 2026 BLESSTech-X · Free Tip &amp; Bill Splitter · Built for Zambia 🇿🇲</p><p>No sign-up · No ads · 100% free</p></div>
+</footer>
+
+<a href="https://wa.me/260979603741" class="wafab" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<div class="toast" id="toast"></div>
 
 <script>
-let tipPct=0;
-function fmt(n,cur){ const c=cur||document.getElementById('billCurrency')?.value||'ZMW'; return `${c} ${Number(n).toLocaleString('en-ZM',{minimumFractionDigits:2,maximumFractionDigits:2})}`; }
-function setTip(btn){ document.querySelectorAll('.tip-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); const v=btn.dataset.tip; document.getElementById('customTipField').style.display=v==='custom'?'block':'none'; tipPct=v==='custom'?0:parseInt(v); calculate(); }
-function addPerson(){ const list=document.getElementById('peopleList'); const count=list.children.length+1; const row=document.createElement('div'); row.className='person-row'; row.innerHTML=`<input class="mini p-name" type="text" placeholder="Person ${count}" oninput="calculate()"/><input class="mini p-items" type="number" placeholder="0.00" min="0" step="0.01" oninput="calculate()"/><span class="p-owes" style="font-weight:800;color:var(--sky);text-align:right;font-size:.93rem;white-space:nowrap">—</span><button class="del-btn" onclick="delPerson(this)">×</button>`; list.appendChild(row); calculate(); }
-function delPerson(btn){ btn.closest('.person-row').remove(); calculate(); }
+/* ══════════════════════════════════════
+   STATE
+══════════════════════════════════════ */
+var tipPct = 0;
+var splitMode = 'equal'; // 'equal' | 'custom'
+var personCount = 0;
 
-function calculate(){
-  const bill=parseFloat(document.getElementById('billAmount').value)||0;
-  const cur=document.getElementById('billCurrency').value;
-  const customTip=parseInt(document.getElementById('customTipVal')?.value)||0;
-  const tip=document.querySelector('[data-tip="custom"].active')?customTip:tipPct;
-  const tipAmt=bill*(tip/100);
-  const total=bill+tipAmt;
-  const rows=document.querySelectorAll('#peopleList .person-row');
-  const people=Array.from(rows).map(r=>({ name:r.querySelector('.p-name')?.value||'Person', items:parseFloat(r.querySelector('.p-items')?.value)||0, owesEl:r.querySelector('.p-owes') }));
-  const n=people.length;
-  if(n===0||bill===0){ document.getElementById('bigResult').style.display='none'; document.getElementById('breakdownContent').innerHTML='<div style="padding:20px;color:var(--muted);font-style:italic;font-size:.88rem;text-align:center">Enter a bill amount to see the breakdown</div>'; document.getElementById('copyBreakdownBtn').style.display='none'; document.getElementById('waShareBox').style.display='none'; return; }
+/* ══════════════════════════════════════
+   INIT
+══════════════════════════════════════ */
+addPerson('Chanda');
+addPerson('Mwale');
+addPerson('Bwalya');
 
-  const customTotal=people.reduce((s,p)=>s+p.items,0);
-  const perPersonShare=[];
-  if(customTotal>0&&customTotal<=bill){
-    const remainder=bill-customTotal;
-    const uncustomised=people.filter(p=>p.items===0).length;
-    people.forEach(p=>{ const base=p.items>0?p.items:uncustomised>0?remainder/uncustomised:bill/n; const withTip=base+(base/bill)*tipAmt; perPersonShare.push({name:p.name,base,withTip,owesEl:p.owesEl}); });
-  } else {
-    const perPerson=total/n;
-    people.forEach(p=>perPersonShare.push({name:p.name,base:bill/n,withTip:perPerson,owesEl:p.owesEl}));
+/* ══════════════════════════════════════
+   FORMAT
+══════════════════════════════════════ */
+function fmt(n) {
+  var c = document.getElementById('cur').value || 'ZMW';
+  return c + ' ' + Number(n).toLocaleString('en-ZM', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+}
+
+/* ══════════════════════════════════════
+   TIP
+══════════════════════════════════════ */
+function setTip(btn) {
+  document.querySelectorAll('.tbtn').forEach(function(b) { b.classList.remove('on'); });
+  btn.classList.add('on');
+  var v = btn.dataset.tip;
+  var isCustom = v === 'custom';
+  document.getElementById('customTipWrap').style.display = isCustom ? 'block' : 'none';
+  tipPct = isCustom ? (parseFloat(document.getElementById('customTip').value) || 0) : parseFloat(v);
+  calc();
+}
+
+/* ══════════════════════════════════════
+   MODE
+══════════════════════════════════════ */
+function setMode(m) {
+  splitMode = m;
+  document.getElementById('mEqual').classList.toggle('on', m === 'equal');
+  document.getElementById('mCustom').classList.toggle('on', m === 'custom');
+  // Show/hide amount inputs
+  document.querySelectorAll('.p-amt').forEach(function(el) {
+    el.style.display = m === 'custom' ? 'block' : 'none';
+  });
+  document.getElementById('amtHdr').textContent = m === 'custom' ? 'Their share' : 'Owes';
+  document.getElementById('customHint').style.display = m === 'custom' ? 'block' : 'none';
+  calc();
+}
+
+/* ══════════════════════════════════════
+   PEOPLE
+══════════════════════════════════════ */
+function addPerson(name) {
+  personCount++;
+  var list = document.getElementById('peopleList');
+  var row = document.createElement('div');
+  row.className = 'prow';
+  row.innerHTML =
+    '<input class="prow-inp p-name" type="text" placeholder="Person ' + personCount + '" value="' + (name || '') + '" oninput="calc()"/>'
+    + '<input class="prow-inp p-amt" type="number" placeholder="0.00" min="0" step="0.01" oninput="calc()" style="display:' + (splitMode === 'custom' ? 'block' : 'none') + ';text-align:right"/>'
+    + '<button class="del-btn" onclick="delPerson(this)" title="Remove"><i class="fas fa-times"></i></button>';
+  list.appendChild(row);
+  calc();
+}
+
+function delPerson(btn) {
+  var row = btn.closest('.prow');
+  if (document.querySelectorAll('#peopleList .prow').length <= 1) {
+    showToast('Need at least 1 person');
+    return;
+  }
+  row.style.opacity = '0';
+  row.style.transform = 'translateX(10px)';
+  row.style.transition = 'all .2s';
+  setTimeout(function() { row.remove(); calc(); }, 200);
+}
+
+function quickAdd(n) {
+  for (var i = 0; i < n; i++) addPerson();
+}
+
+/* ══════════════════════════════════════
+   CALCULATE
+══════════════════════════════════════ */
+function calc() {
+  // update custom tip if active
+  if (document.querySelector('.tbtn.on[data-tip="custom"]')) {
+    tipPct = parseFloat(document.getElementById('customTip').value) || 0;
   }
 
-  perPersonShare.forEach(p=>{ if(p.owesEl) p.owesEl.textContent=fmt(p.withTip,cur); });
+  var bill = parseFloat(document.getElementById('billAmt').value) || 0;
+  var rows = Array.from(document.querySelectorAll('#peopleList .prow'));
+  var n = rows.length;
+  if (n === 0) return;
 
-  const perPersonAvg=total/n;
-  document.getElementById('bigResult').style.display='block';
-  document.getElementById('brAmount').textContent=fmt(perPersonAvg,cur);
-  document.getElementById('brSub').textContent=`${n} ${n===1?'person':'people'} · ${tip>0?tip+'% tip':'No tip'} · Total: ${fmt(total,cur)}`;
+  var tipAmt = bill * (tipPct / 100);
+  var total = bill + tipAmt;
 
-  // Breakdown table
-  const rows2=perPersonShare.map((p,i)=>`<tr><td>${p.name||`Person ${i+1}`}</td><td>${fmt(p.base,cur)}</td><td>${tip>0?fmt((p.base/bill)*tipAmt,cur):'—'}</td><td class="amount-col">${fmt(p.withTip,cur)}</td></tr>`).join('');
-  document.getElementById('breakdownContent').innerHTML=`<table class="summary-table">
-    <tr><th>Person</th><th>Share</th><th>Tip</th><th style="text-align:right">Owes</th></tr>
-    ${rows2}
-    <tr style="background:var(--sky-light)"><td colspan="2" style="font-weight:700">Bill: ${fmt(bill,cur)}</td><td style="font-weight:700">Tip: ${fmt(tipAmt,cur)}</td><td class="amount-col" style="font-size:1rem">Total: ${fmt(total,cur)}</td></tr>
-  </table>`;
-  document.getElementById('copyBreakdownBtn').style.display='flex';
-  document.getElementById('waShareBox').style.display='block';
+  var people = rows.map(function(r, i) {
+    return {
+      name: r.querySelector('.p-name').value.trim() || ('Person ' + (i + 1)),
+      custom: parseFloat(r.querySelector('.p-amt').value) || 0,
+    };
+  });
+
+  // Calculate per-person amounts
+  var shares = [];
+  if (bill === 0) {
+    people.forEach(function() { shares.push(0); });
+  } else if (splitMode === 'equal') {
+    var each = total / n;
+    people.forEach(function() { shares.push(each); });
+  } else {
+    // Custom mode
+    var customTotal = people.reduce(function(s, p) { return s + p.custom; }, 0);
+    var unset = people.filter(function(p) { return p.custom === 0; }).length;
+    var remainder = Math.max(0, bill - customTotal);
+    people.forEach(function(p) {
+      var base = p.custom > 0 ? p.custom : (unset > 0 ? remainder / unset : 0);
+      var withTip = bill > 0 ? base + (base / bill) * tipAmt : 0;
+      shares.push(withTip);
+    });
+  }
+
+  // BIG RESULT
+  var avg = n > 0 ? total / n : 0;
+  document.getElementById('brAmt').textContent = bill > 0 ? fmt(avg) : (document.getElementById('cur').value + ' —');
+  document.getElementById('brSub').textContent = bill > 0
+    ? n + ' ' + (n === 1 ? 'person' : 'people') + ' · ' + (tipPct > 0 ? tipPct + '% tip' : 'No tip') + ' · Total: ' + fmt(total)
+    : 'Enter a bill amount to get started';
+
+  // PER PERSON LIST
+  if (bill === 0) {
+    document.getElementById('perPersonList').innerHTML = '<div class="empty-state">Enter a bill amount to see the split</div>';
+    document.getElementById('totalsRow').style.display = 'none';
+    document.getElementById('copyBtn').style.display = 'none';
+    document.getElementById('waBox').style.display = 'none';
+    return;
+  }
+
+  var html = '<div class="per-result" style="padding:14px 16px 0">';
+  people.forEach(function(p, i) {
+    var initials = p.name.split(' ').map(function(w) { return w[0]; }).join('').substring(0, 2).toUpperCase();
+    html += '<div class="pr-row">'
+      + '<div style="display:flex;align-items:center;gap:9px">'
+      + '<div style="width:32px;height:32px;border-radius:50%;background:var(--sp3);color:var(--sp1);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;flex-shrink:0">' + initials + '</div>'
+      + '<span class="pr-name">' + esc(p.name) + '</span>'
+      + '</div>'
+      + '<span class="pr-amt">' + fmt(shares[i]) + '</span>'
+      + '</div>';
+  });
+  html += '</div><div style="padding:0 16px 14px"></div>';
+  document.getElementById('perPersonList').innerHTML = html;
+
+  // TOTALS
+  var tr = document.getElementById('totalsRow');
+  tr.style.display = 'flex';
+  document.getElementById('totBill').textContent = fmt(bill);
+  document.getElementById('totTip').textContent = fmt(tipAmt);
+  document.getElementById('totTotal').textContent = fmt(total);
+  document.getElementById('copyBtn').style.display = 'flex';
+  document.getElementById('waBox').style.display = 'block';
 }
 
-function copyBreakdown(){
-  const people=Array.from(document.querySelectorAll('#peopleList .person-row'));
-  const bill=parseFloat(document.getElementById('billAmount').value)||0;
-  const cur=document.getElementById('billCurrency').value;
-  const tip=document.querySelector('.tip-btn.active')?.dataset.tip||'0';
-  const tipAmt=bill*(parseInt(tip)/100);
-  const total=bill+tipAmt;
-  const n=people.length;
-  const perPerson=total/n;
-  let text=`💳 BILL SPLIT — ${new Date().toLocaleDateString()}\n\n`;
-  text+=`Total Bill: ${fmt(bill,cur)}\nTip (${tip}%): ${fmt(tipAmt,cur)}\nTotal: ${fmt(total,cur)}\n\nEach person pays: ${fmt(perPerson,cur)}\n\n`;
-  people.forEach((r,i)=>{ const name=r.querySelector('.p-name')?.value||`Person ${i+1}`; text+=`• ${name}: ${fmt(perPerson,cur)}\n`; });
-  text+=`\nGenerated by BLESSTech-X · blesstechx.com`;
-  navigator.clipboard.writeText(text).then(()=>{ const t=document.getElementById('copyToast'); t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500); });
+/* ══════════════════════════════════════
+   COPY
+══════════════════════════════════════ */
+function copyBreakdown() {
+  var bill = parseFloat(document.getElementById('billAmt').value) || 0;
+  var tipAmt = bill * (tipPct / 100);
+  var total = bill + tipAmt;
+  var rows = Array.from(document.querySelectorAll('#peopleList .prow'));
+  var n = rows.length;
+  var each = total / n;
+  var lines = ['💳 BILL SPLIT — ' + new Date().toLocaleDateString('en-ZM'), ''];
+  lines.push('Total Bill: ' + fmt(bill));
+  lines.push('Tip (' + tipPct + '%): ' + fmt(tipAmt));
+  lines.push('Grand Total: ' + fmt(total));
+  lines.push('');
+  rows.forEach(function(r, i) {
+    var name = r.querySelector('.p-name').value.trim() || ('Person ' + (i + 1));
+    lines.push('• ' + name + ': ' + fmt(each));
+  });
+  lines.push('');
+  lines.push('Split by BLESSTech-X Free Tools · +260 979 603 741');
+  navigator.clipboard.writeText(lines.join('\n')).then(function() {
+    showToast('✅ Copied to clipboard!');
+  }).catch(function() {
+    showToast('Could not copy — try the WhatsApp share');
+  });
 }
 
-function shareWhatsApp(){
-  const bill=parseFloat(document.getElementById('billAmount').value)||0;
-  const cur=document.getElementById('billCurrency').value;
-  const tip=document.querySelector('.tip-btn.active')?.dataset.tip||'0';
-  const tipAmt=bill*(parseInt(tip)/100);
-  const total=bill+tipAmt;
-  const people=document.querySelectorAll('#peopleList .person-row');
-  const n=people.length;
-  const perPerson=total/n;
-  let msg=`💳 *Bill Split*%0A%0ABill: *${fmt(bill,cur)}*%0ATip (${tip}%25): *${fmt(tipAmt,cur)}*%0ATotal: *${fmt(total,cur)}*%0A%0A*Each person pays: ${fmt(perPerson,cur)}*%0A%0A`;
-  Array.from(people).forEach((r,i)=>{ const name=r.querySelector('.p-name')?.value||`Person ${i+1}`; msg+=`• ${name}: ${fmt(perPerson,cur)}%0A`; });
-  msg+=`%0ASplit using BLESSTech-X Free Tools · blesstechx.com`;
-  window.open(`https://wa.me/?text=${msg}`,'_blank');
+/* ══════════════════════════════════════
+   WHATSAPP SHARE
+══════════════════════════════════════ */
+function shareWA() {
+  var bill = parseFloat(document.getElementById('billAmt').value) || 0;
+  var tipAmt = bill * (tipPct / 100);
+  var total = bill + tipAmt;
+  var rows = Array.from(document.querySelectorAll('#peopleList .prow'));
+  var n = rows.length;
+  var each = total / n;
+  var msg = '💳 *Bill Split*%0A%0A';
+  msg += 'Bill: *' + fmt(bill) + '*%0A';
+  msg += 'Tip (' + tipPct + '%25): *' + fmt(tipAmt) + '*%0A';
+  msg += 'Total: *' + fmt(total) + '*%0A%0A';
+  rows.forEach(function(r, i) {
+    var name = r.querySelector('.p-name').value.trim() || ('Person ' + (i + 1));
+    msg += '• ' + name + ': *' + fmt(each) + '*%0A';
+  });
+  msg += '%0ASplit using BLESSTech-X Free Tools · blesstechx.com';
+  window.open('https://wa.me/?text=' + msg, '_blank');
 }
 
-document.getElementById('thToggle').addEventListener('click',()=>{ document.getElementById('thNav').classList.toggle('th-nav-open'); document.getElementById('thToggle').classList.toggle('th-toggle-open'); });
+/* ══════════════════════════════════════
+   HELPERS
+══════════════════════════════════════ */
+function esc(s) { return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(window._t);
+  window._t = setTimeout(function() { t.classList.remove('show'); }, 2400);
+}
+
+/* ══════════════════════════════════════
+   HEADER
+══════════════════════════════════════ */
+document.getElementById('mobTog').addEventListener('click', function() {
+  document.getElementById('hnav').classList.toggle('open');
+  this.classList.toggle('open');
+});
+window.addEventListener('scroll', function() {
+  document.getElementById('hdr').classList.toggle('scrolled', window.scrollY > 8);
+}, { passive: true });
 </script>
 </body>
 </html>
