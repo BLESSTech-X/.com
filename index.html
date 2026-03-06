@@ -772,28 +772,36 @@
             </div>
           </div>
           <div class="contact-form-wrap">
-            <form id="contactForm" class="contact-form">
-              <div class="form-row">
-                <input type="text" name="name" placeholder="Your Name" required aria-label="Your name" />
-                <input type="email" name="email" placeholder="Your Email" required aria-label="Your email" />
-              </div>
-              <input type="text" name="business" placeholder="Your Business Name" aria-label="Business name" />
-              <select name="service" required aria-label="Service interested in">
-                <option value="" disabled selected>Service Interested In</option>
-                <option>Complete E-commerce Store</option>
-                <option>Add E-commerce to Existing Site</option>
-                <option>Professional Website</option>
-                <option>Logo &amp; Brand Identity</option>
-                <option>Graphic Design</option>
-                <option>Digital Business Setup</option>
-                <option>Social Media Management</option>
-                <option>SEO &amp; Google Visibility</option>
-                <option>Free Consultation</option>
-              </select>
-              <textarea name="message" placeholder="Tell us about your project and goals…" required aria-label="Project description"></textarea>
-              <button type="submit" class="btn btn-primary" style="width:100%"><i class="fas fa-paper-plane"></i> Send Message</button>
-              <div id="contactSuccess" class="form-success" style="display:none"><i class="fas fa-check-circle"></i> Sent! We'll reply within a few hours.</div>
-            </form>
+            <form id="contactForm" class="contact-form" action="https://formspree.io/f/xgoljakz" method="POST">
+  <div class="form-row">
+    <input type="text" name="name" placeholder="Your Name" required aria-label="Your name" />
+    <input type="email" name="email" placeholder="Your Email" required aria-label="Your email" />
+  </div>
+  <input type="text" name="business" placeholder="Your Business Name" aria-label="Business name" />
+  
+  <select name="service" required aria-label="Service interested in">
+    <option value="" disabled selected>Service Interested In</option>
+    <option value="Complete E-commerce Store">Complete E-commerce Store</option>
+    <option value="Add E-commerce to Existing Site">Add E-commerce to Existing Site</option>
+    <option value="Professional Website">Professional Website</option>
+    <option value="Logo & Brand Identity">Logo & Brand Identity</option>
+    <option value="Graphic Design">Graphic Design</option>
+    <option value="Digital Business Setup">Digital Business Setup</option>
+    <option value="Social Media Management">Social Media Management</option>
+    <option value="SEO & Google Visibility">SEO & Google Visibility</option>
+    <option value="Free Consultation">Free Consultation</option>
+  </select>
+
+  <textarea name="message" placeholder="Tell us about your project and goals…" required aria-label="Project description"></textarea>
+  
+  <button type="submit" class="btn btn-primary" style="width:100%">
+    <i class="fas fa-paper-plane"></i> Send Message
+  </button>
+  
+  <div id="contactSuccess" class="form-success" style="display:none">
+    <i class="fas fa-check-circle"></i> Sent! We'll reply within a few hours.
+  </div>
+</form>
           </div>
         </div>
       </div>
