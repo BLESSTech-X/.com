@@ -24,35 +24,35 @@ CMS.init({
       name: 'github',
       repo: 'BLESSTech-X/blesstech-x',
       branch: 'main',
-      base_url: 'https://sveltia-cms-auth.pages.dev',
+      base_url: 'https://sveltia-cms-auth.pages.dev'
     },
     media_folder: 'images/uploads',
     public_folder: '/images/uploads',
     collections: [
-
-      // ── SITE SETTINGS ─────────────────────────────────────────
       {
-        name: 'settings',
-        label: '⚙️ Site Settings',
+        name: 'website_content',
+        label: '🌐 Website Content',
         files: [
+
+          // ── SITE SETTINGS ───────────────────────────────────
           {
-            name: 'general',
-            label: 'General Settings',
+            name: 'site_settings',
+            label: '⚙️ Site Settings',
             file: 'data.json',
             fields: [
               {
-                label: 'Site', name: 'site', widget: 'object',
+                label: 'Site Info', name: 'site', widget: 'object',
                 fields: [
-                  { label: 'Site Name',      name: 'name',         widget: 'string' },
-                  { label: 'Tagline',        name: 'tagline',      widget: 'string' },
-                  { label: 'Description',    name: 'description',  widget: 'text'   },
-                  { label: 'Phone',          name: 'phone',        widget: 'string' },
-                  { label: 'Email',          name: 'email',        widget: 'string' },
-                  { label: 'WhatsApp (no +)',name: 'whatsapp',     widget: 'string' },
-                  { label: 'Location',       name: 'location',     widget: 'string' },
-                  { label: 'Formspree ID',   name: 'formspree_id', widget: 'string' },
-                  { label: 'Logo URL',       name: 'logo',         widget: 'string' },
-                  { label: 'OG Image URL',   name: 'og_image',     widget: 'string' },
+                  { label: 'Site Name',       name: 'name',         widget: 'string' },
+                  { label: 'Tagline',         name: 'tagline',      widget: 'string' },
+                  { label: 'Description',     name: 'description',  widget: 'text'   },
+                  { label: 'Phone',           name: 'phone',        widget: 'string' },
+                  { label: 'Email',           name: 'email',        widget: 'string' },
+                  { label: 'WhatsApp (no +)', name: 'whatsapp',     widget: 'string' },
+                  { label: 'Location',        name: 'location',     widget: 'string' },
+                  { label: 'Formspree ID',    name: 'formspree_id', widget: 'string' },
+                  { label: 'Logo URL',        name: 'logo',         widget: 'string' },
+                  { label: 'OG Image URL',    name: 'og_image',     widget: 'string' },
                   {
                     label: 'Social Links', name: 'socials', widget: 'object',
                     fields: [
@@ -68,10 +68,10 @@ CMS.init({
               {
                 label: 'Announcement Bar', name: 'announcement', widget: 'object',
                 fields: [
-                  { label: 'Active (show bar)', name: 'active',   widget: 'boolean', default: true },
-                  { label: 'Message',           name: 'message',  widget: 'string' },
-                  { label: 'Button Text',       name: 'cta_text', widget: 'string' },
-                  { label: 'Button Link',       name: 'cta_link', widget: 'string' }
+                  { label: 'Show Bar',    name: 'active',   widget: 'boolean', default: true },
+                  { label: 'Message',     name: 'message',  widget: 'string' },
+                  { label: 'Button Text', name: 'cta_text', widget: 'string' },
+                  { label: 'Button Link', name: 'cta_link', widget: 'string' }
                 ]
               },
               {
@@ -82,24 +82,18 @@ CMS.init({
                 ]
               }
             ]
-          }
-        ]
-      },
+          },
 
-      // ── SERVICES ──────────────────────────────────────────────
-      {
-        name: 'services_collection',
-        label: '🛠️ Services',
-        files: [
+          // ── SERVICES ────────────────────────────────────────
           {
             name: 'services',
-            label: 'All Services',
+            label: '🛠️ Services',
             file: 'data.json',
             fields: [
               {
                 label: 'Services', name: 'services', widget: 'list',
                 fields: [
-                  { label: 'ID (no spaces)',   name: 'id',          widget: 'string' },
+                  { label: 'ID (no spaces, e.g. ecommerce-store)', name: 'id', widget: 'string' },
                   { label: 'Title',            name: 'title',       widget: 'string' },
                   {
                     label: 'Category', name: 'category', widget: 'select',
@@ -110,7 +104,7 @@ CMS.init({
                   { label: 'Price',            name: 'price',       widget: 'string' },
                   { label: 'Main Image URL',   name: 'image',       widget: 'string' },
                   {
-                    label: 'Features', name: 'features', widget: 'list',
+                    label: 'Features List', name: 'features', widget: 'list',
                     field: { label: 'Feature', name: 'feature', widget: 'string' }
                   },
                   {
@@ -120,18 +114,12 @@ CMS.init({
                 ]
               }
             ]
-          }
-        ]
-      },
+          },
 
-      // ── PORTFOLIO ─────────────────────────────────────────────
-      {
-        name: 'portfolio_collection',
-        label: '📂 Portfolio',
-        files: [
+          // ── PORTFOLIO ───────────────────────────────────────
           {
             name: 'portfolio',
-            label: 'Portfolio & Case Studies',
+            label: '📂 Portfolio',
             file: 'data.json',
             fields: [
               {
@@ -143,12 +131,12 @@ CMS.init({
                     label: 'Category', name: 'category', widget: 'select',
                     options: ['ecommerce','websites','branding','graphics','business','marketing']
                   },
-                  { label: 'Description',        name: 'description', widget: 'text'   },
+                  { label: 'Short Description',  name: 'description', widget: 'text'   },
                   { label: 'Main Image URL',     name: 'image',       widget: 'string' },
                   { label: 'Before Image URL',   name: 'before',      widget: 'string', required: false },
                   { label: 'After Image URL',    name: 'after',       widget: 'string', required: false },
                   { label: 'Live Site URL',      name: 'live_url',    widget: 'string' },
-                  { label: 'Detail Description', name: 'detail',      widget: 'text'   },
+                  { label: 'Full Detail',        name: 'detail',      widget: 'text'   },
                   {
                     label: 'Tags', name: 'tags', widget: 'list',
                     field: { label: 'Tag', name: 'tag', widget: 'string' }
@@ -164,18 +152,12 @@ CMS.init({
                 ]
               }
             ]
-          }
-        ]
-      },
+          },
 
-      // ── TESTIMONIALS ──────────────────────────────────────────
-      {
-        name: 'testimonials_collection',
-        label: '⭐ Testimonials',
-        files: [
+          // ── TESTIMONIALS ────────────────────────────────────
           {
             name: 'testimonials',
-            label: 'Client Testimonials',
+            label: '⭐ Testimonials',
             file: 'data.json',
             fields: [
               {
@@ -189,18 +171,12 @@ CMS.init({
                 ]
               }
             ]
-          }
-        ]
-      },
+          },
 
-      // ── TEAM ──────────────────────────────────────────────────
-      {
-        name: 'team_collection',
-        label: '👥 Team',
-        files: [
+          // ── TEAM ────────────────────────────────────────────
           {
             name: 'team',
-            label: 'Team Members',
+            label: '👥 Team',
             file: 'data.json',
             fields: [
               {
@@ -218,18 +194,12 @@ CMS.init({
                 ]
               }
             ]
-          }
-        ]
-      },
+          },
 
-      // ── FAQ ───────────────────────────────────────────────────
-      {
-        name: 'faq_collection',
-        label: '❓ FAQ',
-        files: [
+          // ── FAQ ─────────────────────────────────────────────
           {
             name: 'faqs',
-            label: 'Frequently Asked Questions',
+            label: '❓ FAQ',
             file: 'data.json',
             fields: [
               {
@@ -240,18 +210,12 @@ CMS.init({
                 ]
               }
             ]
-          }
-        ]
-      },
+          },
 
-      // ── PROCESS STEPS ─────────────────────────────────────────
-      {
-        name: 'process_collection',
-        label: '🔄 How We Work',
-        files: [
+          // ── PROCESS STEPS ───────────────────────────────────
           {
-            name: 'process',
-            label: 'Process Steps',
+            name: 'process_steps',
+            label: '🔄 How We Work',
             file: 'data.json',
             fields: [
               {
@@ -264,9 +228,9 @@ CMS.init({
               }
             ]
           }
+
         ]
       }
-
     ]
   }
 });
