@@ -11,20 +11,18 @@
 </head>
 <body>
 
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <script>
   window.CMS_MANUAL_INIT = true;
 </script>
-
 <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
 <script>
 CMS.init({
   config: {
     backend: {
-      name: 'github',
-      repo: 'BLESSTech-X/blesstech-x',
-      branch: 'main',
-      base_url: 'https://sveltia-cms-auth.pages.dev'
+      name: 'git-gateway',
+      branch: 'main'
     },
     media_folder: 'images/uploads',
     public_folder: '/images/uploads',
@@ -93,8 +91,8 @@ CMS.init({
               {
                 label: 'Services', name: 'services', widget: 'list',
                 fields: [
-                  { label: 'ID (no spaces, e.g. ecommerce-store)', name: 'id', widget: 'string' },
-                  { label: 'Title',            name: 'title',       widget: 'string' },
+                  { label: 'ID (no spaces)', name: 'id',          widget: 'string' },
+                  { label: 'Title',          name: 'title',       widget: 'string' },
                   {
                     label: 'Category', name: 'category', widget: 'select',
                     options: ['ecommerce','websites','branding','graphics','business','marketing']
@@ -104,7 +102,7 @@ CMS.init({
                   { label: 'Price',            name: 'price',       widget: 'string' },
                   { label: 'Main Image URL',   name: 'image',       widget: 'string' },
                   {
-                    label: 'Features List', name: 'features', widget: 'list',
+                    label: 'Features', name: 'features', widget: 'list',
                     field: { label: 'Feature', name: 'feature', widget: 'string' }
                   },
                   {
@@ -125,18 +123,18 @@ CMS.init({
               {
                 label: 'Portfolio', name: 'portfolio', widget: 'list',
                 fields: [
-                  { label: 'ID (e.g. p1)',       name: 'id',          widget: 'string' },
-                  { label: 'Title',              name: 'title',       widget: 'string' },
+                  { label: 'ID (e.g. p1)',      name: 'id',          widget: 'string' },
+                  { label: 'Title',             name: 'title',       widget: 'string' },
                   {
                     label: 'Category', name: 'category', widget: 'select',
                     options: ['ecommerce','websites','branding','graphics','business','marketing']
                   },
-                  { label: 'Short Description',  name: 'description', widget: 'text'   },
-                  { label: 'Main Image URL',     name: 'image',       widget: 'string' },
-                  { label: 'Before Image URL',   name: 'before',      widget: 'string', required: false },
-                  { label: 'After Image URL',    name: 'after',       widget: 'string', required: false },
-                  { label: 'Live Site URL',      name: 'live_url',    widget: 'string' },
-                  { label: 'Full Detail',        name: 'detail',      widget: 'text'   },
+                  { label: 'Short Description', name: 'description', widget: 'text'   },
+                  { label: 'Main Image URL',    name: 'image',       widget: 'string' },
+                  { label: 'Before Image URL',  name: 'before',      widget: 'string', required: false },
+                  { label: 'After Image URL',   name: 'after',       widget: 'string', required: false },
+                  { label: 'Live Site URL',     name: 'live_url',    widget: 'string' },
+                  { label: 'Full Detail',       name: 'detail',      widget: 'text'   },
                   {
                     label: 'Tags', name: 'tags', widget: 'list',
                     field: { label: 'Tag', name: 'tag', widget: 'string' }
