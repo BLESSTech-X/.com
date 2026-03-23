@@ -1,0 +1,214 @@
+backend:
+  name: github
+  repo: BLESSTech-X/blesstech-x
+  branch: main
+  base_url: https://blesstech-x.vercel.app
+  auth_endpoint: /api/auth
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+# We use a single-file approach editing data.json directly
+# Each collection maps to a section inside data.json
+
+collections:
+
+  # ─────────────────────────────────────────────
+  # SITE SETTINGS
+  # ─────────────────────────────────────────────
+  - name: "settings"
+    label: "⚙️ Site Settings"
+    files:
+      - name: "general"
+        label: "General Settings"
+        file: "data.json"
+        fields:
+          - label: "Site"
+            name: "site"
+            widget: "object"
+            fields:
+              - { label: "Site Name", name: "name", widget: "string" }
+              - { label: "Tagline", name: "tagline", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Phone", name: "phone", widget: "string" }
+              - { label: "Email", name: "email", widget: "string" }
+              - { label: "WhatsApp Number (no +)", name: "whatsapp", widget: "string" }
+              - { label: "Location", name: "location", widget: "string" }
+              - { label: "Formspree ID", name: "formspree_id", widget: "string" }
+              - { label: "Logo URL", name: "logo", widget: "string" }
+              - { label: "OG Image URL", name: "og_image", widget: "string" }
+              - label: "Social Links"
+                name: "socials"
+                widget: "object"
+                fields:
+                  - { label: "Facebook URL", name: "facebook", widget: "string", required: false }
+                  - { label: "Instagram URL", name: "instagram", widget: "string", required: false }
+                  - { label: "TikTok URL", name: "tiktok", widget: "string", required: false }
+                  - { label: "Twitter/X URL", name: "twitter", widget: "string", required: false }
+                  - { label: "YouTube URL", name: "youtube", widget: "string", required: false }
+
+          - label: "Announcement Bar"
+            name: "announcement"
+            widget: "object"
+            fields:
+              - { label: "Active (show bar)", name: "active", widget: "boolean", default: true }
+              - { label: "Message (HTML allowed)", name: "message", widget: "string" }
+              - { label: "Button Text", name: "cta_text", widget: "string" }
+              - { label: "Button Link", name: "cta_link", widget: "string" }
+
+          - label: "Stats Bar"
+            name: "stats"
+            widget: "list"
+            fields:
+              - { label: "Value (e.g. 150+)", name: "value", widget: "string" }
+              - { label: "Label", name: "label", widget: "string" }
+
+  # ─────────────────────────────────────────────
+  # SERVICES
+  # ─────────────────────────────────────────────
+  - name: "services_collection"
+    label: "🛠️ Services"
+    files:
+      - name: "services"
+        label: "All Services"
+        file: "data.json"
+        fields:
+          - label: "Services"
+            name: "services"
+            widget: "list"
+            fields:
+              - { label: "ID (no spaces, e.g. ecommerce-store)", name: "id", widget: "string" }
+              - { label: "Title", name: "title", widget: "string" }
+              - label: "Category"
+                name: "category"
+                widget: "select"
+                options: ["ecommerce", "websites", "branding", "graphics", "business", "marketing"]
+              - { label: "Badge (optional, e.g. 🛒 E-commerce)", name: "badge", widget: "string", required: false }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Price (e.g. From ZMW 980)", name: "price", widget: "string" }
+              - { label: "Main Image URL", name: "image", widget: "string" }
+              - label: "Features"
+                name: "features"
+                widget: "list"
+                field: { label: "Feature", name: "feature", widget: "string" }
+              - label: "Gallery Images"
+                name: "gallery"
+                widget: "list"
+                field: { label: "Image URL", name: "url", widget: "string" }
+
+  # ─────────────────────────────────────────────
+  # PORTFOLIO
+  # ─────────────────────────────────────────────
+  - name: "portfolio_collection"
+    label: "📂 Portfolio"
+    files:
+      - name: "portfolio"
+        label: "Portfolio & Case Studies"
+        file: "data.json"
+        fields:
+          - label: "Portfolio"
+            name: "portfolio"
+            widget: "list"
+            fields:
+              - { label: "ID (e.g. p1)", name: "id", widget: "string" }
+              - { label: "Title", name: "title", widget: "string" }
+              - label: "Category"
+                name: "category"
+                widget: "select"
+                options: ["ecommerce", "websites", "branding", "graphics", "business", "marketing"]
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Main Image URL", name: "image", widget: "string" }
+              - { label: "Before Image URL", name: "before", widget: "string", required: false }
+              - { label: "After Image URL", name: "after", widget: "string", required: false }
+              - { label: "Live Site URL (use # if none)", name: "live_url", widget: "string" }
+              - { label: "Detailed Description", name: "detail", widget: "text" }
+              - label: "Tags"
+                name: "tags"
+                widget: "list"
+                field: { label: "Tag", name: "tag", widget: "string" }
+              - label: "Stats"
+                name: "stats"
+                widget: "object"
+                fields:
+                  - { label: "Growth (e.g. 300%)", name: "growth", widget: "string" }
+                  - { label: "Time (e.g. 2 months)", name: "time", widget: "string" }
+                  - { label: "Reach (e.g. Nationwide)", name: "reach", widget: "string" }
+
+  # ─────────────────────────────────────────────
+  # TESTIMONIALS
+  # ─────────────────────────────────────────────
+  - name: "testimonials_collection"
+    label: "⭐ Testimonials"
+    files:
+      - name: "testimonials"
+        label: "Client Testimonials"
+        file: "data.json"
+        fields:
+          - label: "Testimonials"
+            name: "testimonials"
+            widget: "list"
+            fields:
+              - { label: "Client Name", name: "name", widget: "string" }
+              - { label: "Role / Business", name: "role", widget: "string" }
+              - { label: "Avatar Image URL", name: "avatar", widget: "string" }
+              - { label: "Star Rating (1-5)", name: "rating", widget: "number", min: 1, max: 5, default: 5 }
+              - { label: "Testimonial Text", name: "text", widget: "text" }
+
+  # ─────────────────────────────────────────────
+  # TEAM
+  # ─────────────────────────────────────────────
+  - name: "team_collection"
+    label: "👥 Team"
+    files:
+      - name: "team"
+        label: "Team Members"
+        file: "data.json"
+        fields:
+          - label: "Team"
+            name: "team"
+            widget: "list"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Role / Title", name: "role", widget: "string" }
+              - { label: "Avatar Image URL", name: "avatar", widget: "string" }
+              - { label: "Bio", name: "bio", widget: "text" }
+              - { label: "Quote", name: "quote", widget: "string" }
+              - label: "Skills"
+                name: "skills"
+                widget: "list"
+                field: { label: "Skill", name: "skill", widget: "string" }
+
+  # ─────────────────────────────────────────────
+  # FAQ
+  # ─────────────────────────────────────────────
+  - name: "faq_collection"
+    label: "❓ FAQ"
+    files:
+      - name: "faqs"
+        label: "Frequently Asked Questions"
+        file: "data.json"
+        fields:
+          - label: "FAQs"
+            name: "faqs"
+            widget: "list"
+            fields:
+              - { label: "Question", name: "q", widget: "string" }
+              - { label: "Answer", name: "a", widget: "text" }
+
+  # ─────────────────────────────────────────────
+  # PROCESS STEPS
+  # ─────────────────────────────────────────────
+  - name: "process_collection"
+    label: "🔄 How We Work"
+    files:
+      - name: "process"
+        label: "Process Steps"
+        file: "data.json"
+        fields:
+          - label: "Process Steps"
+            name: "process_steps"
+            widget: "list"
+            fields:
+              - { label: "Step Number (e.g. 01)", name: "number", widget: "string" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "desc", widget: "text" }
