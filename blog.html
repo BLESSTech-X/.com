@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — BLESSTech-X | Digital Tips for Zambian Businesses</title>
+  <meta name="description" content="Business tips, e-commerce guides, and digital marketing advice for Zambian entrepreneurs from BLESSTech-X." />
+  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <!-- Marked.js for rendering markdown -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    /* ── BLOG-SPECIFIC STYLES ── */
+    .blog-hero {
+      background: linear-gradient(rgba(15,23,42,0.88), rgba(15,23,42,0.88)),
+                  url('https://i.ibb.co/Q36vzP9z/Screenshot-20251229-131706.jpg') center/cover;
+      padding: 140px 0 80px;
+      text-align: center;
+      color: white;
+    }
+    .blog-hero h1 { font-size: clamp(2rem,4vw,3rem); font-weight:900; margin-bottom:1rem; }
+    .blog-hero p  { color:#94a3b8; font-size:1.05rem; max-width:560px; margin:0 auto; }
+
+    .blog-section { padding: 80px 0; background: #f8fafc; min-height: 60vh; }
+
+    /* Filter pills */
+    .blog-filters { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-bottom:3rem; }
+
+    /* Grid */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 28px;
+    }
+
+    /* Card */
+    .blog-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      border: 1px solid #e2e8f0;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+    .blog-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(0,0,0,0.12); }
+    .blog-card-img {
+      width:100%; height:200px; object-fit:cover;
+      background: linear-gradient(135deg, #0ea5e9, #1e293b);
+      display: flex; align-items:center; justify-content:center;
+      font-size:3rem; color:white;
+    }
+    .blog-card-img img { width:100%; height:200px; object-fit:cover; display:block; }
+    .blog-card-body { padding:22px; flex:1; display:flex; flex-direction:column; }
+    .blog-card-meta { display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
+    .blog-cat {
+      background: #e0f2fe; color: #0284c7;
+      font-size:0.75rem; font-weight:700;
+      padding:3px 10px; border-radius:20px;
+    }
+    .blog-date { font-size:0.78rem; color:#64748b; }
+    .blog-card h3 { font-size:1.05rem; font-weight:700; color:#1e293b; margin-bottom:10px; line-height:1.4; }
+    .blog-card p  { font-size:0.88rem; color:#64748b; flex:1; margin-bottom:16px; line-height:1.6; }
+    .blog-card-footer { display:flex; align-items:center; justify-content:space-between; }
+    .blog-author { display:flex; align-items:center; gap:8px; font-size:0.82rem; color:#475569; }
+    .blog-author i { color:#0ea5e9; }
+    .blog-read { font-size:0.82rem; font-weight:700; color:#0ea5e9; display:flex; align-items:center; gap:5px; }
+
+    /* Empty state */
+    .blog-empty { text-align:center; padding:80px 20px; color:#64748b; }
+    .blog-empty i { font-size:3rem; color:#cbd5e1; margin-bottom:16px; display:block; }
+    .blog-empty h3 { font-size:1.3rem; color:#1e293b; margin-bottom:8px; }
+
+    /* Loading */
+    .blog-loading { text-align:center; padding:60px; color:#64748b; }
+    .blog-loading i { font-size:2rem; color:#0ea5e9; animation:spin 1s linear infinite; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    /* ── MODAL ── */
+    .blog-modal-overlay {
+      position:fixed; inset:0;
+      background:rgba(0,0,0,0.8);
+      z-index:3000;
+      display:none; align-items:flex-start; justify-content:center;
+      padding:20px; overflow-y:auto;
+    }
+    .blog-modal-overlay.open { display:flex; }
+    .blog-modal {
+      background:white; border-radius:20px;
+      max-width:800px; width:100%;
+      margin: 40px auto;
+      animation: modalIn 0.3s ease;
+      position:relative;
+    }
+    @keyframes modalIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    .blog-modal-hero {
+      width:100%; height:320px; object-fit:cover;
+      border-radius:20px 20px 0 0;
+      background: linear-gradient(135deg,#0ea5e9,#1e293b);
+      display:flex; align-items:center; justify-content:center;
+      font-size:5rem;
+    }
+    .blog-modal-hero img { width:100%; height:320px; object-fit:cover; border-radius:20px 20px 0 0; }
+    .blog-modal-body { padding:36px; }
+    .blog-modal-meta { display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:16px; }
+    .blog-modal-body h1 { font-size:clamp(1.4rem,3vw,2rem); font-weight:900; color:#1e293b; margin-bottom:20px; line-height:1.3; }
+    .blog-modal-close {
+      position:absolute; top:16px; right:16px;
+      width:40px; height:40px; border-radius:50%;
+      background:rgba(0,0,0,0.5); border:none;
+      color:white; font-size:1.2rem; cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      transition:all 0.2s; z-index:1;
+    }
+    .blog-modal-close:hover { background:rgba(0,0,0,0.8); }
+
+    /* Markdown content styles */
+    .blog-content h2 { font-size:1.4rem; font-weight:800; color:#1e293b; margin:28px 0 12px; }
+    .blog-content h3 { font-size:1.1rem; font-weight:700; color:#1e293b; margin:24px 0 10px; }
+    .blog-content p  { color:#475569; line-height:1.8; margin-bottom:16px; }
+    .blog-content ul, .blog-content ol { padding-left:24px; margin-bottom:16px; }
+    .blog-content li { color:#475569; line-height:1.7; margin-bottom:6px; }
+    .blog-content a  { color:#0ea5e9; text-decoration:underline; }
+    .blog-content strong { color:#1e293b; }
+    .blog-content blockquote {
+      border-left:4px solid #0ea5e9;
+      padding:12px 20px; margin:20px 0;
+      background:#f0f9ff; border-radius:0 8px 8px 0;
+      color:#0284c7; font-style:italic;
+    }
+    .blog-content code {
+      background:#f1f5f9; padding:2px 6px;
+      border-radius:4px; font-size:0.88rem; color:#0f172a;
+    }
+    .blog-content pre {
+      background:#0f172a; color:#e2e8f0;
+      padding:20px; border-radius:12px;
+      overflow-x:auto; margin-bottom:16px;
+    }
+    .blog-content pre code { background:none; color:inherit; padding:0; }
+    .blog-content img { max-width:100%; border-radius:12px; margin:16px 0; }
+    .blog-content hr { border:none; border-top:2px solid #e2e8f0; margin:28px 0; }
+
+    .blog-modal-cta {
+      background:#f8fafc; border-radius:0 0 20px 20px;
+      padding:28px 36px;
+      display:flex; align-items:center; justify-content:space-between;
+      flex-wrap:wrap; gap:16px;
+      border-top:1px solid #e2e8f0;
+    }
+    .blog-modal-cta p { color:#64748b; font-size:0.93rem; margin:0; }
+    .blog-modal-cta strong { color:#1e293b; }
+
+    @media(max-width:768px) {
+      .blog-grid { grid-template-columns:1fr; }
+      .blog-modal-body { padding:20px; }
+      .blog-modal-cta { padding:20px; }
+    }
+  </style>
+</head>
+<body class="no-banner">
+
+  <!-- HEADER (same as main site) -->
+  <header id="siteHeader" class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo" aria-label="BLESSTech-X home">
+        <img id="logoImg" src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X Logo" width="40" height="40" />
+        <span class="logo-text">BLESS<span>Tech-X</span></span>
+      </a>
+      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+        <a href="index.html#services">Services</a>
+        <a href="index.html#portfolio">Portfolio</a>
+        <a href="index.html#process">How We Work</a>
+        <a href="index.html#testimonials">Clients</a>
+        <a href="blog.html" style="color:var(--sky)">Blog</a>
+        <a href="index.html#faq">FAQ</a>
+        <a href="index.html#contact" class="nav-cta">Get a Quote</a>
+      </nav>
+      <div class="header-actions">
+        <a href="https://wa.me/260979603741" class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener">
+          <i class="fab fa-whatsapp"></i> Chat
+        </a>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- BLOG HERO -->
+  <div class="blog-hero">
+    <div class="container">
+      <div class="hero-badge" style="margin-bottom:1.5rem">
+        <i class="fas fa-pen-nib"></i> Fresh from BLESSTech-X
+      </div>
+      <h1>Digital Tips for<br/>Zambian Businesses</h1>
+      <p>Practical guides on e-commerce, websites, branding, and growing your business online in Zambia.</p>
+    </div>
+  </div>
+
+  <!-- BLOG SECTION -->
+  <section class="blog-section">
+    <div class="container">
+
+      <!-- Category filters -->
+      <div class="blog-filters" id="blogFilters">
+        <button class="pill active" data-cat="all">All Posts</button>
+        <button class="pill" data-cat="Business Tips">Business Tips</button>
+        <button class="pill" data-cat="E-commerce">E-commerce</button>
+        <button class="pill" data-cat="Digital Marketing">Digital Marketing</button>
+        <button class="pill" data-cat="Zambia Tech">Zambia Tech</button>
+        <button class="pill" data-cat="Case Study">Case Studies</button>
+        <button class="pill" data-cat="Announcements">Announcements</button>
+      </div>
+
+      <!-- Loading state -->
+      <div class="blog-loading" id="blogLoading">
+        <i class="fas fa-spinner"></i>
+        <p style="margin-top:12px">Loading posts...</p>
+      </div>
+
+      <!-- Blog grid -->
+      <div class="blog-grid" id="blogGrid" style="display:none"></div>
+
+      <!-- Empty state -->
+      <div class="blog-empty" id="blogEmpty" style="display:none">
+        <i class="fas fa-pen-nib"></i>
+        <h3>No posts yet</h3>
+        <p>Check back soon — we're writing guides to help your Zambian business grow online.</p>
+        <a href="index.html#contact" class="btn btn-primary" style="margin-top:20px">
+          <i class="fab fa-whatsapp"></i> Talk to Us Instead
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- BLOG POST MODAL -->
+  <div class="blog-modal-overlay" id="blogModal">
+    <div class="blog-modal">
+      <button class="blog-modal-close" onclick="closeBlogModal()" aria-label="Close">
+        <i class="fas fa-times"></i>
+      </button>
+      <div id="blogModalHero" class="blog-modal-hero">📝</div>
+      <div class="blog-modal-body">
+        <div class="blog-modal-meta" id="blogModalMeta"></div>
+        <h1 id="blogModalTitle"></h1>
+        <div class="blog-content" id="blogModalContent"></div>
+      </div>
+      <div class="blog-modal-cta">
+        <p><strong>Want results like these for your business?</strong><br/>BLESSTech-X builds websites & e-commerce stores in 7–14 days.</p>
+        <a href="https://wa.me/260979603741?text=Hello%20BLESSTech-X!%20I%20read%20your%20blog%20and%20want%20to%20know%20more."
+           class="btn btn-whatsapp" target="_blank" rel="noopener">
+          <i class="fab fa-whatsapp"></i> Chat With Us
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHATSAPP FAB -->
+  <a href="https://wa.me/260979603741" class="whatsapp-fab" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo" style="margin-bottom:1rem">
+            <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X" width="36" height="36" style="border-radius:8px" />
+            <span class="logo-text">BLESS<span>Tech-X</span></span>
+          </div>
+          <p>Professional digital solutions plus 20+ free tools for Zambian entrepreneurs, students, and developers.</p>
+        </div>
+        <div class="footer-links-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html#services">Services</a></li>
+            <li><a href="index.html#portfolio">Portfolio</a></li>
+            <li><a href="index.html#process">How We Work</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="index.html#faq">FAQ</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Top Services</h4>
+          <ul>
+            <li><a href="index.html#services">E-commerce Store Setup</a></li>
+            <li><a href="index.html#services">Payment Gateway Integration</a></li>
+            <li><a href="index.html#services">Professional Websites</a></li>
+            <li><a href="index.html#services">Logo & Branding</a></li>
+            <li><a href="index.html#services">Social Media Management</a></li>
+            <li><a href="index.html#services">SEO & Google Visibility</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a></li>
+            <li><a href="mailto:singbless89@gmail.com"><i class="fas fa-envelope"></i> singbless89@gmail.com</a></li>
+            <li><span><i class="fas fa-map-marker-alt"></i> Lusaka, Zambia</span></li>
+            <li><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 BLESSTech-X. All rights reserved. Built for Zambia & the Globe 🌍</p>
+        <div class="footer-pay-icons">
+          <i class="fas fa-mobile-alt" title="Airtel Money"></i>
+          <i class="fas fa-sim-card" title="MTN Money"></i>
+          <i class="fab fa-cc-visa" title="Visa"></i>
+          <i class="fab fa-cc-mastercard" title="Mastercard"></i>
+          <i class="fas fa-lock" title="Secure Payments"></i>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  'use strict';
+
+  // ── CONFIG ─────────────────────────────────────────────────────
+  const GITHUB_OWNER  = 'BLESSTech-X';
+  const GITHUB_REPO   = '.com';
+  const GITHUB_BRANCH = 'main';
+  const BLOG_PATH     = 'content/blog';
+
+  // GitHub API URL to list blog files
+  const API_URL = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${BLOG_PATH}?ref=${GITHUB_BRANCH}`;
+
+  let allPosts = [];
+  let activeCategory = 'all';
+
+  // ── BOOT ───────────────────────────────────────────────────────
+  document.addEventListener('DOMContentLoaded', () => {
+    loadPosts();
+    initFilters();
+    initMobileMenu();
+    initHeaderScroll();
+
+    // Close modal on overlay click
+    document.getElementById('blogModal').addEventListener('click', e => {
+      if (e.target === document.getElementById('blogModal')) closeBlogModal();
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeBlogModal();
+    });
+  });
+
+  // ── LOAD POSTS FROM GITHUB API ─────────────────────────────────
+  async function loadPosts() {
+    try {
+      const res = await fetch(API_URL);
+
+      if (res.status === 404) {
+        // content/blog folder doesn't exist yet
+        showEmpty();
+        return;
+      }
+
+      if (!res.ok) throw new Error('GitHub API error: ' + res.status);
+
+      const files = await res.json();
+      const mdFiles = files.filter(f => f.name.endsWith('.md'));
+
+      if (mdFiles.length === 0) { showEmpty(); return; }
+
+      // Fetch each file's content in parallel
+      const posts = await Promise.all(mdFiles.map(fetchPost));
+
+      // Filter published only, sort newest first
+      allPosts = posts
+        .filter(p => p && p.published !== false)
+        .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      if (allPosts.length === 0) { showEmpty(); return; }
+
+      renderPosts(allPosts);
+
+    } catch (err) {
+      console.error('Blog load error:', err);
+      showEmpty();
+    }
+  }
+
+  // ── FETCH SINGLE POST ──────────────────────────────────────────
+  async function fetchPost(file) {
+    try {
+      const res = await fetch(file.download_url);
+      const raw = await res.text();
+      return parseMarkdown(raw, file.name);
+    } catch {
+      return null;
+    }
+  }
+
+  // ── PARSE FRONTMATTER + MARKDOWN ──────────────────────────────
+  function parseMarkdown(raw, filename) {
+    const fmMatch = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+    if (!fmMatch) return null;
+
+    const fm   = fmMatch[1];
+    const body = fmMatch[2];
+
+    // Parse frontmatter key: value pairs
+    const meta = {};
+    fm.split('\n').forEach(line => {
+      const idx = line.indexOf(':');
+      if (idx === -1) return;
+      const key = line.slice(0, idx).trim();
+      let val    = line.slice(idx + 1).trim();
+      // Remove surrounding quotes
+      val = val.replace(/^["']|["']$/g, '');
+      // Booleans
+      if (val === 'true')  val = true;
+      if (val === 'false') val = false;
+      meta[key] = val;
+    });
+
+    // Generate slug from filename: 2026-03-23-my-post.md → my-post
+    const slug = filename.replace(/^\d{4}-\d{2}-\d{2}-/, '').replace(/\.md$/, '');
+
+    return { ...meta, body, slug, filename };
+  }
+
+  // ── RENDER POSTS GRID ──────────────────────────────────────────
+  function renderPosts(posts) {
+    document.getElementById('blogLoading').style.display = 'none';
+    const grid = document.getElementById('blogGrid');
+    grid.style.display = 'grid';
+
+    if (posts.length === 0) { showEmpty(); return; }
+
+    grid.innerHTML = posts.map(post => {
+      const date    = post.date ? formatDate(post.date) : '';
+      const excerpt = post.excerpt || extractExcerpt(post.body);
+      const icon    = getCategoryIcon(post.category);
+
+      return `
+        <div class="blog-card" data-cat="${post.category || ''}" onclick="openBlogPost('${post.slug}')">
+          <div class="blog-card-img">
+            ${post.image
+              ? `<img src="${post.image}" alt="${esc(post.title)}" loading="lazy" onerror="this.parentElement.innerHTML='${icon}'" />`
+              : icon
+            }
+          </div>
+          <div class="blog-card-body">
+            <div class="blog-card-meta">
+              ${post.category ? `<span class="blog-cat">${post.category}</span>` : ''}
+              ${date ? `<span class="blog-date"><i class="fas fa-calendar-alt"></i> ${date}</span>` : ''}
+            </div>
+            <h3>${post.title}</h3>
+            <p>${excerpt}</p>
+            <div class="blog-card-footer">
+              <span class="blog-author"><i class="fas fa-user-circle"></i> ${post.author || 'BLESSTech-X'}</span>
+              <span class="blog-read">Read More <i class="fas fa-arrow-right"></i></span>
+            </div>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  // ── OPEN POST MODAL ────────────────────────────────────────────
+  function openBlogPost(slug) {
+    const post = allPosts.find(p => p.slug === slug);
+    if (!post) return;
+
+    // Hero image or emoji
+    const heroEl = document.getElementById('blogModalHero');
+    if (post.image) {
+      heroEl.innerHTML = `<img src="${post.image}" alt="${esc(post.title)}" />`;
+    } else {
+      heroEl.innerHTML = getCategoryIcon(post.category);
+      heroEl.style.fontSize = '5rem';
+    }
+
+    // Meta
+    const date = post.date ? formatDate(post.date) : '';
+    document.getElementById('blogModalMeta').innerHTML = `
+      ${post.category ? `<span class="blog-cat">${post.category}</span>` : ''}
+      ${date ? `<span class="blog-date"><i class="fas fa-calendar-alt"></i> ${date}</span>` : ''}
+      <span class="blog-date"><i class="fas fa-user-circle"></i> ${post.author || 'BLESSTech-X'}</span>
+    `;
+
+    // Title
+    document.getElementById('blogModalTitle').textContent = post.title;
+
+    // Body — render markdown
+    document.getElementById('blogModalContent').innerHTML = marked.parse(post.body || '');
+
+    // Open
+    document.getElementById('blogModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeBlogModal() {
+    document.getElementById('blogModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // ── FILTERS ────────────────────────────────────────────────────
+  function initFilters() {
+    document.getElementById('blogFilters').addEventListener('click', e => {
+      const pill = e.target.closest('.pill');
+      if (!pill) return;
+      document.querySelectorAll('#blogFilters .pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      activeCategory = pill.dataset.cat;
+      filterPosts();
+    });
+  }
+
+  function filterPosts() {
+    const filtered = activeCategory === 'all'
+      ? allPosts
+      : allPosts.filter(p => p.category === activeCategory);
+
+    if (filtered.length === 0) {
+      document.getElementById('blogGrid').style.display = 'none';
+      showEmpty();
+    } else {
+      document.getElementById('blogEmpty').style.display = 'none';
+      renderPosts(filtered);
+    }
+  }
+
+  // ── HELPERS ────────────────────────────────────────────────────
+  function showEmpty() {
+    document.getElementById('blogLoading').style.display = 'none';
+    document.getElementById('blogGrid').style.display = 'none';
+    document.getElementById('blogEmpty').style.display = 'block';
+  }
+
+  function formatDate(dateStr) {
+    try {
+      return new Date(dateStr).toLocaleDateString('en-ZM', {
+        year: 'numeric', month: 'long', day: 'numeric'
+      });
+    } catch { return ''; }
+  }
+
+  function extractExcerpt(body) {
+    if (!body) return '';
+    // Strip markdown and get first 120 chars
+    const plain = body.replace(/#+\s/g,'').replace(/\*\*/g,'').replace(/\*/g,'').replace(/\[([^\]]+)\]\([^)]+\)/g,'$1').trim();
+    return plain.slice(0, 120) + (plain.length > 120 ? '…' : '');
+  }
+
+  function getCategoryIcon(cat) {
+    const icons = {
+      'Business Tips':      '💼',
+      'E-commerce':         '🛒',
+      'Digital Marketing':  '📣',
+      'Zambia Tech':        '🇿🇲',
+      'Case Study':         '📊',
+      'Announcements':      '📢'
+    };
+    return icons[cat] || '📝';
+  }
+
+  function esc(s) { return (s||'').replace(/"/g,'&quot;'); }
+
+  // ── MOBILE MENU ────────────────────────────────────────────────
+  function initMobileMenu() {
+    const toggle = document.getElementById('mobileToggle');
+    const nav    = document.getElementById('navLinks');
+    if (!toggle || !nav) return;
+    toggle.addEventListener('click', () => {
+      const open = nav.classList.toggle('open');
+      toggle.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', open);
+    });
+    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      nav.classList.remove('open');
+      toggle.classList.remove('open');
+    }));
+  }
+
+  function initHeaderScroll() {
+    const h = document.getElementById('siteHeader');
+    window.addEventListener('scroll', () => {
+      h.style.boxShadow = window.scrollY > 20 ? '0 4px 20px rgba(0,0,0,.12)' : '';
+    }, { passive:true });
+  }
+  </script>
+
+</body>
+</html>
