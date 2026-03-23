@@ -5,15 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BLESSTech-X Admin</title>
   <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" />
-  <style>
-    body { margin: 0; font-family: sans-serif; background: #0f172a; }
-  </style>
+  <style>body { margin: 0; font-family: sans-serif; background: #0f172a; }</style>
 </head>
 <body>
 
-<script>
-  window.CMS_MANUAL_INIT = true;
-</script>
+<script>window.CMS_MANUAL_INIT = true;</script>
 <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
 <script>
@@ -28,104 +24,40 @@ CMS.init({
     },
     media_folder: 'images/uploads',
     public_folder: '/images/uploads',
-    slug: { encoding: 'ascii', clean_accents: true },
 
     collections: [
 
-      // ════════════════════════════════════════════════════════
-      // 1. HOMEPAGE
-      // ════════════════════════════════════════════════════════
+      // ════════════════════════════════════════════════
+      // COLLECTION 1 — SITE SETTINGS
+      // Edits: site.name, site.tagline, site.phone,
+      //        site.email, site.whatsapp, site.location,
+      //        site.logo, site.og_image, site.socials,
+      //        site.formspree_id, site.description
+      // ════════════════════════════════════════════════
       {
-        name: 'homepage',
-        label: '🏠 Home Page',
+        name: 'site_settings',
+        label: '⚙️ Site Settings',
         files: [
           {
-            name: 'hero',
-            label: 'Hero Section',
-            file: 'data.json',
-            fields: [
-              {
-                label: 'Hero', name: 'hero', widget: 'object',
-                fields: [
-                  { label: 'Badge Text (e.g. Trusted by 150+ Zambian Businesses)', name: 'badge',       widget: 'string' },
-                  { label: 'Main Headline',                                         name: 'headline',    widget: 'string' },
-                  { label: 'Sub Headline',                                          name: 'subheadline', widget: 'string' },
-                  { label: 'Description',                                           name: 'description', widget: 'text'   },
-                  { label: 'Primary Button Text',                                   name: 'btn_primary', widget: 'string' },
-                  { label: 'Primary Button Link',                                   name: 'btn_primary_link', widget: 'string' },
-                  { label: 'WhatsApp Button Text',                                  name: 'btn_whatsapp', widget: 'string' },
-                  { label: 'Background Image URL',                                  name: 'bg_image',    widget: 'string' },
-                  {
-                    label: 'Trust Pills', name: 'trust_pills', widget: 'list',
-                    fields: [
-                      { label: 'Icon (Font Awesome class, e.g. fas fa-bolt)', name: 'icon', widget: 'string' },
-                      { label: 'Text', name: 'text', widget: 'string' }
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            name: 'stats',
-            label: 'Stats Bar',
-            file: 'data.json',
-            fields: [
-              {
-                label: 'Stats', name: 'stats', widget: 'list',
-                fields: [
-                  { label: 'Value (e.g. 150+)', name: 'value', widget: 'string' },
-                  { label: 'Label',             name: 'label', widget: 'string' }
-                ]
-              }
-            ]
-          },
-          {
-            name: 'announcement',
-            label: 'Announcement Bar',
-            file: 'data.json',
-            fields: [
-              {
-                label: 'Announcement', name: 'announcement', widget: 'object',
-                fields: [
-                  { label: 'Show Bar',    name: 'active',   widget: 'boolean', default: true },
-                  { label: 'Message (HTML allowed, e.g. <strong>30% OFF</strong>)', name: 'message',  widget: 'string' },
-                  { label: 'Button Text', name: 'cta_text', widget: 'string' },
-                  { label: 'Button Link', name: 'cta_link', widget: 'string' }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-
-      // ════════════════════════════════════════════════════════
-      // 2. SITE SETTINGS & CONTACT
-      // ════════════════════════════════════════════════════════
-      {
-        name: 'site_config',
-        label: '⚙️ Site Settings & Contact',
-        files: [
-          {
-            name: 'site_info',
-            label: 'General Info',
+            name: 'site',
+            label: 'Site Info & Contact',
             file: 'data.json',
             fields: [
               {
                 label: 'Site', name: 'site', widget: 'object',
                 fields: [
-                  { label: 'Site Name',       name: 'name',         widget: 'string' },
-                  { label: 'Tagline',         name: 'tagline',      widget: 'string' },
-                  { label: 'Description',     name: 'description',  widget: 'text'   },
-                  { label: 'Phone',           name: 'phone',        widget: 'string' },
-                  { label: 'Email',           name: 'email',        widget: 'string' },
-                  { label: 'WhatsApp (digits only, no +)', name: 'whatsapp', widget: 'string' },
-                  { label: 'Location',        name: 'location',     widget: 'string' },
-                  { label: 'Formspree ID',    name: 'formspree_id', widget: 'string', hint: 'Get this from formspree.io' },
-                  { label: 'Logo URL',        name: 'logo',         widget: 'string' },
-                  { label: 'OG / Share Image URL', name: 'og_image', widget: 'string' },
+                  { label: 'Site Name',              name: 'name',         widget: 'string' },
+                  { label: 'Tagline',                name: 'tagline',      widget: 'string' },
+                  { label: 'Description',            name: 'description',  widget: 'text'   },
+                  { label: 'Phone (with +)',          name: 'phone',        widget: 'string' },
+                  { label: 'Email',                  name: 'email',        widget: 'string' },
+                  { label: 'WhatsApp (digits only)', name: 'whatsapp',     widget: 'string', hint: 'e.g. 260979603741 — no + or spaces' },
+                  { label: 'Location',               name: 'location',     widget: 'string' },
+                  { label: 'Logo URL',               name: 'logo',         widget: 'string' },
+                  { label: 'Share/OG Image URL',     name: 'og_image',     widget: 'string', hint: 'Image shown when link is shared on WhatsApp/Facebook' },
+                  { label: 'Formspree ID',           name: 'formspree_id', widget: 'string', hint: 'From formspree.io — your contact form ID' },
                   {
-                    label: 'Social Media Links', name: 'socials', widget: 'object',
+                    label: 'Social Media', name: 'socials', widget: 'object',
                     fields: [
                       { label: 'Facebook URL',  name: 'facebook',  widget: 'string', required: false },
                       { label: 'Instagram URL', name: 'instagram', widget: 'string', required: false },
@@ -138,23 +70,37 @@ CMS.init({
               }
             ]
           },
+
+          // ── ANNOUNCEMENT BAR ──────────────────────────
           {
-            name: 'footer',
-            label: 'Footer',
+            name: 'announcement',
+            label: 'Announcement Bar',
             file: 'data.json',
             fields: [
               {
-                label: 'Footer', name: 'footer', widget: 'object',
+                label: 'Announcement', name: 'announcement', widget: 'object',
                 fields: [
-                  { label: 'About Text', name: 'about_text', widget: 'text' },
-                  { label: 'Copyright Text', name: 'copyright', widget: 'string' },
-                  {
-                    label: 'Popular Tools Links', name: 'tool_links', widget: 'list',
-                    fields: [
-                      { label: 'Tool Name', name: 'name', widget: 'string' },
-                      { label: 'URL',       name: 'url',  widget: 'string' }
-                    ]
-                  }
+                  { label: 'Show Bar (on/off)', name: 'active',   widget: 'boolean', default: true },
+                  { label: 'Message Text',      name: 'message',  widget: 'string',  hint: 'HTML allowed — e.g. <strong>30% OFF</strong>' },
+                  { label: 'Button Text',       name: 'cta_text', widget: 'string' },
+                  { label: 'Button Link',       name: 'cta_link', widget: 'string', hint: 'e.g. #contact or https://...' }
+                ]
+              }
+            ]
+          },
+
+          // ── STATS BAR ─────────────────────────────────
+          {
+            name: 'stats',
+            label: 'Stats Bar (Numbers)',
+            file: 'data.json',
+            fields: [
+              {
+                label: 'Stats', name: 'stats', widget: 'list',
+                hint: 'The 4 numbers shown in the dark bar below the hero',
+                fields: [
+                  { label: 'Value (e.g. 150+)', name: 'value', widget: 'string' },
+                  { label: 'Label (e.g. Businesses Transformed)', name: 'label', widget: 'string' }
                 ]
               }
             ]
@@ -162,9 +108,10 @@ CMS.init({
         ]
       },
 
-      // ════════════════════════════════════════════════════════
-      // 3. SERVICES
-      // ════════════════════════════════════════════════════════
+      // ════════════════════════════════════════════════
+      // COLLECTION 2 — SERVICES
+      // Edits: services[] array
+      // ════════════════════════════════════════════════
       {
         name: 'services',
         label: '🛠️ Services',
@@ -176,26 +123,34 @@ CMS.init({
             fields: [
               {
                 label: 'Services', name: 'services', widget: 'list',
+                hint: 'Add, edit or delete services. Changes go live on your website automatically.',
                 fields: [
-                  { label: 'ID (unique, no spaces, e.g. ecommerce-store)', name: 'id', widget: 'string' },
-                  { label: 'Title',   name: 'title',       widget: 'string' },
-                  { label: 'Display Order (1 = first)', name: 'order', widget: 'number', required: false },
+                  { label: 'ID (unique, no spaces)',      name: 'id',          widget: 'string', hint: 'e.g. ecommerce-store — must be unique, no spaces' },
+                  { label: 'Service Title',               name: 'title',       widget: 'string' },
                   {
                     label: 'Category', name: 'category', widget: 'select',
-                    options: ['ecommerce','websites','branding','graphics','business','marketing']
+                    options: [
+                      { label: 'E-commerce',  value: 'ecommerce'  },
+                      { label: 'Websites',    value: 'websites'   },
+                      { label: 'Branding',    value: 'branding'   },
+                      { label: 'Graphics',    value: 'graphics'   },
+                      { label: 'Business',    value: 'business'   },
+                      { label: 'Marketing',   value: 'marketing'  }
+                    ]
                   },
-                  { label: 'Badge (optional, e.g. 🛒 E-commerce)', name: 'badge', widget: 'string', required: false },
-                  { label: 'Short Description', name: 'description', widget: 'text' },
-                  { label: 'Price (e.g. From ZMW 980)', name: 'price', widget: 'string' },
-                  { label: 'Icon (Font Awesome class, e.g. fas fa-store)', name: 'icon', widget: 'string', required: false },
-                  { label: 'Main Image URL', name: 'image', widget: 'image' },
+                  { label: 'Badge (optional)',             name: 'badge',       widget: 'string',  required: false, hint: 'e.g. 🛒 E-commerce — leave blank for none' },
+                  { label: 'Short Description',           name: 'description', widget: 'text'   },
+                  { label: 'Price',                       name: 'price',       widget: 'string',  hint: 'e.g. From ZMW 980' },
+                  { label: 'Main Image URL',              name: 'image',       widget: 'string',  hint: 'Paste an image URL or upload via Media' },
                   {
                     label: 'Features List', name: 'features', widget: 'list',
+                    hint: 'Each line is one bullet point shown in the modal',
                     field: { label: 'Feature', name: 'feature', widget: 'string' }
                   },
                   {
-                    label: 'Gallery Images', name: 'gallery', widget: 'list',
-                    field: { label: 'Image URL', name: 'url', widget: 'image' }
+                    label: 'Gallery Images (optional)', name: 'gallery', widget: 'list',
+                    required: false,
+                    field: { label: 'Image URL', name: 'url', widget: 'string' }
                   }
                 ]
               }
@@ -204,9 +159,10 @@ CMS.init({
         ]
       },
 
-      // ════════════════════════════════════════════════════════
-      // 4. PORTFOLIO / CASE STUDIES
-      // ════════════════════════════════════════════════════════
+      // ════════════════════════════════════════════════
+      // COLLECTION 3 — PORTFOLIO
+      // Edits: portfolio[] array
+      // ════════════════════════════════════════════════
       {
         name: 'portfolio',
         label: '📂 Portfolio & Case Studies',
@@ -218,21 +174,27 @@ CMS.init({
             fields: [
               {
                 label: 'Portfolio', name: 'portfolio', widget: 'list',
+                hint: 'Each item is a client case study shown in the Portfolio section',
                 fields: [
-                  { label: 'ID (e.g. p1)',         name: 'id',          widget: 'string' },
-                  { label: 'Project / Client Name', name: 'title',       widget: 'string' },
-                  { label: 'Business Type',         name: 'business_type', widget: 'string', required: false },
-                  { label: 'Client Location',       name: 'location',    widget: 'string', required: false },
+                  { label: 'ID (e.g. p1, p2…)',          name: 'id',          widget: 'string' },
+                  { label: 'Project / Client Name',       name: 'title',       widget: 'string' },
                   {
                     label: 'Category', name: 'category', widget: 'select',
-                    options: ['ecommerce','websites','branding','graphics','business','marketing']
+                    options: [
+                      { label: 'E-commerce', value: 'ecommerce' },
+                      { label: 'Websites',   value: 'websites'  },
+                      { label: 'Branding',   value: 'branding'  },
+                      { label: 'Graphics',   value: 'graphics'  },
+                      { label: 'Business',   value: 'business'  },
+                      { label: 'Marketing',  value: 'marketing' }
+                    ]
                   },
-                  { label: 'Short Description',    name: 'description',  widget: 'text'   },
-                  { label: 'Full Story / Detail',  name: 'detail',       widget: 'text'   },
-                  { label: 'Main Image',           name: 'image',        widget: 'image'  },
-                  { label: 'Before Image',         name: 'before',       widget: 'image',  required: false },
-                  { label: 'After Image',          name: 'after',        widget: 'image',  required: false },
-                  { label: 'Live Site URL (use # if none)', name: 'live_url', widget: 'string' },
+                  { label: 'Short Description (card)',    name: 'description', widget: 'text'   },
+                  { label: 'Full Story (modal)',          name: 'detail',      widget: 'text'   },
+                  { label: 'Main Image URL',              name: 'image',       widget: 'string' },
+                  { label: 'Before Image URL (optional)', name: 'before',      widget: 'string', required: false },
+                  { label: 'After Image URL (optional)',  name: 'after',       widget: 'string', required: false },
+                  { label: 'Live Site URL (use # if none)', name: 'live_url',  widget: 'string' },
                   {
                     label: 'Tags', name: 'tags', widget: 'list',
                     field: { label: 'Tag', name: 'tag', widget: 'string' }
@@ -240,9 +202,9 @@ CMS.init({
                   {
                     label: 'Results / Stats', name: 'stats', widget: 'object',
                     fields: [
-                      { label: 'Growth (e.g. 300%)',      name: 'growth', widget: 'string' },
-                      { label: 'Timeframe (e.g. 2 months)', name: 'time', widget: 'string' },
-                      { label: 'Market Reach (e.g. Nationwide)', name: 'reach', widget: 'string' }
+                      { label: 'Growth (e.g. 300%)',           name: 'growth', widget: 'string' },
+                      { label: 'Time (e.g. 2 months)',         name: 'time',   widget: 'string' },
+                      { label: 'Reach (e.g. Nationwide)',      name: 'reach',  widget: 'string' }
                     ]
                   }
                 ]
@@ -252,9 +214,10 @@ CMS.init({
         ]
       },
 
-      // ════════════════════════════════════════════════════════
-      // 5. TESTIMONIALS
-      // ════════════════════════════════════════════════════════
+      // ════════════════════════════════════════════════
+      // COLLECTION 4 — TESTIMONIALS
+      // Edits: testimonials[] array
+      // ════════════════════════════════════════════════
       {
         name: 'testimonials',
         label: '⭐ Testimonials',
@@ -267,11 +230,11 @@ CMS.init({
               {
                 label: 'Testimonials', name: 'testimonials', widget: 'list',
                 fields: [
-                  { label: 'Client Name',     name: 'name',   widget: 'string' },
-                  { label: 'Role / Business', name: 'role',   widget: 'string' },
-                  { label: 'Client Photo',    name: 'avatar', widget: 'image'  },
-                  { label: 'Star Rating (1–5)', name: 'rating', widget: 'number', value_type: 'int', min: 1, max: 5, default: 5 },
-                  { label: 'Testimonial Text', name: 'text',  widget: 'text'   }
+                  { label: 'Client Name',         name: 'name',   widget: 'string' },
+                  { label: 'Role & Business',     name: 'role',   widget: 'string', hint: 'e.g. Restaurant Owner, Kitwe' },
+                  { label: 'Photo URL',           name: 'avatar', widget: 'string' },
+                  { label: 'Star Rating (1 – 5)', name: 'rating', widget: 'number', value_type: 'int', min: 1, max: 5, default: 5 },
+                  { label: 'Testimonial Text',    name: 'text',   widget: 'text'   }
                 ]
               }
             ]
@@ -279,12 +242,13 @@ CMS.init({
         ]
       },
 
-      // ════════════════════════════════════════════════════════
-      // 6. TEAM
-      // ════════════════════════════════════════════════════════
+      // ════════════════════════════════════════════════
+      // COLLECTION 5 — TEAM
+      // Edits: team[] array
+      // ════════════════════════════════════════════════
       {
         name: 'team',
-        label: '👥 Team',
+        label: '👥 Team Members',
         files: [
           {
             name: 'team_list',
@@ -294,11 +258,11 @@ CMS.init({
               {
                 label: 'Team', name: 'team', widget: 'list',
                 fields: [
-                  { label: 'Full Name',  name: 'name',   widget: 'string' },
-                  { label: 'Job Title', name: 'role',   widget: 'string' },
-                  { label: 'Photo',     name: 'avatar', widget: 'image'  },
-                  { label: 'Bio',       name: 'bio',    widget: 'text'   },
-                  { label: 'Personal Quote', name: 'quote', widget: 'string' },
+                  { label: 'Full Name',        name: 'name',   widget: 'string' },
+                  { label: 'Job Title / Role', name: 'role',   widget: 'string' },
+                  { label: 'Photo URL',        name: 'avatar', widget: 'string' },
+                  { label: 'Bio',              name: 'bio',    widget: 'text'   },
+                  { label: 'Personal Quote',   name: 'quote',  widget: 'string' },
                   {
                     label: 'Skills / Expertise', name: 'skills', widget: 'list',
                     field: { label: 'Skill', name: 'skill', widget: 'string' }
@@ -310,9 +274,10 @@ CMS.init({
         ]
       },
 
-      // ════════════════════════════════════════════════════════
-      // 7. FAQ
-      // ════════════════════════════════════════════════════════
+      // ════════════════════════════════════════════════
+      // COLLECTION 6 — FAQ
+      // Edits: faqs[] array
+      // ════════════════════════════════════════════════
       {
         name: 'faq',
         label: '❓ FAQ',
@@ -334,9 +299,10 @@ CMS.init({
         ]
       },
 
-      // ════════════════════════════════════════════════════════
-      // 8. HOW WE WORK (PROCESS STEPS)
-      // ════════════════════════════════════════════════════════
+      // ════════════════════════════════════════════════
+      // COLLECTION 7 — PROCESS STEPS
+      // Edits: process_steps[] array
+      // ════════════════════════════════════════════════
       {
         name: 'process',
         label: '🔄 How We Work',
@@ -348,6 +314,7 @@ CMS.init({
             fields: [
               {
                 label: 'Process Steps', name: 'process_steps', widget: 'list',
+                hint: 'The 5 steps shown in the "How We Work" section',
                 fields: [
                   { label: 'Step Number (e.g. 01)', name: 'number', widget: 'string' },
                   { label: 'Step Title',            name: 'title',  widget: 'string' },
@@ -359,9 +326,10 @@ CMS.init({
         ]
       },
 
-      // ════════════════════════════════════════════════════════
-      // 9. FREE TOOLS SECTION
-      // ════════════════════════════════════════════════════════
+      // ════════════════════════════════════════════════
+      // COLLECTION 8 — FREE TOOLS
+      // Edits: tools[] array
+      // ════════════════════════════════════════════════
       {
         name: 'free_tools',
         label: '🔧 Free Tools',
@@ -372,17 +340,26 @@ CMS.init({
             file: 'data.json',
             fields: [
               {
-                label: 'Free Tools', name: 'free_tools', widget: 'list',
+                label: 'Tools', name: 'tools', widget: 'list',
+                hint: 'Each tool appears in the tools hub. ID must match the folder name in /tools/',
                 fields: [
-                  { label: 'Tool Name',    name: 'name',        widget: 'string' },
-                  { label: 'Description', name: 'description', widget: 'text'   },
-                  { label: 'URL / Link',  name: 'url',         widget: 'string' },
-                  { label: 'Icon (Font Awesome class, e.g. fas fa-file-invoice)', name: 'icon', widget: 'string' },
+                  { label: 'Tool ID (matches folder name)', name: 'id',       widget: 'string', hint: 'e.g. invoice — must match /tools/invoice/ folder' },
+                  { label: 'Tool Name',                     name: 'title',    widget: 'string' },
+                  { label: 'Short Description',             name: 'desc',     widget: 'text'   },
+                  { label: 'Icon (emoji)',                   name: 'icon',     widget: 'string', hint: 'e.g. 🧾' },
                   {
                     label: 'Category', name: 'category', widget: 'select',
-                    options: ['business','finance','marketing','productivity','design','education','other']
+                    options: [
+                      { label: 'Write Better',    value: 'write'       },
+                      { label: 'Calculate',       value: 'calculate'   },
+                      { label: 'Documents',       value: 'documents'   },
+                      { label: 'Research & Text', value: 'research'    },
+                      { label: 'Developer Tools', value: 'developer'   },
+                      { label: 'Productivity',    value: 'productivity' },
+                      { label: 'Zambia Specific', value: 'zambia'      }
+                    ]
                   },
-                  { label: 'Show on Homepage', name: 'featured', widget: 'boolean', default: false }
+                  { label: 'URL Path', name: 'url', widget: 'string', hint: 'e.g. tools/invoice/index.html' }
                 ]
               }
             ]
@@ -390,29 +367,29 @@ CMS.init({
         ]
       },
 
-      // ════════════════════════════════════════════════════════
-      // 10. BLOG POSTS
-      // ════════════════════════════════════════════════════════
+      // ════════════════════════════════════════════════
+      // COLLECTION 9 — BLOG POSTS
+      // Creates files in: content/blog/
+      // ════════════════════════════════════════════════
       {
         name: 'blog',
-        label: '📝 Blog',
+        label: '📝 Blog Posts',
         label_singular: 'Blog Post',
         folder: 'content/blog',
         create: true,
         slug: '{{year}}-{{month}}-{{day}}-{{slug}}',
-        preview_path: 'blog/{{slug}}',
         fields: [
-          { label: 'Title',          name: 'title',        widget: 'string'   },
-          { label: 'Publish Date',   name: 'date',         widget: 'datetime' },
-          { label: 'Featured Image', name: 'image',        widget: 'image',   required: false },
-          { label: 'Excerpt / Summary', name: 'excerpt',   widget: 'text',    required: false },
+          { label: 'Title',           name: 'title',     widget: 'string'   },
+          { label: 'Publish Date',    name: 'date',      widget: 'datetime' },
+          { label: 'Featured Image URL', name: 'image',  widget: 'string',  required: false },
+          { label: 'Excerpt / Summary',  name: 'excerpt', widget: 'text',   required: false },
           {
             label: 'Category', name: 'category', widget: 'select', required: false,
             options: ['Business Tips','E-commerce','Digital Marketing','Zambia Tech','Case Study','Announcements']
           },
-          { label: 'Author',         name: 'author',       widget: 'string',  default: 'BLESSTech-X', required: false },
-          { label: 'Published',      name: 'published',    widget: 'boolean', default: true },
-          { label: 'Body',           name: 'body',         widget: 'markdown' }
+          { label: 'Author',          name: 'author',    widget: 'string',  default: 'BLESSTech-X' },
+          { label: 'Published',       name: 'published', widget: 'boolean', default: true },
+          { label: 'Body',            name: 'body',      widget: 'markdown' }
         ]
       }
 
