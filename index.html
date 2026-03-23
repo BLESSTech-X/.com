@@ -3,26 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BLESSTech-X | Digital Solutions & Free Tools — Zambia</title>
-  <meta name="description" content="Professional digital solutions for Zambian businesses plus 20+ free tools — invoice generator, CV builder, email writer, unit converter, and more." />
-  <meta name="keywords" content="Zambia digital tools, free invoice generator Zambia, CV builder Zambia, BLESSTech-X, Lusaka web design, e-commerce Zambia" />
+  <title>BLESSTech-X | Digital & E-commerce Solutions Zambia</title>
+
+  <!-- Primary SEO -->
+  <meta name="description" content="Professional digital and e-commerce solutions for Zambian businesses. Websites, online stores, branding, and business setup in Lusaka." />
+  <meta name="keywords" content="Zambia e-commerce, Lusaka web design, online store Zambia, Airtel Money integration, MTN Money payments, digital solutions Lusaka" />
+
+  <!-- Open Graph / WhatsApp / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://blesstech-x.github.io/" />
-  <meta property="og:title" content="BLESSTech-X | Digital Solutions & Free Tools — Zambia" />
-  <meta property="og:description" content="Websites, e-commerce stores, and 20+ free tools for Zambian businesses, students, and developers. No signup required." />
+  <meta property="og:title" content="BLESSTech-X | Digital & E-commerce Solutions Zambia" />
+  <meta property="og:description" content="We build online stores and websites for Zambian businesses \u2014 with Airtel Money, MTN Money, and 7-day delivery." />
   <meta property="og:image" content="https://i.ibb.co/Q36vzP9z/Screenshot-20251229-131706.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+
+  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="BLESSTech-X | Digital Solutions & Free Tools Zambia" />
-  <meta name="twitter:description" content="20+ free tools plus professional digital services for Zambia." />
+  <meta name="twitter:title" content="BLESSTech-X | Digital Solutions Zambia" />
+  <meta name="twitter:description" content="Websites, e-commerce stores, and branding for Zambian businesses." />
   <meta name="twitter:image" content="https://i.ibb.co/Q36vzP9z/Screenshot-20251229-131706.jpg" />
+
+  <!-- Schema.org -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "name": "BLESSTech-X",
-    "description": "Professional digital and e-commerce solutions plus free tools for Zambian businesses.",
+    "description": "Professional digital and e-commerce solutions for Zambian businesses.",
     "address": { "@type": "PostalAddress", "addressLocality": "Lusaka", "addressCountry": "ZM" },
     "telephone": "+260979603741",
     "priceRange": "ZMW 150 - ZMW 2500",
@@ -31,9 +39,12 @@
     "areaServed": "Zambia"
   }
   </script>
+
   <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Microsoft Clarity -->
   <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
       c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -42,489 +53,287 @@
     })(window,document,"clarity","script","v3eftj5zrx");
   </script>
 
-  <!-- ═══════════════════════════════════════════════
-       NOVA HOLOGRAPHIC PORTAL — ALL STYLES
-  ═══════════════════════════════════════════════ -->
-  <style>
-    /* ── Root tokens ── */
-    :root {
-      --nova-blue:       #0ea5e9;
-      --nova-blue-soft:  #38bdf8;
-      --nova-navy:       rgba(5, 15, 30, 0.92);
-      --nova-glow:       0 0 18px rgba(14,165,233,0.55), 0 0 40px rgba(14,165,233,0.25);
-    }
+  <!-- ═══ NOVA ASSISTANT STYLES ═══ COPY THIS BLOCK INTO YOUR <head> ═══ -->
+  <style id="nova-styles">
+  /* ─── NOVA: BLESSTech-X Holographic Assistant ─────────────────────────── */
+  :root {
+    --nova-sky: #0ea5e9;
+    --nova-glow: rgba(14,165,233,.35);
+    --nova-panel: rgba(5, 15, 30, 0.92);
+    --nova-border: rgba(14,165,233,.25);
+    --nova-text: #e2e8f0;
+    --nova-muted: #64748b;
+  }
 
-    /* ══════════════════════════════════════
-       TRIGGER BUTTON (closed state)
-    ══════════════════════════════════════ */
-    #novaTriggerBtn {
-      position: fixed;
-      bottom: 22px;
-      left: 22px;
-      z-index: 9990;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--nova-navy);
-      border: 1.5px solid var(--nova-blue);
-      border-radius: 30px;
-      padding: 9px 16px 9px 12px;
-      cursor: pointer;
-      color: var(--nova-blue);
-      font-family: 'Courier New', monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      box-shadow: var(--nova-glow);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      animation: triggerPulse 3s ease-in-out infinite;
-    }
-    #novaTriggerBtn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 28px rgba(14,165,233,0.75), 0 0 55px rgba(14,165,233,0.35);
-    }
-    #novaTriggerBtn .trigger-dot {
-      width: 8px; height: 8px;
-      background: var(--nova-blue);
-      border-radius: 50%;
-      box-shadow: 0 0 8px var(--nova-blue);
-      animation: triggerDotBlink 1.4s ease-in-out infinite;
-    }
-    @keyframes triggerPulse {
-      0%,100% { box-shadow: var(--nova-glow); }
-      50%      { box-shadow: 0 0 24px rgba(14,165,233,0.7), 0 0 50px rgba(14,165,233,0.3); }
-    }
-    @keyframes triggerDotBlink {
-      0%,100% { opacity:1; } 50% { opacity:0.3; }
-    }
+  /* BACKDROP */
+  #nova-backdrop {
+    position: fixed; inset: 0; z-index: 8000;
+    background: rgba(5, 10, 20, 0.72);
+    backdrop-filter: blur(6px);
+    opacity: 0; pointer-events: none;
+    transition: opacity .5s ease;
+  }
+  #nova-backdrop.show { opacity: 1; pointer-events: all; }
 
-    /* ══════════════════════════════════════
-       PORTAL WRAPPER
-    ══════════════════════════════════════ */
-    #novaPortalWrap {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      z-index: 9991;
-      width: 260px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      pointer-events: none;
-      opacity: 0;
-      transform: translateY(30px) scale(0.92);
-      transition: opacity 0.55s cubic-bezier(.22,1,.36,1),
-                  transform 0.55s cubic-bezier(.22,1,.36,1);
-    }
-    #novaPortalWrap.nova-visible {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      pointer-events: auto;
-    }
+  /* MAIN CONTAINER */
+  #nova-container {
+    position: fixed; bottom: 100px; right: 28px; z-index: 8001;
+    display: flex; flex-direction: column; align-items: flex-end; gap: 14px;
+    opacity: 0; transform: translateY(30px) scale(.92);
+    pointer-events: none;
+    transition: opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1);
+  }
+  #nova-container.show { opacity: 1; transform: translateY(0) scale(1); pointer-events: all; }
 
-    /* ── Ground shadow ── */
-    .nova-ground-shadow {
-      width: 170px;
-      height: 18px;
-      background: radial-gradient(ellipse, rgba(0,0,0,0.85) 0%, transparent 72%);
-      margin-bottom: -2px;
-      order: 2;
-      flex-shrink: 0;
-    }
+  /* SPEECH BUBBLE */
+  #nova-bubble {
+    max-width: min(360px, calc(100vw - 56px));
+    background: var(--nova-panel);
+    border: 1px solid var(--nova-border);
+    border-radius: 20px 20px 4px 20px;
+    padding: 18px 20px;
+    position: relative;
+    box-shadow: 0 0 40px var(--nova-glow), 0 20px 60px rgba(0,0,0,.5);
+    animation: novaBubblePulse 4s ease-in-out infinite;
+  }
+  @keyframes novaBubblePulse {
+    0%,100% { box-shadow: 0 0 30px var(--nova-glow), 0 20px 60px rgba(0,0,0,.5); }
+    50% { box-shadow: 0 0 55px rgba(14,165,233,.5), 0 20px 60px rgba(0,0,0,.5); }
+  }
+  #nova-bubble::after {
+    content: ''; position: absolute; bottom: -10px; right: 22px;
+    width: 0; height: 0;
+    border-left: 10px solid transparent;
+    border-right: 0px solid transparent;
+    border-top: 10px solid rgba(14,165,233,.25);
+  }
+  .nova-bubble-header {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 10px; margin-bottom: 10px;
+  }
+  .nova-bubble-title {
+    font-size: .68rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 2px; color: var(--nova-sky);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .nova-live-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: #10b981;
+    animation: novaDotPulse 1.5s ease infinite;
+  }
+  @keyframes novaDotPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.6)} }
+  #nova-close-btn {
+    width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--nova-border);
+    background: rgba(255,255,255,.06); color: var(--nova-muted);
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    font-size: .7rem; transition: all .2s;
+  }
+  #nova-close-btn:hover { background: rgba(255,255,255,.15); color: white; }
 
-    /* ── Portal container ── */
-    .nova-portal {
-      order: 1;
-      position: relative;
-      width: 220px;
-      height: 320px;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
+  #nova-text {
+    color: var(--nova-text); font-size: .9rem; line-height: 1.65;
+    min-height: 1.65rem;
+  }
+  /* typing cursor */
+  #nova-text::after {
+    content: '▋'; color: var(--nova-sky); opacity: 1;
+    animation: novaCursor .7s ease infinite alternate;
+    font-size: .7em;
+  }
+  #nova-text.done::after { display: none; }
 
-    /* ── Concentric ring waves ── */
-    .nova-ring {
-      position: absolute;
-      top: 50%; left: 50%;
-      border-radius: 50%;
-      border: 1.5px solid rgba(14,165,233,0.35);
-      transform: translate(-50%, -50%) scale(1);
-      animation: ringExpand 3.6s ease-out infinite;
-    }
-    .nova-ring:nth-child(1) { width: 230px; height: 340px; animation-delay: 0s; }
-    .nova-ring:nth-child(2) { width: 255px; height: 375px; animation-delay: 1.2s; }
-    .nova-ring:nth-child(3) { width: 280px; height: 410px; animation-delay: 2.4s; }
-    @keyframes ringExpand {
-      0%   { opacity: 0.6; transform: translate(-50%,-50%) scale(0.95); }
-      100% { opacity: 0;   transform: translate(-50%,-50%) scale(1.18); }
-    }
+  @keyframes novaCursor { from{opacity:1} to{opacity:0} }
 
-    /* ── Portal oval rim ── */
-    .nova-rim {
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      border: 2.5px solid var(--nova-blue);
-      box-shadow:
-        0 0 14px rgba(14,165,233,0.65),
-        0 0 30px rgba(14,165,233,0.30),
-        inset 0 0 18px rgba(14,165,233,0.12);
-      animation: rimPulse 4s ease-in-out infinite;
-    }
-    @keyframes rimPulse {
-      0%,100% { box-shadow: 0 0 14px rgba(14,165,233,.65), 0 0 30px rgba(14,165,233,.30), inset 0 0 18px rgba(14,165,233,.12); }
-      50%      { box-shadow: 0 0 22px rgba(14,165,233,.90), 0 0 50px rgba(14,165,233,.45), inset 0 0 26px rgba(14,165,233,.20); }
-    }
+  /* PROGRESS DOTS */
+  .nova-progress {
+    display: flex; gap: 5px; margin-top: 12px; justify-content: flex-end;
+  }
+  .nova-prog-dot {
+    width: 5px; height: 5px; border-radius: 50%; background: var(--nova-border);
+    transition: background .3s, transform .3s;
+  }
+  .nova-prog-dot.active { background: var(--nova-sky); transform: scale(1.4); }
+  .nova-prog-dot.done { background: rgba(14,165,233,.4); }
 
-    /* ── Interior dark fill ── */
-    .nova-interior {
-      position: absolute;
-      inset: 3px;
-      border-radius: 50%;
-      background: radial-gradient(ellipse at 50% 30%, rgba(5,20,40,0.96) 0%, rgba(2,8,18,0.99) 70%);
-      overflow: hidden;
-    }
+  /* CTA BUTTONS */
+  .nova-ctas {
+    display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap;
+  }
+  .nova-cta-btn {
+    padding: 7px 14px; border-radius: 8px; font-size: .78rem; font-weight: 700;
+    cursor: pointer; border: none; transition: all .2s; font-family: inherit;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .nova-cta-primary { background: var(--nova-sky); color: white; }
+  .nova-cta-primary:hover { background: #0284c7; transform: translateY(-1px); }
+  .nova-cta-secondary { background: rgba(255,255,255,.08); color: var(--nova-text); border: 1px solid var(--nova-border); }
+  .nova-cta-secondary:hover { background: rgba(255,255,255,.14); }
 
-    /* ── Vertical scan-line grid ── */
-    .nova-grid-lines {
-      position: absolute;
-      inset: 0;
-      background-image:
-        repeating-linear-gradient(
-          90deg,
-          rgba(14,165,233,0.04) 0px,
-          rgba(14,165,233,0.04) 1px,
-          transparent 1px,
-          transparent 14px
-        );
-      pointer-events: none;
-    }
+  /* HOLOGRAM AVATAR */
+  #nova-avatar {
+    position: relative; width: 80px; height: 80px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+  }
 
-    /* ── Horizontal sweep scan line ── */
-    .nova-scanline {
-      position: absolute;
-      left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg,
-        transparent 0%,
-        rgba(56,189,248,0.0) 10%,
-        rgba(56,189,248,0.55) 40%,
-        rgba(14,165,233,0.80) 50%,
-        rgba(56,189,248,0.55) 60%,
-        rgba(56,189,248,0.0) 90%,
-        transparent 100%
-      );
-      top: -2px;
-      animation: scanSweep 3.5s linear infinite;
-      pointer-events: none;
-    }
-    @keyframes scanSweep {
-      0%   { top: -2px; opacity: 0; }
-      5%   { opacity: 1; }
-      95%  { opacity: 1; }
-      100% { top: 100%; opacity: 0; }
-    }
+  /* Outer scan ring */
+  .nova-ring {
+    position: absolute; border-radius: 50%;
+    border: 1px solid rgba(14,165,233,.3);
+    animation: novaRingExpand 2.5s ease-out infinite;
+  }
+  .nova-ring:nth-child(1) { width: 80px; height: 80px; animation-delay: 0s; }
+  .nova-ring:nth-child(2) { width: 80px; height: 80px; animation-delay: .8s; }
+  .nova-ring:nth-child(3) { width: 80px; height: 80px; animation-delay: 1.6s; }
+  @keyframes novaRingExpand {
+    0% { width: 80px; height: 80px; opacity: .8; }
+    100% { width: 160px; height: 160px; opacity: 0; }
+  }
 
-    /* ── Human silhouette SVG wrapper ── */
-    .nova-figure-wrap {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 140px;
-      height: 290px;
-      animation: figureFloat 3s ease-in-out infinite, figureFlicker 5s ease-in-out infinite;
-    }
-    @keyframes figureFloat {
-      0%,100% { transform: translateX(-50%) translateY(0px); }
-      50%      { transform: translateX(-50%) translateY(-6px); }
-    }
-    @keyframes figureFlicker {
-      0%,100% { opacity: 1; }
-      8%       { opacity: 0.87; }
-      16%      { opacity: 1; }
-      52%      { opacity: 0.92; }
-      60%      { opacity: 1; }
-      78%      { opacity: 0.88; }
-      86%      { opacity: 1; }
-    }
+  /* Avatar core */
+  .nova-core {
+    position: relative; z-index: 2;
+    width: 72px; height: 72px; border-radius: 50%;
+    background: linear-gradient(135deg, #0a1628, #0d2040);
+    border: 2px solid rgba(14,165,233,.5);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    box-shadow: 0 0 20px var(--nova-glow), inset 0 0 20px rgba(14,165,233,.08);
+    transition: all .3s;
+  }
+  #nova-avatar:hover .nova-core { box-shadow: 0 0 36px rgba(14,165,233,.6), inset 0 0 20px rgba(14,165,233,.12); }
 
-    /* ── SVG hologram figure ── */
-    .nova-figure-svg {
-      width: 100%;
-      height: 100%;
-      overflow: visible;
-    }
+  /* Face SVG */
+  .nova-face { width: 44px; height: 44px; position: relative; z-index: 3; }
 
-    /* ── Mouth glow (active when speaking) ── */
-    .nova-mouth-glow {
-      position: absolute;
-      bottom: 160px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 22px;
-      height: 8px;
-      border-radius: 50%;
-      background: rgba(14,165,233,0.0);
-      transition: background 0.3s ease, box-shadow 0.3s ease;
-      pointer-events: none;
-    }
-    .nova-speaking .nova-mouth-glow {
-      background: rgba(56,189,248,0.55);
-      box-shadow: 0 0 12px rgba(14,165,233,0.9), 0 0 24px rgba(14,165,233,0.5);
-    }
+  /* Scan line inside avatar */
+  .nova-scan {
+    position: absolute; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(14,165,233,.8), transparent);
+    animation: novaScan 2.2s ease-in-out infinite; z-index: 4;
+  }
+  @keyframes novaScan {
+    0% { top: 0; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+  }
 
-    /* ── Voice waveform ── */
-    .nova-waveform {
-      position: absolute;
-      bottom: 12px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      align-items: center;
-      gap: 3px;
-      height: 22px;
-      opacity: 0;
-      transition: opacity 0.35s ease;
-    }
-    .nova-speaking .nova-waveform {
-      opacity: 1;
-    }
-    .nova-waveform span {
-      display: block;
-      width: 3px;
-      border-radius: 2px;
-      background: var(--nova-blue);
-      box-shadow: 0 0 6px var(--nova-blue);
-      height: 6px;
-      animation: waveBar 0.8s ease-in-out infinite;
-    }
-    .nova-waveform span:nth-child(1) { animation-delay: 0.0s; }
-    .nova-waveform span:nth-child(2) { animation-delay: 0.1s; }
-    .nova-waveform span:nth-child(3) { animation-delay: 0.2s; }
-    .nova-waveform span:nth-child(4) { animation-delay: 0.3s; }
-    .nova-waveform span:nth-child(5) { animation-delay: 0.2s; }
-    .nova-waveform span:nth-child(6) { animation-delay: 0.1s; }
-    .nova-waveform span:nth-child(7) { animation-delay: 0.0s; }
-    @keyframes waveBar {
-      0%,100% { height: 4px;  opacity: 0.5; }
-      50%      { height: 18px; opacity: 1.0; }
-    }
+  /* Hologram flicker */
+  .nova-core::before {
+    content: ''; position: absolute; inset: 0; border-radius: 50%;
+    background: linear-gradient(0deg, rgba(14,165,233,.07) 0%, transparent 50%, rgba(14,165,233,.05) 100%);
+    animation: novaFlicker 3s ease infinite;
+  }
+  @keyframes novaFlicker {
+    0%,100%{opacity:1} 92%{opacity:1} 93%{opacity:.3} 94%{opacity:1} 96%{opacity:.6} 97%{opacity:1}
+  }
 
-    /* ── Label ── */
-    .nova-label {
-      order: 3;
-      font-family: 'Courier New', monospace;
-      font-size: 0.62rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--nova-blue);
-      text-shadow: 0 0 8px rgba(14,165,233,0.7);
-      margin-top: 6px;
-      margin-bottom: 10px;
-      animation: labelPulse 3s ease-in-out infinite;
-      user-select: none;
-    }
-    @keyframes labelPulse {
-      0%,100% { opacity: 0.75; }
-      50%      { opacity: 1.0; }
-    }
+  /* Voice waveform bars */
+  .nova-wave {
+    display: flex; align-items: center; gap: 2px;
+    position: absolute; bottom: -18px; left: 50%; transform: translateX(-50%);
+    z-index: 5;
+  }
+  .nova-bar {
+    width: 2.5px; border-radius: 2px;
+    background: var(--nova-sky); opacity: .7;
+    animation: novaBarAnim .6s ease-in-out infinite alternate;
+  }
+  .nova-bar:nth-child(1){height:4px;animation-delay:0s}
+  .nova-bar:nth-child(2){height:9px;animation-delay:.08s}
+  .nova-bar:nth-child(3){height:14px;animation-delay:.16s}
+  .nova-bar:nth-child(4){height:9px;animation-delay:.24s}
+  .nova-bar:nth-child(5){height:4px;animation-delay:.32s}
+  @keyframes novaBarAnim { from{transform:scaleY(.4)} to{transform:scaleY(1)} }
+  .nova-wave.silent .nova-bar { animation: none; height: 3px !important; opacity: .3; }
 
-    /* ══════════════════════════════════════
-       SPEECH BUBBLE
-    ══════════════════════════════════════ */
-    #novaBubble {
-      position: fixed;
-      bottom: 90px;
-      left: 250px;
-      z-index: 9992;
-      width: 300px;
-      max-width: calc(100vw - 280px);
-      background: var(--nova-navy);
-      border: 1.5px solid var(--nova-blue);
-      border-radius: 14px;
-      padding: 14px 16px;
-      display: none;
-      flex-direction: column;
-      gap: 12px;
-      box-shadow: 0 0 22px rgba(14,165,233,0.25), 0 6px 30px rgba(0,0,0,0.55);
-      animation: bubbleFadeIn 0.4s cubic-bezier(.22,1,.36,1);
-    }
-    #novaBubble.nova-bubble-visible { display: flex; }
+  /* Label */
+  .nova-label {
+    position: absolute; bottom: -34px; left: 50%; transform: translateX(-50%);
+    white-space: nowrap; font-size: .6rem; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--nova-sky); opacity: .8;
+    text-shadow: 0 0 8px var(--nova-sky);
+  }
 
-    /* ── Tail pointing left ── */
-    #novaBubble::before {
-      content: '';
-      position: absolute;
-      left: -10px;
-      bottom: 36px;
-      width: 0; height: 0;
-      border-top:    9px solid transparent;
-      border-bottom: 9px solid transparent;
-      border-right:  10px solid var(--nova-blue);
-    }
-    #novaBubble::after {
-      content: '';
-      position: absolute;
-      left: -8px;
-      bottom: 37px;
-      width: 0; height: 0;
-      border-top:    8px solid transparent;
-      border-bottom: 8px solid transparent;
-      border-right:  9px solid rgba(5,15,30,0.92);
-    }
-    @keyframes bubbleFadeIn {
-      from { opacity: 0; transform: translateX(-10px) scale(0.95); }
-      to   { opacity: 1; transform: translateX(0)    scale(1); }
-    }
+  /* TRIGGER BUTTON (shown before Nova opens) */
+  #nova-trigger {
+    position: fixed; bottom: 28px; right: 90px; z-index: 7999;
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 18px 10px 14px;
+    background: linear-gradient(135deg, #0d1f38, #0a1628);
+    border: 1px solid rgba(14,165,233,.35);
+    border-radius: 50px; cursor: pointer;
+    box-shadow: 0 0 24px rgba(14,165,233,.25), 0 8px 24px rgba(0,0,0,.4);
+    transition: all .3s; color: var(--nova-sky); font-family: inherit;
+    animation: novaTriggerPulse 3s ease-in-out infinite;
+  }
+  #nova-trigger:hover { box-shadow: 0 0 36px rgba(14,165,233,.45), 0 8px 24px rgba(0,0,0,.4); transform: translateY(-2px); }
+  @keyframes novaTriggerPulse {
+    0%,100% { box-shadow: 0 0 20px rgba(14,165,233,.2), 0 8px 24px rgba(0,0,0,.3); }
+    50% { box-shadow: 0 0 36px rgba(14,165,233,.45), 0 8px 24px rgba(0,0,0,.3); }
+  }
+  .nova-trigger-icon {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(14,165,233,.15); border: 1px solid rgba(14,165,233,.4);
+    display: flex; align-items: center; justify-content: center; font-size: .85rem;
+    color: var(--nova-sky); flex-shrink: 0;
+    animation: novaIconSpin 8s linear infinite;
+  }
+  @keyframes novaIconSpin { 0%{box-shadow:0 0 0 0 rgba(14,165,233,.4)} 50%{box-shadow:0 0 0 6px rgba(14,165,233,0)} 100%{box-shadow:0 0 0 0 rgba(14,165,233,0)} }
+  .nova-trigger-text { display: flex; flex-direction: column; }
+  .nova-trigger-title { font-size: .72rem; font-weight: 800; color: var(--nova-sky); line-height: 1.2; }
+  .nova-trigger-sub { font-size: .62rem; color: rgba(14,165,233,.6); }
 
-    /* ── Bubble header ── */
-    .nova-bubble-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .nova-bubble-title {
-      font-family: 'Courier New', monospace;
-      font-size: 0.68rem;
-      letter-spacing: 0.14em;
-      color: var(--nova-blue);
-      text-transform: uppercase;
-    }
-    .nova-bubble-controls {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-    .nova-btn-icon {
-      background: none;
-      border: 1px solid rgba(14,165,233,0.35);
-      border-radius: 6px;
-      color: rgba(14,165,233,0.7);
-      font-size: 0.75rem;
-      width: 26px; height: 26px;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.2s, color 0.2s;
-    }
-    .nova-btn-icon:hover {
-      background: rgba(14,165,233,0.15);
-      color: var(--nova-blue);
-    }
+  /* MUTE BUTTON */
+  #nova-mute {
+    width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--nova-border);
+    background: rgba(255,255,255,.05); color: var(--nova-muted);
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    font-size: .65rem; transition: all .2s; margin-top: 6px; align-self: flex-end;
+  }
+  #nova-mute:hover { color: white; }
 
-    /* ── Message text ── */
-    #novaMsgText {
-      font-size: 0.9rem;
-      line-height: 1.6;
-      color: #cbd5e1;
-      min-height: 48px;
-    }
-    .nova-cursor {
-      display: inline-block;
-      width: 2px;
-      height: 1em;
-      background: var(--nova-blue);
-      margin-left: 2px;
-      vertical-align: middle;
-      animation: cursorBlink 0.7s step-end infinite;
-    }
-    @keyframes cursorBlink {
-      0%,100% { opacity: 1; } 50% { opacity: 0; }
-    }
-
-    /* ── Progress dots ── */
-    .nova-dots {
-      display: flex;
-      gap: 6px;
-      justify-content: center;
-    }
-    .nova-dot {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: rgba(14,165,233,0.25);
-      border: 1px solid rgba(14,165,233,0.5);
-      transition: background 0.3s, box-shadow 0.3s;
-    }
-    .nova-dot.active {
-      background: var(--nova-blue);
-      box-shadow: 0 0 8px rgba(14,165,233,0.8);
-    }
-
-    /* ── CTA buttons (last message) ── */
-    .nova-cta-row {
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-    }
-    .nova-cta-row a {
-      display: block;
-      text-align: center;
-      padding: 9px 12px;
-      border-radius: 8px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-    .nova-cta-row a:hover { transform: translateY(-1px); }
-    .nova-cta-primary {
-      background: var(--nova-blue);
-      color: #fff;
-      box-shadow: 0 0 14px rgba(14,165,233,0.45);
-    }
-    .nova-cta-secondary {
-      background: transparent;
-      border: 1.5px solid var(--nova-blue);
-      color: var(--nova-blue);
-    }
-    .nova-cta-whatsapp {
-      background: rgba(37,211,102,0.12);
-      border: 1.5px solid #25d366;
-      color: #25d366;
-    }
-
-    /* ══════════════════════════════════════
-       RESPONSIVE
-    ══════════════════════════════════════ */
-    @media (max-width: 540px) {
-      #novaBubble {
-        left: 16px;
-        bottom: 355px;
-        width: calc(100vw - 32px);
-        max-width: none;
-      }
-      #novaBubble::before, #novaBubble::after { display: none; }
-    }
+  /* RESPONSIVE */
+  @media (max-width: 480px) {
+    #nova-container { right: 12px; bottom: 90px; }
+    #nova-trigger { right: 72px; bottom: 22px; padding: 8px 12px 8px 10px; }
+    .nova-trigger-text { display: none; }
+    #nova-bubble { max-width: calc(100vw - 36px); }
+  }
   </style>
+  <!-- ═══ END NOVA STYLES ═══ -->
 </head>
 <body>
 
+  <!-- SKIP LINK -->
   <a href="#main" class="skip-link">Skip to main content</a>
 
   <!-- ANNOUNCEMENT BAR -->
   <div id="announcementBar" class="announcement-bar" role="banner">
     <span id="announcementText"></span>
     <a id="announcementCta" href="#contact" class="announcement-cta"></a>
-    <button class="announcement-close" onclick="closeAnnouncement()" aria-label="Close">×</button>
+    <button class="announcement-close" onclick="closeAnnouncement()" aria-label="Close announcement">\u00d7</button>
   </div>
 
   <!-- HEADER -->
   <header id="siteHeader" class="site-header">
     <div class="container header-inner">
-      <a href="index.html" class="logo" aria-label="BLESSTech-X home">
+      <a href="#" class="logo" aria-label="BLESSTech-X home">
         <img id="logoImg" src="" alt="BLESSTech-X Logo" width="40" height="40" />
         <span class="logo-text">BLESS<span>Tech-X</span></span>
       </a>
+
       <nav class="nav-links" id="navLinks" aria-label="Main navigation">
         <a href="#services">Services</a>
-        <a href="tools/index.html" class="nav-tools-link"><i class="fas fa-tools"></i> Free Tools</a>
         <a href="#portfolio">Portfolio</a>
         <a href="#process">How We Work</a>
         <a href="#testimonials">Clients</a>
         <a href="#faq">FAQ</a>
         <a href="#about">About</a>
+        <a href="blog.html">Blog</a>
         <a href="#contact" class="nav-cta">Get a Quote</a>
       </nav>
+
       <div class="header-actions">
         <a href="https://wa.me/260979603741" class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener">
           <i class="fab fa-whatsapp"></i> Chat
@@ -545,16 +354,14 @@
         <div class="hero-badge"><i class="fas fa-star"></i> Trusted by 150+ Zambian Businesses</div>
         <h1>We Build Digital Systems<br/>That Make Your Business Grow</h1>
         <p class="hero-sub" id="heroSub">Professional Websites &amp; E-commerce for Zambia</p>
-        <p class="hero-desc">From websites to full e-commerce stores with Airtel Money &amp; MTN Money — plus 20+ free tools for every Zambian.</p>
+        <p class="hero-desc">From websites to full e-commerce stores with Airtel Money &amp; MTN Money \u2014 delivered in 7\u201314 days.</p>
         <div class="hero-btns">
           <a href="#services" class="btn btn-primary"><i class="fas fa-rocket"></i> Explore Services</a>
-          <a href="tools/index.html" class="btn btn-tools"><i class="fas fa-tools"></i> Free Tools</a>
-          <a href="https://wa.me/260979603741?text=Hello%20BLESSTech-X%2C%20I%20want%20to%20start%20selling%20online." class="btn btn-whatsapp" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+          <a href="https://wa.me/260979603741?text=Hello%20BLESSTech-X%2C%20I%20want%20to%20start%20selling%20online." class="btn btn-whatsapp" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Start Selling Online</a>
         </div>
         <div class="hero-trust">
-          <div class="trust-pill"><i class="fas fa-tools"></i> 20+ Free Tools</div>
-          <div class="trust-pill"><i class="fas fa-shield-alt"></i> 30-Day Guarantee</div>
-          <div class="trust-pill"><i class="fas fa-bolt"></i> 7–14 Day Delivery</div>
+          <div class="trust-pill"><i class="fas fa-shield-alt"></i> 30-Day Money-Back Guarantee</div>
+          <div class="trust-pill"><i class="fas fa-bolt"></i> 7\u201314 Day Delivery</div>
           <div class="trust-pill"><i class="fas fa-mobile-alt"></i> Mobile Money Ready</div>
         </div>
       </div>
@@ -572,12 +379,14 @@
       <div class="container">
         <div class="section-header">
           <h2 class="section-title">Our Digital Services</h2>
-          <p class="section-sub">Tailored solutions for Zambian entrepreneurs — from first website to full e-commerce platform.</p>
+          <p class="section-sub">Tailored solutions for Zambian entrepreneurs \u2014 from first website to full e-commerce platform.</p>
         </div>
+
+        <!-- SERVICE FILTER & SEARCH -->
         <div class="service-controls">
           <div class="search-wrap">
             <i class="fas fa-search"></i>
-            <input type="text" id="serviceSearch" placeholder="Search services…" aria-label="Search services" />
+            <input type="text" id="serviceSearch" placeholder="Search services\u2026" aria-label="Search services" />
           </div>
           <div class="filter-pills" id="filterPills">
             <button class="pill active" data-filter="all">All</button>
@@ -589,54 +398,59 @@
             <button class="pill" data-filter="marketing">Marketing</button>
           </div>
         </div>
+
         <div class="services-grid" id="servicesGrid"></div>
       </div>
     </section>
 
-    <!-- FREE TOOLS TEASER -->
-    <section class="section tools-teaser-section" id="tools-teaser">
-      <div class="container">
-        <div class="section-header">
-          <div class="tools-teaser-eyebrow"><i class="fas fa-tools"></i> Completely Free · No Signup Required</div>
-          <h2 class="section-title">Free Tools for Every Zambian</h2>
-          <p class="section-sub">20+ tools for business owners, students, developers, workers, and researchers. Built for Zambia.</p>
-        </div>
-        <div class="tools-teaser-grid" id="toolsTeaserGrid"></div>
-        <div style="text-align:center;margin-top:3rem">
-          <a href="tools/index.html" class="btn btn-primary btn-lg">
-            <i class="fas fa-tools"></i> Explore All 20 Free Tools
-          </a>
-          <p style="color:var(--muted);font-size:0.88rem;margin-top:12px">No account needed. Works on any phone or computer.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- CALCULATOR -->
+    <!-- BUSINESS GROWTH CALCULATOR -->
     <section class="section calc-section" id="calculator">
       <div class="container">
         <div class="section-header">
           <h2 class="section-title">Business Growth Calculator</h2>
-          <p class="section-sub" style="color:#94a3b8">See the numbers before you invest.</p>
+          <p class="section-sub">See the numbers before you invest. Two tools, one box.</p>
         </div>
         <div class="calc-box">
           <div class="calc-tabs">
             <button class="calc-tab active" data-tab="roi"><i class="fas fa-chart-line"></i> Service ROI</button>
             <button class="calc-tab" data-tab="ecom"><i class="fas fa-store"></i> E-commerce Profit</button>
           </div>
+
+          <!-- ROI TAB -->
           <div class="calc-panel active" id="panelRoi">
             <div class="calc-fields">
-              <div class="field-group"><label for="roiCost">Project Cost (ZMW)</label><input type="number" id="roiCost" placeholder="e.g. 980" min="0" /></div>
-              <div class="field-group"><label for="roiClients">Expected New Clients/Month</label><input type="number" id="roiClients" placeholder="e.g. 5" min="0" /></div>
-              <div class="field-group"><label for="roiValue">Average Client Value (ZMW)</label><input type="number" id="roiValue" placeholder="e.g. 500" min="0" /></div>
+              <div class="field-group">
+                <label for="roiCost">Project Cost (ZMW)</label>
+                <input type="number" id="roiCost" placeholder="e.g. 980" min="0" />
+              </div>
+              <div class="field-group">
+                <label for="roiClients">Expected New Clients/Month</label>
+                <input type="number" id="roiClients" placeholder="e.g. 5" min="0" />
+              </div>
+              <div class="field-group">
+                <label for="roiValue">Average Client Value (ZMW)</label>
+                <input type="number" id="roiValue" placeholder="e.g. 500" min="0" />
+              </div>
             </div>
             <button class="btn btn-primary calc-btn" onclick="calcROI()"><i class="fas fa-calculator"></i> Calculate ROI</button>
             <div class="calc-result" id="roiResult"></div>
           </div>
+
+          <!-- ECOMMERCE TAB -->
           <div class="calc-panel" id="panelEcom">
             <div class="calc-fields">
-              <div class="field-group"><label for="ecomSpend">Monthly Ad Spend (ZMW)</label><input type="number" id="ecomSpend" placeholder="e.g. 500" min="0" /></div>
-              <div class="field-group"><label for="ecomSales">Number of Sales/Month</label><input type="number" id="ecomSales" placeholder="e.g. 40" min="0" /></div>
-              <div class="field-group"><label for="ecomProfit">Profit per Sale (ZMW)</label><input type="number" id="ecomProfit" placeholder="e.g. 80" min="0" /></div>
+              <div class="field-group">
+                <label for="ecomSpend">Monthly Ad Spend (ZMW)</label>
+                <input type="number" id="ecomSpend" placeholder="e.g. 500" min="0" />
+              </div>
+              <div class="field-group">
+                <label for="ecomSales">Number of Sales/Month</label>
+                <input type="number" id="ecomSales" placeholder="e.g. 40" min="0" />
+              </div>
+              <div class="field-group">
+                <label for="ecomProfit">Profit per Sale (ZMW)</label>
+                <input type="number" id="ecomProfit" placeholder="e.g. 80" min="0" />
+              </div>
             </div>
             <button class="btn btn-primary calc-btn" onclick="calcEcom()"><i class="fas fa-calculator"></i> Calculate Profit</button>
             <div class="calc-result" id="ecomResult"></div>
@@ -645,12 +459,12 @@
       </div>
     </section>
 
-    <!-- PROCESS -->
+    <!-- PROCESS / HOW WE WORK -->
     <section class="section section-alt" id="process">
       <div class="container">
         <div class="section-header">
           <h2 class="section-title">How We Work</h2>
-          <p class="section-sub">A clear 5-step process — from first call to live website in 7–14 days.</p>
+          <p class="section-sub">A clear 5-step process \u2014 from first call to live website in 7\u201314 days.</p>
         </div>
         <div class="process-steps" id="processSteps"></div>
       </div>
@@ -660,8 +474,8 @@
     <section class="section" id="portfolio">
       <div class="container">
         <div class="section-header">
-          <h2 class="section-title">Portfolio &amp; Case Studies</h2>
-          <p class="section-sub">Real results for Zambian businesses — before and after.</p>
+          <h2 class="section-title">Portfolio & Case Studies</h2>
+          <p class="section-sub">Real results for Zambian businesses \u2014 before and after.</p>
         </div>
         <div class="filter-pills" id="portfolioPills" style="justify-content:center;margin-bottom:2rem">
           <button class="pill active" data-pf="all">All</button>
@@ -680,7 +494,7 @@
           <div class="lead-text">
             <span class="lead-eyebrow">Free Resource</span>
             <h2>Digital Success Checklist for Zambian Businesses</h2>
-            <p>Get our free checklist — 25 steps to launch a profitable online business in Zambia.</p>
+            <p>Get our free checklist \u2014 25 steps to launch a profitable online business in Zambia, including payment gateway setup and SEO basics.</p>
             <ul class="lead-list">
               <li><i class="fas fa-check"></i> Zambian payment gateway checklist</li>
               <li><i class="fas fa-check"></i> Mobile-first website must-haves</li>
@@ -692,12 +506,14 @@
               <input type="text" name="name" placeholder="Your Name" required aria-label="Your name" />
               <input type="email" name="email" placeholder="Your Email Address" required aria-label="Your email" />
               <input type="tel" name="phone" placeholder="WhatsApp Number (optional)" aria-label="WhatsApp number" />
-              <button type="submit" class="btn btn-primary" style="width:100%"><i class="fas fa-download"></i> Send Me the Checklist</button>
-              <p class="form-note">No spam, ever.</p>
+              <button type="submit" class="btn btn-primary" style="width:100%">
+                <i class="fas fa-download"></i> Send Me the Checklist
+              </button>
+              <p class="form-note">We respect your privacy. No spam, ever.</p>
             </form>
             <div id="leadSuccess" class="lead-success" style="display:none">
               <i class="fas fa-check-circle"></i>
-              <p>Done! We'll send it to your WhatsApp shortly.</p>
+              <p>Done! Check your WhatsApp or email \u2014 we'll send it shortly.</p>
             </div>
           </div>
         </div>
@@ -738,7 +554,7 @@
         </div>
         <div class="about-grid">
           <div class="about-text">
-            <p>Founded by Barack Blessings and Sylvester Mwila, BLESSTech-X exists to make professional digital services accessible to every Zambian entrepreneur — not just large corporates.</p>
+            <p>Founded by Barack Blessings and Sylvester Mwila, BLESSTech-X exists to make professional digital services accessible to every Zambian entrepreneur \u2014 not just large corporates.</p>
             <p>We combine technical e-commerce expertise with certified financial strategy to deliver solutions that don't just look good, but actually generate revenue.</p>
             <div class="team-grid" id="teamGrid"></div>
           </div>
@@ -772,35 +588,31 @@
             </div>
           </div>
           <div class="contact-form-wrap">
-            <form id="contactForm" class="contact-form" action="https://formspree.io/f/xgoljakz" method="POST">
-  <div class="form-row">
-    <input type="text" name="name" placeholder="Your Name" required aria-label="Your name" />
-    <input type="email" name="email" placeholder="Your Email" required aria-label="Your email" />
-  </div>
-  <input type="text" name="business" placeholder="Your Business Name" aria-label="Business name" />
-  
-  <select name="service" required aria-label="Service interested in">
-    <option value="" disabled selected>Service Interested In</option>
-    <option value="Complete E-commerce Store">Complete E-commerce Store</option>
-    <option value="Add E-commerce to Existing Site">Add E-commerce to Existing Site</option>
-    <option value="Professional Website">Professional Website</option>
-    <option value="Logo & Brand Identity">Logo & Brand Identity</option>
-    <option value="Graphic Design">Graphic Design</option>
-    <option value="Digital Business Setup">Digital Business Setup</option>
-    <option value="Social Media Management">Social Media Management</option>
-    <option value="SEO & Google Visibility">SEO & Google Visibility</option>
-    <option value="Free Consultation">Free Consultation</option>
-  </select>
-
-  <textarea name="message" placeholder="Tell us about your project and goals…" required aria-label="Project description"></textarea>
-  
-  <button type="submit" class="btn btn-primary" style="width:100%">
-    <i class="fas fa-paper-plane"></i> Send Message
-  </button>
-  
-  <div id="contactSuccess" class="form-success" style="display:none">
-    <i class="fas fa-check-circle"></i> Sent! We'll reply within a few hours.
-  </div>
+            <form id="contactForm" class="contact-form">
+              <div class="form-row">
+                <input type="text" name="name" placeholder="Your Name" required aria-label="Your name" />
+                <input type="email" name="email" placeholder="Your Email" required aria-label="Your email" />
+              </div>
+              <input type="text" name="business" placeholder="Your Business Name" aria-label="Business name" />
+              <select name="service" required aria-label="Service interested in">
+                <option value="" disabled selected>Service Interested In</option>
+                <option>Complete E-commerce Store</option>
+                <option>Add E-commerce to Existing Site</option>
+                <option>Professional Website</option>
+                <option>Logo & Brand Identity</option>
+                <option>Graphic Design</option>
+                <option>Digital Business Setup</option>
+                <option>Social Media Management</option>
+                <option>SEO & Google Visibility</option>
+                <option>Free Consultation</option>
+              </select>
+              <textarea name="message" placeholder="Tell us about your project and goals\u2026" required aria-label="Project description"></textarea>
+              <button type="submit" class="btn btn-primary" style="width:100%">
+                <i class="fas fa-paper-plane"></i> Send Message
+              </button>
+              <div id="contactSuccess" class="form-success" style="display:none">
+                <i class="fas fa-check-circle"></i> Sent! We'll reply within a few hours.
+              </div>
             </form>
           </div>
         </div>
@@ -818,43 +630,44 @@
             <img id="footerLogo" src="" alt="BLESSTech-X" width="36" height="36" />
             <span class="logo-text">BLESS<span>Tech-X</span></span>
           </div>
-          <p>Professional digital solutions plus 20+ free tools for Zambian entrepreneurs, students, and developers.</p>
+          <p>Professional digital solutions for Zambian entrepreneurs. Helping businesses sell online and thrive.</p>
         </div>
         <div class="footer-links-col">
           <h4>Quick Links</h4>
           <ul>
             <li><a href="#services">Services</a></li>
-            <li><a href="tools/index.html">Free Tools</a></li>
             <li><a href="#portfolio">Portfolio</a></li>
             <li><a href="#process">How We Work</a></li>
+            <li><a href="#testimonials">Clients</a></li>
             <li><a href="#faq">FAQ</a></li>
             <li><a href="#about">About</a></li>
+            <li><a href="blog.html">Blog</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
         </div>
         <div class="footer-links-col">
-          <h4>Popular Free Tools</h4>
+          <h4>Top Services</h4>
           <ul>
-            <li><a href="tools/invoice/index.html">Invoice Generator</a></li>
-            <li><a href="tools/cv-builder/index.html">CV &amp; Resume Builder</a></li>
-            <li><a href="tools/email-writer/index.html">Email Writer</a></li>
-            <li><a href="tools/qr-generator/index.html">QR Code Generator</a></li>
-            <li><a href="tools/currency-converter/index.html">Currency Converter</a></li>
-            <li><a href="tools/budget-planner/index.html">Budget Planner</a></li>
+            <li><a href="#services">E-commerce Store Setup</a></li>
+            <li><a href="#services">Payment Gateway Integration</a></li>
+            <li><a href="#services">Professional Websites</a></li>
+            <li><a href="#services">Logo & Branding</a></li>
+            <li><a href="#services">Social Media Management</a></li>
+            <li><a href="#services">SEO & Google Visibility</a></li>
           </ul>
         </div>
         <div class="footer-links-col">
           <h4>Contact</h4>
           <ul>
             <li><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a></li>
-            <li><a href="mailto:singbless89@gmail.com"><i class="fas fa-envelope"></i> singbless89@gmail.com</a></li>
+            <li><a href="/cdn-cgi/l/email-protection#493a20272e2b252c3a3a7170092e24282025672a2624"><i class="fas fa-envelope"></i> <span class="__cf_email__" data-cfemail="9fecf6f1f8fdf3faececa7a6dff8f2fef6f3b1fcf0f2">[email&#160;protected]</span></a></li>
             <li><span><i class="fas fa-map-marker-alt"></i> Lusaka, Zambia</span></li>
             <li><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
           </ul>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2026 BLESSTech-X. All rights reserved. Built for Zambia &amp; the Globe 🌍</p>
+        <p>&copy; 2026 BLESSTech-X. All rights reserved. Designed for Zambian Businesses & the Globe \ud83c\udf0d</p>
         <div class="footer-pay-icons">
           <i class="fas fa-mobile-alt" title="Airtel Money"></i>
           <i class="fas fa-sim-card" title="MTN Money"></i>
@@ -871,47 +684,8 @@
     <i class="fab fa-whatsapp"></i>
   </a>
 
-  <!-- POPUP SYSTEM -->
-  <div id="popupOverlay" class="popup-overlay" onclick="dismissPopup()"></div>
-
-  <!-- Popup 1 -->
-  <div id="popup1" class="popup-card popup-bottom-right" role="dialog" aria-label="Discover free tools">
-    <button class="popup-close" onclick="dismissPopup()" aria-label="Close">×</button>
-    <div class="popup-icon">🛠️</div>
-    <h4>Free Tools for Every Zambian</h4>
-    <p>Invoice generators, CV builders, email writers, QR codes and more — 20+ free tools, no signup needed.</p>
-    <div class="popup-actions">
-      <a href="tools/index.html" class="btn btn-primary btn-sm" onclick="dismissPopup()">Explore Free Tools</a>
-      <button class="popup-later" onclick="dismissPopup()">Maybe later</button>
-    </div>
-  </div>
-
-  <!-- Popup 2 -->
-  <div id="popup2" class="popup-card popup-bottom-right" role="dialog" aria-label="Related free tool">
-    <button class="popup-close" onclick="dismissPopup()" aria-label="Close">×</button>
-    <div class="popup-icon">💡</div>
-    <h4 id="popup2Title">Did you know?</h4>
-    <p id="popup2Text">Try one of our free tools while you're here.</p>
-    <div class="popup-actions">
-      <a id="popup2Link" href="tools/index.html" class="btn btn-primary btn-sm" onclick="dismissPopup()">Try It Free</a>
-      <button class="popup-later" onclick="dismissPopup()">Dismiss</button>
-    </div>
-  </div>
-
-  <!-- Popup 3 -->
-  <div id="popup3" class="popup-card popup-bottom-right" role="dialog" aria-label="Tool highlight">
-    <button class="popup-close" onclick="dismissPopup()" aria-label="Close">×</button>
-    <div class="popup-icon" id="popup3Icon">⚡</div>
-    <h4 id="popup3Title">Try this free tool</h4>
-    <p id="popup3Text">One of our most-used tools for Zambians.</p>
-    <div class="popup-actions">
-      <a id="popup3Link" href="tools/index.html" class="btn btn-primary btn-sm" onclick="dismissPopup()">Open Tool</a>
-      <button class="popup-later" onclick="dismissPopup()">Not now</button>
-    </div>
-  </div>
-
   <!-- SERVICE MODAL -->
-  <div class="modal-overlay" id="serviceModal" role="dialog" aria-modal="true">
+  <div class="modal-overlay" id="serviceModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal-box">
       <button class="modal-close" onclick="closeModal('serviceModal')" aria-label="Close">&times;</button>
       <div id="serviceModalContent"></div>
@@ -919,446 +693,15 @@
   </div>
 
   <!-- PORTFOLIO MODAL -->
-  <div class="modal-overlay" id="portfolioModal" role="dialog" aria-modal="true">
+  <div class="modal-overlay" id="portfolioModal" role="dialog" aria-modal="true" aria-labelledby="portfolioModalTitle">
     <div class="modal-box modal-box-wide">
       <button class="modal-close" onclick="closeModal('portfolioModal')" aria-label="Close">&times;</button>
       <div id="portfolioModalContent"></div>
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════
-       NOVA HOLOGRAPHIC PORTAL — HTML STRUCTURE
-  ═══════════════════════════════════════════════ -->
-
-  <!-- Trigger button (shown when portal is closed) -->
-  <button id="novaTriggerBtn" aria-label="Talk to Nova" onclick="novaOpen()">
-    <span class="trigger-dot"></span>
-    Ask Nova
-  </button>
-
-  <!-- Portal + label wrapper -->
-  <div id="novaPortalWrap" aria-label="Nova AI assistant portal" role="region">
-
-    <!-- Portal visual -->
-    <div class="nova-portal" id="novaPortal" onclick="novaHandlePortalClick()" title="Click to replay">
-
-      <!-- Concentric expanding rings (outside the portal) -->
-      <div class="nova-ring"></div>
-      <div class="nova-ring"></div>
-      <div class="nova-ring"></div>
-
-      <!-- Portal oval rim glow -->
-      <div class="nova-rim"></div>
-
-      <!-- Dark interior -->
-      <div class="nova-interior" id="novaInterior">
-
-        <!-- Vertical grid lines -->
-        <div class="nova-grid-lines"></div>
-
-        <!-- Sweeping horizontal scan line -->
-        <div class="nova-scanline"></div>
-
-        <!-- Human figure -->
-        <div class="nova-figure-wrap" id="novaFigure">
-          <svg class="nova-figure-svg" viewBox="0 0 140 290" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <!-- Body gradient: more opaque at core, transparent at edges -->
-              <radialGradient id="bodyGrad" cx="50%" cy="50%" r="50%">
-                <stop offset="0%"   stop-color="#0ea5e9" stop-opacity="0.32"/>
-                <stop offset="55%"  stop-color="#38bdf8" stop-opacity="0.18"/>
-                <stop offset="100%" stop-color="#0ea5e9" stop-opacity="0.06"/>
-              </radialGradient>
-              <!-- Head gradient -->
-              <radialGradient id="headGrad" cx="50%" cy="40%" r="55%">
-                <stop offset="0%"   stop-color="#38bdf8" stop-opacity="0.38"/>
-                <stop offset="60%"  stop-color="#0ea5e9" stop-opacity="0.22"/>
-                <stop offset="100%" stop-color="#0ea5e9" stop-opacity="0.06"/>
-              </radialGradient>
-              <!-- Edge rim gradient for figure outline -->
-              <linearGradient id="figureEdge" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%"   stop-color="#38bdf8" stop-opacity="0.55"/>
-                <stop offset="100%" stop-color="#0ea5e9" stop-opacity="0.25"/>
-              </linearGradient>
-              <!-- Highlight strip -->
-              <linearGradient id="highlightV" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%"   stop-color="#7dd3fc" stop-opacity="0.35"/>
-                <stop offset="40%"  stop-color="#38bdf8" stop-opacity="0.15"/>
-                <stop offset="100%" stop-color="#0ea5e9" stop-opacity="0.04"/>
-              </linearGradient>
-              <!-- Clip for figure (so internal effects stay inside) -->
-              <clipPath id="figureClip">
-                <!-- Head -->
-                <ellipse cx="70" cy="38" rx="26" ry="30"/>
-                <!-- Neck -->
-                <rect x="62" y="64" width="16" height="14"/>
-                <!-- Shoulders + torso -->
-                <path d="M18,80 Q28,72 70,72 Q112,72 122,80 L118,185 Q110,195 70,197 Q30,195 22,185 Z"/>
-                <!-- Arms left -->
-                <path d="M18,80 Q5,100 8,155 Q12,165 22,160 Q28,150 26,100 Z"/>
-                <!-- Arms right -->
-                <path d="M122,80 Q135,100 132,155 Q128,165 118,160 Q112,150 114,100 Z"/>
-                <!-- Lower torso / hips -->
-                <path d="M30,190 Q50,205 70,207 Q90,205 110,190 L106,260 Q90,275 70,277 Q50,275 34,260 Z"/>
-              </clipPath>
-            </defs>
-
-            <!-- ── Figure fill layers ── -->
-
-            <!-- Layer 1: soft body fill -->
-            <g clip-path="url(#figureClip)">
-              <ellipse cx="70" cy="38" rx="26" ry="30" fill="url(#headGrad)"/>
-              <rect x="62" y="64" width="16" height="14" fill="url(#bodyGrad)" opacity="0.6"/>
-              <path d="M18,80 Q28,72 70,72 Q112,72 122,80 L118,185 Q110,195 70,197 Q30,195 22,185 Z" fill="url(#bodyGrad)"/>
-              <path d="M18,80 Q5,100 8,155 Q12,165 22,160 Q28,150 26,100 Z" fill="url(#bodyGrad)" opacity="0.75"/>
-              <path d="M122,80 Q135,100 132,155 Q128,165 118,160 Q112,150 114,100 Z" fill="url(#bodyGrad)" opacity="0.75"/>
-              <path d="M30,190 Q50,205 70,207 Q90,205 110,190 L106,260 Q90,275 70,277 Q50,275 34,260 Z" fill="url(#bodyGrad)"/>
-              <!-- vertical highlight strip -->
-              <rect x="58" y="0" width="24" height="290" fill="url(#highlightV)" opacity="0.5"/>
-            </g>
-
-            <!-- Layer 2: outline strokes (the "hologram edge" look) -->
-            <!-- Head outline -->
-            <ellipse cx="70" cy="38" rx="26" ry="30"
-              fill="none" stroke="url(#figureEdge)" stroke-width="1.2" opacity="0.7"/>
-            <!-- Neck -->
-            <rect x="62" y="64" width="16" height="14"
-              fill="none" stroke="url(#figureEdge)" stroke-width="0.8" opacity="0.5"/>
-            <!-- Torso outline -->
-            <path d="M18,80 Q28,72 70,72 Q112,72 122,80 L118,185 Q110,195 70,197 Q30,195 22,185 Z"
-              fill="none" stroke="url(#figureEdge)" stroke-width="1.2" opacity="0.65"/>
-            <!-- Left arm -->
-            <path d="M18,80 Q5,100 8,155 Q12,165 22,160 Q28,150 26,100 Z"
-              fill="none" stroke="url(#figureEdge)" stroke-width="1.0" opacity="0.55"/>
-            <!-- Right arm -->
-            <path d="M122,80 Q135,100 132,155 Q128,165 118,160 Q112,150 114,100 Z"
-              fill="none" stroke="url(#figureEdge)" stroke-width="1.0" opacity="0.55"/>
-            <!-- Lower body -->
-            <path d="M30,190 Q50,205 70,207 Q90,205 110,190 L106,260 Q90,275 70,277 Q50,275 34,260 Z"
-              fill="none" stroke="url(#figureEdge)" stroke-width="1.2" opacity="0.6"/>
-
-            <!-- Layer 3: facial features — very subtle -->
-            <!-- Eyes -->
-            <ellipse cx="61" cy="33" rx="4" ry="2.5" fill="#38bdf8" opacity="0.40"/>
-            <ellipse cx="79" cy="33" rx="4" ry="2.5" fill="#38bdf8" opacity="0.40"/>
-            <!-- Eye glints -->
-            <circle cx="62.5" cy="32" r="1.2" fill="#7dd3fc" opacity="0.60"/>
-            <circle cx="80.5" cy="32" r="1.2" fill="#7dd3fc" opacity="0.60"/>
-            <!-- Nose bridge -->
-            <line x1="70" y1="36" x2="68" y2="43" stroke="#38bdf8" stroke-width="0.7" opacity="0.25"/>
-            <!-- Mouth — animated glow target -->
-            <path id="novaMouthPath" d="M63,48 Q70,53 77,48"
-              fill="none" stroke="#38bdf8" stroke-width="1.4"
-              stroke-linecap="round" opacity="0.40"/>
-
-            <!-- Layer 4: scan line internal texture -->
-            <rect x="0" y="0" width="140" height="290"
-              fill="none"
-              stroke="#0ea5e9"
-              stroke-width="0"
-              opacity="0"/>
-
-            <!-- Layer 5: shoulder highlight arc -->
-            <path d="M30,80 Q70,68 110,80"
-              fill="none" stroke="#7dd3fc" stroke-width="1.0" opacity="0.35"/>
-
-          </svg>
-        </div>
-        <!-- / nova-figure-wrap -->
-
-        <!-- Mouth area glow (brightens when speaking) -->
-        <div class="nova-mouth-glow" id="novaMouthGlow"></div>
-
-        <!-- Voice waveform bars -->
-        <div class="nova-waveform" id="novaWaveform">
-          <span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span>
-        </div>
-
-      </div>
-      <!-- / nova-interior -->
-
-    </div>
-    <!-- / nova-portal -->
-
-    <!-- Ground shadow -->
-    <div class="nova-ground-shadow"></div>
-
-    <!-- Label -->
-    <div class="nova-label">Nova &middot; Live Transmission</div>
-
-  </div>
-  <!-- / novaPortalWrap -->
-
-  <!-- Speech bubble -->
-  <div id="novaBubble" role="status" aria-live="polite">
-    <div class="nova-bubble-header">
-      <span class="nova-bubble-title">⬡ Nova — BLESSTech-X</span>
-      <div class="nova-bubble-controls">
-        <button class="nova-btn-icon" id="novaMuteBtn" onclick="novaToggleMute()" title="Mute / Unmute" aria-label="Toggle mute">
-          <i class="fas fa-volume-up" id="novaMuteIcon"></i>
-        </button>
-        <button class="nova-btn-icon" onclick="novaClose()" title="Close" aria-label="Close Nova">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-    </div>
-
-    <div id="novaMsgText"><span class="nova-cursor"></span></div>
-
-    <div class="nova-dots" id="novaDots"></div>
-
-    <!-- CTA buttons (only shown on last message) -->
-    <div class="nova-cta-row" id="novaCtaRow" style="display:none">
-      <a href="#services" class="nova-cta-primary" onclick="novaClose()">
-        <i class="fas fa-rocket"></i> &nbsp;Explore Our Services
-      </a>
-      <a href="tools/index.html" class="nova-cta-secondary">
-        <i class="fas fa-tools"></i> &nbsp;Try Free Tools
-      </a>
-      <a href="https://wa.me/260979603741" class="nova-cta-whatsapp" target="_blank" rel="noopener">
-        <i class="fab fa-whatsapp"></i> &nbsp;WhatsApp Us Now
-      </a>
-    </div>
-  </div>
-  <!-- / novaBubble -->
-
-  <!-- ═══════════════════════════════════════════════
-       NOVA HOLOGRAPHIC PORTAL — JAVASCRIPT
-  ═══════════════════════════════════════════════ -->
-  <script>
-  (function () {
-    'use strict';
-
-    /* ── Config ─────────────────────────────────── */
-    const MESSAGES = [
-      "Hello! I'm Nova, your digital guide at BLESSTech-X. We help Zambian businesses go online — fast, affordable, and built to grow.",
-      "Did you know we offer 20-plus completely free tools? Invoice generators, CV builders, QR code makers — no account needed, right now.",
-      "Our e-commerce stores come with Airtel Money and MTN Money integration built in — so you can start selling online to all of Zambia.",
-      "Ready to grow your business digitally? Explore our services, try a free tool, or send us a WhatsApp message — we reply the same day!"
-    ];
-
-    const VOICE_NAME    = 'Google UK English Female';
-    const VOICE_RATE    = 0.95;
-    const VOICE_PITCH   = 1.1;
-    const VOICE_VOLUME  = 0.88;
-    const TYPE_SPEED    = 38;   // ms per character
-    const OPEN_DELAY    = 10000; // 10 s
-    const ADVANCE_PAUSE = 800;   // ms after both done
-
-    /* ── State ───────────────────────────────────── */
-    let isOpen        = false;
-    let isMuted       = false;
-    let currentMsg    = 0;
-    let typeTimer     = null;
-    let typingDone    = false;
-    let speechDone    = false;
-    let advanceQueued = false;
-    let voices        = [];
-
-    /* ── DOM refs ────────────────────────────────── */
-    const wrap       = document.getElementById('novaPortalWrap');
-    const bubble     = document.getElementById('novaBubble');
-    const msgText    = document.getElementById('novaMsgText');
-    const dotsWrap   = document.getElementById('novaDots');
-    const ctaRow     = document.getElementById('novaCtaRow');
-    const triggerBtn = document.getElementById('novaTriggerBtn');
-    const muteIcon   = document.getElementById('novaMuteIcon');
-    const interior   = document.getElementById('novaInterior');
-
-    /* ── Build progress dots ─────────────────────── */
-    function buildDots () {
-      dotsWrap.innerHTML = '';
-      MESSAGES.forEach((_, i) => {
-        const d = document.createElement('span');
-        d.className = 'nova-dot' + (i === 0 ? ' active' : '');
-        dotsWrap.appendChild(d);
-      });
-    }
-
-    function updateDots () {
-      Array.from(dotsWrap.children).forEach((d, i) => {
-        d.classList.toggle('active', i === currentMsg);
-      });
-    }
-
-    /* ── Voice loading ───────────────────────────── */
-    function loadVoices () {
-      voices = window.speechSynthesis.getVoices();
-    }
-    if (typeof speechSynthesis !== 'undefined') {
-      speechSynthesis.onvoiceschanged = loadVoices;
-      loadVoices();
-    }
-
-    function pickVoice () {
-      const exact = voices.find(v => v.name === VOICE_NAME);
-      if (exact) return exact;
-      const gb = voices.find(v => /en.*gb/i.test(v.lang) || /gb.*en/i.test(v.lang));
-      if (gb) return gb;
-      return voices.find(v => /en/i.test(v.lang)) || null;
-    }
-
-    /* ── Speaking state helpers ──────────────────── */
-    function setSpeaking (on) {
-      interior.classList.toggle('nova-speaking', on);
-    }
-
-    /* ── Typewriter ──────────────────────────────── */
-    function typeMessage (text, onComplete) {
-      clearTimeout(typeTimer);
-      msgText.innerHTML = '<span class="nova-cursor"></span>';
-      let i = 0;
-
-      function tick () {
-        if (i < text.length) {
-          // Insert char before the cursor span
-          const cursor = msgText.querySelector('.nova-cursor');
-          cursor.insertAdjacentText('beforebegin', text[i]);
-          i++;
-          typeTimer = setTimeout(tick, TYPE_SPEED);
-        } else {
-          // Remove cursor when done
-          const cursor = msgText.querySelector('.nova-cursor');
-          if (cursor) cursor.remove();
-          typingDone = true;
-          onComplete && onComplete();
-          tryAdvance();
-        }
-      }
-      tick();
-    }
-
-    /* ── Speech ──────────────────────────────────── */
-    function speakMessage (text) {
-      if (typeof speechSynthesis === 'undefined') {
-        speechDone = true;
-        tryAdvance();
-        return;
-      }
-      speechSynthesis.cancel();
-      if (isMuted) {
-        speechDone = true;
-        tryAdvance();
-        return;
-      }
-
-      const utt = new SpeechSynthesisUtterance(text);
-      const v = pickVoice();
-      if (v) utt.voice = v;
-      utt.rate   = VOICE_RATE;
-      utt.pitch  = VOICE_PITCH;
-      utt.volume = VOICE_VOLUME;
-
-      utt.onstart = () => setSpeaking(true);
-      utt.onend   = () => {
-        setSpeaking(false);
-        speechDone = true;
-        tryAdvance();
-      };
-      utt.onerror = () => {
-        setSpeaking(false);
-        speechDone = true;
-        tryAdvance();
-      };
-
-      speechSynthesis.speak(utt);
-    }
-
-    /* ── Advance guard ───────────────────────────── */
-    function tryAdvance () {
-      if (!typingDone || !speechDone) return;
-      if (advanceQueued) return;
-      if (currentMsg >= MESSAGES.length - 1) {
-        // Show CTAs on last message
-        ctaRow.style.display = 'flex';
-        return;
-      }
-      advanceQueued = true;
-      setTimeout(() => {
-        advanceQueued = false;
-        currentMsg++;
-        playMessage(currentMsg);
-      }, ADVANCE_PAUSE);
-    }
-
-    /* ── Play a message by index ─────────────────── */
-    function playMessage (idx) {
-      typingDone    = false;
-      speechDone    = false;
-      advanceQueued = false;
-      ctaRow.style.display = 'none';
-      currentMsg = idx;
-      updateDots();
-
-      const text = MESSAGES[idx];
-
-      // Start both in parallel; each fires tryAdvance when done
-      typeMessage(text);
-      speakMessage(text);
-    }
-
-    /* ── Open ────────────────────────────────────── */
-    function novaOpen () {
-      if (isOpen) return;
-      isOpen = true;
-      triggerBtn.style.display = 'none';
-      wrap.classList.add('nova-visible');
-      bubble.classList.add('nova-bubble-visible');
-      buildDots();
-      currentMsg = 0;
-      playMessage(0);
-    }
-    window.novaOpen = novaOpen;
-
-    /* ── Close ───────────────────────────────────── */
-    function novaClose () {
-      isOpen = false;
-      clearTimeout(typeTimer);
-      if (typeof speechSynthesis !== 'undefined') speechSynthesis.cancel();
-      setSpeaking(false);
-      wrap.classList.remove('nova-visible');
-      bubble.classList.remove('nova-bubble-visible');
-      triggerBtn.style.display = 'flex';
-    }
-    window.novaClose = novaClose;
-
-    /* ── Portal click = replay ───────────────────── */
-    function novaHandlePortalClick () {
-      if (!isOpen) { novaOpen(); return; }
-      // Replay from beginning
-      clearTimeout(typeTimer);
-      if (typeof speechSynthesis !== 'undefined') speechSynthesis.cancel();
-      setSpeaking(false);
-      currentMsg = 0;
-      playMessage(0);
-    }
-    window.novaHandlePortalClick = novaHandlePortalClick;
-
-    /* ── Mute toggle ─────────────────────────────── */
-    function novaToggleMute () {
-      isMuted = !isMuted;
-      muteIcon.className = isMuted ? 'fas fa-volume-mute' : 'fas fa-volume-up';
-      if (isMuted && typeof speechSynthesis !== 'undefined') {
-        speechSynthesis.cancel();
-        setSpeaking(false);
-        // If we muted mid-message, mark speech done so typing can advance
-        if (!speechDone) {
-          speechDone = true;
-          tryAdvance();
-        }
-      }
-    }
-    window.novaToggleMute = novaToggleMute;
-
-    /* ── Auto-open after 10 s ────────────────────── */
-    setTimeout(novaOpen, OPEN_DELAY);
-
-  })();
-  </script>
-
   <!-- Tawk.to -->
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
     (function(){
       var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
@@ -1371,5 +714,422 @@
   </script>
 
   <script src="script.js"></script>
-</body>
-</html>
+
+<!-- ═══════════════════════════════════════════════════════
+     NOVA START — COPY EVERYTHING FROM HERE ...
+     ════════════════════════════════════════════════════ -->
+
+<!-- BACKDROP -->
+<div id="nova-backdrop" onclick="novaDismiss()"></div>
+
+<!-- TRIGGER BUTTON -->
+<button id="nova-trigger" onclick="novaOpen()" aria-label="Talk to Nova, your AI assistant">
+  <div class="nova-trigger-icon"><i class="fas fa-satellite-dish"></i></div>
+  <div class="nova-trigger-text">
+    <span class="nova-trigger-title">Ask Nova</span>
+    <span class="nova-trigger-sub">AI Assistant</span>
+  </div>
+</button>
+
+<!-- NOVA PANEL -->
+<div id="nova-container" role="dialog" aria-label="Nova AI Assistant" aria-live="polite">
+
+  <!-- Mute toggle -->
+  <button id="nova-mute" onclick="novaMute()" title="Toggle voice" aria-label="Toggle voice">🔊</button>
+
+  <!-- Speech bubble -->
+  <div id="nova-bubble">
+    <div class="nova-bubble-header">
+      <div class="nova-bubble-title">
+        <div class="nova-live-dot"></div>
+        Nova · BLESSTech-X
+      </div>
+      <button id="nova-close-btn" onclick="novaDismiss()" aria-label="Close Nova">✕</button>
+    </div>
+    <div id="nova-text"></div>
+    <div id="nova-ctas" class="nova-ctas"></div>
+    <div class="nova-progress" id="nova-progress"></div>
+  </div>
+
+  <!-- Holographic Avatar -->
+  <div id="nova-avatar" onclick="novaReplay()" title="Click to replay">
+    <div class="nova-ring"></div>
+    <div class="nova-ring"></div>
+    <div class="nova-ring"></div>
+    <div class="nova-core">
+      <!-- SVG face -->
+      <svg class="nova-face" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Head -->
+        <circle cx="22" cy="20" r="14" stroke="#0ea5e9" stroke-width="1.2" fill="none" opacity=".6"/>
+        <!-- Eyes -->
+        <ellipse cx="17" cy="17" rx="2.5" ry="2.5" fill="#0ea5e9" opacity=".9" id="nova-eye-l"/>
+        <ellipse cx="27" cy="17" rx="2.5" ry="2.5" fill="#0ea5e9" opacity=".9" id="nova-eye-r"/>
+        <!-- Mouth -->
+        <path id="nova-mouth" d="M17 24 Q22 28 27 24" stroke="#0ea5e9" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".8"/>
+        <!-- Grid lines (hologram effect) -->
+        <line x1="8" y1="20" x2="36" y2="20" stroke="#0ea5e9" stroke-width=".3" opacity=".2"/>
+        <line x1="8" y1="23" x2="36" y2="23" stroke="#0ea5e9" stroke-width=".3" opacity=".15"/>
+        <line x1="8" y1="17" x2="36" y2="17" stroke="#0ea5e9" stroke-width=".3" opacity=".15"/>
+        <!-- Circuit nodes -->
+        <circle cx="8" cy="20" r="1" fill="#0ea5e9" opacity=".4"/>
+        <circle cx="36" cy="20" r="1" fill="#0ea5e9" opacity=".4"/>
+        <circle cx="22" cy="6" r="1" fill="#0ea5e9" opacity=".4"/>
+        <circle cx="22" cy="34" r="1.2" fill="#0ea5e9" opacity=".4"/>
+        <!-- Shoulder lines -->
+        <path d="M10 34 Q22 38 34 34" stroke="#0ea5e9" stroke-width="1" fill="none" opacity=".4"/>
+        <!-- Neck -->
+        <line x1="22" y1="34" x2="22" y2="38" stroke="#0ea5e9" stroke-width="1.2" opacity=".4"/>
+      </svg>
+      <div class="nova-scan"></div>
+    </div>
+    <!-- Voice waveform -->
+    <div class="nova-wave" id="nova-wave">
+      <div class="nova-bar"></div>
+      <div class="nova-bar"></div>
+      <div class="nova-bar"></div>
+      <div class="nova-bar"></div>
+      <div class="nova-bar"></div>
+    </div>
+    <div class="nova-label">NOVA AI</div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     NOVA END
+     ════════════════════════════════════════════════════ -->
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   NOVA — BLESSTech-X Holographic AI Assistant
+   Drop this script before </body> in your index.html
+   ═══════════════════════════════════════════════════════════ */
+
+(function() {
+  'use strict';
+
+  // ── CONFIGURATION ─────────────────────────────────────────
+  var NOVA_CFG = {
+    // Delay after page load before Nova appears (milliseconds)
+    entryDelay: 10000,      // 10 seconds
+
+    // How long to wait before auto-dismissing (0 = never)
+    autoDismiss: 0,
+
+    // Sound on/off by default
+    soundOn: true,
+
+    // Typing speed in ms per character
+    typeSpeed: 28,
+
+    // Pause between messages in ms
+    messagePause: 800,
+
+    // Voice settings
+    voice: {
+      rate: 0.95,
+      pitch: 1.1,
+      volume: 0.88,
+      // Preferred voice name substring — picks best available English voice
+      prefer: ['Google UK English Female', 'Samantha', 'Karen', 'Victoria', 'Google', 'Female']
+    }
+  };
+
+  // ── MESSAGES SEQUENCE ─────────────────────────────────────
+  // Each object = one slide. CTAs only show on last or specified slides.
+  var NOVA_MESSAGES = [
+    {
+      text: "Hello! I'm Nova — your BLESSTech-X AI assistant. Welcome to Zambia's smartest digital solutions agency. 🇿🇲",
+      ctas: []
+    },
+    {
+      text: "BLESSTech-X builds professional websites, full e-commerce stores with Airtel & MTN Money payments, logos, social media management, and SEO — all delivered in 7–14 days.",
+      ctas: []
+    },
+    {
+      text: "Right now, the first 5 businesses get 30% OFF their website PLUS 3 months free hosting. This offer is almost gone. 🔥",
+      ctas: []
+    },
+    {
+      text: "I can guide you to the right service, show you real results from Zambian clients, or connect you directly with the team on WhatsApp. What would you like to do?",
+      ctas: [
+        { label: '🛒 See Services', action: 'scrollTo', target: '#services',     style: 'primary' },
+        { label: '📂 Portfolio',    action: 'scrollTo', target: '#portfolio',    style: 'secondary' },
+        { label: '💬 WhatsApp Us',  action: 'whatsapp',  msg: 'Hello BLESSTech-X! Nova sent me. I want to know more about your services.', style: 'primary' },
+        { label: '🆓 Free Tools',   action: 'link',     href: 'tools/index.html', style: 'secondary' },
+      ]
+    }
+  ];
+
+  // ── STATE ──────────────────────────────────────────────────
+  var state = {
+    open: false,
+    muted: !NOVA_CFG.soundOn,
+    step: 0,
+    typing: false,
+    typeTimer: null,
+    speakTimer: null,
+    triggered: false
+  };
+
+  // ── DOM REFS ───────────────────────────────────────────────
+  var el = {
+    backdrop:  document.getElementById('nova-backdrop'),
+    container: document.getElementById('nova-container'),
+    trigger:   document.getElementById('nova-trigger'),
+    bubble:    document.getElementById('nova-bubble'),
+    text:      document.getElementById('nova-text'),
+    ctas:      document.getElementById('nova-ctas'),
+    progress:  document.getElementById('nova-progress'),
+    wave:      document.getElementById('nova-wave'),
+    mute:      document.getElementById('nova-mute'),
+    eyeL:      document.getElementById('nova-eye-l'),
+    eyeR:      document.getElementById('nova-eye-r'),
+    mouth:     document.getElementById('nova-mouth'),
+  };
+
+  // ── VOICE ──────────────────────────────────────────────────
+  var voiceReady = false;
+  var selectedVoice = null;
+
+  function initVoices() {
+    if (!window.speechSynthesis) return;
+    function pickVoice() {
+      var voices = speechSynthesis.getVoices();
+      if (!voices.length) return;
+      voiceReady = true;
+      var cfg = NOVA_CFG.voice;
+      for (var i = 0; i < cfg.prefer.length; i++) {
+        var match = voices.find(function(v) {
+          return v.name.includes(cfg.prefer[i]) && v.lang.startsWith('en');
+        });
+        if (match) { selectedVoice = match; return; }
+      }
+      selectedVoice = voices.find(function(v) { return v.lang.startsWith('en'); }) || voices[0];
+    }
+    pickVoice();
+    if (speechSynthesis.onvoiceschanged !== undefined) {
+      speechSynthesis.onvoiceschanged = pickVoice;
+    }
+  }
+
+  function speak(text, onDone) {
+    if (state.muted || !window.speechSynthesis) {
+      // No speech — call onDone immediately so typing still drives advance
+      if (onDone) onDone();
+      return;
+    }
+    speechSynthesis.cancel();
+    var utt = new SpeechSynthesisUtterance(text);
+    utt.rate   = NOVA_CFG.voice.rate;
+    utt.pitch  = NOVA_CFG.voice.pitch;
+    utt.volume = NOVA_CFG.voice.volume;
+    if (selectedVoice) utt.voice = selectedVoice;
+    utt.onstart = function() { waveOn(); };
+    utt.onend   = function() {
+      waveOff();
+      animateFace('neutral');
+      if (onDone) onDone();
+    };
+    // Fallback: if browser fires no onend (some mobile browsers), use a timer
+    utt.onerror = function() {
+      waveOff();
+      animateFace('neutral');
+      if (onDone) onDone();
+    };
+    speechSynthesis.speak(utt);
+    animateFace('talking');
+  }
+
+  function stopSpeech() {
+    if (window.speechSynthesis) speechSynthesis.cancel();
+    waveOff();
+  }
+
+  // ── FACE ANIMATION ─────────────────────────────────────────
+  function animateFace(mood) {
+    if (!el.mouth) return;
+    if (mood === 'talking') {
+      // talking mouth bounces
+      el.mouth.setAttribute('d', 'M17 24 Q22 30 27 24');
+    } else if (mood === 'happy') {
+      el.mouth.setAttribute('d', 'M16 23 Q22 30 28 23');
+    } else {
+      el.mouth.setAttribute('d', 'M17 24 Q22 28 27 24');
+    }
+  }
+
+  // Blink eyes occasionally
+  setInterval(function() {
+    if (!el.eyeL || !state.open) return;
+    el.eyeL.setAttribute('ry', '0.3');
+    el.eyeR.setAttribute('ry', '0.3');
+    setTimeout(function() {
+      if (!el.eyeL) return;
+      el.eyeL.setAttribute('ry', '2.5');
+      el.eyeR.setAttribute('ry', '2.5');
+    }, 120);
+  }, 3200);
+
+  // ── WAVE ───────────────────────────────────────────────────
+  function waveOn()  { if (el.wave) el.wave.classList.remove('silent'); }
+  function waveOff() { if (el.wave) el.wave.classList.add('silent'); }
+
+  // ── PROGRESS DOTS ──────────────────────────────────────────
+  function buildDots() {
+    if (!el.progress) return;
+    el.progress.innerHTML = NOVA_MESSAGES.map(function(_, i) {
+      return '<div class="nova-prog-dot' + (i === 0 ? ' active' : '') + '"></div>';
+    }).join('');
+  }
+
+  function updateDots(step) {
+    var dots = el.progress ? el.progress.querySelectorAll('.nova-prog-dot') : [];
+    dots.forEach(function(d, i) {
+      d.classList.remove('active', 'done');
+      if (i < step) d.classList.add('done');
+      else if (i === step) d.classList.add('active');
+    });
+  }
+
+  // ── TYPING EFFECT ──────────────────────────────────────────
+  function typeText(text, onDone) {
+    if (!el.text) return;
+    el.text.textContent = '';
+    el.text.classList.remove('done');
+    state.typing = true;
+    var i = 0;
+    clearInterval(state.typeTimer);
+    state.typeTimer = setInterval(function() {
+      if (i >= text.length) {
+        clearInterval(state.typeTimer);
+        state.typing = false;
+        el.text.classList.add('done');
+        if (onDone) onDone();
+        return;
+      }
+      el.text.textContent += text[i];
+      i++;
+    }, NOVA_CFG.typeSpeed);
+  }
+
+  // ── RENDER CTAs ────────────────────────────────────────────
+  function renderCTAs(ctas) {
+    if (!el.ctas) return;
+    el.ctas.innerHTML = '';
+    if (!ctas || !ctas.length) return;
+    ctas.forEach(function(cta) {
+      var btn = document.createElement('button');
+      btn.className = 'nova-cta-btn ' + (cta.style === 'primary' ? 'nova-cta-primary' : 'nova-cta-secondary');
+      btn.innerHTML = cta.label;
+      btn.onclick = function() { novaAction(cta); };
+      el.ctas.appendChild(btn);
+    });
+  }
+
+  function novaAction(cta) {
+    if (cta.action === 'scrollTo') {
+      var target = document.querySelector(cta.target);
+      if (target) { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      novaDismiss();
+    } else if (cta.action === 'whatsapp') {
+      window.open('https://wa.me/260979603741?text=' + encodeURIComponent(cta.msg), '_blank');
+    } else if (cta.action === 'link') {
+      window.location.href = cta.href;
+    }
+  }
+
+  // ── SHOW STEP ──────────────────────────────────────────────
+  function showStep(step) {
+    if (step >= NOVA_MESSAGES.length) return;
+    state.step = step;
+    var msg = NOVA_MESSAGES[step];
+    updateDots(step);
+    renderCTAs([]);
+
+    // Both typing AND speech must finish before advancing
+    var typingDone = false;
+    var speechDone = false;
+
+    function checkBothDone() {
+      if (!typingDone || !speechDone) return;
+      if (step < NOVA_MESSAGES.length - 1) {
+        // Small natural breath pause after speech ends, then next message
+        clearTimeout(state.speakTimer);
+        state.speakTimer = setTimeout(function() {
+          showStep(step + 1);
+        }, NOVA_CFG.messagePause);
+      } else {
+        // Last step — show CTAs
+        renderCTAs(msg.ctas || []);
+      }
+    }
+
+    typeText(msg.text, function() {
+      typingDone = true;
+      checkBothDone();
+    });
+
+    // Speak — only advance when voice has fully finished
+    speak(msg.text, function() {
+      speechDone = true;
+      checkBothDone();
+    });
+  }
+
+  // ── OPEN ───────────────────────────────────────────────────
+  window.novaOpen = function() {
+    if (state.open) return;
+    state.open = true;
+
+    if (el.trigger) el.trigger.style.display = 'none';
+    if (el.backdrop) el.backdrop.classList.add('show');
+    if (el.container) el.container.classList.add('show');
+
+    buildDots();
+    waveOff();
+    state.step = 0;
+
+    // Small entry delay then start
+    setTimeout(function() {
+      showStep(0);
+    }, 400);
+  };
+
+  // ── DISMISS ────────────────────────────────────────────────
+  window.novaDismiss = function() {
+    if (!state.open) return;
+    state.open = false;
+
+    clearInterval(state.typeTimer);
+    clearTimeout(state.speakTimer);
+    stopSpeech();
+
+    if (el.backdrop)  el.backdrop.classList.remove('show');
+    if (el.container) el.container.classList.remove('show');
+
+    // Show trigger again
+    setTimeout(function() {
+      if (el.trigger) el.trigger.style.display = 'flex';
+    }, 600);
+  };
+
+  // ── REPLAY ─────────────────────────────────────────────────
+  window.novaReplay = function() {
+    clearInterval(state.typeTimer);
+    clearTimeout(state.speakTimer);
+    stopSpeech();
+    state.step = 0;
+    buildDots();
+    setTimeout(function() { showStep(0); }, 200);
+  };
+
+  // ── MUTE ───────────────────────────────────────────────────
+  window.novaMute = function() {
+    state.muted = !state.muted;
+    if (el.mute) el.mute.textContent = state.muted ? '🔇' : '🔊';
+    if (state.muted) stopSpeech();
+  };
+
+  // ── AUTO-OPEN AFTER DELAY ──────────────────────────────────
+  window.addEventListener('load', fu
