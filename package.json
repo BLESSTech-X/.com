@@ -1,0 +1,12 @@
+{
+  "name": "blesstech-x",
+  "version": "1.0.0",
+  "description": "BLESSTech-X website with Decap CMS",
+  "private": true,
+  "engines": {
+    "node": "18.x"
+  },
+  "scripts": {
+    "dev": "vercel dev"
+  }
+}
