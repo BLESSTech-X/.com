@@ -3,26 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BLESSTech-X | Digital Solutions & Free Tools — Zambia</title>
-  <meta name="description" content="Professional digital solutions for Zambian businesses plus 20+ free tools — invoice generator, CV builder, email writer, unit converter, and more." />
-  <meta name="keywords" content="Zambia digital tools, free invoice generator Zambia, CV builder Zambia, BLESSTech-X, Lusaka web design, e-commerce Zambia" />
+  <title>BLESSTech-X | Websites, E-commerce & Free Tools — Zambia</title>
+  <meta name="description" content="BLESSTech-X builds websites, e-commerce stores with Airtel & MTN Money payments, logos, and social media for Zambian businesses. Plus 20+ free tools — no signup needed." />
+  <meta name="keywords" content="Zambia website design, e-commerce Zambia, online store Zambia, Airtel Money integration, MTN Money payments, Lusaka web developer, free tools Zambia, BLESSTech-X" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://blesstech-x.vercel.app/" />
-  <meta property="og:title" content="BLESSTech-X | Digital Solutions & Free Tools — Zambia" />
-  <meta property="og:description" content="Websites, e-commerce stores, and 20+ free tools for Zambian businesses, students, and developers. No signup required." />
+  <meta property="og:title" content="BLESSTech-X | Websites & E-commerce for Zambia" />
+  <meta property="og:description" content="We build online stores and websites for Zambian businesses — with Airtel Money, MTN Money, delivered in 7–14 days. Plus 20+ free tools." />
   <meta property="og:image" content="https://i.ibb.co/Q36vzP9z/Screenshot-20251229-131706.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="BLESSTech-X | Digital Solutions & Free Tools Zambia" />
-  <meta name="twitter:description" content="20+ free tools plus professional digital services for Zambia." />
+  <meta name="twitter:title" content="BLESSTech-X | Websites & E-commerce for Zambia" />
+  <meta name="twitter:description" content="Websites, e-commerce stores, and 20+ free tools for Zambian businesses." />
   <meta name="twitter:image" content="https://i.ibb.co/Q36vzP9z/Screenshot-20251229-131706.jpg" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "name": "BLESSTech-X",
-    "description": "Professional digital and e-commerce solutions plus free tools for Zambian businesses.",
+    "description": "Websites, e-commerce stores, branding and 20+ free digital tools for Zambian businesses.",
     "address": { "@type": "PostalAddress", "addressLocality": "Lusaka", "addressCountry": "ZM" },
     "telephone": "+260979603741",
     "priceRange": "ZMW 150 - ZMW 2500",
@@ -42,348 +42,325 @@
     })(window,document,"clarity","script","v3eftj5zrx");
   </script>
 
-  <!-- ═══════════════════════════════════════
-       NOVA — SMART TOUR GUIDE STYLES
-  ═══════════════════════════════════════ -->
   <style>
+  /* ═══════════════════════════════════════════════
+     NOVA STYLES — minimal, non-intrusive
+  ═══════════════════════════════════════════════ */
 
-    /* ── WELCOME OVERLAY (first visit) ── */
-    #novaWelcome {
-      position: fixed; inset: 0; z-index: 10000;
-      background: rgba(5, 12, 28, 0.97);
-      display: flex; align-items: center; justify-content: center;
-      padding: 20px;
-      opacity: 1; transition: opacity 0.6s ease;
-    }
-    #novaWelcome.fade-out { opacity: 0; pointer-events: none; }
-    .nova-welcome-box {
-      background: linear-gradient(135deg, #0a1628 0%, #0d2040 100%);
-      border: 1.5px solid rgba(14,165,233,0.5);
-      border-radius: 24px;
-      padding: 44px 40px 36px;
-      max-width: 520px; width: 100%;
-      text-align: center;
-      box-shadow: 0 0 60px rgba(14,165,233,0.2), 0 30px 80px rgba(0,0,0,0.6);
-      animation: welcomePop 0.6s cubic-bezier(.22,1,.36,1);
-    }
-    @keyframes welcomePop {
-      from { transform: scale(0.88) translateY(20px); opacity: 0; }
-      to   { transform: scale(1) translateY(0); opacity: 1; }
-    }
-    .nova-welcome-avatar {
-      width: 80px; height: 80px; border-radius: 50%;
-      background: linear-gradient(135deg, #0ea5e9, #0284c7);
-      margin: 0 auto 20px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 2.2rem;
-      box-shadow: 0 0 24px rgba(14,165,233,0.6);
-      animation: avatarPulse 2.5s ease-in-out infinite;
-    }
-    @keyframes avatarPulse {
-      0%,100% { box-shadow: 0 0 24px rgba(14,165,233,.6); }
-      50%      { box-shadow: 0 0 40px rgba(14,165,233,.9), 0 0 60px rgba(14,165,233,.3); }
-    }
-    .nova-welcome-badge {
-      display: inline-block;
-      background: rgba(14,165,233,0.15);
-      border: 1px solid rgba(14,165,233,0.35);
-      color: #7dd3fc; font-size: 0.72rem; font-weight: 700;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      padding: 4px 12px; border-radius: 20px; margin-bottom: 16px;
-    }
-    .nova-welcome-box h2 {
-      font-size: 1.7rem; font-weight: 900; color: #fff;
-      margin-bottom: 12px; line-height: 1.3;
-    }
-    .nova-welcome-box p {
-      color: #94a3b8; font-size: 0.97rem; line-height: 1.7;
-      margin-bottom: 28px;
-    }
-    .nova-welcome-box p strong { color: #38bdf8; }
-    .nova-welcome-actions { display: flex; flex-direction: column; gap: 10px; }
-    .nova-welcome-yes {
-      background: #0ea5e9; color: #fff;
-      border: none; border-radius: 12px;
-      padding: 14px 24px; font-size: 1rem; font-weight: 700;
-      cursor: pointer; transition: all 0.2s;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-    }
-    .nova-welcome-yes:hover { background: #0284c7; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(14,165,233,0.4); }
-    .nova-welcome-no {
-      background: transparent; color: #64748b;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 12px; padding: 11px 24px;
-      font-size: 0.88rem; cursor: pointer; transition: all 0.2s;
-    }
-    .nova-welcome-no:hover { color: #94a3b8; border-color: rgba(255,255,255,0.2); }
-    .nova-welcome-note {
-      margin-top: 16px; font-size: 0.78rem; color: #475569;
-    }
+  /* Nova is invisible by default — only shown when active */
+  #novaWrap {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    z-index: 9800;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    pointer-events: none;
+  }
 
-    /* ── NOVA CHATHEAD (bottom-left) ── */
-    #novaHead {
-      position: fixed;
-      bottom: 24px; left: 24px;
-      z-index: 9990;
-      display: flex; flex-direction: column; align-items: flex-start;
-      gap: 10px;
-      pointer-events: none;
-      opacity: 0; transform: translateY(20px);
-      transition: opacity 0.45s ease, transform 0.45s ease;
-    }
-    #novaHead.nova-show {
-      opacity: 1; transform: translateY(0);
-      pointer-events: auto;
-    }
+  /* ── Speech bubble — hidden by default ── */
+  #novaBubble {
+    background: rgba(5, 14, 30, 0.96);
+    border: 1.5px solid rgba(14,165,233,0.5);
+    border-radius: 14px 14px 14px 4px;
+    padding: 13px 15px 11px;
+    max-width: 300px;
+    min-width: 180px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 28px rgba(14,165,233,0.18), 0 8px 32px rgba(0,0,0,0.5);
+    pointer-events: auto;
+    display: none; /* hidden until Nova speaks */
+    flex-direction: column;
+    gap: 9px;
+    animation: novaBubbleIn 0.3s cubic-bezier(.22,1,.36,1);
+  }
+  #novaBubble.nb-show { display: flex; }
+  @keyframes novaBubbleIn {
+    from { opacity:0; transform: translateY(8px) scale(0.96); }
+    to   { opacity:1; transform: translateY(0) scale(1); }
+  }
 
-    /* Avatar circle */
-    .nova-head-avatar {
-      width: 58px; height: 58px; border-radius: 50%;
-      background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%);
-      border: 2.5px solid rgba(14,165,233,0.8);
-      box-shadow: 0 0 18px rgba(14,165,233,0.55), 0 4px 16px rgba(0,0,0,0.4);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.5rem;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      animation: headPulse 3s ease-in-out infinite;
-      position: relative;
-      flex-shrink: 0;
-    }
-    .nova-head-avatar:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 28px rgba(14,165,233,0.8), 0 6px 20px rgba(0,0,0,0.5);
-    }
-    @keyframes headPulse {
-      0%,100% { box-shadow: 0 0 18px rgba(14,165,233,.55), 0 4px 16px rgba(0,0,0,.4); }
-      50%      { box-shadow: 0 0 28px rgba(14,165,233,.80), 0 4px 20px rgba(0,0,0,.4); }
-    }
-    /* Speaking ring */
-    .nova-head-avatar.speaking::after {
-      content: '';
-      position: absolute; inset: -6px;
-      border-radius: 50%;
-      border: 2px solid rgba(14,165,233,0.5);
-      animation: speakRing 1s ease-out infinite;
-    }
-    @keyframes speakRing {
-      0%   { transform: scale(1); opacity: 0.8; }
-      100% { transform: scale(1.4); opacity: 0; }
-    }
-    /* Waveform dots inside avatar when speaking */
-    .nova-wave-dots {
-      display: none;
-      align-items: center; gap: 2px;
-    }
-    .nova-head-avatar.speaking .nova-wave-dots { display: flex; }
-    .nova-head-avatar.speaking .nova-head-emoji { display: none; }
-    .nova-wave-dots span {
-      display: block; width: 3px; border-radius: 2px;
-      background: #fff;
-      height: 6px;
-      animation: waveDot 0.7s ease-in-out infinite;
-    }
-    .nova-wave-dots span:nth-child(1){ animation-delay:0s; }
-    .nova-wave-dots span:nth-child(2){ animation-delay:.12s; }
-    .nova-wave-dots span:nth-child(3){ animation-delay:.24s; }
-    .nova-wave-dots span:nth-child(4){ animation-delay:.12s; }
-    .nova-wave-dots span:nth-child(5){ animation-delay:0s; }
-    @keyframes waveDot {
-      0%,100% { height: 4px; } 50% { height: 16px; }
-    }
+  .nb-header {
+    display: flex; align-items: center;
+    justify-content: space-between; gap: 8px;
+  }
+  .nb-name {
+    font-size: 0.67rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: #0ea5e9;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .nb-name::before {
+    content: '';
+    width: 5px; height: 5px; border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 5px #10b981;
+    animation: livePulse 1.4s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  @keyframes livePulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
 
-    /* Speech bubble */
-    #novaSpeechBubble {
-      position: fixed;
-      bottom: 94px; left: 24px;
-      z-index: 9991;
-      max-width: 310px; min-width: 200px;
-      background: rgba(5,15,30,0.95);
-      border: 1.5px solid rgba(14,165,233,0.45);
-      border-radius: 16px 16px 16px 4px;
-      padding: 14px 16px;
-      box-shadow: 0 0 20px rgba(14,165,233,0.2), 0 8px 32px rgba(0,0,0,0.5);
-      display: none;
-      flex-direction: column; gap: 10px;
-      animation: bubbleIn 0.35s cubic-bezier(.22,1,.36,1);
-    }
-    #novaSpeechBubble.bubble-visible { display: flex; }
-    @keyframes bubbleIn {
-      from { opacity:0; transform: translateY(10px) scale(0.95); }
-      to   { opacity:1; transform: translateY(0) scale(1); }
-    }
-    .nova-bubble-top {
-      display: flex; align-items: center;
-      justify-content: space-between; gap: 8px;
-    }
-    .nova-bubble-name {
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: #0ea5e9;
-      display: flex; align-items: center; gap: 5px;
-    }
-    .nova-bubble-name::before {
-      content: '';
-      width: 6px; height: 6px; border-radius: 50%;
-      background: #10b981;
-      box-shadow: 0 0 6px #10b981;
-      animation: liveDot 1.4s ease-in-out infinite;
-    }
-    @keyframes liveDot { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
-    .nova-bubble-controls { display: flex; gap: 4px; }
-    .nova-bubble-btn {
-      width: 22px; height: 22px; border-radius: 6px;
-      background: rgba(14,165,233,0.1);
-      border: 1px solid rgba(14,165,233,0.2);
-      color: #64748b; font-size: 0.65rem;
-      cursor: pointer; display: flex;
-      align-items: center; justify-content: center;
-      transition: all 0.2s;
-    }
-    .nova-bubble-btn:hover { background: rgba(14,165,233,0.2); color: #0ea5e9; }
+  .nb-controls { display: flex; gap: 4px; }
+  .nb-btn {
+    width: 20px; height: 20px; border-radius: 5px;
+    background: rgba(14,165,233,0.08);
+    border: 1px solid rgba(14,165,233,0.2);
+    color: #475569; font-size: 0.6rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .nb-btn:hover { background: rgba(14,165,233,0.18); color: #0ea5e9; }
 
-    #novaMsgBody {
-      font-size: 0.88rem; color: #cbd5e1; line-height: 1.65;
-      min-height: 38px;
-    }
-    .nova-typing-cursor {
-      display: inline-block; width: 2px; height: 0.9em;
-      background: #0ea5e9; margin-left: 1px; vertical-align: middle;
-      animation: blinkCursor 0.7s step-end infinite;
-    }
-    @keyframes blinkCursor { 0%,100%{opacity:1;} 50%{opacity:0;} }
+  #novaMsgText {
+    font-size: 0.87rem; color: #cbd5e1;
+    line-height: 1.6; min-height: 36px;
+  }
+  .nb-cursor {
+    display: inline-block; width: 2px; height: 0.85em;
+    background: #0ea5e9; margin-left: 1px;
+    vertical-align: middle;
+    animation: blinkCur 0.7s step-end infinite;
+  }
+  @keyframes blinkCur { 0%,100%{opacity:1;} 50%{opacity:0;} }
 
-    /* CTA buttons inside bubble */
-    .nova-bubble-ctas { display: flex; flex-direction: column; gap: 6px; }
-    .nova-bcta {
-      display: block; text-align: center; padding: 8px 12px;
-      border-radius: 8px; font-size: 0.8rem; font-weight: 600;
-      text-decoration: none; cursor: pointer; border: none;
-      transition: transform 0.15s, box-shadow 0.15s;
-    }
-    .nova-bcta:hover { transform: translateY(-1px); }
-    .nova-bcta-primary { background: #0ea5e9; color: #fff; }
-    .nova-bcta-wa { background: rgba(37,211,102,0.12); border: 1px solid #25d366; color: #25d366; }
-    .nova-bcta-outline { background: transparent; border: 1px solid rgba(14,165,233,0.4); color: #38bdf8; }
+  .nb-progress {
+    height: 2px; border-radius: 2px;
+    background: rgba(14,165,233,0.12); overflow: hidden;
+  }
+  .nb-progress-fill {
+    height: 100%; background: #0ea5e9; border-radius: 2px;
+    transition: width 0.4s ease;
+    box-shadow: 0 0 6px rgba(14,165,233,0.5);
+  }
 
-    /* Progress bar */
-    .nova-progress-bar {
-      height: 2px; border-radius: 2px;
-      background: rgba(14,165,233,0.15);
-      overflow: hidden;
-    }
-    .nova-progress-fill {
-      height: 100%; background: #0ea5e9;
-      border-radius: 2px;
-      transition: width 0.4s ease;
-      box-shadow: 0 0 8px rgba(14,165,233,0.6);
-    }
+  .nb-ctas { display: flex; flex-direction: column; gap: 5px; }
+  .nb-cta {
+    display: block; text-align: center; padding: 7px 10px;
+    border-radius: 7px; font-size: 0.78rem; font-weight: 600;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: transform 0.15s, opacity 0.15s;
+  }
+  .nb-cta:hover { transform: translateY(-1px); opacity: 0.9; }
+  .nb-cta-primary { background: #0ea5e9; color: #fff; }
+  .nb-cta-wa { background: rgba(37,211,102,0.12); border: 1px solid rgba(37,211,102,0.4); color: #22c55e; }
+  .nb-cta-outline { background: transparent; border: 1px solid rgba(14,165,233,0.35); color: #38bdf8; }
 
-    /* ── SETTINGS PANEL ── */
-    #novaSettings {
-      position: fixed;
-      bottom: 94px; left: 24px;
-      z-index: 9992;
-      width: 280px;
-      background: rgba(5,15,30,0.97);
-      border: 1.5px solid rgba(14,165,233,0.4);
-      border-radius: 16px;
-      padding: 18px;
-      display: none; flex-direction: column; gap: 14px;
-      box-shadow: 0 0 24px rgba(14,165,233,0.15), 0 10px 40px rgba(0,0,0,0.6);
-      animation: bubbleIn 0.3s ease;
-    }
-    #novaSettings.settings-visible { display: flex; }
-    .nova-settings-title {
-      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: #0ea5e9; margin-bottom: 2px;
-    }
-    .nova-setting-row {
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 12px;
-    }
-    .nova-setting-label { font-size: 0.83rem; color: #94a3b8; }
-    /* Toggle switch */
-    .nova-toggle {
-      position: relative; width: 38px; height: 20px; flex-shrink: 0;
-    }
-    .nova-toggle input { opacity: 0; width: 0; height: 0; }
-    .nova-toggle-slider {
-      position: absolute; inset: 0; background: rgba(255,255,255,0.1);
-      border-radius: 20px; cursor: pointer; transition: 0.3s;
-      border: 1px solid rgba(255,255,255,0.15);
-    }
-    .nova-toggle-slider::before {
-      content: ''; position: absolute;
-      width: 14px; height: 14px; border-radius: 50%;
-      background: #fff; top: 2px; left: 2px; transition: 0.3s;
-    }
-    .nova-toggle input:checked + .nova-toggle-slider { background: #0ea5e9; }
-    .nova-toggle input:checked + .nova-toggle-slider::before { transform: translateX(18px); }
-    /* Speed select */
-    .nova-speed-select {
-      background: rgba(14,165,233,0.1); border: 1px solid rgba(14,165,233,0.25);
-      color: #94a3b8; border-radius: 8px; padding: 4px 8px;
-      font-size: 0.8rem; cursor: pointer; outline: none;
-    }
-    .nova-settings-close {
-      background: rgba(14,165,233,0.1); border: 1px solid rgba(14,165,233,0.2);
-      color: #64748b; border-radius: 8px; padding: 8px;
-      font-size: 0.8rem; cursor: pointer; transition: all 0.2s;
-      text-align: center;
-    }
-    .nova-settings-close:hover { background: rgba(14,165,233,0.2); color: #0ea5e9; }
+  /* ── Repeat-visit mini prompt ── */
+  .nb-revisit {
+    font-size: 0.78rem; color: #475569;
+    display: flex; gap: 6px; flex-wrap: wrap;
+  }
+  .nb-revisit-btn {
+    font-size: 0.75rem; padding: 3px 8px; border-radius: 6px;
+    border: 1px solid rgba(14,165,233,0.25);
+    background: rgba(14,165,233,0.06); color: #38bdf8;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .nb-revisit-btn:hover { background: rgba(14,165,233,0.14); }
 
-    /* ── SECTION LABEL tooltip ── */
-    #novaSectionLabel {
-      position: fixed; bottom: 90px; left: 96px;
-      z-index: 9989;
-      background: rgba(5,15,30,0.85);
-      border: 1px solid rgba(14,165,233,0.3);
-      color: #7dd3fc; font-size: 0.72rem; font-weight: 600;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      padding: 4px 10px; border-radius: 20px;
-      pointer-events: none;
-      opacity: 0; transform: translateX(-6px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-    #novaSectionLabel.label-show { opacity: 1; transform: translateX(0); }
+  /* ── Nova avatar — only visible when speaking or on hover ── */
+  #novaAvatar {
+    width: 46px; height: 46px; border-radius: 50%;
+    background: linear-gradient(135deg, #0ea5e9, #0369a1);
+    border: 2px solid rgba(14,165,233,0.6);
+    box-shadow: 0 0 14px rgba(14,165,233,0.35), 0 3px 12px rgba(0,0,0,0.4);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; cursor: pointer;
+    pointer-events: auto;
+    opacity: 0; /* invisible when not in use */
+    transform: scale(0.85);
+    transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.2s;
+  }
+  #novaAvatar.av-show {
+    opacity: 1; transform: scale(1);
+  }
+  #novaAvatar:hover {
+    box-shadow: 0 0 22px rgba(14,165,233,0.65), 0 3px 14px rgba(0,0,0,0.5);
+    transform: scale(1.08);
+  }
+  #novaAvatar.av-speaking::after {
+    content: ''; position: absolute;
+    inset: -5px; border-radius: 50%;
+    border: 1.5px solid rgba(14,165,233,0.4);
+    animation: speakRipple 1.1s ease-out infinite;
+  }
+  #novaAvatar { position: relative; }
+  @keyframes speakRipple {
+    0%   { transform: scale(1); opacity: 0.7; }
+    100% { transform: scale(1.6); opacity: 0; }
+  }
 
-    @media (max-width: 540px) {
-      #novaSpeechBubble, #novaSettings {
-        left: 12px; right: 12px; max-width: none;
-        bottom: 100px;
-      }
-      #novaHead { bottom: 16px; left: 16px; }
+  /* Wave inside avatar while speaking */
+  .av-wave { display: none; align-items: center; gap: 2px; }
+  #novaAvatar.av-speaking .av-emoji { display: none; }
+  #novaAvatar.av-speaking .av-wave { display: flex; }
+  .av-wave span {
+    display: block; width: 2.5px; border-radius: 2px;
+    background: #fff; height: 5px;
+    animation: avWave 0.6s ease-in-out infinite;
+  }
+  .av-wave span:nth-child(1){ animation-delay:0s; }
+  .av-wave span:nth-child(2){ animation-delay:.1s; }
+  .av-wave span:nth-child(3){ animation-delay:.2s; }
+  .av-wave span:nth-child(4){ animation-delay:.1s; }
+  @keyframes avWave { 0%,100%{height:3px;} 50%{height:13px;} }
+
+  /* ── Nova intro card (replaces full-screen overlay) ── */
+  #novaIntro {
+    position: fixed;
+    bottom: 80px; left: 24px;
+    z-index: 9801;
+    background: rgba(5,14,30,0.97);
+    border: 1.5px solid rgba(14,165,233,0.45);
+    border-radius: 16px;
+    padding: 16px 18px;
+    max-width: 290px;
+    box-shadow: 0 0 30px rgba(14,165,233,0.15), 0 10px 40px rgba(0,0,0,0.55);
+    display: none;
+    flex-direction: column; gap: 11px;
+    animation: novaBubbleIn 0.4s cubic-bezier(.22,1,.36,1);
+    pointer-events: auto;
+  }
+  #novaIntro.ni-show { display: flex; }
+  .ni-top { display: flex; align-items: center; gap: 10px; }
+  .ni-avatar {
+    width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+    background: linear-gradient(135deg,#0ea5e9,#0369a1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    box-shadow: 0 0 12px rgba(14,165,233,0.5);
+  }
+  .ni-label { font-size: 0.72rem; font-weight: 700; color: #0ea5e9;
+    text-transform: uppercase; letter-spacing: 0.09em; }
+  .ni-sub { font-size: 0.78rem; color: #64748b; margin-top: 1px; }
+  .ni-msg { font-size: 0.86rem; color: #cbd5e1; line-height: 1.6; }
+  .ni-msg strong { color: #38bdf8; }
+  .ni-actions { display: flex; gap: 7px; }
+  .ni-yes {
+    flex: 1; background: #0ea5e9; color: #fff;
+    border: none; border-radius: 8px;
+    padding: 8px 10px; font-size: 0.8rem; font-weight: 700;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .ni-yes:hover { background: #0284c7; }
+  .ni-no {
+    background: transparent; color: #475569;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px; padding: 8px 10px;
+    font-size: 0.78rem; cursor: pointer; transition: all 0.2s;
+  }
+  .ni-no:hover { color: #64748b; }
+
+  /* ── Settings panel ── */
+  #novaSettings {
+    position: fixed;
+    bottom: 80px; left: 24px; z-index: 9802;
+    background: rgba(5,14,30,0.97);
+    border: 1.5px solid rgba(14,165,233,0.35);
+    border-radius: 14px; padding: 16px;
+    width: 260px;
+    box-shadow: 0 0 24px rgba(14,165,233,0.12), 0 8px 32px rgba(0,0,0,0.55);
+    display: none; flex-direction: column; gap: 12px;
+    animation: novaBubbleIn 0.3s ease;
+    pointer-events: auto;
+  }
+  #novaSettings.ns-show { display: flex; }
+  .ns-title { font-size: 0.72rem; font-weight: 700; color: #0ea5e9;
+    text-transform: uppercase; letter-spacing: 0.1em; }
+  .ns-row { display: flex; align-items: center;
+    justify-content: space-between; gap: 10px; }
+  .ns-lbl { font-size: 0.81rem; color: #94a3b8; }
+  .ns-toggle { position: relative; width: 36px; height: 19px; flex-shrink:0; }
+  .ns-toggle input { opacity:0; width:0; height:0; }
+  .ns-slider {
+    position:absolute; inset:0; background:rgba(255,255,255,0.08);
+    border-radius:19px; cursor:pointer; transition:0.25s;
+    border:1px solid rgba(255,255,255,0.12);
+  }
+  .ns-slider::before {
+    content:''; position:absolute;
+    width:13px; height:13px; border-radius:50%;
+    background:#fff; top:2px; left:2px; transition:0.25s;
+  }
+  .ns-toggle input:checked + .ns-slider { background:#0ea5e9; }
+  .ns-toggle input:checked + .ns-slider::before { transform:translateX(17px); }
+  .ns-select {
+    background:rgba(14,165,233,0.08); border:1px solid rgba(14,165,233,0.2);
+    color:#94a3b8; border-radius:6px; padding:3px 7px;
+    font-size:0.77rem; outline:none; cursor:pointer;
+  }
+  .ns-done {
+    background:rgba(14,165,233,0.1); border:1px solid rgba(14,165,233,0.2);
+    color:#64748b; border-radius:8px; padding:7px;
+    font-size:0.78rem; cursor:pointer; text-align:center; transition:all 0.2s;
+  }
+  .ns-done:hover { background:rgba(14,165,233,0.18); color:#0ea5e9; }
+
+  /* ── Scroll-to-top button ── */
+  #scrollTopBtn {
+    position: fixed; bottom: 24px; right: 88px;
+    z-index: 900;
+    width: 42px; height: 42px; border-radius: 50%;
+    background: rgba(14,165,233,0.9); color: #fff;
+    border: none; cursor: pointer; font-size: 1rem;
+    box-shadow: 0 4px 16px rgba(14,165,233,0.4);
+    display: none; align-items: center; justify-content: center;
+    transition: all 0.25s;
+  }
+  #scrollTopBtn.stt-show { display: flex; }
+  #scrollTopBtn:hover { background: #0284c7; transform: translateY(-2px); }
+
+  /* ── Reading progress bar (top of page) ── */
+  #readingProgress {
+    position: fixed; top: 0; left: 0; z-index: 9999;
+    height: 3px; width: 0%;
+    background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+    transition: width 0.1s linear;
+    pointer-events: none;
+  }
+
+  /* ── Cookie / GDPR notice ── */
+  #cookieBar {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 9700;
+    background: rgba(15,23,42,0.98);
+    border-top: 1px solid rgba(14,165,233,0.2);
+    padding: 14px 20px;
+    display: flex; align-items: center; justify-content: center;
+    gap: 16px; flex-wrap: wrap;
+    font-size: 0.83rem; color: #94a3b8;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+  }
+  #cookieBar.cb-show { transform: translateY(0); }
+  #cookieBar a { color: #0ea5e9; text-decoration: underline; }
+  .cb-accept {
+    background: #0ea5e9; color: #fff; border: none;
+    padding: 7px 18px; border-radius: 8px; font-size: 0.8rem;
+    font-weight: 700; cursor: pointer; white-space: nowrap;
+    transition: background 0.2s;
+  }
+  .cb-accept:hover { background: #0284c7; }
+  .cb-decline { background: transparent; border: none; color: #475569;
+    font-size: 0.78rem; cursor: pointer; text-decoration: underline; }
+
+  @media (max-width: 540px) {
+    #novaBubble, #novaIntro, #novaSettings {
+      left: 12px; right: 12px; max-width: none;
+      bottom: 76px;
     }
+    #novaWrap { bottom: 16px; left: 12px; }
+    #scrollTopBtn { right: 76px; bottom: 16px; }
+  }
   </style>
 </head>
 <body>
 
-  <a href="#main" class="skip-link">Skip to main content</a>
+  <!-- Reading progress bar -->
+  <div id="readingProgress"></div>
 
-  <!-- ══════════════════════════════════════════
-       NOVA WELCOME OVERLAY (first visit)
-  ══════════════════════════════════════════ -->
-  <div id="novaWelcome">
-    <div class="nova-welcome-box">
-      <div class="nova-welcome-avatar">🤖</div>
-      <div class="nova-welcome-badge">⚡ Nova AI · BLESSTech-X</div>
-      <h2>Welcome to BLESSTech-X!</h2>
-      <p>
-        We help <strong>Zambian businesses go digital</strong> — building websites, online stores with Airtel & MTN Money payments, logos, and more.<br/><br/>
-        I'm <strong>Nova</strong>, your personal guide. Want me to walk you through everything and show you exactly how we can grow your business?
-      </p>
-      <div class="nova-welcome-actions">
-        <button class="nova-welcome-yes" onclick="novaStartTour()">
-          <i class="fas fa-play-circle"></i> Yes, show me around!
-        </button>
-        <button class="nova-welcome-no" onclick="novaSkipTour()">
-          No thanks, I'll explore on my own
-        </button>
-      </div>
-      <p class="nova-welcome-note">You can turn Nova on/off anytime using the button at the bottom-left.</p>
-    </div>
-  </div>
+  <a href="#main" class="skip-link">Skip to main content</a>
 
   <!-- ANNOUNCEMENT BAR -->
   <div id="announcementBar" class="announcement-bar" role="banner">
@@ -401,7 +378,7 @@
       </a>
       <nav class="nav-links" id="navLinks" aria-label="Main navigation">
         <a href="#services">Services</a>
-        <a href="tools/index.html" class="nav-tools-link"><i class="fas fa-tools"></i> Free Tools</a>
+        <a href="tools/index.html"><i class="fas fa-tools"></i> Free Tools</a>
         <a href="#portfolio">Portfolio</a>
         <a href="#process">How We Work</a>
         <a href="#testimonials">Clients</a>
@@ -574,9 +551,9 @@
           </div>
           <div class="lead-form-wrap">
             <form id="leadForm" class="lead-form">
-              <input type="text" name="name" placeholder="Your Name" required aria-label="Your name" />
-              <input type="email" name="email" placeholder="Your Email Address" required aria-label="Your email" />
-              <input type="tel" name="phone" placeholder="WhatsApp Number (optional)" aria-label="WhatsApp number" />
+              <input type="text" name="name" placeholder="Your Name" required />
+              <input type="email" name="email" placeholder="Your Email Address" required />
+              <input type="tel" name="phone" placeholder="WhatsApp Number (optional)" />
               <button type="submit" class="btn btn-primary" style="width:100%"><i class="fas fa-download"></i> Send Me the Checklist</button>
               <p class="form-note">No spam, ever.</p>
             </form>
@@ -659,11 +636,11 @@
           <div class="contact-form-wrap">
             <form id="contactForm" class="contact-form">
               <div class="form-row">
-                <input type="text" name="name" placeholder="Your Name" required aria-label="Your name" />
-                <input type="email" name="email" placeholder="Your Email" required aria-label="Your email" />
+                <input type="text" name="name" placeholder="Your Name" required />
+                <input type="email" name="email" placeholder="Your Email" required />
               </div>
-              <input type="text" name="business" placeholder="Your Business Name" aria-label="Business name" />
-              <select name="service" required aria-label="Service interested in">
+              <input type="text" name="business" placeholder="Your Business Name" />
+              <select name="service" required>
                 <option value="" disabled selected>Service Interested In</option>
                 <option>Complete E-commerce Store</option>
                 <option>Add E-commerce to Existing Site</option>
@@ -675,7 +652,7 @@
                 <option>SEO &amp; Google Visibility</option>
                 <option>Free Consultation</option>
               </select>
-              <textarea name="message" placeholder="Tell us about your project and goals…" required aria-label="Project description"></textarea>
+              <textarea name="message" placeholder="Tell us about your project and goals…" required></textarea>
               <button type="submit" class="btn btn-primary" style="width:100%">
                 <i class="fas fa-paper-plane"></i> Send Message
               </button>
@@ -748,6 +725,11 @@
     </div>
   </footer>
 
+  <!-- SCROLL TO TOP -->
+  <button id="scrollTopBtn" aria-label="Scroll to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
   <!-- WHATSAPP FAB -->
   <a href="https://wa.me/260979603741" class="whatsapp-fab" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
     <i class="fab fa-whatsapp"></i>
@@ -802,84 +784,86 @@
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════
+  <!-- ═══════════════════════════════════════════
        NOVA — CHATHEAD + BUBBLE + SETTINGS
-  ══════════════════════════════════════════ -->
+  ═══════════════════════════════════════════ -->
 
-  <!-- Section label tooltip -->
-  <div id="novaSectionLabel"></div>
-
-  <!-- Chathead -->
-  <div id="novaHead">
-    <div class="nova-head-avatar" id="novaAvatar" onclick="novaAvatarClick()" title="Click to replay or open settings">
-      <span class="nova-head-emoji">🤖</span>
-      <div class="nova-wave-dots">
-        <span></span><span></span><span></span><span></span><span></span>
+  <!-- Nova wrapper (bottom-left, hidden by default) -->
+  <div id="novaWrap">
+    <div id="novaBubble" role="status" aria-live="polite">
+      <div class="nb-header">
+        <span class="nb-name">Nova · BLESSTech-X</span>
+        <div class="nb-controls">
+          <button class="nb-btn" id="novaMuteBtn" onclick="novaToggleMute()" title="Mute">
+            <i class="fas fa-volume-up" id="novaMuteIcon"></i>
+          </button>
+          <button class="nb-btn" onclick="novaOpenSettings()" title="Settings">
+            <i class="fas fa-sliders-h"></i>
+          </button>
+          <button class="nb-btn" onclick="novaHideBubble()" title="Close">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
       </div>
+      <div id="novaMsgText"><span class="nb-cursor"></span></div>
+      <div class="nb-progress"><div class="nb-progress-fill" id="novaProgFill" style="width:0%"></div></div>
+      <div id="novaCtaBtns" class="nb-ctas" style="display:none"></div>
+    </div>
+    <div id="novaAvatar" onclick="novaAvatarClick()" title="Nova — click to interact" aria-label="Nova AI assistant">
+      <span class="av-emoji">🤖</span>
+      <div class="av-wave"><span></span><span></span><span></span><span></span></div>
     </div>
   </div>
 
-  <!-- Speech bubble -->
-  <div id="novaSpeechBubble">
-    <div class="nova-bubble-top">
-      <span class="nova-bubble-name">Nova · BLESSTech-X</span>
-      <div class="nova-bubble-controls">
-        <button class="nova-bubble-btn" id="novaMuteBtn" onclick="novaToggleMute()" title="Mute voice">
-          <i class="fas fa-volume-up" id="novaMuteIcon"></i>
-        </button>
-        <button class="nova-bubble-btn" onclick="novaOpenSettings()" title="Customize Nova">
-          <i class="fas fa-sliders-h"></i>
-        </button>
-        <button class="nova-bubble-btn" onclick="novaCloseBubble()" title="Close">
-          <i class="fas fa-times"></i>
-        </button>
+  <!-- Nova intro card (small, bottom-left, shown once on first visit) -->
+  <div id="novaIntro">
+    <div class="ni-top">
+      <div class="ni-avatar">🤖</div>
+      <div>
+        <div class="ni-label">Nova · BLESSTech-X</div>
+        <div class="ni-sub">Your personal guide</div>
       </div>
     </div>
-    <div id="novaMsgBody"><span class="nova-typing-cursor"></span></div>
-    <div class="nova-progress-bar"><div class="nova-progress-fill" id="novaProgressFill"></div></div>
-    <div id="novaCtaBtns" class="nova-bubble-ctas" style="display:none"></div>
+    <div class="ni-msg">
+      Hi! I'm <strong>Nova</strong>. I can explain each section as you scroll — like a personal tour of everything BLESSTech-X can do for your business. Want me to guide you?
+    </div>
+    <div class="ni-actions">
+      <button class="ni-yes" onclick="novaAcceptTour()"><i class="fas fa-play"></i> Yes, guide me</button>
+      <button class="ni-no" onclick="novaDeclineTour()">No thanks</button>
+    </div>
   </div>
 
-  <!-- Settings panel -->
+  <!-- Nova settings panel -->
   <div id="novaSettings">
-    <div class="nova-settings-title">⚙️ Nova Preferences</div>
-    <div class="nova-setting-row">
-      <span class="nova-setting-label">Tour guide mode</span>
-      <label class="nova-toggle">
-        <input type="checkbox" id="settingTour" checked onchange="novaUpdateSettings()"/>
-        <span class="nova-toggle-slider"></span>
-      </label>
+    <div class="ns-title">⚙️ Nova Preferences</div>
+    <div class="ns-row">
+      <span class="ns-lbl">Tour guide on</span>
+      <label class="ns-toggle"><input type="checkbox" id="nsTour" checked onchange="novaApplySettings()"/><span class="ns-slider"></span></label>
     </div>
-    <div class="nova-setting-row">
-      <span class="nova-setting-label">Voice (speak aloud)</span>
-      <label class="nova-toggle">
-        <input type="checkbox" id="settingVoice" checked onchange="novaUpdateSettings()"/>
-        <span class="nova-toggle-slider"></span>
-      </label>
+    <div class="ns-row">
+      <span class="ns-lbl">Voice (speak aloud)</span>
+      <label class="ns-toggle"><input type="checkbox" id="nsVoice" checked onchange="novaApplySettings()"/><span class="ns-slider"></span></label>
     </div>
-    <div class="nova-setting-row">
-      <span class="nova-setting-label">Auto-scroll comments</span>
-      <label class="nova-toggle">
-        <input type="checkbox" id="settingAuto" checked onchange="novaUpdateSettings()"/>
-        <span class="nova-toggle-slider"></span>
-      </label>
-    </div>
-    <div class="nova-setting-row">
-      <span class="nova-setting-label">Typing speed</span>
-      <select class="nova-speed-select" id="settingSpeed" onchange="novaUpdateSettings()">
-        <option value="20">Fast</option>
-        <option value="38" selected>Normal</option>
-        <option value="65">Slow</option>
+    <div class="ns-row">
+      <span class="ns-lbl">Typing speed</span>
+      <select class="ns-select" id="nsSpeed" onchange="novaApplySettings()">
+        <option value="18">Fast</option>
+        <option value="36" selected>Normal</option>
+        <option value="60">Slow</option>
       </select>
     </div>
-    <div class="nova-setting-row">
-      <span class="nova-setting-label">Hide Nova entirely</span>
-      <label class="nova-toggle">
-        <input type="checkbox" id="settingHide" onchange="novaUpdateSettings()"/>
-        <span class="nova-toggle-slider"></span>
-      </label>
+    <div class="ns-row">
+      <span class="ns-lbl">Hide Nova completely</span>
+      <label class="ns-toggle"><input type="checkbox" id="nsHide" onchange="novaApplySettings()"/><span class="ns-slider"></span></label>
     </div>
-    <button class="nova-settings-close" onclick="novaCloseSettings()">Done</button>
+    <button class="ns-done" onclick="novaCloseSettings()">Done</button>
+  </div>
+
+  <!-- Cookie notice -->
+  <div id="cookieBar">
+    <span>We use cookies to improve your experience. <a href="#" onclick="return false">Learn more</a></span>
+    <button class="cb-accept" onclick="acceptCookie()">Got it</button>
+    <button class="cb-decline" onclick="declineCookie()">Decline</button>
   </div>
 
   <!-- Tawk.to -->
@@ -895,442 +879,437 @@
     })();
   </script>
 
-  <!-- ══════════════════════════════════════════
-       NOVA — SCROLL TOUR GUIDE ENGINE
-  ══════════════════════════════════════════ -->
+  <!-- ═══════════════════════════════════════════
+       NOVA ENGINE
+  ═══════════════════════════════════════════ -->
   <script>
-  (function() {
+  (function(){
     'use strict';
 
-    /* ── TOUR SCRIPTS per section ───────────────────────────────────────
-       Each entry: { section: DOM id, label, messages: [array of lines] }
-       Nova speaks one message per visit then moves on.
-       On the last message it shows CTAs.
-    ─────────────────────────────────────────────────────────────────── */
+    // ── TOUR CONTENT ─────────────────────────────────────────────
+    // Each entry fires ONCE per page session.
+    // On re-entry Nova asks quietly "Want me to explain this again?"
     const TOUR = [
       {
-        section: 'home',
-        label: '🏠 Welcome',
-        messages: [
-          "Welcome! I'm Nova — your guide here at BLESSTech-X. We exist for one reason: to help Zambian businesses make real money online.",
-          "Think of us as your digital partner. We build websites, online stores, brand identities, and run your social media — all delivered in 7 to 14 days. Ready to see what's possible?"
+        id: 'home',
+        msgs: [
+          "Hi there! BLESSTech-X helps Zambian businesses go digital — websites, online stores with Airtel & MTN Money, logos, social media. All done in 7 to 14 days.",
+          "Scroll down to explore our services, see real client results, or try one of our 20+ completely free tools. I'll guide you through each section as you go."
         ],
         ctas: [
-          { text: '🚀 See What We Do', href: '#services', style: 'primary' },
-          { text: '💬 Chat on WhatsApp', href: 'https://wa.me/260979603741', style: 'wa' }
+          { label: '🛠️ See Services', href:'#services', style:'primary' },
+          { label: '💬 WhatsApp Us', href:'https://wa.me/260979603741', style:'wa' }
         ]
       },
       {
-        section: 'services',
-        label: '🛠️ Services',
-        messages: [
-          "This is our services section. Every package here is built specifically for the Zambian market — with Airtel Money and MTN Money built right in.",
-          "Our most popular service is the Complete E-commerce Store — from ZMW 980. Your customers can browse products and pay instantly via mobile money. No technical knowledge needed on your side.",
-          "Click 'View Details' on any service to see exactly what's included — and hit 'Purchase Now' to send us a WhatsApp order in seconds. No back and forth, no guesswork."
+        id: 'services',
+        msgs: [
+          "These are our services — each one built for Zambia. The most popular is the full e-commerce store from ZMW 980, with Airtel & MTN Money checkout already built in.",
+          "Filter by category or search above. Click 'View Details' to see exactly what's included, then 'Purchase Now' to send us a WhatsApp order instantly."
         ],
         ctas: [
-          { text: '🛒 View All Services', href: '#services', style: 'outline' },
-          { text: '💬 Get a Custom Quote', href: 'https://wa.me/260979603741?text=Hello%20BLESSTech-X!%20I%20want%20a%20quote.', style: 'wa' }
+          { label: '💬 Get a Custom Quote', href:'https://wa.me/260979603741?text=Hello!%20I%20need%20a%20quote.', style:'wa' }
         ]
       },
       {
-        section: 'tools-teaser',
-        label: '🔧 Free Tools',
-        messages: [
-          "Here's something most people don't expect — we offer over 20 completely free tools. Invoice generators, CV builders, QR code makers, currency converters. Zero cost, zero signup.",
-          "These tools are built for Zambia — they work perfectly on mobile data, they're fast, and they solve everyday problems for business owners, students, and workers across the country."
+        id: 'tools-teaser',
+        msgs: [
+          "This one surprises most visitors — we offer 20+ completely free tools. Invoice generator, CV builder, QR code maker, currency converter. No account, no cost."
         ],
         ctas: [
-          { text: '🔧 Try Free Tools Now', href: 'tools/index.html', style: 'primary' }
+          { label: '🔧 Try Free Tools', href:'tools/index.html', style:'primary' }
         ]
       },
       {
-        section: 'calculator',
-        label: '📊 ROI Calculator',
-        messages: [
-          "Not sure if going digital is worth it? This calculator shows you the numbers before you spend a kwacha. Enter your project cost, expected new clients, and average sale — we'll show you your yearly ROI.",
-          "Most of our clients recover their investment within 30 to 60 days. Go ahead and try it — the results might surprise you."
+        id: 'calculator',
+        msgs: [
+          "Not sure if going digital is worth it? Run the numbers here. Enter your project cost and expected clients — we'll show you your exact return on investment."
         ],
         ctas: []
       },
       {
-        section: 'process',
-        label: '🔄 How We Work',
-        messages: [
-          "We know Zambian entrepreneurs are busy. That's why our process is designed to be clear, fast, and stress-free. Five steps — from your first call to a live website in under two weeks.",
-          "Step one is a free consultation — no commitment, no pressure. We listen to your business, understand your customers, and tell you exactly what we can build and what it will cost."
+        id: 'process',
+        msgs: [
+          "Five clear steps from first call to live site — no surprises, no hidden costs. Step one is a free consultation. No commitment needed."
         ],
         ctas: [
-          { text: '📞 Book Free Consultation', href: '#contact', style: 'primary' }
+          { label: '📞 Book Free Consultation', href:'#contact', style:'primary' }
         ]
       },
       {
-        section: 'portfolio',
-        label: '📂 Case Studies',
-        messages: [
-          "Words are cheap — results speak louder. This section shows real Zambian businesses we've helped. A clothing shop in Lusaka that grew sales 300%. A restaurant in Kitwe that tripled bookings.",
-          "Click any project to see the full story — before and after. These aren't stock photos or made-up numbers. These are real clients, real results, real Zambian businesses."
+        id: 'portfolio',
+        msgs: [
+          "Real Zambian businesses, real results. A Lusaka clothing shop grew 300% in 2 months. A Kitwe restaurant tripled bookings. Click any project to see the full story."
         ],
         ctas: [
-          { text: '💼 See All Case Studies', href: '#portfolio', style: 'outline' },
-          { text: '📝 Read Our Blog', href: 'blog.html', style: 'outline' }
+          { label: '📝 Read Our Blog', href:'blog.html', style:'outline' }
         ]
       },
       {
-        section: 'testimonials',
-        label: '⭐ Client Stories',
-        messages: [
-          "Don't just take our word for it. Here are Zambian business owners — in their own words — describing what changed after going digital with BLESSTech-X.",
-          "Veronica went from a local clothing shop to serving customers across all provinces. David now takes restaurant orders 24/7 via MTN Money. That's the power of digital done right."
+        id: 'testimonials',
+        msgs: [
+          "Hear it directly from Zambian entrepreneurs — Veronica, David, Amina, Peter. Real people, real growth, real digital transformation."
         ],
         ctas: [
-          { text: '💬 Start Your Story', href: 'https://wa.me/260979603741', style: 'wa' }
+          { label: '💬 Start Your Story', href:'https://wa.me/260979603741', style:'wa' }
         ]
       },
       {
-        section: 'faq',
-        label: '❓ Common Questions',
-        messages: [
-          "Got questions? This section covers the most common ones — timelines, pricing, payment methods, technical requirements. If your question isn't here, just WhatsApp us directly.",
-          "The short answers: yes we do mobile money, yes your site will work on slow data, and no you don't need any technical knowledge to manage your site after we hand it over."
+        id: 'faq',
+        msgs: [
+          "Common questions answered here — timelines, pricing, what happens if you need changes. Still have questions? Just WhatsApp us directly."
         ],
         ctas: []
       },
       {
-        section: 'about',
-        label: '👥 About Us',
-        messages: [
-          "BLESSTech-X was founded right here in Lusaka by Barack Blessings — a full-stack developer — and Sylvester Mwila, a ZICA-certified financial analyst. We combined technology and business strategy for a reason.",
-          "We didn't build this company for large corporations. We built it for the market trader who wants to reach more customers. The tailor who wants to take orders online. The entrepreneur who's ready to grow."
+        id: 'about',
+        msgs: [
+          "BLESSTech-X was built in Lusaka for Zambian entrepreneurs — not big corporations. Barack handles the tech, Sylvester handles the financial strategy. Together we deliver results."
         ],
         ctas: []
       },
       {
-        section: 'contact',
-        label: '📩 Get In Touch',
-        messages: [
-          "You've made it to the end — and if you've seen even one thing that could help your business, this is the moment to act. Fill in the form, WhatsApp us, or call directly.",
-          "We reply within hours — not days. No long waiting lists, no corporate nonsense. Just real people in Lusaka ready to build something great for your business. Let's go!"
+        id: 'contact',
+        msgs: [
+          "Ready to grow? Fill in the form or send us a WhatsApp — we reply same day. No long wait, no pressure. Just real people in Lusaka ready to build something great for you."
         ],
         ctas: [
-          { text: '📩 Send a Message', href: '#contact', style: 'primary' },
-          { text: '💬 WhatsApp Us Now', href: 'https://wa.me/260979603741?text=Hello%20BLESSTech-X!%20I%20want%20to%20get%20started.', style: 'wa' }
+          { label: '📩 Send a Message', href:'#contact', style:'primary' },
+          { label: '💬 WhatsApp Now', href:'https://wa.me/260979603741?text=Hello%20BLESSTech-X!%20I%20want%20to%20get%20started.', style:'wa' }
         ]
       }
     ];
 
-    /* ── STATE ─────────────────────────────── */
-    let tourActive      = false;
-    let isMuted         = false;
-    let typeSpeed       = 38;
-    let autoMode        = true;
-    let hidden          = false;
-    let bubbleOpen      = false;
-    let settingsOpen    = false;
-    let currentSection  = null;
-    let currentMsgIdx   = 0;
-    let typeTimer       = null;
-    let typingDone      = false;
-    let speechDone      = false;
-    let voices          = [];
-    let visitedSections = new Set();
+    // ── STATE ───────────────────────────────────────────────────
+    let tourOn       = false;
+    let isMuted      = false;
+    let typeSpeedMs  = 36;
+    let isHidden     = false;
+    let voices       = [];
+    let visited      = new Set();  // sections already explained this session
+    let currentId    = null;       // currently active section id
+    let currentMsgI  = 0;
+    let typingDone   = false;
+    let speechDone   = false;
+    let typeTimer    = null;
+    let bubbleActive = false;
+    let settingsOpen = false;
+    let pendingSection = null;     // queued section if bubble is mid-speech
 
-    /* ── DOM ───────────────────────────────── */
-    const novaHead      = document.getElementById('novaHead');
-    const avatar        = document.getElementById('novaAvatar');
-    const bubble        = document.getElementById('novaSpeechBubble');
-    const msgBody       = document.getElementById('novaMsgBody');
-    const ctaBtns       = document.getElementById('novaCtaBtns');
-    const progressFill  = document.getElementById('novaProgressFill');
-    const muteIcon      = document.getElementById('novaMuteIcon');
-    const sectionLabel  = document.getElementById('novaSectionLabel');
-    const settingsPanel = document.getElementById('novaSettings');
-    const welcome       = document.getElementById('novaWelcome');
+    // ── DOM ─────────────────────────────────────────────────────
+    const wrap      = document.getElementById('novaWrap');
+    const bubble    = document.getElementById('novaBubble');
+    const msgEl     = document.getElementById('novaMsgText');
+    const ctasEl    = document.getElementById('novaCtaBtns');
+    const progFill  = document.getElementById('novaProgFill');
+    const muteIcon  = document.getElementById('novaMuteIcon');
+    const avatar    = document.getElementById('novaAvatar');
+    const intro     = document.getElementById('novaIntro');
+    const settings  = document.getElementById('novaSettings');
 
-    /* ── VOICE ─────────────────────────────── */
-    function loadVoices() {
+    // ── VOICE ──────────────────────────────────────────────────
+    function loadVoices(){
       voices = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
     }
-    if (window.speechSynthesis) {
-      window.speechSynthesis.onvoiceschanged = loadVoices;
-      loadVoices();
-    }
-    function pickVoice() {
-      const pref = ['Google UK English Female','Samantha','Karen','Victoria'];
-      for (const name of pref) {
-        const v = voices.find(x => x.name === name);
-        if (v) return v;
-      }
-      return voices.find(v => /en/i.test(v.lang)) || null;
+    if(window.speechSynthesis){ speechSynthesis.onvoiceschanged = loadVoices; loadVoices(); }
+
+    function pickVoice(){
+      const names = ['Google UK English Female','Samantha','Karen','Victoria'];
+      for(const n of names){ const v=voices.find(x=>x.name===n); if(v) return v; }
+      return voices.find(v=>/en/i.test(v.lang)) || null;
     }
 
-    /* ── SPEAK ──────────────────────────────── */
-    function speak(text, onDone) {
-      if (!window.speechSynthesis || isMuted || !document.getElementById('settingVoice').checked) {
-        speechDone = true;
-        if (onDone) onDone();
-        return;
+    // ── SPEAK ──────────────────────────────────────────────────
+    function speak(text, onDone){
+      if(!window.speechSynthesis || isMuted || !document.getElementById('nsVoice').checked){
+        speechDone = true; if(onDone) onDone(); checkBoth(); return;
       }
-      window.speechSynthesis.cancel();
+      speechSynthesis.cancel();
       const utt = new SpeechSynthesisUtterance(text);
-      const v = pickVoice();
-      if (v) utt.voice = v;
-      utt.rate = 0.95; utt.pitch = 1.1; utt.volume = 0.88;
-      utt.onstart = () => avatar.classList.add('speaking');
-      utt.onend = () => {
-        avatar.classList.remove('speaking');
-        speechDone = true;
-        if (onDone) onDone();
-        checkBothDone();
-      };
-      utt.onerror = () => {
-        avatar.classList.remove('speaking');
-        speechDone = true;
-        if (onDone) onDone();
-        checkBothDone();
-      };
-      window.speechSynthesis.speak(utt);
+      const v = pickVoice(); if(v) utt.voice = v;
+      utt.rate=0.95; utt.pitch=1.1; utt.volume=0.88;
+      utt.onstart = () => { avatar.classList.add('av-speaking'); };
+      utt.onend   = () => { avatar.classList.remove('av-speaking'); speechDone=true; if(onDone) onDone(); checkBoth(); };
+      utt.onerror = () => { avatar.classList.remove('av-speaking'); speechDone=true; if(onDone) onDone(); checkBoth(); };
+      speechSynthesis.speak(utt);
+    }
+    function stopSpeech(){
+      if(window.speechSynthesis) speechSynthesis.cancel();
+      avatar.classList.remove('av-speaking');
     }
 
-    /* ── TYPEWRITER ─────────────────────────── */
-    function typeText(text, onDone) {
-      clearInterval(typeTimer);
-      msgBody.innerHTML = '<span class="nova-typing-cursor"></span>';
+    // ── TYPEWRITER ─────────────────────────────────────────────
+    function typeText(text, onDone){
+      clearTimeout(typeTimer);
+      typeSpeedMs = parseInt(document.getElementById('nsSpeed').value) || 36;
+      msgEl.innerHTML = '<span class="nb-cursor"></span>';
       let i = 0;
-      typeSpeed = parseInt(document.getElementById('settingSpeed').value) || 38;
-
-      function tick() {
-        if (i < text.length) {
-          const cursor = msgBody.querySelector('.nova-typing-cursor');
-          if (cursor) cursor.insertAdjacentText('beforebegin', text[i]);
+      function tick(){
+        if(i < text.length){
+          const cur = msgEl.querySelector('.nb-cursor');
+          if(cur) cur.insertAdjacentText('beforebegin', text[i]);
           i++;
-          typeTimer = setTimeout(tick, typeSpeed);
+          typeTimer = setTimeout(tick, typeSpeedMs);
         } else {
-          const cursor = msgBody.querySelector('.nova-typing-cursor');
-          if (cursor) cursor.remove();
-          typingDone = true;
-          if (onDone) onDone();
-          checkBothDone();
+          const cur = msgEl.querySelector('.nb-cursor');
+          if(cur) cur.remove();
+          typingDone = true; if(onDone) onDone(); checkBoth();
         }
       }
       tick();
     }
 
-    /* ── BOTH DONE CHECK ────────────────────── */
-    function checkBothDone() {
-      if (!typingDone || !speechDone) return;
-      const tourItem = TOUR.find(t => t.section === currentSection);
-      if (!tourItem) return;
-
-      const isLastMsg = currentMsgIdx >= tourItem.messages.length - 1;
-
-      if (isLastMsg) {
-        // Show CTAs if any
-        if (tourItem.ctas && tourItem.ctas.length > 0) {
-          renderCTAs(tourItem.ctas);
-        }
+    // ── BOTH DONE ──────────────────────────────────────────────
+    function checkBoth(){
+      if(!typingDone || !speechDone) return;
+      const item = TOUR.find(t=>t.id===currentId); if(!item) return;
+      const isLast = currentMsgI >= item.msgs.length - 1;
+      if(isLast){
+        if(item.ctas && item.ctas.length) renderCTAs(item.ctas);
       } else {
-        // Advance to next message after 700ms pause
-        setTimeout(() => {
-          currentMsgIdx++;
-          playMessage(tourItem.messages[currentMsgIdx], tourItem);
-        }, 700);
+        setTimeout(()=>{ currentMsgI++; playMsg(item.msgs[currentMsgI], item); }, 700);
       }
     }
 
-    /* ── RENDER CTAs ────────────────────────── */
-    function renderCTAs(ctas) {
-      ctaBtns.style.display = 'flex';
-      ctaBtns.innerHTML = ctas.map(cta => {
-        const cls = cta.style === 'wa' ? 'nova-bcta nova-bcta-wa'
-                  : cta.style === 'outline' ? 'nova-bcta nova-bcta-outline'
-                  : 'nova-bcta nova-bcta-primary';
-        return `<a href="${cta.href}" class="${cls}" target="${cta.href.startsWith('http') ? '_blank' : '_self'}">${cta.text}</a>`;
+    // ── RENDER CTAs ─────────────────────────────────────────────
+    function renderCTAs(ctas){
+      ctasEl.style.display = 'flex';
+      ctasEl.innerHTML = ctas.map(c=>{
+        const cls = c.style==='wa' ? 'nb-cta nb-cta-wa'
+                  : c.style==='outline' ? 'nb-cta nb-cta-outline'
+                  : 'nb-cta nb-cta-primary';
+        const target = c.href.startsWith('http') ? '_blank' : '_self';
+        return `<a href="${c.href}" class="${cls}" target="${target}">${c.label}</a>`;
       }).join('');
     }
 
-    /* ── PLAY MESSAGE ───────────────────────── */
-    function playMessage(text, tourItem) {
-      typingDone = false;
-      speechDone = false;
-      ctaBtns.style.display = 'none';
-      ctaBtns.innerHTML = '';
-
-      // Progress bar
-      const total = tourItem.messages.length;
-      const pct = total > 1 ? ((currentMsgIdx / (total - 1)) * 100) : 100;
-      progressFill.style.width = pct + '%';
-
+    // ── PLAY MESSAGE ────────────────────────────────────────────
+    function playMsg(text, item){
+      typingDone = false; speechDone = false;
+      ctasEl.style.display = 'none'; ctasEl.innerHTML = '';
+      const pct = item.msgs.length > 1 ? (currentMsgI/(item.msgs.length-1))*100 : 100;
+      progFill.style.width = pct + '%';
       typeText(text);
       speak(text);
     }
 
-    /* ── TRIGGER SECTION ────────────────────── */
-    function triggerSection(sectionId) {
-      if (!tourActive || hidden) return;
-      if (currentSection === sectionId) return; // already on it
-      if (visitedSections.has(sectionId) && !autoMode) return;
-
-      const tourItem = TOUR.find(t => t.section === sectionId);
-      if (!tourItem) return;
-
-      visitedSections.add(sectionId);
-      currentSection = sectionId;
-      currentMsgIdx  = 0;
-
-      // Show section label
-      sectionLabel.textContent = tourItem.label;
-      sectionLabel.classList.add('label-show');
-      setTimeout(() => sectionLabel.classList.remove('label-show'), 2500);
-
-      // Open bubble
-      bubble.classList.add('bubble-visible');
-      bubbleOpen = true;
-
-      playMessage(tourItem.messages[0], tourItem);
+    // ── SHOW BUBBLE ─────────────────────────────────────────────
+    function showBubble(){
+      bubble.classList.add('nb-show');
+      avatar.classList.add('av-show');
+      bubbleActive = true;
     }
 
-    /* ── INTERSECTION OBSERVER ──────────────── */
-    function initScrollWatcher() {
-      const targets = TOUR.map(t => document.getElementById(t.section)).filter(Boolean);
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
-            triggerSection(entry.target.id);
+    // ── HIDE BUBBLE (keep avatar visible briefly) ────────────────
+    window.novaHideBubble = function(){
+      bubble.classList.remove('nb-show');
+      bubbleActive = false;
+      stopSpeech();
+      clearTimeout(typeTimer);
+      // Hide avatar after a short delay too
+      setTimeout(()=>{ if(!bubbleActive) avatar.classList.remove('av-show'); }, 2000);
+    };
+
+    // ── TRIGGER SECTION ─────────────────────────────────────────
+    function triggerSection(sectionId){
+      if(!tourOn || isHidden) return;
+      const item = TOUR.find(t=>t.id===sectionId); if(!item) return;
+
+      // Already explained this session — show "replay?" prompt instead
+      if(visited.has(sectionId)){
+        // Only show if bubble is currently hidden
+        if(!bubbleActive){
+          showRevisitPrompt(item);
+        }
+        return;
+      }
+
+      // If bubble is currently active mid-speech, queue this section
+      if(bubbleActive && currentId !== sectionId){
+        pendingSection = sectionId;
+        return;
+      }
+
+      visited.add(sectionId);
+      currentId   = sectionId;
+      currentMsgI = 0;
+
+      stopSpeech(); clearTimeout(typeTimer);
+      ctasEl.style.display='none'; ctasEl.innerHTML='';
+      progFill.style.width='0%';
+
+      showBubble();
+      playMsg(item.msgs[0], item);
+    }
+
+    // ── REVISIT PROMPT ──────────────────────────────────────────
+    function showRevisitPrompt(item){
+      currentId = item.id;
+      stopSpeech(); clearTimeout(typeTimer);
+      ctasEl.style.display = 'flex';
+      ctasEl.innerHTML = `
+        <div class="nb-revisit">Want me to explain this section again?
+          <button class="nb-revisit-btn" onclick="novaReplaySection('${item.id}')">Yes, replay</button>
+          <button class="nb-revisit-btn" onclick="novaHideBubble()">No thanks</button>
+        </div>`;
+      msgEl.innerHTML = '';
+      showBubble();
+    }
+
+    window.novaReplaySection = function(id){
+      visited.delete(id);
+      triggerSection(id);
+    };
+
+    // ── INTERSECTION OBSERVER ───────────────────────────────────
+    function initObserver(){
+      const targets = TOUR.map(t=>document.getElementById(t.id)).filter(Boolean);
+      const obs = new IntersectionObserver(entries=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting && e.intersectionRatio >= 0.35){
+            triggerSection(e.target.id);
           }
         });
-      }, { threshold: 0.3 });
-      targets.forEach(el => obs.observe(el));
+      }, { threshold: 0.35 });
+      targets.forEach(el=>obs.observe(el));
     }
 
-    /* ── WELCOME OVERLAY ───────────────────── */
-    window.novaStartTour = function() {
-      welcome.classList.add('fade-out');
-      setTimeout(() => welcome.style.display = 'none', 600);
-      tourActive = true;
-      novaHead.classList.add('nova-show');
-      localStorage.setItem('nova_tour', 'active');
-      // Start hero section
-      setTimeout(() => triggerSection('home'), 800);
-    };
-
-    window.novaSkipTour = function() {
-      welcome.classList.add('fade-out');
-      setTimeout(() => welcome.style.display = 'none', 600);
-      tourActive = false;
-      // Show small chathead so user can invoke manually
-      novaHead.classList.add('nova-show');
-      localStorage.setItem('nova_tour', 'skipped');
-    };
-
-    /* ── AVATAR CLICK ───────────────────────── */
-    window.novaAvatarClick = function() {
-      if (settingsOpen) { novaCloseSettings(); return; }
-      if (bubbleOpen) {
-        novaCloseBubble();
+    // ── AVATAR CLICK ────────────────────────────────────────────
+    window.novaAvatarClick = function(){
+      if(settingsOpen){ novaCloseSettings(); return; }
+      if(bubbleActive){
+        novaHideBubble();
       } else {
-        if (!tourActive) {
-          tourActive = true;
-          currentSection = null;
-          // Replay from current viewport section
-          const visible = TOUR.find(t => {
-            const el = document.getElementById(t.section);
-            if (!el) return false;
-            const r = el.getBoundingClientRect();
-            return r.top < window.innerHeight && r.bottom > 0;
-          });
-          if (visible) triggerSection(visible.section);
+        // Show bubble with current section content or closest visible section
+        if(currentId){
+          showBubble();
         } else {
-          bubble.classList.add('bubble-visible');
-          bubbleOpen = true;
+          // Find closest visible section and trigger it
+          const vis = TOUR.find(t=>{
+            const el = document.getElementById(t.id);
+            if(!el) return false;
+            const r = el.getBoundingClientRect();
+            return r.top < window.innerHeight*0.7 && r.bottom > 0;
+          });
+          if(vis) triggerSection(vis.id);
         }
       }
     };
 
-    /* ── CLOSE BUBBLE ───────────────────────── */
-    window.novaCloseBubble = function() {
-      bubble.classList.remove('bubble-visible');
-      bubbleOpen = false;
-      clearTimeout(typeTimer);
-      if (window.speechSynthesis) window.speechSynthesis.cancel();
-      avatar.classList.remove('speaking');
+    // ── INTRO CARD ──────────────────────────────────────────────
+    window.novaAcceptTour = function(){
+      tourOn = true;
+      intro.classList.remove('ni-show');
+      localStorage.setItem('nova_pref','tour');
+      // Trigger hero section immediately
+      triggerSection('home');
+    };
+    window.novaDeclineTour = function(){
+      intro.classList.remove('ni-show');
+      localStorage.setItem('nova_pref','declined');
+      // Show avatar only so user can invoke Nova manually
+      avatar.classList.add('av-show');
+      setTimeout(()=>avatar.classList.remove('av-show'), 3000);
     };
 
-    /* ── MUTE ───────────────────────────────── */
-    window.novaToggleMute = function() {
+    // ── MUTE ────────────────────────────────────────────────────
+    window.novaToggleMute = function(){
       isMuted = !isMuted;
       muteIcon.className = isMuted ? 'fas fa-volume-mute' : 'fas fa-volume-up';
-      if (isMuted && window.speechSynthesis) {
-        window.speechSynthesis.cancel();
-        avatar.classList.remove('speaking');
-        if (!speechDone) { speechDone = true; checkBothDone(); }
-      }
-      document.getElementById('settingVoice').checked = !isMuted;
+      document.getElementById('nsVoice').checked = !isMuted;
+      if(isMuted){ stopSpeech(); if(!speechDone){ speechDone=true; checkBoth(); } }
     };
 
-    /* ── SETTINGS ───────────────────────────── */
-    window.novaOpenSettings = function() {
+    // ── SETTINGS ────────────────────────────────────────────────
+    window.novaOpenSettings = function(){
       settingsOpen = true;
-      settingsPanel.classList.add('settings-visible');
-      bubble.classList.remove('bubble-visible');
+      settings.classList.add('ns-show');
+      bubble.classList.remove('nb-show');
     };
-    window.novaCloseSettings = function() {
+    window.novaCloseSettings = function(){
       settingsOpen = false;
-      settingsPanel.classList.remove('settings-visible');
+      settings.classList.remove('ns-show');
     };
-    window.novaUpdateSettings = function() {
-      const tourOn  = document.getElementById('settingTour').checked;
-      const voiceOn = document.getElementById('settingVoice').checked;
-      const autoOn  = document.getElementById('settingAuto').checked;
-      const hideOn  = document.getElementById('settingHide').checked;
-
-      tourActive = tourOn;
-      isMuted    = !voiceOn;
-      autoMode   = autoOn;
-      hidden     = hideOn;
-      typeSpeed  = parseInt(document.getElementById('settingSpeed').value) || 38;
-
+    window.novaApplySettings = function(){
+      tourOn      = document.getElementById('nsTour').checked;
+      isMuted     = !document.getElementById('nsVoice').checked;
+      typeSpeedMs = parseInt(document.getElementById('nsSpeed').value)||36;
+      isHidden    = document.getElementById('nsHide').checked;
       muteIcon.className = isMuted ? 'fas fa-volume-mute' : 'fas fa-volume-up';
-
-      if (hidden) {
-        novaHead.classList.remove('nova-show');
-        bubble.classList.remove('bubble-visible');
-        settingsPanel.classList.remove('settings-visible');
-        if (window.speechSynthesis) window.speechSynthesis.cancel();
-      } else {
-        novaHead.classList.add('nova-show');
+      if(isHidden){
+        bubble.classList.remove('nb-show');
+        avatar.classList.remove('av-show');
+        settings.classList.remove('ns-show');
+        stopSpeech();
       }
-
-      if (!voiceOn && window.speechSynthesis) {
-        window.speechSynthesis.cancel();
-        avatar.classList.remove('speaking');
-      }
+      if(isMuted){ stopSpeech(); if(!speechDone){ speechDone=true; checkBoth(); } }
     };
 
-    /* ── BOOT ───────────────────────────────── */
-    document.addEventListener('DOMContentLoaded', function() {
-      const prev = localStorage.getItem('nova_tour');
+    // ── BOOT ────────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', function(){
+      initObserver();
+      const pref = localStorage.getItem('nova_pref');
 
-      if (prev === 'active') {
-        // Returning visitor who accepted — skip welcome, start tour
-        welcome.style.display = 'none';
-        tourActive = true;
-        novaHead.classList.add('nova-show');
-        initScrollWatcher();
-      } else if (prev === 'skipped') {
-        // Returning visitor who skipped — just show chathead
-        welcome.style.display = 'none';
-        tourActive = false;
-        novaHead.classList.add('nova-show');
-        initScrollWatcher();
+      if(pref === 'tour'){
+        // Returning visitor who accepted tour
+        tourOn = true;
+        // No intro card — Nova just activates on scroll
+      } else if(pref === 'declined'){
+        // Declined tour — just show avatar quietly
+        tourOn = false;
+        avatar.classList.add('av-show');
+        setTimeout(()=>avatar.classList.remove('av-show'), 2500);
       } else {
-        // First visit — show welcome overlay
-        initScrollWatcher();
-        // Welcome shows by default (already in DOM)
+        // First visit — show small intro card after 3 seconds
+        setTimeout(()=>intro.classList.add('ni-show'), 3000);
       }
     });
 
+    // Handle pending section after bubble closes
+    const origHide = window.novaHideBubble;
+    window.novaHideBubble = function(){
+      origHide();
+      if(pendingSection){
+        const ps = pendingSection; pendingSection = null;
+        setTimeout(()=>triggerSection(ps), 500);
+      }
+    };
+
   })();
+  </script>
+
+  <!-- ═══════════════════════════════════════════
+       PAGE ENHANCEMENTS
+  ═══════════════════════════════════════════ -->
+  <script>
+  // ── READING PROGRESS BAR ─────────────────────
+  window.addEventListener('scroll', function(){
+    const doc = document.documentElement;
+    const scrolled = doc.scrollTop;
+    const total = doc.scrollHeight - doc.clientHeight;
+    const pct = total > 0 ? (scrolled / total) * 100 : 0;
+    document.getElementById('readingProgress').style.width = pct + '%';
+
+    // Scroll-to-top button
+    const btn = document.getElementById('scrollTopBtn');
+    if(scrolled > 400) btn.classList.add('stt-show');
+    else btn.classList.remove('stt-show');
+  }, { passive: true });
+
+  // ── COOKIE NOTICE ────────────────────────────
+  function showCookie(){
+    if(!localStorage.getItem('cookie_ok')){
+      setTimeout(()=>document.getElementById('cookieBar').classList.add('cb-show'), 2000);
+    }
+  }
+  window.acceptCookie = function(){
+    localStorage.setItem('cookie_ok','1');
+    document.getElementById('cookieBar').classList.remove('cb-show');
+  };
+  window.declineCookie = function(){
+    document.getElementById('cookieBar').classList.remove('cb-show');
+  };
+  document.addEventListener('DOMContentLoaded', showCookie);
   </script>
 
   <script src="script.js"></script>
