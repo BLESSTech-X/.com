@@ -1,7 +1,7 @@
 ---
 title: "How Zambian Businesses Can Start Selling Online in 7 Days"
 date: 2026-03-23T08:00:00.000Z
-image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop"
+image: "https://i.ibb.co/v4ZbYsS5/1779224086472.png"
 excerpt: "A practical guide for Zambian entrepreneurs who want to go from zero to a working online store — with Airtel Money and MTN Money payments — in just one week."
 category: "E-commerce"
 author: "Barack Blessings"
