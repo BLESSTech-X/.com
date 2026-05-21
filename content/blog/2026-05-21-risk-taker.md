@@ -1,7 +1,7 @@
 ---
 title: Take A Risk
 date: 2026-05-21T16:11:00.000+02:00
-image: ""
+image: https://i.ibb.co/TxGpjjgq/In-Shot-20260504-190809239.jpg
 excerpt: >-
   All Successful businesses operates under the scheme of risk taking.
 
