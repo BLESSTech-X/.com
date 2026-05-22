@@ -355,36 +355,66 @@
     <style>
 
   /* ========== BOTTOM TAB BAR (WhatsApp style) ========== */
-  /* ── BOTTOM TAB BAR ── */
-      .mobile-tab-bar {
-        display: flex !important;
-        position: fixed; bottom: 0; left: 0; right: 0; z-index: 999;
-        background: var(--white);
-        border-top: 1px solid var(--border);
-        padding: 6px 0 env(safe-area-inset-bottom, 0);
-        box-shadow: 0 -4px 16px rgba(0,0,0,0.08);
-      }
-      .tab-bar-item {
-        flex: 1; display: flex; flex-direction: column;
-        align-items: center; gap: 3px;
-        padding: 6px 4px; text-decoration: none;
-        color: var(--muted); font-size: 0.6rem; font-weight: 600;
-        transition: color 0.2s;
-      }
-      .tab-bar-item.active { color: var(--sky); }
-      .tab-bar-item i { font-size: 1.1rem; }
-      .tab-bar-item.tab-wa { color: #25d366; }
+  /* ========== BOTTOM NAVIGATION BAR - FIXED POSITION ========== */
+.mobile-tab-bar {
+  display: none;
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 99999 !important;
+  background: #0a0f1c;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 8px 0 12px;
+  box-shadow: 0 -4px 16px rgba(0,0,0,0.4);
+  /* Remove any transforms */
+  transform: none !important;
+  will-change: auto !important;
+}
 
-      /* Modal mobile fixes */
-      .post-modal { margin: 0; border-radius: 20px 20px 0 0; margin-top: auto; }
-      .post-modal-overlay { align-items: flex-end; padding: 0; }
-      .modal-hero { height: 200px; }
-      .modal-body { padding: 20px 16px; }
-      .modal-reactions { padding: 12px 16px; }
-      .modal-cta-section { padding: 16px; }
-      .modal-cta-btns { flex-direction: column; }
-      .cta-btn { justify-content: center; }
-    }
+.tab-bar-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 4px;
+  text-decoration: none;
+  color: #64748b;
+  font-size: 0.65rem;
+  font-weight: 600;
+  transition: color 0.2s;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.tab-bar-item.active {
+  color: #0ea5e9;
+}
+
+.tab-bar-item i {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.tab-bar-item.tab-wa {
+  color: #25D366;
+}
+
+.tab-bar-item span {
+  font-size: 0.6rem;
+}
+
+/* Show on mobile only */
+@media (max-width: 768px) {
+  .mobile-tab-bar {
+    display: flex !important;
+  }
+  body {
+    padding-bottom: 70px;
+  }
+}
 </style>
   }
   </style>
