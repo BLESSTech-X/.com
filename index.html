@@ -548,6 +548,20 @@
     padding-bottom: 70px;
   }
 }
+    /* Move Nova above bottom navigation bar */
+#novaWrap {
+  bottom: 80px !important;  /* Moves up from 24px to 80px */
+}
+
+@media (max-width: 768px) {
+  #novaWrap {
+    bottom: 80px !important;  /* Above the bottom bar on mobile */
+  }
+  
+  #novaAvatar {
+    margin-bottom: 0;
+  }
+}
   </style>
 </head>
 <body>
