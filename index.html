@@ -1028,11 +1028,6 @@
     <i class="fas fa-chevron-up"></i>
   </button>
 
-  <!-- WHATSAPP FAB -->
-  <a href="https://wa.me/260979603741" class="whatsapp-fab" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
-    <i class="fab fa-whatsapp"></i>
-  </a>
-
   <!-- SERVICE & PORTFOLIO MODALS (unchanged) -->
   <div class="modal-overlay" id="serviceModal" role="dialog" aria-modal="true">
     <div class="modal-box">
@@ -1447,12 +1442,14 @@
   };
   
   window.novaDeclineTour = function(){
-    intro.classList.remove('ni-show');
-    localStorage.setItem('nova_pref','declined');
-    localStorage.setItem('nova_last_shown', Date.now());
-    avatar.classList.add('av-show');
-    setTimeout(()=>avatar.classList.remove('av-show'), 3000);
-  };
+  intro.classList.remove('ni-show');
+  localStorage.setItem('nova_pref', 'declined');
+  localStorage.setItem('nova_last_shown', Date.now());
+  tourOn = false;
+  scrollTrigger = false;
+  avatar.classList.add('av-show');
+  setTimeout(() => avatar.classList.remove('av-show'), 2000);
+};
 
   window.novaToggleMute=function(){
     isMuted=!isMuted;
@@ -1634,5 +1631,12 @@
       <span>Chat</span>
     </a>
   </div>
+  <script>
+  // Remove WhatsApp floating button if it exists
+  document.addEventListener('DOMContentLoaded', function() {
+    const waButtons = document.querySelectorAll('a[href*="wa.me"], .whatsapp-fab, .whatsapp-float, [class*="whatsapp-fab"]');
+    waButtons.forEach(btn => btn.remove());
+  });
+</script>
 </body>
 </html>
