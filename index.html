@@ -1499,41 +1499,62 @@
       novaCloseSettings();
     };
 
-    // ── BOOT
-    document.addEventListener('DOMContentLoaded',function(){
-      // Load saved settings
-      const saved = localStorage.getItem('nova_settings');
-      if(saved){
-        try {
-          const s=JSON.parse(saved);
-          if(s.tour!==undefined) { tourOn=s.tour; document.getElementById('nsTour').checked=s.tour; }
-          if(s.scroll!==undefined) { scrollTrigger=s.scroll; document.getElementById('nsScroll').checked=s.scroll; }
-          if(s.replay!==undefined) { showReplayPrompts=s.replay; document.getElementById('nsReplay').checked=s.replay; }
-          if(s.voice!==undefined) { isMuted=!s.voice; document.getElementById('nsVoice').checked=s.voice; muteIcon.className=isMuted?'fas fa-volume-mute':'fas fa-volume-up'; }
-          if(s.voiceRate) { voiceRate=s.voiceRate; document.getElementById('nsVoiceRate').value=s.voiceRate; }
-          if(s.typeSpeed) { typeSpeedMs=s.typeSpeed; document.getElementById('nsSpeed').value=s.typeSpeed; }
-          if(s.hide) { isHidden=s.hide; document.getElementById('nsHide').checked=s.hide; }
-        } catch(e){}
-      }
+    // ── BOOT - Shows intro every 24 hours, not every page load
+document.addEventListener('DOMContentLoaded',function(){
+  // Load saved settings
+  const saved = localStorage.getItem('nova_settings');
+  if(saved){
+    try {
+      const s=JSON.parse(saved);
+      if(s.tour!==undefined) { tourOn=s.tour; document.getElementById('nsTour').checked=s.tour; }
+      if(s.scroll!==undefined) { scrollTrigger=s.scroll; document.getElementById('nsScroll').checked=s.scroll; }
+      if(s.replay!==undefined) { showReplayPrompts=s.replay; document.getElementById('nsReplay').checked=s.replay; }
+      if(s.voice!==undefined) { isMuted=!s.voice; document.getElementById('nsVoice').checked=s.voice; muteIcon.className=isMuted?'fas fa-volume-mute':'fas fa-volume-up'; }
+      if(s.voiceRate) { voiceRate=s.voiceRate; document.getElementById('nsVoiceRate').value=s.voiceRate; }
+      if(s.typeSpeed) { typeSpeedMs=s.typeSpeed; document.getElementById('nsSpeed').value=s.typeSpeed; }
+      if(s.hide) { isHidden=s.hide; document.getElementById('nsHide').checked=s.hide; }
+    } catch(e){}
+  }
 
-      initObserver();
-      const pref=localStorage.getItem('nova_pref');
-      const ts=parseInt(localStorage.getItem('nova_ts')||'0');
-      const sevenDays=7*24*60*60*1000;
-      const expired=Date.now()-ts>sevenDays;
-
-      if(pref==='tour' && !expired){
-        tourOn=true;
-        // Just waits for scroll — no intro card
-      } else if(pref==='declined' && !expired){
-        tourOn=false;
-        avatar.classList.add('av-show');
-        setTimeout(()=>avatar.classList.remove('av-show'), 2500);
-      } else {
-        // First visit OR 7 days passed — show intro after 5s
-        setTimeout(()=>intro.classList.add('ni-show'), 5000);
-      }
-    });
+  initObserver();
+  
+  // Check when the intro was last shown
+  const lastShown = parseInt(localStorage.getItem('nova_last_shown') || '0');
+  const now = Date.now();
+  const oneDay = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+  
+  const pref = localStorage.getItem('nova_pref');
+  
+  // If user already accepted or declined, respect their choice but remind every 24h
+  if(pref === 'tour'){
+    tourOn = true;
+    // Don't show intro again, but Nova is active
+    avatar.classList.add('av-show');
+    setTimeout(()=>avatar.classList.remove('av-show'), 2000);
+  } 
+  else if(pref === 'declined'){
+    tourOn = false;
+    // Check if 24 hours have passed since last reminder
+    if(now - lastShown > oneDay){
+      // Time to remind them again
+      setTimeout(() => {
+        intro.classList.add('ni-show');
+        localStorage.setItem('nova_last_shown', now);
+      }, 3000);
+    } else {
+      // Just show avatar briefly
+      avatar.classList.add('av-show');
+      setTimeout(()=>avatar.classList.remove('av-show'), 2000);
+    }
+  } 
+  else {
+    // First time visitor - show intro card after 3 seconds
+    setTimeout(() => {
+      intro.classList.add('ni-show');
+      localStorage.setItem('nova_last_shown', now);
+    }, 3000);
+  }
+});
 
     // Pending section handler
     const origHide=window.novaHideBubble;
