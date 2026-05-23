@@ -4,20 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>BLESSTech-X Community | Business Network Zambia</title>
-  <meta name="description" content="Zambia's business community — share tips, ask questions, and grow together." />
+  <meta name="description" content="Zambia's business community — share tips, ask questions, and grow together. Like Facebook but for Zambian entrepreneurs." />
   <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" />
-  
-  <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
-  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet" />
+
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
       --fb-bg: #18191a;
@@ -29,11 +22,10 @@
       --fb-text: #e4e6eb;
       --fb-text-secondary: #b0b3b8;
       --fb-divider: #3e4042;
-      --fb-green: #31a24c;
     }
 
     body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-family: 'Inter', system-ui, sans-serif;
       background: var(--fb-bg);
       color: var(--fb-text);
       line-height: 1.5;
@@ -53,6 +45,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
     .fb-logo {
@@ -62,20 +56,15 @@
       text-decoration: none;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
 
-    .fb-logo img {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-    }
+    .fb-logo img { width: 36px; height: 36px; border-radius: 8px; }
 
     .fb-search {
       flex: 1;
       max-width: 400px;
       position: relative;
-      margin: 0 12px;
     }
 
     .fb-search input {
@@ -96,14 +85,9 @@
       color: var(--fb-text-secondary);
     }
 
-    .fb-nav-icons {
-      display: flex;
-      gap: 8px;
-    }
-
+    .fb-nav-icons { display: flex; gap: 8px; }
     .fb-nav-icons a {
-      width: 40px;
-      height: 40px;
+      width: 40px; height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -113,24 +97,56 @@
       text-decoration: none;
     }
 
-    /* Main layout - 2 columns like Facebook */
+    /* Main layout */
     .fb-container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 70px 16px 20px;
       display: grid;
-      grid-template-columns: 1fr 340px;
-      gap: 28px;
+      grid-template-columns: 280px 1fr 320px;
+      gap: 20px;
     }
 
-    /* Main feed */
-    .fb-main {
-      max-width: 680px;
-      width: 100%;
-      margin: 0 auto;
+    /* Left Sidebar */
+    .fb-left { position: sticky; top: 70px; height: fit-content; }
+    .profile-card {
+      background: var(--fb-surface);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      border: 1px solid var(--fb-border);
     }
+    .profile-cover {
+      height: 60px;
+      background: linear-gradient(135deg, var(--fb-primary), #0369a1);
+      border-radius: 8px;
+      margin: -16px -16px 0 -16px;
+    }
+    .profile-avatar {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      border: 4px solid var(--fb-surface);
+      margin-top: -36px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .profile-name { font-weight: 700; font-size: 1.1rem; }
+    .profile-bio { font-size: 0.8rem; color: var(--fb-text-secondary); margin-top: 4px; }
 
-    /* Stories row - exact Facebook style */
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      color: var(--fb-text);
+      text-decoration: none;
+      margin: 4px 0;
+    }
+    .menu-item:hover { background: var(--fb-hover); }
+
+    /* Stories Row */
     .stories-row {
       display: flex;
       gap: 10px;
@@ -138,69 +154,35 @@
       padding: 8px 0 16px;
       scrollbar-width: thin;
     }
-
-    .stories-row::-webkit-scrollbar {
-      height: 4px;
-    }
-
+    .stories-row::-webkit-scrollbar { height: 4px; }
     .story {
       flex-shrink: 0;
       width: 110px;
       text-align: center;
       cursor: pointer;
-      position: relative;
     }
-
     .story-ring {
-      width: 90px;
-      height: 90px;
+      width: 90px; height: 90px;
       border-radius: 50%;
       background: linear-gradient(45deg, #f09433, #d62976, #962fbf, #00acee);
       padding: 3px;
       margin: 0 auto;
     }
-
     .story-ring-inner {
-      width: 100%;
-      height: 100%;
+      width: 100%; height: 100%;
       border-radius: 50%;
       background: var(--fb-card);
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
     }
+    .story-ring-inner img { width: 100%; height: 100%; object-fit: cover; }
+    .create-story .story-ring { background: var(--fb-card); border: 1px solid var(--fb-border); }
+    .create-story .story-ring-inner { background: var(--fb-surface); flex-direction: column; }
+    .story-name { font-size: 0.7rem; margin-top: 6px; color: var(--fb-text-secondary); }
 
-    .story-ring-inner img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .story-name {
-      font-size: 0.7rem;
-      margin-top: 6px;
-      color: var(--fb-text-secondary);
-    }
-
-    .create-story .story-ring {
-      background: var(--fb-card);
-      border: 1px solid var(--fb-border);
-    }
-
-    .create-story .story-ring-inner {
-      background: var(--fb-surface);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .create-story .story-ring-inner i {
-      font-size: 1.8rem;
-      color: var(--fb-primary);
-    }
-
-    /* Create post box */
+    /* Create Post */
     .create-post {
       background: var(--fb-surface);
       border-radius: 12px;
@@ -208,31 +190,17 @@
       margin-bottom: 16px;
       border: 1px solid var(--fb-border);
     }
-
-    .create-post-top {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-    }
-
+    .create-post-top { display: flex; gap: 12px; align-items: center; }
     .create-post-avatar {
-      width: 40px;
-      height: 40px;
+      width: 40px; height: 40px;
       border-radius: 50%;
       background: var(--fb-primary);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: bold;
       overflow: hidden;
     }
-
-    .create-post-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
+    .create-post-avatar img { width: 100%; height: 100%; object-fit: cover; }
     .create-post-input {
       flex: 1;
       background: var(--fb-card);
@@ -242,24 +210,9 @@
       color: var(--fb-text-secondary);
       cursor: pointer;
       text-align: left;
-      font-size: 0.9rem;
     }
-
-    .create-post-input:hover {
-      background: var(--fb-hover);
-    }
-
-    .create-post-divider {
-      height: 1px;
-      background: var(--fb-divider);
-      margin: 12px 0;
-    }
-
-    .create-post-actions {
-      display: flex;
-      justify-content: space-around;
-    }
-
+    .create-post-divider { height: 1px; background: var(--fb-divider); margin: 12px 0; }
+    .create-post-actions { display: flex; justify-content: space-around; }
     .action-btn {
       display: flex;
       align-items: center;
@@ -272,12 +225,9 @@
       cursor: pointer;
       font-size: 0.85rem;
     }
+    .action-btn:hover { background: var(--fb-hover); }
 
-    .action-btn:hover {
-      background: var(--fb-hover);
-    }
-
-    /* Post card - exact Facebook style */
+    /* Post Card */
     .post-card {
       background: var(--fb-surface);
       border-radius: 12px;
@@ -285,51 +235,31 @@
       border: 1px solid var(--fb-border);
       overflow: hidden;
     }
-
     .post-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 12px 16px;
     }
-
-    .post-header-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
+    .post-header-left { display: flex; align-items: center; gap: 12px; }
     .post-avatar {
-      width: 40px;
-      height: 40px;
+      width: 40px; height: 40px;
       border-radius: 50%;
       background: var(--fb-primary);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: bold;
       overflow: hidden;
     }
-
-    .post-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .post-author-info {
-      display: flex;
-      flex-direction: column;
-    }
-
+    .post-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .post-author-info { display: flex; flex-direction: column; }
     .post-author {
       font-weight: 600;
       font-size: 0.9rem;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
-
     .follow-btn {
       background: none;
       border: none;
@@ -338,37 +268,16 @@
       font-weight: 600;
       cursor: pointer;
     }
-
-    .post-time {
-      font-size: 0.7rem;
-      color: var(--fb-text-secondary);
-    }
-
-    .post-menu {
-      color: var(--fb-text-secondary);
-      cursor: pointer;
-      padding: 8px;
-    }
-
-    .post-content {
-      padding: 0 16px 12px;
-    }
-
-    .post-text {
-      color: var(--fb-text);
-      font-size: 0.9rem;
-      line-height: 1.5;
-      margin-bottom: 12px;
-    }
-
+    .post-time { font-size: 0.7rem; color: var(--fb-text-secondary); }
+    .post-menu { color: var(--fb-text-secondary); cursor: pointer; padding: 8px; }
+    .post-content { padding: 0 16px 12px; }
+    .post-text { font-size: 0.9rem; line-height: 1.5; margin-bottom: 12px; }
     .post-image {
       width: 100%;
       max-height: 500px;
       object-fit: cover;
-      margin-top: 8px;
       border-radius: 8px;
     }
-
     .post-stats {
       display: flex;
       justify-content: space-between;
@@ -377,13 +286,11 @@
       font-size: 0.8rem;
       border-top: 1px solid var(--fb-divider);
     }
-
     .post-actions {
       display: flex;
       justify-content: space-around;
       padding: 6px 16px;
     }
-
     .post-action {
       display: flex;
       align-items: center;
@@ -397,32 +304,21 @@
       font-size: 0.85rem;
       font-weight: 600;
     }
+    .post-action:hover { background: var(--fb-hover); }
+    .post-action.liked { color: var(--fb-primary); }
 
-    .post-action:hover {
-      background: var(--fb-hover);
-    }
-
-    .post-action.liked {
-      color: var(--fb-primary);
-    }
-
-    /* Comments section */
+    /* Comments */
     .comments-section {
       padding: 12px 16px;
       border-top: 1px solid var(--fb-divider);
       display: none;
     }
-
-    .comments-section.show {
-      display: block;
-    }
-
+    .comments-section.show { display: block; }
     .comment-input {
       display: flex;
       gap: 10px;
       margin-bottom: 12px;
     }
-
     .comment-input input {
       flex: 1;
       background: var(--fb-card);
@@ -431,7 +327,6 @@
       padding: 8px 14px;
       color: var(--fb-text);
     }
-
     .comment-input button {
       background: var(--fb-primary);
       border: none;
@@ -440,49 +335,31 @@
       color: white;
       cursor: pointer;
     }
-
     .comment {
       display: flex;
       gap: 10px;
       margin-bottom: 12px;
     }
-
     .comment-avatar {
-      width: 32px;
-      height: 32px;
+      width: 32px; height: 32px;
       border-radius: 50%;
       background: var(--fb-primary);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.7rem;
       overflow: hidden;
     }
-
     .comment-content {
       background: var(--fb-card);
       padding: 8px 12px;
       border-radius: 18px;
       flex: 1;
     }
+    .comment-name { font-weight: 600; font-size: 0.8rem; }
+    .comment-text { font-size: 0.8rem; color: var(--fb-text-secondary); }
 
-    .comment-name {
-      font-weight: 600;
-      font-size: 0.8rem;
-    }
-
-    .comment-text {
-      font-size: 0.8rem;
-      color: var(--fb-text-secondary);
-    }
-
-    /* Right sidebar */
-    .fb-right {
-      position: sticky;
-      top: 70px;
-      height: fit-content;
-    }
-
+    /* Right Sidebar */
+    .fb-right { position: sticky; top: 70px; height: fit-content; }
     .sidebar-card {
       background: var(--fb-surface);
       border-radius: 12px;
@@ -490,13 +367,7 @@
       margin-bottom: 16px;
       border: 1px solid var(--fb-border);
     }
-
-    .card-title {
-      font-weight: 700;
-      margin-bottom: 12px;
-      font-size: 1rem;
-    }
-
+    .card-title { font-weight: 700; margin-bottom: 12px; }
     .trending-item {
       display: flex;
       align-items: center;
@@ -505,30 +376,10 @@
       border-bottom: 1px solid var(--fb-divider);
       cursor: pointer;
     }
-
-    .trending-item:last-child {
-      border-bottom: none;
-    }
-
-    .trending-num {
-      font-weight: 700;
-      color: var(--fb-text-secondary);
-    }
-
-    .trending-info {
-      flex: 1;
-    }
-
-    .trending-tag {
-      font-weight: 600;
-      font-size: 0.85rem;
-    }
-
-    .trending-count {
-      font-size: 0.7rem;
-      color: var(--fb-text-secondary);
-    }
-
+    .trending-item:last-child { border-bottom: none; }
+    .trending-num { font-weight: 700; color: var(--fb-text-secondary); }
+    .trending-tag { font-weight: 600; font-size: 0.85rem; }
+    .trending-count { font-size: 0.7rem; color: var(--fb-text-secondary); }
     .page-item {
       display: flex;
       align-items: center;
@@ -536,42 +387,26 @@
       padding: 10px 0;
       cursor: pointer;
     }
-
-    .page-item:hover {
-      background: var(--fb-hover);
-      margin: 0 -16px;
-      padding: 10px 16px;
-    }
-
     .page-avatar {
-      width: 40px;
-      height: 40px;
+      width: 40px; height: 40px;
       border-radius: 50%;
       background: var(--fb-primary);
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
     }
 
     /* Modal */
     .modal {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      top: 0; left: 0; right: 0; bottom: 0;
       background: rgba(0,0,0,0.8);
       z-index: 2000;
       align-items: center;
       justify-content: center;
     }
-
-    .modal.show {
-      display: flex;
-    }
-
+    .modal.show { display: flex; }
     .modal-content {
       background: var(--fb-surface);
       border-radius: 16px;
@@ -579,7 +414,6 @@
       max-width: 90%;
       padding: 20px;
     }
-
     .modal-content textarea {
       width: 100%;
       background: var(--fb-card);
@@ -591,7 +425,7 @@
       font-family: inherit;
     }
 
-    /* Mobile bottom nav */
+    /* Mobile Bottom Nav */
     .mobile-bottom-nav {
       display: none;
       position: fixed;
@@ -604,7 +438,6 @@
       justify-content: space-around;
       z-index: 1000;
     }
-
     .mobile-nav-item {
       display: flex;
       flex-direction: column;
@@ -613,24 +446,18 @@
       text-decoration: none;
       font-size: 0.7rem;
     }
+    .mobile-nav-item i { font-size: 1.2rem; }
 
-    .mobile-nav-item i {
-      font-size: 1.2rem;
+    @media (max-width: 1000px) {
+      .fb-container { grid-template-columns: 80px 1fr 280px; }
+      .menu-item span:not(.menu-icon) { display: none; }
+      .profile-name, .profile-bio { display: none; }
     }
-
-    @media (max-width: 900px) {
-      .fb-container {
-        grid-template-columns: 1fr;
-      }
-      .fb-right {
-        display: none;
-      }
-      .mobile-bottom-nav {
-        display: flex;
-      }
-      .fb-nav-icons {
-        display: none;
-      }
+    @media (max-width: 768px) {
+      .fb-container { grid-template-columns: 1fr; }
+      .fb-left, .fb-right { display: none; }
+      .mobile-bottom-nav { display: flex; }
+      .fb-nav-icons { display: none; }
     }
   </style>
 </head>
@@ -655,49 +482,44 @@
   </nav>
 
   <div class="fb-container">
+    <!-- LEFT SIDEBAR -->
+    <div class="fb-left">
+      <div class="profile-card">
+        <div class="profile-cover"></div>
+        <div class="profile-avatar"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="Profile"></div>
+        <div class="profile-name">BLESSTech-X</div>
+        <div class="profile-bio">Zambian Business Community</div>
+      </div>
+      <a href="#" class="menu-item"><i class="fas fa-newspaper" style="width:28px;"></i><span>Feed</span></a>
+      <a href="#" class="menu-item"><i class="fas fa-store" style="width:28px;"></i><span>Marketplace</span></a>
+      <a href="#" class="menu-item"><i class="fas fa-chart-line" style="width:28px;"></i><span>Business Insights</span></a>
+      <a href="tools/index.html" class="menu-item"><i class="fas fa-tools" style="width:28px;"></i><span>Free Tools</span></a>
+    </div>
+
     <!-- MAIN FEED -->
     <div class="fb-main">
       <!-- Stories Row -->
       <div class="stories-row">
         <div class="story create-story" onclick="openPostModal()">
-          <div class="story-ring">
-            <div class="story-ring-inner">
-              <i class="fas fa-plus-circle"></i>
-              <span style="font-size:0.6rem; margin-top:4px;">Create</span>
-            </div>
-          </div>
+          <div class="story-ring"><div class="story-ring-inner"><i class="fas fa-plus-circle" style="font-size:1.8rem;"></i><span style="font-size:0.6rem;">Create</span></div></div>
           <div class="story-name">Create story</div>
         </div>
-        <div class="story">
-          <div class="story-ring"><div class="story-ring-inner"><img src="https://randomuser.me/api/portraits/men/1.jpg"></div></div>
-          <div class="story-name">Blessings B.</div>
-        </div>
-        <div class="story">
-          <div class="story-ring"><div class="story-ring-inner"><img src="https://randomuser.me/api/portraits/men/2.jpg"></div></div>
-          <div class="story-name">Sylvester M.</div>
-        </div>
-        <div class="story">
-          <div class="story-ring"><div class="story-ring-inner"><img src="https://randomuser.me/api/portraits/women/1.jpg"></div></div>
-          <div class="story-name">Veronica M.</div>
-        </div>
-        <div class="story">
-          <div class="story-ring"><div class="story-ring-inner"><img src="https://randomuser.me/api/portraits/men/3.jpg"></div></div>
-          <div class="story-name">David C.</div>
-        </div>
+        <div class="story"><div class="story-ring"><div class="story-ring-inner"><img src="https://randomuser.me/api/portraits/men/1.jpg"></div></div><div class="story-name">Blessings B.</div></div>
+        <div class="story"><div class="story-ring"><div class="story-ring-inner"><img src="https://randomuser.me/api/portraits/men/2.jpg"></div></div><div class="story-name">Sylvester M.</div></div>
+        <div class="story"><div class="story-ring"><div class="story-ring-inner"><img src="https://randomuser.me/api/portraits/women/1.jpg"></div></div><div class="story-name">Veronica M.</div></div>
+        <div class="story"><div class="story-ring"><div class="story-ring-inner"><img src="https://randomuser.me/api/portraits/men/3.jpg"></div></div><div class="story-name">David C.</div></div>
       </div>
 
       <!-- Create Post Box -->
       <div class="create-post">
         <div class="create-post-top">
-          <div class="create-post-avatar">
-            <img src="https://randomuser.me/api/portraits/men/4.jpg">
-          </div>
+          <div class="create-post-avatar"><img src="https://randomuser.me/api/portraits/men/4.jpg"></div>
           <div class="create-post-input" onclick="openPostModal()">What's on your mind, entrepreneur?</div>
         </div>
         <div class="create-post-divider"></div>
         <div class="create-post-actions">
-          <button class="action-btn" onclick="openPostModal()"><i class="fas fa-video" style="color:#e42645;"></i> Live video</button>
-          <button class="action-btn" onclick="openPostModal()"><i class="fas fa-image" style="color:#45bd62;"></i> Photo/Video</button>
+          <button class="action-btn" onclick="openPostModal()"><i class="fas fa-video" style="color:#e42645;"></i> Live</button>
+          <button class="action-btn" onclick="openPostModal()"><i class="fas fa-image" style="color:#45bd62;"></i> Photo</button>
           <button class="action-btn" onclick="openPostModal()"><i class="fas fa-smile" style="color:#f5b042;"></i> Feeling</button>
         </div>
       </div>
@@ -710,79 +532,27 @@
     <div class="fb-right">
       <div class="sidebar-card">
         <div class="card-title">🌍 Trending in Zambia</div>
-        <div class="trending-item">
-          <div class="trending-num">1</div>
-          <div class="trending-info">
-            <div class="trending-tag">#EcommerceZambia</div>
-            <div class="trending-count">245 posts</div>
-          </div>
-        </div>
-        <div class="trending-item">
-          <div class="trending-num">2</div>
-          <div class="trending-info">
-            <div class="trending-tag">#SmallBusinessTips</div>
-            <div class="trending-count">189 posts</div>
-          </div>
-        </div>
-        <div class="trending-item">
-          <div class="trending-num">3</div>
-          <div class="trending-info">
-            <div class="trending-tag">#LusakaEntrepreneurs</div>
-            <div class="trending-count">156 posts</div>
-          </div>
-        </div>
-        <div class="trending-item">
-          <div class="trending-num">4</div>
-          <div class="trending-info">
-            <div class="trending-tag">#DigitalMarketingZM</div>
-            <div class="trending-count">98 posts</div>
-          </div>
-        </div>
+        <div class="trending-item"><div class="trending-num">1</div><div><div class="trending-tag">#EcommerceZambia</div><div class="trending-count">245 posts</div></div></div>
+        <div class="trending-item"><div class="trending-num">2</div><div><div class="trending-tag">#SmallBusinessTips</div><div class="trending-count">189 posts</div></div></div>
+        <div class="trending-item"><div class="trending-num">3</div><div><div class="trending-tag">#LusakaEntrepreneurs</div><div class="trending-count">156 posts</div></div></div>
+        <div class="trending-item"><div class="trending-num">4</div><div><div class="trending-tag">#DigitalMarketingZM</div><div class="trending-count">98 posts</div></div></div>
       </div>
-
       <div class="sidebar-card">
         <div class="card-title">📢 Suggested Pages</div>
-        <div class="page-item">
-          <div class="page-avatar"><i class="fas fa-store"></i></div>
-          <div>Zambia E-commerce Hub</div>
-        </div>
-        <div class="page-item">
-          <div class="page-avatar"><i class="fas fa-chart-line"></i></div>
-          <div>Digital Growth Zambia</div>
-        </div>
-        <div class="page-item">
-          <div class="page-avatar"><i class="fas fa-graduation-cap"></i></div>
-          <div>Business School ZM</div>
-        </div>
-        <div class="page-item">
-          <div class="page-avatar"><i class="fas fa-handshake"></i></div>
-          <div>Zambia Startups</div>
-        </div>
+        <div class="page-item"><div class="page-avatar"><i class="fas fa-store"></i></div><div>Zambia E-commerce Hub</div></div>
+        <div class="page-item"><div class="page-avatar"><i class="fas fa-chart-line"></i></div><div>Digital Growth Zambia</div></div>
+        <div class="page-item"><div class="page-avatar"><i class="fas fa-graduation-cap"></i></div><div>Business School ZM</div></div>
       </div>
-
       <div class="sidebar-card">
         <div class="card-title">🔧 Free Business Tools</div>
-        <div class="page-item">
-          <div class="page-avatar"><i class="fas fa-file-invoice"></i></div>
-          <div>Invoice Generator</div>
-        </div>
-        <div class="page-item">
-          <div class="page-avatar"><i class="fas fa-file-alt"></i></div>
-          <div>CV Builder</div>
-        </div>
-        <div class="page-item">
-          <div class="page-avatar"><i class="fas fa-qrcode"></i></div>
-          <div>QR Code Maker</div>
-        </div>
-        <div class="page-item">
-          <div class="page-avatar"><i class="fas fa-calculator"></i></div>
-          <div>Budget Planner</div>
-        </div>
+        <div class="page-item"><div class="page-avatar"><i class="fas fa-file-invoice"></i></div><div>Invoice Generator</div></div>
+        <div class="page-item"><div class="page-avatar"><i class="fas fa-file-alt"></i></div><div>CV Builder</div></div>
+        <div class="page-item"><div class="page-avatar"><i class="fas fa-qrcode"></i></div><div>QR Code Maker</div></div>
       </div>
     </div>
   </div>
 
-  <!-- Mobile Bottom Navigation -->
+  <!-- Mobile Bottom Nav -->
   <div class="mobile-bottom-nav">
     <a href="index.html" class="mobile-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
     <a href="#" class="mobile-nav-item"><i class="fas fa-newspaper"></i><span>Feed</span></a>
@@ -795,8 +565,8 @@
     <div class="modal-content">
       <h3>Create post</h3>
       <textarea id="postContent" placeholder="What's on your mind?" rows="4"></textarea>
-      <button onclick="createPost()" style="background:var(--fb-primary); color:white; width:100%; padding:10px; border:none; border-radius:8px; cursor:pointer;">Post</button>
-      <button onclick="closeModal()" style="margin-top:8px; width:100%; padding:10px; background:none; border:none; color:var(--fb-text-secondary); cursor:pointer;">Cancel</button>
+      <button onclick="createPost()" style="background:#0ea5e9; color:white; width:100%; padding:10px; border:none; border-radius:8px; cursor:pointer;">Post</button>
+      <button onclick="closeModal()" style="margin-top:8px; width:100%; padding:10px; background:none; border:none; color:#b0b3b8; cursor:pointer;">Cancel</button>
     </div>
   </div>
 
@@ -841,7 +611,7 @@
         image: null,
         likes: 28,
         comments: [
-          { name: "Blessings B.", text: "Target by location and use Chichewa/Nyanja in your ads!" }
+          { name: "Blessings B.", text: "Target by location and use local language in your ads!" }
         ],
         liked: false,
         following: false
@@ -913,7 +683,7 @@
             <div id="commentsList-${post.id}">
               ${post.comments.map(c => `
                 <div class="comment">
-                  <div class="comment-avatar">${c.name[0]}</div>
+                  <div class="comment-avatar">${c.name.charAt(0)}</div>
                   <div class="comment-content">
                     <div class="comment-name">${escapeHtml(c.name)}</div>
                     <div class="comment-text">${escapeHtml(c.text)}</div>
@@ -940,14 +710,13 @@
       if (post) {
         post.following = !post.following;
         renderPosts();
+        showToast(post.following ? `Following ${post.author}` : `Unfollowed ${post.author}`);
       }
     }
 
     function toggleComments(postId) {
       const commentsDiv = document.getElementById(`comments-${postId}`);
-      if (commentsDiv) {
-        commentsDiv.classList.toggle('show');
-      }
+      if (commentsDiv) commentsDiv.classList.toggle('show');
     }
 
     function addComment(postId) {
@@ -964,11 +733,12 @@
           const commentsDiv = document.getElementById(`comments-${postId}`);
           if (commentsDiv) commentsDiv.classList.add('show');
         }, 100);
+        showToast('Comment posted!');
       }
     }
 
     function sharePost(postId) {
-      alert('🔗 Link copied! Share with your business network.');
+      showToast('🔗 Link copied! Share with your business network.');
     }
 
     function openPostModal() {
@@ -1000,6 +770,20 @@
       posts.unshift(newPost);
       renderPosts();
       closeModal();
+      showToast('Post published!');
+    }
+
+    function showToast(msg) {
+      let toast = document.getElementById('toastMsg');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toastMsg';
+        toast.style.cssText = 'position:fixed; bottom:100px; left:50%; transform:translateX(-50%); background:#1e293b; color:white; padding:8px 18px; border-radius:40px; font-size:0.8rem; z-index:9999; display:none;';
+        document.body.appendChild(toast);
+      }
+      toast.textContent = msg;
+      toast.style.display = 'block';
+      setTimeout(() => toast.style.display = 'none', 2500);
     }
 
     function escapeHtml(str) {
@@ -1015,14 +799,8 @@
     // Search functionality
     document.getElementById('searchInput')?.addEventListener('input', function(e) {
       const query = e.target.value.toLowerCase();
-      if (!query) {
-        renderPosts();
-        return;
-      }
-      const filtered = posts.filter(p => 
-        p.content.toLowerCase().includes(query) || 
-        p.author.toLowerCase().includes(query)
-      );
+      if (!query) { renderPosts(); return; }
+      const filtered = posts.filter(p => p.content.toLowerCase().includes(query) || p.author.toLowerCase().includes(query));
       const feed = document.getElementById('postsFeed');
       if (feed) {
         feed.innerHTML = filtered.map(post => `
@@ -1036,9 +814,7 @@
                 </div>
               </div>
             </div>
-            <div class="post-content">
-              <div class="post-text">${escapeHtml(post.content)}</div>
-            </div>
+            <div class="post-content"><div class="post-text">${escapeHtml(post.content)}</div></div>
           </div>
         `).join('');
       }
