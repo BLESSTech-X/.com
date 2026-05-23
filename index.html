@@ -1632,10 +1632,20 @@
     </a>
   </div>
   <script>
-  // Remove WhatsApp floating button if it exists
+  // Remove ONLY the floating WhatsApp FAB button (not other WhatsApp links)
   document.addEventListener('DOMContentLoaded', function() {
-    const waButtons = document.querySelectorAll('a[href*="wa.me"], .whatsapp-fab, .whatsapp-float, [class*="whatsapp-fab"]');
-    waButtons.forEach(btn => btn.remove());
+    // Target only the floating button at bottom right
+    const floatingFab = document.querySelector('.whatsapp-fab, a[href*="wa.me"].whatsapp-fab, .fab.fa-whatsapp:not(.nav-wa-btn)');
+    
+    // Alternative: find any WhatsApp link that is NOT in navigation or footer
+    const allLinks = document.querySelectorAll('a[href*="wa.me"]');
+    allLinks.forEach(link => {
+      // Check if it's a floating button (has class whatsapp-fab or position fixed)
+      const style = window.getComputedStyle(link);
+      if (style.position === 'fixed' || link.classList.contains('whatsapp-fab')) {
+        link.remove();
+      }
+    });
   });
 </script>
 </body>
