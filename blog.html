@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>BLESSTech-X Community | Business Tips for Zambia</title>
-  <meta name="description" content="Zambia's business community — share tips, ask questions, and grow together. Like Facebook but for Zambian entrepreneurs." />
+  <title>BLESSTech-X Community | Business Network Zambia</title>
+  <meta name="description" content="Zambia's business community — share tips, ask questions, and grow together." />
   <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" />
   
   <!-- Font Awesome 6 -->
@@ -30,7 +30,6 @@
       --fb-text-secondary: #b0b3b8;
       --fb-divider: #3e4042;
       --fb-green: #31a24c;
-      --fb-blue: #0ea5e9;
     }
 
     body {
@@ -54,8 +53,6 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
     }
 
     .fb-logo {
@@ -69,8 +66,8 @@
     }
 
     .fb-logo img {
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
       border-radius: 8px;
     }
 
@@ -78,6 +75,7 @@
       flex: 1;
       max-width: 400px;
       position: relative;
+      margin: 0 12px;
     }
 
     .fb-search input {
@@ -115,88 +113,24 @@
       text-decoration: none;
     }
 
-    /* Main layout - 3 columns like Facebook */
+    /* Main layout - 2 columns like Facebook */
     .fb-container {
-      max-width: 1400px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 70px 16px 20px;
       display: grid;
-      grid-template-columns: 280px 1fr 320px;
-      gap: 20px;
+      grid-template-columns: 1fr 340px;
+      gap: 28px;
     }
 
-    /* Left sidebar - Profile & Groups */
-    .fb-left {
-      position: sticky;
-      top: 70px;
-      height: fit-content;
-    }
-
-    .profile-card {
-      background: var(--fb-surface);
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 16px;
-      border: 1px solid var(--fb-border);
-    }
-
-    .profile-cover {
-      height: 60px;
-      background: linear-gradient(135deg, var(--fb-primary), #0369a1);
-      border-radius: 8px;
-      margin: -16px -16px 0 -16px;
-    }
-
-    .profile-avatar {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      border: 4px solid var(--fb-surface);
-      margin-top: -36px;
-      margin-bottom: 12px;
-    }
-
-    .profile-avatar img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .profile-name {
-      font-weight: 700;
-      font-size: 1.1rem;
-    }
-
-    .profile-bio {
-      font-size: 0.8rem;
-      color: var(--fb-text-secondary);
-      margin-top: 4px;
-    }
-
-    .menu-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 12px;
-      border-radius: 8px;
-      color: var(--fb-text);
-      text-decoration: none;
-      margin: 4px 0;
-    }
-
-    .menu-item:hover {
-      background: var(--fb-hover);
-    }
-
-    /* Main feed - Create post + posts */
+    /* Main feed */
     .fb-main {
       max-width: 680px;
-      margin: 0 auto;
       width: 100%;
+      margin: 0 auto;
     }
 
-    /* Stories row */
+    /* Stories row - exact Facebook style */
     .stories-row {
       display: flex;
       gap: 10px;
@@ -205,18 +139,23 @@
       scrollbar-width: thin;
     }
 
+    .stories-row::-webkit-scrollbar {
+      height: 4px;
+    }
+
     .story {
       flex-shrink: 0;
       width: 110px;
       text-align: center;
       cursor: pointer;
+      position: relative;
     }
 
     .story-ring {
       width: 90px;
       height: 90px;
       border-radius: 50%;
-      background: linear-gradient(45deg, #f09433, #d62976, #962fbf);
+      background: linear-gradient(45deg, #f09433, #d62976, #962fbf, #00acee);
       padding: 3px;
       margin: 0 auto;
     }
@@ -244,6 +183,23 @@
       color: var(--fb-text-secondary);
     }
 
+    .create-story .story-ring {
+      background: var(--fb-card);
+      border: 1px solid var(--fb-border);
+    }
+
+    .create-story .story-ring-inner {
+      background: var(--fb-surface);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .create-story .story-ring-inner i {
+      font-size: 1.8rem;
+      color: var(--fb-primary);
+    }
+
     /* Create post box */
     .create-post {
       background: var(--fb-surface);
@@ -268,6 +224,13 @@
       align-items: center;
       justify-content: center;
       font-weight: bold;
+      overflow: hidden;
+    }
+
+    .create-post-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .create-post-input {
@@ -276,17 +239,25 @@
       border: none;
       border-radius: 24px;
       padding: 10px 16px;
-      color: var(--fb-text);
+      color: var(--fb-text-secondary);
       cursor: pointer;
       text-align: left;
+      font-size: 0.9rem;
+    }
+
+    .create-post-input:hover {
+      background: var(--fb-hover);
+    }
+
+    .create-post-divider {
+      height: 1px;
+      background: var(--fb-divider);
+      margin: 12px 0;
     }
 
     .create-post-actions {
       display: flex;
       justify-content: space-around;
-      margin-top: 10px;
-      padding-top: 10px;
-      border-top: 1px solid var(--fb-divider);
     }
 
     .action-btn {
@@ -299,13 +270,14 @@
       padding: 8px 16px;
       border-radius: 8px;
       cursor: pointer;
+      font-size: 0.85rem;
     }
 
     .action-btn:hover {
       background: var(--fb-hover);
     }
 
-    /* Post card */
+    /* Post card - exact Facebook style */
     .post-card {
       background: var(--fb-surface);
       border-radius: 12px;
@@ -317,8 +289,14 @@
     .post-header {
       display: flex;
       align-items: center;
-      gap: 12px;
+      justify-content: space-between;
       padding: 12px 16px;
+    }
+
+    .post-header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
     .post-avatar {
@@ -330,10 +308,35 @@
       align-items: center;
       justify-content: center;
       font-weight: bold;
+      overflow: hidden;
+    }
+
+    .post-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .post-author-info {
+      display: flex;
+      flex-direction: column;
     }
 
     .post-author {
       font-weight: 600;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .follow-btn {
+      background: none;
+      border: none;
+      color: var(--fb-primary);
+      font-size: 0.7rem;
+      font-weight: 600;
+      cursor: pointer;
     }
 
     .post-time {
@@ -341,24 +344,26 @@
       color: var(--fb-text-secondary);
     }
 
+    .post-menu {
+      color: var(--fb-text-secondary);
+      cursor: pointer;
+      padding: 8px;
+    }
+
     .post-content {
       padding: 0 16px 12px;
     }
 
-    .post-title {
-      font-weight: 700;
-      font-size: 1rem;
-      margin-bottom: 8px;
-    }
-
     .post-text {
-      color: var(--fb-text-secondary);
+      color: var(--fb-text);
+      font-size: 0.9rem;
+      line-height: 1.5;
       margin-bottom: 12px;
     }
 
     .post-image {
       width: 100%;
-      max-height: 400px;
+      max-height: 500px;
       object-fit: cover;
       margin-top: 8px;
       border-radius: 8px;
@@ -368,16 +373,15 @@
       display: flex;
       justify-content: space-between;
       padding: 10px 16px;
-      border-top: 1px solid var(--fb-divider);
       color: var(--fb-text-secondary);
       font-size: 0.8rem;
+      border-top: 1px solid var(--fb-divider);
     }
 
     .post-actions {
       display: flex;
       justify-content: space-around;
-      padding: 8px 16px;
-      border-top: 1px solid var(--fb-divider);
+      padding: 6px 16px;
     }
 
     .post-action {
@@ -391,6 +395,7 @@
       border-radius: 8px;
       cursor: pointer;
       font-size: 0.85rem;
+      font-weight: 600;
     }
 
     .post-action:hover {
@@ -427,6 +432,15 @@
       color: var(--fb-text);
     }
 
+    .comment-input button {
+      background: var(--fb-primary);
+      border: none;
+      border-radius: 20px;
+      padding: 0 16px;
+      color: white;
+      cursor: pointer;
+    }
+
     .comment {
       display: flex;
       gap: 10px;
@@ -441,7 +455,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.8rem;
+      font-size: 0.7rem;
+      overflow: hidden;
     }
 
     .comment-content {
@@ -468,7 +483,7 @@
       height: fit-content;
     }
 
-    .trending-card, .pages-card {
+    .sidebar-card {
       background: var(--fb-surface);
       border-radius: 12px;
       padding: 16px;
@@ -479,16 +494,29 @@
     .card-title {
       font-weight: 700;
       margin-bottom: 12px;
+      font-size: 1rem;
     }
 
     .trending-item {
-      padding: 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
       border-bottom: 1px solid var(--fb-divider);
       cursor: pointer;
     }
 
     .trending-item:last-child {
       border-bottom: none;
+    }
+
+    .trending-num {
+      font-weight: 700;
+      color: var(--fb-text-secondary);
+    }
+
+    .trending-info {
+      flex: 1;
     }
 
     .trending-tag {
@@ -505,7 +533,14 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 8px 0;
+      padding: 10px 0;
+      cursor: pointer;
+    }
+
+    .page-item:hover {
+      background: var(--fb-hover);
+      margin: 0 -16px;
+      padding: 10px 16px;
     }
 
     .page-avatar {
@@ -516,9 +551,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
     }
 
-    /* Modal for create post */
+    /* Modal */
     .modal {
       display: none;
       position: fixed;
@@ -552,9 +588,10 @@
       padding: 12px;
       color: var(--fb-text);
       margin: 12px 0;
+      font-family: inherit;
     }
 
-    /* Bottom navigation for mobile */
+    /* Mobile bottom nav */
     .mobile-bottom-nav {
       display: none;
       position: fixed;
@@ -581,24 +618,11 @@
       font-size: 1.2rem;
     }
 
-    @media (max-width: 1000px) {
-      .fb-container {
-        grid-template-columns: 80px 1fr 280px;
-      }
-      .menu-item span:not(.menu-icon) {
-        display: none;
-      }
-      .profile-name, .profile-bio {
-        display: none;
-      }
-    }
-
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
       .fb-container {
         grid-template-columns: 1fr;
-        padding-top: 65px;
       }
-      .fb-left, .fb-right {
+      .fb-right {
         display: none;
       }
       .mobile-bottom-nav {
@@ -620,7 +644,7 @@
     </a>
     <div class="fb-search">
       <i class="fas fa-search"></i>
-      <input type="text" id="searchInput" placeholder="Search business tips, advice...">
+      <input type="text" id="searchInput" placeholder="Search Business Network">
     </div>
     <div class="fb-nav-icons">
       <a href="#"><i class="fas fa-home"></i></a>
@@ -631,41 +655,50 @@
   </nav>
 
   <div class="fb-container">
-    <!-- LEFT SIDEBAR -->
-    <div class="fb-left">
-      <div class="profile-card">
-        <div class="profile-cover"></div>
-        <img class="profile-avatar" src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="Profile">
-        <div class="profile-name">BLESSTech-X</div>
-        <div class="profile-bio">Zambian Business Community</div>
-      </div>
-      <a href="#" class="menu-item"><i class="fas fa-newspaper menu-icon" style="width:28px;"></i><span>Feed</span></a>
-      <a href="#" class="menu-item"><i class="fas fa-store menu-icon" style="width:28px;"></i><span>Marketplace</span></a>
-      <a href="#" class="menu-item"><i class="fas fa-chart-line menu-icon" style="width:28px;"></i><span>Business Insights</span></a>
-      <a href="tools/index.html" class="menu-item"><i class="fas fa-tools menu-icon" style="width:28px;"></i><span>Free Tools</span></a>
-    </div>
-
     <!-- MAIN FEED -->
     <div class="fb-main">
-      <!-- Stories -->
+      <!-- Stories Row -->
       <div class="stories-row">
-        <div class="story"><div class="story-ring"><div class="story-ring-inner"><i class="fas fa-plus-circle" style="font-size:2rem;"></i></div></div><div class="story-name">Create Story</div></div>
-        <div class="story"><div class="story-ring"><div class="story-ring-inner"><img src="https://i.pravatar.cc/150?img=1"></div></div><div class="story-name">Blessings B.</div></div>
-        <div class="story"><div class="story-ring"><div class="story-ring-inner"><img src="https://i.pravatar.cc/150?img=2"></div></div><div class="story-name">Sylvester M.</div></div>
-        <div class="story"><div class="story-ring"><div class="story-ring-inner"><img src="https://i.pravatar.cc/150?img=3"></div></div><div class="story-name">Veronica M.</div></div>
-        <div class="story"><div class="story-ring"><div class="story-ring-inner"><img src="https://i.pravatar.cc/150?img=4"></div></div><div class="story-name">David C.</div></div>
+        <div class="story create-story" onclick="openPostModal()">
+          <div class="story-ring">
+            <div class="story-ring-inner">
+              <i class="fas fa-plus-circle"></i>
+              <span style="font-size:0.6rem; margin-top:4px;">Create</span>
+            </div>
+          </div>
+          <div class="story-name">Create story</div>
+        </div>
+        <div class="story">
+          <div class="story-ring"><div class="story-ring-inner"><img src="https://randomuser.me/api/portraits/men/1.jpg"></div></div>
+          <div class="story-name">Blessings B.</div>
+        </div>
+        <div class="story">
+          <div class="story-ring"><div class="story-ring-inner"><img src="https://randomuser.me/api/portraits/men/2.jpg"></div></div>
+          <div class="story-name">Sylvester M.</div>
+        </div>
+        <div class="story">
+          <div class="story-ring"><div class="story-ring-inner"><img src="https://randomuser.me/api/portraits/women/1.jpg"></div></div>
+          <div class="story-name">Veronica M.</div>
+        </div>
+        <div class="story">
+          <div class="story-ring"><div class="story-ring-inner"><img src="https://randomuser.me/api/portraits/men/3.jpg"></div></div>
+          <div class="story-name">David C.</div>
+        </div>
       </div>
 
-      <!-- Create Post -->
+      <!-- Create Post Box -->
       <div class="create-post">
         <div class="create-post-top">
-          <div class="create-post-avatar"><i class="fas fa-user"></i></div>
+          <div class="create-post-avatar">
+            <img src="https://randomuser.me/api/portraits/men/4.jpg">
+          </div>
           <div class="create-post-input" onclick="openPostModal()">What's on your mind, entrepreneur?</div>
         </div>
+        <div class="create-post-divider"></div>
         <div class="create-post-actions">
           <button class="action-btn" onclick="openPostModal()"><i class="fas fa-video" style="color:#e42645;"></i> Live video</button>
           <button class="action-btn" onclick="openPostModal()"><i class="fas fa-image" style="color:#45bd62;"></i> Photo/Video</button>
-          <button class="action-btn" onclick="openPostModal()"><i class="fas fa-smile" style="color:#f5b042;"></i> Feeling/Activity</button>
+          <button class="action-btn" onclick="openPostModal()"><i class="fas fa-smile" style="color:#f5b042;"></i> Feeling</button>
         </div>
       </div>
 
@@ -675,23 +708,81 @@
 
     <!-- RIGHT SIDEBAR -->
     <div class="fb-right">
-      <div class="trending-card">
+      <div class="sidebar-card">
         <div class="card-title">🌍 Trending in Zambia</div>
-        <div class="trending-item"><div class="trending-tag">#EcommerceZambia</div><div class="trending-count">245 posts</div></div>
-        <div class="trending-item"><div class="trending-tag">#SmallBusinessTips</div><div class="trending-count">189 posts</div></div>
-        <div class="trending-item"><div class="trending-tag">#LusakaEntrepreneurs</div><div class="trending-count">156 posts</div></div>
-        <div class="trending-item"><div class="trending-tag">#DigitalMarketingZM</div><div class="trending-count">98 posts</div></div>
+        <div class="trending-item">
+          <div class="trending-num">1</div>
+          <div class="trending-info">
+            <div class="trending-tag">#EcommerceZambia</div>
+            <div class="trending-count">245 posts</div>
+          </div>
+        </div>
+        <div class="trending-item">
+          <div class="trending-num">2</div>
+          <div class="trending-info">
+            <div class="trending-tag">#SmallBusinessTips</div>
+            <div class="trending-count">189 posts</div>
+          </div>
+        </div>
+        <div class="trending-item">
+          <div class="trending-num">3</div>
+          <div class="trending-info">
+            <div class="trending-tag">#LusakaEntrepreneurs</div>
+            <div class="trending-count">156 posts</div>
+          </div>
+        </div>
+        <div class="trending-item">
+          <div class="trending-num">4</div>
+          <div class="trending-info">
+            <div class="trending-tag">#DigitalMarketingZM</div>
+            <div class="trending-count">98 posts</div>
+          </div>
+        </div>
       </div>
-      <div class="pages-card">
-        <div class="card-title">📢 Pages to Follow</div>
-        <div class="page-item"><div class="page-avatar"><i class="fas fa-store"></i></div><div>Zambia E-commerce Hub</div></div>
-        <div class="page-item"><div class="page-avatar"><i class="fas fa-chart-line"></i></div><div>Digital Growth Zambia</div></div>
-        <div class="page-item"><div class="page-avatar"><i class="fas fa-graduation-cap"></i></div><div>Business School ZM</div></div>
+
+      <div class="sidebar-card">
+        <div class="card-title">📢 Suggested Pages</div>
+        <div class="page-item">
+          <div class="page-avatar"><i class="fas fa-store"></i></div>
+          <div>Zambia E-commerce Hub</div>
+        </div>
+        <div class="page-item">
+          <div class="page-avatar"><i class="fas fa-chart-line"></i></div>
+          <div>Digital Growth Zambia</div>
+        </div>
+        <div class="page-item">
+          <div class="page-avatar"><i class="fas fa-graduation-cap"></i></div>
+          <div>Business School ZM</div>
+        </div>
+        <div class="page-item">
+          <div class="page-avatar"><i class="fas fa-handshake"></i></div>
+          <div>Zambia Startups</div>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="card-title">🔧 Free Business Tools</div>
+        <div class="page-item">
+          <div class="page-avatar"><i class="fas fa-file-invoice"></i></div>
+          <div>Invoice Generator</div>
+        </div>
+        <div class="page-item">
+          <div class="page-avatar"><i class="fas fa-file-alt"></i></div>
+          <div>CV Builder</div>
+        </div>
+        <div class="page-item">
+          <div class="page-avatar"><i class="fas fa-qrcode"></i></div>
+          <div>QR Code Maker</div>
+        </div>
+        <div class="page-item">
+          <div class="page-avatar"><i class="fas fa-calculator"></i></div>
+          <div>Budget Planner</div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Mobile Bottom Nav -->
+  <!-- Mobile Bottom Navigation -->
   <div class="mobile-bottom-nav">
     <a href="index.html" class="mobile-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
     <a href="#" class="mobile-nav-item"><i class="fas fa-newspaper"></i><span>Feed</span></a>
@@ -702,11 +793,10 @@
   <!-- Create Post Modal -->
   <div id="postModal" class="modal">
     <div class="modal-content">
-      <h3>Create Post</h3>
-      <textarea id="postTitle" placeholder="Title (e.g., 5 tips for e-commerce success)" rows="2"></textarea>
-      <textarea id="postContent" placeholder="Share your business advice, tips, or question..." rows="4"></textarea>
-      <button class="action-btn" onclick="createPost()" style="background:var(--fb-primary); color:white; width:100%;">Post</button>
-      <button class="action-btn" onclick="closeModal()" style="margin-top:8px;">Cancel</button>
+      <h3>Create post</h3>
+      <textarea id="postContent" placeholder="What's on your mind?" rows="4"></textarea>
+      <button onclick="createPost()" style="background:var(--fb-primary); color:white; width:100%; padding:10px; border:none; border-radius:8px; cursor:pointer;">Post</button>
+      <button onclick="closeModal()" style="margin-top:8px; width:100%; padding:10px; background:none; border:none; color:var(--fb-text-secondary); cursor:pointer;">Cancel</button>
     </div>
   </div>
 
@@ -716,47 +806,64 @@
       {
         id: 1,
         author: "Blessings B.",
-        authorAvatar: "B",
+        authorAvatar: "https://randomuser.me/api/portraits/men/1.jpg",
         time: "2 hours ago",
-        title: "How I grew my online store by 300% in 2 months",
-        content: "The key was optimizing for mobile payments and using WhatsApp for customer support. Zambian customers trust mobile money!",
+        content: "How I grew my online store by 300% in 2 months. The key was optimizing for mobile payments and using WhatsApp for customer support. Zambian customers trust mobile money!",
+        image: null,
         likes: 45,
         comments: [
           { name: "Veronica M.", text: "This is so helpful! Thank you." },
           { name: "David C.", text: "Do you offer consultation?" }
         ],
-        liked: false
+        liked: false,
+        following: false
       },
       {
         id: 2,
         author: "Sylvester M.",
-        authorAvatar: "S",
+        authorAvatar: "https://randomuser.me/api/portraits/men/2.jpg",
         time: "5 hours ago",
-        title: "Free tools every Zambian business needs",
-        content: "Invoice generator, CV builder, QR code maker - all free on BLESSTech-X. No signup needed!",
+        content: "Free tools every Zambian business needs: Invoice generator, CV builder, QR code maker - all free on BLESSTech-X. No signup needed!",
+        image: null,
         likes: 32,
         comments: [
           { name: "Peter M.", text: "The invoice tool saved me hours!" }
         ],
-        liked: false
+        liked: false,
+        following: false
       },
       {
         id: 3,
         author: "Veronica M.",
-        authorAvatar: "V",
+        authorAvatar: "https://randomuser.me/api/portraits/women/1.jpg",
         time: "Yesterday",
-        title: "Question: Best way to advertise on Facebook in Zambia?",
-        content: "I'm struggling to reach local customers. Any tips from experienced marketers?",
+        content: "Question: Best way to advertise on Facebook in Zambia? I'm struggling to reach local customers. Any tips from experienced marketers?",
+        image: null,
         likes: 28,
         comments: [
           { name: "Blessings B.", text: "Target by location and use Chichewa/Nyanja in your ads!" }
         ],
-        liked: false
+        liked: false,
+        following: false
+      },
+      {
+        id: 4,
+        author: "David C.",
+        authorAvatar: "https://randomuser.me/api/portraits/men/3.jpg",
+        time: "Yesterday",
+        content: "Just launched my new website with BLESSTech-X. The team delivered in 10 days! Highly recommend for any Zambian business owner.",
+        image: "https://picsum.photos/600/400?random=1",
+        likes: 67,
+        comments: [
+          { name: "Sylvester M.", text: "Congratulations! Looks great!" }
+        ],
+        liked: false,
+        following: false
       }
     ];
 
     let currentUser = "You";
-    let currentUserAvatar = "Y";
+    let currentUserAvatar = "https://randomuser.me/api/portraits/men/4.jpg";
 
     function renderPosts() {
       const feed = document.getElementById('postsFeed');
@@ -765,19 +872,26 @@
       feed.innerHTML = posts.map(post => `
         <div class="post-card" data-post-id="${post.id}">
           <div class="post-header">
-            <div class="post-avatar">${post.authorAvatar}</div>
-            <div>
-              <div class="post-author">${post.author}</div>
-              <div class="post-time">${post.time}</div>
+            <div class="post-header-left">
+              <div class="post-avatar"><img src="${post.authorAvatar}" onerror="this.src='https://via.placeholder.com/40'"></div>
+              <div class="post-author-info">
+                <div class="post-author">
+                  ${escapeHtml(post.author)}
+                  <button class="follow-btn" onclick="toggleFollow(${post.id})">${post.following ? 'Following' : 'Follow'}</button>
+                </div>
+                <div class="post-time">${post.time}</div>
+              </div>
             </div>
+            <div class="post-menu"><i class="fas fa-ellipsis-h"></i></div>
           </div>
           <div class="post-content">
-            <div class="post-title">${escapeHtml(post.title)}</div>
             <div class="post-text">${escapeHtml(post.content)}</div>
+            ${post.image ? `<img src="${post.image}" class="post-image" onerror="this.style.display='none'">` : ''}
           </div>
           <div class="post-stats">
-            <span><i class="fas fa-thumbs-up"></i> ${post.likes} likes</span>
+            <span><i class="fas fa-thumbs-up"></i> ${post.likes}</span>
             <span>${post.comments.length} comments</span>
+            <span>${Math.floor(post.likes * 0.3)} shares</span>
           </div>
           <div class="post-actions">
             <button class="post-action ${post.liked ? 'liked' : ''}" onclick="toggleLike(${post.id})">
@@ -792,14 +906,14 @@
           </div>
           <div class="comments-section" id="comments-${post.id}">
             <div class="comment-input">
-              <div class="comment-avatar" style="width:28px;height:28px;">${currentUserAvatar}</div>
+              <div class="comment-avatar"><img src="${currentUserAvatar}" style="width:100%;height:100%;object-fit:cover;"></div>
               <input type="text" id="commentInput-${post.id}" placeholder="Write a comment...">
-              <button onclick="addComment(${post.id})" style="background:var(--fb-primary); border:none; border-radius:20px; padding:0 12px; color:white;">Post</button>
+              <button onclick="addComment(${post.id})">Post</button>
             </div>
             <div id="commentsList-${post.id}">
               ${post.comments.map(c => `
                 <div class="comment">
-                  <div class="comment-avatar" style="width:28px;height:28px;">${c.name[0]}</div>
+                  <div class="comment-avatar">${c.name[0]}</div>
                   <div class="comment-content">
                     <div class="comment-name">${escapeHtml(c.name)}</div>
                     <div class="comment-text">${escapeHtml(c.text)}</div>
@@ -821,6 +935,14 @@
       }
     }
 
+    function toggleFollow(postId) {
+      const post = posts.find(p => p.id === postId);
+      if (post) {
+        post.following = !post.following;
+        renderPosts();
+      }
+    }
+
     function toggleComments(postId) {
       const commentsDiv = document.getElementById(`comments-${postId}`);
       if (commentsDiv) {
@@ -838,7 +960,6 @@
         post.comments.push({ name: currentUser, text: text });
         input.value = '';
         renderPosts();
-        // Re-open comments after render
         setTimeout(() => {
           const commentsDiv = document.getElementById(`comments-${postId}`);
           if (commentsDiv) commentsDiv.classList.add('show');
@@ -847,7 +968,7 @@
     }
 
     function sharePost(postId) {
-      alert('Link copied to clipboard! Share with your business network.');
+      alert('🔗 Link copied! Share with your business network.');
     }
 
     function openPostModal() {
@@ -856,25 +977,24 @@
 
     function closeModal() {
       document.getElementById('postModal').classList.remove('show');
-      document.getElementById('postTitle').value = '';
       document.getElementById('postContent').value = '';
     }
 
     function createPost() {
-      const title = document.getElementById('postTitle').value.trim();
       const content = document.getElementById('postContent').value.trim();
-      if (!title && !content) return;
+      if (!content) return;
       
       const newPost = {
         id: Date.now(),
         author: currentUser,
         authorAvatar: currentUserAvatar,
         time: "Just now",
-        title: title || "Business Update",
-        content: content || "Sharing my business journey...",
+        content: content,
+        image: null,
         likes: 0,
         comments: [],
-        liked: false
+        liked: false,
+        following: false
       };
       
       posts.unshift(newPost);
@@ -900,19 +1020,23 @@
         return;
       }
       const filtered = posts.filter(p => 
-        p.title.toLowerCase().includes(query) || 
-        p.content.toLowerCase().includes(query)
+        p.content.toLowerCase().includes(query) || 
+        p.author.toLowerCase().includes(query)
       );
       const feed = document.getElementById('postsFeed');
       if (feed) {
         feed.innerHTML = filtered.map(post => `
           <div class="post-card">
             <div class="post-header">
-              <div class="post-avatar">${post.authorAvatar}</div>
-              <div><div class="post-author">${escapeHtml(post.author)}</div><div class="post-time">${post.time}</div></div>
+              <div class="post-header-left">
+                <div class="post-avatar"><img src="${post.authorAvatar}"></div>
+                <div class="post-author-info">
+                  <div class="post-author">${escapeHtml(post.author)}</div>
+                  <div class="post-time">${post.time}</div>
+                </div>
+              </div>
             </div>
             <div class="post-content">
-              <div class="post-title">${escapeHtml(post.title)}</div>
               <div class="post-text">${escapeHtml(post.content)}</div>
             </div>
           </div>
