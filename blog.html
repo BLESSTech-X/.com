@@ -2,1114 +2,929 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
   <title>BLESSTech-X Community — Business Tips for Zambia</title>
   <meta name="description" content="The BLESSTech-X community hub — business tips, e-commerce guides, and digital marketing advice for Zambian entrepreneurs." />
   <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --sky:      #0ea5e9;
-      --sky-d:    #0284c7;
-      --sky-l:    #38bdf8;
-      --slate:    #1e293b;
-      --slate-l:  #334155;
-      --muted:    #64748b;
-      --light:    #f1f5f9;
-      --white:    #ffffff;
-      --border:   #e2e8f0;
-      --green:    #10b981;
-      --red:      #ef4444;
-      --amber:    #f59e0b;
-
-      --nav-h:    60px;
-      --sidebar-w: 280px;
-      --feed-max:  680px;
-    }
-
-    html { scroll-behavior: smooth; }
+    /* ── RESET & BASE ── */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background: #f0f4f8;
-      color: var(--slate);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #f0f2f5;
+      color: #050505;
       min-height: 100vh;
+      padding-top: 56px;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; font-family: inherit; border: none; background: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ── FACEBOOK COLOR VARIABLES ── */
+    :root {
+      --fb-blue: #1877f2;
+      --fb-blue-hover: #166fe5;
+      --fb-bg: #f0f2f5;
+      --fb-white: #ffffff;
+      --fb-gray: #f0f2f5;
+      --fb-gray-hover: #e4e6eb;
+      --fb-text: #050505;
+      --fb-text-secondary: #65676b;
+      --fb-border: #ced0d4;
+      --fb-shadow: 0 1px 2px rgba(0,0,0,0.2);
+      --fb-radius: 8px;
+      --fb-radius-lg: 16px;
+      --header-h: 56px;
+      --sidebar-w: 360px;
     }
 
-    /* ═══════════════════════════════════════
-       TOP NAV
-    ═══════════════════════════════════════ */
-    .top-nav {
-      position: fixed; top: 0; left: 0; right: 0;
-      height: var(--nav-h); z-index: 1000;
-      background: var(--white);
-      border-bottom: 1px solid var(--border);
+    /* ── TOP HEADER (Facebook Blue) ── */
+    .fb-header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      height: var(--header-h);
+      background: var(--fb-white);
+      border-bottom: 1px solid var(--fb-border);
       display: flex; align-items: center;
-      padding: 0 20px; gap: 16px;
-      box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+      padding: 0 16px; gap: 8px;
+      box-shadow: var(--fb-shadow);
     }
-    .nav-brand {
-      display: flex; align-items: center; gap: 10px;
-      text-decoration: none; flex-shrink: 0;
+    .fb-header-left {
+      display: flex; align-items: center; gap: 8px;
+      flex-shrink: 0;
     }
-    .nav-brand img { width: 36px; height: 36px; border-radius: 8px; }
-    .nav-brand-text { font-weight: 800; font-size: 1.05rem; color: var(--slate); line-height:1; }
-    .nav-brand-text span { color: var(--sky); }
-    .nav-brand-sub { font-size: 0.65rem; color: var(--muted); font-weight:500; letter-spacing:0.05em; }
+    .fb-logo {
+      font-size: 1.5rem; font-weight: 800; color: var(--fb-blue);
+      letter-spacing: -0.5px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    .fb-logo i { font-size: 1.3rem; margin-right: 2px; }
 
-    .nav-search {
-      flex: 1; max-width: 320px;
+    .fb-header-center {
+      flex: 1; max-width: 600px; margin: 0 auto;
+      display: flex; justify-content: center;
+    }
+    .fb-search {
+      width: 100%; max-width: 400px;
+      background: var(--fb-gray);
+      border-radius: 24px;
+      padding: 8px 16px 8px 40px;
+      position: relative;
+      display: none;
+    }
+    .fb-search input {
+      width: 100%; border: none; background: transparent;
+      font-size: 0.9rem; outline: none; color: var(--fb-text);
+    }
+    .fb-search i {
+      position: absolute; left: 14px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--fb-text-secondary);
+    }
+
+    .fb-header-right {
+      display: flex; align-items: center; gap: 4px;
+      margin-left: auto;
+    }
+    .fb-icon-btn {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--fb-gray);
+      color: var(--fb-text);
+      font-size: 1.15rem;
+      transition: background 0.2s;
       position: relative;
     }
-    .nav-search input {
-      width: 100%; padding: 8px 14px 8px 36px;
-      border: 1.5px solid var(--border); border-radius: 24px;
-      font-size: 0.85rem; background: var(--light);
-      color: var(--slate); outline: none; font-family: inherit;
-      transition: all 0.2s;
+    .fb-icon-btn:hover { background: var(--fb-gray-hover); }
+    .fb-icon-btn .badge {
+      position: absolute; top: -2px; right: -2px;
+      background: #e41e3f; color: white;
+      font-size: 0.6rem; font-weight: 700;
+      padding: 2px 5px; border-radius: 12px;
+      border: 2px solid var(--fb-white);
     }
-    .nav-search input:focus {
-      border-color: var(--sky); background: var(--white);
-      box-shadow: 0 0 0 3px rgba(14,165,233,0.1);
+    .fb-avatar-small {
+      width: 36px; height: 36px; border-radius: 50%;
+      overflow: hidden; flex-shrink: 0;
     }
-    .nav-search i {
-      position: absolute; left: 12px; top: 50%;
-      transform: translateY(-50%); color: var(--muted); font-size: 0.8rem;
+    .fb-avatar-small img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ── MOBILE SEARCH BAR (shown on small screens) ── */
+    .fb-mobile-search {
+      display: block;
+      background: var(--fb-gray);
+      border-radius: 24px;
+      padding: 8px 16px 8px 40px;
+      position: relative;
+      margin: 8px 16px;
+    }
+    .fb-mobile-search input {
+      width: 100%; border: none; background: transparent;
+      font-size: 0.9rem; outline: none; color: var(--fb-text);
+    }
+    .fb-mobile-search i {
+      position: absolute; left: 14px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--fb-text-secondary);
     }
 
-    .nav-links-bar {
-      display: flex; align-items: center; gap: 4px; margin-left: auto;
-    }
-    .nav-link-btn {
-      display: flex; align-items: center; gap: 6px;
-      padding: 8px 14px; border-radius: 8px;
-      font-size: 0.82rem; font-weight: 600; color: var(--muted);
-      text-decoration: none; transition: all 0.2s; border: none;
-      background: none; cursor: pointer; font-family: inherit;
-      white-space: nowrap;
-    }
-    .nav-link-btn:hover, .nav-link-btn.active {
-      background: rgba(14,165,233,0.08); color: var(--sky);
-    }
-    .nav-link-btn.active { color: var(--sky); }
-
-    .nav-wa-btn {
-      display: flex; align-items: center; gap: 6px;
-      padding: 8px 16px; border-radius: 8px;
-      background: #25d366; color: white;
-      font-size: 0.82rem; font-weight: 700;
-      text-decoration: none; transition: all 0.2s;
-      white-space: nowrap; flex-shrink:0;
-    }
-    .nav-wa-btn:hover { background: #1da851; transform: translateY(-1px); }
-
-    .nav-mobile-toggle {
-      display: none; background: none; border: none;
-      color: var(--slate); font-size: 1.2rem; cursor: pointer; padding: 4px;
-    }
-
-    /* ═══════════════════════════════════════
-       LAYOUT
-    ═══════════════════════════════════════ */
-    .page-layout {
+    /* ── LAYOUT ── */
+    .fb-container {
       max-width: 1200px; margin: 0 auto;
-      padding: calc(var(--nav-h) + 20px) 16px 40px;
+      padding: 0 16px 80px;
       display: grid;
-      grid-template-columns: var(--sidebar-w) 1fr var(--sidebar-w);
-      gap: 20px;
-      align-items: start;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    @media (min-width: 900px) {
+      .fb-container {
+        grid-template-columns: var(--sidebar-w) 1fr var(--sidebar-w);
+        padding-top: 16px;
+      }
+      .fb-header-center .fb-search { display: block; }
+      .fb-mobile-search { display: none; }
+      .fb-header-left .fb-logo { font-size: 1.8rem; }
     }
 
-    /* ═══════════════════════════════════════
-       LEFT SIDEBAR
-    ═══════════════════════════════════════ */
-    .sidebar-left {
-      position: sticky; top: calc(var(--nav-h) + 20px);
+    /* ── SIDEBARS ── */
+    .fb-sidebar {
+      display: none;
     }
-    .sidebar-card {
-      background: var(--white); border-radius: 16px;
-      border: 1px solid var(--border);
-      overflow: hidden; margin-bottom: 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    @media (min-width: 900px) {
+      .fb-sidebar { display: block; }
     }
-    .sidebar-card-header {
-      padding: 14px 16px; border-bottom: 1px solid var(--border);
-      font-size: 0.78rem; font-weight: 700;
-      color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase;
+    .fb-sidebar-left { position: sticky; top: 72px; }
+    .fb-sidebar-right { position: sticky; top: 72px; }
+
+    .fb-sidebar-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 12px; border-radius: var(--fb-radius);
+      transition: background 0.2s; cursor: pointer;
+      margin-bottom: 2px;
+    }
+    .fb-sidebar-item:hover { background: var(--fb-gray); }
+    .fb-sidebar-item img, .fb-sidebar-item i {
+      width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--fb-gray); color: var(--fb-blue);
+      font-size: 0.9rem;
+    }
+    .fb-sidebar-item span { font-weight: 600; font-size: 0.9rem; color: var(--fb-text); }
+
+    .fb-sidebar-section {
+      background: var(--fb-white); border-radius: var(--fb-radius-lg);
+      padding: 12px 8px; margin-bottom: 16px;
+      box-shadow: var(--fb-shadow);
+    }
+    .fb-sidebar-section-title {
+      font-size: 0.8rem; font-weight: 700; color: var(--fb-text-secondary);
+      padding: 0 8px 8px; text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
-    /* Community profile card */
-    .community-card-banner {
-      height: 80px;
-      background: linear-gradient(135deg, var(--sky) 0%, #0369a1 100%);
-      position: relative;
+    /* ── CREATE POST BOX ── */
+    .fb-create-post {
+      background: var(--fb-white); border-radius: var(--fb-radius-lg);
+      padding: 12px 16px; margin-bottom: 16px;
+      box-shadow: var(--fb-shadow);
     }
-    .community-card-avatar {
-      width: 56px; height: 56px; border-radius: 14px;
-      border: 3px solid var(--white);
-      position: absolute; bottom: -20px; left: 16px;
-      overflow: hidden; background: var(--white);
+    .fb-create-top {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 12px;
     }
-    .community-card-avatar img { width: 100%; height: 100%; object-fit: cover; }
-    .community-card-body { padding: 28px 16px 16px; }
-    .community-card-name { font-weight: 800; font-size: 0.95rem; margin-bottom: 2px; }
-    .community-card-sub { font-size: 0.78rem; color: var(--muted); margin-bottom: 12px; }
-    .community-stats {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 8px; margin-bottom: 14px;
+    .fb-create-top .fb-avatar-small { width: 40px; height: 40px; }
+    .fb-create-input {
+      flex: 1; background: var(--fb-gray); border-radius: 24px;
+      padding: 8px 16px; font-size: 0.9rem; color: var(--fb-text-secondary);
+      cursor: pointer; transition: background 0.2s;
     }
-    .comm-stat {
-      background: var(--light); border-radius: 10px;
-      padding: 8px 10px; text-align: center;
-    }
-    .comm-stat-val { font-weight: 800; font-size: 1rem; color: var(--sky); }
-    .comm-stat-lbl { font-size: 0.68rem; color: var(--muted); font-weight: 500; }
-    .sidebar-wa-btn {
-      display: flex; align-items: center; justify-content: center; gap: 7px;
-      width: 100%; padding: 9px; border-radius: 10px;
-      background: #25d366; color: white;
-      font-size: 0.83rem; font-weight: 700;
-      text-decoration: none; transition: all 0.2s;
-    }
-    .sidebar-wa-btn:hover { background: #1da851; }
+    .fb-create-input:hover { background: var(--fb-gray-hover); }
 
-    /* Category filter list */
-    .cat-list { padding: 8px; }
-    .cat-item {
-      display: flex; align-items: center; gap: 10px;
-      padding: 9px 10px; border-radius: 10px;
-      cursor: pointer; transition: all 0.2s;
-      font-size: 0.85rem; font-weight: 500; color: var(--slate-l);
-      border: none; background: none; width: 100%;
-      font-family: inherit; text-align: left;
+    .fb-create-actions {
+      display: flex; gap: 4px; justify-content: space-around;
+      padding-top: 8px; border-top: 1px solid var(--fb-border);
     }
-    .cat-item:hover { background: var(--light); }
-    .cat-item.active { background: rgba(14,165,233,0.1); color: var(--sky); font-weight: 700; }
-    .cat-icon { font-size: 1rem; width: 20px; text-align: center; }
-    .cat-count {
-      margin-left: auto; font-size: 0.72rem;
-      background: var(--light); border-radius: 12px;
-      padding: 2px 7px; color: var(--muted); font-weight: 600;
+    .fb-create-action {
+      display: flex; align-items: center; gap: 6px;
+      padding: 6px 10px; border-radius: var(--fb-radius);
+      font-size: 0.8rem; font-weight: 600; color: var(--fb-text-secondary);
+      transition: background 0.2s; flex: 1; justify-content: center;
     }
-    .cat-item.active .cat-count { background: rgba(14,165,233,0.15); color: var(--sky-d); }
+    .fb-create-action:hover { background: var(--fb-gray); }
+    .fb-create-action i { font-size: 1.1rem; }
+    .fb-create-action .fa-video { color: #f02849; }
+    .fb-create-action .fa-image { color: #45bd62; }
+    .fb-create-action .fa-smile { color: #f7b928; }
 
-    /* ═══════════════════════════════════════
-       MAIN FEED
-    ═══════════════════════════════════════ */
-    .feed-area { min-width: 0; }
+    /* ── STORIES ── */
+    .fb-stories {
+      background: var(--fb-white); border-radius: var(--fb-radius-lg);
+      padding: 16px; margin-bottom: 16px;
+      box-shadow: var(--fb-shadow);
+      overflow-x: auto;
+      display: flex; gap: 8px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .fb-stories::-webkit-scrollbar { display: none; }
 
-    /* Page header */
-    .feed-header {
-      background: linear-gradient(135deg, var(--slate) 0%, #0f2040 100%);
-      border-radius: 16px; padding: 28px 28px 24px;
-      margin-bottom: 20px; position: relative; overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    .fb-story {
+      flex-shrink: 0; width: 104px; height: 188px;
+      border-radius: var(--fb-radius-lg);
+      overflow: hidden; position: relative;
+      cursor: pointer; background: #e4e6eb;
+      transition: transform 0.2s;
     }
-    .feed-header::before {
-      content: '';
-      position: absolute; top: -40px; right: -40px;
-      width: 200px; height: 200px; border-radius: 50%;
-      background: rgba(14,165,233,0.12);
+    .fb-story:hover { transform: scale(1.02); }
+    .fb-story-img {
+      width: 100%; height: 100%; object-fit: cover;
     }
-    .feed-header-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(14,165,233,0.2); border: 1px solid rgba(14,165,233,0.35);
-      color: var(--sky-l); font-size: 0.72rem; font-weight: 700;
-      padding: 4px 10px; border-radius: 20px; margin-bottom: 12px;
-      letter-spacing: 0.06em; text-transform: uppercase;
+    .fb-story-avatar {
+      position: absolute; top: 12px; left: 12px;
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 3px solid var(--fb-blue);
+      overflow: hidden;
     }
-    .feed-header h1 {
-      font-family: 'Instrument Serif', serif;
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      color: white; line-height: 1.25; margin-bottom: 8px;
+    .fb-story-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .fb-story-name {
+      position: absolute; bottom: 8px; left: 8px; right: 8px;
+      color: white; font-size: 0.75rem; font-weight: 700;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    .feed-header p { color: #94a3b8; font-size: 0.88rem; line-height: 1.6; }
+    .fb-story-create {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: flex-end; padding: 12px 8px 8px;
+      background: var(--fb-white);
+      border: 1px solid var(--fb-border);
+    }
+    .fb-story-create .plus {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--fb-blue); color: white;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; margin-bottom: 6px;
+    }
+    .fb-story-create span { font-size: 0.7rem; font-weight: 600; color: var(--fb-text); }
 
-    /* Filters bar */
-    .feed-filters {
-      display: flex; gap: 8px; margin-bottom: 16px;
-      flex-wrap: wrap;
-    }
-    .feed-filter-pill {
-      padding: 6px 14px; border-radius: 20px;
-      font-size: 0.78rem; font-weight: 600;
-      border: 1.5px solid var(--border); background: var(--white);
-      color: var(--muted); cursor: pointer; transition: all 0.2s;
-      font-family: inherit;
-    }
-    .feed-filter-pill:hover { border-color: var(--sky); color: var(--sky); }
-    .feed-filter-pill.active {
-      background: var(--sky); border-color: var(--sky);
-      color: white; box-shadow: 0 2px 8px rgba(14,165,233,0.3);
+    /* ── POST CARDS (Facebook Style) ── */
+    .fb-post {
+      background: var(--fb-white); border-radius: var(--fb-radius-lg);
+      margin-bottom: 16px; box-shadow: var(--fb-shadow);
+      overflow: hidden;
     }
 
-    /* Sort bar */
-    .feed-sort-bar {
-      display: flex; align-items: center; gap: 10px;
-      padding: 10px 16px; background: var(--white);
-      border-radius: 12px; margin-bottom: 16px;
-      border: 1px solid var(--border);
+    .fb-post-header {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 12px 16px 8px;
     }
-    .sort-label { font-size: 0.78rem; color: var(--muted); font-weight: 600; }
-    .sort-btn {
-      padding: 5px 12px; border-radius: 8px; font-size: 0.78rem;
-      font-weight: 600; border: none; background: none;
-      cursor: pointer; color: var(--muted); font-family: inherit;
-      transition: all 0.2s;
+    .fb-post-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      overflow: hidden; flex-shrink: 0;
     }
-    .sort-btn.active { background: var(--light); color: var(--sky); }
-    .sort-btn:hover { background: var(--light); }
+    .fb-post-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .fb-post-author {
+      flex: 1; min-width: 0;
+    }
+    .fb-post-author-name {
+      font-weight: 700; font-size: 0.9rem; color: var(--fb-text);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .fb-post-author-name .follow {
+      font-size: 0.7rem; font-weight: 700; color: var(--fb-blue);
+    }
+    .fb-post-meta {
+      display: flex; align-items: center; gap: 4px;
+      font-size: 0.75rem; color: var(--fb-text-secondary);
+    }
+    .fb-post-meta i { font-size: 0.6rem; }
 
-    /* Loading skeleton */
-    .skeleton-card {
-      background: var(--white); border-radius: 16px;
-      border: 1px solid var(--border); padding: 20px;
-      margin-bottom: 16px; overflow: hidden;
+    .fb-post-body {
+      padding: 0 16px 8px;
     }
-    .skel { background: linear-gradient(90deg, #f0f4f8 25%, #e2e8f0 50%, #f0f4f8 75%);
-      background-size: 200% 100%; border-radius: 8px;
-      animation: skelAnim 1.4s ease-in-out infinite; }
-    @keyframes skelAnim { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
-    .skel-avatar { width:42px; height:42px; border-radius:50%; margin-bottom:12px; }
-    .skel-line { height:12px; margin-bottom:8px; }
-    .skel-img { height:200px; border-radius:12px; margin:12px 0; }
-
-    /* ── POST CARD ── */
-    .post-card {
-      background: var(--white); border-radius: 16px;
-      border: 1px solid var(--border);
-      margin-bottom: 16px; overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-      transition: box-shadow 0.2s, transform 0.2s;
+    .fb-post-title {
+      font-weight: 700; font-size: 1.05rem;
+      color: var(--fb-text); margin-bottom: 4px;
+      line-height: 1.4;
+    }
+    .fb-post-excerpt {
+      font-size: 0.9rem; color: var(--fb-text);
+      line-height: 1.6; margin-bottom: 4px;
+    }
+    .fb-post-body .see-more {
+      color: var(--fb-text-secondary); font-weight: 600;
       cursor: pointer;
     }
-    .post-card:hover {
-      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-      transform: translateY(-2px);
-    }
+    .fb-post-body .see-more:hover { text-decoration: underline; }
 
-    /* Post header */
-    .post-card-header {
-      display: flex; align-items: center; gap: 12px;
-      padding: 16px 20px 12px;
-    }
-    .post-author-avatar {
-      width: 42px; height: 42px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--sky), var(--sky-d));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem; color: white; font-weight: 800;
-      flex-shrink: 0; overflow: hidden;
-    }
-    .post-author-avatar img { width:100%; height:100%; object-fit:cover; }
-    .post-author-info { flex: 1; min-width: 0; }
-    .post-author-name { font-weight: 700; font-size: 0.9rem; color: var(--slate); }
-    .post-author-meta {
-      display: flex; align-items: center; gap: 6px;
-      font-size: 0.75rem; color: var(--muted); margin-top: 1px;
-    }
-    .post-author-meta .sep { opacity: 0.4; }
-    .post-cat-pill {
-      font-size: 0.68rem; font-weight: 700; padding: 2px 8px;
-      border-radius: 12px; background: rgba(14,165,233,0.1);
-      color: var(--sky-d);
-    }
-
-    /* Post image */
-    .post-card-img {
-      width: 100%; max-height: 340px; overflow: hidden;
+    .fb-post-media {
+      margin: 0 0 8px;
       position: relative;
     }
-    .post-card-img img {
-      width: 100%; height: 100%; object-fit: cover;
-      display: block; transition: transform 0.4s ease;
+    .fb-post-media img {
+      width: 100%; max-height: 520px; object-fit: cover;
     }
-    .post-card:hover .post-card-img img { transform: scale(1.02); }
-    .post-card-img-placeholder {
-      height: 180px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 4rem;
-      background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+    .fb-post-media-placeholder {
+      height: 200px; display: flex; align-items: center; justify-content: center;
+      font-size: 3rem; background: linear-gradient(135deg, #e8f0fe, #d4e4f7);
     }
 
-    /* Post body */
-    .post-card-body { padding: 16px 20px 12px; }
-    .post-card-title {
-      font-family: 'Instrument Serif', serif;
-      font-size: 1.2rem; font-weight: 400;
-      color: var(--slate); line-height: 1.4; margin-bottom: 8px;
+    .fb-post-stats {
+      display: flex; align-items: center; gap: 6px;
+      padding: 8px 16px;
+      border-bottom: 1px solid var(--fb-border);
     }
-    .post-card-excerpt {
-      font-size: 0.87rem; color: var(--muted);
-      line-height: 1.65; margin-bottom: 12px;
-      display: -webkit-box; -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical; overflow: hidden;
+    .fb-post-stats .left {
+      display: flex; align-items: center; gap: 4px;
+      color: var(--fb-text-secondary); font-size: 0.8rem;
     }
-    .post-read-more {
-      font-size: 0.82rem; font-weight: 700; color: var(--sky);
-      display: inline-flex; align-items: center; gap: 5px;
+    .fb-post-stats .right {
+      margin-left: auto;
+      color: var(--fb-text-secondary); font-size: 0.8rem;
     }
-    .post-read-more i { transition: transform 0.2s; }
-    .post-card:hover .post-read-more i { transform: translateX(3px); }
-
-    /* Post footer — reactions */
-    .post-card-footer {
+    .fb-post-stats .reaction-icons {
       display: flex; align-items: center;
-      padding: 12px 20px; border-top: 1px solid var(--border);
-      gap: 4px;
     }
-    .reaction-btn {
-      display: flex; align-items: center; gap: 5px;
-      padding: 7px 12px; border-radius: 8px;
-      font-size: 0.8rem; font-weight: 600; color: var(--muted);
-      border: none; background: none; cursor: pointer;
-      transition: all 0.2s; font-family: inherit;
-    }
-    .reaction-btn:hover { background: var(--light); }
-    .reaction-btn.liked { color: var(--red); }
-    .reaction-btn.liked i { animation: likeAnim 0.3s ease; }
-    @keyframes likeAnim { 0%{transform:scale(1)} 50%{transform:scale(1.4)} 100%{transform:scale(1)} }
-    .reaction-btn.saved { color: var(--sky); }
-    .post-share-btn {
-      margin-left: auto; display: flex; align-items: center; gap: 5px;
-      padding: 7px 12px; border-radius: 8px;
-      font-size: 0.8rem; font-weight: 600; color: var(--muted);
-      border: none; background: none; cursor: pointer;
-      transition: all 0.2s; font-family: inherit;
-    }
-    .post-share-btn:hover { background: var(--light); color: var(--sky); }
-
-    /* Reading time badge */
-    .reading-time {
-      display: inline-flex; align-items: center; gap: 4px;
-      font-size: 0.72rem; color: var(--muted); font-weight: 500;
-    }
-
-    /* Empty state */
-    .feed-empty {
-      text-align: center; padding: 60px 20px;
-      background: var(--white); border-radius: 16px;
-      border: 1px solid var(--border);
-    }
-    .feed-empty-icon { font-size: 3.5rem; margin-bottom: 16px; }
-    .feed-empty h3 { font-size: 1.2rem; font-weight: 800; color: var(--slate); margin-bottom: 8px; }
-    .feed-empty p { color: var(--muted); font-size: 0.88rem; margin-bottom: 20px; }
-
-    /* ═══════════════════════════════════════
-       RIGHT SIDEBAR
-    ═══════════════════════════════════════ */
-    .sidebar-right {
-      position: sticky; top: calc(var(--nav-h) + 20px);
-    }
-
-    /* Trending topics */
-    .trending-list { padding: 8px; }
-    .trending-item {
-      display: flex; align-items: flex-start; gap: 10px;
-      padding: 9px 10px; border-radius: 10px;
-      cursor: pointer; transition: all 0.2s; text-decoration:none;
-    }
-    .trending-item:hover { background: var(--light); }
-    .trending-num { font-size: 0.72rem; font-weight: 700; color: var(--muted); width: 16px; flex-shrink:0; padding-top:2px; }
-    .trending-info { flex: 1; min-width:0; }
-    .trending-tag { font-size: 0.82rem; font-weight: 700; color: var(--slate); }
-    .trending-count { font-size: 0.72rem; color: var(--muted); margin-top:1px; }
-
-    /* Services widget */
-    .services-widget { padding: 14px; }
-    .service-item {
-      display: flex; align-items: center; gap: 10px;
-      padding: 8px 0; border-bottom: 1px solid var(--border);
-      text-decoration: none;
-    }
-    .service-item:last-child { border-bottom: none; padding-bottom: 0; }
-    .service-item-icon {
-      width: 34px; height: 34px; border-radius: 8px;
-      background: rgba(14,165,233,0.1); flex-shrink:0;
+    .fb-post-stats .reaction-icons i {
+      width: 18px; height: 18px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-size: 0.9rem; color: var(--sky);
+      color: white; font-size: 0.6rem;
+      margin-right: -4px; border: 1px solid var(--fb-white);
     }
-    .service-item-name { font-size: 0.82rem; font-weight: 600; color: var(--slate); }
-    .service-item-price { font-size: 0.72rem; color: var(--sky); font-weight: 700; margin-top:1px; }
-    .service-item-arrow { margin-left:auto; color: var(--muted); font-size:0.7rem; }
+    .fb-post-stats .reaction-icons i:first-child { background: #1877f2; }
+    .fb-post-stats .reaction-icons i:nth-child(2) { background: #f02849; }
+    .fb-post-stats .reaction-icons i:nth-child(3) { background: #f7b928; }
 
-    /* ═══════════════════════════════════════
-       POST MODAL (full-screen reader)
-    ═══════════════════════════════════════ */
-    .post-modal-overlay {
-      position: fixed; inset: 0; z-index: 2000;
-      background: rgba(15,23,42,0.85);
-      display: none; align-items: flex-start; justify-content: center;
-      padding: 20px; overflow-y: auto;
-      backdrop-filter: blur(4px);
+    .fb-post-actions {
+      display: flex; padding: 4px 8px;
     }
-    .post-modal-overlay.open { display: flex; }
-    .post-modal {
-      background: var(--white); border-radius: 20px;
-      max-width: 760px; width: 100%; margin: 20px auto;
+    .fb-post-action {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      gap: 6px; padding: 8px; border-radius: var(--fb-radius);
+      font-size: 0.85rem; font-weight: 600; color: var(--fb-text-secondary);
+      transition: background 0.2s;
+    }
+    .fb-post-action:hover { background: var(--fb-gray); }
+    .fb-post-action.liked { color: var(--fb-blue); }
+    .fb-post-action.liked i { animation: likeAnim 0.3s ease; }
+    @keyframes likeAnim { 0%{transform:scale(1)} 50%{transform:scale(1.4)} 100%{transform:scale(1)} }
+    .fb-post-action.saved { color: var(--fb-blue); }
+
+    /* ── RIGHT SIDEBAR WIDGETS ── */
+    .fb-widget {
+      background: var(--fb-white); border-radius: var(--fb-radius-lg);
+      padding: 16px; margin-bottom: 16px;
+      box-shadow: var(--fb-shadow);
+    }
+    .fb-widget-title {
+      font-size: 0.9rem; font-weight: 700; color: var(--fb-text);
+      margin-bottom: 12px;
+    }
+    .fb-widget-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 0; border-bottom: 1px solid var(--fb-border);
+      cursor: pointer; transition: background 0.2s;
+    }
+    .fb-widget-item:last-child { border-bottom: none; }
+    .fb-widget-item:hover { background: var(--fb-gray); border-radius: var(--fb-radius); padding: 8px 10px; margin: 0 -10px; }
+    .fb-widget-item-icon {
+      width: 32px; height: 32px; border-radius: var(--fb-radius);
+      background: var(--fb-gray); display: flex; align-items: center; justify-content: center;
+      color: var(--fb-blue); font-size: 0.9rem; flex-shrink: 0;
+    }
+    .fb-widget-item-text { flex: 1; min-width: 0; }
+    .fb-widget-item-name { font-size: 0.85rem; font-weight: 600; color: var(--fb-text); }
+    .fb-widget-item-desc { font-size: 0.75rem; color: var(--fb-text-secondary); }
+
+    /* ── BOTTOM TAB BAR (Mobile) ── */
+    .fb-bottom-tabs {
+      display: flex; position: fixed; bottom: 0; left: 0; right: 0;
+      background: var(--fb-white); border-top: 1px solid var(--fb-border);
+      padding: 4px 0 env(safe-area-inset-bottom, 0);
+      z-index: 999; box-shadow: 0 -2px 8px rgba(0,0,0,0.06);
+    }
+    @media (min-width: 900px) {
+      .fb-bottom-tabs { display: none; }
+    }
+    .fb-tab {
+      flex: 1; display: flex; flex-direction: column; align-items: center;
+      gap: 2px; padding: 4px 0; font-size: 0.6rem; font-weight: 600;
+      color: var(--fb-text-secondary); transition: color 0.2s;
+      cursor: pointer;
+    }
+    .fb-tab.active { color: var(--fb-blue); }
+    .fb-tab i { font-size: 1.2rem; }
+    .fb-tab .badge {
+      background: #e41e3f; color: white; font-size: 0.5rem;
+      padding: 1px 4px; border-radius: 10px; position: absolute;
+      top: 0; right: -6px; border: 1px solid var(--fb-white);
+    }
+    .fb-tab .tab-icon-wrap { position: relative; }
+
+    /* ── POST MODAL (Facebook style) ── */
+    .fb-modal-overlay {
+      position: fixed; inset: 0; z-index: 2000;
+      background: rgba(255,255,255,0.95);
+      display: none; align-items: center; justify-content: center;
+      padding: 20px; backdrop-filter: blur(4px);
+    }
+    .fb-modal-overlay.open { display: flex; }
+    .fb-modal {
+      background: var(--fb-white); border-radius: var(--fb-radius-lg);
+      max-width: 760px; width: 100%; max-height: 90vh;
       overflow: hidden; position: relative;
-      animation: modalSlideIn 0.3s cubic-bezier(.22,1,.36,1);
+      animation: modalSlideIn 0.3s ease;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.2);
     }
     @keyframes modalSlideIn {
-      from { opacity:0; transform: translateY(20px); }
-      to   { opacity:1; transform: translateY(0); }
+      from { opacity:0; transform: translateY(20px) scale(0.98); }
+      to   { opacity:1; transform: translateY(0) scale(1); }
     }
 
-    .modal-close-bar {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 14px 20px; border-bottom: 1px solid var(--border);
-      position: sticky; top: 0; background: var(--white); z-index: 1;
+    .fb-modal-close {
+      position: absolute; top: 12px; right: 12px; z-index: 10;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(0,0,0,0.5); color: white; border: none;
+      font-size: 1rem; cursor: pointer; transition: background 0.2s;
     }
-    .modal-close-brand { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 0.88rem; color: var(--slate); }
-    .modal-close-brand img { width: 28px; border-radius: 6px; }
-    .modal-close-btn {
-      width: 34px; height: 34px; border-radius: 50%;
-      background: var(--light); border: none; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--muted); font-size: 0.9rem; transition: all 0.2s;
-    }
-    .modal-close-btn:hover { background: var(--border); color: var(--slate); }
+    .fb-modal-close:hover { background: rgba(0,0,0,0.7); }
 
-    .modal-hero {
+    .fb-modal-hero {
       width: 100%; height: 300px; object-fit: cover;
-      background: linear-gradient(135deg, var(--sky), var(--slate));
+      background: linear-gradient(135deg, #e8f0fe, #d4e4f7);
       display: flex; align-items: center; justify-content: center;
-      font-size: 5rem; overflow: hidden;
+      font-size: 4rem;
     }
-    .modal-hero img { width:100%; height:100%; object-fit:cover; }
+    .fb-modal-hero img { width: 100%; height: 100%; object-fit: cover; }
 
-    .modal-body { padding: 32px 36px; }
-    .modal-meta {
+    .fb-modal-body { padding: 24px 28px; overflow-y: auto; max-height: calc(90vh - 300px); }
+    .fb-modal-title {
+      font-size: 1.5rem; font-weight: 700; color: var(--fb-text);
+      margin-bottom: 12px; line-height: 1.3;
+    }
+    .fb-modal-meta {
       display: flex; align-items: center; gap: 10px;
       margin-bottom: 16px; flex-wrap: wrap;
     }
-    .modal-title {
-      font-family: 'Instrument Serif', serif;
-      font-size: clamp(1.5rem, 3vw, 2.1rem);
-      color: var(--slate); line-height: 1.3; margin-bottom: 20px;
-    }
-    .modal-author-row {
+    .fb-modal-author-row {
       display: flex; align-items: center; gap: 12px;
-      padding: 14px 0; border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border); margin-bottom: 24px;
+      padding: 12px 0; border-top: 1px solid var(--fb-border);
+      border-bottom: 1px solid var(--fb-border); margin-bottom: 16px;
     }
-    .modal-author-av {
+    .fb-modal-author-av {
       width: 44px; height: 44px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--sky), var(--sky-d));
+      background: var(--fb-blue); color: white;
       display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem; color: white; font-weight: 800;
+      font-weight: 800; font-size: 1.1rem;
     }
-    .modal-author-name { font-weight: 700; font-size: 0.88rem; }
-    .modal-author-sub { font-size: 0.75rem; color: var(--muted); }
-    .modal-read-time { margin-left: auto; font-size: 0.75rem; color: var(--muted);
-      display: flex; align-items: center; gap: 5px; }
+    .fb-modal-author-name { font-weight: 700; font-size: 0.9rem; }
+    .fb-modal-author-sub { font-size: 0.75rem; color: var(--fb-text-secondary); }
 
-    /* Article content */
-    .article-content h2 { font-family:'Instrument Serif',serif; font-size:1.5rem; color:var(--slate); margin:28px 0 12px; }
-    .article-content h3 { font-weight:700; font-size:1.05rem; color:var(--slate); margin:22px 0 10px; }
-    .article-content p { color:var(--slate-l); line-height:1.85; margin-bottom:16px; font-size:0.95rem; }
-    .article-content ul, .article-content ol { padding-left:24px; margin-bottom:16px; }
-    .article-content li { color:var(--slate-l); line-height:1.75; margin-bottom:6px; font-size:0.95rem; }
-    .article-content a { color:var(--sky); text-decoration:underline; }
-    .article-content strong { color:var(--slate); }
-    .article-content blockquote {
-      border-left:4px solid var(--sky); padding:14px 20px; margin:20px 0;
-      background:#f0f9ff; border-radius:0 10px 10px 0;
-      color:var(--sky-d); font-style:italic; font-size:0.95rem;
+    .fb-modal-content { font-size: 0.95rem; line-height: 1.8; color: var(--fb-text); }
+    .fb-modal-content h2 { font-size: 1.3rem; margin: 24px 0 12px; }
+    .fb-modal-content h3 { font-size: 1.05rem; margin: 18px 0 10px; }
+    .fb-modal-content p { margin-bottom: 14px; }
+    .fb-modal-content ul, .fb-modal-content ol { padding-left: 24px; margin-bottom: 14px; }
+    .fb-modal-content li { margin-bottom: 4px; }
+    .fb-modal-content a { color: var(--fb-blue); text-decoration: underline; }
+    .fb-modal-content blockquote {
+      border-left: 4px solid var(--fb-blue); padding: 12px 16px;
+      background: #f0f8ff; margin: 16px 0; border-radius: 0 8px 8px 0;
     }
-    .article-content code { background:var(--light); padding:2px 6px; border-radius:4px; font-size:0.88rem; }
-    .article-content pre { background:var(--slate); color:#e2e8f0; padding:20px; border-radius:12px; overflow-x:auto; margin-bottom:16px; }
-    .article-content pre code { background:none; color:inherit; }
-    .article-content img { max-width:100%; border-radius:12px; margin:16px 0; }
-    .article-content hr { border:none; border-top:2px solid var(--border); margin:28px 0; }
+    .fb-modal-content img { max-width: 100%; border-radius: var(--fb-radius); margin: 12px 0; }
+    .fb-modal-content pre { background: #1e293b; color: #e2e8f0; padding: 16px; border-radius: var(--fb-radius); overflow-x: auto; }
 
-    /* Modal reactions */
-    .modal-reactions {
-      display: flex; align-items: center; gap: 6px;
-      padding: 16px 36px; border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
+    .fb-modal-reactions {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 28px; border-top: 1px solid var(--fb-border);
+      border-bottom: 1px solid var(--fb-border);
     }
-    .modal-cta-section {
-      padding: 24px 36px;
-      background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+    .fb-modal-cta {
+      padding: 16px 28px; background: #f0f8ff;
     }
-    .modal-cta-section h4 { font-weight: 800; color: var(--slate); margin-bottom: 4px; font-size: 0.95rem; }
-    .modal-cta-section p { color: var(--muted); font-size: 0.82rem; margin-bottom: 14px; }
-    .modal-cta-btns { display: flex; gap: 10px; flex-wrap: wrap; }
-    .cta-btn {
-      display: inline-flex; align-items: center; gap: 7px;
-      padding: 10px 18px; border-radius: 10px;
-      font-size: 0.83rem; font-weight: 700; text-decoration: none;
-      transition: all 0.2s;
+    .fb-modal-cta h4 { font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; }
+    .fb-modal-cta p { font-size: 0.85rem; color: var(--fb-text-secondary); margin-bottom: 12px; }
+    .fb-modal-cta-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+    .fb-cta-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 10px 18px; border-radius: var(--fb-radius);
+      font-weight: 700; font-size: 0.85rem; transition: all 0.2s;
     }
-    .cta-btn-wa { background: #25d366; color: white; }
-    .cta-btn-wa:hover { background: #1da851; transform: translateY(-1px); }
-    .cta-btn-outline { background: white; color: var(--sky);
-      border: 1.5px solid var(--sky); }
-    .cta-btn-outline:hover { background: rgba(14,165,233,0.05); }
+    .fb-cta-btn-wa { background: #25d366; color: white; }
+    .fb-cta-btn-wa:hover { background: #1da851; }
+    .fb-cta-btn-outline { background: white; color: var(--fb-blue); border: 1.5px solid var(--fb-blue); }
+    .fb-cta-btn-outline:hover { background: #f0f8ff; }
 
-    /* Toast notification */
-    .toast {
-      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px);
-      background: var(--slate); color: white;
-      padding: 10px 20px; border-radius: 12px; font-size: 0.83rem; font-weight: 600;
-      z-index: 9999; transition: transform 0.3s ease; white-space: nowrap;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    /* ── TOAST ── */
+    .fb-toast {
+      position: fixed; bottom: 80px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #1e293b; color: white;
+      padding: 10px 20px; border-radius: var(--fb-radius);
+      font-size: 0.85rem; font-weight: 600; z-index: 9999;
+      transition: transform 0.3s ease; white-space: nowrap;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
     }
-    .toast.show { transform: translateX(-50%) translateY(0); }
+    .fb-toast.show { transform: translateX(-50%) translateY(0); }
 
-    /* ═══════════════════════════════════════
-       RESPONSIVE
-    ═══════════════════════════════════════ */
-    @media (max-width: 1100px) {
-      .page-layout { grid-template-columns: 240px 1fr; }
-      .sidebar-right { display: none; }
+    /* ── RESPONSIVE TWEAKS ── */
+    @media (max-width: 480px) {
+      .fb-stories .fb-story { width: 80px; height: 140px; }
+      .fb-story-name { font-size: 0.65rem; }
+      .fb-post-title { font-size: 0.95rem; }
+      .fb-modal-hero { height: 200px; }
+      .fb-modal-body { padding: 16px; }
+      .fb-modal-title { font-size: 1.2rem; }
+      .fb-create-actions { flex-wrap: wrap; }
+      .fb-create-action { font-size: 0.7rem; padding: 4px 8px; }
     }
 
-    /* ═══════════════════════════════════════
-       MOBILE STYLES
-    ═══════════════════════════════════════ */
-    @media (max-width: 768px) {
-
-      /* Layout: single column, extra bottom padding for tab bar */
-      .page-layout {
-        grid-template-columns: 1fr;
-        padding-top: calc(var(--nav-h) + 8px);
-        padding-bottom: 80px;
-        padding-left: 0; padding-right: 0;
-        gap: 0;
-      }
-
-      /* Hide desktop sidebars — content shown inline instead */
-      .sidebar-left { display: none; }
-      .sidebar-right { display: none; }
-
-      /* Nav: hide text links, show only logo + search + WA */
-      .nav-links-bar { display: none; }
-      .nav-mobile-toggle { display: none; } /* using tab bar instead */
-      .nav-wa-btn span { display: none; } /* icon only on mobile */
-      .nav-wa-btn { padding: 8px 12px; }
-      .nav-search { max-width: none; flex: 1; }
-
-      /* Feed area full width */
-      .feed-area { padding: 0; }
-
-      /* Feed header compact */
-      .feed-header {
-        border-radius: 0; margin-bottom: 0;
-        padding: 20px 16px 18px;
-      }
-      .feed-header h1 { font-size: 1.4rem; }
-      .feed-header p { font-size: 0.82rem; }
-
-      /* ── MOBILE COMMUNITY STRIP ──
-         Shown below header on mobile — replaces left sidebar */
-      .mobile-community-strip {
-        display: flex !important;
-        align-items: center; gap: 12px;
-        background: var(--white);
-        padding: 12px 16px;
-        border-bottom: 1px solid var(--border);
-      }
-      .mcs-avatar {
-        width: 40px; height: 40px; border-radius: 10px;
-        overflow: hidden; flex-shrink: 0;
-      }
-      .mcs-avatar img { width: 100%; height: 100%; object-fit: cover; }
-      .mcs-info { flex: 1; min-width: 0; }
-      .mcs-name { font-weight: 700; font-size: 0.85rem; color: var(--slate); }
-      .mcs-sub  { font-size: 0.72rem; color: var(--muted); }
-      .mcs-stats { display: flex; gap: 12px; }
-      .mcs-stat { text-align: center; }
-      .mcs-stat-val { font-weight: 800; font-size: 0.9rem; color: var(--sky); }
-      .mcs-stat-lbl { font-size: 0.62rem; color: var(--muted); }
-      .mcs-wa {
-        display: flex; align-items: center; gap: 5px;
-        background: #25d366; color: white;
-        padding: 7px 12px; border-radius: 8px;
-        font-size: 0.75rem; font-weight: 700;
-        text-decoration: none; white-space: nowrap; flex-shrink: 0;
-      }
-
-      /* ── MOBILE CATEGORY SCROLL ──
-         Horizontal scrollable pills — replaces sidebar category list */
-      .mobile-cat-scroll {
-        display: flex !important;
-        overflow-x: auto; gap: 8px;
-        padding: 10px 16px;
-        background: var(--white);
-        border-bottom: 1px solid var(--border);
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-      }
-      .mobile-cat-scroll::-webkit-scrollbar { display: none; }
-      .mobile-cat-pill {
-        flex-shrink: 0; padding: 6px 14px;
-        border-radius: 20px; font-size: 0.78rem; font-weight: 600;
-        border: 1.5px solid var(--border); background: var(--white);
-        color: var(--muted); cursor: pointer;
-        transition: all 0.2s; font-family: inherit; white-space: nowrap;
-      }
-      .mobile-cat-pill.active {
-        background: var(--sky); border-color: var(--sky);
-        color: white; box-shadow: 0 2px 8px rgba(14,165,233,0.3);
-      }
-
-      /* Sort bar */
-      .feed-sort-bar {
-        border-radius: 0; margin-bottom: 0;
-        border-left: none; border-right: none;
-        border-top: none;
-        padding: 8px 16px;
-      }
-
-      /* Post cards full width */
-      .post-card {
-        border-radius: 0;
-        border-left: none; border-right: none;
-        margin-bottom: 8px;
-        box-shadow: none;
-        border-bottom: 8px solid #f0f4f8;
-      }
-      .post-card:hover { transform: none; box-shadow: none; }
-
-      .post-card-img { max-height: 220px; }
-      .post-card-title { font-size: 1.05rem; }
-      .post-card-body { padding: 12px 16px 10px; }
-      .post-card-header { padding: 12px 16px 8px; }
-      .post-card-footer { padding: 8px 16px; }
-
-      /* Feed empty */
-      .feed-empty { border-radius: 0; border-left: none; border-right: none; }
-
-      /* Skeleton cards */
-      .skeleton-card { border-radius: 0; border-left: none; border-right: none;
-        margin-bottom: 8px; box-shadow: none; }
-
-      /* ── MOBILE SERVICES ROW ──
-         Horizontal scroll of service cards — replaces right sidebar */
-      .mobile-services-row {
-        display: block !important;
-        background: var(--white);
-        border-top: 8px solid #f0f4f8;
-        padding: 16px;
-      }
-      .mobile-services-title {
-        font-size: 0.72rem; font-weight: 700; color: var(--muted);
-        text-transform: uppercase; letter-spacing: 0.08em;
-        margin-bottom: 12px;
-      }
-      .mobile-services-scroll {
-        display: flex; gap: 10px; overflow-x: auto;
-        -webkit-overflow-scrolling: touch; scrollbar-width: none;
-        padding-bottom: 4px;
-      }
-      .mobile-services-scroll::-webkit-scrollbar { display: none; }
-      .mobile-service-card {
-        flex-shrink: 0; width: 140px;
-        background: var(--light); border-radius: 12px;
-        padding: 12px; text-decoration: none;
-        border: 1px solid var(--border); transition: all 0.2s;
-      }
-      .mobile-service-card:hover { border-color: var(--sky); }
-      .msvc-icon {
-        width: 32px; height: 32px; border-radius: 8px;
-        background: rgba(14,165,233,0.12);
-        display: flex; align-items: center; justify-content: center;
-        color: var(--sky); font-size: 0.85rem; margin-bottom: 8px;
-      }
-      .msvc-name { font-size: 0.78rem; font-weight: 700; color: var(--slate); margin-bottom: 3px; line-height: 1.3; }
-      .msvc-price { font-size: 0.68rem; color: var(--sky); font-weight: 700; }
-
-      /* ── MOBILE TOOLS STRIP ── */
-      .mobile-tools-strip {
-        display: flex !important;
-        align-items: center; justify-content: space-between;
-        background: linear-gradient(135deg, var(--slate), #0f2040);
-        padding: 14px 16px; margin-top: 8px;
-        gap: 12px;
-      }
-      .mts-text { flex: 1; }
-      .mts-text h4 { font-size: 0.85rem; font-weight: 700; color: white; margin-bottom: 2px; }
-      .mts-text p  { font-size: 0.72rem; color: #94a3b8; }
-      .mts-btn {
-        background: var(--sky); color: white;
-        padding: 8px 14px; border-radius: 8px;
-        font-size: 0.78rem; font-weight: 700;
-        text-decoration: none; white-space: nowrap; flex-shrink: 0;
-        display: flex; align-items: center; gap: 5px;
-      }
-
-      /* ── BOTTOM TAB BAR ── */
-      .mobile-tab-bar {
-        display: flex !important;
-        position: fixed; bottom: 0; left: 0; right: 0; z-index: 999;
-        background: var(--white);
-        border-top: 1px solid var(--border);
-        padding: 6px 0 env(safe-area-inset-bottom, 0);
-        box-shadow: 0 -4px 16px rgba(0,0,0,0.08);
-      }
-      .tab-bar-item {
-        flex: 1; display: flex; flex-direction: column;
-        align-items: center; gap: 3px;
-        padding: 6px 4px; text-decoration: none;
-        color: var(--muted); font-size: 0.6rem; font-weight: 600;
-        transition: color 0.2s;
-      }
-      .tab-bar-item.active { color: var(--sky); }
-      .tab-bar-item i { font-size: 1.1rem; }
-      .tab-bar-item.tab-wa { color: #25d366; }
-
-      /* Modal mobile fixes */
-      .post-modal { margin: 0; border-radius: 20px 20px 0 0; margin-top: auto; }
-      .post-modal-overlay { align-items: flex-end; padding: 0; }
-      .modal-hero { height: 200px; }
-      .modal-body { padding: 20px 16px; }
-      .modal-reactions { padding: 12px 16px; }
-      .modal-cta-section { padding: 16px; }
-      .modal-cta-btns { flex-direction: column; }
-      .cta-btn { justify-content: center; }
+    /* ── HIDE MOBILE ELEMENTS ON DESKTOP ── */
+    .fb-mobile-search, .fb-bottom-tabs { display: none; }
+    @media (max-width: 899px) {
+      .fb-mobile-search { display: block; }
+      .fb-bottom-tabs { display: flex; }
+      .fb-container { padding-bottom: 70px; }
+      .fb-header-left .fb-logo { font-size: 1.3rem; }
+      .fb-header-right .fb-icon-btn { width: 36px; height: 36px; font-size: 1rem; }
     }
 
-    /* Extra small screens */
-    @media (max-width: 380px) {
-      .mcs-stats { display: none; }
-      .nav-search input { font-size: 0.8rem; }
+    /* ── WHATSAPP FAB (desktop only) ── */
+    .fb-wa-fab {
+      position: fixed; bottom: 24px; right: 24px; z-index: 999;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: #25d366; color: white;
+      display: none; align-items: center; justify-content: center;
+      font-size: 1.6rem; box-shadow: 0 4px 16px rgba(37,211,102,0.4);
+      transition: transform 0.2s;
+    }
+    .fb-wa-fab:hover { transform: scale(1.05); }
+    @media (min-width: 900px) {
+      .fb-wa-fab { display: flex; }
     }
 
-    /* ── Hide mobile-only elements on desktop ── */
-    .mobile-community-strip,
-    .mobile-cat-scroll,
-    .mobile-services-row,
-    .mobile-tools-strip,
-    .mobile-tab-bar { display: none; }
+    /* ── EMPTY STATE ── */
+    .fb-empty {
+      text-align: center; padding: 60px 20px;
+      background: var(--fb-white); border-radius: var(--fb-radius-lg);
+      box-shadow: var(--fb-shadow);
+    }
+    .fb-empty-icon { font-size: 3rem; margin-bottom: 16px; }
+    .fb-empty h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+    .fb-empty p { color: var(--fb-text-secondary); margin-bottom: 16px; }
+
+    /* ── CATEGORY PILLS (desktop sidebar) ── */
+    .fb-cat-pill {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 12px; border-radius: var(--fb-radius);
+      cursor: pointer; transition: all 0.2s;
+      font-size: 0.85rem; font-weight: 500; color: var(--fb-text);
+      width: 100%; text-align: left; background: none; border: none;
+      font-family: inherit;
+    }
+    .fb-cat-pill:hover { background: var(--fb-gray); }
+    .fb-cat-pill.active { background: #e7f3ff; color: var(--fb-blue); font-weight: 700; }
+    .fb-cat-pill .count {
+      margin-left: auto; font-size: 0.7rem; background: var(--fb-gray);
+      padding: 1px 8px; border-radius: 12px; color: var(--fb-text-secondary);
+      font-weight: 600;
+    }
+    .fb-cat-pill.active .count { background: #d4e6ff; color: var(--fb-blue); }
+
+    /* ── MOBILE CATEGORY SCROLL ── */
+    .fb-mobile-cats {
+      display: flex; gap: 8px; overflow-x: auto;
+      padding: 0 16px 8px; -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; background: var(--fb-white);
+    }
+    .fb-mobile-cats::-webkit-scrollbar { display: none; }
+    .fb-mobile-cat {
+      flex-shrink: 0; padding: 6px 14px; border-radius: 20px;
+      font-size: 0.75rem; font-weight: 600; white-space: nowrap;
+      background: var(--fb-gray); color: var(--fb-text-secondary);
+      cursor: pointer; transition: all 0.2s; border: none; font-family: inherit;
+    }
+    .fb-mobile-cat.active { background: var(--fb-blue); color: white; }
+
+    @media (min-width: 900px) {
+      .fb-mobile-cats { display: none; }
+    }
   </style>
 </head>
 <body>
 
   <!-- ═══════════════════════════════════════
-       TOP NAV
+       FACEBOOK HEADER
   ═══════════════════════════════════════ -->
-  <nav class="top-nav">
-    <a href="index.html" class="nav-brand">
-      <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X" />
-      <div>
-        <div class="nav-brand-text">BLESS<span>Tech-X</span></div>
-        <div class="nav-brand-sub">Community</div>
+  <header class="fb-header">
+    <div class="fb-header-left">
+      <a href="#" class="fb-logo"><i class="fab fa-facebook"></i> facebook</a>
+    </div>
+
+    <div class="fb-header-center">
+      <div class="fb-search">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Search Facebook" />
       </div>
-    </a>
-
-    <div class="nav-search">
-      <i class="fas fa-search"></i>
-      <input type="text" id="searchInput" placeholder="Search posts…" />
     </div>
 
-    <div class="nav-links-bar">
-      <a href="index.html" class="nav-link-btn"><i class="fas fa-home"></i> Home</a>
-      <a href="blog.html" class="nav-link-btn active"><i class="fas fa-newspaper"></i> Blog</a>
-      <a href="tools/index.html" class="nav-link-btn"><i class="fas fa-tools"></i> Free Tools</a>
-      <a href="index.html#services" class="nav-link-btn"><i class="fas fa-briefcase"></i> Services</a>
+    <div class="fb-header-right">
+      <button class="fb-icon-btn"><i class="fas fa-plus"></i></button>
+      <button class="fb-icon-btn"><i class="fas fa-comment-dots"></i></button>
+      <button class="fb-icon-btn"><i class="fas fa-bell"></i><span class="badge">9+</span></button>
+      <div class="fb-avatar-small">
+        <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="Profile" />
+      </div>
     </div>
+  </header>
 
-    <a href="https://wa.me/260979603741?text=Hello%20BLESSTech-X!" class="nav-wa-btn" target="_blank" rel="noopener">
-      <i class="fab fa-whatsapp"></i> Chat
-    </a>
-    <button class="nav-mobile-toggle" id="mobileMenuToggle" aria-label="Menu">
-      <i class="fas fa-bars"></i>
-    </button>
-  </nav>
+  <!-- MOBILE SEARCH -->
+  <div class="fb-mobile-search">
+    <i class="fas fa-search"></i>
+    <input type="text" id="searchInputMobile" placeholder="Search Facebook" />
+  </div>
 
   <!-- ═══════════════════════════════════════
-       PAGE LAYOUT
+       MAIN CONTAINER
   ═══════════════════════════════════════ -->
-  <div class="page-layout">
+  <div class="fb-container">
 
     <!-- LEFT SIDEBAR -->
-    <aside class="sidebar-left">
-      <!-- Community card -->
-      <div class="sidebar-card">
-        <div class="community-card-banner"></div>
-        <div style="position:relative">
-          <div class="community-card-avatar">
+    <aside class="fb-sidebar fb-sidebar-left">
+      <div class="fb-sidebar-section">
+        <div class="fb-sidebar-item">
+          <div class="fb-avatar-small">
             <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X" />
           </div>
+          <span>BLESSTech-X Community</span>
         </div>
-        <div class="community-card-body">
-          <div class="community-card-name">BLESSTech-X Community</div>
-          <div class="community-card-sub">Business tips for Zambia 🇿🇲</div>
-          <div class="community-stats">
-            <div class="comm-stat">
-              <div class="comm-stat-val" id="statPosts">—</div>
-              <div class="comm-stat-lbl">Articles</div>
-            </div>
-            <div class="comm-stat">
-              <div class="comm-stat-val">150+</div>
-              <div class="comm-stat-lbl">Clients</div>
-            </div>
-          </div>
-          <a href="https://wa.me/260979603741?text=Hello%20BLESSTech-X!%20I%20want%20to%20grow%20my%20business." class="sidebar-wa-btn" target="_blank" rel="noopener">
-            <i class="fab fa-whatsapp"></i> Join on WhatsApp
-          </a>
+        <div class="fb-sidebar-item">
+          <i class="fas fa-users"></i>
+          <span>Groups</span>
+        </div>
+        <div class="fb-sidebar-item">
+          <i class="fas fa-store"></i>
+          <span>Marketplace</span>
+        </div>
+        <div class="fb-sidebar-item">
+          <i class="fas fa-video"></i>
+          <span>Watch</span>
+        </div>
+        <div class="fb-sidebar-item">
+          <i class="fas fa-calendar"></i>
+          <span>Events</span>
         </div>
       </div>
 
-      <!-- Categories -->
-      <div class="sidebar-card">
-        <div class="sidebar-card-header">Topics</div>
-        <div class="cat-list" id="catList">
-          <button class="cat-item active" data-cat="all" onclick="filterByCategory('all', this)">
-            <span class="cat-icon">📰</span> All Posts <span class="cat-count" id="countAll">0</span>
+      <div class="fb-sidebar-section">
+        <div class="fb-sidebar-section-title">Topics</div>
+        <div id="catList">
+          <button class="fb-cat-pill active" data-cat="all" onclick="filterByCategory('all', this)">
+            <span>📰 All Posts</span>
+            <span class="count" id="countAll">0</span>
           </button>
-          <button class="cat-item" data-cat="Business Tips" onclick="filterByCategory('Business Tips', this)">
-            <span class="cat-icon">💼</span> Business Tips <span class="cat-count" id="countBiz">0</span>
+          <button class="fb-cat-pill" data-cat="Business Tips" onclick="filterByCategory('Business Tips', this)">
+            <span>💼 Business Tips</span>
+            <span class="count" id="countBiz">0</span>
           </button>
-          <button class="cat-item" data-cat="E-commerce" onclick="filterByCategory('E-commerce', this)">
-            <span class="cat-icon">🛒</span> E-commerce <span class="cat-count" id="countEcom">0</span>
+          <button class="fb-cat-pill" data-cat="E-commerce" onclick="filterByCategory('E-commerce', this)">
+            <span>🛒 E-commerce</span>
+            <span class="count" id="countEcom">0</span>
           </button>
-          <button class="cat-item" data-cat="Digital Marketing" onclick="filterByCategory('Digital Marketing', this)">
-            <span class="cat-icon">📣</span> Digital Marketing <span class="cat-count" id="countMktg">0</span>
+          <button class="fb-cat-pill" data-cat="Digital Marketing" onclick="filterByCategory('Digital Marketing', this)">
+            <span>📣 Digital Marketing</span>
+            <span class="count" id="countMktg">0</span>
           </button>
-          <button class="cat-item" data-cat="Zambia Tech" onclick="filterByCategory('Zambia Tech', this)">
-            <span class="cat-icon">🇿🇲</span> Zambia Tech <span class="cat-count" id="countZm">0</span>
+          <button class="fb-cat-pill" data-cat="Zambia Tech" onclick="filterByCategory('Zambia Tech', this)">
+            <span>🇿🇲 Zambia Tech</span>
+            <span class="count" id="countZm">0</span>
           </button>
-          <button class="cat-item" data-cat="Case Study" onclick="filterByCategory('Case Study', this)">
-            <span class="cat-icon">📊</span> Case Studies <span class="cat-count" id="countCase">0</span>
+          <button class="fb-cat-pill" data-cat="Case Study" onclick="filterByCategory('Case Study', this)">
+            <span>📊 Case Studies</span>
+            <span class="count" id="countCase">0</span>
           </button>
-          <button class="cat-item" data-cat="Announcements" onclick="filterByCategory('Announcements', this)">
-            <span class="cat-icon">📢</span> Announcements <span class="cat-count" id="countAnn">0</span>
+          <button class="fb-cat-pill" data-cat="Announcements" onclick="filterByCategory('Announcements', this)">
+            <span>📢 Announcements</span>
+            <span class="count" id="countAnn">0</span>
           </button>
         </div>
       </div>
     </aside>
 
-    <!-- MAIN FEED -->
-    <main class="feed-area">
-      <!-- Header -->
-      <div class="feed-header">
-        <div class="feed-header-badge"><i class="fas fa-fire"></i> BLESSTech-X Blog</div>
-        <h1>Grow Your Business<br/>Online in Zambia</h1>
-        <p>Practical strategies, real case studies, and digital tips written specifically for Zambian entrepreneurs and business owners.</p>
+    <!-- CENTER FEED -->
+    <main class="fb-feed">
+
+      <!-- MOBILE CATEGORY SCROLL -->
+      <div class="fb-mobile-cats">
+        <button class="fb-mobile-cat active" onclick="mobileFilterCat('all', this)">📰 All</button>
+        <button class="fb-mobile-cat" onclick="mobileFilterCat('Business Tips', this)">💼 Business</button>
+        <button class="fb-mobile-cat" onclick="mobileFilterCat('E-commerce', this)">🛒 E-commerce</button>
+        <button class="fb-mobile-cat" onclick="mobileFilterCat('Digital Marketing', this)">📣 Marketing</button>
+        <button class="fb-mobile-cat" onclick="mobileFilterCat('Zambia Tech', this)">🇿🇲 Tech</button>
+        <button class="fb-mobile-cat" onclick="mobileFilterCat('Case Study', this)">📊 Cases</button>
+        <button class="fb-mobile-cat" onclick="mobileFilterCat('Announcements', this)">📢 News</button>
       </div>
 
-      <!-- MOBILE ONLY: Community strip -->
-      <div class="mobile-community-strip">
-        <div class="mcs-avatar"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X" /></div>
-        <div class="mcs-info">
-          <div class="mcs-name">BLESSTech-X Community</div>
-          <div class="mcs-sub">Tips for Zambia 🇿🇲</div>
+      <!-- CREATE POST -->
+      <div class="fb-create-post">
+        <div class="fb-create-top">
+          <div class="fb-avatar-small">
+            <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="You" />
+          </div>
+          <div class="fb-create-input" onclick="document.getElementById('searchInput').focus()">
+            What's on your mind?
+          </div>
         </div>
-        <div class="mcs-stats">
-          <div class="mcs-stat"><div class="mcs-stat-val" id="statPostsMobile">—</div><div class="mcs-stat-lbl">Posts</div></div>
-          <div class="mcs-stat"><div class="mcs-stat-val">150+</div><div class="mcs-stat-lbl">Clients</div></div>
+        <div class="fb-create-actions">
+          <div class="fb-create-action"><i class="fas fa-video"></i> Live video</div>
+          <div class="fb-create-action"><i class="fas fa-image"></i> Photo/video</div>
+          <div class="fb-create-action"><i class="fas fa-smile"></i> Feeling</div>
         </div>
-        <a href="https://wa.me/260979603741" class="mcs-wa" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Join</a>
       </div>
 
-      <!-- MOBILE ONLY: Horizontal category pills -->
-      <div class="mobile-cat-scroll">
-        <button class="mobile-cat-pill active" onclick="mobileFilterCat('all',this)">📰 All</button>
-        <button class="mobile-cat-pill" onclick="mobileFilterCat('Business Tips',this)">💼 Business</button>
-        <button class="mobile-cat-pill" onclick="mobileFilterCat('E-commerce',this)">🛒 E-commerce</button>
-        <button class="mobile-cat-pill" onclick="mobileFilterCat('Digital Marketing',this)">📣 Marketing</button>
-        <button class="mobile-cat-pill" onclick="mobileFilterCat('Zambia Tech',this)">🇿🇲 Zambia Tech</button>
-        <button class="mobile-cat-pill" onclick="mobileFilterCat('Case Study',this)">📊 Case Studies</button>
-        <button class="mobile-cat-pill" onclick="mobileFilterCat('Announcements',this)">📢 News</button>
+      <!-- STORIES -->
+      <div class="fb-stories">
+        <div class="fb-story fb-story-create">
+          <div class="plus"><i class="fas fa-plus"></i></div>
+          <span>Create story</span>
+        </div>
+        <div class="fb-story">
+          <img class="fb-story-img" src="https://images.unsplash.com/photo-1504805572947-34fad45a1f9a?w=200&h=350&fit=crop" alt="Story" />
+          <div class="fb-story-avatar"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="Avatar" /></div>
+          <div class="fb-story-name">BLESSTech-X</div>
+        </div>
+        <div class="fb-story">
+          <img class="fb-story-img" src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=200&h=350&fit=crop" alt="Story" />
+          <div class="fb-story-avatar"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="Avatar" /></div>
+          <div class="fb-story-name">Business Tips</div>
+        </div>
+        <div class="fb-story">
+          <img class="fb-story-img" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=200&h=350&fit=crop" alt="Story" />
+          <div class="fb-story-avatar"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="Avatar" /></div>
+          <div class="fb-story-name">E-commerce</div>
+        </div>
+        <div class="fb-story">
+          <img class="fb-story-img" src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=200&h=350&fit=crop" alt="Story" />
+          <div class="fb-story-avatar"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="Avatar" /></div>
+          <div class="fb-story-name">Zambia Tech</div>
+        </div>
       </div>
 
-      <!-- Sort bar -->
-      <div class="feed-sort-bar">
-        <span class="sort-label">Sort by:</span>
-        <button class="sort-btn active" onclick="sortFeed('newest', this)">Newest</button>
-        <button class="sort-btn" onclick="sortFeed('oldest', this)">Oldest</button>
-        <span style="margin-left:auto;font-size:0.78rem;color:var(--muted)" id="postCount"></span>
-      </div>
-
-      <!-- Loading skeletons -->
+      <!-- LOADING SKELETONS -->
       <div id="feedLoading">
-        <div class="skeleton-card">
+        <div class="fb-post" style="padding:16px">
           <div style="display:flex;gap:10px;margin-bottom:12px">
-            <div class="skel skel-avatar"></div>
-            <div style="flex:1"><div class="skel skel-line" style="width:40%;margin-bottom:6px"></div><div class="skel skel-line" style="width:25%"></div></div>
+            <div style="width:40px;height:40px;border-radius:50%;background:#e4e6eb"></div>
+            <div style="flex:1"><div style="height:12px;background:#e4e6eb;border-radius:4px;width:40%;margin-bottom:6px"></div><div style="height:10px;background:#e4e6eb;border-radius:4px;width:25%"></div></div>
           </div>
-          <div class="skel skel-line" style="width:80%;margin-bottom:6px"></div>
-          <div class="skel skel-line" style="width:60%;margin-bottom:6px"></div>
-          <div class="skel skel-img"></div>
+          <div style="height:12px;background:#e4e6eb;border-radius:4px;width:80%;margin-bottom:6px"></div>
+          <div style="height:12px;background:#e4e6eb;border-radius:4px;width:60%;margin-bottom:6px"></div>
+          <div style="height:200px;background:#e4e6eb;border-radius:8px;margin:12px 0"></div>
         </div>
-        <div class="skeleton-card">
+        <div class="fb-post" style="padding:16px">
           <div style="display:flex;gap:10px;margin-bottom:12px">
-            <div class="skel skel-avatar"></div>
-            <div style="flex:1"><div class="skel skel-line" style="width:35%;margin-bottom:6px"></div><div class="skel skel-line" style="width:20%"></div></div>
+            <div style="width:40px;height:40px;border-radius:50%;background:#e4e6eb"></div>
+            <div style="flex:1"><div style="height:12px;background:#e4e6eb;border-radius:4px;width:35%;margin-bottom:6px"></div><div style="height:10px;background:#e4e6eb;border-radius:4px;width:20%"></div></div>
           </div>
-          <div class="skel skel-line" style="width:90%;margin-bottom:6px"></div>
-          <div class="skel skel-line" style="width:70%;margin-bottom:6px"></div>
-          <div class="skel skel-img"></div>
+          <div style="height:12px;background:#e4e6eb;border-radius:4px;width:90%;margin-bottom:6px"></div>
+          <div style="height:12px;background:#e4e6eb;border-radius:4px;width:70%;margin-bottom:6px"></div>
+          <div style="height:200px;background:#e4e6eb;border-radius:8px;margin:12px 0"></div>
         </div>
       </div>
 
-      <!-- Feed -->
+      <!-- FEED GRID -->
       <div id="feedGrid"></div>
 
-      <!-- Empty state -->
+      <!-- EMPTY STATE -->
       <div id="feedEmpty" style="display:none">
-        <div class="feed-empty">
-          <div class="feed-empty-icon">✍️</div>
+        <div class="fb-empty">
+          <div class="fb-empty-icon">✍️</div>
           <h3>No posts yet</h3>
-          <p>We're writing guides to help your Zambian business grow. Check back soon — or talk to us directly.</p>
-          <a href="https://wa.me/260979603741" class="cta-btn cta-btn-wa" target="_blank">
+          <p>We're writing guides to help your Zambian business grow. Check back soon!</p>
+          <a href="https://wa.me/260979603741" style="display:inline-flex;align-items:center;gap:6px;background:#25d366;color:white;padding:10px 20px;border-radius:8px;font-weight:700;text-decoration:none;" target="_blank">
             <i class="fab fa-whatsapp"></i> Chat With Us
           </a>
         </div>
-      </div>
-
-      <!-- MOBILE ONLY: Services horizontal scroll -->
-      <div class="mobile-services-row">
-        <div class="mobile-services-title">Our Services</div>
-        <div class="mobile-services-scroll">
-          <a href="index.html#services" class="mobile-service-card">
-            <div class="msvc-icon"><i class="fas fa-store"></i></div>
-            <div class="msvc-name">E-commerce Store</div>
-            <div class="msvc-price">From ZMW 980</div>
-          </a>
-          <a href="index.html#services" class="mobile-service-card">
-            <div class="msvc-icon"><i class="fas fa-laptop"></i></div>
-            <div class="msvc-name">Professional Website</div>
-            <div class="msvc-price">From ZMW 650</div>
-          </a>
-          <a href="index.html#services" class="mobile-service-card">
-            <div class="msvc-icon"><i class="fas fa-paint-brush"></i></div>
-            <div class="msvc-name">Logo & Branding</div>
-            <div class="msvc-price">From ZMW 250</div>
-          </a>
-          <a href="index.html#services" class="mobile-service-card">
-            <div class="msvc-icon"><i class="fas fa-bullhorn"></i></div>
-            <div class="msvc-name">Social Media Mgmt</div>
-            <div class="msvc-price">From ZMW 200/mo</div>
-          </a>
-          <a href="index.html#services" class="mobile-service-card">
-            <div class="msvc-icon"><i class="fas fa-chart-line"></i></div>
-            <div class="msvc-name">SEO & Google</div>
-            <div class="msvc-price">From ZMW 150/mo</div>
-          </a>
-        </div>
-      </div>
-
-      <!-- MOBILE ONLY: Free tools strip -->
-      <div class="mobile-tools-strip">
-        <div class="mts-text">
-          <h4>🔧 20+ Free Tools</h4>
-          <p>Invoice generator, CV builder, QR codes & more — no signup needed.</p>
-        </div>
-        <a href="tools/index.html" class="mts-btn"><i class="fas fa-tools"></i> Try Free</a>
       </div>
 
     </main>
 
     <!-- RIGHT SIDEBAR -->
-    <aside class="sidebar-right">
+    <aside class="fb-sidebar fb-sidebar-right">
+
       <!-- Trending -->
-      <div class="sidebar-card">
-        <div class="sidebar-card-header">Trending Topics</div>
-        <div class="trending-list" id="trendingList">
-          <div class="trending-item"><span class="trending-num">1</span><div class="trending-info"><div class="trending-tag">#EcommerceZambia</div><div class="trending-count">E-commerce</div></div></div>
-          <div class="trending-item"><span class="trending-num">2</span><div class="trending-info"><div class="trending-tag">#AirtelMoney</div><div class="trending-count">Business Tips</div></div></div>
-          <div class="trending-item"><span class="trending-num">3</span><div class="trending-info"><div class="trending-tag">#LusakaBusiness</div><div class="trending-count">Zambia Tech</div></div></div>
-          <div class="trending-item"><span class="trending-num">4</span><div class="trending-info"><div class="trending-tag">#OnlineStore</div><div class="trending-count">E-commerce</div></div></div>
-          <div class="trending-item"><span class="trending-num">5</span><div class="trending-info"><div class="trending-tag">#DigitalZambia</div><div class="trending-count">Digital Marketing</div></div></div>
+      <div class="fb-widget">
+        <div class="fb-widget-title">Trending Topics</div>
+        <div id="trendingList">
+          <div class="fb-widget-item">
+            <div style="width:24px;text-align:center;font-weight:700;color:var(--fb-text-secondary)">1</div>
+            <div><div style="font-weight:600;font-size:0.85rem">#EcommerceZambia</div><div style="font-size:0.75rem;color:var(--fb-text-secondary)">E-commerce</div></div>
+          </div>
+          <div class="fb-widget-item">
+            <div style="width:24px;text-align:center;font-weight:700;color:var(--fb-text-secondary)">2</div>
+            <div><div style="font-weight:600;font-size:0.85rem">#AirtelMoney</div><div style="font-size:0.75rem;color:var(--fb-text-secondary)">Business Tips</div></div>
+          </div>
+          <div class="fb-widget-item">
+            <div style="width:24px;text-align:center;font-weight:700;color:var(--fb-text-secondary)">3</div>
+            <div><div style="font-weight:600;font-size:0.85rem">#LusakaBusiness</div><div style="font-size:0.75rem;color:var(--fb-text-secondary)">Zambia Tech</div></div>
+          </div>
+          <div class="fb-widget-item">
+            <div style="width:24px;text-align:center;font-weight:700;color:var(--fb-text-secondary)">4</div>
+            <div><div style="font-weight:600;font-size:0.85rem">#OnlineStore</div><div style="font-size:0.75rem;color:var(--fb-text-secondary)">E-commerce</div></div>
+          </div>
+          <div class="fb-widget-item">
+            <div style="width:24px;text-align:center;font-weight:700;color:var(--fb-text-secondary)">5</div>
+            <div><div style="font-weight:600;font-size:0.85rem">#DigitalZambia</div><div style="font-size:0.75rem;color:var(--fb-text-secondary)">Digital Marketing</div></div>
+          </div>
         </div>
       </div>
 
-      <!-- Our Services -->
-      <div class="sidebar-card">
-        <div class="sidebar-card-header">Our Services</div>
-        <div class="services-widget">
-          <a href="index.html#services" class="service-item">
-            <div class="service-item-icon"><i class="fas fa-store"></i></div>
-            <div><div class="service-item-name">E-commerce Store</div><div class="service-item-price">From ZMW 980</div></div>
-            <i class="fas fa-chevron-right service-item-arrow"></i>
-          </a>
-          <a href="index.html#services" class="service-item">
-            <div class="service-item-icon"><i class="fas fa-laptop"></i></div>
-            <div><div class="service-item-name">Professional Website</div><div class="service-item-price">From ZMW 650</div></div>
-            <i class="fas fa-chevron-right service-item-arrow"></i>
-          </a>
-          <a href="index.html#services" class="service-item">
-            <div class="service-item-icon"><i class="fas fa-paint-brush"></i></div>
-            <div><div class="service-item-name">Logo & Branding</div><div class="service-item-price">From ZMW 250</div></div>
-            <i class="fas fa-chevron-right service-item-arrow"></i>
-          </a>
-          <a href="index.html#services" class="service-item">
-            <div class="service-item-icon"><i class="fas fa-chart-line"></i></div>
-            <div><div class="service-item-name">SEO & Google</div><div class="service-item-price">From ZMW 150/mo</div></div>
-            <i class="fas fa-chevron-right service-item-arrow"></i>
-          </a>
-        </div>
+      <!-- Services -->
+      <div class="fb-widget">
+        <div class="fb-widget-title">Our Services</div>
+        <a href="#" class="fb-widget-item" style="text-decoration:none;color:inherit">
+          <div class="fb-widget-item-icon"><i class="fas fa-store"></i></div>
+          <div class="fb-widget-item-text">
+            <div class="fb-widget-item-name">E-commerce Store</div>
+            <div class="fb-widget-item-desc">From ZMW 980</div>
+          </div>
+        </a>
+        <a href="#" class="fb-widget-item" style="text-decoration:none;color:inherit">
+          <div class="fb-widget-item-icon"><i class="fas fa-laptop"></i></div>
+          <div class="fb-widget-item-text">
+            <div class="fb-widget-item-name">Professional Website</div>
+            <div class="fb-widget-item-desc">From ZMW 650</div>
+          </div>
+        </a>
+        <a href="#" class="fb-widget-item" style="text-decoration:none;color:inherit">
+          <div class="fb-widget-item-icon"><i class="fas fa-paint-brush"></i></div>
+          <div class="fb-widget-item-text">
+            <div class="fb-widget-item-name">Logo & Branding</div>
+            <div class="fb-widget-item-desc">From ZMW 250</div>
+          </div>
+        </a>
+        <a href="#" class="fb-widget-item" style="text-decoration:none;color:inherit">
+          <div class="fb-widget-item-icon"><i class="fas fa-chart-line"></i></div>
+          <div class="fb-widget-item-text">
+            <div class="fb-widget-item-name">SEO & Google</div>
+            <div class="fb-widget-item-desc">From ZMW 150/mo</div>
+          </div>
+        </a>
       </div>
 
-      <!-- Free tools promo -->
-      <div class="sidebar-card">
-        <div class="sidebar-card-header">Free Tools</div>
-        <div style="padding:14px">
-          <p style="font-size:0.82rem;color:var(--muted);margin-bottom:12px;line-height:1.6">20+ free tools for Zambian businesses — invoices, CVs, QR codes, and more. No signup needed.</p>
-          <a href="tools/index.html" class="sidebar-wa-btn" style="background:var(--sky)">
-            <i class="fas fa-tools"></i> Try Free Tools
-          </a>
-        </div>
+      <!-- Free tools -->
+      <div class="fb-widget">
+        <div class="fb-widget-title">Free Tools</div>
+        <p style="font-size:0.85rem;color:var(--fb-text-secondary);margin-bottom:12px;line-height:1.6">20+ free tools for Zambian businesses — invoices, CVs, QR codes, and more.</p>
+        <a href="#" style="display:block;text-align:center;background:var(--fb-blue);color:white;padding:10px;border-radius:var(--fb-radius);font-weight:700;font-size:0.9rem;transition:background 0.2s;" onmouseover="this.style.background='var(--fb-blue-hover)'" onmouseout="this.style.background='var(--fb-blue)'">
+          <i class="fas fa-tools"></i> Try Free Tools
+        </a>
       </div>
+
     </aside>
-
   </div>
 
   <!-- ═══════════════════════════════════════
-       POST MODAL
+       POST MODAL (Facebook style)
   ═══════════════════════════════════════ -->
-  <div class="post-modal-overlay" id="postModal">
-    <div class="post-modal">
-      <div class="modal-close-bar">
-        <div class="modal-close-brand">
-          <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X" />
-          BLESSTech-X Community
-        </div>
-        <button class="modal-close-btn" onclick="closeModal()" aria-label="Close">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-      <div id="modalHero" class="modal-hero">📝</div>
-      <div class="modal-body">
-        <div class="modal-meta" id="modalMeta"></div>
-        <h1 class="modal-title" id="modalTitle"></h1>
-        <div class="modal-author-row">
-          <div class="modal-author-av">B</div>
+  <div class="fb-modal-overlay" id="postModal">
+    <div class="fb-modal">
+      <button class="fb-modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+      <div id="modalHero" class="fb-modal-hero">📝</div>
+      <div class="fb-modal-body">
+        <div class="fb-modal-meta" id="modalMeta"></div>
+        <h1 class="fb-modal-title" id="modalTitle"></h1>
+        <div class="fb-modal-author-row">
+          <div class="fb-modal-author-av">B</div>
           <div>
-            <div class="modal-author-name" id="modalAuthor">BLESSTech-X</div>
-            <div class="modal-author-sub" id="modalDate"></div>
+            <div class="fb-modal-author-name" id="modalAuthor">BLESSTech-X</div>
+            <div class="fb-modal-author-sub" id="modalDate"></div>
           </div>
-          <div class="modal-read-time"><i class="fas fa-clock"></i> <span id="modalReadTime"></span></div>
+          <div style="margin-left:auto;font-size:0.75rem;color:var(--fb-text-secondary)"><i class="fas fa-clock"></i> <span id="modalReadTime"></span></div>
         </div>
-        <div class="article-content" id="modalContent"></div>
+        <div class="fb-modal-content" id="modalContent"></div>
       </div>
-      <div class="modal-reactions">
-        <button class="reaction-btn" id="modalLikeBtn" onclick="toggleModalLike()">
-          <i class="far fa-heart"></i> <span id="modalLikeCount">0</span> Likes
+      <div class="fb-modal-reactions">
+        <button class="reaction-btn" id="modalLikeBtn" onclick="toggleModalLike()" style="display:flex;align-items:center;gap:4px;font-weight:600;color:var(--fb-text-secondary);background:none;border:none;font-size:0.85rem;padding:4px 8px;border-radius:4px;transition:background 0.2s;">
+          <i class="far fa-heart"></i> <span id="modalLikeCount">0</span>
         </button>
-        <button class="reaction-btn" onclick="sharePost()">
+        <button onclick="sharePost()" style="display:flex;align-items:center;gap:4px;font-weight:600;color:var(--fb-text-secondary);background:none;border:none;font-size:0.85rem;padding:4px 8px;border-radius:4px;transition:background 0.2s;">
           <i class="fas fa-share-alt"></i> Share
         </button>
-        <button class="reaction-btn" onclick="copyLink()">
+        <button onclick="copyLink()" style="display:flex;align-items:center;gap:4px;font-weight:600;color:var(--fb-text-secondary);background:none;border:none;font-size:0.85rem;padding:4px 8px;border-radius:4px;transition:background 0.2s;">
           <i class="fas fa-link"></i> Copy Link
         </button>
       </div>
-      <div class="modal-cta-section">
+      <div class="fb-modal-cta">
         <h4>Want results like this for your business?</h4>
         <p>BLESSTech-X builds websites & e-commerce stores with Airtel & MTN Money — delivered in 7–14 days.</p>
-        <div class="modal-cta-btns">
-          <a href="https://wa.me/260979603741?text=Hello%20BLESSTech-X!%20I%20read%20your%20blog%20and%20want%20to%20know%20more." class="cta-btn cta-btn-wa" target="_blank">
+        <div class="fb-modal-cta-btns">
+          <a href="https://wa.me/260979603741" class="fb-cta-btn fb-cta-btn-wa" target="_blank">
             <i class="fab fa-whatsapp"></i> Chat With Us
           </a>
-          <a href="index.html#services" class="cta-btn cta-btn-outline">
+          <a href="#" class="fb-cta-btn fb-cta-btn-outline">
             <i class="fas fa-briefcase"></i> View Services
           </a>
         </div>
@@ -1117,23 +932,43 @@
     </div>
   </div>
 
-  <!-- MOBILE BOTTOM TAB BAR -->
-  <div class="mobile-tab-bar">
-    <a href="index.html" class="tab-bar-item"><i class="fas fa-home"></i> Home</a>
-    <a href="blog.html" class="tab-bar-item active"><i class="fas fa-newspaper"></i> Blog</a>
-    <a href="tools/index.html" class="tab-bar-item"><i class="fas fa-tools"></i> Tools</a>
-    <a href="index.html#services" class="tab-bar-item"><i class="fas fa-briefcase"></i> Services</a>
-    <a href="https://wa.me/260979603741" class="tab-bar-item tab-wa" target="_blank"><i class="fab fa-whatsapp"></i> Chat</a>
+  <!-- ═══════════════════════════════════════
+       BOTTOM TAB BAR (Mobile)
+  ═══════════════════════════════════════ -->
+  <div class="fb-bottom-tabs">
+    <div class="fb-tab active">
+      <div class="tab-icon-wrap"><i class="fas fa-home"></i></div>
+      <span>Home</span>
+    </div>
+    <div class="fb-tab">
+      <div class="tab-icon-wrap"><i class="fas fa-user-friends"></i></div>
+      <span>Friends</span>
+    </div>
+    <div class="fb-tab">
+      <div class="tab-icon-wrap"><i class="fas fa-video"></i></div>
+      <span>Watch</span>
+    </div>
+    <div class="fb-tab">
+      <div class="tab-icon-wrap"><i class="fas fa-store"></i></div>
+      <span>Marketplace</span>
+    </div>
+    <div class="fb-tab">
+      <div class="tab-icon-wrap"><i class="fas fa-bell"></i><span class="badge">9+</span></div>
+      <span>Notifications</span>
+    </div>
   </div>
 
-  <!-- Toast -->
-
-  <div class="toast" id="toast"></div>
-
-  <!-- WHATSAPP FAB -->
-  <a href="https://wa.me/260979603741" class="whatsapp-fab" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <!-- ═══════════════════════════════════════
+       WHATSAPP FAB (Desktop)
+  ═══════════════════════════════════════ -->
+  <a href="https://wa.me/260979603741" class="fb-wa-fab" target="_blank" rel="noopener">
     <i class="fab fa-whatsapp"></i>
   </a>
+
+  <!-- ═══════════════════════════════════════
+       TOAST
+  ═══════════════════════════════════════ -->
+  <div class="fb-toast" id="toast"></div>
 
   <script>
   'use strict';
@@ -1158,10 +993,20 @@
   document.addEventListener('DOMContentLoaded', () => {
     loadPosts();
 
-    document.getElementById('searchInput').addEventListener('input', e => {
+    // Search — sync both desktop and mobile inputs
+    const searchInput = document.getElementById('searchInput');
+    const searchInputMobile = document.getElementById('searchInputMobile');
+    const handler = e => {
       searchQuery = e.target.value.toLowerCase().trim();
+      if (e.target.id === 'searchInput') {
+        searchInputMobile.value = e.target.value;
+      } else {
+        searchInput.value = e.target.value;
+      }
       applyFilters();
-    });
+    };
+    searchInput.addEventListener('input', handler);
+    searchInputMobile.addEventListener('input', handler);
 
     document.getElementById('postModal').addEventListener('click', e => {
       if (e.target === document.getElementById('postModal')) closeModal();
@@ -1219,9 +1064,6 @@
   function updateCounts() {
     const counts = {};
     allPosts.forEach(p => { counts[p.category] = (counts[p.category]||0)+1; });
-    document.getElementById('statPosts').textContent = allPosts.length;
-    const mp = document.getElementById('statPostsMobile');
-    if (mp) mp.textContent = allPosts.length;
     document.getElementById('countAll').textContent  = allPosts.length;
     document.getElementById('countBiz').textContent  = counts['Business Tips']||0;
     document.getElementById('countEcom').textContent = counts['E-commerce']||0;
@@ -1254,8 +1096,28 @@
 
   window.filterByCategory = function(cat, btn) {
     activeCategory = cat;
-    document.querySelectorAll('.cat-item').forEach(b => b.classList.remove('active'));
+    // Desktop sidebar
+    document.querySelectorAll('.fb-cat-pill').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
+    // Sync mobile pills
+    document.querySelectorAll('.fb-mobile-cat').forEach(b => {
+      b.classList.toggle('active', b.textContent.includes(
+        cat === 'all' ? 'All' : cat
+      ));
+    });
+    applyFilters();
+  };
+
+  // Mobile category filter
+  window.mobileFilterCat = function(cat, btn) {
+    activeCategory = cat;
+    // Mobile pills
+    document.querySelectorAll('.fb-mobile-cat').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    // Sync desktop sidebar
+    document.querySelectorAll('.fb-cat-pill').forEach(b => {
+      b.classList.toggle('active', b.dataset.cat === cat);
+    });
     applyFilters();
   };
 
@@ -1267,11 +1129,9 @@
 
     if (!posts.length) {
       grid.innerHTML = ''; empty.style.display = 'block';
-      document.getElementById('postCount').textContent = '';
       return;
     }
     empty.style.display = 'none';
-    document.getElementById('postCount').textContent = `${posts.length} post${posts.length!==1?'s':''}`;
 
     grid.innerHTML = posts.map(post => {
       const date    = fmtDate(post.date);
@@ -1283,37 +1143,76 @@
       const likeCount = parseInt(localStorage.getItem('btx_lc_'+post.slug)||'0');
 
       return `
-        <div class="post-card" onclick="openPost('${esc(post.slug)}')">
-          ${post.image
-            ? `<div class="post-card-img"><img src="${esc(post.image)}" alt="${esc(post.title)}" loading="lazy" onerror="this.parentElement.outerHTML='<div class=post-card-img-placeholder>${icon}</div>'" /></div>`
-            : `<div class="post-card-img-placeholder">${icon}</div>`
-          }
-          <div class="post-card-header">
-            <div class="post-author-avatar">B</div>
-            <div class="post-author-info">
-              <div class="post-author-name">${esc(post.author||'BLESSTech-X')}</div>
-              <div class="post-author-meta">
-                ${date ? `<span>${date}</span><span class="sep">·</span>` : ''}
-                <span class="reading-time"><i class="fas fa-clock"></i> ${rt}</span>
-                ${post.category ? `<span class="sep">·</span><span class="post-cat-pill">${esc(post.category)}</span>` : ''}
+        <div class="fb-post" onclick="openPost('${esc(post.slug)}')">
+          <div class="fb-post-header">
+            <div class="fb-post-avatar">
+              <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="Author" />
+            </div>
+            <div class="fb-post-author">
+              <div class="fb-post-author-name">
+                ${esc(post.author||'BLESSTech-X')}
+                <span class="follow">• Follow</span>
+              </div>
+              <div class="fb-post-meta">
+                ${date ? `<span>${date}</span>` : ''}
+                <span>·</span>
+                <i class="fas fa-globe-americas"></i>
+                <span>·</span>
+                <span>${rt}</span>
+                ${post.category ? `<span>·</span><span style="font-weight:600;color:var(--fb-blue)">${esc(post.category)}</span>` : ''}
               </div>
             </div>
+            <div style="margin-left:auto;display:flex;gap:4px;">
+              <button style="width:32px;height:32px;border-radius:50%;background:none;border:none;color:var(--fb-text-secondary);font-size:0.8rem;cursor:pointer;">⋯</button>
+              <button style="width:32px;height:32px;border-radius:50%;background:none;border:none;color:var(--fb-text-secondary);font-size:0.8rem;cursor:pointer;"><i class="fas fa-times"></i></button>
+            </div>
           </div>
-          <div class="post-card-body">
-            <div class="post-card-title">${esc(post.title)}</div>
-            <div class="post-card-excerpt">${esc(excerpt)}</div>
-            <span class="post-read-more">Read full post <i class="fas fa-arrow-right"></i></span>
+
+          <div class="fb-post-body">
+            ${post.title ? `<div class="fb-post-title">${esc(post.title)}</div>` : ''}
+            <div class="fb-post-excerpt">${esc(excerpt)}</div>
+            <span class="see-more">See more</span>
           </div>
-          <div class="post-card-footer" onclick="event.stopPropagation()">
-            <button class="reaction-btn ${liked?'liked':''}" onclick="toggleLike('${esc(post.slug)}',this)">
-              <i class="${liked?'fas':'far'} fa-heart"></i>
-              <span class="like-num">${liked ? likeCount||1 : likeCount||0}</span>
+
+          <div class="fb-post-media">
+            ${post.image
+              ? `<img src="${esc(post.image)}" alt="${esc(post.title)}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=fb-post-media-placeholder>${icon}</div>'" />`
+              : `<div class="fb-post-media-placeholder">${icon}</div>`
+            }
+          </div>
+
+          <div class="fb-post-stats">
+            <div class="left">
+              <div class="reaction-icons">
+                <i class="fas fa-thumbs-up"></i>
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-smile"></i>
+              </div>
+              <span id="likeCount_${esc(post.slug)}">${likeCount || 0}</span>
+            </div>
+            <div class="right">
+              <span>${Math.floor(Math.random() * 5) + 1} comments</span>
+              <span>·</span>
+              <span>${Math.floor(Math.random() * 10) + 1} shares</span>
+            </div>
+          </div>
+
+          <div class="fb-post-actions" onclick="event.stopPropagation()">
+            <button class="fb-post-action ${liked?'liked':''}" onclick="toggleLike('${esc(post.slug)}',this)">
+              <i class="${liked?'fas':'far'} fa-thumbs-up"></i>
+              <span>Like</span>
             </button>
-            <button class="reaction-btn ${saved?'saved':''}" onclick="toggleSave('${esc(post.slug)}',this)">
-              <i class="${saved?'fas':'far'} fa-bookmark"></i> ${saved?'Saved':'Save'}
+            <button class="fb-post-action" onclick="event.stopPropagation();">
+              <i class="far fa-comment"></i>
+              <span>Comment</span>
             </button>
-            <button class="post-share-btn" onclick="shareCard('${esc(post.slug)}','${esc(post.title)}')">
-              <i class="fas fa-share-alt"></i> Share
+            <button class="fb-post-action" onclick="shareCard('${esc(post.slug)}','${esc(post.title)}')">
+              <i class="fas fa-share-alt"></i>
+              <span>Share</span>
+            </button>
+            <button class="fb-post-action ${saved?'saved':''}" onclick="toggleSave('${esc(post.slug)}',this)">
+              <i class="${saved?'fas':'far'} fa-bookmark"></i>
+              <span>${saved?'Saved':'Save'}</span>
             </button>
           </div>
         </div>`;
@@ -1325,19 +1224,17 @@
     const post = allPosts.find(p => p.slug === slug); if (!post) return;
     currentSlug = slug;
 
-    // Hero
     const hero = document.getElementById('modalHero');
     if (post.image) {
       hero.innerHTML = `<img src="${esc(post.image)}" alt="${esc(post.title)}" />`;
     } else {
       hero.innerHTML = catIcon(post.category);
-      hero.style.fontSize = '5rem';
+      hero.style.fontSize = '4rem';
     }
 
-    // Meta
     document.getElementById('modalMeta').innerHTML = `
-      ${post.category ? `<span class="post-cat-pill" style="font-size:0.8rem;padding:4px 10px">${esc(post.category)}</span>` : ''}
-      ${post.date ? `<span style="font-size:0.78rem;color:var(--muted)">${fmtDate(post.date)}</span>` : ''}
+      ${post.category ? `<span style="font-weight:600;color:var(--fb-blue);font-size:0.85rem">${esc(post.category)}</span>` : ''}
+      ${post.date ? `<span style="font-size:0.8rem;color:var(--fb-text-secondary)">${fmtDate(post.date)}</span>` : ''}
     `;
     document.getElementById('modalTitle').textContent   = post.title || '';
     document.getElementById('modalAuthor').textContent  = post.author || 'BLESSTech-X';
@@ -1345,7 +1242,6 @@
     document.getElementById('modalReadTime').textContent = readTime(post.body);
     document.getElementById('modalContent').innerHTML   = marked.parse(post.body || '');
 
-    // Like state
     const liked = likes[slug];
     const lc    = parseInt(localStorage.getItem('btx_lc_'+slug)||'0');
     const likeBtn  = document.getElementById('modalLikeBtn');
@@ -1374,11 +1270,12 @@
     localStorage.setItem('btx_lc_'+slug, newC);
 
     const icon = btn.querySelector('i');
-    const num  = btn.querySelector('.like-num');
     btn.classList.toggle('liked', !!likes[slug]);
-    icon.className = likes[slug] ? 'fas fa-heart' : 'far fa-heart';
-    if (num) num.textContent = newC;
-    showToast(likes[slug] ? '❤️ Liked!' : 'Unliked');
+    icon.className = likes[slug] ? 'fas fa-thumbs-up' : 'far fa-thumbs-up';
+    // Update the like count in stats
+    const countEl = document.getElementById('likeCount_'+slug);
+    if (countEl) countEl.textContent = newC;
+    showToast(likes[slug] ? '👍 Liked!' : 'Unliked');
   };
 
   window.toggleModalLike = function() {
@@ -1402,7 +1299,8 @@
     btn.classList.toggle('saved', !!saves[slug]);
     const icon = btn.querySelector('i');
     icon.className = saves[slug] ? 'fas fa-bookmark' : 'far fa-bookmark';
-    btn.innerHTML = btn.innerHTML.replace(/Saved|Save/, saves[slug]?'Saved':'Save');
+    const span = btn.querySelector('span');
+    if (span) span.textContent = saves[slug] ? 'Saved' : 'Save';
     showToast(saves[slug] ? '🔖 Post saved!' : 'Removed from saved');
   };
 
@@ -1433,19 +1331,6 @@
     document.getElementById('feedLoading').style.display = 'none';
     document.getElementById('feedEmpty').style.display   = 'block';
   }
-
-  // Mobile category filter — syncs with desktop sidebar
-  window.mobileFilterCat = function(cat, btn) {
-    activeCategory = cat;
-    // Sync mobile pills
-    document.querySelectorAll('.mobile-cat-pill').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    // Sync desktop sidebar
-    document.querySelectorAll('.cat-item').forEach(b => {
-      b.classList.toggle('active', b.dataset.cat === cat);
-    });
-    applyFilters();
-  };
 
   function fmtDate(d) {
     try { return new Date(d).toLocaleDateString('en-ZM',{year:'numeric',month:'long',day:'numeric'}); }
