@@ -1220,352 +1220,331 @@
   </script>
 
   <!-- ═══ NOVA ENGINE ═══ -->
-  <script>
-  (function(){
-    'use strict';
+<script>
+(function(){
+  'use strict';
 
-    const TOUR = [
-      {
-        id:'home', msgs:[
-          "Hi there! BLESSTech-X helps Zambian businesses go digital — websites, online stores with Airtel & MTN Money, logos, social media. All done in 7 to 14 days.",
-          "Scroll down to explore our services, see real client results, or try one of our 20+ completely free tools. I'll guide you through each section as you go."
-        ],
-        ctas:[
-          { label:'🛠️ See Services', href:'#services', style:'primary' },
-          { label:'💬 WhatsApp Us', href:'https://wa.me/260979603741', style:'wa' }
-        ]
-      },
-      {
-        id:'services', msgs:[
-          "These are our services — each one built for Zambia. The most popular is the full e-commerce store from ZMW 980, with Airtel & MTN Money checkout already built in.",
-          "Filter by category or search above. Click 'View Details' to see what's included, then 'Purchase Now' to send us a WhatsApp order instantly."
-        ],
-        ctas:[{ label:'💬 Get a Custom Quote', href:'https://wa.me/260979603741?text=Hello!%20I%20need%20a%20quote.', style:'wa' }]
-      },
-      {
-        id:'tools-teaser', msgs:["This surprises most visitors — we offer 20+ completely free tools. Invoice generator, CV builder, QR code maker, currency converter. No account, no cost."],
-        ctas:[{ label:'🔧 Try Free Tools', href:'tools/index.html', style:'primary' }]
-      },
-      {
-        id:'calculator', msgs:["Not sure if going digital is worth it? Run the numbers here. Enter your project cost and expected clients — we'll show you your exact return on investment."],
-        ctas:[]
-      },
-      {
-        id:'process', msgs:["Five clear steps from first call to live site — no surprises, no hidden costs. Step one is a free consultation. No commitment needed."],
-        ctas:[{ label:'📞 Book Free Consultation', href:'#contact', style:'primary' }]
-      },
-      {
-        id:'portfolio', msgs:["Real Zambian businesses, real results. A Lusaka clothing shop grew 300% in 2 months. A Kitwe restaurant tripled bookings. Click any project to see the full story."],
-        ctas:[{ label:'📝 Read Our Blog', href:'blog.html', style:'outline' }]
-      },
-      {
-        id:'testimonials', msgs:["Hear directly from Zambian entrepreneurs — Veronica, David, Amina, Peter. Real people, real growth, real digital transformation."],
-        ctas:[{ label:'💬 Start Your Story', href:'https://wa.me/260979603741', style:'wa' }]
-      },
-      {
-        id:'faq', msgs:["Common questions answered — timelines, pricing, what happens if you need changes. Still have questions? Just WhatsApp us directly."],
-        ctas:[]
-      },
-      {
-        id:'about', msgs:["BLESSTech-X was built in Lusaka for Zambian entrepreneurs — not big corporations. Barack handles the tech, Sylvester handles the financial strategy."],
-        ctas:[]
-      },
-      {
-        id:'contact', msgs:["Ready to grow? Fill in the form or send us a WhatsApp — we reply same day. No long wait, no pressure. Just real people in Lusaka ready to build something great."],
-        ctas:[
-          { label:'📩 Send a Message', href:'#contact', style:'primary' },
-          { label:'💬 WhatsApp Now', href:'https://wa.me/260979603741?text=Hello%20BLESSTech-X!%20I%20want%20to%20get%20started.', style:'wa' }
-        ]
-      }
-    ];
-
-    // ── STATE
-    let tourOn=false, isMuted=false, scrollTrigger=true, showReplayPrompts=true;
-    let typeSpeedMs=36, voiceRate=0.95, isHidden=false;
-    let voices=[], visited=new Set(), currentId=null, currentMsgI=0;
-    let typingDone=false, speechDone=false, typeTimer=null;
-    let bubbleActive=false, settingsOpen=false, pendingSection=null;
-
-    // ── DOM
-    const bubble   = document.getElementById('novaBubble');
-    const msgEl    = document.getElementById('novaMsgText');
-    const ctasEl   = document.getElementById('novaCtaBtns');
-    const progFill = document.getElementById('novaProgFill');
-    const muteIcon = document.getElementById('novaMuteIcon');
-    const avatar   = document.getElementById('novaAvatar');
-    const intro    = document.getElementById('novaIntro');
-    const settings = document.getElementById('novaSettings');
-
-    // ── VOICE
-    function loadVoices(){ voices = window.speechSynthesis ? window.speechSynthesis.getVoices() : []; }
-    if(window.speechSynthesis){ speechSynthesis.onvoiceschanged=loadVoices; loadVoices(); }
-    function pickVoice(){
-      const names=['Google UK English Female','Samantha','Karen','Victoria'];
-      for(const n of names){ const v=voices.find(x=>x.name===n); if(v) return v; }
-      return voices.find(v=>/en/i.test(v.lang))||null;
+  const TOUR = [
+    {
+      id:'home', msgs:[
+        "Hi, I'm Nova. Need help? Click me anytime.",
+        "BLESSTech-X builds professional websites, e-commerce stores, branding, and gives you 20+ free business tools."
+      ],
+      ctas:[
+        { label:'Explore Services', href:'#services', style:'primary' },
+        { label:'Chat on WhatsApp', href:'https://wa.me/260979603741', style:'wa' }
+      ]
+    },
+    {
+      id:'services', msgs:[
+        "Professional websites from ZMW 650. Full e-commerce stores from ZMW 980. All include 30-day support."
+      ],
+      ctas:[{ label:'Get Quote', href:'https://wa.me/260979603741?text=I%20need%20a%20quote.', style:'wa' }]
+    },
+    {
+      id:'tools-teaser', msgs:["20+ free tools: Invoice generator, CV builder, QR codes. No signup needed."],
+      ctas:[{ label:'Try Free Tools', href:'tools/index.html', style:'primary' }]
+    },
+    {
+      id:'calculator', msgs:["See your ROI before investing. Enter your numbers above."],
+      ctas:[]
+    },
+    {
+      id:'process', msgs:["5 steps from first call to live site. First consultation is free."],
+      ctas:[{ label:'Book Free Consultation', href:'#contact', style:'primary' }]
+    },
+    {
+      id:'portfolio', msgs:["Real results. A Lusaka shop grew 300% in 2 months."],
+      ctas:[{ label:'Read Blog', href:'blog.html', style:'outline' }]
+    },
+    {
+      id:'testimonials', msgs:["Trusted by 150+ Zambian businesses. See what they say."],
+      ctas:[{ label:'Start Your Story', href:'https://wa.me/260979603741', style:'wa' }]
+    },
+    {
+      id:'faq', msgs:["Questions about timelines or pricing? WhatsApp us anytime."],
+      ctas:[]
+    },
+    {
+      id:'about', msgs:["Built in Lusaka for Zambian entrepreneurs. Real people, real results."],
+      ctas:[]
+    },
+    {
+      id:'contact', msgs:["Ready to grow? Message us. We reply within hours."],
+      ctas:[
+        { label:'Send Message', href:'#contact', style:'primary' },
+        { label:'WhatsApp', href:'https://wa.me/260979603741', style:'wa' }
+      ]
     }
+  ];
 
-    // ── SPEAK
-    function speak(text, onDone){
-      if(!window.speechSynthesis || isMuted || !document.getElementById('nsVoice').checked){
-        speechDone=true; if(onDone) onDone(); checkBoth(); return;
-      }
-      speechSynthesis.cancel();
-      const utt=new SpeechSynthesisUtterance(text);
-      const v=pickVoice(); if(v) utt.voice=v;
-      utt.rate=voiceRate; utt.pitch=1.1; utt.volume=0.88;
-      utt.onstart=()=>{ avatar.classList.add('av-speaking'); };
-      utt.onend=()=>{ avatar.classList.remove('av-speaking'); speechDone=true; if(onDone) onDone(); checkBoth(); };
-      utt.onerror=()=>{ avatar.classList.remove('av-speaking'); speechDone=true; if(onDone) onDone(); checkBoth(); };
-      speechSynthesis.speak(utt);
-    }
-    function stopSpeech(){ if(window.speechSynthesis) speechSynthesis.cancel(); avatar.classList.remove('av-speaking'); }
+  // ── STATE
+  let tourOn=false, isMuted=false, scrollTrigger=true, showReplayPrompts=true;
+  let typeSpeedMs=36, voiceRate=0.95, isHidden=false;
+  let voices=[], visited=new Set(), currentId=null, currentMsgI=0;
+  let typingDone=false, speechDone=false, typeTimer=null;
+  let bubbleActive=false, settingsOpen=false, pendingSection=null;
 
-    // ── TYPEWRITER
-    function typeText(text, onDone){
-      clearTimeout(typeTimer);
-      typeSpeedMs = parseInt(document.getElementById('nsSpeed').value)||36;
-      msgEl.innerHTML='<span class="nb-cursor"></span>';
-      let i=0;
-      function tick(){
-        if(i<text.length){
-          const cur=msgEl.querySelector('.nb-cursor');
-          if(cur) cur.insertAdjacentText('beforebegin', text[i]);
-          i++; typeTimer=setTimeout(tick, typeSpeedMs);
-        } else {
-          const cur=msgEl.querySelector('.nb-cursor');
-          if(cur) cur.remove();
-          typingDone=true; if(onDone) onDone(); checkBoth();
-        }
-      }
-      tick();
-    }
+  // ── DOM
+  const bubble = document.getElementById('novaBubble');
+  const msgEl = document.getElementById('novaMsgText');
+  const ctasEl = document.getElementById('novaCtaBtns');
+  const progFill = document.getElementById('novaProgFill');
+  const muteIcon = document.getElementById('novaMuteIcon');
+  const avatar = document.getElementById('novaAvatar');
+  const intro = document.getElementById('novaIntro');
+  const settings = document.getElementById('novaSettings');
 
-    // ── BOTH DONE
-    function checkBoth(){
-      if(!typingDone||!speechDone) return;
-      const item=TOUR.find(t=>t.id===currentId); if(!item) return;
-      const isLast=currentMsgI>=item.msgs.length-1;
-      if(isLast){ if(item.ctas&&item.ctas.length) renderCTAs(item.ctas); }
-      else { setTimeout(()=>{ currentMsgI++; playMsg(item.msgs[currentMsgI],item); }, 700); }
-    }
-
-    // ── CTAs
-    function renderCTAs(ctas){
-      ctasEl.style.display='flex';
-      ctasEl.innerHTML=ctas.map(c=>{
-        const cls=c.style==='wa'?'nb-cta nb-cta-wa':c.style==='outline'?'nb-cta nb-cta-outline':'nb-cta nb-cta-primary';
-        const target=c.href.startsWith('http')?'_blank':'_self';
-        return `<a href="${c.href}" class="${cls}" target="${target}">${c.label}</a>`;
-      }).join('');
-    }
-
-    // ── PLAY MESSAGE
-    function playMsg(text, item){
-      typingDone=false; speechDone=false;
-      ctasEl.style.display='none'; ctasEl.innerHTML='';
-      const pct=item.msgs.length>1?(currentMsgI/(item.msgs.length-1))*100:100;
-      progFill.style.width=pct+'%';
-      typeText(text); speak(text);
-    }
-
-    function showBubble(){ bubble.classList.add('nb-show'); avatar.classList.add('av-show'); bubbleActive=true; }
-
-    window.novaHideBubble=function(){
-      bubble.classList.remove('nb-show'); bubbleActive=false;
-      stopSpeech(); clearTimeout(typeTimer);
-      setTimeout(()=>{ if(!bubbleActive) avatar.classList.remove('av-show'); }, 2000);
-    };
-
-    // ── TRIGGER SECTION — only fires once per session per section
-    function triggerSection(sectionId){
-      if(!tourOn || isHidden || !scrollTrigger) return;
-      const item=TOUR.find(t=>t.id===sectionId); if(!item) return;
-
-      if(visited.has(sectionId)){
-        if(!bubbleActive && showReplayPrompts) showRevisitPrompt(item);
-        return;
-      }
-      if(bubbleActive && currentId!==sectionId){ pendingSection=sectionId; return; }
-
-      visited.add(sectionId);
-      currentId=sectionId; currentMsgI=0;
-      stopSpeech(); clearTimeout(typeTimer);
-      ctasEl.style.display='none'; ctasEl.innerHTML='';
-      progFill.style.width='0%';
-      showBubble(); playMsg(item.msgs[0], item);
-    }
-
-    function showRevisitPrompt(item){
-      currentId=item.id; stopSpeech(); clearTimeout(typeTimer);
-      ctasEl.style.display='flex';
-      ctasEl.innerHTML=`<div class="nb-revisit">Want me to explain this again?
-        <button class="nb-revisit-btn" onclick="novaReplaySection('${item.id}')">Yes, replay</button>
-        <button class="nb-revisit-btn" onclick="novaHideBubble()">No thanks</button>
-      </div>`;
-      msgEl.innerHTML=''; showBubble();
-    }
-
-    window.novaReplaySection=function(id){ visited.delete(id); triggerSection(id); };
-
-    // ── OBSERVER
-    function initObserver(){
-      const targets=TOUR.map(t=>document.getElementById(t.id)).filter(Boolean);
-      const obs=new IntersectionObserver(entries=>{
-        entries.forEach(e=>{ if(e.isIntersecting&&e.intersectionRatio>=0.35) triggerSection(e.target.id); });
-      },{threshold:0.35});
-      targets.forEach(el=>obs.observe(el));
-    }
-
-    // ── AVATAR CLICK
-    window.novaAvatarClick=function(){
-      if(settingsOpen){ novaCloseSettings(); return; }
-      if(bubbleActive){ novaHideBubble(); }
-      else {
-        if(currentId){ showBubble(); }
-        else {
-          const vis=TOUR.find(t=>{
-            const el=document.getElementById(t.id); if(!el) return false;
-            const r=el.getBoundingClientRect();
-            return r.top<window.innerHeight*0.7&&r.bottom>0;
-          });
-          if(vis) triggerSection(vis.id);
-        }
-      }
-    };
-
-    // ── INTRO
-    window.novaAcceptTour = function(){
-  tourOn = true;
-  scrollTrigger = true;
-  intro.classList.remove('ni-show');
-  localStorage.setItem('nova_pref','tour');
-  localStorage.setItem('nova_last_shown', Date.now());
-  triggerSection('home');
-};
-    window.novaDeclineTour = function(){
-  intro.classList.remove('ni-show');
-  localStorage.setItem('nova_pref','declined');
-  localStorage.setItem('nova_last_shown', Date.now()); // Record when shown
-  avatar.classList.add('av-show');
-  setTimeout(()=>avatar.classList.remove('av-show'), 3000);
-};
-
-    // ── MUTE
-    window.novaToggleMute=function(){
-      isMuted=!isMuted;
-      muteIcon.className=isMuted?'fas fa-volume-mute':'fas fa-volume-up';
-      document.getElementById('nsVoice').checked=!isMuted;
-      if(isMuted){ stopSpeech(); if(!speechDone){speechDone=true;checkBoth();} }
-    };
-
-    // ── SETTINGS
-    window.novaOpenSettings=function(){
-      settingsOpen=true; settings.classList.add('ns-show');
-      bubble.classList.remove('nb-show');
-    };
-    window.novaCloseSettings=function(){
-      settingsOpen=false; settings.classList.remove('ns-show');
-    };
-    window.novaApplySettings=function(){
-      tourOn           = document.getElementById('nsTour').checked;
-      scrollTrigger    = document.getElementById('nsScroll').checked;
-      showReplayPrompts= document.getElementById('nsReplay').checked;
-      isMuted          = !document.getElementById('nsVoice').checked;
-      voiceRate        = parseFloat(document.getElementById('nsVoiceRate').value)||0.95;
-      typeSpeedMs      = parseInt(document.getElementById('nsSpeed').value)||36;
-      isHidden         = document.getElementById('nsHide').checked;
-      muteIcon.className=isMuted?'fas fa-volume-mute':'fas fa-volume-up';
-      if(isHidden){
-        bubble.classList.remove('nb-show'); avatar.classList.remove('av-show');
-        settings.classList.remove('ns-show'); stopSpeech();
-      }
-      if(isMuted){ stopSpeech(); if(!speechDone){speechDone=true;checkBoth();} }
-      localStorage.setItem('nova_settings', JSON.stringify({
-        tour:tourOn, scroll:scrollTrigger, replay:showReplayPrompts,
-        voice:!isMuted, voiceRate, typeSpeed:typeSpeedMs, hide:isHidden
-      }));
-    };
-    window.novaResetAll=function(){
-      localStorage.removeItem('nova_pref');
-      localStorage.removeItem('nova_ts');
-      localStorage.removeItem('nova_settings');
-      document.getElementById('nsTour').checked=true;
-      document.getElementById('nsScroll').checked=true;
-      document.getElementById('nsReplay').checked=true;
-      document.getElementById('nsVoice').checked=true;
-      document.getElementById('nsVoiceRate').value='0.95';
-      document.getElementById('nsSpeed').value='36';
-      document.getElementById('nsHide').checked=false;
-      novaApplySettings();
-      novaCloseSettings();
-    };
-
-    // ── BOOT - Shows intro every 24 hours, not every page load
-document.addEventListener('DOMContentLoaded',function(){
-  // Load saved settings
-  const saved = localStorage.getItem('nova_settings');
-  if(saved){
-    try {
-      const s=JSON.parse(saved);
-      if(s.tour!==undefined) { tourOn=s.tour; document.getElementById('nsTour').checked=s.tour; }
-      if(s.scroll!==undefined) { scrollTrigger=s.scroll; document.getElementById('nsScroll').checked=s.scroll; }
-      if(s.replay!==undefined) { showReplayPrompts=s.replay; document.getElementById('nsReplay').checked=s.replay; }
-      if(s.voice!==undefined) { isMuted=!s.voice; document.getElementById('nsVoice').checked=s.voice; muteIcon.className=isMuted?'fas fa-volume-mute':'fas fa-volume-up'; }
-      if(s.voiceRate) { voiceRate=s.voiceRate; document.getElementById('nsVoiceRate').value=s.voiceRate; }
-      if(s.typeSpeed) { typeSpeedMs=s.typeSpeed; document.getElementById('nsSpeed').value=s.typeSpeed; }
-      if(s.hide) { isHidden=s.hide; document.getElementById('nsHide').checked=s.hide; }
-    } catch(e){}
+  // ── VOICE
+  function loadVoices(){ voices = window.speechSynthesis ? window.speechSynthesis.getVoices() : []; }
+  if(window.speechSynthesis){ speechSynthesis.onvoiceschanged=loadVoices; loadVoices(); }
+  function pickVoice(){
+    const names=['Google UK English Female','Samantha','Karen','Victoria'];
+    for(const n of names){ const v=voices.find(x=>x.name===n); if(v) return v; }
+    return voices.find(v=>/en/i.test(v.lang))||null;
   }
 
-  initObserver();
-  
-  // Check when the intro was last shown
-  const lastShown = parseInt(localStorage.getItem('nova_last_shown') || '0');
-  const now = Date.now();
-  const oneDay = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
-  
-  const pref = localStorage.getItem('nova_pref');
-  
-  // If user already accepted or declined, respect their choice but remind every 24h
-  if(pref === 'tour'){
+  function speak(text, onDone){
+    if(!window.speechSynthesis || isMuted || !document.getElementById('nsVoice').checked){
+      speechDone=true; if(onDone) onDone(); checkBoth(); return;
+    }
+    speechSynthesis.cancel();
+    const utt=new SpeechSynthesisUtterance(text);
+    const v=pickVoice(); if(v) utt.voice=v;
+    utt.rate=voiceRate; utt.pitch=1.1; utt.volume=0.88;
+    utt.onstart=()=>{ avatar.classList.add('av-speaking'); };
+    utt.onend=()=>{ avatar.classList.remove('av-speaking'); speechDone=true; if(onDone) onDone(); checkBoth(); };
+    utt.onerror=()=>{ avatar.classList.remove('av-speaking'); speechDone=true; if(onDone) onDone(); checkBoth(); };
+    speechSynthesis.speak(utt);
+  }
+  function stopSpeech(){ if(window.speechSynthesis) speechSynthesis.cancel(); avatar.classList.remove('av-speaking'); }
+
+  function typeText(text, onDone){
+    clearTimeout(typeTimer);
+    typeSpeedMs = parseInt(document.getElementById('nsSpeed').value)||36;
+    msgEl.innerHTML='<span class="nb-cursor"></span>';
+    let i=0;
+    function tick(){
+      if(i<text.length){
+        const cur=msgEl.querySelector('.nb-cursor');
+        if(cur) cur.insertAdjacentText('beforebegin', text[i]);
+        i++; typeTimer=setTimeout(tick, typeSpeedMs);
+      } else {
+        const cur=msgEl.querySelector('.nb-cursor');
+        if(cur) cur.remove();
+        typingDone=true; if(onDone) onDone(); checkBoth();
+      }
+    }
+    tick();
+  }
+
+  function checkBoth(){
+    if(!typingDone||!speechDone) return;
+    const item=TOUR.find(t=>t.id===currentId); if(!item) return;
+    const isLast=currentMsgI>=item.msgs.length-1;
+    if(isLast){ if(item.ctas&&item.ctas.length) renderCTAs(item.ctas); }
+    else { setTimeout(()=>{ currentMsgI++; playMsg(item.msgs[currentMsgI],item); }, 700); }
+  }
+
+  function renderCTAs(ctas){
+    ctasEl.style.display='flex';
+    ctasEl.innerHTML=ctas.map(c=>{
+      const cls=c.style==='wa'?'nb-cta nb-cta-wa':c.style==='outline'?'nb-cta nb-cta-outline':'nb-cta nb-cta-primary';
+      const target=c.href.startsWith('http')?'_blank':'_self';
+      return `<a href="${c.href}" class="${cls}" target="${target}">${c.label}</a>`;
+    }).join('');
+  }
+
+  function playMsg(text, item){
+    typingDone=false; speechDone=false;
+    ctasEl.style.display='none'; ctasEl.innerHTML='';
+    const pct=item.msgs.length>1?(currentMsgI/(item.msgs.length-1))*100:100;
+    progFill.style.width=pct+'%';
+    typeText(text); speak(text);
+  }
+
+  function showBubble(){ bubble.classList.add('nb-show'); avatar.classList.add('av-show'); bubbleActive=true; }
+
+  window.novaHideBubble=function(){
+    bubble.classList.remove('nb-show'); bubbleActive=false;
+    stopSpeech(); clearTimeout(typeTimer);
+    setTimeout(()=>{ if(!bubbleActive) avatar.classList.remove('av-show'); }, 2000);
+  };
+
+  function triggerSection(sectionId){
+    if(!tourOn || isHidden || !scrollTrigger) return;
+    const item=TOUR.find(t=>t.id===sectionId); if(!item) return;
+    if(visited.has(sectionId)){
+      if(!bubbleActive && showReplayPrompts) showRevisitPrompt(item);
+      return;
+    }
+    if(bubbleActive && currentId!==sectionId){ pendingSection=sectionId; return; }
+    visited.add(sectionId);
+    currentId=sectionId; currentMsgI=0;
+    stopSpeech(); clearTimeout(typeTimer);
+    ctasEl.style.display='none'; ctasEl.innerHTML='';
+    progFill.style.width='0%';
+    showBubble(); playMsg(item.msgs[0], item);
+  }
+
+  function showRevisitPrompt(item){
+    currentId=item.id; stopSpeech(); clearTimeout(typeTimer);
+    ctasEl.style.display='flex';
+    ctasEl.innerHTML=`<div class="nb-revisit">Explain again?
+      <button class="nb-revisit-btn" onclick="novaReplaySection('${item.id}')">Yes</button>
+      <button class="nb-revisit-btn" onclick="novaHideBubble()">No</button>
+    </div>`;
+    msgEl.innerHTML=''; showBubble();
+  }
+
+  window.novaReplaySection=function(id){ visited.delete(id); triggerSection(id); };
+
+  function initObserver(){
+    const targets=TOUR.map(t=>document.getElementById(t.id)).filter(Boolean);
+    const obs=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{ if(e.isIntersecting&&e.intersectionRatio>=0.35) triggerSection(e.target.id); });
+    },{threshold:0.35});
+    targets.forEach(el=>obs.observe(el));
+  }
+
+  window.novaAvatarClick=function(){
+    if(settingsOpen){ novaCloseSettings(); return; }
+    if(bubbleActive){ novaHideBubble(); }
+    else {
+      if(currentId){ showBubble(); }
+      else {
+        const vis=TOUR.find(t=>{
+          const el=document.getElementById(t.id); if(!el) return false;
+          const r=el.getBoundingClientRect();
+          return r.top<window.innerHeight*0.7&&r.bottom>0;
+        });
+        if(vis) triggerSection(vis.id);
+      }
+    }
+  };
+
+  window.novaAcceptTour = function(){
     tourOn = true;
-    // Don't show intro again, but Nova is active
+    scrollTrigger = true;
+    intro.classList.remove('ni-show');
+    localStorage.setItem('nova_pref','tour');
+    localStorage.setItem('nova_last_shown', Date.now());
+    triggerSection('home');
+  };
+  
+  window.novaDeclineTour = function(){
+    intro.classList.remove('ni-show');
+    localStorage.setItem('nova_pref','declined');
+    localStorage.setItem('nova_last_shown', Date.now());
     avatar.classList.add('av-show');
-    setTimeout(()=>avatar.classList.remove('av-show'), 2000);
-  } 
-  else if(pref === 'declined'){
-    tourOn = false;
-    // Check if 24 hours have passed since last reminder
-    if(now - lastShown > oneDay){
-      // Time to remind them again
+    setTimeout(()=>avatar.classList.remove('av-show'), 3000);
+  };
+
+  window.novaToggleMute=function(){
+    isMuted=!isMuted;
+    muteIcon.className=isMuted?'fas fa-volume-mute':'fas fa-volume-up';
+    document.getElementById('nsVoice').checked=!isMuted;
+    if(isMuted){ stopSpeech(); if(!speechDone){speechDone=true;checkBoth();} }
+  };
+
+  window.novaOpenSettings=function(){
+    settingsOpen=true; settings.classList.add('ns-show');
+    bubble.classList.remove('nb-show');
+  };
+  window.novaCloseSettings=function(){
+    settingsOpen=false; settings.classList.remove('ns-show');
+  };
+  window.novaApplySettings=function(){
+    tourOn = document.getElementById('nsTour').checked;
+    scrollTrigger = document.getElementById('nsScroll').checked;
+    showReplayPrompts = document.getElementById('nsReplay').checked;
+    isMuted = !document.getElementById('nsVoice').checked;
+    voiceRate = parseFloat(document.getElementById('nsVoiceRate').value)||0.95;
+    typeSpeedMs = parseInt(document.getElementById('nsSpeed').value)||36;
+    isHidden = document.getElementById('nsHide').checked;
+    muteIcon.className=isMuted?'fas fa-volume-mute':'fas fa-volume-up';
+    if(isHidden){
+      bubble.classList.remove('nb-show'); avatar.classList.remove('av-show');
+      settings.classList.remove('ns-show'); stopSpeech();
+    }
+    if(isMuted){ stopSpeech(); if(!speechDone){speechDone=true;checkBoth();} }
+    localStorage.setItem('nova_settings', JSON.stringify({
+      tour:tourOn, scroll:scrollTrigger, replay:showReplayPrompts,
+      voice:!isMuted, voiceRate, typeSpeed:typeSpeedMs, hide:isHidden
+    }));
+  };
+  
+  window.novaResetAll=function(){
+    localStorage.removeItem('nova_pref');
+    localStorage.removeItem('nova_last_shown');
+    localStorage.removeItem('nova_settings');
+    document.getElementById('nsTour').checked=true;
+    document.getElementById('nsScroll').checked=true;
+    document.getElementById('nsReplay').checked=true;
+    document.getElementById('nsVoice').checked=true;
+    document.getElementById('nsVoiceRate').value='0.95';
+    document.getElementById('nsSpeed').value='36';
+    document.getElementById('nsHide').checked=false;
+    novaApplySettings();
+    novaCloseSettings();
+    location.reload();
+  };
+
+  // ── BOOT - 24 hour reminder logic
+  document.addEventListener('DOMContentLoaded',function(){
+    const saved = localStorage.getItem('nova_settings');
+    if(saved){
+      try {
+        const s=JSON.parse(saved);
+        if(s.tour!==undefined) { tourOn=s.tour; document.getElementById('nsTour').checked=s.tour; }
+        if(s.scroll!==undefined) { scrollTrigger=s.scroll; document.getElementById('nsScroll').checked=s.scroll; }
+        if(s.replay!==undefined) { showReplayPrompts=s.replay; document.getElementById('nsReplay').checked=s.replay; }
+        if(s.voice!==undefined) { isMuted=!s.voice; document.getElementById('nsVoice').checked=s.voice; muteIcon.className=isMuted?'fas fa-volume-mute':'fas fa-volume-up'; }
+        if(s.voiceRate) { voiceRate=s.voiceRate; document.getElementById('nsVoiceRate').value=s.voiceRate; }
+        if(s.typeSpeed) { typeSpeedMs=s.typeSpeed; document.getElementById('nsSpeed').value=s.typeSpeed; }
+        if(s.hide) { isHidden=s.hide; document.getElementById('nsHide').checked=s.hide; }
+      } catch(e){}
+    }
+
+    initObserver();
+    
+    const lastShown = parseInt(localStorage.getItem('nova_last_shown') || '0');
+    const now = Date.now();
+    const oneDay = 24 * 60 * 60 * 1000;
+    const pref = localStorage.getItem('nova_pref');
+    
+    if(pref === 'tour'){
+      tourOn = true;
+      avatar.classList.add('av-show');
+      setTimeout(()=>avatar.classList.remove('av-show'), 2000);
+    } 
+    else if(pref === 'declined'){
+      tourOn = false;
+      if(now - lastShown > oneDay){
+        setTimeout(() => {
+          intro.classList.add('ni-show');
+          localStorage.setItem('nova_last_shown', now);
+        }, 3000);
+      } else {
+        avatar.classList.add('av-show');
+        setTimeout(()=>avatar.classList.remove('av-show'), 2000);
+      }
+    } 
+    else {
       setTimeout(() => {
         intro.classList.add('ni-show');
         localStorage.setItem('nova_last_shown', now);
       }, 3000);
-    } else {
-      // Just show avatar briefly
-      avatar.classList.add('av-show');
-      setTimeout(()=>avatar.classList.remove('av-show'), 2000);
     }
-  } 
-  else {
-    // First time visitor - show intro card after 3 seconds
-    setTimeout(() => {
-      intro.classList.add('ni-show');
-      localStorage.setItem('nova_last_shown', now);
-    }, 3000);
-  }
-});
+  });
 
-    // Pending section handler
-    const origHide=window.novaHideBubble;
-    window.novaHideBubble=function(){
-      origHide();
-      if(pendingSection){ const ps=pendingSection; pendingSection=null; setTimeout(()=>triggerSection(ps),500); }
-    };
+  const origHide=window.novaHideBubble;
+  window.novaHideBubble=function(){
+    origHide();
+    if(pendingSection){ const ps=pendingSection; pendingSection=null; setTimeout(()=>triggerSection(ps),500); }
+  };
 
-  })();
+})();
   </script>
 
   <!-- ═══ PAGE ENHANCEMENTS ═══ -->
