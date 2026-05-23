@@ -1435,19 +1435,21 @@
     };
 
     // ── INTRO
-    window.novaAcceptTour=function(){
-      tourOn=true; intro.classList.remove('ni-show');
-      localStorage.setItem('nova_pref','tour');
-      localStorage.setItem('nova_ts', Date.now());
-      triggerSection('home');
-    };
-    window.novaDeclineTour=function(){
-      intro.classList.remove('ni-show');
-      localStorage.setItem('nova_pref','declined');
-      localStorage.setItem('nova_ts', Date.now());
-      avatar.classList.add('av-show');
-      setTimeout(()=>avatar.classList.remove('av-show'), 3000);
-    };
+    window.novaAcceptTour = function(){
+  tourOn = true;
+  scrollTrigger = true;
+  intro.classList.remove('ni-show');
+  localStorage.setItem('nova_pref','tour');
+  localStorage.setItem('nova_last_shown', Date.now());
+  triggerSection('home');
+};
+    window.novaDeclineTour = function(){
+  intro.classList.remove('ni-show');
+  localStorage.setItem('nova_pref','declined');
+  localStorage.setItem('nova_last_shown', Date.now()); // Record when shown
+  avatar.classList.add('av-show');
+  setTimeout(()=>avatar.classList.remove('av-show'), 3000);
+};
 
     // ── MUTE
     window.novaToggleMute=function(){
