@@ -1504,8 +1504,9 @@
     location.reload();
   };
 
-  // ── BOOT - 24 hour reminder logic
+  // ── BOOT - NO POPUPS ON REFRESH, only on first visit or after 24 hours
   document.addEventListener('DOMContentLoaded',function(){
+    // Load saved settings
     const saved = localStorage.getItem('nova_settings');
     if(saved){
       try {
@@ -1520,34 +1521,54 @@
       } catch(e){}
     }
 
+    // Initialize scroll observer
     initObserver();
     
+    // Get stored preferences
+    const pref = localStorage.getItem('nova_pref');
     const lastShown = parseInt(localStorage.getItem('nova_last_shown') || '0');
     const now = Date.now();
     const oneDay = 24 * 60 * 60 * 1000;
-    const pref = localStorage.getItem('nova_pref');
     
+    // CASE 1: User already accepted tour
     if(pref === 'tour'){
       tourOn = true;
+      scrollTrigger = true;
+      // Just show avatar briefly, NO INTRO CARD
       avatar.classList.add('av-show');
-      setTimeout(()=>avatar.classList.remove('av-show'), 2000);
-    } 
-    else if(pref === 'declined'){
+      setTimeout(() => avatar.classList.remove('av-show'), 2000);
+      return; // Exit - no popup
+    }
+    
+    // CASE 2: User declined tour
+    if(pref === 'declined'){
       tourOn = false;
-      if(now - lastShown > oneDay){
+      scrollTrigger = false;
+      
+      // Check if 24 hours have passed since last reminder
+      if(lastShown === 0 || (now - lastShown) > oneDay){
+        // Show reminder after 5 seconds
         setTimeout(() => {
-          intro.classList.add('ni-show');
-          localStorage.setItem('nova_last_shown', now);
-        }, 3000);
+          // Only show if they still have declined preference
+          if(localStorage.getItem('nova_pref') === 'declined'){
+            intro.classList.add('ni-show');
+            localStorage.setItem('nova_last_shown', Date.now());
+          }
+        }, 5000);
       } else {
+        // Still within 24 hours - just show avatar
         avatar.classList.add('av-show');
-        setTimeout(()=>avatar.classList.remove('av-show'), 2000);
+        setTimeout(() => avatar.classList.remove('av-show'), 2000);
       }
-    } 
-    else {
+      return;
+    }
+    
+    // CASE 3: First time visitor (no preference)
+    if(!pref){
+      // Show intro card once
       setTimeout(() => {
         intro.classList.add('ni-show');
-        localStorage.setItem('nova_last_shown', now);
+        localStorage.setItem('nova_last_shown', Date.now());
       }, 3000);
     }
   });
