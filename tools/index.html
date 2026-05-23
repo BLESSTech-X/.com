@@ -588,6 +588,63 @@ body::before {
 ::-webkit-scrollbar { width:5px; height:5px; }
 ::-webkit-scrollbar-track { background:var(--bg2); }
 ::-webkit-scrollbar-thumb { background:var(--bg3); border-radius:3px; }
+    /* ========== BOTTOM NAVIGATION BAR ========== */
+.mobile-tab-bar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 99999;
+  background: #0a0f1c;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 8px 0 12px;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom, 0));
+  box-shadow: 0 -4px 16px rgba(0,0,0,0.4);
+}
+
+.tab-bar-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 4px;
+  text-decoration: none;
+  color: #64748b;
+  font-size: 0.65rem;
+  font-weight: 600;
+  transition: color 0.2s;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.tab-bar-item.active {
+  color: #0ea5e9;
+}
+
+.tab-bar-item i {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.tab-bar-item.tab-wa {
+  color: #25D366;
+}
+
+.tab-bar-item span {
+  font-size: 0.6rem;
+}
+
+@media (max-width: 768px) {
+  .mobile-tab-bar {
+    display: flex !important;
+  }
+  body {
+    padding-bottom: 70px;
+  }
+}
   </style>
 </head>
 <body>
@@ -908,5 +965,28 @@ window.addEventListener('scroll',function(){
 render();
 setTimeout(function(){if(snd)speak('Welcome to BLESSTech-X Free Tools. Twenty four free tools for every Zambian.');},1800);
 </script>
+    <!-- ========== BOTTOM NAVIGATION BAR ========== -->
+  <div class="mobile-tab-bar">
+    <a href="../index.html" class="tab-bar-item">
+      <i class="fas fa-home"></i>
+      <span>Home</span>
+    </a>
+    <a href="../blog.html" class="tab-bar-item">
+      <i class="fas fa-newspaper"></i>
+      <span>Blog</span>
+    </a>
+    <a href="index.html" class="tab-bar-item active">
+      <i class="fas fa-tools"></i>
+      <span>Tools</span>
+    </a>
+    <a href="../index.html#services" class="tab-bar-item">
+      <i class="fas fa-briefcase"></i>
+      <span>Services</span>
+    </a>
+    <a href="https://wa.me/260979603741" class="tab-bar-item tab-wa" target="_blank">
+      <i class="fab fa-whatsapp"></i>
+      <span>Chat</span>
+    </a>
+  </div>
 </body>
 </html>
