@@ -2,1572 +2,926 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BLESSTech-X Community — Business Tips for Zambia</title>
-  <meta name="description" content="The BLESSTech-X community hub — business tips, e-commerce guides, and digital marketing advice for Zambian entrepreneurs." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>BLESSTech-X Community | Business Tips for Zambia</title>
+  <meta name="description" content="Zambia's business community — share tips, ask questions, and grow together. Like Facebook but for Zambian entrepreneurs." />
   <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" />
+  
+  <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+  
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     :root {
-      --sky:      #0ea5e9;
-      --sky-d:    #0284c7;
-      --sky-l:    #38bdf8;
-      --slate:    #1e293b;
-      --slate-l:  #334155;
-      --muted:    #64748b;
-      --light:    #f1f5f9;
-      --white:    #ffffff;
-      --border:   #e2e8f0;
-      --green:    #10b981;
-      --red:      #ef4444;
-      --amber:    #f59e0b;
-
-      --nav-h:    60px;
-      --sidebar-w: 280px;
-      --feed-max:  680px;
+      --fb-bg: #18191a;
+      --fb-surface: #242526;
+      --fb-card: #2d2e2f;
+      --fb-hover: #3a3b3c;
+      --fb-border: #3e4042;
+      --fb-primary: #0ea5e9;
+      --fb-text: #e4e6eb;
+      --fb-text-secondary: #b0b3b8;
+      --fb-divider: #3e4042;
+      --fb-green: #31a24c;
+      --fb-blue: #0ea5e9;
     }
 
-    html { scroll-behavior: smooth; }
     body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background: #f0f4f8;
-      color: var(--slate);
-      min-height: 100vh;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--fb-bg);
+      color: var(--fb-text);
+      line-height: 1.5;
+      padding-bottom: 60px;
     }
 
-    /* ═══════════════════════════════════════
-       TOP NAV
-    ═══════════════════════════════════════ */
-    .top-nav {
-      position: fixed; top: 0; left: 0; right: 0;
-      height: var(--nav-h); z-index: 1000;
-      background: var(--white);
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: center;
-      padding: 0 20px; gap: 16px;
-      box-shadow: 0 1px 8px rgba(0,0,0,0.06);
-    }
-    .nav-brand {
-      display: flex; align-items: center; gap: 10px;
-      text-decoration: none; flex-shrink: 0;
-    }
-    .nav-brand img { width: 36px; height: 36px; border-radius: 8px; }
-    .nav-brand-text { font-weight: 800; font-size: 1.05rem; color: var(--slate); line-height:1; }
-    .nav-brand-text span { color: var(--sky); }
-    .nav-brand-sub { font-size: 0.65rem; color: var(--muted); font-weight:500; letter-spacing:0.05em; }
-
-    .nav-search {
-      flex: 1; max-width: 320px;
-      position: relative;
-    }
-    .nav-search input {
-      width: 100%; padding: 8px 14px 8px 36px;
-      border: 1.5px solid var(--border); border-radius: 24px;
-      font-size: 0.85rem; background: var(--light);
-      color: var(--slate); outline: none; font-family: inherit;
-      transition: all 0.2s;
-    }
-    .nav-search input:focus {
-      border-color: var(--sky); background: var(--white);
-      box-shadow: 0 0 0 3px rgba(14,165,233,0.1);
-    }
-    .nav-search i {
-      position: absolute; left: 12px; top: 50%;
-      transform: translateY(-50%); color: var(--muted); font-size: 0.8rem;
-    }
-
-    .nav-links-bar {
-      display: flex; align-items: center; gap: 4px; margin-left: auto;
-    }
-    .nav-link-btn {
-      display: flex; align-items: center; gap: 6px;
-      padding: 8px 14px; border-radius: 8px;
-      font-size: 0.82rem; font-weight: 600; color: var(--muted);
-      text-decoration: none; transition: all 0.2s; border: none;
-      background: none; cursor: pointer; font-family: inherit;
-      white-space: nowrap;
-    }
-    .nav-link-btn:hover, .nav-link-btn.active {
-      background: rgba(14,165,233,0.08); color: var(--sky);
-    }
-    .nav-link-btn.active { color: var(--sky); }
-
-    .nav-wa-btn {
-      display: flex; align-items: center; gap: 6px;
-      padding: 8px 16px; border-radius: 8px;
-      background: #25d366; color: white;
-      font-size: 0.82rem; font-weight: 700;
-      text-decoration: none; transition: all 0.2s;
-      white-space: nowrap; flex-shrink:0;
-    }
-    .nav-wa-btn:hover { background: #1da851; transform: translateY(-1px); }
-
-    .nav-mobile-toggle {
-      display: none; background: none; border: none;
-      color: var(--slate); font-size: 1.2rem; cursor: pointer; padding: 4px;
-    }
-
-    /* ═══════════════════════════════════════
-       LAYOUT
-    ═══════════════════════════════════════ */
-    .page-layout {
-      max-width: 1200px; margin: 0 auto;
-      padding: calc(var(--nav-h) + 20px) 16px 40px;
-      display: grid;
-      grid-template-columns: var(--sidebar-w) 1fr var(--sidebar-w);
-      gap: 20px;
-      align-items: start;
-    }
-
-    /* ═══════════════════════════════════════
-       LEFT SIDEBAR
-    ═══════════════════════════════════════ */
-    .sidebar-left {
-      position: sticky; top: calc(var(--nav-h) + 20px);
-    }
-    .sidebar-card {
-      background: var(--white); border-radius: 16px;
-      border: 1px solid var(--border);
-      overflow: hidden; margin-bottom: 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    }
-    .sidebar-card-header {
-      padding: 14px 16px; border-bottom: 1px solid var(--border);
-      font-size: 0.78rem; font-weight: 700;
-      color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase;
-    }
-
-    /* Community profile card */
-    .community-card-banner {
-      height: 80px;
-      background: linear-gradient(135deg, var(--sky) 0%, #0369a1 100%);
-      position: relative;
-    }
-    .community-card-avatar {
-      width: 56px; height: 56px; border-radius: 14px;
-      border: 3px solid var(--white);
-      position: absolute; bottom: -20px; left: 16px;
-      overflow: hidden; background: var(--white);
-    }
-    .community-card-avatar img { width: 100%; height: 100%; object-fit: cover; }
-    .community-card-body { padding: 28px 16px 16px; }
-    .community-card-name { font-weight: 800; font-size: 0.95rem; margin-bottom: 2px; }
-    .community-card-sub { font-size: 0.78rem; color: var(--muted); margin-bottom: 12px; }
-    .community-stats {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 8px; margin-bottom: 14px;
-    }
-    .comm-stat {
-      background: var(--light); border-radius: 10px;
-      padding: 8px 10px; text-align: center;
-    }
-    .comm-stat-val { font-weight: 800; font-size: 1rem; color: var(--sky); }
-    .comm-stat-lbl { font-size: 0.68rem; color: var(--muted); font-weight: 500; }
-    .sidebar-wa-btn {
-      display: flex; align-items: center; justify-content: center; gap: 7px;
-      width: 100%; padding: 9px; border-radius: 10px;
-      background: #25d366; color: white;
-      font-size: 0.83rem; font-weight: 700;
-      text-decoration: none; transition: all 0.2s;
-    }
-    .sidebar-wa-btn:hover { background: #1da851; }
-
-    /* Category filter list */
-    .cat-list { padding: 8px; }
-    .cat-item {
-      display: flex; align-items: center; gap: 10px;
-      padding: 9px 10px; border-radius: 10px;
-      cursor: pointer; transition: all 0.2s;
-      font-size: 0.85rem; font-weight: 500; color: var(--slate-l);
-      border: none; background: none; width: 100%;
-      font-family: inherit; text-align: left;
-    }
-    .cat-item:hover { background: var(--light); }
-    .cat-item.active { background: rgba(14,165,233,0.1); color: var(--sky); font-weight: 700; }
-    .cat-icon { font-size: 1rem; width: 20px; text-align: center; }
-    .cat-count {
-      margin-left: auto; font-size: 0.72rem;
-      background: var(--light); border-radius: 12px;
-      padding: 2px 7px; color: var(--muted); font-weight: 600;
-    }
-    .cat-item.active .cat-count { background: rgba(14,165,233,0.15); color: var(--sky-d); }
-
-    /* ═══════════════════════════════════════
-       MAIN FEED
-    ═══════════════════════════════════════ */
-    .feed-area { min-width: 0; }
-
-    /* Page header */
-    .feed-header {
-      background: linear-gradient(135deg, var(--slate) 0%, #0f2040 100%);
-      border-radius: 16px; padding: 28px 28px 24px;
-      margin-bottom: 20px; position: relative; overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    }
-    .feed-header::before {
-      content: '';
-      position: absolute; top: -40px; right: -40px;
-      width: 200px; height: 200px; border-radius: 50%;
-      background: rgba(14,165,233,0.12);
-    }
-    .feed-header-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(14,165,233,0.2); border: 1px solid rgba(14,165,233,0.35);
-      color: var(--sky-l); font-size: 0.72rem; font-weight: 700;
-      padding: 4px 10px; border-radius: 20px; margin-bottom: 12px;
-      letter-spacing: 0.06em; text-transform: uppercase;
-    }
-    .feed-header h1 {
-      font-family: 'Instrument Serif', serif;
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      color: white; line-height: 1.25; margin-bottom: 8px;
-    }
-    .feed-header p { color: #94a3b8; font-size: 0.88rem; line-height: 1.6; }
-
-    /* Filters bar */
-    .feed-filters {
-      display: flex; gap: 8px; margin-bottom: 16px;
+    /* Facebook-style top nav */
+    .fb-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--fb-surface);
+      border-bottom: 1px solid var(--fb-border);
+      padding: 8px 16px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       flex-wrap: wrap;
-    }
-    .feed-filter-pill {
-      padding: 6px 14px; border-radius: 20px;
-      font-size: 0.78rem; font-weight: 600;
-      border: 1.5px solid var(--border); background: var(--white);
-      color: var(--muted); cursor: pointer; transition: all 0.2s;
-      font-family: inherit;
-    }
-    .feed-filter-pill:hover { border-color: var(--sky); color: var(--sky); }
-    .feed-filter-pill.active {
-      background: var(--sky); border-color: var(--sky);
-      color: white; box-shadow: 0 2px 8px rgba(14,165,233,0.3);
+      gap: 12px;
     }
 
-    /* Sort bar */
-    .feed-sort-bar {
-      display: flex; align-items: center; gap: 10px;
-      padding: 10px 16px; background: var(--white);
-      border-radius: 12px; margin-bottom: 16px;
-      border: 1px solid var(--border);
-    }
-    .sort-label { font-size: 0.78rem; color: var(--muted); font-weight: 600; }
-    .sort-btn {
-      padding: 5px 12px; border-radius: 8px; font-size: 0.78rem;
-      font-weight: 600; border: none; background: none;
-      cursor: pointer; color: var(--muted); font-family: inherit;
-      transition: all 0.2s;
-    }
-    .sort-btn.active { background: var(--light); color: var(--sky); }
-    .sort-btn:hover { background: var(--light); }
-
-    /* Loading skeleton */
-    .skeleton-card {
-      background: var(--white); border-radius: 16px;
-      border: 1px solid var(--border); padding: 20px;
-      margin-bottom: 16px; overflow: hidden;
-    }
-    .skel { background: linear-gradient(90deg, #f0f4f8 25%, #e2e8f0 50%, #f0f4f8 75%);
-      background-size: 200% 100%; border-radius: 8px;
-      animation: skelAnim 1.4s ease-in-out infinite; }
-    @keyframes skelAnim { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
-    .skel-avatar { width:42px; height:42px; border-radius:50%; margin-bottom:12px; }
-    .skel-line { height:12px; margin-bottom:8px; }
-    .skel-img { height:200px; border-radius:12px; margin:12px 0; }
-
-    /* ── POST CARD ── */
-    .post-card {
-      background: var(--white); border-radius: 16px;
-      border: 1px solid var(--border);
-      margin-bottom: 16px; overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-      transition: box-shadow 0.2s, transform 0.2s;
-      cursor: pointer;
-    }
-    .post-card:hover {
-      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-      transform: translateY(-2px);
+    .fb-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--fb-primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    /* Post header */
-    .post-card-header {
-      display: flex; align-items: center; gap: 12px;
-      padding: 16px 20px 12px;
-    }
-    .post-author-avatar {
-      width: 42px; height: 42px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--sky), var(--sky-d));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem; color: white; font-weight: 800;
-      flex-shrink: 0; overflow: hidden;
-    }
-    .post-author-avatar img { width:100%; height:100%; object-fit:cover; }
-    .post-author-info { flex: 1; min-width: 0; }
-    .post-author-name { font-weight: 700; font-size: 0.9rem; color: var(--slate); }
-    .post-author-meta {
-      display: flex; align-items: center; gap: 6px;
-      font-size: 0.75rem; color: var(--muted); margin-top: 1px;
-    }
-    .post-author-meta .sep { opacity: 0.4; }
-    .post-cat-pill {
-      font-size: 0.68rem; font-weight: 700; padding: 2px 8px;
-      border-radius: 12px; background: rgba(14,165,233,0.1);
-      color: var(--sky-d);
+    .fb-logo img {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
     }
 
-    /* Post image */
-    .post-card-img {
-      width: 100%; max-height: 340px; overflow: hidden;
+    .fb-search {
+      flex: 1;
+      max-width: 400px;
       position: relative;
     }
-    .post-card-img img {
-      width: 100%; height: 100%; object-fit: cover;
-      display: block; transition: transform 0.4s ease;
-    }
-    .post-card:hover .post-card-img img { transform: scale(1.02); }
-    .post-card-img-placeholder {
-      height: 180px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 4rem;
-      background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+
+    .fb-search input {
+      width: 100%;
+      padding: 10px 16px 10px 40px;
+      background: var(--fb-card);
+      border: none;
+      border-radius: 24px;
+      color: var(--fb-text);
+      font-size: 0.9rem;
     }
 
-    /* Post body */
-    .post-card-body { padding: 16px 20px 12px; }
-    .post-card-title {
-      font-family: 'Instrument Serif', serif;
-      font-size: 1.2rem; font-weight: 400;
-      color: var(--slate); line-height: 1.4; margin-bottom: 8px;
-    }
-    .post-card-excerpt {
-      font-size: 0.87rem; color: var(--muted);
-      line-height: 1.65; margin-bottom: 12px;
-      display: -webkit-box; -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical; overflow: hidden;
-    }
-    .post-read-more {
-      font-size: 0.82rem; font-weight: 700; color: var(--sky);
-      display: inline-flex; align-items: center; gap: 5px;
-    }
-    .post-read-more i { transition: transform 0.2s; }
-    .post-card:hover .post-read-more i { transform: translateX(3px); }
-
-    /* Post footer — reactions */
-    .post-card-footer {
-      display: flex; align-items: center;
-      padding: 12px 20px; border-top: 1px solid var(--border);
-      gap: 4px;
-    }
-    .reaction-btn {
-      display: flex; align-items: center; gap: 5px;
-      padding: 7px 12px; border-radius: 8px;
-      font-size: 0.8rem; font-weight: 600; color: var(--muted);
-      border: none; background: none; cursor: pointer;
-      transition: all 0.2s; font-family: inherit;
-    }
-    .reaction-btn:hover { background: var(--light); }
-    .reaction-btn.liked { color: var(--red); }
-    .reaction-btn.liked i { animation: likeAnim 0.3s ease; }
-    @keyframes likeAnim { 0%{transform:scale(1)} 50%{transform:scale(1.4)} 100%{transform:scale(1)} }
-    .reaction-btn.saved { color: var(--sky); }
-    .post-share-btn {
-      margin-left: auto; display: flex; align-items: center; gap: 5px;
-      padding: 7px 12px; border-radius: 8px;
-      font-size: 0.8rem; font-weight: 600; color: var(--muted);
-      border: none; background: none; cursor: pointer;
-      transition: all 0.2s; font-family: inherit;
-    }
-    .post-share-btn:hover { background: var(--light); color: var(--sky); }
-
-    /* Reading time badge */
-    .reading-time {
-      display: inline-flex; align-items: center; gap: 4px;
-      font-size: 0.72rem; color: var(--muted); font-weight: 500;
+    .fb-search i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--fb-text-secondary);
     }
 
-    /* Empty state */
-    .feed-empty {
-      text-align: center; padding: 60px 20px;
-      background: var(--white); border-radius: 16px;
-      border: 1px solid var(--border);
-    }
-    .feed-empty-icon { font-size: 3.5rem; margin-bottom: 16px; }
-    .feed-empty h3 { font-size: 1.2rem; font-weight: 800; color: var(--slate); margin-bottom: 8px; }
-    .feed-empty p { color: var(--muted); font-size: 0.88rem; margin-bottom: 20px; }
-
-    /* ═══════════════════════════════════════
-       RIGHT SIDEBAR
-    ═══════════════════════════════════════ */
-    .sidebar-right {
-      position: sticky; top: calc(var(--nav-h) + 20px);
+    .fb-nav-icons {
+      display: flex;
+      gap: 8px;
     }
 
-    /* Trending topics */
-    .trending-list { padding: 8px; }
-    .trending-item {
-      display: flex; align-items: flex-start; gap: 10px;
-      padding: 9px 10px; border-radius: 10px;
-      cursor: pointer; transition: all 0.2s; text-decoration:none;
-    }
-    .trending-item:hover { background: var(--light); }
-    .trending-num { font-size: 0.72rem; font-weight: 700; color: var(--muted); width: 16px; flex-shrink:0; padding-top:2px; }
-    .trending-info { flex: 1; min-width:0; }
-    .trending-tag { font-size: 0.82rem; font-weight: 700; color: var(--slate); }
-    .trending-count { font-size: 0.72rem; color: var(--muted); margin-top:1px; }
-
-    /* Services widget */
-    .services-widget { padding: 14px; }
-    .service-item {
-      display: flex; align-items: center; gap: 10px;
-      padding: 8px 0; border-bottom: 1px solid var(--border);
+    .fb-nav-icons a {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--fb-card);
+      border-radius: 50%;
+      color: var(--fb-text);
       text-decoration: none;
     }
-    .service-item:last-child { border-bottom: none; padding-bottom: 0; }
-    .service-item-icon {
-      width: 34px; height: 34px; border-radius: 8px;
-      background: rgba(14,165,233,0.1); flex-shrink:0;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.9rem; color: var(--sky);
-    }
-    .service-item-name { font-size: 0.82rem; font-weight: 600; color: var(--slate); }
-    .service-item-price { font-size: 0.72rem; color: var(--sky); font-weight: 700; margin-top:1px; }
-    .service-item-arrow { margin-left:auto; color: var(--muted); font-size:0.7rem; }
 
-    /* ═══════════════════════════════════════
-       POST MODAL (full-screen reader)
-    ═══════════════════════════════════════ */
-    .post-modal-overlay {
-      position: fixed; inset: 0; z-index: 2000;
-      background: rgba(15,23,42,0.85);
-      display: none; align-items: flex-start; justify-content: center;
-      padding: 20px; overflow-y: auto;
-      backdrop-filter: blur(4px);
-    }
-    .post-modal-overlay.open { display: flex; }
-    .post-modal {
-      background: var(--white); border-radius: 20px;
-      max-width: 760px; width: 100%; margin: 20px auto;
-      overflow: hidden; position: relative;
-      animation: modalSlideIn 0.3s cubic-bezier(.22,1,.36,1);
-    }
-    @keyframes modalSlideIn {
-      from { opacity:0; transform: translateY(20px); }
-      to   { opacity:1; transform: translateY(0); }
+    /* Main layout - 3 columns like Facebook */
+    .fb-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 70px 16px 20px;
+      display: grid;
+      grid-template-columns: 280px 1fr 320px;
+      gap: 20px;
     }
 
-    .modal-close-bar {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 14px 20px; border-bottom: 1px solid var(--border);
-      position: sticky; top: 0; background: var(--white); z-index: 1;
-    }
-    .modal-close-brand { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 0.88rem; color: var(--slate); }
-    .modal-close-brand img { width: 28px; border-radius: 6px; }
-    .modal-close-btn {
-      width: 34px; height: 34px; border-radius: 50%;
-      background: var(--light); border: none; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--muted); font-size: 0.9rem; transition: all 0.2s;
-    }
-    .modal-close-btn:hover { background: var(--border); color: var(--slate); }
-
-    .modal-hero {
-      width: 100%; height: 300px; object-fit: cover;
-      background: linear-gradient(135deg, var(--sky), var(--slate));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 5rem; overflow: hidden;
-    }
-    .modal-hero img { width:100%; height:100%; object-fit:cover; }
-
-    .modal-body { padding: 32px 36px; }
-    .modal-meta {
-      display: flex; align-items: center; gap: 10px;
-      margin-bottom: 16px; flex-wrap: wrap;
-    }
-    .modal-title {
-      font-family: 'Instrument Serif', serif;
-      font-size: clamp(1.5rem, 3vw, 2.1rem);
-      color: var(--slate); line-height: 1.3; margin-bottom: 20px;
-    }
-    .modal-author-row {
-      display: flex; align-items: center; gap: 12px;
-      padding: 14px 0; border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border); margin-bottom: 24px;
-    }
-    .modal-author-av {
-      width: 44px; height: 44px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--sky), var(--sky-d));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem; color: white; font-weight: 800;
-    }
-    .modal-author-name { font-weight: 700; font-size: 0.88rem; }
-    .modal-author-sub { font-size: 0.75rem; color: var(--muted); }
-    .modal-read-time { margin-left: auto; font-size: 0.75rem; color: var(--muted);
-      display: flex; align-items: center; gap: 5px; }
-
-    /* Article content */
-    .article-content h2 { font-family:'Instrument Serif',serif; font-size:1.5rem; color:var(--slate); margin:28px 0 12px; }
-    .article-content h3 { font-weight:700; font-size:1.05rem; color:var(--slate); margin:22px 0 10px; }
-    .article-content p { color:var(--slate-l); line-height:1.85; margin-bottom:16px; font-size:0.95rem; }
-    .article-content ul, .article-content ol { padding-left:24px; margin-bottom:16px; }
-    .article-content li { color:var(--slate-l); line-height:1.75; margin-bottom:6px; font-size:0.95rem; }
-    .article-content a { color:var(--sky); text-decoration:underline; }
-    .article-content strong { color:var(--slate); }
-    .article-content blockquote {
-      border-left:4px solid var(--sky); padding:14px 20px; margin:20px 0;
-      background:#f0f9ff; border-radius:0 10px 10px 0;
-      color:var(--sky-d); font-style:italic; font-size:0.95rem;
-    }
-    .article-content code { background:var(--light); padding:2px 6px; border-radius:4px; font-size:0.88rem; }
-    .article-content pre { background:var(--slate); color:#e2e8f0; padding:20px; border-radius:12px; overflow-x:auto; margin-bottom:16px; }
-    .article-content pre code { background:none; color:inherit; }
-    .article-content img { max-width:100%; border-radius:12px; margin:16px 0; }
-    .article-content hr { border:none; border-top:2px solid var(--border); margin:28px 0; }
-
-    /* Modal reactions */
-    .modal-reactions {
-      display: flex; align-items: center; gap: 6px;
-      padding: 16px 36px; border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .modal-cta-section {
-      padding: 24px 36px;
-      background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
-    }
-    .modal-cta-section h4 { font-weight: 800; color: var(--slate); margin-bottom: 4px; font-size: 0.95rem; }
-    .modal-cta-section p { color: var(--muted); font-size: 0.82rem; margin-bottom: 14px; }
-    .modal-cta-btns { display: flex; gap: 10px; flex-wrap: wrap; }
-    .cta-btn {
-      display: inline-flex; align-items: center; gap: 7px;
-      padding: 10px 18px; border-radius: 10px;
-      font-size: 0.83rem; font-weight: 700; text-decoration: none;
-      transition: all 0.2s;
-    }
-    .cta-btn-wa { background: #25d366; color: white; }
-    .cta-btn-wa:hover { background: #1da851; transform: translateY(-1px); }
-    .cta-btn-outline { background: white; color: var(--sky);
-      border: 1.5px solid var(--sky); }
-    .cta-btn-outline:hover { background: rgba(14,165,233,0.05); }
-
-    /* Toast notification */
-    .toast {
-      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px);
-      background: var(--slate); color: white;
-      padding: 10px 20px; border-radius: 12px; font-size: 0.83rem; font-weight: 600;
-      z-index: 9999; transition: transform 0.3s ease; white-space: nowrap;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-    }
-    .toast.show { transform: translateX(-50%) translateY(0); }
-
-    /* ═══════════════════════════════════════
-       RESPONSIVE
-    ═══════════════════════════════════════ */
-    @media (max-width: 1100px) {
-      .page-layout { grid-template-columns: 240px 1fr; }
-      .sidebar-right { display: none; }
+    /* Left sidebar - Profile & Groups */
+    .fb-left {
+      position: sticky;
+      top: 70px;
+      height: fit-content;
     }
 
-    /* ═══════════════════════════════════════
-       MOBILE STYLES
-    ═══════════════════════════════════════ */
+    .profile-card {
+      background: var(--fb-surface);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      border: 1px solid var(--fb-border);
+    }
+
+    .profile-cover {
+      height: 60px;
+      background: linear-gradient(135deg, var(--fb-primary), #0369a1);
+      border-radius: 8px;
+      margin: -16px -16px 0 -16px;
+    }
+
+    .profile-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      border: 4px solid var(--fb-surface);
+      margin-top: -36px;
+      margin-bottom: 12px;
+    }
+
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .profile-name {
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .profile-bio {
+      font-size: 0.8rem;
+      color: var(--fb-text-secondary);
+      margin-top: 4px;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      color: var(--fb-text);
+      text-decoration: none;
+      margin: 4px 0;
+    }
+
+    .menu-item:hover {
+      background: var(--fb-hover);
+    }
+
+    /* Main feed - Create post + posts */
+    .fb-main {
+      max-width: 680px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Stories row */
+    .stories-row {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 8px 0 16px;
+      scrollbar-width: thin;
+    }
+
+    .story {
+      flex-shrink: 0;
+      width: 110px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .story-ring {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #f09433, #d62976, #962fbf);
+      padding: 3px;
+      margin: 0 auto;
+    }
+
+    .story-ring-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: var(--fb-card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .story-ring-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .story-name {
+      font-size: 0.7rem;
+      margin-top: 6px;
+      color: var(--fb-text-secondary);
+    }
+
+    /* Create post box */
+    .create-post {
+      background: var(--fb-surface);
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      border: 1px solid var(--fb-border);
+    }
+
+    .create-post-top {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .create-post-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--fb-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .create-post-input {
+      flex: 1;
+      background: var(--fb-card);
+      border: none;
+      border-radius: 24px;
+      padding: 10px 16px;
+      color: var(--fb-text);
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .create-post-actions {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--fb-divider);
+    }
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: none;
+      color: var(--fb-text-secondary);
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .action-btn:hover {
+      background: var(--fb-hover);
+    }
+
+    /* Post card */
+    .post-card {
+      background: var(--fb-surface);
+      border-radius: 12px;
+      margin-bottom: 16px;
+      border: 1px solid var(--fb-border);
+      overflow: hidden;
+    }
+
+    .post-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+    }
+
+    .post-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--fb-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .post-author {
+      font-weight: 600;
+    }
+
+    .post-time {
+      font-size: 0.7rem;
+      color: var(--fb-text-secondary);
+    }
+
+    .post-content {
+      padding: 0 16px 12px;
+    }
+
+    .post-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .post-text {
+      color: var(--fb-text-secondary);
+      margin-bottom: 12px;
+    }
+
+    .post-image {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      margin-top: 8px;
+      border-radius: 8px;
+    }
+
+    .post-stats {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 16px;
+      border-top: 1px solid var(--fb-divider);
+      color: var(--fb-text-secondary);
+      font-size: 0.8rem;
+    }
+
+    .post-actions {
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 16px;
+      border-top: 1px solid var(--fb-divider);
+    }
+
+    .post-action {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: none;
+      color: var(--fb-text-secondary);
+      padding: 8px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+
+    .post-action:hover {
+      background: var(--fb-hover);
+    }
+
+    .post-action.liked {
+      color: var(--fb-primary);
+    }
+
+    /* Comments section */
+    .comments-section {
+      padding: 12px 16px;
+      border-top: 1px solid var(--fb-divider);
+      display: none;
+    }
+
+    .comments-section.show {
+      display: block;
+    }
+
+    .comment-input {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .comment-input input {
+      flex: 1;
+      background: var(--fb-card);
+      border: none;
+      border-radius: 20px;
+      padding: 8px 14px;
+      color: var(--fb-text);
+    }
+
+    .comment {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .comment-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--fb-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+    }
+
+    .comment-content {
+      background: var(--fb-card);
+      padding: 8px 12px;
+      border-radius: 18px;
+      flex: 1;
+    }
+
+    .comment-name {
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+
+    .comment-text {
+      font-size: 0.8rem;
+      color: var(--fb-text-secondary);
+    }
+
+    /* Right sidebar */
+    .fb-right {
+      position: sticky;
+      top: 70px;
+      height: fit-content;
+    }
+
+    .trending-card, .pages-card {
+      background: var(--fb-surface);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      border: 1px solid var(--fb-border);
+    }
+
+    .card-title {
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .trending-item {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--fb-divider);
+      cursor: pointer;
+    }
+
+    .trending-item:last-child {
+      border-bottom: none;
+    }
+
+    .trending-tag {
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .trending-count {
+      font-size: 0.7rem;
+      color: var(--fb-text-secondary);
+    }
+
+    .page-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+    }
+
+    .page-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--fb-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Modal for create post */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--fb-surface);
+      border-radius: 16px;
+      width: 500px;
+      max-width: 90%;
+      padding: 20px;
+    }
+
+    .modal-content textarea {
+      width: 100%;
+      background: var(--fb-card);
+      border: none;
+      border-radius: 12px;
+      padding: 12px;
+      color: var(--fb-text);
+      margin: 12px 0;
+    }
+
+    /* Bottom navigation for mobile */
+    .mobile-bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--fb-surface);
+      border-top: 1px solid var(--fb-border);
+      padding: 8px 0;
+      justify-content: space-around;
+      z-index: 1000;
+    }
+
+    .mobile-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: var(--fb-text-secondary);
+      text-decoration: none;
+      font-size: 0.7rem;
+    }
+
+    .mobile-nav-item i {
+      font-size: 1.2rem;
+    }
+
+    @media (max-width: 1000px) {
+      .fb-container {
+        grid-template-columns: 80px 1fr 280px;
+      }
+      .menu-item span:not(.menu-icon) {
+        display: none;
+      }
+      .profile-name, .profile-bio {
+        display: none;
+      }
+    }
+
     @media (max-width: 768px) {
-
-      /* Layout: single column, extra bottom padding for tab bar */
-      .page-layout {
+      .fb-container {
         grid-template-columns: 1fr;
-        padding-top: calc(var(--nav-h) + 8px);
-        padding-bottom: 80px;
-        padding-left: 0; padding-right: 0;
-        gap: 0;
+        padding-top: 65px;
       }
-
-      /* Hide desktop sidebars — content shown inline instead */
-      .sidebar-left { display: none; }
-      .sidebar-right { display: none; }
-
-      /* Nav: hide text links, show only logo + search + WA */
-      .nav-links-bar { display: none; }
-      .nav-mobile-toggle { display: none; } /* using tab bar instead */
-      .nav-wa-btn span { display: none; } /* icon only on mobile */
-      .nav-wa-btn { padding: 8px 12px; }
-      .nav-search { max-width: none; flex: 1; }
-
-      /* Feed area full width */
-      .feed-area { padding: 0; }
-
-      /* Feed header compact */
-      .feed-header {
-        border-radius: 0; margin-bottom: 0;
-        padding: 20px 16px 18px;
+      .fb-left, .fb-right {
+        display: none;
       }
-      .feed-header h1 { font-size: 1.4rem; }
-      .feed-header p { font-size: 0.82rem; }
-
-      /* ── MOBILE COMMUNITY STRIP ──
-         Shown below header on mobile — replaces left sidebar */
-      .mobile-community-strip {
-        display: flex !important;
-        align-items: center; gap: 12px;
-        background: var(--white);
-        padding: 12px 16px;
-        border-bottom: 1px solid var(--border);
+      .mobile-bottom-nav {
+        display: flex;
       }
-      .mcs-avatar {
-        width: 40px; height: 40px; border-radius: 10px;
-        overflow: hidden; flex-shrink: 0;
+      .fb-nav-icons {
+        display: none;
       }
-      .mcs-avatar img { width: 100%; height: 100%; object-fit: cover; }
-      .mcs-info { flex: 1; min-width: 0; }
-      .mcs-name { font-weight: 700; font-size: 0.85rem; color: var(--slate); }
-      .mcs-sub  { font-size: 0.72rem; color: var(--muted); }
-      .mcs-stats { display: flex; gap: 12px; }
-      .mcs-stat { text-align: center; }
-      .mcs-stat-val { font-weight: 800; font-size: 0.9rem; color: var(--sky); }
-      .mcs-stat-lbl { font-size: 0.62rem; color: var(--muted); }
-      .mcs-wa {
-        display: flex; align-items: center; gap: 5px;
-        background: #25d366; color: white;
-        padding: 7px 12px; border-radius: 8px;
-        font-size: 0.75rem; font-weight: 700;
-        text-decoration: none; white-space: nowrap; flex-shrink: 0;
-      }
-
-      /* ── MOBILE CATEGORY SCROLL ──
-         Horizontal scrollable pills — replaces sidebar category list */
-      .mobile-cat-scroll {
-        display: flex !important;
-        overflow-x: auto; gap: 8px;
-        padding: 10px 16px;
-        background: var(--white);
-        border-bottom: 1px solid var(--border);
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-      }
-      .mobile-cat-scroll::-webkit-scrollbar { display: none; }
-      .mobile-cat-pill {
-        flex-shrink: 0; padding: 6px 14px;
-        border-radius: 20px; font-size: 0.78rem; font-weight: 600;
-        border: 1.5px solid var(--border); background: var(--white);
-        color: var(--muted); cursor: pointer;
-        transition: all 0.2s; font-family: inherit; white-space: nowrap;
-      }
-      .mobile-cat-pill.active {
-        background: var(--sky); border-color: var(--sky);
-        color: white; box-shadow: 0 2px 8px rgba(14,165,233,0.3);
-      }
-
-      /* Sort bar */
-      .feed-sort-bar {
-        border-radius: 0; margin-bottom: 0;
-        border-left: none; border-right: none;
-        border-top: none;
-        padding: 8px 16px;
-      }
-
-      /* Post cards full width */
-      .post-card {
-        border-radius: 0;
-        border-left: none; border-right: none;
-        margin-bottom: 8px;
-        box-shadow: none;
-        border-bottom: 8px solid #f0f4f8;
-      }
-      .post-card:hover { transform: none; box-shadow: none; }
-
-      .post-card-img { max-height: 220px; }
-      .post-card-title { font-size: 1.05rem; }
-      .post-card-body { padding: 12px 16px 10px; }
-      .post-card-header { padding: 12px 16px 8px; }
-      .post-card-footer { padding: 8px 16px; }
-
-      /* Feed empty */
-      .feed-empty { border-radius: 0; border-left: none; border-right: none; }
-
-      /* Skeleton cards */
-      .skeleton-card { border-radius: 0; border-left: none; border-right: none;
-        margin-bottom: 8px; box-shadow: none; }
-
-      /* ── MOBILE SERVICES ROW ──
-         Horizontal scroll of service cards — replaces right sidebar */
-      .mobile-services-row {
-        display: block !important;
-        background: var(--white);
-        border-top: 8px solid #f0f4f8;
-        padding: 16px;
-      }
-      .mobile-services-title {
-        font-size: 0.72rem; font-weight: 700; color: var(--muted);
-        text-transform: uppercase; letter-spacing: 0.08em;
-        margin-bottom: 12px;
-      }
-      .mobile-services-scroll {
-        display: flex; gap: 10px; overflow-x: auto;
-        -webkit-overflow-scrolling: touch; scrollbar-width: none;
-        padding-bottom: 4px;
-      }
-      .mobile-services-scroll::-webkit-scrollbar { display: none; }
-      .mobile-service-card {
-        flex-shrink: 0; width: 140px;
-        background: var(--light); border-radius: 12px;
-        padding: 12px; text-decoration: none;
-        border: 1px solid var(--border); transition: all 0.2s;
-      }
-      .mobile-service-card:hover { border-color: var(--sky); }
-      .msvc-icon {
-        width: 32px; height: 32px; border-radius: 8px;
-        background: rgba(14,165,233,0.12);
-        display: flex; align-items: center; justify-content: center;
-        color: var(--sky); font-size: 0.85rem; margin-bottom: 8px;
-      }
-      .msvc-name { font-size: 0.78rem; font-weight: 700; color: var(--slate); margin-bottom: 3px; line-height: 1.3; }
-      .msvc-price { font-size: 0.68rem; color: var(--sky); font-weight: 700; }
-
-      /* ── MOBILE TOOLS STRIP ── */
-      .mobile-tools-strip {
-        display: flex !important;
-        align-items: center; justify-content: space-between;
-        background: linear-gradient(135deg, var(--slate), #0f2040);
-        padding: 14px 16px; margin-top: 8px;
-        gap: 12px;
-      }
-      .mts-text { flex: 1; }
-      .mts-text h4 { font-size: 0.85rem; font-weight: 700; color: white; margin-bottom: 2px; }
-      .mts-text p  { font-size: 0.72rem; color: #94a3b8; }
-      .mts-btn {
-        background: var(--sky); color: white;
-        padding: 8px 14px; border-radius: 8px;
-        font-size: 0.78rem; font-weight: 700;
-        text-decoration: none; white-space: nowrap; flex-shrink: 0;
-        display: flex; align-items: center; gap: 5px;
-      }
-
-      /* ── BOTTOM TAB BAR ── */
-      .mobile-tab-bar {
-        display: flex !important;
-        position: fixed; bottom: 0; left: 0; right: 0; z-index: 999;
-        background: var(--white);
-        border-top: 1px solid var(--border);
-        padding: 6px 0 env(safe-area-inset-bottom, 0);
-        box-shadow: 0 -4px 16px rgba(0,0,0,0.08);
-      }
-      .tab-bar-item {
-        flex: 1; display: flex; flex-direction: column;
-        align-items: center; gap: 3px;
-        padding: 6px 4px; text-decoration: none;
-        color: var(--muted); font-size: 0.6rem; font-weight: 600;
-        transition: color 0.2s;
-      }
-      .tab-bar-item.active { color: var(--sky); }
-      .tab-bar-item i { font-size: 1.1rem; }
-      .tab-bar-item.tab-wa { color: #25d366; }
-
-      /* Modal mobile fixes */
-      .post-modal { margin: 0; border-radius: 20px 20px 0 0; margin-top: auto; }
-      .post-modal-overlay { align-items: flex-end; padding: 0; }
-      .modal-hero { height: 200px; }
-      .modal-body { padding: 20px 16px; }
-      .modal-reactions { padding: 12px 16px; }
-      .modal-cta-section { padding: 16px; }
-      .modal-cta-btns { flex-direction: column; }
-      .cta-btn { justify-content: center; }
     }
-
-    /* Extra small screens */
-    @media (max-width: 380px) {
-      .mcs-stats { display: none; }
-      .nav-search input { font-size: 0.8rem; }
-    }
-
-    /* ── Hide mobile-only elements on desktop ── */
-    .mobile-community-strip,
-    .mobile-cat-scroll,
-    .mobile-services-row,
-    .mobile-tools-strip,
-    .mobile-tab-bar { display: none; }
-    /* ========== BOTTOM NAVIGATION BAR ========== */
-.mobile-tab-bar {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 99999;
-  background: #0a0f1c;
-  border-top: 1px solid rgba(255,255,255,0.1);
-  padding: 8px 0 12px;
-  padding-bottom: calc(12px + env(safe-area-inset-bottom, 0));
-  box-shadow: 0 -4px 16px rgba(0,0,0,0.4);
-}
-
-.tab-bar-item {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  padding: 6px 4px;
-  text-decoration: none;
-  color: #64748b;
-  font-size: 0.65rem;
-  font-weight: 600;
-  transition: color 0.2s;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.tab-bar-item.active {
-  color: #0ea5e9;
-}
-
-.tab-bar-item i {
-  font-size: 1.2rem;
-  margin: 0;
-}
-
-.tab-bar-item.tab-wa {
-  color: #25D366;
-}
-
-.tab-bar-item span {
-  font-size: 0.6rem;
-}
-
-@media (max-width: 768px) {
-  .mobile-tab-bar {
-    display: flex !important;
-  }
-  body {
-    padding-bottom: 70px;
-  }
-}
   </style>
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════
-       TOP NAV
-  ═══════════════════════════════════════ -->
-  <nav class="top-nav">
-    <a href="index.html" class="nav-brand">
-      <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X" />
-      <div>
-        <div class="nav-brand-text">BLESS<span>Tech-X</span></div>
-        <div class="nav-brand-sub">Community</div>
-      </div>
+  <!-- Facebook-style Nav -->
+  <nav class="fb-nav">
+    <a href="index.html" class="fb-logo">
+      <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X">
+      <span>BizConnect</span>
     </a>
-
-    <div class="nav-search">
+    <div class="fb-search">
       <i class="fas fa-search"></i>
-      <input type="text" id="searchInput" placeholder="Search posts…" />
+      <input type="text" id="searchInput" placeholder="Search business tips, advice...">
     </div>
-
-    <div class="nav-links-bar">
-      <a href="index.html" class="nav-link-btn"><i class="fas fa-home"></i> Home</a>
-      <a href="blog.html" class="nav-link-btn active"><i class="fas fa-newspaper"></i> Blog</a>
-      <a href="tools/index.html" class="nav-link-btn"><i class="fas fa-tools"></i> Free Tools</a>
-      <a href="index.html#services" class="nav-link-btn"><i class="fas fa-briefcase"></i> Services</a>
+    <div class="fb-nav-icons">
+      <a href="#"><i class="fas fa-home"></i></a>
+      <a href="#"><i class="fas fa-users"></i></a>
+      <a href="#"><i class="fas fa-bell"></i></a>
+      <a href="#"><i class="fas fa-comment-dots"></i></a>
     </div>
-
-    <a href="https://wa.me/260979603741?text=Hello%20BLESSTech-X!" class="nav-wa-btn" target="_blank" rel="noopener">
-      <i class="fab fa-whatsapp"></i> Chat
-    </a>
-    <button class="nav-mobile-toggle" id="mobileMenuToggle" aria-label="Menu">
-      <i class="fas fa-bars"></i>
-    </button>
   </nav>
 
-  <!-- ═══════════════════════════════════════
-       PAGE LAYOUT
-  ═══════════════════════════════════════ -->
-  <div class="page-layout">
-
+  <div class="fb-container">
     <!-- LEFT SIDEBAR -->
-    <aside class="sidebar-left">
-      <!-- Community card -->
-      <div class="sidebar-card">
-        <div class="community-card-banner"></div>
-        <div style="position:relative">
-          <div class="community-card-avatar">
-            <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X" />
-          </div>
-        </div>
-        <div class="community-card-body">
-          <div class="community-card-name">BLESSTech-X Community</div>
-          <div class="community-card-sub">Business tips for Zambia 🇿🇲</div>
-          <div class="community-stats">
-            <div class="comm-stat">
-              <div class="comm-stat-val" id="statPosts">—</div>
-              <div class="comm-stat-lbl">Articles</div>
-            </div>
-            <div class="comm-stat">
-              <div class="comm-stat-val">150+</div>
-              <div class="comm-stat-lbl">Clients</div>
-            </div>
-          </div>
-          <a href="https://wa.me/260979603741?text=Hello%20BLESSTech-X!%20I%20want%20to%20grow%20my%20business." class="sidebar-wa-btn" target="_blank" rel="noopener">
-            <i class="fab fa-whatsapp"></i> Join on WhatsApp
-          </a>
-        </div>
+    <div class="fb-left">
+      <div class="profile-card">
+        <div class="profile-cover"></div>
+        <img class="profile-avatar" src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="Profile">
+        <div class="profile-name">BLESSTech-X</div>
+        <div class="profile-bio">Zambian Business Community</div>
       </div>
-
-      <!-- Categories -->
-      <div class="sidebar-card">
-        <div class="sidebar-card-header">Topics</div>
-        <div class="cat-list" id="catList">
-          <button class="cat-item active" data-cat="all" onclick="filterByCategory('all', this)">
-            <span class="cat-icon">📰</span> All Posts <span class="cat-count" id="countAll">0</span>
-          </button>
-          <button class="cat-item" data-cat="Business Tips" onclick="filterByCategory('Business Tips', this)">
-            <span class="cat-icon">💼</span> Business Tips <span class="cat-count" id="countBiz">0</span>
-          </button>
-          <button class="cat-item" data-cat="E-commerce" onclick="filterByCategory('E-commerce', this)">
-            <span class="cat-icon">🛒</span> E-commerce <span class="cat-count" id="countEcom">0</span>
-          </button>
-          <button class="cat-item" data-cat="Digital Marketing" onclick="filterByCategory('Digital Marketing', this)">
-            <span class="cat-icon">📣</span> Digital Marketing <span class="cat-count" id="countMktg">0</span>
-          </button>
-          <button class="cat-item" data-cat="Zambia Tech" onclick="filterByCategory('Zambia Tech', this)">
-            <span class="cat-icon">🇿🇲</span> Zambia Tech <span class="cat-count" id="countZm">0</span>
-          </button>
-          <button class="cat-item" data-cat="Case Study" onclick="filterByCategory('Case Study', this)">
-            <span class="cat-icon">📊</span> Case Studies <span class="cat-count" id="countCase">0</span>
-          </button>
-          <button class="cat-item" data-cat="Announcements" onclick="filterByCategory('Announcements', this)">
-            <span class="cat-icon">📢</span> Announcements <span class="cat-count" id="countAnn">0</span>
-          </button>
-        </div>
-      </div>
-    </aside>
+      <a href="#" class="menu-item"><i class="fas fa-newspaper menu-icon" style="width:28px;"></i><span>Feed</span></a>
+      <a href="#" class="menu-item"><i class="fas fa-store menu-icon" style="width:28px;"></i><span>Marketplace</span></a>
+      <a href="#" class="menu-item"><i class="fas fa-chart-line menu-icon" style="width:28px;"></i><span>Business Insights</span></a>
+      <a href="tools/index.html" class="menu-item"><i class="fas fa-tools menu-icon" style="width:28px;"></i><span>Free Tools</span></a>
+    </div>
 
     <!-- MAIN FEED -->
-    <main class="feed-area">
-      <!-- Header -->
-      <div class="feed-header">
-        <div class="feed-header-badge"><i class="fas fa-fire"></i> BLESSTech-X Blog</div>
-        <h1>Grow Your Business<br/>Online in Zambia</h1>
-        <p>Practical strategies, real case studies, and digital tips written specifically for Zambian entrepreneurs and business owners.</p>
+    <div class="fb-main">
+      <!-- Stories -->
+      <div class="stories-row">
+        <div class="story"><div class="story-ring"><div class="story-ring-inner"><i class="fas fa-plus-circle" style="font-size:2rem;"></i></div></div><div class="story-name">Create Story</div></div>
+        <div class="story"><div class="story-ring"><div class="story-ring-inner"><img src="https://i.pravatar.cc/150?img=1"></div></div><div class="story-name">Blessings B.</div></div>
+        <div class="story"><div class="story-ring"><div class="story-ring-inner"><img src="https://i.pravatar.cc/150?img=2"></div></div><div class="story-name">Sylvester M.</div></div>
+        <div class="story"><div class="story-ring"><div class="story-ring-inner"><img src="https://i.pravatar.cc/150?img=3"></div></div><div class="story-name">Veronica M.</div></div>
+        <div class="story"><div class="story-ring"><div class="story-ring-inner"><img src="https://i.pravatar.cc/150?img=4"></div></div><div class="story-name">David C.</div></div>
       </div>
 
-      <!-- MOBILE ONLY: Community strip -->
-      <div class="mobile-community-strip">
-        <div class="mcs-avatar"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X" /></div>
-        <div class="mcs-info">
-          <div class="mcs-name">BLESSTech-X Community</div>
-          <div class="mcs-sub">Tips for Zambia 🇿🇲</div>
+      <!-- Create Post -->
+      <div class="create-post">
+        <div class="create-post-top">
+          <div class="create-post-avatar"><i class="fas fa-user"></i></div>
+          <div class="create-post-input" onclick="openPostModal()">What's on your mind, entrepreneur?</div>
         </div>
-        <div class="mcs-stats">
-          <div class="mcs-stat"><div class="mcs-stat-val" id="statPostsMobile">—</div><div class="mcs-stat-lbl">Posts</div></div>
-          <div class="mcs-stat"><div class="mcs-stat-val">150+</div><div class="mcs-stat-lbl">Clients</div></div>
-        </div>
-        <a href="https://wa.me/260979603741" class="mcs-wa" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Join</a>
-      </div>
-
-      <!-- MOBILE ONLY: Horizontal category pills -->
-      <div class="mobile-cat-scroll">
-        <button class="mobile-cat-pill active" onclick="mobileFilterCat('all',this)">📰 All</button>
-        <button class="mobile-cat-pill" onclick="mobileFilterCat('Business Tips',this)">💼 Business</button>
-        <button class="mobile-cat-pill" onclick="mobileFilterCat('E-commerce',this)">🛒 E-commerce</button>
-        <button class="mobile-cat-pill" onclick="mobileFilterCat('Digital Marketing',this)">📣 Marketing</button>
-        <button class="mobile-cat-pill" onclick="mobileFilterCat('Zambia Tech',this)">🇿🇲 Zambia Tech</button>
-        <button class="mobile-cat-pill" onclick="mobileFilterCat('Case Study',this)">📊 Case Studies</button>
-        <button class="mobile-cat-pill" onclick="mobileFilterCat('Announcements',this)">📢 News</button>
-      </div>
-
-      <!-- Sort bar -->
-      <div class="feed-sort-bar">
-        <span class="sort-label">Sort by:</span>
-        <button class="sort-btn active" onclick="sortFeed('newest', this)">Newest</button>
-        <button class="sort-btn" onclick="sortFeed('oldest', this)">Oldest</button>
-        <span style="margin-left:auto;font-size:0.78rem;color:var(--muted)" id="postCount"></span>
-      </div>
-
-      <!-- Loading skeletons -->
-      <div id="feedLoading">
-        <div class="skeleton-card">
-          <div style="display:flex;gap:10px;margin-bottom:12px">
-            <div class="skel skel-avatar"></div>
-            <div style="flex:1"><div class="skel skel-line" style="width:40%;margin-bottom:6px"></div><div class="skel skel-line" style="width:25%"></div></div>
-          </div>
-          <div class="skel skel-line" style="width:80%;margin-bottom:6px"></div>
-          <div class="skel skel-line" style="width:60%;margin-bottom:6px"></div>
-          <div class="skel skel-img"></div>
-        </div>
-        <div class="skeleton-card">
-          <div style="display:flex;gap:10px;margin-bottom:12px">
-            <div class="skel skel-avatar"></div>
-            <div style="flex:1"><div class="skel skel-line" style="width:35%;margin-bottom:6px"></div><div class="skel skel-line" style="width:20%"></div></div>
-          </div>
-          <div class="skel skel-line" style="width:90%;margin-bottom:6px"></div>
-          <div class="skel skel-line" style="width:70%;margin-bottom:6px"></div>
-          <div class="skel skel-img"></div>
+        <div class="create-post-actions">
+          <button class="action-btn" onclick="openPostModal()"><i class="fas fa-video" style="color:#e42645;"></i> Live video</button>
+          <button class="action-btn" onclick="openPostModal()"><i class="fas fa-image" style="color:#45bd62;"></i> Photo/Video</button>
+          <button class="action-btn" onclick="openPostModal()"><i class="fas fa-smile" style="color:#f5b042;"></i> Feeling/Activity</button>
         </div>
       </div>
 
-      <!-- Feed -->
-      <div id="feedGrid"></div>
-
-      <!-- Empty state -->
-      <div id="feedEmpty" style="display:none">
-        <div class="feed-empty">
-          <div class="feed-empty-icon">✍️</div>
-          <h3>No posts yet</h3>
-          <p>We're writing guides to help your Zambian business grow. Check back soon — or talk to us directly.</p>
-          <a href="https://wa.me/260979603741" class="cta-btn cta-btn-wa" target="_blank">
-            <i class="fab fa-whatsapp"></i> Chat With Us
-          </a>
-        </div>
-      </div>
-
-      <!-- MOBILE ONLY: Services horizontal scroll -->
-      <div class="mobile-services-row">
-        <div class="mobile-services-title">Our Services</div>
-        <div class="mobile-services-scroll">
-          <a href="index.html#services" class="mobile-service-card">
-            <div class="msvc-icon"><i class="fas fa-store"></i></div>
-            <div class="msvc-name">E-commerce Store</div>
-            <div class="msvc-price">From ZMW 980</div>
-          </a>
-          <a href="index.html#services" class="mobile-service-card">
-            <div class="msvc-icon"><i class="fas fa-laptop"></i></div>
-            <div class="msvc-name">Professional Website</div>
-            <div class="msvc-price">From ZMW 650</div>
-          </a>
-          <a href="index.html#services" class="mobile-service-card">
-            <div class="msvc-icon"><i class="fas fa-paint-brush"></i></div>
-            <div class="msvc-name">Logo & Branding</div>
-            <div class="msvc-price">From ZMW 250</div>
-          </a>
-          <a href="index.html#services" class="mobile-service-card">
-            <div class="msvc-icon"><i class="fas fa-bullhorn"></i></div>
-            <div class="msvc-name">Social Media Mgmt</div>
-            <div class="msvc-price">From ZMW 200/mo</div>
-          </a>
-          <a href="index.html#services" class="mobile-service-card">
-            <div class="msvc-icon"><i class="fas fa-chart-line"></i></div>
-            <div class="msvc-name">SEO & Google</div>
-            <div class="msvc-price">From ZMW 150/mo</div>
-          </a>
-        </div>
-      </div>
-
-      <!-- MOBILE ONLY: Free tools strip -->
-      <div class="mobile-tools-strip">
-        <div class="mts-text">
-          <h4>🔧 20+ Free Tools</h4>
-          <p>Invoice generator, CV builder, QR codes & more — no signup needed.</p>
-        </div>
-        <a href="tools/index.html" class="mts-btn"><i class="fas fa-tools"></i> Try Free</a>
-      </div>
-
-    </main>
+      <!-- Posts Feed -->
+      <div id="postsFeed"></div>
+    </div>
 
     <!-- RIGHT SIDEBAR -->
-    <aside class="sidebar-right">
-      <!-- Trending -->
-      <div class="sidebar-card">
-        <div class="sidebar-card-header">Trending Topics</div>
-        <div class="trending-list" id="trendingList">
-          <div class="trending-item"><span class="trending-num">1</span><div class="trending-info"><div class="trending-tag">#EcommerceZambia</div><div class="trending-count">E-commerce</div></div></div>
-          <div class="trending-item"><span class="trending-num">2</span><div class="trending-info"><div class="trending-tag">#AirtelMoney</div><div class="trending-count">Business Tips</div></div></div>
-          <div class="trending-item"><span class="trending-num">3</span><div class="trending-info"><div class="trending-tag">#LusakaBusiness</div><div class="trending-count">Zambia Tech</div></div></div>
-          <div class="trending-item"><span class="trending-num">4</span><div class="trending-info"><div class="trending-tag">#OnlineStore</div><div class="trending-count">E-commerce</div></div></div>
-          <div class="trending-item"><span class="trending-num">5</span><div class="trending-info"><div class="trending-tag">#DigitalZambia</div><div class="trending-count">Digital Marketing</div></div></div>
-        </div>
+    <div class="fb-right">
+      <div class="trending-card">
+        <div class="card-title">🌍 Trending in Zambia</div>
+        <div class="trending-item"><div class="trending-tag">#EcommerceZambia</div><div class="trending-count">245 posts</div></div>
+        <div class="trending-item"><div class="trending-tag">#SmallBusinessTips</div><div class="trending-count">189 posts</div></div>
+        <div class="trending-item"><div class="trending-tag">#LusakaEntrepreneurs</div><div class="trending-count">156 posts</div></div>
+        <div class="trending-item"><div class="trending-tag">#DigitalMarketingZM</div><div class="trending-count">98 posts</div></div>
       </div>
-
-      <!-- Our Services -->
-      <div class="sidebar-card">
-        <div class="sidebar-card-header">Our Services</div>
-        <div class="services-widget">
-          <a href="index.html#services" class="service-item">
-            <div class="service-item-icon"><i class="fas fa-store"></i></div>
-            <div><div class="service-item-name">E-commerce Store</div><div class="service-item-price">From ZMW 980</div></div>
-            <i class="fas fa-chevron-right service-item-arrow"></i>
-          </a>
-          <a href="index.html#services" class="service-item">
-            <div class="service-item-icon"><i class="fas fa-laptop"></i></div>
-            <div><div class="service-item-name">Professional Website</div><div class="service-item-price">From ZMW 650</div></div>
-            <i class="fas fa-chevron-right service-item-arrow"></i>
-          </a>
-          <a href="index.html#services" class="service-item">
-            <div class="service-item-icon"><i class="fas fa-paint-brush"></i></div>
-            <div><div class="service-item-name">Logo & Branding</div><div class="service-item-price">From ZMW 250</div></div>
-            <i class="fas fa-chevron-right service-item-arrow"></i>
-          </a>
-          <a href="index.html#services" class="service-item">
-            <div class="service-item-icon"><i class="fas fa-chart-line"></i></div>
-            <div><div class="service-item-name">SEO & Google</div><div class="service-item-price">From ZMW 150/mo</div></div>
-            <i class="fas fa-chevron-right service-item-arrow"></i>
-          </a>
-        </div>
-      </div>
-
-      <!-- Free tools promo -->
-      <div class="sidebar-card">
-        <div class="sidebar-card-header">Free Tools</div>
-        <div style="padding:14px">
-          <p style="font-size:0.82rem;color:var(--muted);margin-bottom:12px;line-height:1.6">20+ free tools for Zambian businesses — invoices, CVs, QR codes, and more. No signup needed.</p>
-          <a href="tools/index.html" class="sidebar-wa-btn" style="background:var(--sky)">
-            <i class="fas fa-tools"></i> Try Free Tools
-          </a>
-        </div>
-      </div>
-    </aside>
-
-  </div>
-
-  <!-- ═══════════════════════════════════════
-       POST MODAL
-  ═══════════════════════════════════════ -->
-  <div class="post-modal-overlay" id="postModal">
-    <div class="post-modal">
-      <div class="modal-close-bar">
-        <div class="modal-close-brand">
-          <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X" />
-          BLESSTech-X Community
-        </div>
-        <button class="modal-close-btn" onclick="closeModal()" aria-label="Close">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-      <div id="modalHero" class="modal-hero">📝</div>
-      <div class="modal-body">
-        <div class="modal-meta" id="modalMeta"></div>
-        <h1 class="modal-title" id="modalTitle"></h1>
-        <div class="modal-author-row">
-          <div class="modal-author-av">B</div>
-          <div>
-            <div class="modal-author-name" id="modalAuthor">BLESSTech-X</div>
-            <div class="modal-author-sub" id="modalDate"></div>
-          </div>
-          <div class="modal-read-time"><i class="fas fa-clock"></i> <span id="modalReadTime"></span></div>
-        </div>
-        <div class="article-content" id="modalContent"></div>
-      </div>
-      <div class="modal-reactions">
-        <button class="reaction-btn" id="modalLikeBtn" onclick="toggleModalLike()">
-          <i class="far fa-heart"></i> <span id="modalLikeCount">0</span> Likes
-        </button>
-        <button class="reaction-btn" onclick="sharePost()">
-          <i class="fas fa-share-alt"></i> Share
-        </button>
-        <button class="reaction-btn" onclick="copyLink()">
-          <i class="fas fa-link"></i> Copy Link
-        </button>
-      </div>
-      <div class="modal-cta-section">
-        <h4>Want results like this for your business?</h4>
-        <p>BLESSTech-X builds websites & e-commerce stores with Airtel & MTN Money — delivered in 7–14 days.</p>
-        <div class="modal-cta-btns">
-          <a href="https://wa.me/260979603741?text=Hello%20BLESSTech-X!%20I%20read%20your%20blog%20and%20want%20to%20know%20more." class="cta-btn cta-btn-wa" target="_blank">
-            <i class="fab fa-whatsapp"></i> Chat With Us
-          </a>
-          <a href="index.html#services" class="cta-btn cta-btn-outline">
-            <i class="fas fa-briefcase"></i> View Services
-          </a>
-        </div>
+      <div class="pages-card">
+        <div class="card-title">📢 Pages to Follow</div>
+        <div class="page-item"><div class="page-avatar"><i class="fas fa-store"></i></div><div>Zambia E-commerce Hub</div></div>
+        <div class="page-item"><div class="page-avatar"><i class="fas fa-chart-line"></i></div><div>Digital Growth Zambia</div></div>
+        <div class="page-item"><div class="page-avatar"><i class="fas fa-graduation-cap"></i></div><div>Business School ZM</div></div>
       </div>
     </div>
   </div>
 
-  <!-- MOBILE BOTTOM TAB BAR -->
-  <div class="mobile-tab-bar">
-    <a href="index.html" class="tab-bar-item"><i class="fas fa-home"></i> Home</a>
-    <a href="blog.html" class="tab-bar-item active"><i class="fas fa-newspaper"></i> Blog</a>
-    <a href="tools/index.html" class="tab-bar-item"><i class="fas fa-tools"></i> Tools</a>
-    <a href="index.html#services" class="tab-bar-item"><i class="fas fa-briefcase"></i> Services</a>
-    <a href="https://wa.me/260979603741" class="tab-bar-item tab-wa" target="_blank"><i class="fab fa-whatsapp"></i> Chat</a>
+  <!-- Mobile Bottom Nav -->
+  <div class="mobile-bottom-nav">
+    <a href="index.html" class="mobile-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="#" class="mobile-nav-item"><i class="fas fa-newspaper"></i><span>Feed</span></a>
+    <a href="tools/index.html" class="mobile-nav-item"><i class="fas fa-tools"></i><span>Tools</span></a>
+    <a href="https://wa.me/260979603741" class="mobile-nav-item"><i class="fab fa-whatsapp"></i><span>Chat</span></a>
   </div>
 
-  <!-- Toast -->
-
-  <div class="toast" id="toast"></div>
-
-  <!-- WHATSAPP FAB -->
-  <a href="https://wa.me/260979603741" class="whatsapp-fab" target="_blank" rel="noopener" aria-label="WhatsApp">
-    <i class="fab fa-whatsapp"></i>
-  </a>
+  <!-- Create Post Modal -->
+  <div id="postModal" class="modal">
+    <div class="modal-content">
+      <h3>Create Post</h3>
+      <textarea id="postTitle" placeholder="Title (e.g., 5 tips for e-commerce success)" rows="2"></textarea>
+      <textarea id="postContent" placeholder="Share your business advice, tips, or question..." rows="4"></textarea>
+      <button class="action-btn" onclick="createPost()" style="background:var(--fb-primary); color:white; width:100%;">Post</button>
+      <button class="action-btn" onclick="closeModal()" style="margin-top:8px;">Cancel</button>
+    </div>
+  </div>
 
   <script>
-  'use strict';
+    // Sample posts data
+    let posts = [
+      {
+        id: 1,
+        author: "Blessings B.",
+        authorAvatar: "B",
+        time: "2 hours ago",
+        title: "How I grew my online store by 300% in 2 months",
+        content: "The key was optimizing for mobile payments and using WhatsApp for customer support. Zambian customers trust mobile money!",
+        likes: 45,
+        comments: [
+          { name: "Veronica M.", text: "This is so helpful! Thank you." },
+          { name: "David C.", text: "Do you offer consultation?" }
+        ],
+        liked: false
+      },
+      {
+        id: 2,
+        author: "Sylvester M.",
+        authorAvatar: "S",
+        time: "5 hours ago",
+        title: "Free tools every Zambian business needs",
+        content: "Invoice generator, CV builder, QR code maker - all free on BLESSTech-X. No signup needed!",
+        likes: 32,
+        comments: [
+          { name: "Peter M.", text: "The invoice tool saved me hours!" }
+        ],
+        liked: false
+      },
+      {
+        id: 3,
+        author: "Veronica M.",
+        authorAvatar: "V",
+        time: "Yesterday",
+        title: "Question: Best way to advertise on Facebook in Zambia?",
+        content: "I'm struggling to reach local customers. Any tips from experienced marketers?",
+        likes: 28,
+        comments: [
+          { name: "Blessings B.", text: "Target by location and use Chichewa/Nyanja in your ads!" }
+        ],
+        liked: false
+      }
+    ];
 
-  // ── CONFIG ─────────────────────────────────────────────
-  const OWNER  = 'BLESSTech-X';
-  const REPO   = '.com';
-  const BRANCH = 'main';
-  const PATH   = 'content/blog';
-  const API    = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${PATH}?ref=${BRANCH}`;
+    let currentUser = "You";
+    let currentUserAvatar = "Y";
 
-  let allPosts       = [];
-  let displayedPosts = [];
-  let activeCategory = 'all';
-  let activeSort     = 'newest';
-  let searchQuery    = '';
-  let likes          = JSON.parse(localStorage.getItem('btx_likes') || '{}');
-  let saves          = JSON.parse(localStorage.getItem('btx_saves') || '{}');
-  let currentSlug    = null;
-
-  // ── BOOT ───────────────────────────────────────────────
-  document.addEventListener('DOMContentLoaded', () => {
-    loadPosts();
-
-    document.getElementById('searchInput').addEventListener('input', e => {
-      searchQuery = e.target.value.toLowerCase().trim();
-      applyFilters();
-    });
-
-    document.getElementById('postModal').addEventListener('click', e => {
-      if (e.target === document.getElementById('postModal')) closeModal();
-    });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-  });
-
-  // ── LOAD ───────────────────────────────────────────────
-  async function loadPosts() {
-    try {
-      const res = await fetch(API);
-      if (res.status === 404) { showEmpty(); return; }
-      if (!res.ok) throw new Error();
-      const files = (await res.json()).filter(f => f.name.endsWith('.md'));
-      if (!files.length) { showEmpty(); return; }
-
-      const posts = (await Promise.all(files.map(fetchPost))).filter(Boolean);
-      allPosts = posts.filter(p => p.published !== false).sort((a,b) => new Date(b.date)-new Date(a.date));
-
-      if (!allPosts.length) { showEmpty(); return; }
-
-      updateCounts();
-      applyFilters();
-      document.getElementById('feedLoading').style.display = 'none';
-
-    } catch(e) {
-      console.error(e);
-      showEmpty();
-    }
-  }
-
-  async function fetchPost(file) {
-    try {
-      const raw = await (await fetch(file.download_url)).text();
-      return parse(raw, file.name);
-    } catch { return null; }
-  }
-
-  function parse(raw, filename) {
-    const m = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-    if (!m) return null;
-    const meta = {};
-    m[1].split('\n').forEach(line => {
-      const i = line.indexOf(':'); if (i<0) return;
-      const k = line.slice(0,i).trim();
-      let v = line.slice(i+1).trim().replace(/^["']|["']$/g,'');
-      if (v==='true') v=true; if (v==='false') v=false;
-      meta[k] = v;
-    });
-    const slug = filename.replace(/^\d{4}-\d{2}-\d{2}-/,'').replace(/\.md$/,'');
-    return { ...meta, body: m[2], slug };
-  }
-
-  // ── COUNTS ─────────────────────────────────────────────
-  function updateCounts() {
-    const counts = {};
-    allPosts.forEach(p => { counts[p.category] = (counts[p.category]||0)+1; });
-    document.getElementById('statPosts').textContent = allPosts.length;
-    const mp = document.getElementById('statPostsMobile');
-    if (mp) mp.textContent = allPosts.length;
-    document.getElementById('countAll').textContent  = allPosts.length;
-    document.getElementById('countBiz').textContent  = counts['Business Tips']||0;
-    document.getElementById('countEcom').textContent = counts['E-commerce']||0;
-    document.getElementById('countMktg').textContent = counts['Digital Marketing']||0;
-    document.getElementById('countZm').textContent   = counts['Zambia Tech']||0;
-    document.getElementById('countCase').textContent = counts['Case Study']||0;
-    document.getElementById('countAnn').textContent  = counts['Announcements']||0;
-  }
-
-  // ── FILTER & SORT ───────────────────────────────────────
-  function applyFilters() {
-    let posts = [...allPosts];
-    if (activeCategory !== 'all') posts = posts.filter(p => p.category === activeCategory);
-    if (searchQuery) posts = posts.filter(p =>
-      (p.title||'').toLowerCase().includes(searchQuery) ||
-      (p.excerpt||'').toLowerCase().includes(searchQuery) ||
-      (p.body||'').toLowerCase().includes(searchQuery)
-    );
-    if (activeSort === 'oldest') posts = posts.reverse();
-    displayedPosts = posts;
-    renderFeed(posts);
-  }
-
-  window.sortFeed = function(order, btn) {
-    activeSort = order;
-    document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    applyFilters();
-  };
-
-  window.filterByCategory = function(cat, btn) {
-    activeCategory = cat;
-    document.querySelectorAll('.cat-item').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    applyFilters();
-  };
-
-  // ── RENDER FEED ─────────────────────────────────────────
-  function renderFeed(posts) {
-    document.getElementById('feedLoading').style.display = 'none';
-    const grid = document.getElementById('feedGrid');
-    const empty = document.getElementById('feedEmpty');
-
-    if (!posts.length) {
-      grid.innerHTML = ''; empty.style.display = 'block';
-      document.getElementById('postCount').textContent = '';
-      return;
-    }
-    empty.style.display = 'none';
-    document.getElementById('postCount').textContent = `${posts.length} post${posts.length!==1?'s':''}`;
-
-    grid.innerHTML = posts.map(post => {
-      const date    = fmtDate(post.date);
-      const excerpt = post.excerpt || extractExcerpt(post.body);
-      const icon    = catIcon(post.category);
-      const rt      = readTime(post.body);
-      const liked   = likes[post.slug];
-      const saved   = saves[post.slug];
-      const likeCount = parseInt(localStorage.getItem('btx_lc_'+post.slug)||'0');
-
-      return `
-        <div class="post-card" onclick="openPost('${esc(post.slug)}')">
-          ${post.image
-            ? `<div class="post-card-img"><img src="${esc(post.image)}" alt="${esc(post.title)}" loading="lazy" onerror="this.parentElement.outerHTML='<div class=post-card-img-placeholder>${icon}</div>'" /></div>`
-            : `<div class="post-card-img-placeholder">${icon}</div>`
-          }
-          <div class="post-card-header">
-            <div class="post-author-avatar">B</div>
-            <div class="post-author-info">
-              <div class="post-author-name">${esc(post.author||'BLESSTech-X')}</div>
-              <div class="post-author-meta">
-                ${date ? `<span>${date}</span><span class="sep">·</span>` : ''}
-                <span class="reading-time"><i class="fas fa-clock"></i> ${rt}</span>
-                ${post.category ? `<span class="sep">·</span><span class="post-cat-pill">${esc(post.category)}</span>` : ''}
-              </div>
+    function renderPosts() {
+      const feed = document.getElementById('postsFeed');
+      if (!feed) return;
+      
+      feed.innerHTML = posts.map(post => `
+        <div class="post-card" data-post-id="${post.id}">
+          <div class="post-header">
+            <div class="post-avatar">${post.authorAvatar}</div>
+            <div>
+              <div class="post-author">${post.author}</div>
+              <div class="post-time">${post.time}</div>
             </div>
           </div>
-          <div class="post-card-body">
-            <div class="post-card-title">${esc(post.title)}</div>
-            <div class="post-card-excerpt">${esc(excerpt)}</div>
-            <span class="post-read-more">Read full post <i class="fas fa-arrow-right"></i></span>
+          <div class="post-content">
+            <div class="post-title">${escapeHtml(post.title)}</div>
+            <div class="post-text">${escapeHtml(post.content)}</div>
           </div>
-          <div class="post-card-footer" onclick="event.stopPropagation()">
-            <button class="reaction-btn ${liked?'liked':''}" onclick="toggleLike('${esc(post.slug)}',this)">
-              <i class="${liked?'fas':'far'} fa-heart"></i>
-              <span class="like-num">${liked ? likeCount||1 : likeCount||0}</span>
+          <div class="post-stats">
+            <span><i class="fas fa-thumbs-up"></i> ${post.likes} likes</span>
+            <span>${post.comments.length} comments</span>
+          </div>
+          <div class="post-actions">
+            <button class="post-action ${post.liked ? 'liked' : ''}" onclick="toggleLike(${post.id})">
+              <i class="fas fa-thumbs-up"></i> Like
             </button>
-            <button class="reaction-btn ${saved?'saved':''}" onclick="toggleSave('${esc(post.slug)}',this)">
-              <i class="${saved?'fas':'far'} fa-bookmark"></i> ${saved?'Saved':'Save'}
+            <button class="post-action" onclick="toggleComments(${post.id})">
+              <i class="fas fa-comment"></i> Comment
             </button>
-            <button class="post-share-btn" onclick="shareCard('${esc(post.slug)}','${esc(post.title)}')">
-              <i class="fas fa-share-alt"></i> Share
+            <button class="post-action" onclick="sharePost(${post.id})">
+              <i class="fas fa-share"></i> Share
             </button>
           </div>
-        </div>`;
-    }).join('');
-  }
-
-  // ── OPEN POST ────────────────────────────────────────────
-  window.openPost = function(slug) {
-    const post = allPosts.find(p => p.slug === slug); if (!post) return;
-    currentSlug = slug;
-
-    // Hero
-    const hero = document.getElementById('modalHero');
-    if (post.image) {
-      hero.innerHTML = `<img src="${esc(post.image)}" alt="${esc(post.title)}" />`;
-    } else {
-      hero.innerHTML = catIcon(post.category);
-      hero.style.fontSize = '5rem';
+          <div class="comments-section" id="comments-${post.id}">
+            <div class="comment-input">
+              <div class="comment-avatar" style="width:28px;height:28px;">${currentUserAvatar}</div>
+              <input type="text" id="commentInput-${post.id}" placeholder="Write a comment...">
+              <button onclick="addComment(${post.id})" style="background:var(--fb-primary); border:none; border-radius:20px; padding:0 12px; color:white;">Post</button>
+            </div>
+            <div id="commentsList-${post.id}">
+              ${post.comments.map(c => `
+                <div class="comment">
+                  <div class="comment-avatar" style="width:28px;height:28px;">${c.name[0]}</div>
+                  <div class="comment-content">
+                    <div class="comment-name">${escapeHtml(c.name)}</div>
+                    <div class="comment-text">${escapeHtml(c.text)}</div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `).join('');
     }
 
-    // Meta
-    document.getElementById('modalMeta').innerHTML = `
-      ${post.category ? `<span class="post-cat-pill" style="font-size:0.8rem;padding:4px 10px">${esc(post.category)}</span>` : ''}
-      ${post.date ? `<span style="font-size:0.78rem;color:var(--muted)">${fmtDate(post.date)}</span>` : ''}
-    `;
-    document.getElementById('modalTitle').textContent   = post.title || '';
-    document.getElementById('modalAuthor').textContent  = post.author || 'BLESSTech-X';
-    document.getElementById('modalDate').textContent    = post.date ? fmtDate(post.date) : '';
-    document.getElementById('modalReadTime').textContent = readTime(post.body);
-    document.getElementById('modalContent').innerHTML   = marked.parse(post.body || '');
-
-    // Like state
-    const liked = likes[slug];
-    const lc    = parseInt(localStorage.getItem('btx_lc_'+slug)||'0');
-    const likeBtn  = document.getElementById('modalLikeBtn');
-    const likeIcon = likeBtn.querySelector('i');
-    document.getElementById('modalLikeCount').textContent = lc;
-    likeBtn.classList.toggle('liked', !!liked);
-    likeIcon.className = liked ? 'fas fa-heart' : 'far fa-heart';
-
-    document.getElementById('postModal').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  };
-
-  function closeModal() {
-    document.getElementById('postModal').classList.remove('open');
-    document.body.style.overflow = '';
-    currentSlug = null;
-  }
-  window.closeModal = closeModal;
-
-  // ── REACTIONS ────────────────────────────────────────────
-  window.toggleLike = function(slug, btn) {
-    likes[slug] = !likes[slug];
-    localStorage.setItem('btx_likes', JSON.stringify(likes));
-    const cur = parseInt(localStorage.getItem('btx_lc_'+slug)||'0');
-    const newC = likes[slug] ? cur+1 : Math.max(0,cur-1);
-    localStorage.setItem('btx_lc_'+slug, newC);
-
-    const icon = btn.querySelector('i');
-    const num  = btn.querySelector('.like-num');
-    btn.classList.toggle('liked', !!likes[slug]);
-    icon.className = likes[slug] ? 'fas fa-heart' : 'far fa-heart';
-    if (num) num.textContent = newC;
-    showToast(likes[slug] ? '❤️ Liked!' : 'Unliked');
-  };
-
-  window.toggleModalLike = function() {
-    if (!currentSlug) return;
-    likes[currentSlug] = !likes[currentSlug];
-    localStorage.setItem('btx_likes', JSON.stringify(likes));
-    const cur  = parseInt(localStorage.getItem('btx_lc_'+currentSlug)||'0');
-    const newC = likes[currentSlug] ? cur+1 : Math.max(0,cur-1);
-    localStorage.setItem('btx_lc_'+currentSlug, newC);
-    const btn  = document.getElementById('modalLikeBtn');
-    const icon = btn.querySelector('i');
-    btn.classList.toggle('liked', !!likes[currentSlug]);
-    icon.className = likes[currentSlug] ? 'fas fa-heart' : 'far fa-heart';
-    document.getElementById('modalLikeCount').textContent = newC;
-    showToast(likes[currentSlug] ? '❤️ Liked!' : 'Unliked');
-  };
-
-  window.toggleSave = function(slug, btn) {
-    saves[slug] = !saves[slug];
-    localStorage.setItem('btx_saves', JSON.stringify(saves));
-    btn.classList.toggle('saved', !!saves[slug]);
-    const icon = btn.querySelector('i');
-    icon.className = saves[slug] ? 'fas fa-bookmark' : 'far fa-bookmark';
-    btn.innerHTML = btn.innerHTML.replace(/Saved|Save/, saves[slug]?'Saved':'Save');
-    showToast(saves[slug] ? '🔖 Post saved!' : 'Removed from saved');
-  };
-
-  window.shareCard = function(slug, title) {
-    const url = `${location.origin}${location.pathname}#${slug}`;
-    if (navigator.share) {
-      navigator.share({ title, url }).catch(()=>{});
-    } else {
-      navigator.clipboard.writeText(url).then(()=>showToast('🔗 Link copied!'));
+    function toggleLike(postId) {
+      const post = posts.find(p => p.id === postId);
+      if (post) {
+        post.liked = !post.liked;
+        post.likes += post.liked ? 1 : -1;
+        renderPosts();
+      }
     }
-  };
 
-  window.sharePost = function() {
-    const post = allPosts.find(p=>p.slug===currentSlug); if(!post) return;
-    if (navigator.share) {
-      navigator.share({ title: post.title, text: post.excerpt, url: location.href }).catch(()=>{});
-    } else {
-      copyLink();
+    function toggleComments(postId) {
+      const commentsDiv = document.getElementById(`comments-${postId}`);
+      if (commentsDiv) {
+        commentsDiv.classList.toggle('show');
+      }
     }
-  };
 
-  window.copyLink = function() {
-    navigator.clipboard.writeText(location.href).then(()=>showToast('🔗 Link copied to clipboard!'));
-  };
+    function addComment(postId) {
+      const input = document.getElementById(`commentInput-${postId}`);
+      const text = input.value.trim();
+      if (!text) return;
+      
+      const post = posts.find(p => p.id === postId);
+      if (post) {
+        post.comments.push({ name: currentUser, text: text });
+        input.value = '';
+        renderPosts();
+        // Re-open comments after render
+        setTimeout(() => {
+          const commentsDiv = document.getElementById(`comments-${postId}`);
+          if (commentsDiv) commentsDiv.classList.add('show');
+        }, 100);
+      }
+    }
 
-  // ── HELPERS ──────────────────────────────────────────────
-  function showEmpty() {
-    document.getElementById('feedLoading').style.display = 'none';
-    document.getElementById('feedEmpty').style.display   = 'block';
-  }
+    function sharePost(postId) {
+      alert('Link copied to clipboard! Share with your business network.');
+    }
 
-  // Mobile category filter — syncs with desktop sidebar
-  window.mobileFilterCat = function(cat, btn) {
-    activeCategory = cat;
-    // Sync mobile pills
-    document.querySelectorAll('.mobile-cat-pill').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    // Sync desktop sidebar
-    document.querySelectorAll('.cat-item').forEach(b => {
-      b.classList.toggle('active', b.dataset.cat === cat);
+    function openPostModal() {
+      document.getElementById('postModal').classList.add('show');
+    }
+
+    function closeModal() {
+      document.getElementById('postModal').classList.remove('show');
+      document.getElementById('postTitle').value = '';
+      document.getElementById('postContent').value = '';
+    }
+
+    function createPost() {
+      const title = document.getElementById('postTitle').value.trim();
+      const content = document.getElementById('postContent').value.trim();
+      if (!title && !content) return;
+      
+      const newPost = {
+        id: Date.now(),
+        author: currentUser,
+        authorAvatar: currentUserAvatar,
+        time: "Just now",
+        title: title || "Business Update",
+        content: content || "Sharing my business journey...",
+        likes: 0,
+        comments: [],
+        liked: false
+      };
+      
+      posts.unshift(newPost);
+      renderPosts();
+      closeModal();
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+      });
+    }
+
+    // Search functionality
+    document.getElementById('searchInput')?.addEventListener('input', function(e) {
+      const query = e.target.value.toLowerCase();
+      if (!query) {
+        renderPosts();
+        return;
+      }
+      const filtered = posts.filter(p => 
+        p.title.toLowerCase().includes(query) || 
+        p.content.toLowerCase().includes(query)
+      );
+      const feed = document.getElementById('postsFeed');
+      if (feed) {
+        feed.innerHTML = filtered.map(post => `
+          <div class="post-card">
+            <div class="post-header">
+              <div class="post-avatar">${post.authorAvatar}</div>
+              <div><div class="post-author">${escapeHtml(post.author)}</div><div class="post-time">${post.time}</div></div>
+            </div>
+            <div class="post-content">
+              <div class="post-title">${escapeHtml(post.title)}</div>
+              <div class="post-text">${escapeHtml(post.content)}</div>
+            </div>
+          </div>
+        `).join('');
+      }
     });
-    applyFilters();
-  };
 
-  function fmtDate(d) {
-    try { return new Date(d).toLocaleDateString('en-ZM',{year:'numeric',month:'long',day:'numeric'}); }
-    catch { return ''; }
-  }
-
-  function readTime(body) {
-    const words = (body||'').trim().split(/\s+/).length;
-    const mins  = Math.max(1, Math.round(words / 200));
-    return `${mins} min read`;
-  }
-
-  function extractExcerpt(body) {
-    if (!body) return '';
-    const plain = body.replace(/#+\s/g,'').replace(/\*\*/g,'').replace(/\*/g,'').replace(/\[([^\]]+)\]\([^)]+\)/g,'$1').trim();
-    return plain.slice(0,150) + (plain.length>150?'…':'');
-  }
-
-  function catIcon(cat) {
-    return { 'Business Tips':'💼','E-commerce':'🛒','Digital Marketing':'📣','Zambia Tech':'🇿🇲','Case Study':'📊','Announcements':'📢' }[cat] || '📝';
-  }
-
-  function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('show');
-    setTimeout(()=>t.classList.remove('show'), 2500);
-  }
-  </script>
-    <!-- ========== BOTTOM NAVIGATION BAR ========== -->
-  <div class="mobile-tab-bar">
-    <a href="index.html" class="tab-bar-item">
-      <i class="fas fa-home"></i>
-      <span>Home</span>
-    </a>
-    <a href="blog.html" class="tab-bar-item active">
-      <i class="fas fa-newspaper"></i>
-      <span>Blog</span>
-    </a>
-    <a href="tools/index.html" class="tab-bar-item">
-      <i class="fas fa-tools"></i>
-      <span>Tools</span>
-    </a>
-    <a href="index.html#services" class="tab-bar-item">
-      <i class="fas fa-briefcase"></i>
-      <span>Services</span>
-    </a>
-    <a href="https://wa.me/260979603741" class="tab-bar-item tab-wa" target="_blank">
-      <i class="fab fa-whatsapp"></i>
-      <span>Chat</span>
-    </a>
-  </div>
-  <!-- Tawk.to Live Chat -->
-  <script>
-    var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
-    (function(){
-      var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-      s1.async=true;
-      s1.src='https://embed.tawk.to/697a5dad644c08197db0e71e/1jg30it6o';
-      s1.charset='UTF-8';
-      s1.setAttribute('crossorigin','*');
-      s0.parentNode.insertBefore(s1,s0);
-    })();
+    // Initial render
+    renderPosts();
   </script>
 </body>
 </html>
