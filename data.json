@@ -515,7 +515,7 @@
   "services": [
     {
       "badge": "🛒 E-commerce",
-      "price": "From ZMW 980",
+      "price": "From USD $18.5 | ZMW 350",
       "gallery": [
         "https://i.ibb.co/rfLD2Y0H/Screenshot-20260117-165322.jpg",
         "https://i.ibb.co/bjFfhDQW/Screenshot-20260117-164954.jpg",
@@ -527,7 +527,7 @@
       "description": "Full online store with Zambian payment gateways, inventory management, and delivery tracking — ready in 7–14 days.",
       "features": [
         "Online Product Catalog",
-        "Airtel & MTN Money Integration",
+        "Online selling",
         "Order Management System",
         "Inventory Tracking Dashboard",
         "Customer Account Profiles",
@@ -538,7 +538,7 @@
     },
     {
       "badge": null,
-      "price": "From ZMW 650",
+      "price": "From USD $15.9 | ZMW 300",
       "gallery": [
         "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop",
         "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=400&h=250&fit=crop"
@@ -560,7 +560,7 @@
     },
     {
       "badge": "🛒 E-commerce",
-      "price": "From ZMW 500",
+      "price": "From USD $8.00 | ZMW 150",
       "gallery": [
         "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=250&fit=crop"
       ],
@@ -580,7 +580,7 @@
     },
     {
       "badge": null,
-      "price": "From ZMW 250",
+      "price": "From USD $8.00 | ZMW 150",
       "gallery": [
         "https://i.ibb.co/ycjtDNrv/Screenshot-20260117-120824.jpg",
         "https://i.ibb.co/8LGJJCBQ/Screenshot-20260117-120600.jpg"
@@ -601,7 +601,7 @@
     },
     {
       "badge": null,
-      "price": "From ZMW 150",
+      "price": "From USD $8.00 | ZMW 150",
       "gallery": [
         "https://i.ibb.co/39R0yFM6/Screenshot-20260117-144350.jpg",
         "https://i.ibb.co/whcncJtb/Screenshot-20260117-144025.jpg"
@@ -622,7 +622,7 @@
     },
     {
       "badge": null,
-      "price": "From ZMW 350",
+      "price": "From USD $2.67 | ZMW 50",
       "gallery": [
         "https://i.ibb.co/8DbNp9zr/Screenshot-20260117-155058.jpg",
         "https://i.ibb.co/8DZkT4mr/Screenshot-20260117-162508.jpg"
@@ -643,7 +643,7 @@
     },
     {
       "badge": null,
-      "price": "From ZMW 200/month",
+      "price": "From USD $10.66|ZMW 200/month",
       "gallery": [
         "https://images.unsplash.com/photo-1611262588024-d12430b98920?w=400&h=250&fit=crop"
       ],
@@ -663,7 +663,7 @@
     },
     {
       "badge": null,
-      "price": "From ZMW 150/month",
+      "price": "From USD $2.67|ZMW 50/month",
       "gallery": [
         "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=250&fit=crop"
       ],
