@@ -500,7 +500,7 @@
     #novaWrap { bottom:16px; left:12px; }
     #scrollTopBtn { right:76px; bottom:16px; }
   }
-    /* ========== BOTTOM NAVIGATION BAR ========== */
+    /* ========== COMPACT BOTTOM NAVIGATION BAR ========== */
 .mobile-tab-bar {
   display: none;
   position: fixed;
@@ -508,11 +508,11 @@
   left: 0;
   right: 0;
   z-index: 99999;
-  background: #0a0f1c;
-  border-top: 1px solid rgba(255,255,255,0.1);
-  padding: 8px 0 12px;
-  padding-bottom: calc(12px + env(safe-area-inset-bottom, 0));
-  box-shadow: 0 -4px 16px rgba(0,0,0,0.4);
+  background: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  padding: 4px 0 6px;
+  padding-bottom: calc(6px + env(safe-area-inset-bottom, 0));
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .tab-bar-item {
@@ -520,11 +520,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  padding: 6px 4px;
+  gap: 2px;
+  padding: 2px 4px;
   text-decoration: none;
   color: #64748b;
-  font-size: 0.65rem;
+  font-size: 0.55rem;
   font-weight: 600;
   transition: color 0.2s;
   background: none;
@@ -537,7 +537,7 @@
 }
 
 .tab-bar-item i {
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin: 0;
 }
 
@@ -546,7 +546,7 @@
 }
 
 .tab-bar-item span {
-  font-size: 0.6rem;
+  font-size: 0.55rem;
 }
 
 @media (max-width: 768px) {
@@ -554,7 +554,7 @@
     display: flex !important;
   }
   body {
-    padding-bottom: 70px;
+    padding-bottom: 55px;  /* reduced from 70px */
   }
 }
     /* Move Nova above bottom navigation bar */
