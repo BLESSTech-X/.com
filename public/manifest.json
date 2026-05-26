@@ -1,0 +1,16 @@
+{
+  "name": "BLESSTech-X",
+  "short_name": "BLESSTech",
+  "description": "Websites & E-commerce for Zambian Businesses",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "icons": [
+    {
+      "src": "/icons/icon-225.jpg",
+      "sizes": "225x225",
+      "type": "image/jpeg"
+    }
+  ]
+}
