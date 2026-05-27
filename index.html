@@ -642,6 +642,57 @@
       <div class="hero-particles" id="heroParticles"></div>
       <div class="container hero-content">
         <div class="hero-badge"><i class="fas fa-star"></i> Trusted by 150+ Zambian Businesses</div>
+        <!-- PWA Buttons -->
+<div style="display: flex; gap: 10px; justify-content: center; margin: 20px 0; flex-wrap: wrap;">
+  
+  <!-- Share Button -->
+  <button onclick="shareApp()" style="background: gold; border: none; padding: 12px 20px; border-radius: 8px; font-weight: bold; cursor: pointer;">
+    📤 Share BLESSTech-X
+  </button>
+  
+  <!-- Install Button -->
+  <button onclick="installApp()" style="background: black; border: 2px solid gold; color: gold; padding: 12px 20px; border-radius: 8px; font-weight: bold; cursor: pointer;">
+    📲 Install App
+  </button>
+  
+</div>
+
+<script>
+// Share functionality
+function shareApp() {
+  if (navigator.share) {
+    navigator.share({
+      title: 'BLESSTech-X',
+      text: 'Websites & E-commerce for Zambian Businesses',
+      url: 'https://blesstech-x.vercel.app'
+    }).catch(err => console.log('Share canceled'));
+  } else {
+    alert('Share not supported on this browser. You can still copy the link: https://blesstech-x.vercel.app');
+  }
+}
+
+// Install functionality
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  console.log('Install prompt ready');
+});
+
+function installApp() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('User accepted the install prompt');
+      }
+      deferredPrompt = null;
+    });
+  } else {
+    alert('Install not available. You can still add to home screen manually: Chrome menu → Install app');
+  }
+}
+</script>
          <!-- Scrolling trusted strip -->
       <div class="trusted-strip">
         <div class="trusted-scroll" id="trustedScroll">
