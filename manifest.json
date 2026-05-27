@@ -2,7 +2,7 @@
   "name": "BLESSTech-X",
   "short_name": "BlessTech-X",
   "description": "Websites & E-commerce for Zambian Businesses",
-  "splash.html": "/",
+  "start_url": "/splash.html",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#000000",
