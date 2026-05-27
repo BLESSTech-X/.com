@@ -643,16 +643,16 @@
       <div class="container hero-content">
         <div class="hero-badge"><i class="fas fa-star"></i> Trusted by 150+ Zambian Businesses</div>
         <!-- PWA Buttons -->
-<div style="display: flex; gap: 10px; justify-content: center; margin: 20px 0; flex-wrap: wrap;">
+<div style="display: flex; gap: 15px; justify-content: center; margin: 30px 0; flex-wrap: wrap;">
   
   <!-- Share Button -->
-  <button onclick="shareApp()" style="background: gold; border: none; padding: 12px 20px; border-radius: 8px; font-weight: bold; cursor: pointer;">
+  <button onclick="shareApp()" style="background: #1a365d; border: none; padding: 12px 24px; border-radius: 50px; font-weight: bold; color: white; cursor: pointer; font-size: 16px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
     📤 Share BLESSTech-X
   </button>
   
   <!-- Install Button -->
-  <button onclick="installApp()" style="background: black; border: 2px solid gold; color: gold; padding: 12px 20px; border-radius: 8px; font-weight: bold; cursor: pointer;">
-    📲 Install App
+  <button onclick="installApp()" style="background: #b8860b; border: none; padding: 12px 24px; border-radius: 50px; font-weight: bold; color: white; cursor: pointer; font-size: 16px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+    📲 Add to Home Screen
   </button>
   
 </div>
@@ -667,7 +667,9 @@ function shareApp() {
       url: 'https://blesstech-x.vercel.app'
     }).catch(err => console.log('Share canceled'));
   } else {
-    alert('Share not supported on this browser. You can still copy the link: https://blesstech-x.vercel.app');
+    // Fallback for browsers that don't support share
+    navigator.clipboard.writeText('https://blesstech-x.vercel.app');
+    alert('Link copied to clipboard! Share it with friends.');
   }
 }
 
@@ -689,7 +691,8 @@ function installApp() {
       deferredPrompt = null;
     });
   } else {
-    alert('Install not available. You can still add to home screen manually: Chrome menu → Install app');
+    // Helpful instruction instead of error
+    alert('To add BLESSTech-X to your home screen:\n\nAndroid Chrome: Tap menu (⋮) → "Install app"\n\niPhone Safari: Tap Share → "Add to Home Screen"');
   }
 }
 </script>
