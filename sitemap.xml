@@ -1,22 +1,84 @@
-// Example for /pages/sitemap.xml.js or /app/sitemap.xml/route.js
-export default function handler(req, res) {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/xml');
-  const currentDate = new Date().toISOString();
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
-  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <url>
-      <loc>https://blesstech-x.vercel.app/</loc>
-      <lastmod>${currentDate}</lastmod>
-      <changefreq>daily</changefreq>
-      <priority>1.0</priority>
-    </url>
-    <url>
-      <loc>https://blesstech-x.vercel.app/shop.html</loc>
-      <lastmod>${currentDate}</lastmod>
-      <changefreq>daily</changefreq>
-      <priority>0.8</priority>
-    </url>
-  </urlset>`;
-  res.end(xml);
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <!-- Homepage -->
+  <url>
+    <loc>https://blesstech-x.vercel.app/</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <!-- Blog -->
+  <url>
+    <loc>https://blesstech-x.vercel.app/blog.html</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Free Tools Hub -->
+  <url>
+    <loc>https://blesstech-x.vercel.app/tools/index.html</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Services (anchor sections on homepage) -->
+  <url>
+    <loc>https://blesstech-x.vercel.app/#services</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Portfolio -->
+  <url>
+    <loc>https://blesstech-x.vercel.app/#portfolio</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- How We Work -->
+  <url>
+    <loc>https://blesstech-x.vercel.app/#process</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Testimonials -->
+  <url>
+    <loc>https://blesstech-x.vercel.app/#testimonials</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- FAQ -->
+  <url>
+    <loc>https://blesstech-x.vercel.app/#faq</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- About -->
+  <url>
+    <loc>https://blesstech-x.vercel.app/#about</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- Contact -->
+  <url>
+    <loc>https://blesstech-x.vercel.app/#contact</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+</urlset>
