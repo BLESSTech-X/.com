@@ -777,5 +777,35 @@
       "Useful free tools for work and business",
       "Mobile-friendly websites built around your goals"
     ]
+  },
+  "about_page": {
+    "title": "About BLESSTech-X",
+    "tagline": "Founded in Lusaka, built for Zambia. 🇿🇲",
+    "sections": [
+      {
+        "heading": "Who We Are",
+        "body": "BLESSTech-X exists to make professional digital services accessible to every Zambian entrepreneur — not just large corporates."
+      },
+      {
+        "heading": "What We Do",
+        "body": "We build websites, e-commerce stores with Airtel Money and MTN Money, logos, graphic design, and social media management for Zambian businesses and schools."
+      },
+      {
+        "heading": "Our Results",
+        "body": "We help businesses build a stronger online presence with practical digital solutions. Published results and client stories should be added only when they can be verified."
+      },
+      {
+        "heading": "Our Founder",
+        "body": "BLESSTech-X is built around practical digital solutions for Zambian businesses. Add the founder’s approved biography and experience here."
+      }
+    ]
+  },
+  "contact_page": {
+    "title": "Contact BLESSTech-X",
+    "intro": "Tell us what you need. We will discuss your goals, requirements and next steps.",
+    "form_heading": "Start a Project Conversation",
+    "submit_label": "Continue on WhatsApp",
+    "success_message": "WhatsApp has opened with your enquiry prepared. Press Send in WhatsApp to complete it.",
+    "office_hours": "Monday–Saturday, 09:00–18:00"
   }
 }
