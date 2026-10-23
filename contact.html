@@ -72,24 +72,25 @@
 
   <main class="container">
     <div class="page-container">
-      <h1>Contact Us</h1>
+      <h1 id="contactPageTitle">Contact BLESSTech-X</h1>
+      <p id="contactPageIntro" class="contact-page-intro">Tell us what you need. We will discuss your goals, requirements and next steps.</p>
 
       <div class="contact-box">
-        <p><strong>WhatsApp:</strong> <a href="https://wa.me/260979603741">+260 979 603 741</a></p>
-        <p><strong>Email:</strong> singbless89@gmail.com</p>
-        <p><strong>Location:</strong> Lusaka, Zambia</p>
-        <p><strong>Hours:</strong> Monday - Saturday, 9am - 6pm</p>
+        <p><strong>WhatsApp:</strong> <a id="contactWhatsApp" href="https://wa.me/260979603741">+260 979 603 741</a></p>
+        <p><strong>Email:</strong> <a id="contactEmail" href="mailto:singbless89@gmail.com">singbless89@gmail.com</a></p>
+        <p><strong>Location:</strong> <span id="contactLocation">Lusaka, Zambia</span></p>
+        <p><strong>Hours:</strong> <span id="contactHours">Monday–Saturday, 09:00–18:00</span></p>
       </div>
 
-      <h2>Send us a message</h2>
+      <h2 id="contactFormHeading">Start a Project Conversation</h2>
       <form id="contactForm">
-        <input type="text" id="name" placeholder="Your Name" required>
-        <input type="email" id="email" placeholder="Your Email" required>
-        <input type="tel" id="phone" placeholder="Your WhatsApp Number" required>
-        <textarea id="message" rows="5" placeholder="What do you need?" required></textarea>
-        <button type="submit">Send Message</button>
+        <input type="text" id="name" name="name" placeholder="Your Name" required>
+        <input type="email" id="email" name="email" placeholder="Your Email" required>
+        <input type="tel" id="phone" name="phone" placeholder="Your WhatsApp Number" required>
+        <textarea id="message" name="message" rows="5" placeholder="What do you need?" required></textarea>
+        <button type="submit" id="contactSubmitLabel">Continue on WhatsApp</button>
       </form>
-      <div id="formSuccess" class="form-success">Message sent! We will reply within 24 hours.</div>
+      <div id="formSuccess" class="form-success">WhatsApp has opened with your enquiry prepared. Press Send in WhatsApp to complete it.</div>
     </div>
   </main>
 
@@ -116,11 +117,19 @@
     }
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
+      const site = window.BTX_SITE || {};
+      const phone = String(site.whatsapp || '260979603741').replace(/[^0-9]/g, '');
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const customerPhone = document.getElementById('phone').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const text = 'Hello BLESSTech-X! I would like to discuss a project.\n\nName: ' + name + '\nEmail: ' + email + '\nMy WhatsApp: ' + customerPhone + '\n\nRequest: ' + message;
       const successMsg = document.getElementById('formSuccess');
+      successMsg.textContent = (window.BTX_CONTACT_PAGE || {}).success_message || 'WhatsApp has opened with your enquiry prepared. Press Send in WhatsApp to complete it.';
       successMsg.style.display = 'block';
-      this.reset();
-      setTimeout(() => { successMsg.style.display = 'none'; }, 5000);
+      window.open('https://wa.me/' + phone + '?text=' + encodeURIComponent(text), '_blank', 'noopener');
     });
   </script>
+  <script src="page-content.js"></script>
 </body>
 </html>
