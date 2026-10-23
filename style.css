@@ -1641,3 +1641,49 @@ body{
   .btx-footer-compact .btx-footer-bottom{gap:8px;justify-content:center;text-align:center}
   .btx-footer-compact .btx-footer-bottom>p{flex-basis:100%}
 }
+
+
+/* PORTFOLIO READABILITY FIX — remove the late white panel that washed out the case-study text. */
+#portfolio .portfolio-card{
+  background:var(--pf-bg,#10243b)!important;
+  border-color:color-mix(in srgb,var(--pf-accent,#67e8f9) 35%,transparent)!important;
+}
+#portfolio .portfolio-card-body{
+  background:linear-gradient(145deg,rgba(255,255,255,.055),transparent 58%),var(--pf-bg,#10243b)!important;
+  color:var(--pf-ink,#f8fafc)!important;
+}
+#portfolio .portfolio-card h3,
+#portfolio .portfolio-card-body h3{
+  color:#f8fbff!important;
+  text-shadow:0 1px 0 rgba(0,0,0,.15);
+}
+#portfolio .portfolio-card p,
+#portfolio .portfolio-card-body p{
+  color:var(--pf-muted,#d2deeb)!important;
+}
+#portfolio .portfolio-card .portfolio-card-footer,
+#portfolio .portfolio-card .portfolio-card-open{
+  color:var(--pf-muted,#d2deeb);
+}
+#portfolio .portfolio-card .tag{
+  background:color-mix(in srgb,var(--pf-accent,#67e8f9) 16%,#10243b)!important;
+  border-color:color-mix(in srgb,var(--pf-accent,#67e8f9) 45%,transparent)!important;
+  color:var(--pf-accent,#67e8f9)!important;
+}
+/* The injected PhoneYa2 portfolio card uses pc-body and inline text colours. */
+#portfolio .portfolio-card .pc-body{
+  background:linear-gradient(145deg,rgba(255,255,255,.055),transparent 60%),var(--pf-bg,#10243b)!important;
+  color:#f8fbff!important;
+}
+#portfolio .portfolio-card .pc-body h3{
+  color:#f8fbff!important;
+}
+#portfolio .portfolio-card .pc-body p{
+  color:#d2deeb!important;
+}
+#portfolio .portfolio-card .pc-body [style*="color:#25d366"]{
+  color:var(--pf-accent,#6ee7b7)!important;
+}
+#portfolio .portfolio-card .pc-body a{
+  color:var(--pf-accent,#67e8f9)!important;
+}
