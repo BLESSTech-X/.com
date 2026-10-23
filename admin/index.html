@@ -108,6 +108,37 @@ CMS.init({
         ]
       },
 
+      // HOMEPAGE COPY — safely editable without changing HTML
+      {
+        name: 'homepage_content',
+        label: '🏠 Homepage Content',
+        files: [{
+          name: 'homepage',
+          label: 'Hero & Section Copy',
+          file: 'data.json',
+          fields: [{
+            label: 'Homepage Content', name: 'homepage', widget: 'object',
+            fields: [
+                  { label: 'Hero Badge', name: 'hero_badge', widget: 'string', required: false },
+                  { label: 'Main Headline', name: 'hero_title', widget: 'string', required: false },
+                  { label: 'Rotating Hero Subtitle', name: 'hero_subtitle', widget: 'string', required: false },
+                  { label: 'Hero Description', name: 'hero_description', widget: 'text', required: false },
+                  { label: 'Primary Button Text', name: 'hero_primary_cta', widget: 'string', required: false },
+                  { label: 'Free Tools Button Text', name: 'hero_secondary_cta', widget: 'string', required: false },
+                  { label: 'Services Section Title', name: 'services_title', widget: 'string', required: false },
+                  { label: 'Services Section Subtitle', name: 'services_subtitle', widget: 'text', required: false },
+                  { label: 'Portfolio Section Title', name: 'portfolio_title', widget: 'string', required: false },
+                  { label: 'Portfolio Section Subtitle', name: 'portfolio_subtitle', widget: 'text', required: false },
+                  { label: 'Free Tools Section Title', name: 'tools_title', widget: 'string', required: false },
+                  { label: 'Free Tools Section Subtitle', name: 'tools_subtitle', widget: 'text', required: false },
+                  { label: 'Contact Section Title', name: 'contact_title', widget: 'string', required: false },
+                  { label: 'Contact Section Subtitle', name: 'contact_subtitle', widget: 'text', required: false },
+                  { label: 'Rotating Hero Messages', name: 'hero_rotator', widget: 'list', required: false, field: { label: 'Message', widget: 'string' } }
+            ]
+          }]
+        }]
+      },
+
       // ════════════════════════════════════════════════
       // COLLECTION 2 — SERVICES
       // Each service is editable from Decap, including its detailed page content,
