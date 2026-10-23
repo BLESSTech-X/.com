@@ -144,7 +144,7 @@ function renderServices(services) {
         <div class="service-price">${s.price}</div>
         <div class="service-card-actions">
           <button class="btn btn-danger btn-sm" onclick="quoteService('${esc(s.title)}','${esc(s.price)}')"><i class="fas fa-shopping-cart"></i> Purchase Now</button>
-          <button class="btn btn-outline btn-sm" onclick="openServiceModal('${s.id}')"><i class="fas fa-eye"></i> View Details</button>
+          <a class="btn btn-outline btn-sm" href="service.html?id=${encodeURIComponent(s.id)}"><i class="fas fa-eye"></i> View Details</a>
         </div>
       </div>
     </div>`).join('');
@@ -201,7 +201,7 @@ function openServiceModal(id, fromHash = false) {
 async function shareService(id) {
   const s = (SITE_DATA?.services || []).find(x => x.id === id);
   if (!s) return;
-  const url = location.origin + location.pathname + '#service=' + encodeURIComponent(id);
+  const url = location.origin + location.pathname.replace(/[^/]*$/, 'service.html') + '?id=' + encodeURIComponent(id);
   const payload = { title: s.title + ' | BLESSTech-X', text: s.description || 'Explore this BLESSTech-X service.', url };
   try {
     if (navigator.share) await navigator.share(payload);
