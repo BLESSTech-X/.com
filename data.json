@@ -121,15 +121,11 @@
       "id": "p1",
       "image": "https://i.ibb.co/ycTbLPMr/IMG-20260527-104413.png",
       "after": "https://i.ibb.co/b54XCgj0/IMG-20260527-104501.png",
-      "live_url": "#",
+      "live_url": "",
       "description": "Transformed a Lusaka clothing shop into a nationwide online store.",
       "category": "ecommerce",
-      "stats": {
-        "growth": "300%",
-        "time": "2 months",
-        "reach": "Nationwide"
-      },
-      "before": "https://i.ibb.co/FbsFRR6C/IMG-20260527-105625.png"
+      "before": "https://i.ibb.co/FbsFRR6C/IMG-20260527-105625.png",
+      "verified_results": false
     },
     {
       "detail": "Built a complete ordering platform including menu management.",
@@ -142,15 +138,11 @@
       "id": "p2",
       "image": "https://i.ibb.co/3m82Mtcs/1779872856638.png",
       "after": "https://i.ibb.co/hJfMftf1/1779872789025.png",
-      "live_url": "#",
+      "live_url": "",
       "description": "Online ordering system that tripled bookings.",
       "category": "websites",
-      "stats": {
-        "growth": "200%",
-        "time": "3 months",
-        "reach": "Kitwe Area"
-      },
-      "before": "https://i.ibb.co/8g8sgwc1/1779872743011.png"
+      "before": "https://i.ibb.co/8g8sgwc1/1779872743011.png",
+      "verified_results": false
     },
     {
       "detail": "Created a branded e-commerce platform including product photography guidance.",
@@ -163,15 +155,11 @@
       "id": "p3",
       "image": "https://i.ibb.co/7NXr6rcQ/1779873299972.png",
       "after": "https://i.ibb.co/SXjmn4XG/1779873960115.png",
-      "live_url": "#",
+      "live_url": "",
       "description": "E-commerce store for beauty products with inventory management.",
       "category": "ecommerce",
-      "stats": {
-        "growth": "150%",
-        "time": "1 month",
-        "reach": "Livingstone"
-      },
-      "before": "https://i.ibb.co/6JwCr93v/1779873905415.png"
+      "before": "https://i.ibb.co/6JwCr93v/1779873905415.png",
+      "verified_results": false
     },
     {
       "detail": "Built a B2B wholesale portal with bulk order capabilities.",
@@ -184,15 +172,11 @@
       "id": "p4",
       "image": "https://i.ibb.co/DDNbRWXM/1779874546541.png",
       "after": "https://i.ibb.co/DDNbRWXM/1779874546541.png",
-      "live_url": "#",
+      "live_url": "",
       "description": "Helped a farmer expand from local sales to supplying hotels and supermarkets nationwide.",
       "category": "ecommerce",
-      "stats": {
-        "growth": "400%",
-        "time": "4 months",
-        "reach": "National"
-      },
-      "before": "https://i.ibb.co/xSGzxGSV/1779874746485.png"
+      "before": "https://i.ibb.co/xSGzxGSV/1779874746485.png",
+      "verified_results": false
     },
     {
       "detail": "Multi-currency store.",
@@ -205,15 +189,11 @@
       "id": "p5",
       "image": "https://i.ibb.co/5WZTpgKB/Copilot-20260120-122023.png",
       "after": "https://i.ibb.co/nsF4VB5P/Copilot-20260120-112841.png",
-      "live_url": "#",
+      "live_url": "",
       "description": "Online store for traditional crafts.",
       "category": "ecommerce",
-      "stats": {
-        "growth": "250%",
-        "time": "3 months",
-        "reach": "International"
-      },
-      "before": "https://i.ibb.co/Y7PqP4gg/Copilot-20260120-112636.png"
+      "before": "https://i.ibb.co/Y7PqP4gg/Copilot-20260120-112636.png",
+      "verified_results": false
     },
     {
       "detail": "Delivered complete brand identity.",
@@ -226,15 +206,11 @@
       "id": "p6",
       "image": "https://i.ibb.co/8LGJJCBQ/Screenshot-20260117-120600.jpg",
       "after": null,
-      "live_url": "#",
+      "live_url": "",
       "description": "Logo and brand identity packages for Lusaka-based SMEs across retail, food, and services.",
       "category": "branding",
-      "stats": {
-        "growth": "New Brand",
-        "time": "5 days",
-        "reach": "Lusaka"
-      },
-      "before": null
+      "before": null,
+      "verified_results": false
     }
   ],
   "testimonials": [
@@ -765,8 +741,8 @@
     "hero_secondary_cta": "Free Tools",
     "services_title": "Our Digital Services",
     "services_subtitle": "Practical digital solutions for businesses, creators and entrepreneurs.",
-    "portfolio_title": "Portfolio & Sample Work",
-    "portfolio_subtitle": "Explore examples, prototypes and published client work. Each project should be clearly identified.",
+    "portfolio_title": "Selected Projects & Demonstrations",
+    "portfolio_subtitle": "Explore website builds, store concepts and branding work. Verified performance results are shown only when supporting evidence is available.",
     "tools_title": "Free Tools for Every Zambian",
     "tools_subtitle": "Useful tools for everyday work, business and productivity.",
     "contact_title": "Get In Touch",
