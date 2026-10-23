@@ -253,11 +253,11 @@ function renderPortfolio(items) {
       <div class="portfolio-card-body">
         <h3>${item.title}</h3><p>${item.description}</p>
         <div class="tag-row">${item.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
-        <div class="stat-pills">
-          <div class="stat-pill"><div class="sp-val">${item.stats.growth}</div><div class="sp-lbl">Growth</div></div>
-          <div class="stat-pill"><div class="sp-val">${item.stats.time}</div><div class="sp-lbl">Time</div></div>
-          <div class="stat-pill"><div class="sp-val">${item.stats.reach}</div><div class="sp-lbl">Reach</div></div>
-        </div>
+        ${item.verified_results === true ? `<div class="stat-pills">
+          <div class="stat-pill"><div class="sp-val">${item.stats?.growth || '—'}</div><div class="sp-lbl">Verified growth</div></div>
+          <div class="stat-pill"><div class="sp-val">${item.stats?.time || '—'}</div><div class="sp-lbl">Timeframe</div></div>
+          <div class="stat-pill"><div class="sp-val">${item.stats?.reach || '—'}</div><div class="sp-lbl">Reach</div></div>
+        </div>` : `<div class="tag-row"><span class="tag">Project example</span></div>`}
       </div>
     </div>`).join('');
   document.getElementById('portfolioPills').addEventListener('click', e => {
@@ -274,11 +274,11 @@ function openPortfolioModal(id) {
   document.getElementById('portfolioModalContent').innerHTML = `
     <div class="modal-header"><h2>${item.title}</h2><p>${item.description}</p></div>
     <div class="modal-body">
-      <div class="cs-stats">
-        <div class="cs-stat"><div class="cs-val">${item.stats.growth}</div><div class="cs-lbl">Sales Growth</div></div>
-        <div class="cs-stat"><div class="cs-val">${item.stats.time}</div><div class="cs-lbl">Timeframe</div></div>
-        <div class="cs-stat"><div class="cs-val">${item.stats.reach}</div><div class="cs-lbl">Market Reach</div></div>
-      </div>
+      ${item.verified_results === true ? `<div class="cs-stats">
+        <div class="cs-stat"><div class="cs-val">${item.stats?.growth || '—'}</div><div class="cs-lbl">Verified growth</div></div>
+        <div class="cs-stat"><div class="cs-val">${item.stats?.time || '—'}</div><div class="cs-lbl">Timeframe</div></div>
+        <div class="cs-stat"><div class="cs-val">${item.stats?.reach || '—'}</div><div class="cs-lbl">Market reach</div></div>
+      </div>` : `<p class="cs-results-note">Project example. Performance figures are displayed only after the results have been verified.</p>`}
       <p style="color:var(--slate-l);margin-bottom:20px;line-height:1.7">${item.detail}</p>
       <div class="tag-row" style="margin-bottom:20px">${item.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
       ${item.before||item.after ? `
