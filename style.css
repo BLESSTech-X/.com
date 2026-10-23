@@ -376,3 +376,18 @@ body.has-banner .site-header{top:var(--banner-h)}
   .portfolio-grid{grid-template-columns:1fr}
   .modal-box{border-radius:var(--radius)}
 }
+
+
+/* SERVICE DETAIL EXPERIENCE */
+.service-detail-body{max-width:100%;overflow-wrap:anywhere}
+.service-long-description{color:var(--slate-l);margin:0 0 18px;line-height:1.8}
+.service-long-description p{margin:0 0 12px}
+.service-meta{margin:8px 0;color:var(--slate-l)}
+.service-detail-heading{margin:22px 0 12px;color:var(--slate);font-size:1.02rem}
+.service-gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:0 0 20px}
+.service-gallery-item{display:block;overflow:hidden;border-radius:12px;background:var(--bg-alt);border:1px solid var(--border)}
+.service-gallery-item img{width:100%;height:150px;object-fit:cover;transition:transform .25s ease}
+.service-gallery-item:hover img{transform:scale(1.04)}
+.service-demo-links{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+.service-detail-actions{flex-wrap:wrap}
+@media(max-width:560px){.service-gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.service-gallery-item img{height:125px}.service-detail-actions .btn{flex:1;white-space:normal}}
