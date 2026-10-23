@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function buildSite(d) {
   applySiteInfo(d.site);
+  applyHomepageContent(d.homepage);
   renderAnnouncement(d.announcement);
   renderStats(d.stats);
   renderServices(d.services);
@@ -20,7 +21,7 @@ function buildSite(d) {
   renderFAQ(d.faqs);
   renderTeam(d.team);
   renderContact(d.site);
-  initHeroRotator();
+  initHeroRotator(d.homepage?.hero_rotator);
   initServiceSearch();
   initMobileMenu();
   initCalcTabs();
@@ -39,6 +40,40 @@ function applySiteInfo(site) {
   const f = document.getElementById('footerLogo');
   if (l) l.src = site.logo;
   if (f) f.src = site.logo;
+}
+
+/* ── EDITABLE HOMEPAGE COPY ── */
+function applyHomepageContent(home) {
+  if (!home) return;
+  const setText = (selector, value) => {
+    const el = document.querySelector(selector);
+    if (el && typeof value === 'string' && value.trim()) el.textContent = value;
+  };
+  const setHeading = (selector, value) => {
+    const el = document.querySelector(selector);
+    if (el && typeof value === 'string' && value.trim()) {
+      el.innerHTML = value.split('\n').map(line => line.replace(/[&<>"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]))).join('<br>');
+    }
+  };
+  setText('.hero-badge', home.hero_badge);
+  setHeading('.hero-content h1', home.hero_title);
+  setText('.hero-desc', home.hero_description);
+  setText('.hero-btns .btn-primary', home.hero_primary_cta);
+  setText('.hero-btns .btn-tools', home.hero_secondary_cta);
+  setText('#services .section-title', home.services_title);
+  setText('#services .section-sub', home.services_subtitle);
+  setText('#portfolio .section-title', home.portfolio_title);
+  setText('#portfolio .section-sub', home.portfolio_subtitle);
+  const toolsGrid = document.getElementById('toolsTeaserGrid');
+  const toolsSection = toolsGrid?.closest('section');
+  if (toolsSection) {
+    const h = toolsSection.querySelector('.section-title');
+    const p = toolsSection.querySelector('.section-sub');
+    if (h && home.tools_title) h.textContent = home.tools_title;
+    if (p && home.tools_subtitle) p.textContent = home.tools_subtitle;
+  }
+  setText('.contact-section .section-title', home.contact_title);
+  setText('.contact-section .section-sub', home.contact_subtitle);
 }
 
 /* ── ANNOUNCEMENT ── */
@@ -65,8 +100,10 @@ function renderStats(stats) {
 }
 
 /* ── HERO ROTATOR ── */
-function initHeroRotator() {
-  const texts = ['Professional Websites & E-commerce for Zambia','Invoice Generator · CV Builder · Email Writer','20+ Free Tools — No Signup Required','Airtel Money & MTN Money Integration','Online Stores Delivered in 7–14 Days'];
+function initHeroRotator(customTexts) {
+  const texts = Array.isArray(customTexts) && customTexts.filter(t => typeof t === 'string' && t.trim()).length
+    ? customTexts.filter(t => typeof t === 'string' && t.trim())
+    : ['Professional Websites & E-commerce for Zambia','Useful digital tools for work and business','Mobile-friendly websites for growing businesses'];
   const el = document.getElementById('heroSub');
   if (!el) return;
   let i = 0;
