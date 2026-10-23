@@ -492,22 +492,39 @@
     transition:width 0.1s linear; pointer-events:none;
   }
 
-  /* ── Cookie bar ── */
+  /* ── Accessible, dismissible cookie notice ── */
   #cookieBar {
-    position:fixed; bottom:0; left:0; right:0; z-index:9700;
-    background:rgba(15,23,42,0.98); border-top:1px solid rgba(14,165,233,0.2);
-    padding:14px 20px; display:flex; align-items:center; justify-content:center;
-    gap:16px; flex-wrap:wrap; font-size:0.83rem; color:#94a3b8;
-    transform:translateY(100%); transition:transform 0.4s ease;
+    position:fixed; z-index:9700; left:50%; bottom:16px;
+    width:min(760px,calc(100vw - 32px)); box-sizing:border-box;
+    display:grid; grid-template-columns:42px minmax(0,1fr) auto 38px;
+    align-items:center; gap:14px; padding:17px;
+    color:#dbe7f5; background:rgba(10,22,39,.98);
+    border:1px solid rgba(125,211,252,.22); border-radius:18px;
+    box-shadow:0 18px 55px rgba(2,8,23,.34),0 3px 12px rgba(2,8,23,.18);
+    opacity:0; visibility:hidden; pointer-events:none;
+    transform:translate(-50%,calc(100% + 24px));
+    transition:opacity .24s ease,transform .28s ease,visibility .28s;
   }
-  #cookieBar.cb-show { transform:translateY(0); }
-  #cookieBar a { color:#0ea5e9; text-decoration:underline; }
-  .cb-accept {
-    background:#0ea5e9; color:#fff; border:none; padding:7px 18px;
-    border-radius:8px; font-size:0.8rem; font-weight:700; cursor:pointer; white-space:nowrap; transition:background 0.2s;
+  #cookieBar.cb-show { opacity:1; visibility:visible; pointer-events:auto; transform:translate(-50%,0); }
+  #cookieBar[hidden] { display:none!important; }
+  .cb-icon { width:42px;height:42px;display:grid;place-items:center;border-radius:13px;background:rgba(14,165,233,.14);border:1px solid rgba(125,211,252,.2);color:#7dd3fc;font-size:1.05rem; }
+  .cb-copy { min-width:0; }
+  .cb-title { display:block;color:#f8fafc;font-size:.9rem;font-weight:800;letter-spacing:-.01em;margin-bottom:3px; }
+  .cb-message { display:block;color:#b8c7d9;font-size:.78rem;line-height:1.5; }
+  #cookieBar a { color:#7dd3fc;text-decoration:underline;text-underline-offset:3px; }
+  .cb-accept { min-height:40px;background:linear-gradient(110deg,#0284c7,#0369a1);color:#fff;border:1px solid rgba(125,211,252,.25);padding:0 15px;border-radius:11px;font-size:.8rem;font-weight:800;cursor:pointer;white-space:nowrap;transition:filter .2s,transform .2s; }
+  .cb-accept:hover { filter:brightness(1.12);transform:translateY(-1px); }
+  .cb-close { display:grid;place-items:center;width:38px;height:38px;border:1px solid rgba(148,163,184,.22);border-radius:11px;background:rgba(255,255,255,.05);color:#cbd5e1;cursor:pointer;font-size:1rem;transition:background .2s,color .2s; }
+  .cb-close:hover,.cb-close:focus-visible { background:rgba(255,255,255,.12);color:#fff;outline:2px solid #38bdf8;outline-offset:2px; }
+  @media(max-width:560px) {
+    #cookieBar { bottom:calc(68px + env(safe-area-inset-bottom,0px));width:calc(100vw - 22px);grid-template-columns:36px minmax(0,1fr) 34px;gap:10px;padding:13px;border-radius:16px; }
+    .cb-icon { width:36px;height:36px;border-radius:11px;font-size:.95rem; }
+    .cb-title { font-size:.84rem; }
+    .cb-message { font-size:.74rem; }
+    .cb-accept { grid-column:2;justify-self:start;min-height:37px;padding:0 14px;margin-top:2px; }
+    .cb-close { grid-column:3;grid-row:1;width:34px;height:34px; }
   }
-  .cb-accept:hover { background:#0284c7; }
-  .cb-decline { background:transparent; border:none; color:#475569; font-size:0.78rem; cursor:pointer; text-decoration:underline; }
+  @media(prefers-reduced-motion:reduce) { #cookieBar {transition:none;} }
 
   @media (max-width:540px) {
     #novaBubble,#novaIntro,#novaSettings { left:12px; right:12px; max-width:none; bottom:76px; }
@@ -1280,11 +1297,12 @@ function installApp() {
   </div>
 
   <!-- Cookie notice -->
-  <div id="cookieBar">
-    <span>We use cookies to improve your experience. <a href="#" onclick="return false">Learn more</a></span>
-    <button class="cb-accept" onclick="acceptCookie()">Got it</button>
-    <button class="cb-decline" onclick="declineCookie()">Decline</button>
-  </div>
+  <aside id="cookieBar" role="region" aria-label="Cookie notice" aria-live="polite" hidden>
+    <span class="cb-icon" aria-hidden="true"><i class="fas fa-cookie-bite"></i></span>
+    <span class="cb-copy"><strong class="cb-title">A quick note about cookies</strong><span class="cb-message">We use cookies and similar technologies for site functionality and live chat. <a href="./privacy.html">Read our privacy notice</a>.</span></span>
+    <button type="button" class="cb-accept" onclick="acceptCookie()" aria-label="Dismiss cookie notice">Got it</button>
+    <button type="button" class="cb-close" onclick="declineCookie()" aria-label="Close cookie notice"><i class="fas fa-xmark" aria-hidden="true"></i></button>
+  </aside>
 
   <!-- Tawk.to -->
   <script>
@@ -1733,20 +1751,40 @@ function installApp() {
     if(scrolled>400) btn.classList.add('stt-show'); else btn.classList.remove('stt-show');
   }, {passive:true});
 
-  // Cookie notice — only once, respects accept
-  function showCookie(){
-    if(!localStorage.getItem('cookie_ok')){
-      setTimeout(()=>document.getElementById('cookieBar').classList.add('cb-show'), 3000);
+  // Cookie notice: dismiss reliably, remember the choice, and never leave an invisible overlay intercepting taps.
+  (function(){
+    const notice=document.getElementById('cookieBar');
+    const KEY='btx_cookie_notice_dismissed_v2';
+    let showTimer=null,hideTimer=null;
+    function savedDismissal(){
+      try{return localStorage.getItem(KEY)==='1'||localStorage.getItem('cookie_ok')==='1';}
+      catch(_){return false;}
     }
-  }
-  window.acceptCookie=function(){
-    localStorage.setItem('cookie_ok','1');
-    document.getElementById('cookieBar').classList.remove('cb-show');
-  };
-  window.declineCookie=function(){
-    document.getElementById('cookieBar').classList.remove('cb-show');
-  };
-  document.addEventListener('DOMContentLoaded', showCookie);
+    function rememberDismissal(){
+      try{localStorage.setItem(KEY,'1');localStorage.setItem('cookie_ok','1');}catch(_){}
+    }
+    function hideNotice(){
+      if(!notice)return;
+      if(showTimer)clearTimeout(showTimer);
+      notice.classList.remove('cb-show');
+      notice.setAttribute('aria-hidden','true');
+      notice.inert=true;
+      if(hideTimer)clearTimeout(hideTimer);
+      hideTimer=setTimeout(()=>{if(!notice.classList.contains('cb-show'))notice.hidden=true;},320);
+    }
+    function showNotice(){
+      if(!notice||savedDismissal())return;
+      notice.hidden=false;notice.inert=false;notice.removeAttribute('aria-hidden');
+      requestAnimationFrame(()=>notice.classList.add('cb-show'));
+    }
+    window.acceptCookie=function(){rememberDismissal();hideNotice();};
+    window.declineCookie=function(){rememberDismissal();hideNotice();};
+    document.addEventListener('DOMContentLoaded',function(){
+      if(!savedDismissal())showTimer=setTimeout(showNotice,2200);
+    });
+    // Keep the old global entry point working if another script calls it.
+    window.showCookieNotice=showNotice;
+  })();
   </script>
 
   <script src="script.js"></script>
