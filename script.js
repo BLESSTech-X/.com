@@ -246,52 +246,100 @@ function renderProcess(steps) {
 
 /* ── PORTFOLIO ── */
 function renderPortfolio(items) {
-  const g = document.getElementById('portfolioGrid'); if (!g) return;
+  const g = document.getElementById('portfolioGrid');
+  if (!g) return;
   g.innerHTML = items.map(item => `
-    <div class="portfolio-card" data-category="${item.category}" onclick="openPortfolioModal('${item.id}')">
-      <img src="${item.image}" alt="${item.title}" loading="lazy"/>
-      <div class="portfolio-card-body">
-        <h3>${item.title}</h3><p>${item.description}</p>
-        <div class="tag-row">${item.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
-        ${item.verified_results === true ? `<div class="stat-pills">
-          <div class="stat-pill"><div class="sp-val">${item.stats?.growth || '—'}</div><div class="sp-lbl">Verified growth</div></div>
-          <div class="stat-pill"><div class="sp-val">${item.stats?.time || '—'}</div><div class="sp-lbl">Timeframe</div></div>
-          <div class="stat-pill"><div class="sp-val">${item.stats?.reach || '—'}</div><div class="sp-lbl">Reach</div></div>
-        </div>` : `<div class="tag-row"><span class="tag">Project example</span></div>`}
+    <article class="portfolio-card" data-category="${item.category}" data-project-id="${item.id}" role="button" tabindex="0" aria-label="View project: ${esc(item.title)}">
+      <div class="portfolio-card-media">
+        <img src="${item.image}" alt="${esc(item.title)} project preview" loading="lazy"/>
+        <span class="portfolio-card-kicker"><i class="fas fa-layer-group"></i> ${esc(item.category || 'Digital project')}</span>
+        <span class="portfolio-card-open" aria-hidden="true"><i class="fas fa-arrow-up-right-from-square"></i></span>
       </div>
-    </div>`).join('');
-  document.getElementById('portfolioPills').addEventListener('click', e => {
-    const p = e.target.closest('.pill'); if (!p || !p.dataset.pf) return;
-    document.querySelectorAll('#portfolioPills .pill').forEach(x => x.classList.remove('active'));
-    p.classList.add('active');
-    const cat = p.dataset.pf;
-    document.querySelectorAll('.portfolio-card').forEach(c => { c.style.display = cat==='all'||c.dataset.category===cat?'':'none'; });
+      <div class="portfolio-card-body">
+        <h3>${esc(item.title)}</h3>
+        <p>${esc(item.description)}</p>
+        <div class="tag-row">${(item.tags || []).slice(0,3).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
+        <div class="portfolio-card-footer">
+          <span>${item.verified_results === true ? '<i class="fas fa-circle-check"></i> Verified results' : '<i class="fas fa-display"></i> Project demonstration'}</span>
+          <span class="portfolio-card-link">Explore project <i class="fas fa-arrow-right"></i></span>
+        </div>
+      </div>
+    </article>`).join('');
+
+  const carousel = g.closest('.portfolio-carousel');
+  const scrollByCard = direction => {
+    if (!g) return;
+    const card = g.querySelector('.portfolio-card');
+    const amount = card ? card.getBoundingClientRect().width + 18 : Math.max(260, g.clientWidth * .8);
+    g.scrollBy({left: direction * amount, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
+  };
+  carousel?.querySelector('.portfolio-prev')?.addEventListener('click', () => scrollByCard(-1));
+  carousel?.querySelector('.portfolio-next')?.addEventListener('click', () => scrollByCard(1));
+
+  g.addEventListener('click', e => {
+    const card = e.target.closest('.portfolio-card');
+    if (card) openPortfolioModal(card.dataset.projectId);
   });
+  g.addEventListener('keydown', e => {
+    const card = e.target.closest('.portfolio-card');
+    if (card && (e.key === 'Enter' || e.key === ' ')) {
+      e.preventDefault();
+      openPortfolioModal(card.dataset.projectId);
+    }
+  });
+
+  const pills = document.getElementById('portfolioPills');
+  if (pills && !pills.dataset.bound) {
+    pills.dataset.bound = 'true';
+    pills.addEventListener('click', e => {
+      const p = e.target.closest('.pill');
+      if (!p || !p.dataset.pf) return;
+      pills.querySelectorAll('.pill').forEach(x => x.classList.remove('active'));
+      p.classList.add('active');
+      const cat = p.dataset.pf;
+      g.querySelectorAll('.portfolio-card').forEach(c => {
+        c.hidden = !(cat === 'all' || c.dataset.category === cat);
+      });
+      g.scrollTo({left:0,behavior:'auto'});
+    });
+  }
 }
+
 function openPortfolioModal(id) {
   if (!SITE_DATA) return;
-  const item = SITE_DATA.portfolio.find(x => x.id === id); if (!item) return;
-  document.getElementById('portfolioModalContent').innerHTML = `
-    <div class="modal-header"><h2>${item.title}</h2><p>${item.description}</p></div>
-    <div class="modal-body">
-      ${item.verified_results === true ? `<div class="cs-stats">
-        <div class="cs-stat"><div class="cs-val">${item.stats?.growth || '—'}</div><div class="cs-lbl">Verified growth</div></div>
-        <div class="cs-stat"><div class="cs-val">${item.stats?.time || '—'}</div><div class="cs-lbl">Timeframe</div></div>
-        <div class="cs-stat"><div class="cs-val">${item.stats?.reach || '—'}</div><div class="cs-lbl">Market reach</div></div>
-      </div>` : `<p class="cs-results-note">Project example. Performance figures are displayed only after the results have been verified.</p>`}
-      <p style="color:var(--slate-l);margin-bottom:20px;line-height:1.7">${item.detail}</p>
-      <div class="tag-row" style="margin-bottom:20px">${item.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
-      ${item.before||item.after ? `
-        <h4 style="margin-bottom:14px;color:var(--slate)">Before &amp; After</h4>
-        <div class="before-after">
-          ${item.before ? `<div class="ba-col ba-before"><h4>Before</h4><img src="${item.before}" alt="Before" loading="lazy"/></div>` : ''}
-          ${item.after  ? `<div class="ba-col ba-after"><h4>After</h4><img src="${item.after}" alt="After" loading="lazy"/></div>`  : ''}
-        </div>` : ''}
-      <div class="modal-actions" style="margin-top:24px">
-        ${item.live_url&&item.live_url!=='#' ? `<a href="${item.live_url}" target="_blank" class="btn btn-primary"><i class="fas fa-external-link-alt"></i> View Live</a>` : ''}
-        <button class="btn btn-danger" onclick="quoteService('Similar to ${esc(item.title)}','')"><i class="fab fa-whatsapp"></i> Get Similar</button>
-        <button class="btn btn-outline" onclick="closeModal('portfolioModal')">Close</button>
+  const item = SITE_DATA.portfolio.find(x => x.id === id);
+  if (!item) return;
+  const content = document.getElementById('portfolioModalContent');
+  const category = String(item.category || 'Digital project').replace(/[-_]/g,' ');
+  const gallery = [item.image, item.before, item.after].filter(Boolean)
+    .filter((src,index,arr)=>arr.indexOf(src)===index);
+  content.innerHTML = `
+    <div class="portfolio-detail-hero">
+      <img class="portfolio-detail-cover" src="${esc(item.image || '')}" alt="${esc(item.title)} project preview"/>
+      <div class="portfolio-detail-shade"></div>
+      <div class="portfolio-detail-heading">
+        <span class="portfolio-detail-eyebrow"><i class="fas fa-sparkles"></i> PROJECT SHOWCASE · ${esc(category)}</span>
+        <h2>${esc(item.title)}</h2>
+        <p>${esc(item.description)}</p>
       </div>
+      <button class="portfolio-detail-close" onclick="closeModal('portfolioModal')" aria-label="Close project details"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="portfolio-detail-content">
+      <div class="portfolio-detail-main">
+        <div class="portfolio-detail-section-title"><span>01</span><div><h3>Project overview</h3><p>What this project is about</p></div></div>
+        <p class="portfolio-detail-description">${esc(item.detail || item.description || 'Project details will be added soon.')}</p>
+        <div class="portfolio-detail-tags">${(item.tags || []).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
+        ${gallery.length > 1 ? `<div class="portfolio-detail-gallery"><h3>Visual highlights</h3><div class="portfolio-detail-gallery-grid">${gallery.map((src,index)=>`<figure><img src="${esc(src)}" alt="${esc(item.title)} visual ${index+1}" loading="lazy"/><figcaption>${index===0?'Project preview':index===1?'Before':'After'}</figcaption></figure>`).join('')}</div></div>` : ''}
+      </div>
+      <aside class="portfolio-detail-aside">
+        <div class="portfolio-detail-status"><span class="status-dot"></span><div><strong>${item.verified_results === true ? 'Results verified' : 'Project demonstration'}</strong><small>${item.verified_results === true ? 'Evidence-backed outcomes' : 'Performance metrics are not published without verification'}</small></div></div>
+        ${item.verified_results === true ? `<div class="cs-stats"><div class="cs-stat"><div class="cs-val">${esc(item.stats?.growth || '—')}</div><div class="cs-lbl">Verified growth</div></div><div class="cs-stat"><div class="cs-val">${esc(item.stats?.time || '—')}</div><div class="cs-lbl">Timeframe</div></div><div class="cs-stat"><div class="cs-val">${esc(item.stats?.reach || '—')}</div><div class="cs-lbl">Market reach</div></div></div>` : `<p class="cs-results-note">We share performance figures only when supporting evidence is available.</p>`}
+        <div class="portfolio-detail-actions">
+          ${item.live_url && item.live_url !== '#' ? `<a href="${esc(item.live_url)}" target="_blank" rel="noopener noreferrer" class="btn btn-primary"><i class="fas fa-arrow-up-right-from-square"></i> View live project</a>` : ''}
+          <button class="btn btn-primary" onclick="quoteService('Similar to ${esc(item.title).replace(/'/g,'&#39;')}','')"><i class="fab fa-whatsapp"></i> Discuss a similar project</button>
+          <button class="btn btn-outline" onclick="closeModal('portfolioModal')">Back to portfolio</button>
+        </div>
+      </aside>
     </div>`;
   openModal('portfolioModal');
 }
