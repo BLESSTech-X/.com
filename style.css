@@ -422,3 +422,7 @@ body.has-banner .site-header{top:var(--banner-h)}
 .trusted-strip{width:100%;max-width:none;background:#0f172a;border-color:rgba(255,255,255,.08);padding:13px 0}
 .trusted-item{font-size:.74rem}
 @media(max-width:768px){.hero-content{padding:54px 0 40px}.hero-utility-actions{margin:0 0 18px}.hero-utility-btn{font-size:.75rem;padding:8px 10px}}
+
+
+/* Portfolio trust cue when a case study has no verified metrics */
+.cs-results-note{padding:13px 15px;border:1px solid #dbeafe;background:#eff6ff;color:#475569;border-radius:12px;font-size:.86rem;line-height:1.6;margin:0 0 18px}
