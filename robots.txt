@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://blesstech-x.vercel.app/sitemap.xml
