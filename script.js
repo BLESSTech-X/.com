@@ -557,6 +557,7 @@ function initMobileMenu() {
     if (!nav.contains(e.target) && !toggle.contains(e.target)) {
       nav.classList.remove('open');
       toggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
     }
   });
 }
@@ -594,6 +595,11 @@ function initModalClose() {
 
 /* ── POPUP SYSTEM ── */
 function initPopupSystem(tools) {
+  // Popup markup was removed from the homepage. Do not schedule timers or
+  // access missing popup elements until the complete, accessible UI is restored.
+  const requiredPopupIds = ['popupOverlay', 'popup1', 'popup2', 'popup3'];
+  if (requiredPopupIds.some(id => !document.getElementById(id))) return;
+
   const KEY_P1 = 'btx_popup1_seen';
   const KEY_P3 = 'btx_popup3_count';
 
@@ -647,15 +653,19 @@ function initPopupSystem(tools) {
 
 let activePopup = null;
 function showPopup(id) {
-  if (activePopup) return;
+  const overlay = document.getElementById('popupOverlay');
+  const popup = document.getElementById(id);
+  if (activePopup || !overlay || !popup) return;
   activePopup = id;
-  document.getElementById('popupOverlay').classList.add('visible');
-  document.getElementById(id).classList.add('visible');
+  overlay.classList.add('visible');
+  popup.classList.add('visible');
 }
 function dismissPopup() {
   if (!activePopup) return;
-  document.getElementById(activePopup).classList.remove('visible');
-  document.getElementById('popupOverlay').classList.remove('visible');
+  const popup = document.getElementById(activePopup);
+  const overlay = document.getElementById('popupOverlay');
+  if (popup) popup.classList.remove('visible');
+  if (overlay) overlay.classList.remove('visible');
   activePopup = null;
 }
 
