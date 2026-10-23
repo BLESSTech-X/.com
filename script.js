@@ -55,11 +55,26 @@ function applyHomepageContent(home) {
       el.innerHTML = value.split('\n').map(line => line.replace(/[&<>"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]))).join('<br>');
     }
   };
-  setText('.hero-badge', home.hero_badge);
+  const setButtonLabel = (selector, value) => {
+    const el = document.querySelector(selector);
+    if (!el || typeof value !== 'string' || !value.trim()) return;
+    const icon = el.querySelector('i');
+    el.textContent = '';
+    if (icon) el.appendChild(icon);
+    el.appendChild(document.createTextNode(' ' + value));
+  };
+  const badge = document.querySelector('.hero-badge');
+  if (badge && home.hero_badge) {
+    const icon = badge.querySelector('i');
+    badge.textContent = '';
+    if (icon) badge.appendChild(icon);
+    badge.appendChild(document.createTextNode(' ' + home.hero_badge));
+  }
   setHeading('.hero-content h1', home.hero_title);
   setText('.hero-desc', home.hero_description);
-  setText('.hero-btns .btn-primary', home.hero_primary_cta);
-  setText('.hero-btns .btn-tools', home.hero_secondary_cta);
+  setText('#heroSub', home.hero_subtitle);
+  setButtonLabel('.hero-btns .btn-primary', home.hero_primary_cta);
+  setButtonLabel('.hero-btns .btn-tools', home.hero_secondary_cta);
   setText('#services .section-title', home.services_title);
   setText('#services .section-sub', home.services_subtitle);
   setText('#portfolio .section-title', home.portfolio_title);
@@ -107,6 +122,7 @@ function initHeroRotator(customTexts) {
   const el = document.getElementById('heroSub');
   if (!el) return;
   let i = 0;
+  el.textContent = texts[0];
   el.style.transition = 'opacity .3s ease';
   setInterval(() => {
     el.style.opacity = '0';
