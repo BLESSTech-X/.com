@@ -391,3 +391,23 @@ body.has-banner .site-header{top:var(--banner-h)}
 .service-demo-links{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
 .service-detail-actions{flex-wrap:wrap}
 @media(max-width:560px){.service-gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.service-gallery-item img{height:125px}.service-detail-actions .btn{flex:1;white-space:normal}}
+
+
+/* HOMEPAGE SERVICE CARDS — tighter, more scannable catalogue */
+#services .section-header{margin-bottom:2rem}
+#services .services-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;align-items:stretch}
+#services .service-card{border-radius:16px;box-shadow:0 7px 22px rgba(15,23,42,.07);min-width:0}
+#services .service-card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(15,23,42,.12)}
+#services .service-card img{height:132px;object-fit:cover}
+#services .service-card-body{padding:15px;gap:0}
+#services .service-card h3{font-size:1rem;line-height:1.35;margin-bottom:7px}
+#services .service-card p{font-size:.83rem;line-height:1.55;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-height:3.85em}
+#services .service-badge{font-size:.7rem;padding:3px 8px;align-self:flex-start}
+#services .service-price{font-size:.88rem;line-height:1.4;margin-bottom:11px}
+#services .service-card-actions{display:grid;grid-template-columns:1fr;gap:7px;margin-top:auto}
+#services .service-card-actions .btn{font-size:.78rem;padding:9px 10px;min-height:37px;white-space:normal;line-height:1.25}
+#services .service-search-wrap{margin-bottom:16px}
+@media(max-width:1050px){#services .services-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:760px){#services .services-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}#services .service-card img{height:115px}#services .service-card-body{padding:12px}#services .service-card h3{font-size:.94rem}#services .service-card p{font-size:.8rem;-webkit-line-clamp:3}#services .service-card-actions .btn{font-size:.73rem;padding:8px 7px}}
+@media(max-width:380px){#services .services-grid{grid-template-columns:1fr}#services .service-card{display:grid;grid-template-columns:112px minmax(0,1fr)}#services .service-card img{height:100%;min-height:190px}#services .service-card-body{padding:12px}#services .service-card p{-webkit-line-clamp:2;min-height:0}#services .service-card-actions{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){#services .service-card{transition:none}}
