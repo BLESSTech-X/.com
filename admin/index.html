@@ -108,6 +108,47 @@ CMS.init({
         ]
       },
 
+      {
+        name: 'about_page',
+        label: '📖 About Page',
+        files: [{
+          name: 'about_content',
+          label: 'About Page Content',
+          file: 'data.json',
+          fields: [{
+            label: 'About Page', name: 'about_page', widget: 'object',
+            fields: [
+              { label: 'Page Title', name: 'title', widget: 'string' },
+              { label: 'Tagline', name: 'tagline', widget: 'string' },
+              { label: 'Sections', name: 'sections', widget: 'list', fields: [
+                { label: 'Section Heading', name: 'heading', widget: 'string' },
+                { label: 'Section Text', name: 'body', widget: 'text' }
+              ]}
+            ]
+          }]
+        }]
+      },
+      {
+        name: 'contact_page',
+        label: '📬 Contact Page',
+        files: [{
+          name: 'contact_content',
+          label: 'Contact Page Content',
+          file: 'data.json',
+          fields: [{
+            label: 'Contact Page', name: 'contact_page', widget: 'object',
+            fields: [
+              { label: 'Page Title', name: 'title', widget: 'string' },
+              { label: 'Intro / Description', name: 'intro', widget: 'text' },
+              { label: 'Form Heading', name: 'form_heading', widget: 'string' },
+              { label: 'Submit Button Text', name: 'submit_label', widget: 'string' },
+              { label: 'Post-submit Instruction', name: 'success_message', widget: 'string' },
+              { label: 'Business Hours', name: 'office_hours', widget: 'string' }
+            ]
+          }]
+        }]
+      },
+
       // HOMEPAGE COPY — safely editable without changing HTML
       {
         name: 'homepage_content',
