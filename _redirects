@@ -1,0 +1,3 @@
+# Ensure the Decap CMS directory route resolves without requiring a trailing slash.
+/admin /admin/index.html 200
+/admin/ /admin/index.html 200
