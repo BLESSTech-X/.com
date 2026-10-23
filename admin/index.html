@@ -133,7 +133,7 @@ CMS.init({
                   { label: 'Free Tools Section Subtitle', name: 'tools_subtitle', widget: 'text', required: false },
                   { label: 'Contact Section Title', name: 'contact_title', widget: 'string', required: false },
                   { label: 'Contact Section Subtitle', name: 'contact_subtitle', widget: 'text', required: false },
-                  { label: 'Rotating Hero Messages', name: 'hero_rotator', widget: 'list', required: false, field: { label: 'Message', widget: 'string' } }
+                  { label: 'Rotating Hero Messages', name: 'hero_rotator', widget: 'list', required: false, field: { label: 'Message', name: 'message', widget: 'string' } }
             ]
           }]
         }]
@@ -174,8 +174,8 @@ CMS.init({
                   { label: 'Featured Service', name: 'featured', widget: 'boolean', required: false, default: false },
                   { label: 'Show on Website', name: 'published', widget: 'boolean', required: false, default: true },
                   { label: 'Display Order (smaller appears first)', name: 'sort_order', widget: 'number', required: false, value_type: 'int', default: 100 },
-                  { label: 'Features / What Is Included', name: 'features', widget: 'list', required: false, field: { label: 'Feature', widget: 'string' } },
-                  { label: 'Gallery Images', name: 'gallery', widget: 'list', required: false, field: { label: 'Gallery Image', widget: 'image' } },
+                  { label: 'Features / What Is Included', name: 'features', widget: 'list', required: false, field: { label: 'Feature', name: 'feature', widget: 'string' } },
+                  { label: 'Gallery Images', name: 'gallery', widget: 'list', required: false, field: { label: 'Gallery Image', name: 'image', widget: 'image' } },
                   { label: 'Sample / Demo Websites', name: 'demo_links', widget: 'list', required: false, fields: [
                     { label: 'Link Label', name: 'label', widget: 'string' },
                     { label: 'Website URL', name: 'url', widget: 'string' },
