@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,follow">
+  <title>BLESSTech-X Command Centre</title>
+  <meta name="description" content="BLESSTech-X site management shortcuts and operational workspace.">
+  <link rel="icon" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root{--cc-ink:#0b1220;--cc-panel:#111c2e;--cc-line:rgba(148,163,184,.2);--cc-blue:#0ea5e9}
+    body{min-height:100vh;background:radial-gradient(ellipse at top right,#123654 0,transparent 42%),#08111f;color:#e5edf7;padding:28px 16px 50px}
+    .cc-wrap{width:min(1080px,100%);margin:auto}
+    .cc-top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:8px 0 28px}
+    .cc-brand{display:flex;align-items:center;gap:12px}.cc-brand img{width:46px;height:46px;border-radius:12px;object-fit:cover}.cc-brand strong{font-size:1.25rem;letter-spacing:-.03em}.cc-brand small{display:block;color:#94a3b8;font-size:.8rem}
+    .cc-hero{padding:32px;border:1px solid var(--cc-line);border-radius:24px;background:linear-gradient(135deg,rgba(15,34,55,.96),rgba(14,26,43,.92));box-shadow:0 24px 70px #0003;margin-bottom:22px}
+    .cc-eyebrow{text-transform:uppercase;letter-spacing:.16em;font-size:.75rem;font-weight:800;color:#38bdf8}.cc-hero h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.1;margin:12px 0}.cc-hero p{max-width:700px;color:#b8c6d8}
+    .cc-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.cc-actions a,.cc-card a{display:inline-flex;align-items:center;gap:8px}
+    .cc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    .cc-card{padding:22px;border:1px solid var(--cc-line);border-radius:18px;background:rgba(17,28,46,.86);min-width:0;transition:transform .2s,border-color .2s}
+    .cc-card:hover{transform:translateY(-3px);border-color:rgba(56,189,248,.55)}
+    .cc-icon{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;background:#0ea5e91c;color:#7dd3fc;font-size:1.3rem;margin-bottom:16px}
+    .cc-card h2{font-size:1.08rem;margin-bottom:8px;color:#f8fafc}.cc-card p{color:#a8b6c8;font-size:.92rem;min-height:68px;margin-bottom:16px}
+    .cc-card a{font-weight:750;color:#7dd3fc}.cc-card a:hover{color:#bae6fd}
+    .cc-note{margin-top:20px;padding:16px 18px;border:1px solid var(--cc-line);border-radius:14px;color:#a8b6c8;font-size:.88rem}
+    .cc-note strong{color:#e2e8f0}
+    .cc-footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:#718198;font-size:.8rem;padding-top:24px}
+    .cc-btn{padding:11px 16px;border-radius:11px;font-weight:800;background:#0ea5e9;color:#fff!important}.cc-btn:hover{background:#0284c7}
+    .cc-ghost{padding:10px 14px;border:1px solid var(--cc-line);border-radius:11px;color:#e2e8f0!important}
+    @media(max-width:850px){.cc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cc-hero{padding:25px}}
+    @media(max-width:560px){body{padding:14px 12px 30px}.cc-grid{grid-template-columns:1fr}.cc-card p{min-height:0}.cc-hero{padding:22px}.cc-hero h1{font-size:2.1rem}.cc-top{padding-bottom:18px}}
+  </style>
+</head>
+<body>
+  <main class="cc-wrap">
+    <header class="cc-top">
+      <a class="cc-brand" href="./" aria-label="BLESSTech-X homepage">
+        <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X logo">
+        <span><strong>BLESSTech-X</strong><small>Command Centre</small></span>
+      </a>
+      <a class="cc-ghost" href="./contact.html">← Back to Contact</a>
+    </header>
+    <section class="cc-hero">
+      <div class="cc-eyebrow">Owner workspace</div>
+      <h1>Run the website.<br>Improve the business.</h1>
+      <p>Manage website content, update service offers, publish articles, review your work and open the tools you use to understand performance. Content editing happens through Decap CMS and saves to the GitHub repository.</p>
+      <div class="cc-actions">
+        <a class="cc-btn" href="./admin/">Open Content Manager ↗</a>
+        <a class="cc-ghost" href="./">View Live Website ↗</a>
+      </div>
+    </section>
+    <section class="cc-grid" aria-label="Command centre shortcuts">
+      <article class="cc-card"><div class="cc-icon">✍️</div><h2>Website Content</h2><p>Edit services, homepage content, site information, FAQs, team members and other configured content.</p><a href="./admin/">Open Decap CMS →</a></article>
+      <article class="cc-card"><div class="cc-icon">🧩</div><h2>Services & Galleries</h2><p>Add or update service descriptions, prices, features, gallery images, delivery expectations and sample-work links.</p><a href="./admin/#/collections/services">Manage Services →</a></article>
+      <article class="cc-card"><div class="cc-icon">🗂️</div><h2>Portfolio & Case Studies</h2><p>Maintain project examples and make sure public case studies link to genuine live work or clearly labelled demonstrations.</p><a href="./admin/#/collections/portfolio">Manage Portfolio →</a></article>
+      <article class="cc-card"><div class="cc-icon">📝</div><h2>Blog & Updates</h2><p>Publish useful digital-business guidance, project updates and articles that can attract visitors from search and social sharing.</p><a href="./admin/#/collections/blog">Manage Blog →</a></article>
+      <article class="cc-card"><div class="cc-icon">📈</div><h2>Traffic & Analytics</h2><p>Open the analytics tools to review visits, engagement and which pages deserve improvement. Access depends on your signed-in account.</p><a href="https://analytics.google.com/" target="_blank" rel="noopener">Google Analytics ↗</a></article>
+      <article class="cc-card"><div class="cc-icon">🛠️</div><h2>Free Tools</h2><p>Review the free-tools area and its links. Useful tools should solve real problems and introduce relevant paid services naturally.</p><a href="./tools/index.html">View Free Tools →</a></article>
+      <article class="cc-card"><div class="cc-icon">📬</div><h2>Enquiries</h2><p>Test the public contact route and WhatsApp handoff regularly so potential clients always have a clear next step.</p><a href="./contact.html">Test Contact Page →</a></article>
+      <article class="cc-card"><div class="cc-icon">🔎</div><h2>Search Visibility</h2><p>Check the preferred domain, sitemap, indexed pages and search queries. Search-engine dashboards require your account access.</p><a href="https://search.google.com/search-console/" target="_blank" rel="noopener">Search Console ↗</a></article>
+      <article class="cc-card"><div class="cc-icon">💻</div><h2>Source & Publishing</h2><p>Inspect committed changes, repository files and deployment history. This site uses GitHub-backed content and static hosting.</p><a href="https://github.com/BLESSTech-X/.com" target="_blank" rel="noopener">Open GitHub Repo ↗</a></article>
+    </section>
+    <aside class="cc-note"><strong>Publishing note:</strong> This is a shortcut dashboard, not a claim that every external integration is connected. CMS access requires the configured GitHub authentication to work. If a CMS link opens but login fails, that is an authentication configuration issue—not a content-editor issue.</aside>
+    <footer class="cc-footer"><span>BLESSTech-X · Command Centre</span><span>Built for practical site management</span></footer>
+  </main>
+</body>
+</html>
