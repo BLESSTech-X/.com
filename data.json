@@ -755,5 +755,27 @@
       "value": "24/7",
       "label": "Support Available"
     }
-  ]
+  ],
+  "homepage": {
+    "hero_badge": "Digital solutions for Zambian businesses",
+    "hero_title": "We Build Websites & Systems That Make Your Business Grow",
+    "hero_subtitle": "Professional Websites & E-commerce for Zambia",
+    "hero_description": "From websites to online stores and useful digital tools, we help businesses build a stronger online presence.",
+    "hero_primary_cta": "Explore Services",
+    "hero_secondary_cta": "Free Tools",
+    "services_title": "Our Digital Services",
+    "services_subtitle": "Practical digital solutions for businesses, creators and entrepreneurs.",
+    "portfolio_title": "Portfolio & Sample Work",
+    "portfolio_subtitle": "Explore examples, prototypes and published client work. Each project should be clearly identified.",
+    "tools_title": "Free Tools for Every Zambian",
+    "tools_subtitle": "Useful tools for everyday work, business and productivity.",
+    "contact_title": "Get In Touch",
+    "contact_subtitle": "Tell us what you are trying to build. We will discuss the scope and next steps.",
+    "hero_rotator": [
+      "Professional Websites & E-commerce for Zambia",
+      "Online stores and digital systems for growing businesses",
+      "Useful free tools for work and business",
+      "Mobile-friendly websites built around your goals"
+    ]
+  }
 }
