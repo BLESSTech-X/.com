@@ -336,7 +336,7 @@ function openPortfolioModal(id) {
         ${item.verified_results === true ? `<div class="cs-stats"><div class="cs-stat"><div class="cs-val">${esc(item.stats?.growth || '—')}</div><div class="cs-lbl">Verified growth</div></div><div class="cs-stat"><div class="cs-val">${esc(item.stats?.time || '—')}</div><div class="cs-lbl">Timeframe</div></div><div class="cs-stat"><div class="cs-val">${esc(item.stats?.reach || '—')}</div><div class="cs-lbl">Market reach</div></div></div>` : `<p class="cs-results-note">We share performance figures only when supporting evidence is available.</p>`}
         <div class="portfolio-detail-actions">
           ${item.live_url && item.live_url !== '#' ? `<a href="${esc(item.live_url)}" target="_blank" rel="noopener noreferrer" class="btn btn-primary"><i class="fas fa-arrow-up-right-from-square"></i> View live project</a>` : ''}
-          <button class="btn btn-primary" onclick="quoteService('Similar to ${esc(item.title).replace(/'/g,'&#39;')}','')"><i class="fab fa-whatsapp"></i> Discuss a similar project</button>
+          <button class="btn btn-primary" onclick="quoteService('Similar digital project','')"><i class="fab fa-whatsapp"></i> Discuss a similar project</button>
           <button class="btn btn-outline" onclick="closeModal('portfolioModal')">Back to portfolio</button>
         </div>
       </aside>
