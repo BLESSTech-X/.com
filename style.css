@@ -419,6 +419,6 @@ body.has-banner .site-header{top:var(--banner-h)}
 .hero-utility-actions{display:flex;justify-content:center;align-items:center;gap:9px;flex-wrap:wrap;margin:2px 0 22px}
 .hero-utility-btn{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid rgba(186,230,253,.25);border-radius:999px;background:rgba(255,255,255,.06);color:#dbeafe;font-size:.78rem;font-weight:750;cursor:pointer;transition:background .2s,border-color .2s}
 .hero-utility-btn:hover{background:rgba(14,165,233,.2);border-color:rgba(125,211,252,.6)}
-.hero .trusted-strip{width:100%;max-width:none;background:#0f172a;border-color:rgba(255,255,255,.08);padding:13px 0}
-.hero .trusted-item{font-size:.74rem}
+.trusted-strip{width:100%;max-width:none;background:#0f172a;border-color:rgba(255,255,255,.08);padding:13px 0}
+.trusted-item{font-size:.74rem}
 @media(max-width:768px){.hero-content{padding:54px 0 40px}.hero-utility-actions{margin:0 0 18px}.hero-utility-btn{font-size:.75rem;padding:8px 10px}}
