@@ -372,18 +372,30 @@ function initForms(site) {
       const orig = btn.innerHTML;
       btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending…';
       btn.disabled = true;
+      const name = cf.querySelector('[name=name]').value;
+      const service = cf.querySelector('[name=service]').value;
+      const message = cf.querySelector('[name=message]').value;
+      const formId = (site.formspree_id || '').trim();
+
+      // A placeholder ID is not a live endpoint. Route directly to WhatsApp
+      // instead of sending visitors through a guaranteed failed network request.
+      if (!formId || formId === 'YOUR_FORMSPREE_ID') {
+        const waText = `Hello BLESSTech-X!%0AName: ${encodeURIComponent(name)}%0AService: ${encodeURIComponent(service)}%0AMessage: ${encodeURIComponent(message)}`;
+        window.open(`https://wa.me/${site.whatsapp}?text=${waText}`, '_blank');
+        btn.innerHTML = orig; btn.disabled = false;
+        return;
+      }
+
       try {
         const fd = new FormData(cf);
-        const res = await fetch(`https://formspree.io/f/${SITE_DATA.site.formspree_id}`, { method:'POST', body:fd, headers:{Accept:'application/json'} });
+        const res = await fetch(`https://formspree.io/f/${formId}`, { method:'POST', body:fd, headers:{Accept:'application/json'} });
         if (res.ok) {
           document.getElementById('contactSuccess').style.display = 'flex';
           cf.reset();
-        } else throw new Error();
+        } else throw new Error('Contact form request failed');
       } catch {
-        const name = cf.querySelector('[name=name]').value;
-        const service = cf.querySelector('[name=service]').value;
-        const message = cf.querySelector('[name=message]').value;
-        window.open(`https://wa.me/${site.whatsapp}?text=Hello BLESSTech-X!%0AName: ${encodeURIComponent(name)}%0AService: ${encodeURIComponent(service)}%0AMessage: ${encodeURIComponent(message)}`, '_blank');
+        const waText = `Hello BLESSTech-X!%0AName: ${encodeURIComponent(name)}%0AService: ${encodeURIComponent(service)}%0AMessage: ${encodeURIComponent(message)}`;
+        window.open(`https://wa.me/${site.whatsapp}?text=${waText}`, '_blank');
       } finally {
         btn.innerHTML = orig; btn.disabled = false;
       }
