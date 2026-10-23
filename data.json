@@ -534,7 +534,14 @@
         "Delivery Integration",
         "Sales Analytics"
       ],
-      "category": "ecommerce"
+      "category": "ecommerce",
+      "long_description": "Full online store with Zambian payment gateways, inventory management, and delivery tracking — ready in 7–14 days.\n\nUse the request button to discuss the exact scope, requirements and delivery plan before work begins.",
+      "delivery_time": "7–14 days (subject to agreed scope)",
+      "best_for": "Businesses that want a clearer, more effective online presence.",
+      "published": true,
+      "featured": false,
+      "sort_order": 10,
+      "demo_links": []
     },
     {
       "badge": null,
@@ -556,7 +563,14 @@
         "1 Year Free Maintenance",
         "E-commerce Ready Architecture"
       ],
-      "category": "websites"
+      "category": "websites",
+      "long_description": "Fast, mobile-friendly websites that convert visitors into paying clients. Includes hosting, domain setup, and 1 year free maintenance.\n\nUse the request button to discuss the exact scope, requirements and delivery plan before work begins.",
+      "delivery_time": "Confirmed after requirements are reviewed",
+      "best_for": "Businesses that want a clearer, more effective online presence.",
+      "published": true,
+      "featured": false,
+      "sort_order": 20,
+      "demo_links": []
     },
     {
       "badge": "🛒 E-commerce",
@@ -576,7 +590,14 @@
         "Customer Accounts",
         "Inventory Management"
       ],
-      "category": "ecommerce"
+      "category": "ecommerce",
+      "long_description": "Already have a website? We add shopping cart, mobile money payments, and inventory management without rebuilding from scratch.\n\nUse the request button to discuss the exact scope, requirements and delivery plan before work begins.",
+      "delivery_time": "Confirmed after requirements are reviewed",
+      "best_for": "Businesses that want a clearer, more effective online presence.",
+      "published": true,
+      "featured": false,
+      "sort_order": 30,
+      "demo_links": []
     },
     {
       "badge": null,
@@ -597,7 +618,14 @@
         "Business Card Design",
         "Social Media Profile Assets"
       ],
-      "category": "branding"
+      "category": "branding",
+      "long_description": "Memorable branding that builds trust and sets you apart in the Zambian market.\n\nUse the request button to discuss the exact scope, requirements and delivery plan before work begins.",
+      "delivery_time": "Confirmed after requirements are reviewed",
+      "best_for": "Individuals and businesses that need this service.",
+      "published": true,
+      "featured": false,
+      "sort_order": 40,
+      "demo_links": []
     },
     {
       "badge": null,
@@ -618,7 +646,14 @@
         "Email Newsletter Templates",
         "Digital Ad Creatives"
       ],
-      "category": "graphics"
+      "category": "graphics",
+      "long_description": "Posters, flyers, social media visuals, and packaging designed to attract attention and drive sales.\n\nUse the request button to discuss the exact scope, requirements and delivery plan before work begins.",
+      "delivery_time": "Confirmed after requirements are reviewed",
+      "best_for": "Individuals and businesses that need this service.",
+      "published": true,
+      "featured": false,
+      "sort_order": 50,
+      "demo_links": []
     },
     {
       "badge": null,
@@ -639,7 +674,14 @@
         "Professional Email Setup",
         "Basic SEO Implementation"
       ],
-      "category": "business"
+      "category": "business",
+      "long_description": "Complete online presence from scratch — branding, website, Google listing, email, and social media profiles in one package.\n\nUse the request button to discuss the exact scope, requirements and delivery plan before work begins.",
+      "delivery_time": "Confirmed after requirements are reviewed",
+      "best_for": "Individuals and businesses that need this service.",
+      "published": true,
+      "featured": false,
+      "sort_order": 60,
+      "demo_links": []
     },
     {
       "badge": null,
@@ -659,7 +701,14 @@
         "Advertising Campaign Setup",
         "Monthly Report"
       ],
-      "category": "marketing"
+      "category": "marketing",
+      "long_description": "Full strategy, content creation, and daily management across Facebook, Instagram, and TikTok for Zambian businesses.\n\nUse the request button to discuss the exact scope, requirements and delivery plan before work begins.",
+      "delivery_time": "Confirmed after requirements are reviewed",
+      "best_for": "Individuals and businesses that need this service.",
+      "published": true,
+      "featured": false,
+      "sort_order": 70,
+      "demo_links": []
     },
     {
       "badge": null,
@@ -679,7 +728,14 @@
         "Performance Tracking",
         "Monthly Ranking Report"
       ],
-      "category": "marketing"
+      "category": "marketing",
+      "long_description": "Get found on Google when Zambian customers search for your services. Local and national SEO strategies included.\n\nUse the request button to discuss the exact scope, requirements and delivery plan before work begins.",
+      "delivery_time": "Confirmed after requirements are reviewed",
+      "best_for": "Individuals and businesses that need this service.",
+      "published": true,
+      "featured": false,
+      "sort_order": 80,
+      "demo_links": []
     }
   ],
   "stats": [
