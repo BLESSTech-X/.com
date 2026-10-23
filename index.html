@@ -642,20 +642,7 @@
       <div class="hero-particles" id="heroParticles"></div>
       <div class="container hero-content">
         <div class="hero-badge"><i class="fas fa-star"></i> Trusted by 150+ Zambian Businesses</div>
-        <!-- PWA Buttons -->
-<div style="display: flex; gap: 15px; justify-content: center; margin: 30px 0; flex-wrap: wrap;">
-  
-  <!-- Share Button -->
-  <button onclick="shareApp()" style="background: #1a365d; border: none; padding: 12px 24px; border-radius: 50px; font-weight: bold; color: white; cursor: pointer; font-size: 16px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
-    📤 Share BLESSTech-X
-  </button>
-  
-  <!-- Install Button -->
-  <button onclick="installApp()" style="background: #b8860b; border: none; padding: 12px 24px; border-radius: 50px; font-weight: bold; color: white; cursor: pointer; font-size: 16px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
-    📲 Add to Home Screen
-  </button>
-  
-</div>
+
 
 <script>
 // Share functionality
@@ -696,24 +683,6 @@ function installApp() {
   }
 }
 </script>
-         <!-- Scrolling trusted strip -->
-      <div class="trusted-strip">
-        <div class="trusted-scroll" id="trustedScroll">
-          <span class="trusted-item"><i class="fas fa-store"></i> E-commerce Stores</span>
-          <span class="trusted-item"><i class="fas fa-palette"></i> Logo & Branding</span>
-          <span class="trusted-item"><i class="fas fa-chart-line"></i> SEO & Google Visibility</span>
-          <span class="trusted-item"><i class="fas fa-tools"></i> 20+ Free Business Tools</span>
-          <span class="trusted-item"><i class="fas fa-headset"></i> 30-Day Support</span>
-          <span class="trusted-item"><i class="fas fa-bolt"></i> 3-7 Day Delivery</span>
-          <!-- Duplicate for seamless loop -->
-          <span class="trusted-item"><i class="fas fa-store"></i> E-commerce Stores</span>
-          <span class="trusted-item"><i class="fas fa-palette"></i> Logo & Branding</span>
-          <span class="trusted-item"><i class="fas fa-chart-line"></i> SEO & Google Visibility</span>
-          <span class="trusted-item"><i class="fas fa-tools"></i> 20+ Free Business Tools</span>
-          <span class="trusted-item"><i class="fas fa-headset"></i> 30-Day Support</span>
-          <span class="trusted-item"><i class="fas fa-bolt"></i> 3-7 Day Delivery</span>
-        </div>
-      </div>
         <h1>We Build Websites &amp; Systems<br/>That Make Your Business Grow</h1>
         <p class="hero-sub" id="heroSub">Professional Websites &amp; E-commerce for Zambia</p>
         <p class="hero-desc">From websites to full e-commerce plus 20+ free tools for everyone.</p>
@@ -722,6 +691,11 @@ function installApp() {
           <a href="tools/index.html" class="btn btn-tools"><i class="fas fa-tools"></i> Free Tools</a>
           <a href="https://wa.me/260979603741?text=Hello%20BLESSTech-X%2C%20I%20want%20to%20start%20selling%20online." class="btn btn-whatsapp" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
         </div>
+        <div class="hero-utility-actions" aria-label="Share or install BLESSTech-X">
+          <button type="button" class="hero-utility-btn" onclick="shareApp()"><i class="fas fa-share-nodes"></i> Share site</button>
+          <button type="button" class="hero-utility-btn" onclick="installApp()"><i class="fas fa-mobile-screen-button"></i> Add to home screen</button>
+        </div>
+
         <div class="hero-trust">
           <div class="trust-pill"><i class="fas fa-tools"></i> 20+ Free Tools</div>
           <div class="trust-pill"><i class="fas fa-shield-alt"></i> 30-Day Guarantee</div>
@@ -730,6 +704,27 @@ function installApp() {
         </div>
       </div>
     </section>
+
+    <!-- Scrolling service ticker, below the main message -->
+<!-- Scrolling trusted strip -->
+      <div class="trusted-strip">
+        <div class="trusted-scroll" id="trustedScroll">
+          <span class="trusted-item"><i class="fas fa-store"></i> E-commerce Stores</span>
+          <span class="trusted-item"><i class="fas fa-palette"></i> Logo & Branding</span>
+          <span class="trusted-item"><i class="fas fa-chart-line"></i> SEO & Google Visibility</span>
+          <span class="trusted-item"><i class="fas fa-tools"></i> 20+ Free Business Tools</span>
+          <span class="trusted-item"><i class="fas fa-headset"></i> 30-Day Support</span>
+          <span class="trusted-item"><i class="fas fa-bolt"></i> 7–14 Day Delivery</span>
+          <!-- Duplicate for seamless loop -->
+          <span class="trusted-item"><i class="fas fa-store"></i> E-commerce Stores</span>
+          <span class="trusted-item"><i class="fas fa-palette"></i> Logo & Branding</span>
+          <span class="trusted-item"><i class="fas fa-chart-line"></i> SEO & Google Visibility</span>
+          <span class="trusted-item"><i class="fas fa-tools"></i> 20+ Free Business Tools</span>
+          <span class="trusted-item"><i class="fas fa-headset"></i> 30-Day Support</span>
+          <span class="trusted-item"><i class="fas fa-bolt"></i> 7–14 Day Delivery</span>
+        </div>
+      </div>
+
 
     <!-- STATS BAR -->
     <section class="stats-bar">
