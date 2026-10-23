@@ -264,6 +264,7 @@ CMS.init({
                   { label: 'Before Image URL (optional)', name: 'before',      widget: 'string', required: false },
                   { label: 'After Image URL (optional)',  name: 'after',       widget: 'string', required: false },
                   { label: 'Live Site URL (use # if none)', name: 'live_url',  widget: 'string' },
+                  { label: 'Results verified?', name: 'verified_results', widget: 'boolean', default: false, hint: 'Only enable this when you have permission and evidence to publish the performance figures. Otherwise the public site labels it as a project example.' },
                   {
                     label: 'Tags', name: 'tags', widget: 'list',
                     field: { label: 'Tag', name: 'tag', widget: 'string' }
