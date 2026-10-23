@@ -29,6 +29,8 @@ function buildSite(d) {
   initHeaderScroll();
   initModalClose();
   initPopupSystem(d.tools);
+  handleServiceDeepLink();
+  window.addEventListener('hashchange', handleServiceDeepLink);
 }
 
 /* ── SITE INFO ── */
@@ -79,7 +81,8 @@ function initHeroRotator() {
 function renderServices(services) {
   const g = document.getElementById('servicesGrid');
   if (!g) return;
-  g.innerHTML = services.map(s => `
+  const visibleServices = (services || []).filter(s => s.published !== false).sort((a,b) => (a.sort_order ?? 100) - (b.sort_order ?? 100));
+  g.innerHTML = visibleServices.map(s => `
     <div class="service-card" data-category="${s.category}" data-search="${(s.title+' '+s.description).toLowerCase()}">
       <img src="${s.image}" alt="${s.title}" loading="lazy"/>
       <div class="service-card-body">
@@ -110,22 +113,53 @@ function applyServiceFilter() {
     c.style.display = (cat === 'all' || c.dataset.category === cat) && (!term || c.dataset.search.includes(term)) ? '' : 'none';
   });
 }
-function openServiceModal(id) {
+function openServiceModal(id, fromHash = false) {
   if (!SITE_DATA) return;
-  const s = SITE_DATA.services.find(x => x.id === id); if (!s) return;
+  const s = (SITE_DATA.services || []).find(x => x.id === id && x.published !== false);
+  if (!s) return;
+  const safe = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  const details = (s.long_description || '').trim().split(/\n{2,}/).filter(Boolean).map(p => '<p>' + safe(p).replace(/\n/g,'<br>') + '</p>').join('');
+  const gallery = (s.gallery || []).filter(img => typeof img === 'string' && img.trim()).map(img => {
+    const src = safe(img);
+    return '<a class="service-gallery-item" href="' + src + '" target="_blank" rel="noopener"><img src="' + src + '" alt="' + safe(s.title) + ' example" loading="lazy"></a>';
+  }).join('');
+  const demos = (s.demo_links || []).filter(d => d && d.url && /^https?:\/\//i.test(d.url)).map(d =>
+    '<a class="btn btn-outline btn-sm" href="' + safe(d.url) + '" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> ' + safe(d.label || d.type || 'View sample') + '</a>'
+  ).join('');
   document.getElementById('serviceModalContent').innerHTML = `
-    <div class="modal-header"><h2>${s.title} ${s.badge||''}</h2><p>${s.description}</p></div>
-    <div class="modal-body">
-      <div class="service-price" style="font-size:1.2rem;margin-bottom:18px">${s.price}</div>
-      <h4 style="margin-bottom:12px;color:var(--slate)">What's Included</h4>
-      <div class="modal-features">${s.features.map(f=>`<div class="modal-feature"><i class="fas fa-check-circle"></i>${f}</div>`).join('')}</div>
-      ${s.gallery?.length ? `<h4 style="margin-bottom:12px;color:var(--slate)">Examples</h4><div class="modal-gallery">${s.gallery.map(img=>`<img src="${img}" alt="${s.title}" loading="lazy" onclick="window.open('${img}','_blank')">`).join('')}</div>` : ''}
-      <div class="modal-actions">
-        <button class="btn btn-danger" onclick="quoteService('${esc(s.title)}','${esc(s.price)}')"><i class="fab fa-whatsapp"></i> Buy via WhatsApp</button>
+    <div class="modal-header"><h2>${safe(s.title)} ${safe(s.badge||'')}</h2><p>${safe(s.description||'')}</p></div>
+    <div class="modal-body service-detail-body">
+      <div class="service-price" style="font-size:1.2rem;margin-bottom:18px">${safe(s.price||'Contact us for pricing')}</div>
+      ${details ? '<div class="service-long-description">' + details + '</div>' : ''}
+      ${s.delivery_time ? '<p class="service-meta"><strong>Turnaround:</strong> ' + safe(s.delivery_time) + '</p>' : ''}
+      ${s.best_for ? '<p class="service-meta"><strong>Best for:</strong> ' + safe(s.best_for) + '</p>' : ''}
+      ${(s.features||[]).length ? '<h4 class="service-detail-heading">What is included</h4><div class="modal-features">' + s.features.map(f=>'<div class="modal-feature"><i class="fas fa-check-circle"></i>' + safe(f) + '</div>').join('') + '</div>' : ''}
+      ${gallery ? '<h4 class="service-detail-heading">Gallery & examples</h4><div class="modal-gallery service-gallery-grid">' + gallery + '</div>' : ''}
+      ${demos ? '<h4 class="service-detail-heading">Explore sample work</h4><div class="service-demo-links">' + demos + '</div>' : ''}
+      <div class="modal-actions service-detail-actions">
+        <button class="btn btn-danger" onclick="quoteService('${esc(s.title)}','${esc(s.price||'Quote requested')}')"><i class="fab fa-whatsapp"></i> Request this service</button>
+        <button class="btn btn-outline" onclick="shareService('${safe(s.id)}')"><i class="fas fa-share-alt"></i> Share service</button>
         <button class="btn btn-outline" onclick="closeModal('serviceModal')">Close</button>
       </div>
     </div>`;
+  if (!fromHash && location.hash !== '#service=' + encodeURIComponent(id)) history.replaceState(null, '', '#service=' + encodeURIComponent(id));
   openModal('serviceModal');
+}
+async function shareService(id) {
+  const s = (SITE_DATA?.services || []).find(x => x.id === id);
+  if (!s) return;
+  const url = location.origin + location.pathname + '#service=' + encodeURIComponent(id);
+  const payload = { title: s.title + ' | BLESSTech-X', text: s.description || 'Explore this BLESSTech-X service.', url };
+  try {
+    if (navigator.share) await navigator.share(payload);
+    else if (navigator.clipboard?.writeText) { await navigator.clipboard.writeText(url); alert('Service link copied. You can now share it.'); }
+    else { window.prompt('Copy this service link:', url); }
+  } catch (e) { if (e?.name !== 'AbortError') window.prompt('Copy this service link:', url); }
+}
+function handleServiceDeepLink() {
+  const match = location.hash.match(/^#service=(.+)$/);
+  if (match) openServiceModal(decodeURIComponent(match[1]), true);
+  else if (document.getElementById('serviceModal')?.classList.contains('open')) closeModal('serviceModal');
 }
 function quoteService(name, price) {
   const msg = `Hello BLESSTech-X! I want to purchase: *${name}* (${price})%0A%0ABusiness Name:%0AMy Name:%0APhone:%0APayment Method:`;
@@ -442,6 +476,7 @@ function openModal(id) {
 function closeModal(id) {
   const m = document.getElementById(id);
   if (m) { m.classList.remove('open'); document.body.style.overflow = ''; }
+  if (id === 'serviceModal' && /^#service=/.test(location.hash)) history.replaceState(null, '', location.pathname + location.search);
 }
 function initModalClose() {
   document.addEventListener('keydown', e => {
