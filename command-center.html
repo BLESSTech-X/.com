@@ -75,5 +75,29 @@
     <aside class="cc-note"><strong>Publishing note:</strong> This is a shortcut dashboard, not a claim that every external integration is connected. CMS access requires the configured GitHub authentication to work. If a CMS link opens but login fails, that is an authentication configuration issue—not a content-editor issue.</aside>
     <footer class="cc-footer"><span>BLESSTech-X · Command Centre</span><span>Built for practical site management</span></footer>
   </main>
+  </div>
+  <style>
+    [hidden]{display:none!important}body{padding:0!important}
+    .cc-login{min-height:100vh;display:grid;place-items:center;padding:24px 16px;background:radial-gradient(ellipse at 80% 5%,#0c4a6e 0,transparent 36%),radial-gradient(ellipse at 0 100%,#172554 0,transparent 40%),#07111f;color:#e5edf7}
+    .cc-login-card{width:min(440px,100%);padding:clamp(24px,5vw,38px);border:1px solid rgba(148,163,184,.24);border-radius:24px;background:rgba(12,24,42,.94);box-shadow:0 28px 90px rgba(0,0,0,.4)}
+    .cc-login-brand{display:flex;align-items:center;gap:12px;margin-bottom:30px;color:#f8fafc;text-decoration:none;font-weight:900}.cc-login-brand img{width:45px;height:45px;object-fit:cover;border-radius:12px}.cc-login-brand small{display:block;color:#8fa4bd;font-size:.76rem;font-weight:600}
+    .cc-login-icon{display:grid;place-items:center;width:52px;height:52px;border:1px solid rgba(56,189,248,.3);border-radius:16px;background:rgba(14,165,233,.12);color:#7dd3fc;font-size:1.3rem;margin-bottom:17px}
+    .cc-login-card h1{font-size:2.1rem;letter-spacing:-.05em;line-height:1.1;margin:8px 0 10px;color:#f8fafc}.cc-login-copy{color:#9eb0c6;margin:0 0 23px}
+    .cc-login-card form label{display:block;color:#d5e1ef;font-size:.82rem;font-weight:750;margin:15px 0 7px}.cc-login-card input{width:100%;height:47px;padding:0 13px;border-radius:11px;border:1px solid #33445b;background:#091525;color:#f8fafc;outline:none}.cc-login-card input:focus{border-color:#38bdf8;box-shadow:0 0 0 3px rgba(56,189,248,.14)}
+    .cc-password-wrap{display:flex;gap:8px}.cc-password-wrap input{min-width:0;flex:1}#ccReveal{border:1px solid #33445b;border-radius:10px;background:#15243a;color:#dbeafe;padding:0 12px;font-weight:750;cursor:pointer}
+    .cc-login-submit{width:100%;margin-top:23px;min-height:48px;border:0;border-radius:11px;background:linear-gradient(110deg,#0284c7,#0369a1);color:white;font-weight:850;cursor:pointer}.cc-login-submit:hover{filter:brightness(1.08)}
+    .cc-login-error{min-height:20px;margin:10px 0 0;color:#fca5a5;font-size:.84rem}.cc-login-foot{margin:19px 0 0;padding-top:16px;border-top:1px solid rgba(148,163,184,.17);font-size:.72rem;line-height:1.55;color:#8193aa}.cc-login-foot i{color:#7dd3fc;margin-right:5px}
+    .cc-wrap{padding-top:20px}#ccLogout{font:inherit}
+  </style>
+  <script>
+  (()=>{const EXPECTED='0a4818cad7a954cce7ef0ab30b1b683f0b0b136568d4c230878ccb247cbf9f08',login=document.getElementById('ccLogin'),workspace=document.getElementById('ccWorkspace'),form=document.getElementById('ccLoginForm'),email=document.getElementById('ccEmail'),password=document.getElementById('ccPassword'),error=document.getElementById('ccLoginError'),KEY='btx_cc_session_v1',ttl=30*60*1000;
+  async function digest(value){const hash=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(value));return Array.from(new Uint8Array(hash),b=>b.toString(16).padStart(2,'0')).join('')}
+  function showWorkspace(){login.hidden=true;workspace.hidden=false}function clearSession(){sessionStorage.removeItem(KEY);workspace.hidden=true;login.hidden=false;password.value=''}
+  try{const s=JSON.parse(sessionStorage.getItem(KEY)||'null');if(s&&s.ok===true&&Date.now()-s.at<ttl)showWorkspace();else sessionStorage.removeItem(KEY)}catch(_){sessionStorage.removeItem(KEY)}
+  form.addEventListener('submit',async e=>{e.preventDefault();error.textContent='';const user=email.value.trim().toLowerCase(),pass=password.value;if(!user||!pass){error.textContent='Enter both your email and password.';return}const submit=form.querySelector('button[type="submit"]');submit.disabled=true;submit.textContent='Checking…';try{if(await digest(user+'|'+pass)===EXPECTED){sessionStorage.setItem(KEY,JSON.stringify({ok:true,at:Date.now()}));showWorkspace()}else{error.textContent='Those sign-in details do not match. Please try again.';password.value='';password.focus()}}catch(_){error.textContent='This browser could not run the sign-in check. Please use an up-to-date browser.'}finally{submit.disabled=false;submit.innerHTML='<i class="fas fa-lock-open"></i> Sign in'}});
+  document.getElementById('ccReveal').addEventListener('click',()=>{const visible=password.type==='text';password.type=visible?'password':'text';document.getElementById('ccReveal').textContent=visible?'Show':'Hide';document.getElementById('ccReveal').setAttribute('aria-label',visible?'Show password':'Hide password')});
+  document.getElementById('ccLogout').addEventListener('click',clearSession);document.addEventListener('visibilitychange',()=>{if(document.hidden)return;try{const s=JSON.parse(sessionStorage.getItem(KEY)||'null');if(!s||Date.now()-s.at>=ttl)clearSession()}catch(_){clearSession()}});
+  })();
+  </script>
 </body>
 </html>
