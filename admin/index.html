@@ -110,48 +110,48 @@ CMS.init({
 
       // ════════════════════════════════════════════════
       // COLLECTION 2 — SERVICES
-      // Edits: services[] array
+      // Each service is editable from Decap, including its detailed page content,
+      // gallery, sample links, visibility and ordering.
       // ════════════════════════════════════════════════
       {
         name: 'services',
-        label: '🛠️ Services',
+        label: '🛠️ Services & Service Pages',
         files: [
           {
             name: 'services_list',
-            label: 'All Services',
+            label: 'Manage All Services',
             file: 'data.json',
             fields: [
               {
                 label: 'Services', name: 'services', widget: 'list',
-                hint: 'Add, edit or delete services. Changes go live on your website automatically.',
+                hint: 'Add, remove, reorder or edit services. Each service can have its own detail view, gallery and sample/demo links.',
                 fields: [
-                  { label: 'ID (unique, no spaces)',      name: 'id',          widget: 'string', hint: 'e.g. ecommerce-store — must be unique, no spaces' },
-                  { label: 'Service Title',               name: 'title',       widget: 'string' },
-                  {
-                    label: 'Category', name: 'category', widget: 'select',
-                    options: [
-                      { label: 'E-commerce',  value: 'ecommerce'  },
-                      { label: 'Websites',    value: 'websites'   },
-                      { label: 'Branding',    value: 'branding'   },
-                      { label: 'Graphics',    value: 'graphics'   },
-                      { label: 'Business',    value: 'business'   },
-                      { label: 'Marketing',   value: 'marketing'  }
-                    ]
-                  },
-                  { label: 'Badge (optional)',             name: 'badge',       widget: 'string',  required: false, hint: 'e.g. 🛒 E-commerce — leave blank for none' },
-                  { label: 'Short Description',           name: 'description', widget: 'text'   },
-                  { label: 'Price',                       name: 'price',       widget: 'string',  hint: 'e.g. From ZMW 980' },
-                  { label: 'Main Image URL',              name: 'image',       widget: 'string',  hint: 'Paste an image URL or upload via Media' },
-                  {
-                    label: 'Features List', name: 'features', widget: 'list',
-                    hint: 'Each line is one bullet point shown in the modal',
-                    field: { label: 'Feature', name: 'feature', widget: 'string' }
-                  },
-                  {
-                    label: 'Gallery Images (optional)', name: 'gallery', widget: 'list',
-                    required: false,
-                    field: { label: 'Image URL', name: 'url', widget: 'string' }
-                  }
+                  { label: 'Service ID (unique, no spaces)', name: 'id', widget: 'string', hint: 'Keep existing IDs stable. Example: website-creation' },
+                  { label: 'Service Title', name: 'title', widget: 'string' },
+                  { label: 'Category', name: 'category', widget: 'select', options: [
+                    { label: 'Websites', value: 'websites' }, { label: 'E-commerce', value: 'ecommerce' },
+                    { label: 'Branding', value: 'branding' }, { label: 'Graphics', value: 'graphics' },
+                    { label: 'Business Setup', value: 'business' }, { label: 'Marketing', value: 'marketing' }
+                  ]},
+                  { label: 'Badge (optional)', name: 'badge', widget: 'string', required: false },
+                  { label: 'Short Description (card preview)', name: 'description', widget: 'text' },
+                  { label: 'Detailed Service Description', name: 'long_description', widget: 'text', required: false, hint: 'Explain the service, who it helps and what the customer receives.' },
+                  { label: 'Price / Starting Price', name: 'price', widget: 'string', hint: 'Be clear about currency, scope and whether this is a starting price.' },
+                  { label: 'Main Card Image', name: 'image', widget: 'image' },
+                  { label: 'Delivery Time / Turnaround', name: 'delivery_time', widget: 'string', required: false },
+                  { label: 'Best For', name: 'best_for', widget: 'string', required: false },
+                  { label: 'Featured Service', name: 'featured', widget: 'boolean', required: false, default: false },
+                  { label: 'Show on Website', name: 'published', widget: 'boolean', required: false, default: true },
+                  { label: 'Display Order (smaller appears first)', name: 'sort_order', widget: 'number', required: false, value_type: 'int', default: 100 },
+                  { label: 'Features / What Is Included', name: 'features', widget: 'list', required: false, field: { label: 'Feature', widget: 'string' } },
+                  { label: 'Gallery Images', name: 'gallery', widget: 'list', required: false, field: { label: 'Gallery Image', widget: 'image' } },
+                  { label: 'Sample / Demo Websites', name: 'demo_links', widget: 'list', required: false, fields: [
+                    { label: 'Link Label', name: 'label', widget: 'string' },
+                    { label: 'Website URL', name: 'url', widget: 'string' },
+                    { label: 'Link Type', name: 'type', widget: 'select', options: ['Live Demo', 'Case Study', 'Prototype', 'Screenshot Gallery'], required: false }
+                  ]},
+                  { label: 'SEO Page Title (optional)', name: 'seo_title', widget: 'string', required: false },
+                  { label: 'SEO Description (optional)', name: 'seo_description', widget: 'text', required: false }
                 ]
               }
             ]
@@ -159,9 +159,6 @@ CMS.init({
         ]
       },
 
-      // ════════════════════════════════════════════════
-      // COLLECTION 3 — PORTFOLIO
-      // Edits: portfolio[] array
       // ════════════════════════════════════════════════
       {
         name: 'portfolio',
