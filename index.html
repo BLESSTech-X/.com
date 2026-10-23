@@ -967,73 +967,47 @@ function installApp() {
   </main>
 
   <!-- FOOTER -->
-  <footer class="site-footer">
+  <footer class="site-footer btx-footer">
     <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="logo" style="margin-bottom:1rem">
-            <img id="footerLogo" src="" alt="BLESSTech-X" width="36" height="36" />
-            <span class="logo-text">BLESS<span>Tech-X</span></span>
-          </div>
-          <p>Professional digital solutions plus 20+ free tools for Zambian entrepreneurs, students, and developers.</p>
-        </div>
-        <div class="footer-links-col">
-          <h4>Quick Links</h4>
-          <ul>
-            <li><a href="#services">Services</a></li>
-            <li><a href="tools/index.html">Free Tools</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
-            <li><a href="#process">How We Work</a></li>
-            <li><a href="blog.html">Blog</a></li>
-            <li><a href="#faq">FAQ</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
-          </ul>
-        </div>
-        <div class="footer-links-col">
-          <h4>Popular Free Tools</h4>
-          <ul>
-            <li><a href="tools/invoice/index.html">Invoice Generator</a></li>
-            <li><a href="tools/cv-builder/index.html">CV &amp; Resume Builder</a></li>
-            <li><a href="tools/email-writer/index.html">Email Writer</a></li>
-            <li><a href="tools/qr-generator/index.html">QR Code Generator</a></li>
-            <li><a href="tools/currency-converter/index.html">Currency Converter</a></li>
-            <li><a href="tools/budget-planner/index.html">Budget Planner</a></li>
-          </ul>
-        </div>
-        <div class="footer-links-col">
-          <h4>Contact</h4>
-          <ul>
-            <li><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a></li>
-            <li><a href="mailto:singbless89@gmail.com"><i class="fas fa-envelope"></i> singbless89@gmail.com</a></li>
-            <li><span><i class="fas fa-map-marker-alt"></i> Lusaka, Zambia</span></li>
-            <li><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
-          </ul>
-        </div>
-      </div>
-      <div style="border-top:1px solid rgba(255,255,255,.07);padding:20px 0;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-          <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;">BLESSTech-X Ventures</div>
-          <a href="https://phoneya2-accessories.vercel.app" target="_blank" rel="noopener"
-             style="display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.05);border:1px solid rgba(37,211,102,.2);border-radius:10px;padding:10px 16px;text-decoration:none;transition:all .2s;"
-             onmouseover="this.style.background='rgba(37,211,102,.08)';this.style.borderColor='rgba(37,211,102,.4)'"
-             onmouseout="this.style.background='rgba(255,255,255,.05)';this.style.borderColor='rgba(37,211,102,.2)'">
-            <span style="font-size:1.3rem;">📱</span>
-            <div>
-              <div style="font-size:13px;font-weight:700;color:white;">PhoneYa2-ZM Accessories</div>
-              <div style="font-size:11px;color:rgba(255,255,255,.4);">phoneya2-accessories.vercel.app</div>
-            </div>
-            <span style="font-size:11px;background:rgba(37,211,102,.15);border:1px solid rgba(37,211,102,.3);border-radius:100px;padding:2px 8px;color:#6effa6;font-weight:700;">Live</span>
+      <div class="btx-footer-main">
+        <div class="btx-footer-brand">
+          <a class="btx-footer-logo" href="index.html" aria-label="BLESSTech-X home">
+            <img id="footerLogo" src="" alt="" width="38" height="38">
+            <span>BLESSTech<span class="footer-x">-X</span></span>
+          </a>
+          <p>Professional digital solutions and 20+ practical free tools for entrepreneurs, students and developers in Zambia and beyond.</p>
+          <div class="btx-footer-venture"><span class="venture-symbol">↗</span><span><small>AN IN-HOUSE VENTURE</small><strong>BLESSTech-X Ventures</strong></span></div>
+          <a class="btx-footer-phoneya" href="https://phoneya2-accessories.vercel.app" target="_blank" rel="noopener">
+            <span class="phoneya2-mark">P<span>Y</span>2</span>
+            <span class="phoneya2-copy"><strong>PhoneYa2-ZM Accessories</strong><small>Explore our accessories store</small></span>
+            <span class="live-pill"><i></i> Live</span>
           </a>
         </div>
-        <div class="footer-bottom">
-        <p>&copy; 2026 BLESSTech-X. All rights reserved. Built for Zambia &amp; the Globe 🌍</p>
-        <div class="footer-pay-icons">
-          <i class="fas fa-mobile-alt" title="Airtel Money"></i>
-          <i class="fas fa-sim-card" title="MTN Money"></i>
-          <i class="fab fa-cc-visa" title="Visa"></i>
-          <i class="fab fa-cc-mastercard" title="Mastercard"></i>
-          <i class="fas fa-lock" title="Secure Payments"></i>
+        <div class="btx-footer-column">
+          <h3>Explore</h3>
+          <a href="#services">Services</a><a href="tools/index.html">Free Tools</a><a href="#portfolio">Portfolio</a><a href="process.html">How We Work</a><a href="blog.html">Blog &amp; Insights</a><a href="faq.html">FAQs</a><a href="about.html">About Us</a><a href="contact.html">Contact</a>
         </div>
+        <div class="btx-footer-column btx-footer-tools">
+          <h3>Popular tools</h3>
+          <a href="tools/invoice/index.html"><span class="footer-tool-dot dot-coral"></span>Invoice Generator</a>
+          <a href="tools/cv-builder/index.html"><span class="footer-tool-dot dot-violet"></span>CV &amp; Resume Builder</a>
+          <a href="tools/email-writer/index.html"><span class="footer-tool-dot dot-teal"></span>Email Writer</a>
+          <a href="tools/qr-generator/index.html"><span class="footer-tool-dot dot-amber"></span>QR Code Generator</a>
+          <a href="tools/currency-converter/index.html"><span class="footer-tool-dot dot-blue"></span>Currency Converter</a>
+          <a href="tools/budget-planner/index.html"><span class="footer-tool-dot dot-green"></span>Budget Planner</a>
+        </div>
+        <div class="btx-footer-column btx-footer-contact">
+          <h3>Talk to us</h3>
+          <a class="footer-contact-row" href="tel:+260979603741"><span class="footer-contact-icon contact-coral"><i class="fas fa-phone"></i></span><span><small>CALL / WHATSAPP</small><strong>+260 979 603 741</strong></span></a>
+          <a class="footer-contact-row" href="mailto:singbless89@gmail.com"><span class="footer-contact-icon contact-violet"><i class="fas fa-envelope"></i></span><span><small>EMAIL</small><strong>singbless89@gmail.com</strong></span></a>
+          <div class="footer-contact-row footer-location"><span class="footer-contact-icon contact-teal"><i class="fas fa-location-dot"></i></span><span><small>BASED IN</small><strong>Lusaka, Zambia</strong></span></div>
+          <a class="footer-whatsapp-link" href="https://wa.me/260979603741" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Message us on WhatsApp <i class="fas fa-arrow-up-right-from-square"></i></a>
+        </div>
+      </div>
+      <div class="btx-footer-bottom">
+        <p>© 2026 BLESSTech-X. All rights reserved. <span>Built for Zambia &amp; the globe 🌍</span></p>
+        <div class="footer-legal"><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a><a href="contact.html">Contact Us</a><a href="about.html">About Us</a></div>
+        <div class="btx-footer-payments" aria-label="Supported payment types"><span title="Mobile money"><i class="fas fa-mobile-screen-button"></i></span><span title="Visa"><i class="fab fa-cc-visa"></i></span><span title="Mastercard"><i class="fab fa-cc-mastercard"></i></span><span title="Secure payments"><i class="fas fa-lock"></i></span></div>
       </div>
     </div>
   </footer>
