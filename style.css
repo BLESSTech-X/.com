@@ -411,3 +411,14 @@ body.has-banner .site-header{top:var(--banner-h)}
 @media(max-width:760px){#services .services-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}#services .service-card img{height:115px}#services .service-card-body{padding:12px}#services .service-card h3{font-size:.94rem}#services .service-card p{font-size:.8rem;-webkit-line-clamp:3}#services .service-card-actions .btn{font-size:.73rem;padding:8px 7px}}
 @media(max-width:380px){#services .services-grid{grid-template-columns:1fr}#services .service-card{display:grid;grid-template-columns:112px minmax(0,1fr)}#services .service-card img{height:100%;min-height:190px}#services .service-card-body{padding:12px}#services .service-card p{-webkit-line-clamp:2;min-height:0}#services .service-card-actions{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){#services .service-card{transition:none}}
+
+
+/* HERO CLEANUP — put the message first and keep utility actions secondary */
+.hero-content{max-width:920px;width:100%;padding:64px 0 52px}
+.hero .hero-badge{margin-bottom:18px}
+.hero-utility-actions{display:flex;justify-content:center;align-items:center;gap:9px;flex-wrap:wrap;margin:2px 0 22px}
+.hero-utility-btn{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid rgba(186,230,253,.25);border-radius:999px;background:rgba(255,255,255,.06);color:#dbeafe;font-size:.78rem;font-weight:750;cursor:pointer;transition:background .2s,border-color .2s}
+.hero-utility-btn:hover{background:rgba(14,165,233,.2);border-color:rgba(125,211,252,.6)}
+.hero .trusted-strip{width:100%;max-width:none;background:#0f172a;border-color:rgba(255,255,255,.08);padding:13px 0}
+.hero .trusted-item{font-size:.74rem}
+@media(max-width:768px){.hero-content{padding:54px 0 40px}.hero-utility-actions{margin:0 0 18px}.hero-utility-btn{font-size:.75rem;padding:8px 10px}}
