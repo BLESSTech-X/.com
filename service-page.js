@@ -17,6 +17,15 @@
   const desc=s.seo_description||s.description||'Explore this BLESSTech-X service.';
   document.title=title;
   const meta=document.querySelector('meta[name="description"]');if(meta)meta.content=desc;
+  const setMeta=(selector,value)=>{let node=document.querySelector(selector);if(!node){node=document.createElement('meta');const parts=selector.match(/\[(name|property)="([^"]+)"\]/);if(parts)node.setAttribute(parts[1],parts[2]);document.head.appendChild(node)}node.content=value};
+  setMeta('meta[property="og:title"]',title);
+  setMeta('meta[property="og:description"]',desc);
+  setMeta('meta[property="og:url"]',location.href);
+  setMeta('meta[property="og:type"]','website');
+  if(s.image)setMeta('meta[property="og:image"]',s.image);
+  setMeta('meta[name="twitter:card"]','summary_large_image');
+  setMeta('meta[name="twitter:title"]',title);
+  setMeta('meta[name="twitter:description"]',desc);
   const canonical=document.querySelector('link[rel="canonical"]');if(canonical)canonical.href=location.origin+location.pathname+'?id='+encodeURIComponent(s.id);
   const img=safeUrl(s.image);
   const paragraphs=String(s.long_description||s.description||'').split(/\n{2,}/).filter(Boolean).map(p=>'<p>'+esc(p).replace(/\n/g,'<br>')+'</p>').join('');
@@ -37,6 +46,13 @@
           <a class="btn btn-primary" href="${esc(wa)}" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Discuss This Service</a>
           <button class="btn btn-outline" id="shareServicePage"><i class="fas fa-share-alt"></i> Share Service</button>
         </div>
+        <div class="service-social-share" aria-label="Share this service">
+          <strong>Help someone discover this service:</strong>
+          <a class="service-share-wa" href="https://wa.me/?text=${encodeURIComponent(s.title+' — '+desc+' '+location.href)}" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp</a>
+          <a class="service-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(location.href)}" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook" aria-hidden="true"></i> Facebook</a>
+          <button type="button" id="copyShareUrl"><i class="fas fa-link" aria-hidden="true"></i> Copy link</button>
+        </div>
+        <div class="service-share-feedback" id="serviceShareFeedback" role="status" aria-live="polite"></div>
       </div>
       ${img?'<img class="service-main-image" src="'+esc(img)+'" alt="'+esc(s.title)+'" fetchpriority="high">':'<div class="service-main-image" aria-label="Service image unavailable"></div>'}
     </section>
@@ -57,11 +73,19 @@
           <button class="btn btn-outline" id="copyServiceLink" style="width:100%;justify-content:center;margin-top:10px"><i class="fas fa-link"></i> Copy Service Link</button>
         </section>
       </aside>
+    </div>
+    <div class="service-mobile-cta" aria-label="Quick contact">
+      <a class="mobile-quote" href="${esc(wa)}" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" aria-hidden="true"></i> Get a Quote</a>
+      <a class="mobile-contact" href="./contact.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a>
     </div>`;
   const shareUrl=location.href;
   const shareButton=document.getElementById('shareServicePage');
   const copyButton=document.getElementById('copyServiceLink');
-  async function share(){try{if(navigator.share)await navigator.share({title, text:desc, url:shareUrl});else{await navigator.clipboard.writeText(shareUrl);alert('Service link copied.')}}catch(e){if(e?.name!=='AbortError')window.prompt('Copy this service link:',shareUrl)}}
-  shareButton.addEventListener('click',share);
-  copyButton.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(shareUrl);copyButton.innerHTML='<i class="fas fa-check"></i> Link Copied';setTimeout(()=>copyButton.innerHTML='<i class="fas fa-link"></i> Copy Service Link',2200)}catch{window.prompt('Copy this service link:',shareUrl)}});
+  const copyShareButton=document.getElementById('copyShareUrl');
+  const shareFeedback=document.getElementById('serviceShareFeedback');
+  async function share(){try{if(navigator.share)await navigator.share({title, text:desc, url:shareUrl});else{await copyUrl();}}catch(e){if(e?.name!=='AbortError')window.prompt('Copy this service link:',shareUrl)}}
+  async function copyUrl(){try{if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(shareUrl);if(shareFeedback)shareFeedback.textContent='Service link copied. You can now paste it into a message or post.';if(copyButton)copyButton.innerHTML='<i class="fas fa-check"></i> Link Copied';if(copyShareButton)copyShareButton.innerHTML='<i class="fas fa-check"></i> Copied';setTimeout(()=>{if(copyButton)copyButton.innerHTML='<i class="fas fa-link"></i> Copy Service Link';if(copyShareButton)copyShareButton.innerHTML='<i class="fas fa-link" aria-hidden="true"></i> Copy link'},2400)}else{window.prompt('Copy this service link:',shareUrl)}}catch{window.prompt('Copy this service link:',shareUrl)}}
+  if(shareButton)shareButton.addEventListener('click',share);
+  if(copyShareButton)copyShareButton.addEventListener('click',copyUrl);
+  if(copyButton)copyButton.addEventListener('click',copyUrl);
 })();
