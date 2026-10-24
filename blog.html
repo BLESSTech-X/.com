@@ -1093,7 +1093,7 @@
              style="display:inline-flex;align-items:center;gap:7px;background:#25d366;color:white;font-weight:700;font-size:13px;padding:9px 16px;border-radius:8px;text-decoration:none;">
             <i class="fab fa-whatsapp"></i> Get tips on WhatsApp
           </a>
-          <a href="https://phoneya2-accessories.vercel.app" target="_blank" rel="noopener"
+          <a href="https://phoneya2.pages.dev/" target="_blank" rel="noopener"
              style="display:inline-flex;align-items:center;gap:7px;background:rgba(255,96,0,.1);border:1.5px solid rgba(255,96,0,.25);color:#ff6000;font-weight:700;font-size:13px;padding:9px 16px;border-radius:8px;text-decoration:none;">
             📱 Visit PhoneYa2 Store
           </a>
@@ -1182,12 +1182,12 @@
 
       <!-- MOBILE ONLY: PhoneYa2 promo strip -->
       <div style="padding:0 12px 12px;display:none;" class="mobile-py2-strip">
-        <a href="https://phoneya2-accessories.vercel.app" target="_blank" rel="noopener"
+        <a href="https://phoneya2.pages.dev/" target="_blank" rel="noopener"
            style="display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,#0d2010,#0a3518);border:1px solid rgba(37,211,102,.2);border-radius:12px;padding:14px 16px;text-decoration:none;">
           <span style="font-size:1.8rem;flex-shrink:0;">📱</span>
           <div style="flex:1;min-width:0;">
             <div style="font-size:13px;font-weight:800;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">PhoneYa2-ZM Accessories</div>
-            <div style="font-size:11px;color:rgba(255,255,255,.5);">Genuine products · Same-day Lusaka</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.5);">Genuine phone accessories · Shop online</div>
           </div>
           <span style="font-size:11px;background:rgba(37,211,102,.15);border:1px solid rgba(37,211,102,.3);border-radius:100px;padding:3px 9px;color:#6effa6;font-weight:700;flex-shrink:0;">Shop</span>
         </a>
@@ -1291,9 +1291,9 @@
           </div>
         </div>
         <div style="padding:12px 14px 14px;">
-          <p style="font-size:12px;color:var(--muted,#6b7280);line-height:1.6;margin:0 0 12px;">Cases, chargers, earphones &amp; power banks. Genuine products, same-day delivery.</p>
+          <p style="font-size:12px;color:var(--muted,#6b7280);line-height:1.6;margin:0 0 12px;">Cases, chargers, earphones &amp; power banks. Explore phone accessories online.</p>
           <div style="display:flex;gap:7px;">
-            <a href="https://phoneya2-accessories.vercel.app" target="_blank" rel="noopener"
+            <a href="https://phoneya2.pages.dev/" target="_blank" rel="noopener"
                style="flex:1;background:linear-gradient(135deg,#ff6000,#ff9f43);color:white;font-weight:700;font-size:12px;padding:8px;border-radius:7px;text-align:center;text-decoration:none;display:block;">
               Shop →
             </a>
@@ -1446,10 +1446,13 @@
       updateCounts();
       applyFilters();
       document.getElementById('feedLoading').style.display = 'none';
+      // Shared article URLs use #<slug>; open the article after posts have loaded.
+      const sharedSlug = decodeURIComponent(location.hash.slice(1));
+      if (sharedSlug && allPosts.some(p => p.slug === sharedSlug)) openPost(sharedSlug);
 
     } catch(e) {
       console.error(e);
-      showEmpty();
+      showLoadError();
     }
   }
 
@@ -1569,9 +1572,9 @@
           </div>
           <span style="margin-left:auto;background:rgba(37,211,102,.15);border:1px solid rgba(37,211,102,.3);border-radius:100px;padding:2px 9px;font-size:10px;font-weight:700;color:#6effa6;">Live</span>
         </div>
-        <div class="py2-card-sub">Genuine phone cases, chargers, earphones &amp; power banks — same-day delivery across Lusaka, Zambia. Built by BLESSTech-X.</div>
+        <div class="py2-card-sub">Phone cases, chargers, earphones &amp; power banks for everyday use. Explore PhoneYa2, built by BLESSTech-X.</div>
         <div class="py2-card-btns">
-          <a href="https://phoneya2-accessories.vercel.app" target="_blank" rel="noopener" class="py2-btn-shop">🛍️ Shop Now</a>
+          <a href="https://phoneya2.pages.dev/" target="_blank" rel="noopener" class="py2-btn-shop">🛍️ Shop Now</a>
           <a href="https://wa.me/260979603741?text=Hi!%20I%20want%20to%20order%20from%20PhoneYa2-ZM." target="_blank" rel="noopener" class="py2-btn-wa"><i class="fab fa-whatsapp"></i></a>
         </div>
       </div>
@@ -1730,7 +1733,7 @@
     const strip = document.querySelector('.mobile-cat-scroll');
     if (!strip) return;
     const pill = document.createElement('a');
-    pill.href = 'https://phoneya2-accessories.vercel.app';
+    pill.href = 'https://phoneya2.pages.dev/';
     pill.target = '_blank';
     pill.rel = 'noopener';
     pill.className = 'mobile-py2-pill';
@@ -1766,6 +1769,7 @@
   window.openPost = function(slug) {
     const post = allPosts.find(p => p.slug === slug); if (!post) return;
     currentSlug = slug;
+    history.replaceState(null, '', location.pathname + location.search + '#' + encodeURIComponent(slug));
 
     // Hero
     const hero = document.getElementById('modalHero');
@@ -1804,6 +1808,7 @@
     document.getElementById('postModal').classList.remove('open');
     document.body.style.overflow = '';
     currentSlug = null;
+    if (location.hash) history.replaceState(null, '', location.pathname + location.search);
   }
   window.closeModal = closeModal;
 
@@ -1849,7 +1854,7 @@
   };
 
   window.shareCard = function(slug, title) {
-    const url = `${location.origin}${location.pathname}#${slug}`;
+    const url = location.origin + location.pathname + '#' + encodeURIComponent(slug);
     if (navigator.share) {
       navigator.share({ title, url }).catch(()=>{});
     } else {
@@ -1874,6 +1879,16 @@
   function showEmpty() {
     document.getElementById('feedLoading').style.display = 'none';
     document.getElementById('feedEmpty').style.display   = 'block';
+  }
+
+  function showLoadError() {
+    showEmpty();
+    const empty = document.querySelector('#feedEmpty .feed-empty');
+    if (!empty) return;
+    const title = empty.querySelector('h3');
+    const message = empty.querySelector('p');
+    if (title) title.textContent = 'Articles are temporarily unavailable';
+    if (message) message.textContent = 'We could not load the blog right now. Please refresh in a moment or contact BLESSTech-X directly.';
   }
 
   // Mobile category filter — syncs with desktop sidebar
