@@ -461,7 +461,7 @@
     .post-modal {
       background: var(--white); border-radius: 20px;
       max-width: 760px; width: 100%; margin: 20px auto;
-      overflow: hidden; position: relative;
+      overflow: visible; position: relative;
       animation: modalSlideIn 0.3s cubic-bezier(.22,1,.36,1);
     }
     @keyframes modalSlideIn {
@@ -472,7 +472,8 @@
     .modal-close-bar {
       display: flex; align-items: center; justify-content: space-between;
       padding: 14px 20px; border-bottom: 1px solid var(--border);
-      position: sticky; top: 0; background: var(--white); z-index: 1;
+      position: sticky; top: 0; background: var(--white); z-index: 11;
+      border-radius: 20px 20px 0 0;
     }
     .modal-close-brand { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 0.88rem; color: var(--slate); }
     .modal-close-brand img { width: 28px; border-radius: 6px; }
@@ -954,7 +955,7 @@
 
   /* ── MODAL READING PROGRESS ──────────────────────────────────────────── */
   .modal-reading-progress {
-    position: sticky; top: 0; left: 0; right: 0; height: 3px;
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
     background: rgba(0,0,0,.08); z-index: 10; border-radius: 0;
   }
   .modal-reading-fill { height: 100%; width: 0; background: linear-gradient(90deg,#ff6000,#ff9f43); transition: width .1s linear; }
@@ -1001,7 +1002,7 @@
 
     <div class="nav-search">
       <i class="fas fa-search"></i>
-      <input type="text" id="searchInput" placeholder="Search posts…" />
+      <input type="search" id="searchInput" placeholder="Search posts…" aria-label="Search blog articles" autocomplete="off" />
     </div>
 
     <div class="nav-links-bar">
@@ -1175,7 +1176,7 @@
           <div class="feed-empty-icon">✍️</div>
           <h3>No posts yet</h3>
           <p>We're writing guides to help your Zambian business grow. Check back soon — or talk to us directly.</p>
-          <a href="https://wa.me/260979603741" class="cta-btn cta-btn-wa" target="_blank">
+          <a href="https://wa.me/260979603741" class="cta-btn cta-btn-wa" target="_blank" rel="noopener noreferrer">
             <i class="fab fa-whatsapp"></i> Chat With Us
           </a>
         </div>
@@ -1323,7 +1324,7 @@
   <!-- ═══════════════════════════════════════
        POST MODAL
   ═══════════════════════════════════════ -->
-  <div class="post-modal-overlay" id="postModal">
+  <div class="post-modal-overlay" id="postModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
     <div class="post-modal">
       <div class="modal-close-bar">
         <div class="modal-close-brand">
@@ -1366,7 +1367,7 @@
         <h4>Want results like this for your business?</h4>
         <p>BLESSTech-X builds websites & e-commerce stores with Airtel & MTN Money — delivered in 7–14 days.</p>
         <div class="modal-cta-btns">
-          <a href="https://wa.me/260979603741?text=Hello%20BLESSTech-X!%20I%20read%20your%20blog%20and%20want%20to%20know%20more." class="cta-btn cta-btn-wa" target="_blank">
+          <a href="https://wa.me/260979603741?text=Hello%20BLESSTech-X!%20I%20read%20your%20blog%20and%20want%20to%20know%20more." class="cta-btn cta-btn-wa" target="_blank" rel="noopener noreferrer">
             <i class="fab fa-whatsapp"></i> Chat With Us
           </a>
           <a href="index.html#services" class="cta-btn cta-btn-outline">
@@ -1383,7 +1384,7 @@
     <a href="blog.html" class="tab-bar-item active"><i class="fas fa-newspaper"></i> Blog</a>
     <a href="tools/index.html" class="tab-bar-item"><i class="fas fa-tools"></i> Tools</a>
     <a href="index.html#services" class="tab-bar-item"><i class="fas fa-briefcase"></i> Services</a>
-    <a href="https://wa.me/260979603741" class="tab-bar-item tab-wa" target="_blank"><i class="fab fa-whatsapp"></i> Chat</a>
+    <a href="https://wa.me/260979603741" class="tab-bar-item tab-wa" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> Chat</a>
   </div>
 
   <!-- Toast -->
@@ -1740,13 +1741,16 @@
 
   // ── MODAL READING PROGRESS ────────────────────────────────────────────────
   function initModalProgress() {
-    const modalEl = document.querySelector('.post-modal');
-    const fill    = document.getElementById('modalReadFill');
-    if (!modalEl || !fill) return;
-    modalEl.addEventListener('scroll', () => {
-      const pct = modalEl.scrollTop / (modalEl.scrollHeight - modalEl.clientHeight);
-      fill.style.width = Math.min(100, Math.round(pct * 100)) + '%';
-    }, { passive: true });
+    const scrollEl = document.getElementById('postModal');
+    const fill = document.getElementById('modalReadFill');
+    if (!scrollEl || !fill) return;
+    const updateProgress = () => {
+      const range = scrollEl.scrollHeight - scrollEl.clientHeight;
+      const pct = range > 0 ? (scrollEl.scrollTop / range) * 100 : 0;
+      fill.style.width = Math.min(100, Math.max(0, Math.round(pct))) + '%';
+    };
+    scrollEl.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
   }
 
   // ── MOBILE PhoneYa2 PILL in category strip ────────────────────────────────
@@ -1826,8 +1830,11 @@
     likeBtn.classList.toggle('liked', !!liked);
     likeIcon.className = liked ? 'fas fa-heart' : 'far fa-heart';
 
-    document.getElementById('postModal').classList.add('open');
+    const modalOverlay = document.getElementById('postModal');
+    modalOverlay.classList.add('open');
+    document.getElementById('modalReadFill').style.width = '0%';
     document.body.style.overflow = 'hidden';
+    modalOverlay.focus({ preventScroll: true });
   };
 
   function closeModal() {
