@@ -1475,6 +1475,9 @@
   let likes          = safeJson('btx_likes', {});
   let saves          = safeJson('btx_saves', {});
   let currentSlug    = null;
+  let lastFocusedElement = null;
+  const baseTitle = document.title;
+  const baseDescription = document.querySelector('meta[name="description"]')?.content || '';
 
   // ── BOOT ───────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', () => {
@@ -1847,6 +1850,14 @@
       history.pushState(null, '', location.pathname + location.search + '#' + encodeURIComponent(slug));
     }
 
+    lastFocusedElement = document.activeElement;
+    document.title = (post.title || 'Article') + ' | BLESSTech-X Journal';
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) metaDescription.content = (post.excerpt || extractExcerpt(post.body) || baseDescription).slice(0, 300);
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.content = (post.title || 'Article') + ' | BLESSTech-X Journal';
+    const ogDescription = document.querySelector('meta[property="og:description"]');
+    if (ogDescription) ogDescription.content = (post.excerpt || extractExcerpt(post.body) || baseDescription).slice(0, 300);
     // Hero
     const hero = document.getElementById('modalHero');
     if (post.image) {
@@ -1891,7 +1902,16 @@
   function closeModal(updateHistory = true) {
     document.getElementById('postModal').classList.remove('open');
     document.body.style.overflow = '';
+    document.title = baseTitle;
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) metaDescription.content = baseDescription;
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.content = 'BLESSTech-X Journal | Business, Digital & Growth';
+    const ogDescription = document.querySelector('meta[property="og:description"]');
+    if (ogDescription) ogDescription.content = 'Practical business guides, e-commerce lessons, and digital growth insights for Zambia.';
     currentSlug = null;
+    if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') lastFocusedElement.focus({ preventScroll: true });
+    lastFocusedElement = null;
     if (updateHistory && location.hash) history.replaceState(null, '', location.pathname + location.search);
   }
   window.closeModal = closeModal;
