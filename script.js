@@ -141,19 +141,80 @@ function renderServices(services) {
   const g = document.getElementById('servicesGrid');
   if (!g) return;
   const visibleServices = (services || []).filter(s => s.published !== false).sort((a,b) => (a.sort_order ?? 100) - (b.sort_order ?? 100));
-  g.innerHTML = visibleServices.map(s => `
-    <div class="service-card" data-category="${s.category}" data-search="${(s.title+' '+s.description).toLowerCase()}">
-      <img src="${s.image}" alt="${s.title}" loading="lazy"/>
-      <div class="service-card-body">
-        ${s.badge ? `<span class="service-badge">${s.badge}</span>` : ''}
-        <h3>${s.title}</h3><p>${s.description}</p>
-        <div class="service-price">${s.price}</div>
-        <div class="service-card-actions">
-          <button class="btn btn-danger btn-sm" onclick="quoteService('${esc(s.title)}','${esc(s.price)}')"><i class="fab fa-whatsapp"></i> Get a Quote</button>
-          <a class="btn btn-outline btn-sm" href="service.html?id=${encodeURIComponent(s.id)}"><i class="fas fa-eye"></i> View Details</a>
-        </div>
+  const brandLogo = SITE_DATA?.site?.logo || '';
+  const safe = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  g.innerHTML = visibleServices.map(s => {
+    const id = safe(s.id);
+    const title = safe(s.title);
+    const description = safe(s.description);
+    const price = safe(s.price || 'Ask for a quote');
+    const image = safe(s.image || brandLogo);
+    const category = safe(s.category || 'all');
+    const badge = s.badge ? safe(s.badge) : 'Digital service';
+    const shareUrl = new URL('service.html?id=' + encodeURIComponent(s.id), location.href).href;
+    const waMessage = encodeURIComponent('Hello BLESSTech-X! I am interested in: ' + s.title + '. Please tell me what is included and how to get started.');
+    return `
+    <article class="service-card service-post-card" data-category="${category}" data-search="${(String(s.title||'')+' '+String(s.description||'')).toLowerCase().replace(/&/g,'&amp;').replace(/"/g,'&quot;')}">
+      <div class="service-post-head">
+        <img class="service-post-avatar" src="${safe(brandLogo)}" alt="BLESSTech-X" loading="lazy">
+        <div class="service-post-author"><strong>BLESSTech<span>-X</span></strong><small><i class="fas fa-check-circle" aria-hidden="true"></i> Digital solutions · Zambia</small></div>
+        <span class="service-post-tag">${badge}</span>
       </div>
-    </div>`).join('');
+      <div class="service-post-copy">
+        <h3>${title}</h3>
+        <p>${description}</p>
+      </div>
+      <a class="service-post-image-link" href="service.html?id=${encodeURIComponent(s.id)}" aria-label="View details for ${title}">
+        <img class="service-post-image" src="${image}" alt="${title}" loading="lazy" onerror="this.onerror=null;this.src='${safe(brandLogo)}';">
+      </a>
+      <div class="service-post-offer">
+        <div><span class="service-post-price-label">STARTING PRICE</span><div class="service-price">${price}</div></div>
+        <a class="service-post-details" href="service.html?id=${encodeURIComponent(s.id)}">Details <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+      </div>
+      <div class="service-post-actions" aria-label="Share this service">
+        <button type="button" onclick="shareService('${id}')" aria-label="Share ${title}" title="Share service"><i class="fas fa-share-nodes" aria-hidden="true"></i><span>Share</span></button>
+        <a href="https://wa.me/260979603741?text=${waMessage}" target="_blank" rel="noopener noreferrer" aria-label="Ask about ${title} on WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i><span>WhatsApp</span></a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Share ${title} on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span>Facebook</span></a>
+        <button type="button" onclick="copyServiceLink('${id}')" aria-label="Copy link for ${title}" title="Copy service link"><i class="fas fa-link" aria-hidden="true"></i><span>Copy link</span></button>
+      </div>
+      <div class="service-post-cta">
+        <button class="btn btn-primary btn-sm" type="button" onclick="quoteService('${esc(s.title)}','${esc(s.price || 'Quote requested')}')"><i class="fas fa-comment-dots" aria-hidden="true"></i> Request a Quote</button>
+      </div>
+    </article>`;
+  }).join('');
+}
+function serviceShareUrl(id) {
+  return new URL('service.html?id=' + encodeURIComponent(id), location.href).href;
+}
+async function copyServiceLink(id) {
+  const s = (SITE_DATA?.services || []).find(x => x.id === id);
+  if (!s) return;
+  const url = serviceShareUrl(id);
+  try {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(url);
+      showServiceNotice('Service link copied — ready to share.');
+    } else {
+      window.prompt('Copy this service link:', url);
+    }
+  } catch (_) {
+    window.prompt('Copy this service link:', url);
+  }
+}
+function showServiceNotice(message) {
+  let notice = document.getElementById('serviceShareNotice');
+  if (!notice) {
+    notice = document.createElement('div');
+    notice.id = 'serviceShareNotice';
+    notice.className = 'service-share-notice';
+    notice.setAttribute('role', 'status');
+    notice.setAttribute('aria-live', 'polite');
+    document.body.appendChild(notice);
+  }
+  notice.textContent = message;
+  notice.classList.add('is-visible');
+  clearTimeout(notice._hideTimer);
+  notice._hideTimer = setTimeout(() => notice.classList.remove('is-visible'), 2600);
 }
 function initServiceSearch() {
   const input = document.getElementById('serviceSearch');
