@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BLESSTech-X Admin</title>
+  <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" />
+  <style>body { margin: 0; font-family: sans-serif; background: #0f172a; }</style>
+</head>
+<body>
+
+<script>window.CMS_MANUAL_INIT = true;</script>
+<script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+<script>
+CMS.init({
+  config: {
+    backend: {
+      name: 'github',
+      repo: 'BLESSTech-X/.com',
+      branch: 'main',
+      base_url: 'https://api.netlify.com',
+      auth_endpoint: 'auth'
+    },
+    media_folder: 'images/uploads',
+    public_folder: '/images/uploads',
+
+    collections: [
+
+      // ════════════════════════════════════════════════
+      // COLLECTION 1 — SITE SETTINGS
+      // Edits: site.name, site.tagline, site.phone,
+      //        site.email, site.whatsapp, site.location,
+      //        site.logo, site.og_image, site.socials,
+      //        site.formspree_id, site.description
+      // ════════════════════════════════════════════════
+      {
+        name: 'site_settings',
+        label: '⚙️ Site Settings',
+        files: [
+          {
+            name: 'site',
+            label: 'Site Info & Contact',
+            file: 'data.json',
+            fields: [
+              {
+                label: 'Site', name: 'site', widget: 'object',
+                fields: [
+                  { label: 'Site Name',              name: 'name',         widget: 'string' },
+                  { label: 'Tagline',                name: 'tagline',      widget: 'string' },
+                  { label: 'Description',            name: 'description',  widget: 'text'   },
+                  { label: 'Phone (with +)',          name: 'phone',        widget: 'string' },
+                  { label: 'Email',                  name: 'email',        widget: 'string' },
+                  { label: 'WhatsApp (digits only)', name: 'whatsapp',     widget: 'string', hint: 'e.g. 260979603741 — no + or spaces' },
+                  { label: 'Location',               name: 'location',     widget: 'string' },
+                  { label: 'Logo URL',               name: 'logo',         widget: 'string' },
+                  { label: 'Share/OG Image URL',     name: 'og_image',     widget: 'string', hint: 'Image shown when link is shared on WhatsApp/Facebook' },
+                  { label: 'Formspree ID',           name: 'formspree_id', widget: 'string', hint: 'From formspree.io — your contact form ID' },
+                  {
+                    label: 'Social Media', name: 'socials', widget: 'object',
+                    fields: [
+                      { label: 'Facebook URL',  name: 'facebook',  widget: 'string', required: false },
+                      { label: 'Instagram URL', name: 'instagram', widget: 'string', required: false },
+                      { label: 'TikTok URL',    name: 'tiktok',    widget: 'string', required: false },
+                      { label: 'Twitter/X URL', name: 'twitter',   widget: 'string', required: false },
+                      { label: 'YouTube URL',   name: 'youtube',   widget: 'string', required: false }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+
+          // ── ANNOUNCEMENT BAR ──────────────────────────
+          {
+            name: 'announcement',
+            label: 'Announcement Bar',
+            file: 'data.json',
+            fields: [
+              {
+                label: 'Announcement', name: 'announcement', widget: 'object',
+                fields: [
+                  { label: 'Show Bar (on/off)', name: 'active',   widget: 'boolean', default: true },
+                  { label: 'Message Text',      name: 'message',  widget: 'string',  hint: 'HTML allowed — e.g. <strong>30% OFF</strong>' },
+                  { label: 'Button Text',       name: 'cta_text', widget: 'string' },
+                  { label: 'Button Link',       name: 'cta_link', widget: 'string', hint: 'e.g. #contact or https://...' }
+                ]
+              }
+            ]
+          },
+
+          // ── STATS BAR ─────────────────────────────────
+          {
+            name: 'stats',
+            label: 'Stats Bar (Numbers)',
+            file: 'data.json',
+            fields: [
+              {
+                label: 'Stats', name: 'stats', widget: 'list',
+                hint: 'The 4 numbers shown in the dark bar below the hero',
+                fields: [
+                  { label: 'Value (e.g. 150+)', name: 'value', widget: 'string' },
+                  { label: 'Label (e.g. Businesses Transformed)', name: 'label', widget: 'string' }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+
+      {
+        name: 'about_page',
+        label: '📖 About Page',
+        files: [{
+          name: 'about_content',
+          label: 'About Page Content',
+          file: 'data.json',
+          fields: [{
+            label: 'About Page', name: 'about_page', widget: 'object',
+            fields: [
+              { label: 'Page Title', name: 'title', widget: 'string' },
+              { label: 'Tagline', name: 'tagline', widget: 'string' },
+              { label: 'Sections', name: 'sections', widget: 'list', fields: [
+                { label: 'Section Heading', name: 'heading', widget: 'string' },
+                { label: 'Section Text', name: 'body', widget: 'text' }
+              ]}
+            ]
+          }]
+        }]
+      },
+      {
+        name: 'contact_page',
+        label: '📬 Contact Page',
+        files: [{
+          name: 'contact_content',
+          label: 'Contact Page Content',
+          file: 'data.json',
+          fields: [{
+            label: 'Contact Page', name: 'contact_page', widget: 'object',
+            fields: [
+              { label: 'Page Title', name: 'title', widget: 'string' },
+              { label: 'Intro / Description', name: 'intro', widget: 'text' },
+              { label: 'Form Heading', name: 'form_heading', widget: 'string' },
+              { label: 'Submit Button Text', name: 'submit_label', widget: 'string' },
+              { label: 'Post-submit Instruction', name: 'success_message', widget: 'string' },
+              { label: 'Business Hours', name: 'office_hours', widget: 'string' }
+            ]
+          }]
+        }]
+      },
+
+      // HOMEPAGE COPY — safely editable without changing HTML
+      {
+        name: 'homepage_content',
+        label: '🏠 Homepage Content',
+        files: [{
+          name: 'homepage',
+          label: 'Hero & Section Copy',
+          file: 'data.json',
+          fields: [{
+            label: 'Homepage Content', name: 'homepage', widget: 'object',
+            fields: [
+                  { label: 'Hero Badge', name: 'hero_badge', widget: 'string', required: false },
+                  { label: 'Main Headline', name: 'hero_title', widget: 'string', required: false },
+                  { label: 'Rotating Hero Subtitle', name: 'hero_subtitle', widget: 'string', required: false },
+                  { label: 'Hero Description', name: 'hero_description', widget: 'text', required: false },
+                  { label: 'Primary Button Text', name: 'hero_primary_cta', widget: 'string', required: false },
+                  { label: 'Free Tools Button Text', name: 'hero_secondary_cta', widget: 'string', required: false },
+                  { label: 'Services Section Title', name: 'services_title', widget: 'string', required: false },
+                  { label: 'Services Section Subtitle', name: 'services_subtitle', widget: 'text', required: false },
+                  { label: 'Portfolio Section Title', name: 'portfolio_title', widget: 'string', required: false },
+                  { label: 'Portfolio Section Subtitle', name: 'portfolio_subtitle', widget: 'text', required: false },
+                  { label: 'Free Tools Section Title', name: 'tools_title', widget: 'string', required: false },
+                  { label: 'Free Tools Section Subtitle', name: 'tools_subtitle', widget: 'text', required: false },
+                  { label: 'Contact Section Title', name: 'contact_title', widget: 'string', required: false },
+                  { label: 'Contact Section Subtitle', name: 'contact_subtitle', widget: 'text', required: false },
+                  { label: 'Rotating Hero Messages', name: 'hero_rotator', widget: 'list', required: false, field: { label: 'Message', name: 'message', widget: 'string' } }
+            ]
+          }]
+        }]
+      },
+
+      // ════════════════════════════════════════════════
+      // COLLECTION 2 — SERVICES
+      // Each service is editable from Decap, including its detailed page content,
+      // gallery, sample links, visibility and ordering.
+      // ════════════════════════════════════════════════
+      {
+        name: 'services',
+        label: '🛠️ Services & Service Pages',
+        files: [
+          {
+            name: 'services_list',
+            label: 'Manage All Services',
+            file: 'data.json',
+            fields: [
+              {
+                label: 'Services', name: 'services', widget: 'list',
+                hint: 'Add, remove, reorder or edit services. Each service can have its own detail view, gallery and sample/demo links.',
+                fields: [
+                  { label: 'Service ID (unique, no spaces)', name: 'id', widget: 'string', hint: 'Keep existing IDs stable. Example: website-creation' },
+                  { label: 'Service Title', name: 'title', widget: 'string' },
+                  { label: 'Category', name: 'category', widget: 'select', options: [
+                    { label: 'Websites', value: 'websites' }, { label: 'E-commerce', value: 'ecommerce' },
+                    { label: 'Branding', value: 'branding' }, { label: 'Graphics', value: 'graphics' },
+                    { label: 'Business Setup', value: 'business' }, { label: 'Marketing', value: 'marketing' }
+                  ]},
+                  { label: 'Badge (optional)', name: 'badge', widget: 'string', required: false },
+                  { label: 'Short Description (card preview)', name: 'description', widget: 'text' },
+                  { label: 'Detailed Service Description', name: 'long_description', widget: 'text', required: false, hint: 'Explain the service, who it helps and what the customer receives.' },
+                  { label: 'Price / Starting Price', name: 'price', widget: 'string', hint: 'Be clear about currency, scope and whether this is a starting price.' },
+                  { label: 'Main Card Image', name: 'image', widget: 'image' },
+                  { label: 'Delivery Time / Turnaround', name: 'delivery_time', widget: 'string', required: false },
+                  { label: 'Best For', name: 'best_for', widget: 'string', required: false },
+                  { label: 'Featured Service', name: 'featured', widget: 'boolean', required: false, default: false },
+                  { label: 'Show on Website', name: 'published', widget: 'boolean', required: false, default: true },
+                  { label: 'Display Order (smaller appears first)', name: 'sort_order', widget: 'number', required: false, value_type: 'int', default: 100 },
+                  { label: 'Features / What Is Included', name: 'features', widget: 'list', required: false, field: { label: 'Feature', name: 'feature', widget: 'string' } },
+                  { label: 'Gallery Images', name: 'gallery', widget: 'list', required: false, field: { label: 'Gallery Image', name: 'image', widget: 'image' } },
+                  { label: 'Sample / Demo Websites', name: 'demo_links', widget: 'list', required: false, fields: [
+                    { label: 'Link Label', name: 'label', widget: 'string' },
+                    { label: 'Website URL', name: 'url', widget: 'string' },
+                    { label: 'Link Type', name: 'type', widget: 'select', options: ['Live Demo', 'Case Study', 'Prototype', 'Screenshot Gallery'], required: false }
+                  ]},
+                  { label: 'SEO Page Title (optional)', name: 'seo_title', widget: 'string', required: false },
+                  { label: 'SEO Description (optional)', name: 'seo_description', widget: 'text', required: false }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+
+      // ════════════════════════════════════════════════
+      {
+        name: 'portfolio',
+        label: '📂 Portfolio & Case Studies',
+        files: [
+          {
+            name: 'portfolio_list',
+            label: 'All Case Studies',
+            file: 'data.json',
+            fields: [
+              {
+                label: 'Portfolio', name: 'portfolio', widget: 'list',
+                hint: 'Each item is a client case study shown in the Portfolio section',
+                fields: [
+                  { label: 'ID (e.g. p1, p2…)',          name: 'id',          widget: 'string' },
+                  { label: 'Project / Client Name',       name: 'title',       widget: 'string' },
+                  {
+                    label: 'Category', name: 'category', widget: 'select',
+                    options: [
+                      { label: 'E-commerce', value: 'ecommerce' },
+                      { label: 'Websites',   value: 'websites'  },
+                      { label: 'Branding',   value: 'branding'  },
+                      { label: 'Graphics',   value: 'graphics'  },
+                      { label: 'Business',   value: 'business'  },
+                      { label: 'Marketing',  value: 'marketing' }
+                    ]
+                  },
+                  { label: 'Short Description (card)',    name: 'description', widget: 'text'   },
+                  { label: 'Full Story (modal)',          name: 'detail',      widget: 'text'   },
+                  { label: 'Main Image URL',              name: 'image',       widget: 'string' },
+                  { label: 'Before Image URL (optional)', name: 'before',      widget: 'string', required: false },
+                  { label: 'After Image URL (optional)',  name: 'after',       widget: 'string', required: false },
+                  { label: 'Live Site URL (use # if none)', name: 'live_url',  widget: 'string' },
+                  { label: 'Results verified?', name: 'verified_results', widget: 'boolean', default: false, hint: 'Only enable this when you have permission and evidence to publish the performance figures. Otherwise the public site labels it as a project example.' },
+                  {
+                    label: 'Tags', name: 'tags', widget: 'list',
+                    field: { label: 'Tag', name: 'tag', widget: 'string' }
+                  },
+                  {
+                    label: 'Results / Stats', name: 'stats', widget: 'object',
+                    fields: [
+                      { label: 'Growth (e.g. 300%)',           name: 'growth', widget: 'string' },
+                      { label: 'Time (e.g. 2 months)',         name: 'time',   widget: 'string' },
+                      { label: 'Reach (e.g. Nationwide)',      name: 'reach',  widget: 'string' }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+
+      // ════════════════════════════════════════════════
+      // COLLECTION 4 — TESTIMONIALS
+      // Edits: testimonials[] array
+      // ════════════════════════════════════════════════
+      {
+        name: 'testimonials',
+        label: '⭐ Testimonials',
+        files: [
+          {
+            name: 'testimonials_list',
+            label: 'Client Testimonials',
+            file: 'data.json',
+            fields: [
+              {
+                label: 'Testimonials', name: 'testimonials', widget: 'list',
+                fields: [
+                  { label: 'Client Name',         name: 'name',   widget: 'string' },
+                  { label: 'Role & Business',     name: 'role',   widget: 'string', hint: 'e.g. Restaurant Owner, Kitwe' },
+                  { label: 'Photo URL',           name: 'avatar', widget: 'string' },
+                  { label: 'Star Rating (1 – 5)', name: 'rating', widget: 'number', value_type: 'int', min: 1, max: 5, default: 5 },
+                  { label: 'Testimonial Text',    name: 'text',   widget: 'text'   }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+
+      // ════════════════════════════════════════════════
+      // COLLECTION 5 — TEAM
+      // Edits: team[] array
+      // ════════════════════════════════════════════════
+      {
+        name: 'team',
+        label: '👥 Team Members',
+        files: [
+          {
+            name: 'team_list',
+            label: 'Team Members',
+            file: 'data.json',
+            fields: [
+              {
+                label: 'Team', name: 'team', widget: 'list',
+                fields: [
+                  { label: 'Full Name',        name: 'name',   widget: 'string' },
+                  { label: 'Job Title / Role', name: 'role',   widget: 'string' },
+                  { label: 'Photo URL',        name: 'avatar', widget: 'string' },
+                  { label: 'Bio',              name: 'bio',    widget: 'text'   },
+                  { label: 'Personal Quote',   name: 'quote',  widget: 'string' },
+                  {
+                    label: 'Skills / Expertise', name: 'skills', widget: 'list',
+                    field: { label: 'Skill', name: 'skill', widget: 'string' }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+
+      // ════════════════════════════════════════════════
+      // COLLECTION 6 — FAQ
+      // Edits: faqs[] array
+      // ════════════════════════════════════════════════
+      {
+        name: 'faq',
+        label: '❓ FAQ',
+        files: [
+          {
+            name: 'faq_list',
+            label: 'Frequently Asked Questions',
+            file: 'data.json',
+            fields: [
+              {
+                label: 'FAQs', name: 'faqs', widget: 'list',
+                fields: [
+                  { label: 'Question', name: 'q', widget: 'string' },
+                  { label: 'Answer',   name: 'a', widget: 'text'   }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+
+      // ════════════════════════════════════════════════
+      // COLLECTION 7 — PROCESS STEPS
+      // Edits: process_steps[] array
+      // ════════════════════════════════════════════════
+      {
+        name: 'process',
+        label: '🔄 How We Work',
+        files: [
+          {
+            name: 'process_list',
+            label: 'Process Steps',
+            file: 'data.json',
+            fields: [
+              {
+                label: 'Process Steps', name: 'process_steps', widget: 'list',
+                hint: 'The 5 steps shown in the "How We Work" section',
+                fields: [
+                  { label: 'Step Number (e.g. 01)', name: 'number', widget: 'string' },
+                  { label: 'Step Title',            name: 'title',  widget: 'string' },
+                  { label: 'Description',           name: 'desc',   widget: 'text'   }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+
+      // ════════════════════════════════════════════════
+      // COLLECTION 8 — FREE TOOLS
+      // Edits: tools[] array
+      // ════════════════════════════════════════════════
+      {
+        name: 'free_tools',
+        label: '🔧 Free Tools',
+        files: [
+          {
+            name: 'tools_list',
+            label: 'All Free Tools',
+            file: 'data.json',
+            fields: [
+              {
+                label: 'Tools', name: 'tools', widget: 'list',
+                hint: 'Each tool appears in the tools hub. ID must match the folder name in /tools/',
+                fields: [
+                  { label: 'Tool ID (matches folder name)', name: 'id',       widget: 'string', hint: 'e.g. invoice — must match /tools/invoice/ folder' },
+                  { label: 'Tool Name',                     name: 'title',    widget: 'string' },
+                  { label: 'Short Description',             name: 'desc',     widget: 'text'   },
+                  { label: 'Icon (emoji)',                   name: 'icon',     widget: 'string', hint: 'e.g. 🧾' },
+                  {
+                    label: 'Category', name: 'category', widget: 'select',
+                    options: [
+                      { label: 'Write Better',    value: 'write'       },
+                      { label: 'Calculate',       value: 'calculate'   },
+                      { label: 'Documents',       value: 'documents'   },
+                      { label: 'Research & Text', value: 'research'    },
+                      { label: 'Developer Tools', value: 'developer'   },
+                      { label: 'Productivity',    value: 'productivity' },
+                      { label: 'Zambia Specific', value: 'zambia'      }
+                    ]
+                  },
+                  { label: 'URL Path', name: 'url', widget: 'string', hint: 'e.g. tools/invoice/index.html' }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+
+      // ════════════════════════════════════════════════
+      // COLLECTION 9 — BLOG POSTS
+      // Creates files in: content/blog/
+      // ════════════════════════════════════════════════
+      {
+        name: 'blog',
+        label: '📝 Blog Posts',
+        label_singular: 'Blog Post',
+        folder: 'content/blog',
+        create: true,
+        slug: '{{year}}-{{month}}-{{day}}-{{slug}}',
+        fields: [
+          { label: 'Title',           name: 'title',     widget: 'string'   },
+          { label: 'Publish Date',    name: 'date',      widget: 'datetime' },
+          { label: 'Featured Image URL', name: 'image',  widget: 'string',  required: false },
+          { label: 'Excerpt / Summary',  name: 'excerpt', widget: 'text',   required: false },
+          {
+            label: 'Category', name: 'category', widget: 'select', required: false,
+            options: ['Business Tips','E-commerce','Digital Marketing','Zambia Tech','Case Study','Announcements']
+          },
+          { label: 'Author',          name: 'author',    widget: 'string',  default: 'BLESSTech-X' },
+          { label: 'Published',       name: 'published', widget: 'boolean', default: true },
+          { label: 'Body',            name: 'body',      widget: 'markdown' }
+        ]
+      }
+
+    ]
+  }
+});
+</script>
+
+</body>
+</html>
