@@ -19,6 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1409,8 +1410,20 @@
   let activeCategory = 'all';
   let activeSort     = 'newest';
   let searchQuery    = '';
-  let likes          = JSON.parse(localStorage.getItem('btx_likes') || '{}');
-  let saves          = JSON.parse(localStorage.getItem('btx_saves') || '{}');
+  function safeGet(key, fallback = '') {
+    try { const value = window.localStorage.getItem(key); return value === null ? fallback : value; }
+    catch (_) { return fallback; }
+  }
+  function safeSet(key, value) {
+    try { window.localStorage.setItem(key, String(value)); return true; }
+    catch (_) { return false; }
+  }
+  function safeJson(key, fallback) {
+    try { const value = safeGet(key, ''); return value ? JSON.parse(value) : fallback; }
+    catch (_) { return fallback; }
+  }
+  let likes          = safeJson('btx_likes', {});
+  let saves          = safeJson('btx_saves', {});
   let currentSlug    = null;
 
   // ── BOOT ───────────────────────────────────────────────
@@ -1447,7 +1460,8 @@
       applyFilters();
       document.getElementById('feedLoading').style.display = 'none';
       // Shared article URLs use #<slug>; open the article after posts have loaded.
-      const sharedSlug = decodeURIComponent(location.hash.slice(1));
+      let sharedSlug = '';
+      try { sharedSlug = decodeURIComponent(location.hash.slice(1)); } catch (_) {}
       if (sharedSlug && allPosts.some(p => p.slug === sharedSlug)) openPost(sharedSlug);
 
     } catch(e) {
@@ -1687,7 +1701,7 @@
     const rt        = readTime(post.body);
     const liked     = likes[post.slug];
     const saved     = saves[post.slug];
-    const likeCount = parseInt(localStorage.getItem('btx_lc_' + post.slug) || '0');
+    const likeCount = parseInt(safeGet('btx_lc_' + post.slug) || '0');
     return `
       <div class="post-card" onclick="openPost('${esc(post.slug)}')">
         ${post.image
@@ -1796,11 +1810,16 @@
     document.getElementById('modalAuthor').textContent  = post.author || 'BLESSTech-X';
     document.getElementById('modalDate').textContent    = post.date ? fmtDate(post.date) : '';
     document.getElementById('modalReadTime').textContent = readTime(post.body);
-    document.getElementById('modalContent').innerHTML   = marked.parse(post.body || '');
+    const articleBody = post.body || '';
+    if (window.marked && window.DOMPurify) {
+      document.getElementById('modalContent').innerHTML = DOMPurify.sanitize(marked.parse(articleBody));
+    } else {
+      document.getElementById('modalContent').textContent = articleBody;
+    }
 
     // Like state
     const liked = likes[slug];
-    const lc    = parseInt(localStorage.getItem('btx_lc_'+slug)||'0');
+    const lc    = parseInt(safeGet('btx_lc_'+slug)||'0');
     const likeBtn  = document.getElementById('modalLikeBtn');
     const likeIcon = likeBtn.querySelector('i');
     document.getElementById('modalLikeCount').textContent = lc;
@@ -1822,10 +1841,10 @@
   // ── REACTIONS ────────────────────────────────────────────
   window.toggleLike = function(slug, btn) {
     likes[slug] = !likes[slug];
-    localStorage.setItem('btx_likes', JSON.stringify(likes));
-    const cur = parseInt(localStorage.getItem('btx_lc_'+slug)||'0');
+    safeSet('btx_likes', JSON.stringify(likes));
+    const cur = parseInt(safeGet('btx_lc_'+slug)||'0');
     const newC = likes[slug] ? cur+1 : Math.max(0,cur-1);
-    localStorage.setItem('btx_lc_'+slug, newC);
+    safeSet('btx_lc_'+slug, newC);
 
     const icon = btn.querySelector('i');
     const num  = btn.querySelector('.like-num');
@@ -1838,10 +1857,10 @@
   window.toggleModalLike = function() {
     if (!currentSlug) return;
     likes[currentSlug] = !likes[currentSlug];
-    localStorage.setItem('btx_likes', JSON.stringify(likes));
-    const cur  = parseInt(localStorage.getItem('btx_lc_'+currentSlug)||'0');
+    safeSet('btx_likes', JSON.stringify(likes));
+    const cur  = parseInt(safeGet('btx_lc_'+currentSlug)||'0');
     const newC = likes[currentSlug] ? cur+1 : Math.max(0,cur-1);
-    localStorage.setItem('btx_lc_'+currentSlug, newC);
+    safeSet('btx_lc_'+currentSlug, newC);
     const btn  = document.getElementById('modalLikeBtn');
     const icon = btn.querySelector('i');
     btn.classList.toggle('liked', !!likes[currentSlug]);
@@ -1852,7 +1871,7 @@
 
   window.toggleSave = function(slug, btn) {
     saves[slug] = !saves[slug];
-    localStorage.setItem('btx_saves', JSON.stringify(saves));
+    safeSet('btx_saves', JSON.stringify(saves));
     btn.classList.toggle('saved', !!saves[slug]);
     const icon = btn.querySelector('i');
     icon.className = saves[slug] ? 'fas fa-bookmark' : 'far fa-bookmark';
