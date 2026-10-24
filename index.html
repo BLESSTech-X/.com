@@ -1597,73 +1597,88 @@ function installApp() {
 <!-- Removed duplicate legacy footer; the compact site-footer above is the single footer. -->
 
 
-  <!-- ═══ PHONEYA2 PORTFOLIO CARD (injected) ═══ -->
+  <!-- PhoneYa2 is showcased once as a real BLESSTech-X portfolio project. -->
+  <style>
+    .phoneya2-project-card{cursor:pointer;overflow:hidden;border:1px solid rgba(14,165,233,.22);background:#0b1220;color:#e5edf8;box-shadow:0 14px 42px rgba(2,8,23,.18);transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+    .phoneya2-project-card:hover,.phoneya2-project-card:focus-visible{transform:translateY(-6px);box-shadow:0 22px 54px rgba(2,8,23,.3);border-color:rgba(56,189,248,.7);outline:none}
+    .phoneya2-project-visual{height:220px;position:relative;display:grid;grid-template-columns:1.35fr 1fr;gap:5px;padding:5px;background:radial-gradient(ellipse at 20% 0%,rgba(16,185,129,.22),transparent 55%),linear-gradient(135deg,#071a16,#071526 60%,#172033);overflow:hidden}
+    .phoneya2-project-mainshot,.phoneya2-project-side-shot{min-width:0;min-height:0;overflow:hidden;border-radius:9px;background:#111827}
+    .phoneya2-project-mainshot img,.phoneya2-project-side-shot img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease}
+    .phoneya2-project-card:hover .phoneya2-project-mainshot img,.phoneya2-project-card:hover .phoneya2-project-side-shot img{transform:scale(1.035)}
+    .phoneya2-project-side{display:grid;grid-template-rows:1fr 1fr;gap:5px;min-height:0}
+    .phoneya2-project-logo{position:absolute;left:15px;top:15px;width:68px;height:68px;padding:4px;border-radius:15px;object-fit:contain;background:rgba(255,255,255,.96);border:1px solid rgba(255,255,255,.75);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+    .phoneya2-project-live{position:absolute;right:14px;top:14px;padding:5px 10px;border-radius:100px;background:rgba(5,150,105,.92);border:1px solid rgba(110,231,183,.7);color:#fff;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+    .phoneya2-project-caption{position:absolute;left:15px;right:15px;bottom:13px;color:#fff;font-size:11px;font-weight:700;text-shadow:0 2px 8px #000;background:linear-gradient(transparent,rgba(0,0,0,.58));padding-top:24px}
+    .phoneya2-project-body{padding:20px;background:linear-gradient(180deg,#101b2d,#0b1220)}
+    .phoneya2-project-eyebrow{display:flex;align-items:center;gap:7px;color:#6ee7b7;font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+    .phoneya2-project-body h3{color:#fff!important;font-size:1.12rem;line-height:1.35;margin:0 0 9px}
+    .phoneya2-project-body p{color:#c1ccdc!important;font-size:.88rem;line-height:1.65;margin:0 0 15px}
+    .phoneya2-project-tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:17px}
+    .phoneya2-project-tags span{font-size:11px;font-weight:700;padding:5px 9px;border-radius:100px;background:rgba(148,163,184,.1);border:1px solid rgba(148,163,184,.2);color:#dbeafe}
+    .phoneya2-project-actions{display:flex;gap:9px;flex-wrap:wrap}
+    .phoneya2-project-actions a{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:40px;padding:9px 13px;border-radius:9px;font-size:12px;font-weight:800;text-decoration:none;transition:transform .2s,background .2s}
+    .phoneya2-project-actions a:hover{transform:translateY(-2px)}
+    .phoneya2-project-visit{background:linear-gradient(135deg,#059669,#10b981);color:#fff!important;flex:1}
+    .phoneya2-project-contact{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:#e2e8f0!important}
+    @media(max-width:600px){.phoneya2-project-visual{height:190px}.phoneya2-project-logo{width:57px;height:57px;left:11px;top:11px}.phoneya2-project-body{padding:17px}.phoneya2-project-actions a{flex:1}}
+  </style>
   <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     var grid = document.getElementById('portfolioGrid');
-    if (!grid) return;
+    if (!grid || grid.querySelector('.phoneya2-project-card')) return;
 
-    // Build the PhoneYa2 card — styled to match existing portfolio cards
-    var card = document.createElement('div');
-    card.className = 'portfolio-card';
-    card.setAttribute('data-cat', 'ecommerce');
-    card.setAttribute('tabindex', '0');
+    var storeUrl = 'https://phoneya2.pages.dev/';
+    var logoUrl = 'https://i.ibb.co/s9CG52wV/file-0000000059948211a0bdd52c4d236852-1.jpg';
+    var productImages = [
+      'https://phoneya2.pages.dev/assets/images/uploads/1000222726.jpg',
+      'https://phoneya2.pages.dev/assets/images/uploads/1000222725.jpg',
+      'https://phoneya2.pages.dev/assets/images/uploads/1000222723.jpg'
+    ];
+    var card = document.createElement('article');
+    card.className = 'portfolio-card phoneya2-project-card';
+    card.dataset.cat = 'ecommerce';
+    card.tabIndex = 0;
     card.setAttribute('role', 'link');
-    card.setAttribute('aria-label', 'PhoneYa2-ZM Accessories — open the live store');
-    card.style.cssText = 'cursor:pointer;';
-    card.innerHTML = [
-      '<div class="pc-img" style="background:linear-gradient(135deg,#0d2010,#0a3518,#0d2010);height:180px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border-radius:12px 12px 0 0;">',
-        '<div style="position:absolute;inset:0;background:radial-gradient(circle at 30% 50%,rgba(37,211,102,.2),transparent 60%),radial-gradient(circle at 70% 50%,rgba(255,96,0,.15),transparent 60%);"></div>',
-        '<div style="position:relative;z-index:1;text-align:center;">',
-          '<div style="font-size:3.5rem;margin-bottom:8px;">📱</div>',
-          '<div style="font-size:13px;font-weight:700;color:rgba(255,255,255,.9);">phoneya2.pages.dev</div>',
-        '</div>',
-        '<div style="position:absolute;top:10px;right:10px;background:rgba(37,211,102,.2);border:1px solid rgba(37,211,102,.4);border-radius:100px;padding:3px 10px;font-size:10px;font-weight:700;color:#6effa6;text-transform:uppercase;letter-spacing:.5px;">Live</div>',
-        '<div style="position:absolute;top:10px;left:10px;background:rgba(255,96,0,.2);border:1px solid rgba(255,96,0,.35);border-radius:100px;padding:3px 10px;font-size:10px;font-weight:700;color:#ff9f43;">BLESSTech-X Venture</div>',
-      '</div>',
-      '<div class="pc-body" style="padding:18px 16px 16px;">',
-        '<div style="font-size:11px;font-weight:700;color:#25d366;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;">E-Commerce · PWA · CMS</div>',
-        '<h3 style="font-size:16px;font-weight:800;margin:0 0 8px;color:#1a1a2e;">PhoneYa2-ZM Accessories</h3>',
-        '<p style="font-size:13px;color:#6b7280;line-height:1.6;margin:0 0 14px;">Full-stack e-commerce store built and operated by BLESSTech-X. Dynamic CMS, Google Form ordering, WhatsApp integration, PWA, and same-day delivery in Lusaka.</p>',
-        '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">',
-          '<span style="background:rgba(110,231,183,.10);border:1px solid rgba(110,231,183,.35);border-radius:100px;padding:3px 10px;font-size:11px;font-weight:700;color:#6ee7b7;">Decap CMS</span>',
-          '<span style="background:rgba(255,159,67,.10);border:1px solid rgba(255,159,67,.35);border-radius:100px;padding:3px 10px;font-size:11px;font-weight:700;color:#ffb36b;">PWA</span>',
-          '<span style="background:rgba(103,232,249,.10);border:1px solid rgba(103,232,249,.35);border-radius:100px;padding:3px 10px;font-size:11px;font-weight:700;color:#67e8f9;" >Cloudflare Pages</span>',
-          '<span style="background:rgba(196,181,253,.10);border:1px solid rgba(196,181,253,.35);border-radius:100px;padding:3px 10px;font-size:11px;font-weight:700;color:#c4b5fd;">WhatsApp</span>',
-        '</div>',
-        '<div style="display:flex;gap:8px;">',
-          '<a href="https://phoneya2.pages.dev" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="flex:1;background:linear-gradient(135deg,#ff6000,#ff9f43);color:white;font-weight:700;font-size:13px;padding:9px;border-radius:8px;text-align:center;text-decoration:none;display:block;">Visit Store →</a>',
-          '<a href="https://wa.me/260979603741?text=Hi!%20I%20want%20to%20order%20from%20PhoneYa2-ZM." target="_blank" rel="noopener" onclick="event.stopPropagation()" style="flex:0 0 44px;background:#25d366;color:white;font-size:16px;padding:9px;border-radius:8px;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;"><i class=\"fab fa-whatsapp\"></i></a>',
-        '</div>',
-      '</div>'
-    ].join('');
+    card.setAttribute('aria-label', 'PhoneYa2-ZM Accessories portfolio case study — open live store');
 
-    // Click anywhere on card → open the store
-    function openPhoneYa2Store() {
-      window.open('https://phoneya2.pages.dev/', '_blank', 'noopener,noreferrer');
-    }
-    card.addEventListener('click', function() {
-      openPhoneYa2Store();
+    card.innerHTML =
+      '<div class="phoneya2-project-visual">' +
+        '<div class="phoneya2-project-mainshot"><img src="' + productImages[0] + '" alt="Product photography from the PhoneYa2 accessories store" loading="lazy"></div>' +
+        '<div class="phoneya2-project-side">' +
+          '<div class="phoneya2-project-side-shot"><img src="' + productImages[1] + '" alt="PhoneYa2 product catalogue image" loading="lazy"></div>' +
+          '<div class="phoneya2-project-side-shot"><img src="' + productImages[2] + '" alt="Another product listed on PhoneYa2" loading="lazy"></div>' +
+        '</div>' +
+        '<img class="phoneya2-project-logo" src="' + logoUrl + '" alt="PhoneYa2-ZM Accessories logo" loading="lazy">' +
+        '<span class="phoneya2-project-live"><i class="fas fa-circle-check"></i> Live project</span>' +
+        '<div class="phoneya2-project-caption">SMART CHOICES. BETTER CONNECTED. 💙</div>' +
+      '</div>' +
+      '<div class="phoneya2-project-body">' +
+        '<div class="phoneya2-project-eyebrow"><i class="fas fa-bag-shopping"></i> E-commerce · Live store</div>' +
+        '<h3>PhoneYa2-ZM Accessories</h3>' +
+        '<p>A live, mobile-first phone-accessories storefront with a product catalogue, CMS-managed listings, and direct WhatsApp ordering—built and operated as a BLESSTech-X venture.</p>' +
+        '<div class="phoneya2-project-tags"><span>Decap CMS</span><span>Mobile-first UX</span><span>Product catalogue</span><span>WhatsApp ordering</span><span>Cloudflare Pages</span></div>' +
+        '<div class="phoneya2-project-actions">' +
+          '<a class="phoneya2-project-visit" href="' + storeUrl + '" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square"></i> Visit live store</a>' +
+          '<a class="phoneya2-project-contact" href="https://wa.me/260979603741?text=Hello%20BLESSTech-X%2C%20I%27d%20like%20an%20e-commerce%20website." target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> Build one</a>' +
+        '</div>' +
+      '</div>';
+
+    card.addEventListener('click', function (event) {
+      if (event.target.closest('a')) return;
+      window.open(storeUrl, '_blank', 'noopener,noreferrer');
     });
-    card.addEventListener('keydown', function(event) {
+    card.addEventListener('keydown', function (event) {
       if (event.target !== card) return;
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
-        openPhoneYa2Store();
+        window.open(storeUrl, '_blank', 'noopener,noreferrer');
       }
     });
-
-    // Prepend — appears first in the grid
     grid.insertBefore(card, grid.firstChild);
-
-    // Make the "All" and "E-commerce" filter pills work with this card
-    // The existing pill filter checks data-cat attribute — our card has data-cat="ecommerce"
-    // Re-apply current active filter so card shows/hides correctly
     var activePill = document.querySelector('#portfolioPills .pill.active');
     if (activePill) activePill.click();
   });
   </script>
-  <!-- ═══ END PHONEYA2 PORTFOLIO CARD ═══ -->
 
   <!-- Intrusive PhoneYa2 popup removed: keep PhoneYa2 represented once in the portfolio. -->
 
