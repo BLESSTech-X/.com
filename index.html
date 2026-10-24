@@ -1047,7 +1047,7 @@ function installApp() {
     </div>
   </div>
 
-  <!-- Nova intro card — shown once, 5s delay -->
+  <!-- Nova intro card — wait until the cookie notice is dismissed -->
   <div id="novaIntro">
     <div class="ni-top">
       <div class="ni-avatar">🤖</div>
@@ -1503,6 +1503,17 @@ function installApp() {
     const lastShown = parseInt(localStorage.getItem('nova_last_shown') || '0');
     const now = Date.now();
     const oneDay = 24 * 60 * 60 * 1000;
+
+    // Keep the onboarding card from stacking on top of the cookie notice.
+    function showNovaIntroWhenClear() {
+      const cookieNotice = document.getElementById('cookieBar');
+      if (cookieNotice && !cookieNotice.hidden && cookieNotice.classList.contains('cb-show')) {
+        setTimeout(showNovaIntroWhenClear, 1000);
+        return;
+      }
+      intro.classList.add('ni-show');
+      try { localStorage.setItem('nova_last_shown', Date.now()); } catch(e) {}
+    }
     
     // CASE 1: User already accepted tour
     if(pref === 'tour'){
@@ -1524,11 +1535,8 @@ function installApp() {
         // Show reminder after 5 seconds
         setTimeout(() => {
           // Only show if they still have declined preference
-          if(localStorage.getItem('nova_pref') === 'declined'){
-            intro.classList.add('ni-show');
-            localStorage.setItem('nova_last_shown', Date.now());
-          }
-        }, 5000);
+          if(localStorage.getItem('nova_pref') === 'declined') showNovaIntroWhenClear();
+        }, 8000);
       } else {
         // Still within 24 hours - just show avatar
         avatar.classList.add('av-show');
@@ -1540,10 +1548,7 @@ function installApp() {
     // CASE 3: First time visitor (no preference)
     if(!pref){
       // Show intro card once
-      setTimeout(() => {
-        intro.classList.add('ni-show');
-        localStorage.setItem('nova_last_shown', Date.now());
-      }, 3000);
+      setTimeout(showNovaIntroWhenClear, 8000);
     }
   });
 
