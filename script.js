@@ -29,7 +29,6 @@ function buildSite(d) {
   initSlider();
   initHeaderScroll();
   initModalClose();
-  initPopupSystem(d.tools);
   handleServiceDeepLink();
   window.addEventListener('hashchange', handleServiceDeepLink);
 }
@@ -585,88 +584,11 @@ function initModalClose() {
     if (e.key === 'Escape') {
       closeModal('serviceModal');
       closeModal('portfolioModal');
-      dismissPopup();
     }
   });
   document.querySelectorAll('.modal-overlay').forEach(m => {
     m.addEventListener('click', e => { if (e.target === m) closeModal(m.id); });
   });
-}
-
-/* ── POPUP SYSTEM ── */
-function initPopupSystem(tools) {
-  // Popup markup was removed from the homepage. Do not schedule timers or
-  // access missing popup elements until the complete, accessible UI is restored.
-  const requiredPopupIds = ['popupOverlay', 'popup1', 'popup2', 'popup3'];
-  if (requiredPopupIds.some(id => !document.getElementById(id))) return;
-
-  const KEY_P1 = 'btx_popup1_seen';
-  const KEY_P3 = 'btx_popup3_count';
-
-  // Popup 1 — first visit, after 9s
-  if (!localStorage.getItem(KEY_P1)) {
-    setTimeout(() => showPopup('popup1'), 9000);
-    localStorage.setItem(KEY_P1, '1');
-  }
-
-  // Popup 2 — context sensitive: fires when user scrolls into services section
-  const servicesSection = document.getElementById('services');
-  if (servicesSection) {
-    const contextPopups = [
-      { icon:'🩺', title:'Check your Digital Score', text:'Not sure if your business is fully digital? Take our free Digital Health Check.', link:'tools/health-check/index.html', linkText:'Try It Free' },
-      { icon:'📧', title:'Need to write a professional email?', text:'Our free Email Writer handles any situation — formal, follow-up, complaint, proposal.', link:'tools/email-writer/index.html', linkText:'Write Email Free' },
-      { icon:'🧾', title:'Send professional invoices', text:'Create and download a PDF invoice in under 2 minutes — completely free.', link:'tools/invoice/index.html', linkText:'Create Invoice' },
-    ];
-    let contextShown = false;
-    const obs = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting && !contextShown && !activePopup) {
-        contextShown = true;
-        setTimeout(() => {
-          const p = contextPopups[Math.floor(Math.random() * contextPopups.length)];
-          document.getElementById('popup2Title').textContent = p.title;
-          document.getElementById('popup2Text').innerHTML = `${p.icon} ${p.text}`;
-          const lnk = document.getElementById('popup2Link');
-          lnk.href = p.link; lnk.textContent = p.linkText;
-          showPopup('popup2');
-        }, 6000);
-      }
-    }, { threshold: 0.4 });
-    obs.observe(servicesSection);
-  }
-
-  // Popup 3 — return visitors: highlight a random tool
-  const visits = parseInt(localStorage.getItem(KEY_P3) || '0') + 1;
-  localStorage.setItem(KEY_P3, visits);
-  if (visits >= 2 && tools && tools.length) {
-    const spotlight = tools[Math.floor(Math.random() * tools.length)];
-    setTimeout(() => {
-      if (!activePopup) {
-        document.getElementById('popup3Icon').textContent = spotlight.icon;
-        document.getElementById('popup3Title').textContent = spotlight.title;
-        document.getElementById('popup3Text').textContent = spotlight.desc;
-        document.getElementById('popup3Link').href = spotlight.url;
-        showPopup('popup3');
-      }
-    }, 18000);
-  }
-}
-
-let activePopup = null;
-function showPopup(id) {
-  const overlay = document.getElementById('popupOverlay');
-  const popup = document.getElementById(id);
-  if (activePopup || !overlay || !popup) return;
-  activePopup = id;
-  overlay.classList.add('visible');
-  popup.classList.add('visible');
-}
-function dismissPopup() {
-  if (!activePopup) return;
-  const popup = document.getElementById(activePopup);
-  const overlay = document.getElementById('popupOverlay');
-  if (popup) popup.classList.remove('visible');
-  if (overlay) overlay.classList.remove('visible');
-  activePopup = null;
 }
 
 /* ── HELPERS ── */
