@@ -149,7 +149,7 @@ function renderServices(services) {
         <h3>${s.title}</h3><p>${s.description}</p>
         <div class="service-price">${s.price}</div>
         <div class="service-card-actions">
-          <button class="btn btn-danger btn-sm" onclick="quoteService('${esc(s.title)}','${esc(s.price)}')"><i class="fas fa-shopping-cart"></i> Purchase Now</button>
+          <button class="btn btn-danger btn-sm" onclick="quoteService('${esc(s.title)}','${esc(s.price)}')"><i class="fab fa-whatsapp"></i> Get a Quote</button>
           <a class="btn btn-outline btn-sm" href="service.html?id=${encodeURIComponent(s.id)}"><i class="fas fa-eye"></i> View Details</a>
         </div>
       </div>
