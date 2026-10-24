@@ -84,6 +84,28 @@
       ]
     }
   ],
+  "about_page": {
+    "title": "About BLESSTech-X",
+    "tagline": "Founded in Lusaka, built for Zambia. 🇿🇲",
+    "sections": [
+      {
+        "heading": "Who We Are",
+        "body": "BLESSTech-X exists to make professional digital services accessible to every Zambian entrepreneur — not just large corporates."
+      },
+      {
+        "heading": "What We Do",
+        "body": "We build websites, e-commerce stores with Airtel Money and MTN Money, logos, graphic design, and social media management for Zambian businesses and schools."
+      },
+      {
+        "heading": "Our Results",
+        "body": "We help businesses build a stronger online presence with practical digital solutions. Published results and client stories should be added only when they can be verified."
+      },
+      {
+        "heading": "Our Founder",
+        "body": "BLESSTech-X is built around practical digital solutions for Zambian businesses. Add the founder’s approved biography and experience here."
+      }
+    ]
+  },
   "announcement": {
     "active": true,
     "message": "🎯 Founding Client Offer — First 5 Websites: <strong>30% OFF</strong> + 3 Months Free Hosting",
@@ -124,8 +146,8 @@
       "live_url": "",
       "description": "Transformed a Lusaka clothing shop into a nationwide online store.",
       "category": "ecommerce",
-      "before": "https://i.ibb.co/FbsFRR6C/IMG-20260527-105625.png",
-      "verified_results": false
+      "verified_results": false,
+      "before": "https://i.ibb.co/FbsFRR6C/IMG-20260527-105625.png"
     },
     {
       "detail": "Built a complete ordering platform including menu management.",
@@ -141,8 +163,8 @@
       "live_url": "",
       "description": "Online ordering system that tripled bookings.",
       "category": "websites",
-      "before": "https://i.ibb.co/8g8sgwc1/1779872743011.png",
-      "verified_results": false
+      "verified_results": false,
+      "before": "https://i.ibb.co/8g8sgwc1/1779872743011.png"
     },
     {
       "detail": "Created a branded e-commerce platform including product photography guidance.",
@@ -158,8 +180,8 @@
       "live_url": "",
       "description": "E-commerce store for beauty products with inventory management.",
       "category": "ecommerce",
-      "before": "https://i.ibb.co/6JwCr93v/1779873905415.png",
-      "verified_results": false
+      "verified_results": false,
+      "before": "https://i.ibb.co/6JwCr93v/1779873905415.png"
     },
     {
       "detail": "Built a B2B wholesale portal with bulk order capabilities.",
@@ -175,8 +197,8 @@
       "live_url": "",
       "description": "Helped a farmer expand from local sales to supplying hotels and supermarkets nationwide.",
       "category": "ecommerce",
-      "before": "https://i.ibb.co/xSGzxGSV/1779874746485.png",
-      "verified_results": false
+      "verified_results": false,
+      "before": "https://i.ibb.co/xSGzxGSV/1779874746485.png"
     },
     {
       "detail": "Multi-currency store.",
@@ -192,8 +214,8 @@
       "live_url": "",
       "description": "Online store for traditional crafts.",
       "category": "ecommerce",
-      "before": "https://i.ibb.co/Y7PqP4gg/Copilot-20260120-112636.png",
-      "verified_results": false
+      "verified_results": false,
+      "before": "https://i.ibb.co/Y7PqP4gg/Copilot-20260120-112636.png"
     },
     {
       "detail": "Delivered complete brand identity.",
@@ -209,10 +231,40 @@
       "live_url": "",
       "description": "Logo and brand identity packages for Lusaka-based SMEs across retail, food, and services.",
       "category": "branding",
-      "before": null,
-      "verified_results": false
+      "verified_results": false,
+      "before": null
     }
   ],
+  "contact_page": {
+    "title": "Contact BLESSTech-X",
+    "intro": "Tell us what you need. We will discuss your goals, requirements and next steps.",
+    "form_heading": "Start a Project Conversation",
+    "submit_label": "Continue on WhatsApp",
+    "success_message": "WhatsApp has opened with your enquiry prepared. Press Send in WhatsApp to complete it.",
+    "office_hours": "Send your message any time. We’ll reply as soon as we can."
+  },
+  "homepage": {
+    "hero_secondary_cta": "Free Tools",
+    "portfolio_title": "Selected Projects & Demonstrations",
+    "hero_rotator": [
+      "Professional Websites & E-commerce for Zambia",
+      "Online stores and digital systems for growing businesses",
+      "Useful free tools for work and business",
+      "Mobile-friendly websites built around your goals"
+    ],
+    "hero_primary_cta": "Explore Services",
+    "portfolio_subtitle": "Explore website builds, store concepts and branding work. Verified performance results are shown only when supporting evidence is available.",
+    "hero_title": "We Build Websites & Systems That Make Your Business Grow",
+    "tools_title": "Free Tools for Every Zambian",
+    "contact_subtitle": "Tell us what you are trying to build. We will discuss the scope and next steps.",
+    "hero_description": "From websites to online stores and useful digital tools, we help businesses build a stronger online presence.",
+    "services_title": "Our Digital Services",
+    "contact_title": "Get In Touch",
+    "services_subtitle": "Practical digital solutions for businesses, creators and entrepreneurs.",
+    "tools_subtitle": "Useful tools for everyday work, business and productivity.",
+    "hero_subtitle": "Professional Websites & E-commerce for Zambia",
+    "hero_badge": "Digital solutions for Zambian businesses"
+  },
   "testimonials": [
     {
       "name": "Veronica B Mapalo",
@@ -492,12 +544,18 @@
     {
       "badge": "🛒 E-commerce",
       "price": "From USD $18.5 | ZMW 350",
+      "sort_order": 10,
+      "featured": true,
+      "published": true,
+      "best_for": "Businesses that want a clearer, more effective online presence.",
       "gallery": [
         "https://i.ibb.co/rfLD2Y0H/Screenshot-20260117-165322.jpg",
         "https://i.ibb.co/bjFfhDQW/Screenshot-20260117-164954.jpg",
         "https://i.ibb.co/20j2b2nm/Screenshot-20260117-165135.jpg"
       ],
+      "delivery_time": "7–14 days (subject to agreed scope)",
       "title": "Complete E-commerce Store",
+      "long_description": "Full online store with Zambian payment gateways, inventory management, and delivery tracking — ready in 7–14 days.\n\nUse the request button to discuss the exact scope, requirements and delivery plan before work begins.",
       "id": "ecommerce-store",
       "image": "https://i.ibb.co/bjFfhDQW/Screenshot-20260117-164954.jpg",
       "description": "Full online store with Zambian payment gateways, inventory management, and delivery tracking — ready in 7–14 days.",
@@ -510,23 +568,23 @@
         "Delivery Integration",
         "Sales Analytics"
       ],
-      "category": "ecommerce",
-      "long_description": "Full online store with Zambian payment gateways, inventory management, and delivery tracking — ready in 7–14 days.\n\nUse the request button to discuss the exact scope, requirements and delivery plan before work begins.",
-      "delivery_time": "7–14 days (subject to agreed scope)",
-      "best_for": "Businesses that want a clearer, more effective online presence.",
-      "published": true,
-      "featured": false,
-      "sort_order": 10,
-      "demo_links": []
+      "demo_links": [],
+      "category": "ecommerce"
     },
     {
       "badge": null,
       "price": "From USD $15.9 | ZMW 300",
+      "sort_order": 20,
+      "featured": false,
+      "published": true,
+      "best_for": "Businesses that want a clearer, more effective online presence.",
       "gallery": [
         "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop",
         "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=400&h=250&fit=crop"
       ],
+      "delivery_time": "Confirmed after requirements are reviewed",
       "title": "Professional Website",
+      "long_description": "Fast, mobile-friendly websites that convert visitors into paying clients. Includes hosting, domain setup, and 1 year free maintenance.\n\nUse the request button to discuss the exact scope, requirements and delivery plan before work begins.",
       "id": "website-creation",
       "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
       "description": "Fast, mobile-friendly websites that convert visitors into paying clients. Includes hosting, domain setup, and 1 year free maintenance.",
@@ -539,22 +597,22 @@
         "1 Year Free Maintenance",
         "E-commerce Ready Architecture"
       ],
-      "category": "websites",
-      "long_description": "Fast, mobile-friendly websites that convert visitors into paying clients. Includes hosting, domain setup, and 1 year free maintenance.\n\nUse the request button to discuss the exact scope, requirements and delivery plan before work begins.",
-      "delivery_time": "Confirmed after requirements are reviewed",
-      "best_for": "Businesses that want a clearer, more effective online presence.",
-      "published": true,
-      "featured": false,
-      "sort_order": 20,
-      "demo_links": []
+      "demo_links": [],
+      "category": "websites"
     },
     {
       "badge": "🛒 E-commerce",
       "price": "From USD $8.00 | ZMW 150",
+      "sort_order": 30,
+      "featured": false,
+      "published": true,
+      "best_for": "Businesses that want a clearer, more effective online presence.",
       "gallery": [
         "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=250&fit=crop"
       ],
+      "delivery_time": "Confirmed after requirements are reviewed",
       "title": "Add E-commerce to Existing Site",
+      "long_description": "Already have a website? We add shopping cart, mobile money payments, and inventory management without rebuilding from scratch.\n\nUse the request button to discuss the exact scope, requirements and delivery plan before work begins.",
       "id": "ecommerce-add",
       "image": "https://i.ibb.co/3mtk618q/IMG-20260524-224709.png",
       "description": "Already have a website? We add shopping cart, mobile money payments, and inventory management without rebuilding from scratch.",
@@ -566,23 +624,23 @@
         "Customer Accounts",
         "Inventory Management"
       ],
-      "category": "ecommerce",
-      "long_description": "Already have a website? We add shopping cart, mobile money payments, and inventory management without rebuilding from scratch.\n\nUse the request button to discuss the exact scope, requirements and delivery plan before work begins.",
-      "delivery_time": "Confirmed after requirements are reviewed",
-      "best_for": "Businesses that want a clearer, more effective online presence.",
-      "published": true,
-      "featured": false,
-      "sort_order": 30,
-      "demo_links": []
+      "demo_links": [],
+      "category": "ecommerce"
     },
     {
       "badge": null,
       "price": "From USD $8.00 | ZMW 150",
+      "sort_order": 40,
+      "featured": false,
+      "published": true,
+      "best_for": "Individuals and businesses that need this service.",
       "gallery": [
         "https://i.ibb.co/ycjtDNrv/Screenshot-20260117-120824.jpg",
         "https://i.ibb.co/8LGJJCBQ/Screenshot-20260117-120600.jpg"
       ],
+      "delivery_time": "Confirmed after requirements are reviewed",
       "title": "Logo & Brand Identity",
+      "long_description": "Memorable branding that builds trust and sets you apart in the Zambian market.\n\nUse the request button to discuss the exact scope, requirements and delivery plan before work begins.",
       "id": "logo-branding",
       "image": "https://i.ibb.co/fG4t9WMM/Copilot-20251230-144351.jpg",
       "description": "Memorable branding that builds trust and sets you apart in the Zambian market.",
@@ -594,23 +652,23 @@
         "Business Card Design",
         "Social Media Profile Assets"
       ],
-      "category": "branding",
-      "long_description": "Memorable branding that builds trust and sets you apart in the Zambian market.\n\nUse the request button to discuss the exact scope, requirements and delivery plan before work begins.",
-      "delivery_time": "Confirmed after requirements are reviewed",
-      "best_for": "Individuals and businesses that need this service.",
-      "published": true,
-      "featured": false,
-      "sort_order": 40,
-      "demo_links": []
+      "demo_links": [],
+      "category": "branding"
     },
     {
       "badge": null,
       "price": "From USD $8.00 | ZMW 150",
+      "sort_order": 50,
+      "featured": false,
+      "published": true,
+      "best_for": "Individuals and businesses that need this service.",
       "gallery": [
         "https://i.ibb.co/39R0yFM6/Screenshot-20260117-144350.jpg",
         "https://i.ibb.co/whcncJtb/Screenshot-20260117-144025.jpg"
       ],
+      "delivery_time": "Confirmed after requirements are reviewed",
       "title": "Graphic Design",
+      "long_description": "Posters, flyers, social media visuals, and packaging designed to attract attention and drive sales.\n\nUse the request button to discuss the exact scope, requirements and delivery plan before work begins.",
       "id": "graphic-design",
       "image": "https://i.ibb.co/nq6yNG2N/Screenshot-20260117-142046.jpg",
       "description": "Posters, flyers, social media visuals, and packaging designed to attract attention and drive sales.",
@@ -622,23 +680,23 @@
         "Email Newsletter Templates",
         "Digital Ad Creatives"
       ],
-      "category": "graphics",
-      "long_description": "Posters, flyers, social media visuals, and packaging designed to attract attention and drive sales.\n\nUse the request button to discuss the exact scope, requirements and delivery plan before work begins.",
-      "delivery_time": "Confirmed after requirements are reviewed",
-      "best_for": "Individuals and businesses that need this service.",
-      "published": true,
-      "featured": false,
-      "sort_order": 50,
-      "demo_links": []
+      "demo_links": [],
+      "category": "graphics"
     },
     {
       "badge": null,
       "price": "From USD $2.67 | ZMW 50",
+      "sort_order": 60,
+      "featured": false,
+      "published": true,
+      "best_for": "Individuals and businesses that need this service.",
       "gallery": [
         "https://i.ibb.co/8DbNp9zr/Screenshot-20260117-155058.jpg",
         "https://i.ibb.co/8DZkT4mr/Screenshot-20260117-162508.jpg"
       ],
+      "delivery_time": "Confirmed after requirements are reviewed",
       "title": "Digital Business Setup",
+      "long_description": "Complete online presence from scratch — branding, website, Google listing, email, and social media profiles in one package.\n\nUse the request button to discuss the exact scope, requirements and delivery plan before work begins.",
       "id": "business-setup",
       "image": "https://i.ibb.co/ycWDHmtK/Screenshot-20260117-162440.jpg",
       "description": "Complete online presence from scratch — branding, website, Google listing, email, and social media profiles in one package.",
@@ -650,22 +708,22 @@
         "Professional Email Setup",
         "Basic SEO Implementation"
       ],
-      "category": "business",
-      "long_description": "Complete online presence from scratch — branding, website, Google listing, email, and social media profiles in one package.\n\nUse the request button to discuss the exact scope, requirements and delivery plan before work begins.",
-      "delivery_time": "Confirmed after requirements are reviewed",
-      "best_for": "Individuals and businesses that need this service.",
-      "published": true,
-      "featured": false,
-      "sort_order": 60,
-      "demo_links": []
+      "demo_links": [],
+      "category": "business"
     },
     {
       "badge": null,
       "price": "From USD $10.66|ZMW 200/month",
+      "sort_order": 70,
+      "featured": false,
+      "published": true,
+      "best_for": "Individuals and businesses that need this service.",
       "gallery": [
         "https://images.unsplash.com/photo-1611262588024-d12430b98920?w=400&h=250&fit=crop"
       ],
+      "delivery_time": "Confirmed after requirements are reviewed",
       "title": "Social Media Management",
+      "long_description": "Full strategy, content creation, and daily management across Facebook, Instagram, and TikTok for Zambian businesses.\n\nUse the request button to discuss the exact scope, requirements and delivery plan before work begins.",
       "id": "social-media",
       "image": "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&h=400&fit=crop",
       "description": "Full strategy, content creation, and daily management across Facebook, Instagram, and TikTok for Zambian businesses.",
@@ -677,22 +735,22 @@
         "Advertising Campaign Setup",
         "Monthly Report"
       ],
-      "category": "marketing",
-      "long_description": "Full strategy, content creation, and daily management across Facebook, Instagram, and TikTok for Zambian businesses.\n\nUse the request button to discuss the exact scope, requirements and delivery plan before work begins.",
-      "delivery_time": "Confirmed after requirements are reviewed",
-      "best_for": "Individuals and businesses that need this service.",
-      "published": true,
-      "featured": false,
-      "sort_order": 70,
-      "demo_links": []
+      "demo_links": [],
+      "category": "marketing"
     },
     {
       "badge": null,
       "price": "From USD $2.67|ZMW 50/month",
+      "sort_order": 80,
+      "featured": false,
+      "published": true,
+      "best_for": "Individuals and businesses that need this service.",
       "gallery": [
         "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=250&fit=crop"
       ],
+      "delivery_time": "Confirmed after requirements are reviewed",
       "title": "SEO & Google Visibility",
+      "long_description": "Get found on Google when Zambian customers search for your services. Local and national SEO strategies included.\n\nUse the request button to discuss the exact scope, requirements and delivery plan before work begins.",
       "id": "seo",
       "image": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop",
       "description": "Get found on Google when Zambian customers search for your services. Local and national SEO strategies included.",
@@ -704,14 +762,8 @@
         "Performance Tracking",
         "Monthly Ranking Report"
       ],
-      "category": "marketing",
-      "long_description": "Get found on Google when Zambian customers search for your services. Local and national SEO strategies included.\n\nUse the request button to discuss the exact scope, requirements and delivery plan before work begins.",
-      "delivery_time": "Confirmed after requirements are reviewed",
-      "best_for": "Individuals and businesses that need this service.",
-      "published": true,
-      "featured": false,
-      "sort_order": 80,
-      "demo_links": []
+      "demo_links": [],
+      "category": "marketing"
     }
   ],
   "stats": [
@@ -731,57 +783,5 @@
       "value": "After launch",
       "label": "Practical guidance"
     }
-  ],
-  "homepage": {
-    "hero_badge": "Digital solutions for Zambian businesses",
-    "hero_title": "We Build Websites & Systems That Make Your Business Grow",
-    "hero_subtitle": "Professional Websites & E-commerce for Zambia",
-    "hero_description": "From websites to online stores and useful digital tools, we help businesses build a stronger online presence.",
-    "hero_primary_cta": "Explore Services",
-    "hero_secondary_cta": "Free Tools",
-    "services_title": "Our Digital Services",
-    "services_subtitle": "Practical digital solutions for businesses, creators and entrepreneurs.",
-    "portfolio_title": "Selected Projects & Demonstrations",
-    "portfolio_subtitle": "Explore website builds, store concepts and branding work. Verified performance results are shown only when supporting evidence is available.",
-    "tools_title": "Free Tools for Every Zambian",
-    "tools_subtitle": "Useful tools for everyday work, business and productivity.",
-    "contact_title": "Get In Touch",
-    "contact_subtitle": "Tell us what you are trying to build. We will discuss the scope and next steps.",
-    "hero_rotator": [
-      "Professional Websites & E-commerce for Zambia",
-      "Online stores and digital systems for growing businesses",
-      "Useful free tools for work and business",
-      "Mobile-friendly websites built around your goals"
-    ]
-  },
-  "about_page": {
-    "title": "About BLESSTech-X",
-    "tagline": "Founded in Lusaka, built for Zambia. 🇿🇲",
-    "sections": [
-      {
-        "heading": "Who We Are",
-        "body": "BLESSTech-X exists to make professional digital services accessible to every Zambian entrepreneur — not just large corporates."
-      },
-      {
-        "heading": "What We Do",
-        "body": "We build websites, e-commerce stores with Airtel Money and MTN Money, logos, graphic design, and social media management for Zambian businesses and schools."
-      },
-      {
-        "heading": "Our Results",
-        "body": "We help businesses build a stronger online presence with practical digital solutions. Published results and client stories should be added only when they can be verified."
-      },
-      {
-        "heading": "Our Founder",
-        "body": "BLESSTech-X is built around practical digital solutions for Zambian businesses. Add the founder’s approved biography and experience here."
-      }
-    ]
-  },
-  "contact_page": {
-    "title": "Contact BLESSTech-X",
-    "intro": "Tell us what you need. We will discuss your goals, requirements and next steps.",
-    "form_heading": "Start a Project Conversation",
-    "submit_label": "Continue on WhatsApp",
-    "success_message": "WhatsApp has opened with your enquiry prepared. Press Send in WhatsApp to complete it.",
-    "office_hours": "Send your message any time. We’ll reply as soon as we can."
-  }
+  ]
 }
