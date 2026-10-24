@@ -61,6 +61,17 @@
         <a class="cc-ghost" href="./">View Live Website ↗</a>
       </div>
     </section>
+    <section class="cc-health" aria-labelledby="ccHealthTitle">
+      <div class="cc-health-head"><div><div class="cc-eyebrow">Quick diagnostics</div><h2 id="ccHealthTitle">Site pulse</h2><p>Run a quick check of key pages and content files from this browser.</p></div><button type="button" class="cc-ghost" id="ccRunChecks">Run checks ↻</button></div>
+      <div class="cc-health-grid" id="ccHealthResults" aria-live="polite">
+        <div class="cc-health-item"><span class="cc-health-dot pending"></span><span><strong>Website homepage</strong><small>Waiting to check</small></span><b>—</b></div>
+        <div class="cc-health-item"><span class="cc-health-dot pending"></span><span><strong>Contact page</strong><small>Waiting to check</small></span><b>—</b></div>
+        <div class="cc-health-item"><span class="cc-health-dot pending"></span><span><strong>CMS content data</strong><small>Waiting to check</small></span><b>—</b></div>
+        <div class="cc-health-item"><span class="cc-health-dot pending"></span><span><strong>Free tools page</strong><small>Waiting to check</small></span><b>—</b></div>
+        <div class="cc-health-item"><span class="cc-health-dot pending"></span><span><strong>Content Manager route</strong><small>Waiting to check</small></span><b>—</b></div>
+      </div>
+      <p class="cc-health-foot" id="ccHealthSummary">Checks run only when this dashboard is open. A successful response confirms the route responds, not that every feature works.</p>
+    </section>
     <section class="cc-grid" aria-label="Command centre shortcuts">
       <article class="cc-card"><div class="cc-icon">✍️</div><h2>Website Content</h2><p>Edit services, homepage content, site information, FAQs, team members and other configured content.</p><a href="./admin/">Open Decap CMS →</a></article>
       <article class="cc-card"><div class="cc-icon">🧩</div><h2>Services & Galleries</h2><p>Add or update service descriptions, prices, features, gallery images, delivery expectations and sample-work links.</p><a href="./admin/#/collections/services">Manage Services →</a></article>
@@ -87,6 +98,19 @@
     .cc-password-wrap{display:flex;gap:8px}.cc-password-wrap input{min-width:0;flex:1}#ccReveal{border:1px solid #33445b;border-radius:10px;background:#15243a;color:#dbeafe;padding:0 12px;font-weight:750;cursor:pointer}
     .cc-login-submit{width:100%;margin-top:23px;min-height:48px;border:0;border-radius:11px;background:linear-gradient(110deg,#0284c7,#0369a1);color:white;font-weight:850;cursor:pointer}.cc-login-submit:hover{filter:brightness(1.08)}
     .cc-login-error{min-height:20px;margin:10px 0 0;color:#fca5a5;font-size:.84rem}.cc-login-foot{margin:19px 0 0;padding-top:16px;border-top:1px solid rgba(148,163,184,.17);font-size:.72rem;line-height:1.55;color:#8193aa}.cc-login-foot i{color:#7dd3fc;margin-right:5px}
+
+    .cc-health{margin:0 0 22px;padding:22px;border:1px solid var(--cc-line);border-radius:18px;background:linear-gradient(135deg,rgba(14,165,233,.09),rgba(17,28,46,.92))}
+    .cc-health-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:17px}
+    .cc-health h2{font-size:1.35rem;color:#f8fafc;margin:6px 0}.cc-health-head p{margin:0;color:#a8b6c8;font-size:.9rem}
+    .cc-health-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+    .cc-health-item{display:flex;align-items:flex-start;gap:9px;min-width:0;padding:13px 11px;border:1px solid rgba(148,163,184,.15);border-radius:12px;background:rgba(3,12,24,.38)}
+    .cc-health-item>span:nth-child(2){min-width:0;flex:1}.cc-health-item strong{display:block;font-size:.78rem;color:#e5edf7;line-height:1.35}.cc-health-item small{display:block;color:#91a2b8;font-size:.72rem;margin-top:5px;overflow-wrap:anywhere}.cc-health-item>b{font-size:.72rem;color:#cbd5e1;white-space:nowrap}
+    .cc-health-dot{width:8px;height:8px;flex:0 0 8px;margin-top:5px;border-radius:50%;background:#64748b}.cc-health-dot.pending{background:#64748b}.cc-health-dot.checking{background:#38bdf8;box-shadow:0 0 0 4px #38bdf822}.cc-health-dot.good{background:#4ade80}.cc-health-dot.bad{background:#fb7185}
+    .cc-health-foot{font-size:.78rem;color:#8193aa;margin:14px 0 0}
+    #ccRunChecks:disabled{opacity:.6;cursor:wait}
+    @media(max-width:850px){.cc-health-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cc-health-item:last-child{grid-column:1/-1}}
+    @media(max-width:560px){.cc-health{padding:16px}.cc-health-grid{grid-template-columns:1fr}.cc-health-item:last-child{grid-column:auto}.cc-health-head{align-items:flex-start}.cc-health-head button{width:100%;justify-content:center}}
+
     .cc-wrap{padding-top:20px}#ccLogout{font:inherit}
   </style>
   <script>
@@ -97,6 +121,67 @@
   form.addEventListener('submit',async e=>{e.preventDefault();error.textContent='';const user=email.value.trim().toLowerCase(),pass=password.value;if(!user||!pass){error.textContent='Enter both your email and password.';return}const submit=form.querySelector('button[type="submit"]');submit.disabled=true;submit.textContent='Checking…';try{if(await digest(user+'|'+pass)===EXPECTED){sessionStorage.setItem(KEY,JSON.stringify({ok:true,at:Date.now()}));showWorkspace()}else{error.textContent='Those sign-in details do not match. Please try again.';password.value='';password.focus()}}catch(_){error.textContent='This browser could not run the sign-in check. Please use an up-to-date browser.'}finally{submit.disabled=false;submit.innerHTML='<i class="fas fa-lock-open"></i> Sign in'}});
   document.getElementById('ccReveal').addEventListener('click',()=>{const visible=password.type==='text';password.type=visible?'password':'text';document.getElementById('ccReveal').textContent=visible?'Show':'Hide';document.getElementById('ccReveal').setAttribute('aria-label',visible?'Show password':'Hide password')});
   document.getElementById('ccLogout').addEventListener('click',clearSession);document.addEventListener('visibilitychange',()=>{if(document.hidden)return;try{const s=JSON.parse(sessionStorage.getItem(KEY)||'null');if(!s||Date.now()-s.at>=ttl)clearSession()}catch(_){clearSession()}});
+  })();
+  </script>
+  <script>
+  (() => {
+    const button = document.getElementById('ccRunChecks');
+    const results = document.getElementById('ccHealthResults');
+    const summary = document.getElementById('ccHealthSummary');
+    if (!button || !results || !summary) return;
+    const checks = [
+      {label:'Website homepage', url:'./', kind:'page'},
+      {label:'Contact page', url:'./contact.html', kind:'page'},
+      {label:'CMS content data', url:'./data.json', kind:'json'},
+      {label:'Free tools page', url:'./tools/index.html', kind:'page'},
+      {label:'Content Manager route', url:'./admin/', kind:'page'}
+    ];
+    function paint(item, state, detail, elapsed) {
+      const dot = item.querySelector('.cc-health-dot');
+      dot.className = 'cc-health-dot ' + state;
+      item.querySelector('small').textContent = detail;
+      item.querySelector('b').textContent = elapsed == null ? '—' : elapsed + ' ms';
+    }
+    async function runChecks() {
+      button.disabled = true;
+      button.textContent = 'Checking…';
+      summary.textContent = 'Checking routes now. This does not test sign-in, form submission or CMS publishing.';
+      const items = Array.from(results.querySelectorAll('.cc-health-item'));
+      items.forEach((item, i) => paint(item, 'checking', 'Checking…', null));
+      let passed = 0;
+      const outcomes = await Promise.all(checks.map(async (check, i) => {
+        const item = items[i];
+        const started = performance.now();
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 9000);
+        try {
+          const response = await fetch(check.url, {method:'GET', cache:'no-store', signal:controller.signal, headers:{'Accept':check.kind === 'json' ? 'application/json' : 'text/html'}});
+          if (!response.ok) throw new Error('HTTP ' + response.status);
+          if (check.kind === 'json') {
+            const data = await response.json();
+            if (!data || typeof data !== 'object') throw new Error('Unexpected data format');
+          } else {
+            await response.body?.cancel();
+          }
+          const elapsed = Math.round(performance.now() - started);
+          paint(item, 'good', check.kind === 'json' ? 'Responding · JSON valid' : 'Route responding', elapsed);
+          return true;
+        } catch (err) {
+          const elapsed = Math.round(performance.now() - started);
+          const detail = err.name === 'AbortError' ? 'Timed out' : (err.message === 'Failed to fetch' ? 'Network / route error' : err.message);
+          paint(item, 'bad', detail, elapsed);
+          return false;
+        } finally { clearTimeout(timer); }
+      }));
+      passed = outcomes.filter(Boolean).length;
+      summary.textContent = passed === checks.length
+        ? 'All ' + passed + ' checks passed. Routes respond; interactive features still need separate testing.'
+        : passed + ' of ' + checks.length + ' checks passed. Open a failed route directly to investigate; caching or hosting rules can affect results.';
+      button.disabled = false;
+      button.textContent = 'Run checks ↻';
+    }
+    button.addEventListener('click', runChecks);
+    runChecks();
   })();
   </script>
 </body>
