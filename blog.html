@@ -1492,7 +1492,18 @@
     document.getElementById('postModal').addEventListener('click', e => {
       if (e.target === document.getElementById('postModal')) closeModal();
     });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape' && document.getElementById('postModal').classList.contains('open')) closeModal(); });
+    document.addEventListener('keydown', e => {
+      const overlay = document.getElementById('postModal');
+      if (!overlay.classList.contains('open')) return;
+      if (e.key === 'Escape') { closeModal(); return; }
+      if (e.key !== 'Tab') return;
+      const focusable = Array.from(overlay.querySelectorAll('a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])')).filter(el => el.offsetParent !== null);
+      if (!focusable.length) { e.preventDefault(); overlay.focus(); return; }
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
     window.addEventListener('popstate', () => {
       let slug = '';
       try { slug = decodeURIComponent(location.hash.slice(1)); } catch (_) {}
