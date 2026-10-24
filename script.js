@@ -221,8 +221,23 @@ function handleServiceDeepLink() {
   else if (document.getElementById('serviceModal')?.classList.contains('open')) closeModal('serviceModal');
 }
 function quoteService(name, price) {
-  const msg = `Hello BLESSTech-X! I want to purchase: *${name}* (${price})%0A%0ABusiness Name:%0AMy Name:%0APhone:%0APayment Method:`;
-  window.open(`https://wa.me/${SITE_DATA.site.whatsapp}?text=${msg}`, '_blank');
+  const cleanName = String(name || 'a digital service').trim();
+  const cleanPrice = String(price || 'Please advise on pricing').trim();
+  const message = [
+    'Hello BLESSTech-X! I would like to discuss this service:',
+    '',
+    'Service: ' + cleanName,
+    'Starting price: ' + cleanPrice,
+    '',
+    'Business name:',
+    'My name:',
+    'Phone:',
+    'Main goal / requirements:',
+    'Preferred payment method:'
+  ].join('\n');
+  const phone = String(SITE_DATA?.site?.whatsapp || '260979603741').replace(/\D/g, '');
+  const url = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(message);
+  window.open(url, '_blank', 'noopener,noreferrer');
 }
 
 /* ── TOOLS TEASER ── */
