@@ -1482,20 +1482,28 @@
     const m = raw.match(/^---[\r\n]+([\s\S]*?)[\r\n]+---[\r\n]+([\s\S]*)/);
     if (!m) return null;
     const meta = {};
-    m[1].split(/\r?\n/).forEach(line => {
-      // Split only at the first YAML key separator; values such as ISO dates
-      // and quoted text may legitimately contain additional colons.
-      const match = line.match(/^([A-Za-z0-9_-]+):\s*(.*)$/);
-      if (!match) return;
-      const k = match[1].trim();
-      let v = match[2].trim();
-      if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) {
-        v = v.slice(1, -1);
+    const lines = m[1].split(/\r?\n/);
+    for (let i = 0; i < lines.length; i++) {
+      // Keep colons inside values (including ISO dates) and support YAML
+      // folded/literal blocks so multiline excerpts do not become ">-" text.
+      const match = lines[i].match(/^([A-Za-z0-9_-]+):\s*(.*)$/);
+      if (!match) continue;
+      const key = match[1].trim();
+      let value = match[2].trim();
+      if (value === '>' || value === '>-' || value === '|' || value === '|-') {
+        const block = [];
+        while (i + 1 < lines.length && (!lines[i + 1].trim() || /^\s+/.test(lines[i + 1]))) {
+          i++;
+          block.push(lines[i].trim());
+        }
+        value = value.startsWith('>') ? block.join(' ').replace(/\s+/g, ' ').trim() : block.join('\n').trim();
+      } else if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+        value = value.slice(1, -1);
       }
-      if (v === 'true') v = true;
-      else if (v === 'false') v = false;
-      meta[k] = v;
-    });
+      if (value === 'true') value = true;
+      else if (value === 'false') value = false;
+      meta[key] = value;
+    }
     const slug = filename.replace(/^\d{4}-\d{2}-\d{2}-/,'').replace(/\.md$/,'');
     return { ...meta, body: m[2], slug };
   }
@@ -1574,7 +1582,7 @@
         </div>
         <div class="hero-title" style="margin-top:10px;">${esc(post.title)}</div>
         <div class="hero-excerpt">${esc(excerpt)}</div>
-        <button class="hero-read-btn" onclick="openPost('${esc(post.slug)}')">
+        <button class="hero-read-btn" onclick="openPost(${jsArg(post.slug)})">
           Read Article <i class="fas fa-arrow-right"></i>
         </button>
       </div>`;
@@ -1704,7 +1712,7 @@
     const saved     = saves[post.slug];
     const likeCount = parseInt(safeGet('btx_lc_' + post.slug) || '0');
     return `
-      <div class="post-card" onclick="openPost('${esc(post.slug)}')">
+      <div class="post-card" onclick="openPost(${jsArg(post.slug)})">
         ${post.image
           ? `<div class="post-card-img"><img src="${esc(post.image)}" alt="${esc(post.title)}" loading="lazy" onerror="this.parentElement.outerHTML='<div class=post-card-img-placeholder>${icon}</div>'"></div>`
           : `<div class="post-card-img-placeholder">${icon}</div>`}
@@ -1725,14 +1733,14 @@
           <span class="post-read-more">Read full post <i class="fas fa-arrow-right"></i></span>
         </div>
         <div class="post-card-footer" onclick="event.stopPropagation()">
-          <button class="reaction-btn ${liked ? 'liked' : ''}" onclick="toggleLike('${esc(post.slug)}',this)">
+          <button class="reaction-btn ${liked ? 'liked' : ''}" onclick="toggleLike(${jsArg(post.slug)},this)">
             <i class="${liked ? 'fas' : 'far'} fa-heart"></i>
             <span class="like-num">${liked ? likeCount || 1 : likeCount || 0}</span>
           </button>
-          <button class="reaction-btn ${saved ? 'saved' : ''}" onclick="toggleSave('${esc(post.slug)}',this)">
+          <button class="reaction-btn ${saved ? 'saved' : ''}" onclick="toggleSave(${jsArg(post.slug)},this)">
             <i class="${saved ? 'fas' : 'far'} fa-bookmark"></i> ${saved ? 'Saved' : 'Save'}
           </button>
-          <button class="post-share-btn" onclick="shareCard('${esc(post.slug)}','${esc(post.title)}')">
+          <button class="post-share-btn" onclick="shareCard(${jsArg(post.slug)},${jsArg(post.title)})">
             <i class="fas fa-share-alt"></i> Share
           </button>
         </div>
