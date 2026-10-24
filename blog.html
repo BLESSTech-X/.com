@@ -1862,7 +1862,7 @@
       history.pushState(null, '', location.pathname + location.search + '#' + encodeURIComponent(slug));
     }
 
-    lastFocusedElement = document.activeElement;
+    if (!document.getElementById('postModal').classList.contains('open')) lastFocusedElement = document.activeElement;
     document.title = (post.title || 'Article') + ' | BLESSTech-X Journal';
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) metaDescription.content = (post.excerpt || extractExcerpt(post.body) || baseDescription).slice(0, 300);
