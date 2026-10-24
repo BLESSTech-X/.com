@@ -1967,6 +1967,9 @@
   }
 
   function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function jsArg(s) {
+    return esc(JSON.stringify(String(s ?? '')).replace(/</g, '\\u003c').replace(/>/g, '\\u003e'));
+  }
 
   function showToast(msg) {
     const t = document.getElementById('toast');
