@@ -1444,7 +1444,13 @@
     document.getElementById('postModal').addEventListener('click', e => {
       if (e.target === document.getElementById('postModal')) closeModal();
     });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && document.getElementById('postModal').classList.contains('open')) closeModal(); });
+    window.addEventListener('popstate', () => {
+      let slug = '';
+      try { slug = decodeURIComponent(location.hash.slice(1)); } catch (_) {}
+      if (slug && allPosts.some(p => p.slug === slug)) openPost(slug, true);
+      else if (document.getElementById('postModal').classList.contains('open')) closeModal(false);
+    });
   });
 
   // ── LOAD ───────────────────────────────────────────────
@@ -1467,7 +1473,7 @@
       // Shared article URLs use #<slug>; open the article after posts have loaded.
       let sharedSlug = '';
       try { sharedSlug = decodeURIComponent(location.hash.slice(1)); } catch (_) {}
-      if (sharedSlug && allPosts.some(p => p.slug === sharedSlug)) openPost(sharedSlug);
+      if (sharedSlug && allPosts.some(p => p.slug === sharedSlug)) openPost(sharedSlug, true);
 
     } catch(e) {
       console.error(e);
@@ -1803,10 +1809,12 @@
 
 
   // ── OPEN POST ────────────────────────────────────────────
-  window.openPost = function(slug) {
+  window.openPost = function(slug, fromHistory = false) {
     const post = allPosts.find(p => p.slug === slug); if (!post) return;
     currentSlug = slug;
-    history.replaceState(null, '', location.pathname + location.search + '#' + encodeURIComponent(slug));
+    if (!fromHistory && location.hash !== '#' + encodeURIComponent(slug)) {
+      history.pushState(null, '', location.pathname + location.search + '#' + encodeURIComponent(slug));
+    }
 
     // Hero
     const hero = document.getElementById('modalHero');
@@ -1849,11 +1857,11 @@
     modalOverlay.focus({ preventScroll: true });
   };
 
-  function closeModal() {
+  function closeModal(updateHistory = true) {
     document.getElementById('postModal').classList.remove('open');
     document.body.style.overflow = '';
     currentSlug = null;
-    if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+    if (updateHistory && location.hash) history.replaceState(null, '', location.pathname + location.search);
   }
   window.closeModal = closeModal;
 
