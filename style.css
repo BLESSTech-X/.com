@@ -1767,3 +1767,30 @@ body{
  .btx-footer-mini .btx-mini-whatsapp{grid-column:2;grid-row:1}
  .btx-footer-mini .btx-mini-bottom{justify-content:center;text-align:center;gap:5px 12px}
 }
+
+
+/* Compact footer with essential quick links and visible contact details */
+.btx-footer-mini{padding:13px 0 0!important}
+.btx-footer-mini:after{display:none}
+.btx-footer-mini .btx-mini-row{display:flex;align-items:center;justify-content:space-between;gap:12px 20px;padding-bottom:10px}
+.btx-footer-mini .btx-footer-logo{font-size:1rem;gap:7px;margin:0;flex-shrink:0}
+.btx-footer-mini .btx-footer-logo img{width:30px;height:30px;border-radius:8px}
+.btx-footer-mini .btx-mini-links{display:flex;align-items:center;justify-content:flex-end;gap:8px 16px;flex-wrap:wrap}
+.btx-footer-mini .btx-mini-links a{font-size:.76rem;color:#c5d2e0}
+.btx-footer-mini .btx-mini-links a:hover{color:#91e7e8}
+.btx-footer-mini .btx-mini-contact{display:flex;align-items:center;justify-content:center;gap:9px 22px;flex-wrap:wrap;padding:9px 0;border-top:1px solid rgba(219,232,245,.11);border-bottom:1px solid rgba(219,232,245,.11)}
+.btx-footer-mini .btx-mini-contact>a:not(.btx-mini-whatsapp){display:inline-flex;align-items:center;gap:8px;color:#d5e1ee;font-size:.76rem;overflow-wrap:anywhere}
+.btx-footer-mini .btx-mini-contact>a:not(.btx-mini-whatsapp) i{color:#82dfe3;font-size:.83rem}
+.btx-footer-mini .btx-mini-contact>a:hover{color:#91e7e8}
+.btx-footer-mini .btx-mini-whatsapp{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;border:1px solid rgba(86,221,157,.28);border-radius:9px;padding:6px 10px;background:rgba(33,181,112,.12);color:#92efbd;font-size:.73rem;font-weight:750}
+.btx-footer-mini .btx-mini-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px 16px;flex-wrap:wrap;padding:8px 0 10px;color:#9fb0c3;font-size:.67rem}
+.btx-footer-mini .btx-mini-bottom .footer-legal{display:flex;gap:12px}
+.btx-footer-mini .btx-mini-bottom .footer-legal a{font-size:.67rem}
+@media(max-width:650px){
+ .btx-footer-mini{padding-top:11px!important}
+ .btx-footer-mini .btx-mini-row{align-items:flex-start;flex-direction:column;gap:10px;padding-bottom:11px}
+ .btx-footer-mini .btx-mini-links{justify-content:flex-start;gap:9px 15px}
+ .btx-footer-mini .btx-mini-contact{align-items:flex-start;justify-content:flex-start;flex-direction:column;gap:10px;padding:11px 0}
+ .btx-footer-mini .btx-mini-contact>a:not(.btx-mini-whatsapp){font-size:.78rem}
+ .btx-footer-mini .btx-mini-bottom{justify-content:center;text-align:center;gap:6px 12px}
+}
