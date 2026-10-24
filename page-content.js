@@ -37,7 +37,13 @@
     text('contactPageTitle', contact.title);
     text('contactPageIntro', contact.intro);
     text('contactFormHeading', contact.form_heading);
-    text('contactSubmitLabel', contact.submit_label);
+    const submitLabel = document.getElementById('contactSubmitLabel');
+    if (submitLabel && typeof contact.submit_label === 'string' && contact.submit_label.trim()) {
+      const icon = submitLabel.querySelector('i');
+      submitLabel.replaceChildren();
+      if (icon) submitLabel.appendChild(icon);
+      submitLabel.appendChild(document.createTextNode(' ' + contact.submit_label));
+    }
     text('contactHours', contact.office_hours);
     text('contactLocation', site.location);
     const phone = String(site.whatsapp || site.phone || '').replace(/[^0-9]/g, '');
