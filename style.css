@@ -1687,3 +1687,22 @@ body{
 #portfolio .portfolio-card .pc-body a{
   color:var(--pf-accent,#67e8f9)!important;
 }
+
+
+/* Graceful fallback when the homepage content feed cannot be reached. */
+.content-load-error{
+  grid-column:1/-1;
+  width:100%;
+  box-sizing:border-box;
+  padding:22px 24px;
+  border:1px solid rgba(37,99,235,.2);
+  border-radius:18px;
+  background:linear-gradient(135deg,#f7fbff,#eef6ff);
+  box-shadow:0 12px 30px rgba(24,52,87,.08);
+  color:#24364d;
+  text-align:left;
+}
+.content-load-error strong{display:block;color:#152a43;font-size:1rem;margin-bottom:6px}
+.content-load-error p{margin:0 0 12px;color:#566b83;line-height:1.6}
+.content-load-error a{display:inline-flex;align-items:center;gap:8px;color:#075e9e;font-weight:800;text-decoration:underline;text-underline-offset:3px}
+.content-load-error a:focus-visible{outline:3px solid rgba(14,165,233,.35);outline-offset:4px;border-radius:4px}
