@@ -1164,12 +1164,12 @@
       <!-- MOBILE ONLY: Horizontal category pills -->
       <div class="mobile-cat-scroll">
         <button class="mobile-cat-pill active" data-cat="all" onclick="mobileFilterCat('all',this)">📰 All stories</button>
-        <button class="mobile-cat-pill" onclick="mobileFilterCat('Business Tips',this)">💼 Business</button>
-        <button class="mobile-cat-pill" onclick="mobileFilterCat('E-commerce',this)">🛒 E-commerce</button>
-        <button class="mobile-cat-pill" onclick="mobileFilterCat('Digital Marketing',this)">📣 Marketing</button>
-        <button class="mobile-cat-pill" onclick="mobileFilterCat('Zambia Tech',this)">🇿🇲 Zambia Tech</button>
-        <button class="mobile-cat-pill" onclick="mobileFilterCat('Case Study',this)">📊 Case Studies</button>
-        <button class="mobile-cat-pill" onclick="mobileFilterCat('Announcements',this)">📢 News</button>
+        <button class="mobile-cat-pill" data-cat="Business Tips" onclick="mobileFilterCat('Business Tips',this)">💼 Business</button>
+        <button class="mobile-cat-pill" data-cat="E-commerce" onclick="mobileFilterCat('E-commerce',this)">🛒 E-commerce</button>
+        <button class="mobile-cat-pill" data-cat="Digital Marketing" onclick="mobileFilterCat('Digital Marketing',this)">📣 Marketing</button>
+        <button class="mobile-cat-pill" data-cat="Zambia Tech" onclick="mobileFilterCat('Zambia Tech',this)">🇿🇲 Zambia Tech</button>
+        <button class="mobile-cat-pill" data-cat="Case Study" onclick="mobileFilterCat('Case Study',this)">📊 Case Studies</button>
+        <button class="mobile-cat-pill" data-cat="Announcements" onclick="mobileFilterCat('Announcements',this)">📢 News</button>
       </div>
 
       <!-- Sort bar -->
@@ -1287,7 +1287,7 @@
     <aside class="sidebar-right">
       <!-- Trending -->
       <div class="sidebar-card">
-        <div class="sidebar-card-header"><i class="fas fa-arrow-trend-up"></i> Explore popular topics</div>
+        <div class="sidebar-card-header"><i class="fas fa-layer-group"></i> Browse by topic</div>
         <div class="trending-list" id="trendingList">
           <div class="trending-item"><span class="trending-num">1</span><div class="trending-info"><div class="trending-tag">#EcommerceZambia</div><div class="trending-count">E-commerce</div></div></div>
           <div class="trending-item"><span class="trending-num">2</span><div class="trending-info"><div class="trending-tag">#AirtelMoney</div><div class="trending-count">Business Tips</div></div></div>
@@ -1410,7 +1410,7 @@
       </div>
       <div class="modal-cta-section">
         <h4>Want results like this for your business?</h4>
-        <p>BLESSTech-X builds websites & e-commerce stores with Airtel & MTN Money — delivered in 7–14 days.</p>
+        <p>Need a website, e-commerce store, or a clearer digital strategy? Tell us what you are building and we will discuss the right next step.</p>
         <div class="modal-cta-btns">
           <a href="https://wa.me/260979603741?text=Hello%20BLESSTech-X!%20I%20read%20your%20blog%20and%20want%20to%20know%20more." class="cta-btn cta-btn-wa" target="_blank" rel="noopener noreferrer">
             <i class="fab fa-whatsapp"></i> Chat With Us
@@ -1607,8 +1607,9 @@
 
   window.filterByCategory = function(cat, btn) {
     activeCategory = cat;
-    document.querySelectorAll('.cat-item').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+    document.querySelectorAll('.cat-item').forEach(b => b.classList.toggle('active', b.dataset.cat === cat));
+    document.querySelectorAll('.mobile-cat-pill').forEach(b => b.classList.toggle('active', b.dataset.cat === cat));
+    if (btn && btn.classList) btn.classList.add('active');
     applyFilters();
   };
 
