@@ -1607,6 +1607,9 @@ function installApp() {
     var card = document.createElement('div');
     card.className = 'portfolio-card';
     card.setAttribute('data-cat', 'ecommerce');
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'link');
+    card.setAttribute('aria-label', 'PhoneYa2-ZM Accessories — open the live store');
     card.style.cssText = 'cursor:pointer;';
     card.innerHTML = [
       '<div class="pc-img" style="background:linear-gradient(135deg,#0d2010,#0a3518,#0d2010);height:180px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border-radius:12px 12px 0 0;">',
@@ -1636,8 +1639,18 @@ function installApp() {
     ].join('');
 
     // Click anywhere on card → open the store
+    function openPhoneYa2Store() {
+      window.open('https://phoneya2.pages.dev/', '_blank', 'noopener,noreferrer');
+    }
     card.addEventListener('click', function() {
-      window.open('https://phoneya2.pages.dev', '_blank');
+      openPhoneYa2Store();
+    });
+    card.addEventListener('keydown', function(event) {
+      if (event.target !== card) return;
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openPhoneYa2Store();
+      }
     });
 
     // Prepend — appears first in the grid
