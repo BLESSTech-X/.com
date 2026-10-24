@@ -1845,27 +1845,28 @@ body{
 @media(prefers-reduced-motion:reduce){#services .service-post-card,#services .service-post-image{transition:none}}
 
 
-/* Fix service artwork cropping: show the complete image, not a zoomed crop */
+/* Service post artwork: fill the card's image frame edge-to-edge */
 #services .service-post-image-link{
-  aspect-ratio:auto;
-  min-height:180px;
-  max-height:390px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:8px;
-  background:#f8fafc;
-}
-#services .service-post-image{
   display:block;
   width:100%;
   height:auto;
-  max-height:374px;
-  object-fit:contain;
+  min-height:0;
+  max-height:none;
+  aspect-ratio:4/3;
+  padding:0;
+  overflow:hidden;
+  background:#eaf0f6;
+}
+#services .service-post-image{
+  display:block;
+  width:100% !important;
+  height:100% !important;
+  max-height:none;
+  object-fit:cover;
   object-position:center;
 }
-#services .service-post-card:hover .service-post-image{transform:none}
+#services .service-post-card:hover .service-post-image{transform:scale(1.02)}
 @media(max-width:420px){
-  #services .service-post-image-link{min-height:150px;max-height:340px;padding:6px}
-  #services .service-post-image{max-height:328px}
+  #services .service-post-image-link{aspect-ratio:4/3;min-height:0;max-height:none;padding:0}
+  #services .service-post-image{width:100% !important;height:100% !important;max-height:none}
 }
