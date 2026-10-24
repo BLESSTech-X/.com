@@ -969,16 +969,7 @@
   /* ── FEED GRID ───────────────────────────────────────────────────────── */
   .feed-grid { display: flex; flex-direction: column; gap: 0; }
 
-  /* ── MOBILE: PhoneYa2 pill in category strip ─────────────────────────── */
-  .mobile-py2-pill {
-    display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;
-    padding: 6px 14px; border-radius: 100px; border: none; font-size: 13px;
-    font-weight: 600; cursor: pointer; background: linear-gradient(135deg,#ff6000,#ff9f43);
-    color: white; transition: opacity .2s;
-  }
-  .mobile-py2-pill:hover { opacity: .88; }
-
-  @media(max-width:768px) {
+remove unused PhoneYa2 pill styles  @media(max-width:768px) {
     .mobile-py2-strip { display:block !important; }
   }
 
@@ -1534,7 +1525,6 @@
     document.getElementById('countAnn').textContent  = counts['Announcements']||0;
     // New: update trending with real counts + add mobile PhoneYa2 pill
     updateTrending();
-    addMobilePy2Pill();
   }
 
   // ── FILTER & SORT ───────────────────────────────────────
@@ -1771,20 +1761,7 @@
     updateProgress();
   }
 
-  // ── MOBILE PhoneYa2 PILL in category strip ────────────────────────────────
-  function addMobilePy2Pill() {
-    const strip = document.querySelector('.mobile-cat-scroll');
-    if (!strip) return;
-    const pill = document.createElement('a');
-    pill.href = 'https://phoneya2.pages.dev/';
-    pill.target = '_blank';
-    pill.rel = 'noopener';
-    pill.className = 'mobile-py2-pill';
-    pill.innerHTML = '📱 PhoneYa2 Store';
-    strip.appendChild(pill);
-  }
-
-  // ── TRENDING: update with real category counts after load ─────────────────
+remove dead dynamic PhoneYa2 pill function  // ── TRENDING: update with real category counts after load ─────────────────
   function updateTrending() {
     const tags = [
       { tag: '#EcommerceZambia', cat: 'E-commerce' },
@@ -1906,26 +1883,48 @@
     showToast(saves[slug] ? '🔖 Post saved!' : 'Removed from saved');
   };
 
+  async function copyText(text, successMessage) {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        const field = document.createElement('textarea');
+        field.value = text;
+        field.setAttribute('readonly', '');
+        field.style.position = 'fixed';
+        field.style.opacity = '0';
+        document.body.appendChild(field);
+        field.select();
+        const copied = document.execCommand('copy');
+        field.remove();
+        if (!copied) throw new Error('Clipboard unavailable');
+      }
+      showToast(successMessage || '🔗 Link copied!');
+    } catch (_) {
+      showToast('Could not copy the link. You can copy it from your browser address bar.');
+    }
+  }
+
   window.shareCard = function(slug, title) {
     const url = location.origin + location.pathname + '#' + encodeURIComponent(slug);
     if (navigator.share) {
-      navigator.share({ title, url }).catch(()=>{});
+      navigator.share({ title, url }).catch(error => { if (error && error.name !== 'AbortError') copyText(url, '🔗 Link copied!'); });
     } else {
-      navigator.clipboard.writeText(url).then(()=>showToast('🔗 Link copied!'));
+      copyText(url, '🔗 Link copied!');
     }
   };
 
   window.sharePost = function() {
     const post = allPosts.find(p=>p.slug===currentSlug); if(!post) return;
     if (navigator.share) {
-      navigator.share({ title: post.title, text: post.excerpt, url: location.href }).catch(()=>{});
+      navigator.share({ title: post.title, text: post.excerpt, url: location.href }).catch(error => { if (error && error.name !== 'AbortError') copyText(location.href, '🔗 Link copied!'); });
     } else {
       copyLink();
     }
   };
 
   window.copyLink = function() {
-    navigator.clipboard.writeText(location.href).then(()=>showToast('🔗 Link copied to clipboard!'));
+    copyText(location.href, '🔗 Link copied to clipboard!');
   };
 
   // ── HELPERS ──────────────────────────────────────────────
