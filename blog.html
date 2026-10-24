@@ -1766,7 +1766,7 @@
     const saved     = saves[post.slug];
     const likeCount = parseInt(safeGet('btx_lc_' + post.slug) || '0');
     return `
-      <div class="post-card" onclick="openPost(${jsArg(post.slug)})">
+      <div class="post-card" role="button" tabindex="0" aria-label="Read article: ${esc(post.title)}" onclick="openPost(${jsArg(post.slug)})" onkeydown="if(event.keyCode===13||event.keyCode===32){event.preventDefault();openPost(${jsArg(post.slug)})}">
         ${post.image
           ? `<div class="post-card-img"><img src="${esc(post.image)}" alt="${esc(post.title)}" loading="lazy" onerror="this.parentElement.outerHTML='<div class=post-card-img-placeholder>${icon}</div>'"></div>`
           : `<div class="post-card-img-placeholder">${icon}</div>`}
