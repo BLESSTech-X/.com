@@ -1433,7 +1433,7 @@
   async function loadPosts() {
     try {
       const res = await fetch(API);
-      if (res.status === 404) { showEmpty(); return; }
+      if (res.status === 404) { showLoadError(); return; }
       if (!res.ok) throw new Error();
       const files = (await res.json()).filter(f => f.name.endsWith('.md'));
       if (!files.length) { showEmpty(); return; }
