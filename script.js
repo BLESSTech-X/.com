@@ -5,7 +5,14 @@ document.addEventListener('DOMContentLoaded', () => {
   fetch('./data.json')
     .then(r => { if (!r.ok) throw new Error('data.json load failed'); return r.json(); })
     .then(data => { SITE_DATA = data; buildSite(data); })
-    .catch(err => console.error('BLESSTech-X:', err));
+    .catch(err => {
+      console.error('BLESSTech-X: homepage content could not be loaded', err);
+      const message = '<div class="content-load-error" role="status"><strong>We could not load this section just now.</strong><p>Please refresh the page. If you need help immediately, contact us on WhatsApp.</p><a href="https://wa.me/260979603741" target="_blank" rel="noopener">Contact us on WhatsApp <span aria-hidden="true">↗</span></a></div>';
+      ['servicesGrid', 'portfolioGrid'].forEach(id => {
+        const grid = document.getElementById(id);
+        if (grid && !grid.children.length) grid.innerHTML = message;
+      });
+    });
 });
 
 function buildSite(d) {
