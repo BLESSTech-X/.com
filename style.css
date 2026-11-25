@@ -2119,3 +2119,112 @@ body{
   #home.hero .hero-desc,
   #home.hero .hero-sub{width:100%;font-size:.94rem}
 }
+
+
+/* HERO SCALE + IMAGE VISIBILITY — compact copy, transparent layout. */
+#home.hero .hero-content{
+  width:min(1160px,100%);
+  max-width:1160px;
+  min-height:82vh;
+  padding:48px 30px 38px;
+  align-items:flex-start;
+  justify-content:center;
+  text-align:left;
+  background:transparent!important;
+}
+#home.hero .hero-badge{
+  display:inline-flex!important;
+  width:max-content;
+  max-width:46%;
+  margin:0 0 11px;
+  padding:6px 10px;
+  font-size:.66rem;
+  line-height:1.2;
+  letter-spacing:.08em;
+}
+#home.hero h1{
+  display:block!important;
+  width:min(490px,46%);
+  max-width:490px;
+  margin:0 0 10px;
+  font-size:clamp(1.65rem,2.75vw,2.45rem);
+  line-height:1.1;
+  letter-spacing:-.035em;
+  font-weight:850;
+}
+#home.hero .hero-desc{
+  display:block!important;
+  width:min(440px,43%);
+  max-width:440px;
+  margin:0 0 10px;
+  font-size:.88rem;
+  line-height:1.5;
+}
+#home.hero .hero-sub{
+  display:block!important;
+  width:min(440px,43%);
+  max-width:440px;
+  margin:0 0 18px;
+  font-size:.96rem;
+  line-height:1.35;
+  font-weight:750;
+}
+#home.hero .hero-btns{
+  max-width:490px;
+  gap:9px;
+  margin-bottom:11px;
+}
+#home.hero .hero-btns .btn{
+  min-height:39px;
+  padding:9px 13px;
+  font-size:.78rem;
+}
+#home.hero .hero-utility-actions{margin-bottom:15px}
+#home.hero .hero-trust{
+  width:min(590px,54%);
+  gap:7px;
+}
+#home.hero .hero-trust .trust-pill{
+  padding:6px 9px;
+  font-size:.65rem;
+}
+
+/* Keep the full hero photograph visible behind the text; no text panel. */
+#home.hero .hero-content,
+#home.hero .hero-content:before,
+#home.hero .hero-content:after{box-shadow:none!important}
+@media(max-width:760px){
+  #home.hero .hero-content{
+    min-height:76vh;
+    padding:34px 21px 28px;
+    justify-content:center;
+  }
+  #home.hero .hero-badge{max-width:92%;font-size:.61rem;margin-bottom:9px}
+  #home.hero h1{
+    width:min(430px,78%);
+    font-size:clamp(1.55rem,5.5vw,2rem);
+    line-height:1.12;
+    margin-bottom:9px;
+  }
+  #home.hero .hero-desc,
+  #home.hero .hero-sub{
+    width:min(410px,76%);
+    font-size:.84rem;
+    line-height:1.45;
+  }
+  #home.hero .hero-desc{margin-bottom:8px}
+  #home.hero .hero-sub{margin-bottom:15px}
+  #home.hero .hero-btns{width:100%;gap:8px}
+  #home.hero .hero-btns .btn{min-height:37px;padding:8px 11px;font-size:.74rem}
+  #home.hero .hero-trust{width:min(470px,94%);gap:6px}
+  #home.hero .hero-trust .trust-pill{font-size:.61rem;padding:6px 8px}
+}
+@media(max-width:420px){
+  #home.hero .hero-content{padding:28px 16px 24px;min-height:74vh}
+  #home.hero h1{width:78%;font-size:1.48rem}
+  #home.hero .hero-desc,
+  #home.hero .hero-sub{width:76%;font-size:.78rem}
+  #home.hero .hero-badge{font-size:.57rem}
+  #home.hero .hero-btns{width:100%;flex-wrap:wrap}
+  #home.hero .hero-trust{width:100%}
+}
