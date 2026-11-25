@@ -202,37 +202,64 @@
       }
     }
   </style>
+<style id="shared-homepage-header">
+body{padding-top:70px!important}
+.site-header{position:fixed!important;top:0!important;left:0!important;right:0!important;width:100%;height:70px!important;padding:0!important;background:rgba(255,255,255,.97)!important;backdrop-filter:blur(12px);border-bottom:1px solid #e2e8f0;box-shadow:0 5px 24px rgba(20,40,65,.045);z-index:1000}
+.site-header .container{width:100%;max-width:1200px;margin:0 auto;padding:0 20px}
+.site-header .header-inner{height:100%;min-height:0;margin:0;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.site-header .logo{display:flex;align-items:center;gap:10px;text-decoration:none;white-space:nowrap}
+.site-header .logo img{width:40px;height:40px;border-radius:8px;object-fit:cover}
+.site-header .logo-text{font-size:1.45rem;font-weight:800;color:#1e293b;letter-spacing:-.3px}
+.site-header .logo-text span{color:#0ea5e9}
+.site-header .nav-links{display:flex;align-items:center;gap:clamp(8px,1.25vw,18px);flex-wrap:nowrap}
+.site-header .nav-links a{font-weight:600;font-size:.82rem;color:#475569;position:relative;text-decoration:none;white-space:nowrap}
+.site-header .nav-links a:not(.nav-cta):after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:#0ea5e9;border-radius:1px;transition:width .25s}
+.site-header .nav-links a:hover{color:#0ea5e9}
+.site-header .nav-links a:hover:after{width:100%}
+.site-header .nav-links .nav-cta{background:#0ea5e9;color:#fff!important;padding:9px 13px;border-radius:10px}
+.site-header .nav-links .nav-cta:after{display:none}
+.site-header .header-actions{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.site-header .btn-whatsapp{display:inline-flex;align-items:center;gap:7px;background:#25D366;color:#fff;padding:8px 13px;border-radius:30px;font-size:.85rem;font-weight:700;text-decoration:none;white-space:nowrap}
+.site-header .mobile-toggle{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:6px}
+.site-header .mobile-toggle span{display:block;width:24px;height:2px;background:#1e293b;border-radius:2px;transition:all .2s}
+.site-header .mobile-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.site-header .mobile-toggle.open span:nth-child(2){opacity:0}
+.site-header .mobile-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media(max-width:1100px){.site-header .nav-links{gap:9px}.site-header .nav-links a{font-size:.76rem}.site-header .logo-text{font-size:1.25rem}}
+@media(max-width:900px){.site-header .nav-links{display:none;position:fixed;top:70px;left:0;right:0;background:#fff;flex-direction:column;align-items:stretch;padding:14px 20px 22px;gap:3px;box-shadow:0 16px 30px rgba(15,23,42,.13);z-index:999;border-top:1px solid #e2e8f0;max-height:calc(100vh - 70px);overflow-y:auto}.site-header .nav-links.open{display:flex}.site-header .nav-links a{font-size:.94rem;padding:11px 10px;border-radius:8px}.site-header .nav-links a:hover{background:#f0f9ff}.site-header .nav-links .nav-cta{margin:5px 0}.site-header .mobile-toggle{display:flex}}
+@media(max-width:420px){.site-header .container{padding:0 13px}.site-header .logo-text{font-size:1.15rem}.site-header .logo img{width:36px;height:36px}.site-header .btn-whatsapp{padding:7px 9px;font-size:.78rem}}
+</style>
 </head>
 <body>
 
   <!-- HEADER (same as main site) -->
   <header id="siteHeader" class="site-header">
-    <div class="container header-inner">
-      <a href="index.html" class="logo" aria-label="BLESSTech-X home">
-        <img id="logoImg" src="https://i.ibb.co/v4ZbYsS5/1779224086472.png" alt="BLESSTech-X Logo" width="40" height="40" />
-        <span class="logo-text">BLESS<span>Tech-X</span></span>
-      </a>
-      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
-        <a href="index.html#services">Services</a>
-        <a href="tools/index.html"><i class="fas fa-tools"></i> Free Tools</a>
-        <a href="index.html#portfolio">Portfolio</a>
-        <a href="index.html#process">How We Work</a>
-        <a href="index.html#testimonials">Clients</a>
-        <a href="blog.html">Blog</a>
-        <a href="index.html#faq">FAQ</a>
-        <a href="index.html#about">About</a>
-        <a href="index.html#contact" class="nav-cta">Get a Quote</a>
-      </nav>
-      <div class="header-actions">
-        <a href="https://wa.me/260979603741" class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener">
-          <i class="fab fa-whatsapp"></i> Chat
-        </a>
-        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
+  <div class="container header-inner">
+    <a href="index.html" class="logo" aria-label="BLESSTech-X home">
+      <img id="logoImg" src="https://i.ibb.co/v4ZbYsS5/1779224086472.png" alt="BLESSTech-X Logo" width="40" height="40">
+      <span class="logo-text">BLESS<span>Tech-X</span></span>
+    </a>
+    <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="index.html#services">Services</a>
+      <a href="tools/index.html"><i class="fas fa-tools"></i> Free Tools</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="process.html">How We Work</a>
+      <a href="blog.html">Blog</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" class="nav-cta">Contact / Get a Quote</a>
+      <a href="terms.html">Terms</a>
+      <a href="privacy.html">Privacy</a>
+    </nav>
+    <div class="header-actions">
+      <a href="https://wa.me/260979603741" class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Chat</a>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-  </header>
+  </div>
+</header>
 
   <!-- MAIN CONTENT -->
   <main class="container">
@@ -273,17 +300,7 @@
 
   <script>
     // Mobile menu toggle (if you need it on these pages)
-    const toggleBtn = document.getElementById('mobileToggle');
-    const navLinks = document.getElementById('navLinks');
-    if (toggleBtn) {
-      toggleBtn.addEventListener('click', () => {
-        const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
-        toggleBtn.setAttribute('aria-expanded', !isExpanded);
-        if (navLinks) {
-          navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-        }
-      });
-    }
+    const toggleBtn=document.getElementById('mobileToggle');const navLinks=document.getElementById('navLinks');if(toggleBtn&&navLinks){toggleBtn.addEventListener('click',()=>{const open=navLinks.classList.toggle('open');toggleBtn.classList.toggle('open',open);toggleBtn.setAttribute('aria-expanded',String(open));});navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{navLinks.classList.remove('open');toggleBtn.classList.remove('open');toggleBtn.setAttribute('aria-expanded','false');}));document.addEventListener('click',e=>{if(!navLinks.contains(e.target)&&!toggleBtn.contains(e.target)){navLinks.classList.remove('open');toggleBtn.classList.remove('open');toggleBtn.setAttribute('aria-expanded','false');}});}
   </script>
 </body>
 </html>
