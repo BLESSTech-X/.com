@@ -629,12 +629,17 @@
 
   <a href="#main" class="skip-link">Skip to main content</a>
 
-  <!-- ANNOUNCEMENT BAR -->
-  <div id="announcementBar" class="announcement-bar" role="banner">
-    <span id="announcementText"></span>
-    <a id="announcementCta" href="#contact" class="announcement-cta"></a>
-    <button class="announcement-close" onclick="closeAnnouncement()" aria-label="Close announcement">×</button>
-  </div>
+  <!-- FLOATING FOUNDING-CLIENT OFFER -->
+  <aside id="announcementToast" class="offer-toast" role="status" aria-live="polite" aria-label="Founding Client Offer" hidden>
+    <div class="offer-toast-top">
+      <span class="offer-toast-badge">LIMITED OFFER</span>
+      <button class="offer-toast-close" type="button" onclick="closeAnnouncement(true)" aria-label="Close offer">×</button>
+    </div>
+    <h2 class="offer-toast-title">Founding Client Offer</h2>
+    <p class="offer-toast-copy">First 3 Websites: 30% OFF + 3 Months Free Hosting</p>
+    <a id="announcementCta" class="offer-toast-cta" href="#contact" onclick="closeAnnouncement(false)">Claim Now <span aria-hidden="true">→</span></a>
+    <div class="offer-toast-progress" aria-hidden="true"><span id="offerToastProgress"></span></div>
+  </aside>
 
   <!-- HEADER -->
   <header id="siteHeader" class="site-header">
