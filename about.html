@@ -36,6 +36,26 @@
     p { margin-bottom: 15px; color: #444; }
     .tagline { font-size: 18px; color: #666; text-align: center; margin-bottom: 30px; }
     @media (max-width: 768px) { body { padding-top: 70px; } .nav-links { display: none; } .mobile-toggle { display: flex; } .nb-header { flex-direction: column; text-align: center; gap: 10px; } }
+  
+    .founder-profile{display:grid;grid-template-columns:minmax(220px, .8fr) minmax(0,1.2fr);gap:34px;align-items:center;margin:34px 0;padding:26px;background:#fff;border:1px solid #dce7f2;border-radius:22px;box-shadow:0 14px 38px rgba(15,35,60,.08)}
+    .founder-profile-photo{height:360px;overflow:hidden;border-radius:17px;background:#10243b}
+    .founder-profile-photo img{width:100%;height:100%;object-fit:cover;object-position:center 35%}
+    .founder-eyebrow{font-size:11px;letter-spacing:.14em;font-weight:850;color:#0284c7}
+    .founder-profile-copy h2{margin:7px 0 4px;color:#10243b}
+    .founder-profile-copy h3{font-size:25px;color:#10243b;margin:8px 0 0}
+    .founder-profile-copy .founder-role{color:#0284c7;font-weight:750;margin:2px 0 14px}
+    .founder-profile-copy p{line-height:1.75}
+    .team-profile{margin:44px 0 20px}
+    .team-profile-heading{text-align:center;max-width:650px;margin:0 auto 22px}
+    .team-profile-heading h2{margin:7px 0;color:#10243b}
+    .team-profile-heading p{color:#64748b}
+    .team-founder-card{display:flex;align-items:center;gap:18px;max-width:560px;margin:0 auto;padding:16px;background:#fff;border:1px solid #dce7f2;border-radius:18px;box-shadow:0 10px 28px rgba(15,35,60,.07)}
+    .team-founder-card img{width:92px;height:92px;flex:0 0 92px;object-fit:cover;object-position:center 35%;border-radius:15px}
+    .team-founder-card h3{font-size:19px;color:#10243b;margin:0 0 2px}
+    .team-founder-card p{color:#0284c7;font-weight:750;margin:0 0 4px}
+    .team-founder-card span{font-size:12px;color:#64748b}
+    @media(max-width:700px){.founder-profile{grid-template-columns:1fr;gap:20px;padding:17px}.founder-profile-photo{height:320px}.team-founder-card{align-items:flex-start}.team-founder-card img{width:78px;height:78px;flex-basis:78px}}
+
   </style>
 </head>
 <body>
@@ -76,8 +96,23 @@
       <p>We build websites, e-commerce stores with Airtel Money and MTN Money, logos, graphic design, and social media management for Zambian businesses and schools.</p>
       <h2>Our Results</h2>
       <p>We help businesses build a stronger online presence with practical digital solutions. Published results and client stories should be added only when they can be verified.</p>
-      <h2>Our Founder</h2>
-      <p>BLESSTech-X is built around practical digital solutions for Zambian businesses. Add the founder’s approved biography and experience here.</p>
+      <section class="founder-profile" aria-labelledby="founderHeading">
+        <div class="founder-profile-photo"><img src="https://i.ibb.co/wFsq9SdJ/file-00000000f57082088b99d95dddfd5e53-2.jpg" alt="Bless Sing, Founder and Lead Developer of BLESSTech-X" loading="lazy"></div>
+        <div class="founder-profile-copy">
+          <span class="founder-eyebrow">LEADERSHIP</span>
+          <h2 id="founderHeading">Our Founder</h2>
+          <h3>Bless Sing</h3>
+          <p class="founder-role">Founder &amp; Lead Developer</p>
+          <p>Bless Sing founded BLESSTech-X with a focus on making useful digital solutions more accessible to Zambian businesses. He leads the development of websites, online stores and practical digital tools that help businesses build a stronger online presence.</p>
+        </div>
+      </section>
+      <section class="team-profile" aria-labelledby="teamHeading">
+        <div class="team-profile-heading"><span class="founder-eyebrow">THE PEOPLE BEHIND THE WORK</span><h2 id="teamHeading">Meet the Team</h2><p>A hands-on founder-led team, focused on building practical digital experiences for businesses.</p></div>
+        <article class="team-founder-card">
+          <img src="https://i.ibb.co/wFsq9SdJ/file-00000000f57082088b99d95dddfd5e53-2.jpg" alt="Bless Sing" loading="lazy">
+          <div><h3>Bless Sing</h3><p>Founder &amp; Lead Developer</p><span>Websites · Digital systems · Business tools</span></div>
+        </article>
+      </section>
       </div>
     </div>
   </main>
