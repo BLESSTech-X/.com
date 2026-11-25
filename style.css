@@ -2987,3 +2987,137 @@ body{
  #home.hero .hero-trust{flex-wrap:wrap!important;gap:7px 13px!important}
  #home.hero .hero-trust .trust-pill{font-size:10px!important}
 }
+
+
+/* SINGLE-CONTAINER HERO REPAIR — background and content share one section. */
+#home.hero{
+ position:relative!important;
+ display:flex!important;
+ flex-direction:column!important;
+ align-items:flex-start!important;
+ justify-content:flex-end!important;
+ isolation:isolate!important;
+ overflow:hidden!important;
+ box-sizing:border-box!important;
+ width:100%!important;
+ min-height:900px!important;
+ height:auto!important;
+ padding:0!important;
+ background-color:#101722!important;
+ background-image:
+  linear-gradient(to bottom,transparent 35%,rgba(0,0,0,.10) 52%,rgba(0,0,0,.65) 100%),
+  url('https://i.ibb.co/wFsq9SdJ/file-00000000f57082088b99d95dddfd5e53-2.jpg')!important;
+ background-repeat:no-repeat!important;
+ background-size:cover!important;
+ background-position:top center!important;
+ text-align:left!important;
+}
+#home.hero .hero-bg,
+#home.hero .hero-portrait{display:none!important}
+#home.hero:after{display:none!important}
+#home.hero .hero-content{
+ position:relative!important;
+ z-index:2!important;
+ inset:auto!important;
+ display:flex!important;
+ flex-direction:column!important;
+ align-items:flex-start!important;
+ justify-content:flex-end!important;
+ box-sizing:border-box!important;
+ width:60%!important;
+ max-width:850px!important;
+ min-height:585px!important;
+ height:auto!important;
+ margin:0!important;
+ padding:310px 30px 48px max(5vw,48px)!important;
+ background:transparent!important;
+ text-align:left!important;
+}
+#home.hero .hero-content:before,
+#home.hero .hero-content:after{display:none!important}
+#home.hero .hero-badge{
+ order:1!important;display:inline-flex!important;align-items:center!important;
+ width:max-content!important;max-width:100%!important;margin:0 0 18px!important;padding:6px 11px!important;
+ border:1px solid rgba(255,255,255,.72)!important;border-radius:999px!important;
+ background:rgba(0,0,0,.16)!important;color:#fff!important;
+ font-size:11px!important;font-weight:700!important;letter-spacing:1px!important;
+}
+#home.hero h1{
+ order:2!important;display:block!important;width:100%!important;max-width:680px!important;
+ margin:0 0 14px!important;color:#fff!important;font-size:52px!important;line-height:1.06!important;
+ font-weight:850!important;letter-spacing:-.035em!important;text-align:left!important;text-wrap:balance;
+ text-shadow:0 2px 16px rgba(0,0,0,.35);
+}
+#home.hero .hero-desc{
+ order:3!important;display:block!important;width:100%!important;max-width:600px!important;
+ margin:0 0 12px!important;color:#fff!important;font-size:16px!important;line-height:1.45!important;
+ text-align:left!important;text-shadow:0 1px 9px rgba(0,0,0,.45);
+}
+#home.hero .hero-sub{
+ order:4!important;display:flex!important;align-items:center!important;gap:8px!important;
+ width:100%!important;max-width:600px!important;min-height:1.4em!important;
+ margin:0 0 20px!important;color:#fff!important;font-size:14px!important;line-height:1.4!important;
+ font-weight:600!important;text-align:left!important;white-space:normal!important;
+ text-shadow:0 1px 8px rgba(0,0,0,.45);
+}
+#home.hero .hero-sub:before{
+ content:""!important;display:inline-block!important;flex:0 0 7px!important;
+ width:7px!important;height:7px!important;border-radius:50%!important;background:#fff!important;
+ box-shadow:0 0 0 4px rgba(255,255,255,.18)!important;
+}
+#home.hero .hero-rotator-dot{display:none!important}
+#home.hero .hero-btns{
+ order:5!important;display:flex!important;flex-direction:row!important;flex-wrap:wrap!important;
+ align-items:center!important;justify-content:flex-start!important;gap:11px!important;
+ width:100%!important;max-width:650px!important;margin:0 0 18px!important;
+}
+#home.hero .hero-btns .btn{
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;
+ min-height:48px!important;padding:0 19px!important;border-radius:8px!important;
+ font-size:14px!important;font-weight:750!important;box-shadow:0 5px 16px rgba(0,0,0,.18)!important;
+}
+#home.hero .hero-btns .btn-primary{
+ color:#17243a!important;background:#fff!important;border:1px solid #fff!important;
+}
+#home.hero .hero-btns .btn-whatsapp{
+ color:#fff!important;background:rgba(255,255,255,.04)!important;
+ border:1px solid rgba(255,255,255,.9)!important;
+ -webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);
+}
+#home.hero .hero-trust{
+ order:6!important;display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;
+ align-items:center!important;justify-content:flex-start!important;gap:16px!important;
+ width:100%!important;max-width:760px!important;margin:0!important;
+}
+#home.hero .hero-trust .trust-pill{
+ display:inline-flex!important;align-items:center!important;padding:0!important;
+ border:0!important;border-radius:0!important;background:transparent!important;color:#fff!important;
+ font-size:11px!important;line-height:1.35!important;white-space:nowrap!important;
+ text-shadow:0 1px 8px rgba(0,0,0,.5);
+}
+@media(max-width:900px){
+ #home.hero{min-height:820px!important}
+ #home.hero .hero-content{width:72%!important;min-height:585px!important;padding-left:32px!important;padding-right:22px!important;padding-bottom:34px!important}
+ #home.hero h1{font-size:44px!important}
+ #home.hero .hero-trust{gap:10px!important}
+ #home.hero .hero-trust .trust-pill{font-size:10px!important}
+}
+@media(max-width:600px){
+ #home.hero{
+  min-height:920px!important;
+  background-position:top center!important;
+  background-size:cover!important;
+ }
+ #home.hero .hero-content{
+  width:100%!important;max-width:none!important;min-height:585px!important;
+  padding:310px 20px 26px!important;
+ }
+ #home.hero .hero-badge{font-size:10px!important;letter-spacing:.5px!important;margin-bottom:12px!important}
+ #home.hero h1{max-width:540px!important;font-size:34px!important;line-height:1.08!important;margin-bottom:11px!important}
+ #home.hero .hero-desc{font-size:14px!important;line-height:1.4!important;margin-bottom:9px!important}
+ #home.hero .hero-sub{font-size:13px!important;margin-bottom:14px!important}
+ #home.hero .hero-btns{gap:9px!important;margin-bottom:13px!important}
+ #home.hero .hero-btns .btn{min-height:44px!important;padding:0 13px!important;font-size:12px!important}
+ #home.hero .hero-trust{flex-wrap:wrap!important;gap:7px 13px!important}
+ #home.hero .hero-trust .trust-pill{font-size:10px!important}
+}
