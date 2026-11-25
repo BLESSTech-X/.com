@@ -3123,94 +3123,89 @@ body{
 }
 
 
-/* HERO POSITION + ORIGINAL STAGGERED ENTRANCE ANIMATIONS RESTORED */
-#home.hero .hero-content{
-  padding-top:330px!important;
-  padding-bottom:26px!important;
-  transform:translateY(-24px)!important;
-}
-#home.hero .hero-badge{animation:fadeUp .7s ease both!important}
-#home.hero h1{animation:fadeUp .7s .15s ease both!important}
-#home.hero .hero-sub{animation:fadeUp .7s .25s ease both!important}
-#home.hero .hero-desc{animation:fadeUp .7s .35s ease both!important}
-#home.hero .hero-btns{animation:fadeUp .7s .45s ease both!important}
-#home.hero .hero-trust{animation:fadeUp .7s .55s ease both!important}
-@media(max-width:900px){
-  #home.hero .hero-content{
-    padding-top:330px!important;
-    padding-bottom:22px!important;
-    transform:translateY(-20px)!important;
-  }
-}
-@media(max-width:600px){
-  #home.hero .hero-content{
-    padding:330px 20px 18px!important;
-    transform:translateY(-18px)!important;
-  }
-}
 
 
-/* CHEST-LEVEL HERO CONTENT — top-aligned at 38%, original motion retained */
+/* HERO POSITION FIX — exact chest-level spacing; preserve existing entrance motion */
 #home.hero{
   position:relative!important;
-  display:block!important;
+  width:100%!important;
+  min-height:680px!important;
+  height:auto!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:flex-start!important;
+  align-items:flex-start!important;
+  background-image:url('https://i.ibb.co/wFsq9SdJ/file-00000000f57082088b99d95dddfd5e53-2.jpg')!important;
+  background-size:cover!important;
+  background-position:top center!important;
+  background-repeat:no-repeat!important;
   overflow:hidden!important;
+  padding:0!important;
+  text-align:left!important;
+}
+#home.hero .hero-bg,
+#home.hero .hero-particles{display:none!important}
+#home.hero::after{
+  content:''!important;
+  display:block!important;
+  position:absolute!important;
+  top:0!important;
+  left:0!important;
+  width:100%!important;
+  height:100%!important;
+  background:linear-gradient(to bottom,transparent 0%,transparent 30%,rgba(0,0,0,0.55) 55%,rgba(0,0,0,0.75) 100%)!important;
+  z-index:1!important;
+  pointer-events:none!important;
 }
 #home.hero .hero-content{
-  position:absolute!important;
+  position:relative!important;
   z-index:2!important;
-  top:38%!important;
-  right:auto!important;
-  bottom:auto!important;
-  left:0!important;
-  inset-inline:auto!important;
+  width:100%!important;
+  max-width:92%!important;
+  margin:0 auto!important;
+  padding-top:240px!important;
+  padding-bottom:30px!important;
+  padding-left:16px!important;
+  padding-right:16px!important;
   display:flex!important;
   flex-direction:column!important;
   align-items:flex-start!important;
   justify-content:flex-start!important;
-  width:60%!important;
-  max-width:850px!important;
-  min-height:0!important;
+  gap:12px!important;
   height:auto!important;
-  margin:0!important;
-  padding:0 30px 24px max(5vw,48px)!important;
+  min-height:0!important;
   transform:none!important;
+  overflow:visible!important;
   background:transparent!important;
   text-align:left!important;
 }
-#home.hero .hero-badge{margin:0 0 14px!important}
-#home.hero h1{margin:0 0 12px!important}
-#home.hero .hero-desc{margin:0 0 10px!important}
-#home.hero .hero-sub{margin:0 0 16px!important}
-#home.hero .hero-btns{margin:0 0 14px!important}
-#home.hero .hero-trust{margin:0!important}
+#home.hero .hero-content > *{margin:0!important}
+#home.hero .hero-badge,
+#home.hero h1,
+#home.hero .hero-desc,
+#home.hero .hero-sub,
+#home.hero .hero-trust,
+#home.hero .hero-trust .trust-pill{color:#fff!important;text-align:left!important}
+#home.hero h1{
+  width:100%!important;
+  max-width:680px!important;
+  line-height:1.1!important;
+  overflow:visible!important;
+}
+#home.hero .hero-desc,
+#home.hero .hero-sub{max-width:600px!important}
+#home.hero .hero-btns{
+  justify-content:flex-start!important;
+  margin:0!important;
+}
+#home.hero .hero-trust{
+  justify-content:flex-start!important;
+  flex-wrap:wrap!important;
+  width:100%!important;
+}
 #home.hero .hero-badge{animation:fadeUp .7s ease both!important}
 #home.hero h1{animation:fadeUp .7s .15s ease both!important}
 #home.hero .hero-sub{animation:fadeUp .7s .25s ease both!important}
 #home.hero .hero-desc{animation:fadeUp .7s .35s ease both!important}
 #home.hero .hero-btns{animation:fadeUp .7s .45s ease both!important}
 #home.hero .hero-trust{animation:fadeUp .7s .55s ease both!important}
-@media(max-width:900px){
-  #home.hero .hero-content{
-    top:38%!important;
-    width:76%!important;
-    padding:0 22px 20px 32px!important;
-  }
-  #home.hero h1{font-size:40px!important}
-}
-@media(max-width:600px){
-  #home.hero .hero-content{
-    top:38%!important;
-    width:100%!important;
-    max-width:none!important;
-    padding:0 20px 18px!important;
-  }
-  #home.hero .hero-badge{font-size:10px!important;letter-spacing:.5px!important;margin-bottom:10px!important}
-  #home.hero h1{font-size:32px!important;line-height:1.08!important;margin-bottom:10px!important}
-  #home.hero .hero-desc{font-size:14px!important;line-height:1.4!important;margin-bottom:8px!important}
-  #home.hero .hero-sub{font-size:13px!important;margin-bottom:12px!important}
-  #home.hero .hero-btns{gap:9px!important;margin-bottom:12px!important}
-  #home.hero .hero-btns .btn{min-height:44px!important;padding:0 13px!important;font-size:12px!important}
-  #home.hero .hero-trust{flex-wrap:wrap!important;gap:7px 13px!important}
-  #home.hero .hero-trust .trust-pill{font-size:10px!important}
-}
