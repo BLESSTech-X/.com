@@ -3427,3 +3427,91 @@ body{
     background-position:top 40px center!important;
   }
 }
+
+
+/* REFINED HERO MOTION — premium blue atmosphere without washing out the portrait */
+#home.hero{
+  isolation:isolate!important;
+}
+#home.hero .hero-bg{
+  display:block!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:0!important;
+  pointer-events:none!important;
+  overflow:hidden!important;
+  opacity:1!important;
+  background:
+    radial-gradient(ellipse 30% 42% at 4% 48%,rgba(37,99,235,.13) 0%,rgba(37,99,235,.055) 38%,transparent 76%),
+    radial-gradient(ellipse 28% 40% at 96% 56%,rgba(14,165,233,.12) 0%,rgba(14,165,233,.045) 42%,transparent 78%)!important;
+  mix-blend-mode:normal!important;
+  animation:heroEdgeBreath 16s ease-in-out infinite alternate!important;
+}
+#home.hero .hero-bg::before{
+  content:""!important;
+  position:absolute!important;
+  top:-18%!important;
+  left:-55%!important;
+  width:25%!important;
+  height:136%!important;
+  transform:skewX(-18deg)!important;
+  background:linear-gradient(90deg,transparent 0%,rgba(37,99,235,.015) 25%,rgba(56,189,248,.12) 50%,rgba(37,99,235,.035) 72%,transparent 100%)!important;
+  filter:blur(18px)!important;
+  opacity:0!important;
+  animation:heroBlueSweep 15s cubic-bezier(.4,0,.2,1) infinite!important;
+}
+#home.hero .hero-bg::after{
+  content:""!important;
+  position:absolute!important;
+  inset:-8%!important;
+  background:
+    radial-gradient(ellipse 24% 18% at 12% 76%,rgba(37,99,235,.10) 0%,transparent 76%),
+    radial-gradient(ellipse 20% 16% at 88% 24%,rgba(14,165,233,.09) 0%,transparent 78%)!important;
+  filter:blur(22px)!important;
+  opacity:.55!important;
+  animation:heroBlueDrift 21s ease-in-out infinite alternate!important;
+}
+#home.hero .hero-particles{
+  display:block!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:1!important;
+  pointer-events:none!important;
+  opacity:.25!important;
+  background-image:
+    radial-gradient(circle,rgba(191,219,254,.8) 0 .8px,transparent 1.7px),
+    radial-gradient(circle,rgba(96,165,250,.8) 0 1px,transparent 1.9px),
+    radial-gradient(circle,rgba(125,211,252,.65) 0 .7px,transparent 1.6px)!important;
+  background-size:173px 191px,239px 223px,307px 281px!important;
+  background-position:0 0,71px 49px,133px 97px!important;
+  animation:heroParticlesRise 38s linear infinite!important;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 4%,rgba(0,0,0,.7) 28%,#000 76%,transparent 100%)!important;
+  mask-image:linear-gradient(to bottom,transparent 4%,rgba(0,0,0,.7) 28%,#000 76%,transparent 100%)!important;
+}
+@keyframes heroEdgeBreath{
+  0%{opacity:.55;transform:scale(1)}
+  50%{opacity:.9;transform:scale(1.025)}
+  100%{opacity:.65;transform:scale(1.01)}
+}
+@keyframes heroBlueSweep{
+  0%,16%{left:-55%;opacity:0}
+  24%{opacity:.42}
+  48%{left:125%;opacity:.28}
+  58%,100%{left:125%;opacity:0}
+}
+@keyframes heroBlueDrift{
+  0%{transform:translate3d(-1.5%,1%,0) scale(.96);opacity:.35}
+  100%{transform:translate3d(1.5%,-1%,0) scale(1.05);opacity:.7}
+}
+@keyframes heroParticlesRise{
+  from{background-position:0 0,71px 49px,133px 97px}
+  to{background-position:0 -520px,71px -680px,133px -430px}
+}
+@media(prefers-reduced-motion:reduce){
+  #home.hero .hero-bg,
+  #home.hero .hero-bg::before,
+  #home.hero .hero-bg::after,
+  #home.hero .hero-particles{
+    animation:none!important;
+  }
+}
