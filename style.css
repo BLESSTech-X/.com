@@ -1935,3 +1935,124 @@ body{
   #home.hero .hero-sub{width:82%;font-size:1.35rem}
   #home.hero .hero-btns{width:100%}
 }
+
+
+/* BLESSTech-X HERO — clear hierarchy and balanced side alignment. */
+#home.hero .hero-content{
+  box-sizing:border-box;
+  width:min(1200px,100%);
+  max-width:1200px;
+  min-height:86vh;
+  margin-inline:auto;
+  padding:58px 34px 48px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:center;
+  text-align:left;
+}
+#home.hero .hero-badge,
+#home.hero h1,
+#home.hero .hero-desc{display:none!important}
+
+/* The rotating statement is the single visual headline. */
+#home.hero .hero-sub{
+  display:block;
+  width:min(540px,54%);
+  max-width:540px;
+  margin:0 0 28px;
+  text-align:left!important;
+  font-size:clamp(1.8rem,3.25vw,2.85rem);
+  line-height:1.12;
+  font-weight:850;
+  letter-spacing:-.04em;
+  text-wrap:balance;
+}
+
+/* Primary actions grouped together, with consistent spacing. */
+#home.hero .hero-btns{
+  display:flex;
+  width:auto;
+  max-width:600px;
+  flex-wrap:wrap;
+  justify-content:flex-start;
+  align-items:center;
+  gap:12px;
+  margin:0 0 17px;
+}
+#home.hero .hero-btns .btn{margin:0}
+
+/* Secondary actions sit quietly below the main buttons. */
+#home.hero .hero-utility-actions{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  flex-wrap:wrap;
+  gap:8px 20px;
+  margin:0 0 26px;
+  text-align:left;
+}
+#home.hero .hero-utility-btn{
+  padding:5px 0;
+  background:transparent;
+  border:0;
+  box-shadow:none;
+  font-size:.82rem;
+  font-weight:650;
+  opacity:.88;
+}
+#home.hero .hero-utility-btn:hover{opacity:1}
+
+/* Proof points form one tidy, readable row beneath the actions. */
+#home.hero .hero-trust{
+  display:flex;
+  width:min(700px,68%);
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:flex-start;
+  gap:9px;
+  margin:0;
+  text-align:left;
+}
+#home.hero .hero-trust .trust-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:8px 11px;
+  border-radius:999px;
+  font-size:.73rem;
+  line-height:1.2;
+  white-space:nowrap;
+}
+
+/* Keep the same content hierarchy on smaller screens without crowding. */
+@media(max-width:760px){
+  #home.hero .hero-content{
+    min-height:78vh;
+    padding:42px 22px 34px;
+    justify-content:center;
+  }
+  #home.hero .hero-sub{
+    width:min(470px,88%);
+    font-size:clamp(1.65rem,6.3vw,2.25rem);
+    line-height:1.15;
+    margin-bottom:23px;
+  }
+  #home.hero .hero-btns{
+    width:100%;
+    max-width:500px;
+    gap:10px;
+    margin-bottom:13px;
+  }
+  #home.hero .hero-utility-actions{margin-bottom:20px;gap:8px 17px}
+  #home.hero .hero-trust{width:100%;max-width:500px;gap:8px}
+  #home.hero .hero-trust .trust-pill{font-size:.7rem;padding:7px 9px}
+}
+@media(max-width:420px){
+  #home.hero .hero-content{padding:34px 17px 28px}
+  #home.hero .hero-sub{width:94%;font-size:1.65rem}
+  #home.hero .hero-btns{align-items:stretch}
+  #home.hero .hero-btns .btn{min-height:42px}
+  #home.hero .hero-trust{gap:7px}
+  #home.hero .hero-trust .trust-pill{font-size:.66rem;padding:7px 8px}
+}
