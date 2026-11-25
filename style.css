@@ -3626,3 +3626,122 @@ body{
     animation:none!important;
   }
 }
+
+
+/* HERO HEADLINE + ORIGINAL SUBTLE MOTION RESTORE */
+#home.hero .hero-content{
+  position:relative!important;
+  z-index:3!important;
+}
+#home.hero .hero-content h1{
+  color:#FFFFFF!important;
+  background:none!important;
+  -webkit-text-fill-color:#FFFFFF!important;
+  -webkit-background-clip:unset!important;
+  background-clip:unset!important;
+  opacity:1!important;
+  mix-blend-mode:normal!important;
+  text-shadow:none!important;
+  filter:none!important;
+  font-weight:800!important;
+  position:relative!important;
+  z-index:3!important;
+}
+
+/* Keep the portrait sharp; blue edge light is confined to the outer sides */
+#home.hero .hero-bg{
+  display:block!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:0!important;
+  pointer-events:none!important;
+  opacity:1!important;
+  mix-blend-mode:normal!important;
+  filter:none!important;
+  background:
+    radial-gradient(ellipse 19% 58% at 0% 52%,rgba(37,99,235,.25) 0%,rgba(37,99,235,.09) 42%,transparent 100%),
+    radial-gradient(ellipse 19% 58% at 100% 52%,rgba(37,99,235,.25) 0%,rgba(37,99,235,.09) 42%,transparent 100%)!important;
+  animation:heroEdgeGlowRestore 10s ease-in-out infinite alternate!important;
+}
+
+/* One cyan sweep, confined to the upper background band, away from chest-level copy */
+#home.hero .hero-bg::before{
+  content:""!important;
+  display:block!important;
+  position:absolute!important;
+  top:7%!important;
+  left:-38%!important;
+  width:34%!important;
+  height:30%!important;
+  background:linear-gradient(90deg,transparent 0%,rgba(34,211,238,.12) 50%,transparent 100%)!important;
+  opacity:0!important;
+  filter:none!important;
+  transform:skewX(-16deg)!important;
+  animation:heroCyanSweepRestore 8s ease-in-out infinite!important;
+}
+
+/* No secondary glow layer */
+#home.hero .hero-bg::after{
+  content:none!important;
+  display:none!important;
+}
+
+/* Ten tiny upward-moving particles; kept behind all copy */
+#home.hero .hero-particles{
+  display:block!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:2!important;
+  pointer-events:none!important;
+  opacity:.3!important;
+  filter:none!important;
+  background-image:
+    radial-gradient(circle,rgba(255,255,255,.3) 0 1.5px,transparent 1.7px),
+    radial-gradient(circle,rgba(255,255,255,.3) 0 1.5px,transparent 1.7px),
+    radial-gradient(circle,rgba(255,255,255,.3) 0 1.5px,transparent 1.7px),
+    radial-gradient(circle,rgba(255,255,255,.3) 0 1.5px,transparent 1.7px),
+    radial-gradient(circle,rgba(255,255,255,.3) 0 1.5px,transparent 1.7px),
+    radial-gradient(circle,rgba(255,255,255,.3) 0 1.5px,transparent 1.7px),
+    radial-gradient(circle,rgba(255,255,255,.3) 0 1.5px,transparent 1.7px),
+    radial-gradient(circle,rgba(255,255,255,.3) 0 1.5px,transparent 1.7px),
+    radial-gradient(circle,rgba(255,255,255,.3) 0 1.5px,transparent 1.7px),
+    radial-gradient(circle,rgba(255,255,255,.3) 0 1.5px,transparent 1.7px)!important;
+  background-size:3px 3px!important;
+  background-repeat:no-repeat!important;
+  background-position:8% 78%,19% 54%,31% 88%,43% 68%,57% 82%,68% 48%,77% 72%,86% 90%,93% 58%,98% 76%!important;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 3%,#000 25%,#000 90%,transparent 100%)!important;
+  mask-image:linear-gradient(to bottom,transparent 3%,#000 25%,#000 90%,transparent 100%)!important;
+  animation:heroParticlesRiseRestore 16s linear infinite!important;
+}
+
+/* Foreground always wins over both overlays and animation layers */
+#home.hero .hero-content,
+#home.hero .hero-content h1,
+#home.hero > .hero-badge{
+  isolation:isolate!important;
+}
+#home.hero .hero-content{z-index:3!important}
+#home.hero > .hero-badge{z-index:4!important}
+
+@keyframes heroEdgeGlowRestore{
+  0%{opacity:.12}
+  50%{opacity:.25}
+  100%{opacity:.16}
+}
+@keyframes heroCyanSweepRestore{
+  0%,8%{left:-38%;opacity:0}
+  18%{opacity:.12}
+  72%{left:108%;opacity:.12}
+  82%,100%{left:108%;opacity:0}
+}
+@keyframes heroParticlesRiseRestore{
+  from{transform:translateY(0)}
+  to{transform:translateY(-110px)}
+}
+@media(prefers-reduced-motion:reduce){
+  #home.hero .hero-bg,
+  #home.hero .hero-bg::before,
+  #home.hero .hero-particles{
+    animation:none!important;
+  }
+}
