@@ -99,18 +99,48 @@ function applyHomepageContent(home) {
 
 /* ── ANNOUNCEMENT ── */
 function renderAnnouncement(ann) {
-  const bar = document.getElementById('announcementBar');
-  if (!ann || !ann.active) { bar.classList.add('hidden'); document.body.classList.add('no-banner'); return; }
-  document.getElementById('announcementText').innerHTML = ann.message;
+  const toast = document.getElementById('announcementToast');
+  if (!toast) return;
+  if (!ann || !ann.active) {
+    toast.hidden = true;
+    return;
+  }
+
   const cta = document.getElementById('announcementCta');
-  cta.textContent = ann.cta_text; cta.href = ann.cta_link;
-  document.body.classList.add('has-banner');
-  setTimeout(closeAnnouncement, 9000);
+  if (cta) cta.href = ann.cta_link || '#contact';
+
+  // A manual close suppresses the offer for the rest of this browser session.
+  try {
+    if (sessionStorage.getItem('btxOfferToastClosed') === '1') return;
+  } catch (_) {}
+
+  window.setTimeout(() => {
+    if (toast.hidden) {
+      toast.hidden = false;
+      requestAnimationFrame(() => toast.classList.add('is-visible'));
+      const progress = document.getElementById('offerToastProgress');
+      if (progress) {
+        progress.style.animation = 'none';
+        void progress.offsetWidth;
+        progress.style.animation = 'offerToastCountdown 6s linear forwards';
+      }
+      window.setTimeout(() => closeAnnouncement(false), 6000);
+    }
+  }, 1000);
 }
-function closeAnnouncement() {
-  document.getElementById('announcementBar').classList.add('hidden');
-  document.body.classList.remove('has-banner');
-  document.body.classList.add('no-banner');
+
+function closeAnnouncement(manual = false) {
+  const toast = document.getElementById('announcementToast');
+  if (!toast || toast.hidden) return;
+  if (manual) {
+    try { sessionStorage.setItem('btxOfferToastClosed', '1'); } catch (_) {}
+  }
+  toast.classList.remove('is-visible');
+  toast.classList.add('is-leaving');
+  window.setTimeout(() => {
+    toast.hidden = true;
+    toast.classList.remove('is-leaving');
+  }, 400);
 }
 
 /* ── STATS ── */
