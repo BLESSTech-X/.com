@@ -2631,3 +2631,65 @@ body{
   #home.hero .hero-desc{font-size:15px}
   #home.hero .hero-sub{font-size:14px}
 }
+
+ 
+/* BLESSTECH-X HERO — portrait-first composition from approved brief. */
+#home.hero{position:relative;display:flex;align-items:stretch;min-height:0;height:auto;overflow:hidden;background:#071426;text-align:left}
+#home.hero .hero-bg{
+ position:absolute;inset:0;
+ background-image:linear-gradient(0deg,rgba(0,0,0,.78) 0%,rgba(0,0,0,.48) 24%,rgba(0,0,0,.12) 43%,transparent 55%),url('https://i.ibb.co/wFsq9SdJ/file-00000000f57082088b99d95dddfd5e53-2.jpg')!important;
+ background-size:cover;background-position:center 36%;background-repeat:no-repeat;filter:none!important;opacity:1!important
+}
+#home.hero .hero-particles{display:none}
+#home.hero .hero-content{
+ position:relative;z-index:1;box-sizing:border-box;width:55%;max-width:780px;min-height:0;margin:0 auto 0 0;padding:112px 30px 50px 60px;
+ display:flex;flex-direction:column;align-items:flex-start;justify-content:center;text-align:left;background:transparent!important
+}
+#home.hero .hero-content:before,#home.hero .hero-content:after{display:none!important}
+#home.hero .hero-badge{
+ display:inline-flex!important;align-items:center;gap:8px;width:max-content;max-width:100%;margin:0 0 24px;padding:7px 12px;
+ border:1px solid rgba(255,255,255,.78);border-radius:999px;background:rgba(255,255,255,.07);color:#fff;
+ font-size:12px;line-height:1.2;font-weight:650;letter-spacing:1.5px
+}
+#home.hero h1{
+ display:block!important;width:100%;max-width:650px;margin:0 0 16px;color:#fff;font-size:52px;line-height:1.08;
+ font-weight:850;letter-spacing:-.04em;text-align:left!important;text-wrap:balance
+}
+#home.hero .hero-desc{display:block!important;width:100%;max-width:570px;margin:0 0 24px;color:#e2e8f0;font-size:16px;line-height:1.5;text-align:left!important}
+#home.hero .hero-sub{
+ display:flex!important;align-items:center;gap:8px;width:100%;max-width:570px;min-height:1.4em;margin:0 0 24px;
+ color:#fff;font-size:14px;line-height:1.4;font-style:italic;font-weight:600;text-align:left!important;white-space:nowrap
+}
+#home.hero .hero-rotator-dot{width:7px;height:7px;flex:0 0 7px;border-radius:50%;background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.14)}
+#home.hero .hero-btns{display:flex;width:100%;max-width:600px;flex-direction:row;flex-wrap:wrap;justify-content:flex-start;align-items:center;gap:12px;margin:0 0 20px}
+#home.hero .hero-btns .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 18px;border:1px solid #fff;border-radius:8px;font-size:14px;font-weight:750;box-shadow:none}
+#home.hero .hero-btns .btn-primary{background:#fff!important;color:#111827!important;border-color:#fff!important}
+#home.hero .hero-btns .btn-whatsapp{background:transparent!important;color:#fff!important;border-color:rgba(255,255,255,.9)!important}
+#home.hero .hero-trust{display:flex;width:100%;max-width:700px;flex-direction:row;flex-wrap:nowrap;justify-content:flex-start;align-items:center;gap:18px;margin:0}
+#home.hero .hero-trust .trust-pill{display:inline-flex;align-items:center;padding:0;border:0;border-radius:0;background:transparent;color:#f1f5f9;font-size:12px;line-height:1.35;white-space:nowrap}
+@media(max-width:1100px){
+ #home.hero .hero-content{padding-left:36px;width:58%}#home.hero h1{font-size:46px}
+ #home.hero .hero-trust{gap:12px}#home.hero .hero-trust .trust-pill{font-size:11px}
+}
+@media(max-width:760px){
+ #home.hero{display:block;min-height:0;height:auto;background:#071426}
+ #home.hero .hero-bg{
+  inset:0;
+  background-image:linear-gradient(0deg,#071426 0%,rgba(7,20,38,.97) 39%,rgba(7,20,38,.08) 58%,transparent 70%),url('https://i.ibb.co/wFsq9SdJ/file-00000000f57082088b99d95dddfd5e53-2.jpg')!important;
+  background-size:100% 100%,cover;background-position:center,center top;background-repeat:no-repeat
+ }
+ #home.hero .hero-content{width:100%;max-width:none;min-height:0;margin:0;padding:min(68vw,440px) 22px 50px;justify-content:flex-end;background:transparent!important}
+ #home.hero .hero-badge{margin-bottom:17px;padding:6px 10px;font-size:11px;letter-spacing:1.1px}
+ #home.hero h1{width:100%;max-width:560px;margin-bottom:16px;font-size:34px;line-height:1.08}
+ #home.hero .hero-desc{max-width:560px;margin-bottom:16px;font-size:15px;line-height:1.45}
+ #home.hero .hero-sub{max-width:560px;margin-bottom:22px;font-size:14px;white-space:normal}
+ #home.hero .hero-btns{gap:10px;margin-bottom:20px}
+ #home.hero .hero-btns .btn{min-height:48px;padding:0 14px}
+ #home.hero .hero-trust{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;gap:12px 16px}
+ #home.hero .hero-trust .trust-pill{min-width:0;font-size:12px;white-space:normal}
+}
+@media(max-width:380px){
+ #home.hero .hero-content{padding-left:20px;padding-right:20px;padding-top:64vw}
+ #home.hero h1{font-size:32px}
+ #home.hero .hero-badge{font-size:10px;letter-spacing:.8px}
+}
