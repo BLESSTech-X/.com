@@ -3515,3 +3515,114 @@ body{
     animation:none!important;
   }
 }
+
+
+/* HERO READABILITY FIX — natural portrait, darker veil, restrained motion */
+#home.hero{
+  background-image:url('https://i.ibb.co/wFsq9SdJ/file-00000000f57082088b99d95dddfd5e53-2.jpg')!important;
+  background-size:cover!important;
+  background-position:top 40px center!important;
+  background-repeat:no-repeat!important;
+  background-color:#0a0a0a!important;
+  filter:none!important;
+}
+
+/* Remove any legacy white pseudo-overlay and replace it with a subtle dark veil */
+#home.hero::before{
+  content:''!important;
+  display:block!important;
+  position:absolute!important;
+  inset:0!important;
+  background:rgba(0,0,0,.25)!important;
+  opacity:1!important;
+  z-index:1!important;
+  pointer-events:none!important;
+}
+
+/* Darken progressively toward the copy while keeping the upper portrait natural */
+#home.hero::after{
+  content:''!important;
+  display:block!important;
+  position:absolute!important;
+  inset:0!important;
+  background:linear-gradient(to bottom,
+    rgba(0,0,0,.15) 0%,
+    rgba(0,0,0,.15) 35%,
+    rgba(0,0,0,.65) 60%,
+    rgba(0,0,0,.85) 100%)!important;
+  opacity:1!important;
+  z-index:1!important;
+  pointer-events:none!important;
+}
+
+/* Atmospheric lighting stays behind content and never uses screen/lighten blending */
+#home.hero .hero-bg{
+  z-index:0!important;
+  opacity:.15!important;
+  mix-blend-mode:normal!important;
+  filter:none!important;
+  background:
+    radial-gradient(ellipse 30% 42% at 4% 48%,rgba(37,99,235,.10) 0%,transparent 76%),
+    radial-gradient(ellipse 28% 40% at 96% 56%,rgba(14,165,233,.09) 0%,transparent 78%)!important;
+  animation:heroEdgeBreath 18s ease-in-out infinite alternate!important;
+}
+#home.hero .hero-bg::before{
+  opacity:0!important;
+  animation:heroBlueSweep 18s ease-in-out infinite!important;
+  background:linear-gradient(90deg,transparent 0%,rgba(56,189,248,.08) 50%,transparent 100%)!important;
+  filter:blur(18px)!important;
+}
+#home.hero .hero-bg::after{
+  opacity:.15!important;
+  background:
+    radial-gradient(ellipse 24% 18% at 12% 76%,rgba(37,99,235,.08) 0%,transparent 76%),
+    radial-gradient(ellipse 20% 16% at 88% 24%,rgba(14,165,233,.07) 0%,transparent 78%)!important;
+  filter:blur(22px)!important;
+  animation:heroBlueDrift 24s ease-in-out infinite alternate!important;
+}
+
+/* Reduce particle visibility by approximately 70% */
+#home.hero .hero-particles{
+  z-index:1!important;
+  opacity:.075!important;
+  filter:brightness(.7)!important;
+}
+
+/* Keep all copy fully opaque, crisp white and strongly separated from the image */
+#home.hero .hero-content h1,
+#home.hero .hero-content p{
+  color:#FFFFFF!important;
+  text-shadow:0 2px 12px rgba(0,0,0,.9),0 1px 3px rgba(0,0,0,.9)!important;
+  opacity:1!important;
+}
+#home.hero .hero-content h1{
+  font-weight:800!important;
+}
+
+/* Retain the established foreground stacking: text above motion and overlays */
+#home.hero .hero-content{z-index:2!important}
+#home.hero > .hero-badge{z-index:3!important}
+
+@keyframes heroEdgeBreath{
+  0%{opacity:.07;transform:scale(1)}
+  50%{opacity:.15;transform:scale(1.02)}
+  100%{opacity:.09;transform:scale(1.01)}
+}
+@keyframes heroBlueSweep{
+  0%,16%{left:-55%;opacity:0}
+  24%{opacity:.15}
+  48%{left:125%;opacity:.08}
+  58%,100%{left:125%;opacity:0}
+}
+@keyframes heroBlueDrift{
+  0%{transform:translate3d(-1%,1%,0) scale(.98);opacity:.06}
+  100%{transform:translate3d(1%,-1%,0) scale(1.03);opacity:.15}
+}
+@media(prefers-reduced-motion:reduce){
+  #home.hero .hero-bg,
+  #home.hero .hero-bg::before,
+  #home.hero .hero-bg::after,
+  #home.hero .hero-particles{
+    animation:none!important;
+  }
+}
