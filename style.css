@@ -2703,3 +2703,75 @@ body{
  background:#fff;
  box-shadow:0 0 0 4px rgba(255,255,255,.14);
 }
+
+
+/* LIGHT PREMIUM HERO — clean background and confident brand colour. */
+#home.hero{
+ background:#f7faff!important;
+ color:#14233d;
+}
+#home.hero .hero-bg{
+ background-image:
+  linear-gradient(90deg,#f7faff 0%,rgba(247,250,255,.98) 28%,rgba(247,250,255,.88) 47%,rgba(247,250,255,.20) 72%,rgba(247,250,255,0) 100%),
+  linear-gradient(0deg,rgba(247,250,255,.28),rgba(247,250,255,0)),
+  url('https://i.ibb.co/wFsq9SdJ/file-00000000f57082088b99d95dddfd5e53-2.jpg')!important;
+ background-size:cover;
+ background-position:center 36%;
+}
+#home.hero .hero-badge{
+ color:#174ea6!important;
+ background:#eaf2ff!important;
+ border:1px solid #c8dcff!important;
+}
+#home.hero h1{color:#102342!important}
+#home.hero .hero-desc{color:#46566f!important}
+#home.hero .hero-sub{color:#2456a6!important}
+#home.hero .hero-rotator-dot,
+#home.hero .hero-sub:before{
+ background:#2474e8!important;
+ box-shadow:0 0 0 4px rgba(36,116,232,.13)!important;
+}
+#home.hero .hero-btns .btn{
+ min-height:50px;
+ border-radius:9px;
+ font-weight:750;
+ transition:transform .2s ease,box-shadow .2s ease,filter .2s ease;
+}
+#home.hero .hero-btns .btn:hover{transform:translateY(-2px);filter:brightness(1.04)}
+#home.hero .hero-btns .btn-primary{
+ color:#fff!important;
+ background:linear-gradient(135deg,#1769e8,#3b82f6)!important;
+ border:1px solid #1769e8!important;
+ box-shadow:0 8px 20px rgba(23,105,232,.22)!important;
+}
+#home.hero .hero-btns .btn-whatsapp{
+ color:#fff!important;
+ background:linear-gradient(135deg,#128c55,#20b66d)!important;
+ border:1px solid #128c55!important;
+ box-shadow:0 8px 20px rgba(18,140,85,.18)!important;
+}
+#home.hero .hero-trust .trust-pill{color:#42536d!important}
+@media(max-width:760px){
+ #home.hero{
+  background:#fff!important;
+ }
+ #home.hero .hero-bg{
+  top:0;right:0;bottom:auto;left:0;height:42%;
+  background-image:
+   linear-gradient(180deg,rgba(255,255,255,0) 58%,rgba(255,255,255,.52) 80%,#fff 100%),
+   url('https://i.ibb.co/wFsq9SdJ/file-00000000f57082088b99d95dddfd5e53-2.jpg')!important;
+  background-size:100% 100%,cover;
+  background-position:center,center 28%;
+ }
+ #home.hero .hero-content{
+  padding:min(68vw,440px) 22px 42px!important;
+  background:transparent!important;
+ }
+ #home.hero h1{color:#102342!important}
+ #home.hero .hero-desc{color:#46566f!important}
+ #home.hero .hero-sub{color:#2456a6!important}
+ #home.hero .hero-trust .trust-pill{color:#42536d!important}
+}
+@media(max-width:380px){
+ #home.hero .hero-content{padding-top:64vw!important}
+}
