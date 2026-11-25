@@ -84,7 +84,7 @@ body.has-banner .site-header{top:var(--banner-h)}
 
 /* HERO */
 .hero{min-height:92vh;display:flex;align-items:center;position:relative;overflow:hidden;text-align:center;color:white}
-.hero-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(15,23,42,.82),rgba(15,23,42,.82)),url('https://i.ibb.co/Q36vzP9z/Screenshot-20251229-131706.jpg');background-size:cover;background-position:center;background-attachment:fixed}
+.hero-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(15,23,42,.82),rgba(15,23,42,.82)),url('https://i.ibb.co/wFsq9SdJ/file-00000000f57082088b99d95dddfd5e53-2.jpg');background-size:cover;background-position:center;background-attachment:fixed}
 .hero-content{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:60px 0 40px}
 .hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(14,165,233,.2);border:1px solid rgba(14,165,233,.4);color:#7dd3fc;padding:6px 16px;border-radius:50px;font-size:.85rem;font-weight:600;margin-bottom:1.5rem}
 .hero h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:900;line-height:1.2;margin-bottom:1.2rem}
@@ -1279,7 +1279,7 @@ body{
 .hero-bg{
   background-image:
     linear-gradient(112deg,rgba(9,24,43,.9) 0%,rgba(12,35,57,.72) 42%,rgba(34,27,73,.72) 100%),
-    url('https://i.ibb.co/Q36vzP9z/Screenshot-20251229-131706.jpg');
+    url('https://i.ibb.co/wFsq9SdJ/file-00000000f57082088b99d95dddfd5e53-2.jpg');
   background-size:cover;background-position:center;
   transform:scale(1.025);
   animation:heroImageDrift 26s ease-in-out infinite alternate;
