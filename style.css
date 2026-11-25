@@ -2693,3 +2693,13 @@ body{
  #home.hero h1{font-size:32px}
  #home.hero .hero-badge{font-size:10px;letter-spacing:.8px}
 }
+
+/* Keep the rotating-line marker even when the rotator replaces its text. */
+#home.hero .hero-sub:before{
+ content:"";
+ display:inline-block;
+ width:7px;height:7px;flex:0 0 7px;
+ border-radius:50%;
+ background:#fff;
+ box-shadow:0 0 0 4px rgba(255,255,255,.14);
+}
