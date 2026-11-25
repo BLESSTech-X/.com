@@ -3121,3 +3121,30 @@ body{
  #home.hero .hero-trust{flex-wrap:wrap!important;gap:7px 13px!important}
  #home.hero .hero-trust .trust-pill{font-size:10px!important}
 }
+
+
+/* HERO POSITION + ORIGINAL STAGGERED ENTRANCE ANIMATIONS RESTORED */
+#home.hero .hero-content{
+  padding-top:330px!important;
+  padding-bottom:26px!important;
+  transform:translateY(-24px)!important;
+}
+#home.hero .hero-badge{animation:fadeUp .7s ease both!important}
+#home.hero h1{animation:fadeUp .7s .15s ease both!important}
+#home.hero .hero-sub{animation:fadeUp .7s .25s ease both!important}
+#home.hero .hero-desc{animation:fadeUp .7s .35s ease both!important}
+#home.hero .hero-btns{animation:fadeUp .7s .45s ease both!important}
+#home.hero .hero-trust{animation:fadeUp .7s .55s ease both!important}
+@media(max-width:900px){
+  #home.hero .hero-content{
+    padding-top:330px!important;
+    padding-bottom:22px!important;
+    transform:translateY(-20px)!important;
+  }
+}
+@media(max-width:600px){
+  #home.hero .hero-content{
+    padding:330px 20px 18px!important;
+    transform:translateY(-18px)!important;
+  }
+}
