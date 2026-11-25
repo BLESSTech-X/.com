@@ -3265,3 +3265,26 @@ body{
     padding:0 16px!important;
   }
 }
+
+
+/* BADGE-TO-HEAD CLEARANCE — move the photo, never the badge or content */
+#home.hero{
+  position:relative!important;
+  padding-top:0!important;
+  background-position:top 40px center!important;
+}
+#home.hero > .hero-badge{
+  position:absolute!important;
+  top:8px!important;
+  left:50%!important;
+  transform:translateX(-50%)!important;
+  z-index:3!important;
+  margin-bottom:0!important;
+  white-space:nowrap!important;
+}
+#home.hero > .hero-badge + *{
+  margin-top:0!important;
+}
+@media(max-width:600px){
+  #home.hero{background-position:top 40px center!important}
+}
