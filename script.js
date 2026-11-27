@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(r => { if (!r.ok) throw new Error('data.json load failed'); return r.json(); })
     .then(data => { SITE_DATA = data; buildSite(data); })
     .catch(err => {
-      console.error('BLESSTech-X: homepage content could not be loaded', err);
+      console.error('NEOTIC: homepage content could not be loaded', err);
       const message = '<div class="content-load-error" role="status"><strong>We could not load this section just now.</strong><p>Please refresh the page. If you need help immediately, contact us on WhatsApp.</p><a href="https://wa.me/260979603741" target="_blank" rel="noopener">Contact us on WhatsApp <span aria-hidden="true">↗</span></a></div>';
       ['servicesGrid', 'portfolioGrid'].forEach(id => {
         const grid = document.getElementById(id);
@@ -182,12 +182,12 @@ function renderServices(services) {
     const category = safe(s.category || 'all');
     const badge = s.badge ? safe(s.badge) : 'Digital service';
     const shareUrl = new URL('service.html?id=' + encodeURIComponent(s.id), location.href).href;
-    const waMessage = encodeURIComponent('Hello BLESSTech-X! I am interested in: ' + s.title + '. Please tell me what is included and how to get started.');
+    const waMessage = encodeURIComponent('Hello NEOTIC! I am interested in: ' + s.title + '. Please tell me what is included and how to get started.');
     return `
     <article class="service-card service-post-card" data-category="${category}" data-search="${(String(s.title||'')+' '+String(s.description||'')).toLowerCase().replace(/&/g,'&amp;').replace(/"/g,'&quot;')}">
       <div class="service-post-head">
-        <img class="service-post-avatar" src="${safe(brandLogo)}" alt="BLESSTech-X" loading="lazy">
-        <div class="service-post-author"><strong>BLESSTech<span>-X</span></strong><small><i class="fas fa-check-circle" aria-hidden="true"></i> Digital solutions · Zambia</small></div>
+        <img class="service-post-avatar" src="${safe(brandLogo)}" alt="NEOTIC" loading="lazy">
+        <div class="service-post-author"><strong>NEOTIC<span>-X</span></strong><small><i class="fas fa-check-circle" aria-hidden="true"></i> Digital solutions · Zambia</small></div>
         <span class="service-post-tag">${badge}</span>
       </div>
       <div class="service-post-copy">
@@ -299,7 +299,7 @@ async function shareService(id) {
   const s = (SITE_DATA?.services || []).find(x => x.id === id);
   if (!s) return;
   const url = location.origin + location.pathname.replace(/[^/]*$/, 'service.html') + '?id=' + encodeURIComponent(id);
-  const payload = { title: s.title + ' | BLESSTech-X', text: s.description || 'Explore this BLESSTech-X service.', url };
+  const payload = { title: s.title + ' | NEOTIC', text: s.description || 'Explore this NEOTIC service.', url };
   try {
     if (navigator.share) await navigator.share(payload);
     else if (navigator.clipboard?.writeText) { await navigator.clipboard.writeText(url); alert('Service link copied. You can now share it.'); }
@@ -315,7 +315,7 @@ function quoteService(name, price) {
   const cleanName = String(name || 'a digital service').trim();
   const cleanPrice = String(price || 'Please advise on pricing').trim();
   const message = [
-    'Hello BLESSTech-X! I would like to discuss this service:',
+    'Hello NEOTIC! I would like to discuss this service:',
     '',
     'Service: ' + cleanName,
     'Starting price: ' + cleanPrice,
@@ -605,7 +605,7 @@ function initForms(site) {
       e.preventDefault();
       const name = lf.querySelector('[name=name]').value;
       const phone = lf.querySelector('[name=phone]').value;
-      const msg = `Hello BLESSTech-X! I want the Digital Success Checklist.%0A%0AName: ${encodeURIComponent(name)}%0APhone: ${encodeURIComponent(phone || 'not provided')}`;
+      const msg = `Hello NEOTIC! I want the Digital Success Checklist.%0A%0AName: ${encodeURIComponent(name)}%0APhone: ${encodeURIComponent(phone || 'not provided')}`;
       window.open(`https://wa.me/${site.whatsapp}?text=${msg}`, '_blank');
       document.getElementById('leadSuccess').style.display = 'block';
       lf.style.display = 'none';
@@ -627,7 +627,7 @@ function initForms(site) {
       // A placeholder ID is not a live endpoint. Route directly to WhatsApp
       // instead of sending visitors through a guaranteed failed network request.
       if (!formId || formId === 'YOUR_FORMSPREE_ID') {
-        const waText = `Hello BLESSTech-X!%0AName: ${encodeURIComponent(name)}%0AService: ${encodeURIComponent(service)}%0AMessage: ${encodeURIComponent(message)}`;
+        const waText = `Hello NEOTIC!%0AName: ${encodeURIComponent(name)}%0AService: ${encodeURIComponent(service)}%0AMessage: ${encodeURIComponent(message)}`;
         window.open(`https://wa.me/${site.whatsapp}?text=${waText}`, '_blank');
         btn.innerHTML = orig; btn.disabled = false;
         return;
@@ -641,7 +641,7 @@ function initForms(site) {
           cf.reset();
         } else throw new Error('Contact form request failed');
       } catch {
-        const waText = `Hello BLESSTech-X!%0AName: ${encodeURIComponent(name)}%0AService: ${encodeURIComponent(service)}%0AMessage: ${encodeURIComponent(message)}`;
+        const waText = `Hello NEOTIC!%0AName: ${encodeURIComponent(name)}%0AService: ${encodeURIComponent(service)}%0AMessage: ${encodeURIComponent(message)}`;
         window.open(`https://wa.me/${site.whatsapp}?text=${waText}`, '_blank');
       } finally {
         btn.innerHTML = orig; btn.disabled = false;
