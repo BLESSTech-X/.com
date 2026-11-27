@@ -6,15 +6,15 @@
   const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const safeUrl=value=>{try{const u=new URL(value,location.href);return ['http:','https:'].includes(u.protocol)?u.href:''}catch{return ''}};
   document.getElementById('serviceYear').textContent=new Date().getFullYear();
-  if(!id){root.innerHTML='<div class="service-error"><h1>Choose a service</h1><p>Open a service from the NEOTIC services list to see its full details.</p><a class="btn btn-primary" href="./#services">Browse Services</a></div>';return}
+  if(!id){root.innerHTML='<div class="service-error"><h1>Choose a service</h1><p>Open a service from the EMET SYSTEMS services list to see its full details.</p><a class="btn btn-primary" href="./#services">Browse Services</a></div>';return}
   let data;
   try{const response=await fetch('./data.json',{cache:'no-store'});if(!response.ok)throw new Error('Unable to load service data');data=await response.json()}
-  catch(e){root.innerHTML='<div class="service-error"><h1>Service details unavailable</h1><p>Please try again or contact NEOTIC for help.</p><a class="btn btn-primary" href="./contact.html">Contact Us</a></div>';return}
+  catch(e){root.innerHTML='<div class="service-error"><h1>Service details unavailable</h1><p>Please try again or contact EMET SYSTEMS for help.</p><a class="btn btn-primary" href="./contact.html">Contact Us</a></div>';return}
   const s=(data.services||[]).find(item=>item.id===id&&item.published!==false);
   if(!s){root.innerHTML='<div class="service-error"><h1>Service not found</h1><p>This service may have been updated or is no longer published.</p><a class="btn btn-primary" href="./#services">Browse Services</a></div>';return}
   const site=data.site||{};
-  const title=s.seo_title||s.title+' | NEOTIC';
-  const desc=s.seo_description||s.description||'Explore this NEOTIC service.';
+  const title=s.seo_title||s.title+' | EMET SYSTEMS';
+  const desc=s.seo_description||s.description||'Explore this EMET SYSTEMS service.';
   document.title=title;
   const meta=document.querySelector('meta[name="description"]');if(meta)meta.content=desc;
   const setMeta=(selector,value)=>{let node=document.querySelector(selector);if(!node){node=document.createElement('meta');const parts=selector.match(/\[(name|property)="([^"]+)"\]/);if(parts)node.setAttribute(parts[1],parts[2]);document.head.appendChild(node)}node.content=value};
@@ -33,7 +33,7 @@
   const gallery=(s.gallery||[]).filter(Boolean).map((image,i)=>{const url=safeUrl(image);return url?'<a href="'+esc(url)+'" target="_blank" rel="noopener"><img src="'+esc(url)+'" alt="'+esc(s.title)+' example '+(i+1)+'" loading="lazy"></a>':''}).join('');
   const demos=(s.demo_links||[]).filter(d=>d&&safeUrl(d.url)).map(d=>'<a class="service-demo" href="'+esc(safeUrl(d.url))+'" target="_blank" rel="noopener"><span>'+esc(d.label||'View sample')+'<small>'+esc(d.type||'Sample work')+'</small></span><i class="fas fa-arrow-up-right-from-square"></i></a>').join('');
   const phone=String(site.whatsapp||site.phone||'260979603741').replace(/[^0-9]/g,'');
-  const message='Hello NEOTIC! I am interested in '+s.title+'. Please help me understand the scope, price and next steps.';
+  const message='Hello EMET SYSTEMS! I am interested in '+s.title+'. Please help me understand the scope, price and next steps.';
   const wa='https://wa.me/'+phone+'?text='+encodeURIComponent(message);
   root.innerHTML=`
     <div class="service-crumbs"><a href="./">Home</a> / <a href="./#services">Services</a> / <strong>${esc(s.title)}</strong></div>
