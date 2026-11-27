@@ -6,7 +6,7 @@
     if (!response.ok) throw new Error('Could not load site content');
     data = await response.json();
   } catch (error) {
-    console.error('NEOTIC page content:', error);
+    console.error('EMET SYSTEMS page content:', error);
     return;
   }
   window.BTX_SITE = data.site || {};
