@@ -1,5 +1,5 @@
 /* ============================================
-   BLESSTECHX — STYLE.CSS  (complete)
+   NEOTICX — STYLE.CSS  (complete)
    ============================================ */
 :root{
   --sky:#0ea5e9;--sky-dark:#0284c7;--sky-light:#e0f2fe;
@@ -1143,7 +1143,7 @@ body.home-page .contact-section{padding-top:58px;padding-bottom:58px}
 @media(prefers-reduced-motion:reduce){.home-page .feature-preview-visual img{transition:none}}
 
 
-/* BLESSTECH-X VISUAL SYSTEM 2.0 — confident colour, restrained motion, tighter footer */
+/* NEOTIC VISUAL SYSTEM 2.0 — confident colour, restrained motion, tighter footer */
 :root{
  --btx-ink:#14283f;--btx-muted:#607287;--btx-blue:#1677b8;--btx-cyan:#20b9c9;
  --btx-violet:#7961d8;--btx-coral:#ef806b;--btx-lime:#b9d95c;--btx-amber:#f0b65a;
@@ -1269,7 +1269,7 @@ body{color:var(--btx-ink)}
 
 
 /* =========================================================
-   BLESSTECH-X ART DIRECTION — COLOUR, DEPTH & MOTION PASS
+   NEOTIC ART DIRECTION — COLOUR, DEPTH & MOTION PASS
    A deliberate multi-tone visual language; not a blue/white template.
    ========================================================= */
 :root{
@@ -1979,7 +1979,7 @@ body{
 }
 
 
-/* BLESSTech-X HERO — clear hierarchy and balanced side alignment. */
+/* NEOTIC HERO — clear hierarchy and balanced side alignment. */
 #home.hero .hero-content{
   box-sizing:border-box;
   width:min(1200px,100%);
@@ -2675,7 +2675,7 @@ body{
 }
 
  
-/* BLESSTECH-X HERO — portrait-first composition from approved brief. */
+/* NEOTIC HERO — portrait-first composition from approved brief. */
 #home.hero{position:relative;display:flex;align-items:stretch;min-height:0;height:auto;overflow:hidden;background:#071426;text-align:left}
 #home.hero .hero-bg{
  position:absolute;inset:0;
