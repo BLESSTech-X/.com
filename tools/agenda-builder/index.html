@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Meeting Agenda Builder | NEOTIC Free Tools</title>
+  <title>Meeting Agenda Builder | AEmet Systems Free Tools</title>
   <meta name="description" content="Build professional meeting agendas with time allocations. Free agenda builder with PDF download for Zambian organisations and businesses."/>
   <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
@@ -42,8 +42,8 @@
   <header class="tools-header">
     <div class="th-inner">
       <a href="../../index.html" class="tools-logo">
-        <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="NEOTIC"/>
-        <span>NEOTIC</span>
+        <img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="AEmet Systems"/>
+        <span>AEmet Systems</span>
       </a>
       <nav class="th-nav" id="thNav">
         <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
@@ -84,7 +84,7 @@
             <div class="tool-box-header"><h2><i class="fas fa-info-circle" style="color:var(--sky)"></i> Meeting Details</h2></div>
             <div class="tool-box-body">
               <div class="field"><label>Meeting Title</label><input type="text" id="agTitle" placeholder="Board Meeting / Project Kickoff"/></div>
-              <div class="field"><label>Organisation / Company</label><input type="text" id="agOrg" placeholder="NEOTIC Limited"/></div>
+              <div class="field"><label>Organisation / Company</label><input type="text" id="agOrg" placeholder="AEmet Systems Limited"/></div>
               <div class="field-row">
                 <div class="field"><label>Date</label><input type="date" id="agDate"/></div>
                 <div class="field"><label>Start Time</label><input type="time" id="agTime" value="09:00"/></div>
@@ -158,8 +158,8 @@
       </div>
 
       <div class="tool-service-cta" style="margin-top:36px">
-        <div><h4>Need a digital system for your organisation?</h4><p>NEOTIC builds school and business management systems with meeting management features.</p></div>
-        <a href="https://wa.me/260979603741?text=Hello NEOTIC! I need a management system." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Discuss Your System</a>
+        <div><h4>Need a digital system for your organisation?</h4><p>AEmet Systems builds school and business management systems with meeting management features.</p></div>
+        <a href="https://wa.me/260979603741?text=Hello AEmet Systems! I need a management system." target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Discuss Your System</a>
       </div>
       <div class="related-tools" style="margin-top:32px;background:var(--bg-alt);border-radius:var(--radius-lg);padding:28px">
         <h3>You Might Also Need</h3>
@@ -178,12 +178,12 @@
   <footer class="tools-footer">
     <div class="th-container">
       <div class="tf-inner">
-        <div class="tf-brand"><a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="NEOTIC"/><span>NEOTIC</span></a><p>Free tools for every Zambian.</p></div>
+        <div class="tf-brand"><a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="AEmet Systems"/><span>AEmet Systems</span></a><p>Free tools for every Zambian.</p></div>
         <div class="tf-links"><h4>Free Tools</h4><a href="../index.html">All Tools</a><a href="../meeting-minutes/index.html">Meeting Minutes</a><a href="../invoice/index.html">Invoice Generator</a></div>
-        <div class="tf-links"><h4>NEOTIC</h4><a href="../../index.html">Main Website</a><a href="../../index.html#services">Services</a><a href="../../index.html#contact">Contact</a></div>
+        <div class="tf-links"><h4>AEmet Systems</h4><a href="../../index.html">Main Website</a><a href="../../index.html#services">Services</a><a href="../../index.html#contact">Contact</a></div>
         <div class="tf-contact"><h4>Contact</h4><a href="tel:+260979603741"><i class="fas fa-phone"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
       </div>
-      <div class="tf-bottom"><p>&copy; 2026 NEOTIC · Free Agenda Builder · Built for Zambia 🇿🇲</p></div>
+      <div class="tf-bottom"><p>&copy; 2026 AEmet Systems · Free Agenda Builder · Built for Zambia 🇿🇲</p></div>
     </div>
   </footer>
   <a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
@@ -290,7 +290,7 @@ function generateAgenda(){
     ${apologies?`<div style="margin-top:16px;font-size:.85rem;color:#64748b"><strong>Apologies:</strong> ${apologies}</div>`:''}
     ${prep?`<div style="margin-top:12px;background:#fef3c7;border-left:4px solid #f59e0b;padding:10px 14px;border-radius:0 8px 8px 0;font-size:.85rem"><strong>Pre-reading required:</strong> ${prep}</div>`:''}
     ${rsvp?`<div style="margin-top:12px;font-size:.83rem;color:#64748b"><i class="fas fa-reply"></i> <strong>RSVP:</strong> ${rsvp}</div>`:''}
-    <div class="ag-footer">Generated by NEOTIC Free Tools · NEOTICx.com · +260 979 603 741</div>
+    <div class="ag-footer">Generated by AEmet Systems Free Tools · NEOTICx.com · +260 979 603 741</div>
   `;
   document.getElementById('copyAgBtn').style.display='flex';
   document.getElementById('pdfAgBtn').style.display='flex';
@@ -304,7 +304,7 @@ function copyAgenda(){
 function printAgenda(){
   const content=document.getElementById('agendaPreview').innerHTML;
   const w=window.open('','_blank');
-  w.document.write(`<html><head><title>Meeting Agenda — NEOTIC</title>
+  w.document.write(`<html><head><title>Meeting Agenda — AEmet Systems</title>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:'Segoe UI',Arial,sans-serif;padding:48px;max-width:760px;margin:0 auto;color:#1e293b}
