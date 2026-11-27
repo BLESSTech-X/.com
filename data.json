@@ -85,16 +85,16 @@
     }
   ],
   "about_page": {
-    "title": "About NEOTIC",
+    "title": "About AEmet Systems",
     "tagline": "Built in Zambia. Creating technology for what comes next.",
     "sections": [
       {
         "heading": "Who We Are",
-        "body": "NEOTIC is a technology company focused on designing, building and improving digital products and systems that help businesses, organisations and entrepreneurs work, serve customers and grow."
+        "body": "AEmet Systems is a technology company focused on designing, building and improving digital products and systems that help businesses, organisations and entrepreneurs work, serve customers and grow."
       },
       {
         "heading": "What We Do",
-        "body": "We develop websites, e-commerce platforms, custom software, business systems, automation and digital tools. Through NEOTICS ACADEMY, we also support technology learning and skills development."
+        "body": "We develop websites, e-commerce platforms, custom software, business systems, automation and digital tools. Through AEmet Academy, we also support technology learning and skills development."
       },
       {
         "heading": "Our Approach",
@@ -102,7 +102,7 @@
       },
       {
         "heading": "Our Founder",
-        "body": "NEOTIC is led by founder and lead developer Bless Sing. The company is focused on creating practical digital products and technology solutions for businesses and organisations."
+        "body": "AEmet Systems is led by founder and lead developer Bless Sing. The company is focused on creating practical digital products and technology solutions for businesses and organisations."
       }
     ]
   },
@@ -122,14 +122,14 @@
     },
     "formspree_id": "YOUR_FORMSPREE_ID",
     "logo": "https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg",
-    "name": "NEOTIC",
+    "name": "AEmet Systems",
     "phone": "+260979603741",
     "tagline": "Technology that moves ideas and businesses forward.",
     "whatsapp": "260979603741",
     "og_image": "https://ibb.co/352FJ31M",
     "location": "Lusaka, Zambia",
     "email": "singbless89@gmail.com",
-    "description": "NEOTIC is a technology company building digital products, custom software, websites, business systems and automation for organisations and entrepreneurs."
+    "description": "AEmet Systems is a technology company building digital products, custom software, websites, business systems and automation for organisations and entrepreneurs."
   },
   "portfolio": [
     {
@@ -236,7 +236,7 @@
     }
   ],
   "contact_page": {
-    "title": "Contact NEOTIC",
+    "title": "Contact AEmet Systems",
     "intro": "Tell us what you need. We will discuss your goals, requirements and next steps.",
     "form_heading": "Start a Project Conversation",
     "submit_label": "Continue on WhatsApp",
@@ -270,7 +270,7 @@
       "role": "joshronica's Clothing, Lusaka",
       "avatar": "https://i.ibb.co/fVvR1mS9/Screenshot-20260117-172036.jpg",
       "rating": 5,
-      "text": "NEOTIC turned my small clothing shop into an online store that serves customers across Zambia. Airtel Money integration boosted my sales by 300% in just 2 months."
+      "text": "AEmet Systems turned my small clothing shop into an online store that serves customers across Zambia. Airtel Money integration boosted my sales by 300% in just 2 months."
     },
     {
       "name": "David M.",
@@ -284,14 +284,14 @@
       "role": "Beauty Products Store, Livingstone",
       "avatar": "https://i.ibb.co/ccPwcZjw/Screenshot-20260117-174515.jpg",
       "rating": 5,
-      "text": "My beauty products are now available nationwide! The inventory management and mobile payment setup brought in so many new clients. Highly recommend NEOTIC."
+      "text": "My beauty products are now available nationwide! The inventory management and mobile payment setup brought in so many new clients. Highly recommend AEmet Systems."
     },
     {
       "name": "Peter B.",
       "role": "Agricultural Supplier, Ndola",
       "avatar": "https://i.ibb.co/JR2ZzMgZ/Screenshot-20260117-174739.jpg",
       "rating": 5,
-      "text": "I never thought I needed an online store. NEOTIC showed me how digital presence expands your market. Now I supply hotels and supermarkets I could never reach before."
+      "text": "I never thought I needed an online store. AEmet Systems showed me how digital presence expands your market. Now I supply hotels and supermarkets I could never reach before."
     }
   ],
   "process_steps": [
