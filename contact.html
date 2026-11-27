@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0f172a">
-<title>Contact BLESSTech-X | Let's Build Something Useful</title><meta name="description" content="Talk to BLESSTech-X about websites, online stores, branding, and practical digital solutions for Zambian businesses.">
+<title>Contact NEOTIC | Let's Build Something Useful</title><meta name="description" content="Talk to NEOTIC about websites, online stores, branding, and practical digital solutions for Zambian businesses.">
 <link rel="canonical" href="https://blesstech-x.pages.dev/contact.html"><link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
@@ -43,9 +43,9 @@ body{padding-top:70px!important}
 </head><body>
 <header id="siteHeader" class="site-header">
   <div class="container header-inner">
-    <a href="index.html" class="logo" aria-label="BLESSTech-X home">
-      <img id="logoImg" src="https://i.ibb.co/v4ZbYsS5/1779224086472.png" alt="BLESSTech-X Logo" width="40" height="40">
-      <span class="logo-text">BLESS<span>Tech-X</span></span>
+    <a href="index.html" class="logo" aria-label="NEOTIC home">
+      <img id="logoImg" src="https://i.ibb.co/v4ZbYsS5/1779224086472.png" alt="NEOTIC Logo" width="40" height="40">
+      <span class="logo-text">NEOTIC</span>
     </a>
     <nav class="nav-links" id="navLinks" aria-label="Main navigation">
       <a href="index.html">Home</a>
@@ -90,8 +90,8 @@ body{padding-top:70px!important}
 </div><button type="submit" class="submit-btn" id="contactSubmitLabel"><i class="fab fa-whatsapp"></i> Continue on WhatsApp</button>
 <p class="privacy-note"><i class="fas fa-shield-halved"></i><span>Your enquiry is prepared in WhatsApp. Nothing is sent until you review it and press Send there.</span></p><div id="formSuccess" class="form-success" role="status">WhatsApp opened with your enquiry prepared. Press Send in WhatsApp to complete it.</div>
 </form></section></div></main>
-<footer class="site-footer"><span><strong>BLESSTech-X</strong> · Practical digital solutions for business.</span><span><a href="./privacy.html">Privacy</a> &nbsp;·&nbsp; <a href="./terms.html">Terms</a> &nbsp;·&nbsp; <a href="./">Home</a></span></footer>
+<footer class="site-footer"><span><strong>NEOTIC</strong> · Practical digital solutions for business.</span><span><a href="./privacy.html">Privacy</a> &nbsp;·&nbsp; <a href="./terms.html">Terms</a> &nbsp;·&nbsp; <a href="./">Home</a></span></footer>
 <script>
 const toggleBtn=document.getElementById('mobileToggle');const navLinks=document.getElementById('navLinks');if(toggleBtn&&navLinks){toggleBtn.addEventListener('click',()=>{const open=navLinks.classList.toggle('open');toggleBtn.classList.toggle('open',open);toggleBtn.setAttribute('aria-expanded',String(open));});navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{navLinks.classList.remove('open');toggleBtn.classList.remove('open');toggleBtn.setAttribute('aria-expanded','false');}));document.addEventListener('click',e=>{if(!navLinks.contains(e.target)&&!toggleBtn.contains(e.target)){navLinks.classList.remove('open');toggleBtn.classList.remove('open');toggleBtn.setAttribute('aria-expanded','false');}});}
-document.getElementById('contactForm').addEventListener('submit',function(e){e.preventDefault();if(!this.reportValidity())return;const site=window.BTX_SITE||{};const target=String(site.whatsapp||site.phone||'260979603741').replace(/[^0-9]/g,'');const name=document.getElementById('name').value.trim(),email=document.getElementById('email').value.trim(),customerPhone=document.getElementById('phone').value.trim(),message=document.getElementById('message').value.trim();const body='Hello BLESSTech-X! I would like to discuss a project.\n\nName: '+name+'\nEmail: '+email+'\nMy WhatsApp: '+customerPhone+'\n\nRequest: '+message;const success=document.getElementById('formSuccess');success.textContent=(window.BTX_CONTACT_PAGE||{}).success_message||'WhatsApp opened with your enquiry prepared. Press Send in WhatsApp to complete it.';success.style.display='block';window.open('https://wa.me/'+target+'?text='+encodeURIComponent(body),'_blank','noopener,noreferrer');});
+document.getElementById('contactForm').addEventListener('submit',function(e){e.preventDefault();if(!this.reportValidity())return;const site=window.BTX_SITE||{};const target=String(site.whatsapp||site.phone||'260979603741').replace(/[^0-9]/g,'');const name=document.getElementById('name').value.trim(),email=document.getElementById('email').value.trim(),customerPhone=document.getElementById('phone').value.trim(),message=document.getElementById('message').value.trim();const body='Hello NEOTIC! I would like to discuss a project.\n\nName: '+name+'\nEmail: '+email+'\nMy WhatsApp: '+customerPhone+'\n\nRequest: '+message;const success=document.getElementById('formSuccess');success.textContent=(window.BTX_CONTACT_PAGE||{}).success_message||'WhatsApp opened with your enquiry prepared. Press Send in WhatsApp to complete it.';success.style.display='block';window.open('https://wa.me/'+target+'?text='+encodeURIComponent(body),'_blank','noopener,noreferrer');});
 </script><script src="./page-content.js"></script></body></html>

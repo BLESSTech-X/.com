@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pomodoro Timer | BLESSTech-X Free Tools</title>
+  <title>Pomodoro Timer | NEOTIC Free Tools</title>
   <meta name="description" content="Free Pomodoro timer with custom work/break durations, sounds and session tracking. Study smarter with the Pomodoro technique."/>
   <link rel="icon" type="image/jpeg" href="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
@@ -89,7 +89,7 @@
 
 <header class="tools-header">
   <div class="th-inner">
-    <a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a>
+    <a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="NEOTIC"/><span>NEOTIC</span></a>
     <nav class="th-nav" id="thNav">
       <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
       <a href="../index.html"><i class="fas fa-tools"></i> All Tools</a>
@@ -228,12 +228,12 @@
 <footer class="tools-footer" style="background:#0f172a;border-top:1px solid rgba(255,255,255,.08)">
   <div class="th-container">
     <div class="tf-inner">
-      <div class="tf-brand"><a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="BLESSTech-X"/><span>BLESS<em>Tech-X</em></span></a><p style="color:#475569">Free tools for every Zambian.</p></div>
+      <div class="tf-brand"><a href="../../index.html" class="tools-logo"><img src="https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg" alt="NEOTIC"/><span>NEOTIC</span></a><p style="color:#475569">Free tools for every Zambian.</p></div>
       <div class="tf-links"><h4 style="color:#64748b">Free Tools</h4><a href="../index.html" style="color:#475569">All Tools</a><a href="../study-timetable/index.html" style="color:#475569">Study Timetable</a><a href="../countdown/index.html" style="color:#475569">Countdown Timer</a></div>
-      <div class="tf-links"><h4 style="color:#64748b">BLESSTech-X</h4><a href="../../index.html" style="color:#475569">Main Website</a><a href="../../index.html#services" style="color:#475569">Services</a></div>
+      <div class="tf-links"><h4 style="color:#64748b">NEOTIC</h4><a href="../../index.html" style="color:#475569">Main Website</a><a href="../../index.html#services" style="color:#475569">Services</a></div>
       <div class="tf-contact"><h4 style="color:#64748b">Contact</h4><a href="tel:+260979603741" style="color:#475569"><i class="fas fa-phone"></i> +260 979 603 741</a><a href="https://wa.me/260979603741" target="_blank" style="color:#25d366"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
     </div>
-    <div class="tf-bottom" style="border-color:rgba(255,255,255,.06)"><p style="color:#334155">&copy; 2026 BLESSTech-X · Free Pomodoro Timer · Built for Zambia 🇿🇲</p></div>
+    <div class="tf-bottom" style="border-color:rgba(255,255,255,.06)"><p style="color:#334155">&copy; 2026 NEOTIC · Free Pomodoro Timer · Built for Zambia 🇿🇲</p></div>
   </div>
 </footer>
 <a href="https://wa.me/260979603741" class="tools-wa-fab" target="_blank"><i class="fab fa-whatsapp"></i></a>
@@ -286,7 +286,7 @@ function updateDisplay() {
   document.getElementById('timerDisplay').textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
   setRingProgress(remainSeconds / totalSeconds);
   document.getElementById('sessionLabel').textContent = 'Session ' + currentSession + ' of ' + SETTINGS.sessions;
-  document.title = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s + ' · ' + (currentMode === 'work' ? '🍅 Focus' : '☕ Break') + ' · BLESSTech-X';
+  document.title = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s + ' · ' + (currentMode === 'work' ? '🍅 Focus' : '☕ Break') + ' · NEOTIC';
   buildDots();
 }
 
@@ -515,7 +515,7 @@ function sendNotification() {
   if (!document.getElementById('notifToggle').checked) return;
   if ('Notification' in window && Notification.permission === 'granted') {
     var msg = currentMode === 'work' ? '🍅 Focus session complete! Time for a break.' : '☕ Break over! Time to focus.';
-    new Notification('BLESSTech-X Pomodoro', { body: msg, icon: 'https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg' });
+    new Notification('NEOTIC Pomodoro', { body: msg, icon: 'https://i.ibb.co/zTWvRVB1/Copilot-20251230-144351.jpg' });
   }
 }
 
