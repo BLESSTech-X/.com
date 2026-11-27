@@ -41,7 +41,7 @@ Contact your Airtel or MTN business account manager to get a **merchant account*
 
 ## Day 4–6 — Build Your Website
 
-This is where NEOTIC comes in. We build your full online store in this window, including:
+This is where EMET SYSTEMS comes in. We build your full online store in this window, including:
 
 - Product catalog with search and filters
 - Airtel Money + MTN Money checkout
